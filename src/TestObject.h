@@ -12,7 +12,6 @@ namespace TempTeam
 		void Update();
 		void Draw();
 		void Exit();
-		Transform transform;
 	private:
 		Image image;
 		

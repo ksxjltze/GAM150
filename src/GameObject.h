@@ -1,4 +1,5 @@
 #pragma once
+#include "Transform.h"
 
 namespace TempTeam
 {
@@ -9,5 +10,6 @@ namespace TempTeam
 		virtual void Update() = 0;
 		virtual void Draw() = 0;
 		virtual void Exit() = 0;
+		Transform transform;
 	};
 }
