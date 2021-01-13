@@ -149,12 +149,24 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\Image.cpp" />
     <ClCompile Include="src\Main.cpp" />
+    <ClCompile Include="src\TestObject.cpp" />
     <ClCompile Include="src\TestState.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\GameObject.h" />
     <ClInclude Include="src\State.h" />
+    <ClInclude Include="src\TestObject.h" />
     <ClInclude Include="src\TestState.h" />
+    <ClInclude Include="src\Transform.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="Resources\PlanetTexture.png" />
+    <Image Include="Resources\YellowTexture.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Font Include="Resources\Roboto-Regular.ttf" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

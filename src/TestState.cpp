@@ -10,6 +10,9 @@ TestState::TestState()
 void TestState::Init()
 {
 	////////////////////////////////
+
+	object.Init();
+
 // Creating the objects (Shapes)
 // Informing the library that we're about to start adding triangles
 	AEGfxMeshStart();
@@ -66,17 +69,17 @@ void TestState::Init()
 
 	////////////////////////////
 	// Loading textures (images)
-	pTex1 = AEGfxTextureLoad("PlanetTexture.png");
+	pTex1 = AEGfxTextureLoad("../Resources/PlanetTexture.png");
 	AE_ASSERT_MESG(pTex1, "Failed to create texture1!!");
 
-	pTex2 = AEGfxTextureLoad("YellowTexture.png");
+	pTex2 = AEGfxTextureLoad("../Resources/YellowTexture.png");
 	AE_ASSERT_MESG(pTex2, "Failed to create texture2!!");
 	// Loading textures (images) end
 	//////////////////////////////////
 
 	//////////////////////////////////
 	// Creating Fonts	
-	fontId = AEGfxCreateFont("Roboto-Regular.ttf", 12);
+	fontId = AEGfxCreateFont("../Resources/Roboto-Regular.ttf", 12);
 	// Creating Fonts end
 	//////////////////////////////////
 }
@@ -116,6 +119,8 @@ void TestState::Update()
 		objtexY -= 0.01f;
 
 	AEGfxSetCamPosition(obj1X, obj1Y);
+
+	object.Update();
 
 	// Game loop update end
 	///////////////////////
@@ -195,6 +200,8 @@ void TestState::Update()
 	f32 TextWidth, TextHeight;
 	AEGfxGetPrintSize(fontId, strBuffer, 1.0f, TextWidth, TextHeight);
 	AEGfxPrint(fontId, strBuffer, 0.99 - TextWidth, 0.99 - TextHeight, 1.0f, 1.f, 1.f, 1.f);
+
+	object.Draw();
 
 
 	// Game loop draw end
