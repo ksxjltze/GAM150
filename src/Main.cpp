@@ -54,6 +54,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 
 		// Update State
 		currentState->Update();
+		currentState->Draw();
 
 		// Informing the system about the loop's end
 		AESysFrameEnd();

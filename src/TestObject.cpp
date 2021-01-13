@@ -12,7 +12,22 @@ void TempTeam::TestObject::Init()
 
 void TempTeam::TestObject::Update()
 {
-
+	if(AEInputCheckCurr(AEVK_W))
+	{
+		transform.position.y += 10;
+	}
+	else if (AEInputCheckCurr(AEVK_S))
+	{
+		transform.position.y -= 10;
+	}
+	if (AEInputCheckCurr(AEVK_A))
+	{
+		transform.position.x -= 10;
+	}
+	else if (AEInputCheckCurr(AEVK_D))
+	{
+		transform.position.x += 10;
+	}
 }
 
 void TempTeam::TestObject::Draw()

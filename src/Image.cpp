@@ -80,4 +80,6 @@ void TempTeam::Image::Draw(AEVec2 position)
 
 void TempTeam::Image::Exit()
 {
+	AEGfxTextureUnload(this->texture);
+	AEGfxMeshFree(this->mesh);
 }
