@@ -16,6 +16,7 @@ namespace TempTeam
 	private:
 		Image image;
 		ColliderAABB collider;
+		bool drag;
 		
 	};
 }
