@@ -3,6 +3,7 @@
 #include "Transform.h"
 #include "Image.h"
 #include "ColliderAABB.h"
+#include "Drag.h"
 
 namespace TempTeam
 {
@@ -16,7 +17,7 @@ namespace TempTeam
 	private:
 		Image image;
 		ColliderAABB collider;
-		bool drag;
+		Drag dragComponent;
 		
 	};
 }

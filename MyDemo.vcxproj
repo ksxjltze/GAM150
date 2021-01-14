@@ -89,6 +89,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="src\ColliderAABB.cpp" />
+    <ClCompile Include="src\Drag.cpp" />
     <ClCompile Include="src\Image.cpp" />
     <ClCompile Include="src\Main.cpp" />
     <ClCompile Include="src\TestObject.cpp" />
@@ -99,6 +100,7 @@
   <ItemGroup>
     <ClInclude Include="src\Collider.h" />
     <ClInclude Include="src\ColliderAABB.h" />
+    <ClInclude Include="src\Drag.h" />
     <ClInclude Include="src\GameObject.h" />
     <ClInclude Include="src\Image.h" />
     <ClInclude Include="src\State.h" />
