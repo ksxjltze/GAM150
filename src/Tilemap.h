@@ -15,5 +15,6 @@ namespace TempTeam
 	private:
 		std::vector<std::vector<Tile>> tiles;
 		Image tileImage;
+		float tileWidth, tileHeight;
 	};
 }

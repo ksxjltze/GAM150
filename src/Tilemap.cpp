@@ -2,16 +2,21 @@
 
 void TempTeam::Tilemap::Init()
 {
-	tileImage.Init("../Resources/grass.png", 50, 50, 255);
-	for (int i = 0; i < 10; i++)
+	tileWidth = 100;
+	tileHeight = 100;
+	tileImage.Init("../Resources/grass.png", tileWidth, tileHeight, 255);
+	transform.position.x -= AEGetWindowWidth() / 2;
+	transform.position.y -= AEGetWindowHeight() / 2 - tileHeight / 4;
+
+	for (int i = 0; i < 1; i++)
 	{
 		std::vector<Tile> row;
-		for (int j = 0; j < 10; j++)
+		for (int j = 0; j < 20; j++)
 		{
 			Tile tile;
 			AEVec2 pos;
-			pos.x = i;
-			pos.y = j;
+			pos.x = j;
+			pos.y = i;
 
 			tile.Init(&tileImage, pos);
 			row.push_back(tile);
@@ -31,7 +36,7 @@ void TempTeam::Tilemap::Draw()
 	{
 		for (Tile tile : row)
 		{
-			tile.Draw(transform.position, 50, 50);
+			tile.Draw(transform.position, tileWidth, tileHeight);
 		}
 	}
 }
