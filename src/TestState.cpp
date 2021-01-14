@@ -66,17 +66,17 @@ void TestState::Init()
 
 	////////////////////////////
 	// Loading textures (images)
-	pTex1 = AEGfxTextureLoad("PlanetTexture.png");
+	pTex1 = AEGfxTextureLoad("../Resources/PlanetTexture.png");
 	AE_ASSERT_MESG(pTex1, "Failed to create texture1!!");
 
-	pTex2 = AEGfxTextureLoad("YellowTexture.png");
+	pTex2 = AEGfxTextureLoad("../Resources/YellowTexture.png");
 	AE_ASSERT_MESG(pTex2, "Failed to create texture2!!");
 	// Loading textures (images) end
 	//////////////////////////////////
 
 	//////////////////////////////////
 	// Creating Fonts	
-	fontId = AEGfxCreateFont("Roboto-Regular.ttf", 12);
+	fontId = AEGfxCreateFont("../Resources/Roboto-Regular.ttf", 12);
 	// Creating Fonts end
 	//////////////////////////////////
 }
