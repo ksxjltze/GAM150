@@ -33,7 +33,7 @@ TempTeam::Image::Image(const char* path, float width, float height, float alpha)
 	// Saving the mesh (list of triangles) in pMesh2
 
 	this->mesh = AEGfxMeshEnd();
-	AE_ASSERT_MESG(this->mesh, "Failed to create mesh 2!!");
+	AE_ASSERT_MESG(this->mesh, "Failed to create mesh!!");
 
 	this->alpha = alpha;
 }
@@ -41,6 +41,7 @@ TempTeam::Image::Image(const char* path, float width, float height, float alpha)
 void TempTeam::Image::Init(const char* path, float width, float height, float alpha)
 {
 	this->texture = AEGfxTextureLoad(path);
+	AE_ASSERT_MESG(this->texture, "Failed to load texture!!");
 	AEGfxMeshStart();
 
 	// This shape has 2 triangles
@@ -71,7 +72,7 @@ void TempTeam::Image::Draw(AEVec2 position)
 	// Set texture
 	AEGfxTextureSet(this->texture, 0, 0);
 	// Set Position
-	AEGfxSetPosition(position.x - (float)AEGetWindowWidth() / 2, position.y + (float)AEGetWindowHeight() / 2);
+	AEGfxSetPosition(position.x, position.y);
 	// Set Transparency
 	AEGfxSetTransparency(this->alpha / 255.0f);
 	// Drawing the mesh (list of triangles)

@@ -7,7 +7,7 @@ namespace TempTeam
 	{
 	public:
 		Tile();
-		void Init(Image* image);
+		void Init(Image* image, AEVec2 position);
 		void Update();
 		void Draw(AEVec2 mapPos, float width, float height);
 		void Exit();

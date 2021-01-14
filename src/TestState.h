@@ -2,6 +2,7 @@
 #include "State.h"
 #include "AEEngine.h"
 #include "TestObject.h"
+#include "Tilemap.h"
 
 namespace TempTeam
 {
@@ -16,6 +17,7 @@ namespace TempTeam
 
 	private:
 		TestObject object;
+		Tilemap tilemap;
 		float camX = 0, camY = 0;
 		s8 fontId = 0;
 	};

@@ -12,6 +12,7 @@ void TestState::Init()
 	////////////////////////////////
 	AEGfxSetBlendMode(AE_GFX_BM_BLEND);
 	object.Init();
+	tilemap.Init();
 	//////////////////////////////////
 	// Creating Fonts	
 	fontId = AEGfxCreateFont("../Resources/Roboto-Regular.ttf", 12);
@@ -22,11 +23,13 @@ void TestState::Init()
 void TestState::Update()
 {
 	object.Update();
+	tilemap.Update();
 }
 
 void TempTeam::TestState::Draw()
 {
 	object.Draw();
+	tilemap.Draw();
 
 	char strBuffer[100];
 	memset(strBuffer, 0, 100 * sizeof(char));

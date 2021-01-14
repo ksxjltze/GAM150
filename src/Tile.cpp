@@ -7,9 +7,10 @@ TempTeam::Tile::Tile()
 	position.y = 0;
 }
 
-void TempTeam::Tile::Init(Image* image)
+void TempTeam::Tile::Init(Image* image, AEVec2 position)
 {
 	this->image = image;
+	this->position = position;
 }
 
 void TempTeam::Tile::Update()
@@ -21,7 +22,7 @@ void TempTeam::Tile::Draw(AEVec2 mapPos, float width, float height)
 {
 	AEVec2 worldPos;
 	worldPos.x = mapPos.x + position.x * width;
-	worldPos.x = mapPos.y + position.y * height;
+	worldPos.y = mapPos.y + position.y * height;
 	image->Draw(worldPos);
 }
 
