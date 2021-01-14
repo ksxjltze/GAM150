@@ -23,7 +23,7 @@ namespace TempTeam
 
 		float obj1X = 0.0f, obj1Y = 0.0f; // Position variables for object 1
 		float objtexX = 0, objtexY = 0; // Texture variables for object 2 and 3 texture
-		float camX, camY;
+		float camX = 0, camY = 0;
 		int counter = 0; // Counter to swap textures
 
 		s8 fontId = 0;
