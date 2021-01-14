@@ -2,6 +2,7 @@
 #include <vector>
 #include "Tile.h"
 #include "GameObject.h"
+#include "Drag.h"
 
 namespace TempTeam
 {
@@ -16,5 +17,6 @@ namespace TempTeam
 		std::vector<std::vector<Tile>> tiles;
 		Image tileImage;
 		float tileWidth, tileHeight;
+		Drag drag;
 	};
 }

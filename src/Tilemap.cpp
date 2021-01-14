@@ -1,4 +1,5 @@
 #include "Tilemap.h"
+#include "Utils.h"
 
 void TempTeam::Tilemap::Init()
 {
@@ -15,8 +16,8 @@ void TempTeam::Tilemap::Init()
 		{
 			Tile tile;
 			AEVec2 pos;
-			pos.x = j;
-			pos.y = i;
+			pos.x = (float)j;
+			pos.y = (float)i;
 
 			tile.Init(&tileImage, pos);
 			row.push_back(tile);
@@ -27,7 +28,7 @@ void TempTeam::Tilemap::Init()
 
 void TempTeam::Tilemap::Update()
 {
-
+	drag.Update(transform.position, GetMouseWorldPos(), tileWidth * 20, tileHeight);
 }
 
 void TempTeam::Tilemap::Draw()

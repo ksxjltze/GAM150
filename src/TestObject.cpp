@@ -1,5 +1,6 @@
 #include "TestObject.h"
 #include <iostream>
+#include "Utils.h"
 
 void TempTeam::TestObject::Init()
 {
@@ -14,11 +15,6 @@ void TempTeam::TestObject::Init()
 
 void TempTeam::TestObject::Update()
 {
-	int mouseX = 0, mouseY = 0;
-	AEInputGetCursorPosition(&mouseX, &mouseY);
-	mouseX -= AEGetWindowWidth() / 2;
-	mouseY -= AEGetWindowHeight() / 2;
-
 	if (AEInputCheckCurr(AEVK_W))
 	{
 		transform.position.y += 10;
@@ -35,7 +31,8 @@ void TempTeam::TestObject::Update()
 	{
 		transform.position.x += 10;
 	}
-	dragComponent.Update(transform.position, { (float)mouseX, (float)mouseY }, 100, 100);
+
+	dragComponent.Update(transform.position, GetMouseWorldPos(), 100, 100);
 
 }
 
