@@ -45,14 +45,14 @@ void TempTeam::Image::Init(const char* path, float width, float height, float al
 
 	// This shape has 2 triangles
 	AEGfxTriAdd(
-		-width, -height, 0x00FF00FF, 0.0f, 1.0f,
-		width, -height, 0x00FFFF00, 1.0f, 1.0f,
-		-width, height, 0x0000FFFF, 0.0f, 0.0f);
+		-width / 2, -height / 2, 0x00FF00FF, 0.0f, 1.0f,
+		width / 2, -height / 2, 0x00FFFF00, 1.0f, 1.0f,
+		-width / 2, height / 2, 0x0000FFFF, 0.0f, 0.0f);
 
 	AEGfxTriAdd(
-		width, -height, 0x00FFFFFF, 1.0f, 1.0f,
-		width, height, 0x00FFFFFF, 1.0f, 0.0f,
-		-width, height, 0x00FFFFFF, 0.0f, 0.0f);
+		width / 2, -height / 2, 0x00FFFFFF, 1.0f, 1.0f,
+		width / 2, height / 2, 0x00FFFFFF, 1.0f, 0.0f,
+		-width / 2, height / 2, 0x00FFFFFF, 0.0f, 0.0f);
 
 	// Saving the mesh (list of triangles) in pMesh2
 
@@ -71,7 +71,7 @@ void TempTeam::Image::Draw(AEVec2 position)
 	// Set texture
 	AEGfxTextureSet(this->texture, 0, 0);
 	// Set Position
-	AEGfxSetPosition(position.x, position.y);
+	AEGfxSetPosition(position.x - (float)AEGetWindowWidth() / 2, position.y + (float)AEGetWindowHeight() / 2);
 	// Set Transparency
 	AEGfxSetTransparency(this->alpha / 255.0f);
 	// Drawing the mesh (list of triangles)

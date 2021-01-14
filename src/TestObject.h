@@ -2,6 +2,7 @@
 #include "GameObject.h"
 #include "Transform.h"
 #include "Image.h"
+#include "ColliderAABB.h"
 
 namespace TempTeam
 {
@@ -14,6 +15,7 @@ namespace TempTeam
 		void Exit();
 	private:
 		Image image;
+		ColliderAABB collider;
 		
 	};
 }
