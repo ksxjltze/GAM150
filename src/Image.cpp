@@ -57,7 +57,7 @@ void TempTeam::Image::Init(const char* path, float width, float height, float al
 	// Saving the mesh (list of triangles) in pMesh2
 
 	this->mesh = AEGfxMeshEnd();
-	AE_ASSERT_MESG(this->mesh, "Failed to create mesh 2!!");
+	AE_ASSERT_MESG(this->mesh, "Failed to create mesh!!");
 
 	this->alpha = alpha;
 }
