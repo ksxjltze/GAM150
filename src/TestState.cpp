@@ -9,7 +9,7 @@ TestState::TestState()
 
 void TempTeam::TestState::Load()
 {
-	object = objectManager.LoadTestObject(&graphicsManager);
+	object = objectManager.LoadTestObject(&graphicsManager, 100, 100, "../Resources/boi.png");
 }
 
 void TestState::Init()
