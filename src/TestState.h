@@ -21,6 +21,7 @@ namespace TempTeam
 	private:
 		GraphicsManager graphicsManager;
 		ObjectManager objectManager;
+		Image* objectImage;
 		GameObject* object;
 		Tilemap tilemap;
 		float camX = 0, camY = 0;

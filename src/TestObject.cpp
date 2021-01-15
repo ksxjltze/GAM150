@@ -38,7 +38,7 @@ void TempTeam::TestObject::Update()
 
 void TempTeam::TestObject::Draw()
 {
-	image.Draw(transform.position);
+	image->Draw(transform.position);
 }
 
 void TempTeam::TestObject::Exit()

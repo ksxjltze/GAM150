@@ -1,13 +1,28 @@
 #include "ObjectManager.h"
 #include "TestObject.h"
 
-TempTeam::GameObject* TempTeam::ObjectManager::LoadTestObject(GraphicsManager* graphicsManager, float width, float height, const char* spritePath)
+TempTeam::Image* TempTeam::ObjectManager::ImageLoad(GraphicsManager& graphicsManager, float width, float height, const char* spritePath, float alpha)
 {
-	//temp
-	TestObject* testObject = new TestObject();
-	testObject->image = Image(graphicsManager->CreateMesh(width, height), graphicsManager->LoadTexture(spritePath), 1);
-	gameObjectList.push_back(testObject);
-	return testObject;
+	AEGfxVertexList* mesh = graphicsManager.CreateMesh(width, height);
+	AEGfxTexture* texture = graphicsManager.LoadTexture(spritePath);
+
+	if (mesh != nullptr && texture != nullptr)
+	{
+		Image image = Image(mesh, texture, alpha);
+		imageList.push_back(image);
+		return &imageList.back();
+	}
+
+	return nullptr;
+}
+
+TempTeam::GameObject* TempTeam::ObjectManager::InitTestObject(Image* image)
+{
+	TestObject* object = new TestObject();
+	object->image = image;
+	object->Init();
+	gameObjectList.push_back(object);
+	return object;
 }
 
 void TempTeam::ObjectManager::FreeObjects()

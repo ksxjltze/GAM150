@@ -16,7 +16,7 @@ namespace TempTeam
 		void Draw();
 		void Exit();
 	private:
-		Image image;
+		Image* image;
 		ColliderAABB collider;
 		Drag dragComponent;
 		friend ObjectManager;

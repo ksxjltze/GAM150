@@ -9,14 +9,14 @@ TestState::TestState()
 
 void TempTeam::TestState::Load()
 {
-	object = objectManager.LoadTestObject(&graphicsManager, 100, 100, "../Resources/boi.png");
+	objectImage = objectManager.ImageLoad(graphicsManager, 100, 100, "../Resources/boi.png", 255);
 }
 
 void TestState::Init()
 {
 	////////////////////////////////
 	AEGfxSetBlendMode(AE_GFX_BM_BLEND);
-	object->Init();
+	object = objectManager.InitTestObject(objectImage);
 	tilemap.Init();
 	//////////////////////////////////
 	// Creating Fonts	
