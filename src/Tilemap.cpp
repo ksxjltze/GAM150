@@ -5,7 +5,7 @@ void TempTeam::Tilemap::Init()
 {
 	tileWidth = 100;
 	tileHeight = 100;
-	tileImage.Init("../Resources/grass.png", tileWidth, tileHeight, 255);
+	tileImage.Init("../Resources/grass.png", tileWidth, tileHeight, 1);
 	transform.position.x -= AEGetWindowWidth() / 2;
 	transform.position.y -= AEGetWindowHeight() / 2 - tileHeight / 4;
 
@@ -44,4 +44,5 @@ void TempTeam::Tilemap::Draw()
 
 void TempTeam::Tilemap::Exit()
 {
+	tileImage.Exit();
 }

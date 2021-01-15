@@ -1,5 +1,6 @@
 #pragma once
 #include "GameObject.h"
+#include "ObjectManager.h"
 #include "Transform.h"
 #include "Image.h"
 #include "ColliderAABB.h"
@@ -18,6 +19,7 @@ namespace TempTeam
 		Image image;
 		ColliderAABB collider;
 		Drag dragComponent;
+		friend ObjectManager;
 		
 	};
 }

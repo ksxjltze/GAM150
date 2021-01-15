@@ -11,6 +11,6 @@ namespace TempTeam
 		void OnEnter();
 		void OnStay();
 		void OnExit();
-		float width, height;
+		float width = 0, height = 0;
 	};
 }

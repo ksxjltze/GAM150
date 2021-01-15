@@ -38,6 +38,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 
 	AEGfxSetBackgroundColor(1.0f, 1.0f, 1.0f);
 
+	currentState->Load();
 	currentState->Init();
 
 	// Initialization end

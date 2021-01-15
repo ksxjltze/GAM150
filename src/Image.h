@@ -8,7 +8,6 @@ namespace TempTeam
 	public:
 		Image();
 		Image(AEGfxVertexList* mesh, AEGfxTexture* texture, float alpha);
-		Image(const char* path, float width, float height, float alpha);
 		
 		void Init(const char* path, float width, float height, float alpha);
 		void Draw(AEVec2 position);

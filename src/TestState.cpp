@@ -4,14 +4,19 @@ using namespace TempTeam;
 
 TestState::TestState()
 {
+	object = nullptr;
+}
 
+void TempTeam::TestState::Load()
+{
+	object = objectManager.LoadTestObject(&graphicsManager);
 }
 
 void TestState::Init()
 {
 	////////////////////////////////
 	AEGfxSetBlendMode(AE_GFX_BM_BLEND);
-	object.Init();
+	object->Init();
 	tilemap.Init();
 	//////////////////////////////////
 	// Creating Fonts	
@@ -22,13 +27,13 @@ void TestState::Init()
 
 void TestState::Update()
 {
-	object.Update();
+	object->Update();
 	tilemap.Update();
 }
 
 void TempTeam::TestState::Draw()
 {
-	object.Draw();
+	object->Draw();
 	tilemap.Draw();
 
 	char strBuffer[100];
@@ -38,11 +43,13 @@ void TempTeam::TestState::Draw()
 	AEGfxSetBlendMode(AE_GFX_BM_BLEND);
 	f32 TextWidth, TextHeight;
 	AEGfxGetPrintSize(fontId, strBuffer, 1.0f, TextWidth, TextHeight);
-	AEGfxPrint(fontId, strBuffer, 0.99 - TextWidth, 0.99 - TextHeight, 1.0f, 1.f, 1.f, 1.f);
+	AEGfxPrint(fontId, strBuffer, 0.99f - TextWidth, 0.99f - TextHeight, 1.0f, 1.f, 1.f, 1.f);
 }
 
 void TestState::Exit()
 {
 	//Free objects and textures
 	AEGfxDestroyFont(fontId);
+	object->Exit();
+	tilemap.Exit();
 }

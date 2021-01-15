@@ -9,7 +9,7 @@ void TempTeam::TestObject::Init()
 	transform.rotation = 0;
 	transform.scale = 1;
 
-	image.Init("../Resources/PlanetTexture.png", 100, 100, 255);
+	//image.Init("../Resources/PlanetTexture.png", 100, 100, 255);
 	collider.Init(100, 100);
 }
 
