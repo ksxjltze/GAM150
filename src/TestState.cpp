@@ -46,10 +46,17 @@ void TempTeam::TestState::Draw()
 	AEGfxPrint(fontId, strBuffer, 0.99f - TextWidth, 0.99f - TextHeight, 1.0f, 1.f, 1.f, 1.f);
 }
 
-void TestState::Exit()
+void TestState::Free()
 {
 	//Free objects and textures
 	AEGfxDestroyFont(fontId);
 	object->Exit();
 	tilemap.Exit();
+	objectManager.FreeObjects();
+}
+
+void TempTeam::TestState::Unload()
+{
+	graphicsManager.UnloadTextures();
+	graphicsManager.FreeMeshes();
 }

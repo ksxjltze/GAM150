@@ -10,6 +10,8 @@ namespace TempTeam
 	public:
 		AEGfxTexture* LoadTexture(const char* filePath);
 		AEGfxVertexList* CreateMesh(float width, float height);
+		void UnloadTextures();
+		void FreeMeshes();
 
 	private:
 		std::vector<AEGfxVertexList*> meshList;

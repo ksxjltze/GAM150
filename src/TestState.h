@@ -15,7 +15,8 @@ namespace TempTeam
 		void Init();
 		void Update();
 		void Draw();
-		void Exit();
+		void Free();
+		void Unload();
 
 	private:
 		GraphicsManager graphicsManager;

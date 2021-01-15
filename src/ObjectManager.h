@@ -9,6 +9,7 @@ namespace TempTeam
 	{
 	public:
 		GameObject* LoadTestObject(GraphicsManager* graphicsManager);
+		void FreeObjects();
 	private:
 		std::vector<GameObject*> gameObjectList;
 	};

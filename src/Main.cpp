@@ -65,7 +65,8 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 			gGameRunning = 0;
 	}
 
-	currentState->Exit();
+	currentState->Free();
+	currentState->Unload();
 	// free the system
 	AESysExit();
 }

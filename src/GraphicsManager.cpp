@@ -36,3 +36,19 @@ AEGfxVertexList* TempTeam::GraphicsManager::CreateMesh(float width, float height
 
     return nullptr;
 }
+
+void TempTeam::GraphicsManager::UnloadTextures()
+{
+	for (AEGfxTexture* texture : textureList)
+	{
+		AEGfxTextureUnload(texture);
+	}
+}
+
+void TempTeam::GraphicsManager::FreeMeshes()
+{
+	for (AEGfxVertexList* mesh : meshList)
+	{
+		AEGfxMeshFree(mesh);
+	}
+}

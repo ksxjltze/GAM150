@@ -9,3 +9,14 @@ TempTeam::GameObject* TempTeam::ObjectManager::LoadTestObject(GraphicsManager* g
 	gameObjectList.push_back(testObject);
 	return testObject;
 }
+
+void TempTeam::ObjectManager::FreeObjects()
+{
+	for (GameObject* obj : gameObjectList)
+	{
+		if (obj)
+		{
+			delete obj;
+		}
+	}
+}
