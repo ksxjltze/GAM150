@@ -9,7 +9,7 @@ void TempTeam::Drag::Update(AEVec2 &objectPos, AEVec2 mousePos, float objectWidt
 {
 	//Drag object
 	float mouseX = mousePos.x, mouseY = mousePos.y;
-	if (AEInputCheckCurr(AEVK_LBUTTON))
+	if (AEInputCheckTriggered(AEVK_LBUTTON))
 	{
 		if (mouseX > objectPos.x - objectWidth / 2
 			&& mouseX < objectPos.x + objectWidth / 2
