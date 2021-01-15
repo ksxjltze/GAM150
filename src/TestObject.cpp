@@ -43,5 +43,5 @@ void TempTeam::TestObject::Draw()
 
 void TempTeam::TestObject::Exit()
 {
-	image.Exit();
+
 }

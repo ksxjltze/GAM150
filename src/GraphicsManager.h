@@ -16,6 +16,5 @@ namespace TempTeam
 	private:
 		std::vector<AEGfxVertexList*> meshList;
 		std::vector<AEGfxTexture*> textureList;
-		std::vector<Image> imageList;
 	};
 }

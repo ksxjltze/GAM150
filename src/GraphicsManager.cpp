@@ -4,8 +4,12 @@ AEGfxTexture* TempTeam::GraphicsManager::LoadTexture(const char* filePath)
 {
     AEGfxTexture* texture = AEGfxTextureLoad(filePath);
     AE_ASSERT_MESG(texture, "Failed to load texture!!");
-    if (texture)
+
+	if (texture)
+	{
+		textureList.push_back(texture);
         return texture;
+	}
 
     return nullptr;
 }
@@ -32,7 +36,10 @@ AEGfxVertexList* TempTeam::GraphicsManager::CreateMesh(float width, float height
 	AE_ASSERT_MESG(mesh, "Failed to create mesh!!");
 
 	if (mesh)
+	{
+		meshList.push_back(mesh);
 		return mesh;
+	}
 
     return nullptr;
 }
@@ -42,6 +49,7 @@ void TempTeam::GraphicsManager::UnloadTextures()
 	for (AEGfxTexture* texture : textureList)
 	{
 		AEGfxTextureUnload(texture);
+		texture = nullptr;
 	}
 }
 
@@ -50,5 +58,6 @@ void TempTeam::GraphicsManager::FreeMeshes()
 	for (AEGfxVertexList* mesh : meshList)
 	{
 		AEGfxMeshFree(mesh);
+		mesh = nullptr;
 	}
 }
