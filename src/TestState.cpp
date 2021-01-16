@@ -13,6 +13,9 @@ void TempTeam::TestState::Load()
 {
 	objectImage = objectManager.ImageLoad(graphicsManager, 100, 100, "../Resources/boi.png", 255);
 	tileImage = objectManager.ImageLoad(graphicsManager, 100, 100, "../Resources/grass.png", 255);
+
+	object2 = objectManager.NewGameObject();
+	objectManager.AddImageComponent(object2, graphicsManager, 100, 100, "../Resources/PlanetTexture.png");
 }
 
 void TestState::Init()
@@ -20,6 +23,7 @@ void TestState::Init()
 	////////////////////////////////
 	AEGfxSetBlendMode(AE_GFX_BM_BLEND);
 	object = objectManager.InitTestObject(objectImage);
+	object2->transform.position.x = 100;
 	tilemap.Init();
 	//////////////////////////////////
 	// Creating Fonts	
@@ -37,6 +41,7 @@ void TestState::Update()
 void TempTeam::TestState::Draw()
 {
 	object->Draw();
+	objectManager.Draw();
 	tilemap.Draw();
 
 	char strBuffer[100];

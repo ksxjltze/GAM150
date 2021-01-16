@@ -89,24 +89,30 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="src\ColliderAABB.cpp" />
+    <ClCompile Include="src\CollisionManager.cpp" />
     <ClCompile Include="src\Drag.cpp" />
     <ClCompile Include="src\GraphicsManager.cpp" />
     <ClCompile Include="src\Image.cpp" />
+    <ClCompile Include="src\ImageComponent.cpp" />
     <ClCompile Include="src\Main.cpp" />
     <ClCompile Include="src\ObjectManager.cpp" />
     <ClCompile Include="src\TestObject.cpp" />
     <ClCompile Include="src\TestState.cpp" />
     <ClCompile Include="src\Tile.cpp" />
     <ClCompile Include="src\Tilemap.cpp" />
+    <ClCompile Include="src\TransformComponent.cpp" />
     <ClCompile Include="src\Utils.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Collider.h" />
     <ClInclude Include="src\ColliderAABB.h" />
+    <ClInclude Include="src\CollisionManager.h" />
+    <ClInclude Include="src\Component.h" />
     <ClInclude Include="src\Drag.h" />
     <ClInclude Include="src\GameObject.h" />
     <ClInclude Include="src\Image.h" />
     <ClInclude Include="src\GraphicsManager.h" />
+    <ClInclude Include="src\ImageComponent.h" />
     <ClInclude Include="src\ObjectManager.h" />
     <ClInclude Include="src\State.h" />
     <ClInclude Include="src\TestObject.h" />
@@ -114,6 +120,7 @@
     <ClInclude Include="src\Tile.h" />
     <ClInclude Include="src\Tilemap.h" />
     <ClInclude Include="src\Transform.h" />
+    <ClInclude Include="src\TransformComponent.h" />
     <ClInclude Include="src\Utils.h" />
   </ItemGroup>
   <ItemGroup>
