@@ -11,8 +11,9 @@ namespace TempTeam
 		Image* ImageLoad(GraphicsManager &graphicsManager, float width, float height, const char* spritePath, float alpha);
 		GameObject* InitTestObject(Image* image);
 		void FreeObjects();
+		void UnloadImages();
 	private:
 		std::vector<GameObject*> gameObjectList;
-		std::vector<Image> imageList;
+		std::vector<Image*> imageList;
 	};
 }

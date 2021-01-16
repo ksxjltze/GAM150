@@ -8,9 +8,9 @@ TempTeam::Image* TempTeam::ObjectManager::ImageLoad(GraphicsManager& graphicsMan
 
 	if (mesh != nullptr && texture != nullptr)
 	{
-		Image image = Image(mesh, texture, alpha);
+		Image* image = new Image(mesh, texture, alpha);
 		imageList.push_back(image);
-		return &imageList.back();
+		return image;
 	}
 
 	return nullptr;
@@ -32,6 +32,17 @@ void TempTeam::ObjectManager::FreeObjects()
 		if (obj)
 		{
 			delete obj;
+		}
+	}
+}
+
+void TempTeam::ObjectManager::UnloadImages()
+{
+	for (Image* img : imageList)
+	{
+		if (img)
+		{
+			delete img;
 		}
 	}
 }

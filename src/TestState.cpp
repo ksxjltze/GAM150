@@ -5,11 +5,14 @@ using namespace TempTeam;
 TestState::TestState()
 {
 	object = nullptr;
+	objectImage = nullptr;
+	tileImage = nullptr;
 }
 
 void TempTeam::TestState::Load()
 {
 	objectImage = objectManager.ImageLoad(graphicsManager, 100, 100, "../Resources/boi.png", 255);
+	tileImage = objectManager.ImageLoad(graphicsManager, 100, 100, "../Resources/grass.png", 255);
 }
 
 void TestState::Init()
