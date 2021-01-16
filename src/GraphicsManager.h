@@ -3,7 +3,7 @@
 #include "Image.h"
 #include <vector>
 
-namespace TempTeam
+namespace StarBangBang
 {
 	class GraphicsManager
 	{

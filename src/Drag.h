@@ -1,7 +1,7 @@
 #pragma once
 #include "AEEngine.h"
 
-namespace TempTeam
+namespace StarBangBang
 {
 	class Drag
 	{

@@ -1,12 +1,12 @@
 #include "DragComponent.h"
 
-TempTeam::DragComponent::DragComponent(GameObject* gameObject)
+StarBangBang::DragComponent::DragComponent(GameObject* gameObject)
 {
 	this->gameObject = gameObject;
 	enabled = false;
 }
 
-void TempTeam::DragComponent::Update(AEVec2 mousePos)
+void StarBangBang::DragComponent::Update(AEVec2 mousePos)
 {
 	float mouseX = mousePos.x, mouseY = mousePos.y;
 	AEVec2 &pos = gameObject->transform.position;

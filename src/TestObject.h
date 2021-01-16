@@ -6,7 +6,7 @@
 #include "ColliderAABB.h"
 #include "Drag.h"
 
-namespace TempTeam
+namespace StarBangBang
 {
 	class TestObject : public GameObject
 	{

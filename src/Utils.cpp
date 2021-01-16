@@ -1,6 +1,6 @@
 #include "Utils.h"
 
-AEVec2 TempTeam::GetMouseWorldPos()
+AEVec2 StarBangBang::GetMouseWorldPos()
 {
 	int mouseX = 0, mouseY = 0;
 	AEInputGetCursorPosition(&mouseX, &mouseY);

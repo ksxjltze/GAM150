@@ -1,7 +1,7 @@
 #pragma once
 #include "Transform.h"
 
-namespace TempTeam
+namespace StarBangBang
 {
 	class GameObject
 	{

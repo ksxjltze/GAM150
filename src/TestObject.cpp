@@ -2,7 +2,7 @@
 #include <iostream>
 #include "Utils.h"
 
-void TempTeam::TestObject::Init()
+void StarBangBang::TestObject::Init()
 {
 	transform.position.x = 0;
 	transform.position.y = 0;
@@ -13,7 +13,7 @@ void TempTeam::TestObject::Init()
 	collider.Init(100, 100);
 }
 
-void TempTeam::TestObject::Update()
+void StarBangBang::TestObject::Update()
 {
 	if (AEInputCheckCurr(AEVK_W))
 	{
@@ -36,12 +36,12 @@ void TempTeam::TestObject::Update()
 
 }
 
-void TempTeam::TestObject::Draw()
+void StarBangBang::TestObject::Draw()
 {
 	image->Draw(transform.position);
 }
 
-void TempTeam::TestObject::Exit()
+void StarBangBang::TestObject::Exit()
 {
 
 }

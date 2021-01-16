@@ -107,6 +107,7 @@
   <ItemGroup>
     <ClInclude Include="src\Collider.h" />
     <ClInclude Include="src\ColliderAABB.h" />
+    <ClInclude Include="src\CollisionComponent.h" />
     <ClInclude Include="src\CollisionManager.h" />
     <ClInclude Include="src\Component.h" />
     <ClInclude Include="src\Drag.h" />

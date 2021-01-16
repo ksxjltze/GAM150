@@ -1,7 +1,7 @@
 #include "Tilemap.h"
 #include "Utils.h"
 
-void TempTeam::Tilemap::Init()
+void StarBangBang::Tilemap::Init()
 {
 	tileWidth = 100;
 	tileHeight = 100;
@@ -32,12 +32,12 @@ void TempTeam::Tilemap::Init()
 	}
 }
 
-void TempTeam::Tilemap::Update()
+void StarBangBang::Tilemap::Update()
 {
 	drag.Update(transform.position, GetMouseWorldPos(), collider.width, collider.height);
 }
 
-void TempTeam::Tilemap::Draw()
+void StarBangBang::Tilemap::Draw()
 {
 	for (std::vector<Tile> row : tiles)
 	{
@@ -48,7 +48,7 @@ void TempTeam::Tilemap::Draw()
 	}
 }
 
-void TempTeam::Tilemap::Exit()
+void StarBangBang::Tilemap::Exit()
 {
 	tileImage.Exit();
 }

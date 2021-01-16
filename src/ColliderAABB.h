@@ -2,7 +2,7 @@
 #include "Collider.h"
 #include "Transform.h"
 
-namespace TempTeam
+namespace StarBangBang
 {
 	class ColliderAABB : public Collider
 	{

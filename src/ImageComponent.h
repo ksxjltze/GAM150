@@ -1,7 +1,7 @@
 #pragma once
 #include "Component.h"
 
-namespace TempTeam
+namespace StarBangBang
 {
 	class ImageComponent : public Component
 	{

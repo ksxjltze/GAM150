@@ -1,17 +1,17 @@
 #include "CollisionManager.h"
 #include <iostream>
 
-void TempTeam::CollisionManager::Init()
+void StarBangBang::CollisionManager::Init()
 {
 
 }
 
-void TempTeam::CollisionManager::AddCollider()
+void StarBangBang::CollisionManager::AddCollider()
 {
 
 }
 
-void TempTeam::CollisionManager::Update()
+void StarBangBang::CollisionManager::Update()
 {
 	for (ColliderAABB* collider1 : AABBColliderList)
 	{
@@ -22,7 +22,7 @@ void TempTeam::CollisionManager::Update()
 	}
 }
 
-void TempTeam::CollisionManager::CheckCollision(ColliderAABB* collider1, ColliderAABB* collider2)
+void StarBangBang::CollisionManager::CheckCollision(ColliderAABB* collider1, ColliderAABB* collider2)
 {
 	std::cout << "COLLISION" << std::endl;
 }

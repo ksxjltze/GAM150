@@ -3,7 +3,7 @@
 #include "Collider.h"
 #include "ColliderAABB.h"
 
-namespace TempTeam
+namespace StarBangBang
 {
 	class CollisionManager
 	{

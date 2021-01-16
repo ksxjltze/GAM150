@@ -19,7 +19,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 	// Variable declaration
 
 	int gGameRunning = 1;
-	State* currentState = new TempTeam::TestState();
+	State* currentState = new StarBangBang::TestState();
 
 	// Variable declaration end
 	///////////////////////////

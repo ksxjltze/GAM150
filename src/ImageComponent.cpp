@@ -1,13 +1,13 @@
 #include "ImageComponent.h"
 
-TempTeam::ImageComponent::ImageComponent(GameObject* gameObject, AEGfxVertexList* mesh, AEGfxTexture* texture)
+StarBangBang::ImageComponent::ImageComponent(GameObject* gameObject, AEGfxVertexList* mesh, AEGfxTexture* texture)
 {
 	this->mesh = mesh;
 	this->texture = texture;
 	this->gameObject = gameObject;
 }
 
-void TempTeam::ImageComponent::Draw()
+void StarBangBang::ImageComponent::Draw()
 {
 	AEGfxSetRenderMode(AE_GFX_RM_TEXTURE);
 	// No tint

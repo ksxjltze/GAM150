@@ -1,7 +1,7 @@
 #pragma once
 #include "Image.h"
 
-namespace TempTeam
+namespace StarBangBang
 {
 	class Tile
 	{

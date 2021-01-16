@@ -1,6 +1,6 @@
 #include "GraphicsManager.h"
 
-AEGfxTexture* TempTeam::GraphicsManager::LoadTexture(const char* filePath)
+AEGfxTexture* StarBangBang::GraphicsManager::LoadTexture(const char* filePath)
 {
     AEGfxTexture* texture = AEGfxTextureLoad(filePath);
     AE_ASSERT_MESG(texture, "Failed to load texture!!");
@@ -14,7 +14,7 @@ AEGfxTexture* TempTeam::GraphicsManager::LoadTexture(const char* filePath)
     return nullptr;
 }
 
-AEGfxVertexList* TempTeam::GraphicsManager::CreateMesh(float width, float height)
+AEGfxVertexList* StarBangBang::GraphicsManager::CreateMesh(float width, float height)
 {
 	AEGfxVertexList* mesh;
 	AEGfxMeshStart();
@@ -44,7 +44,7 @@ AEGfxVertexList* TempTeam::GraphicsManager::CreateMesh(float width, float height
     return nullptr;
 }
 
-void TempTeam::GraphicsManager::UnloadTextures()
+void StarBangBang::GraphicsManager::UnloadTextures()
 {
 	for (AEGfxTexture* texture : textureList)
 	{
@@ -53,7 +53,7 @@ void TempTeam::GraphicsManager::UnloadTextures()
 	}
 }
 
-void TempTeam::GraphicsManager::FreeMeshes()
+void StarBangBang::GraphicsManager::FreeMeshes()
 {
 	for (AEGfxVertexList* mesh : meshList)
 	{

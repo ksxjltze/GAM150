@@ -5,7 +5,7 @@
 #include "Drag.h"
 #include "ColliderAABB.h"
 
-namespace TempTeam
+namespace StarBangBang
 {
 	class Tilemap : public GameObject
 	{

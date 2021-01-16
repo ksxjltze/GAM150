@@ -3,7 +3,7 @@
 #include "Utils.h"
 
 //Deprecated
-TempTeam::Image* TempTeam::ObjectManager::ImageLoad(GraphicsManager& graphicsManager, float width, float height, const char* spritePath, float alpha)
+StarBangBang::Image* StarBangBang::ObjectManager::ImageLoad(GraphicsManager& graphicsManager, float width, float height, const char* spritePath, float alpha)
 {
 	AEGfxVertexList* mesh = graphicsManager.CreateMesh(width, height);
 	AEGfxTexture* texture = graphicsManager.LoadTexture(spritePath);
@@ -18,7 +18,7 @@ TempTeam::Image* TempTeam::ObjectManager::ImageLoad(GraphicsManager& graphicsMan
 	return nullptr;
 }
 
-void TempTeam::ObjectManager::AddImageComponent(GameObject* gameObject, GraphicsManager& graphicsManager, const char* spritePath)
+void StarBangBang::ObjectManager::AddImageComponent(GameObject* gameObject, GraphicsManager& graphicsManager, const char* spritePath)
 {
 	AEGfxVertexList* mesh = graphicsManager.CreateMesh(gameObject->width, gameObject->height);
 	AEGfxTexture* texture = graphicsManager.LoadTexture(spritePath);
@@ -30,20 +30,20 @@ void TempTeam::ObjectManager::AddImageComponent(GameObject* gameObject, Graphics
 	}
 }
 
-void TempTeam::ObjectManager::AddTransformComponent(GameObject* gameObject)
+void StarBangBang::ObjectManager::AddTransformComponent(GameObject* gameObject)
 {
 	TransformComponent transform = TransformComponent(gameObject);
 	transformComponentList.push_back(transform);
 }
 
-void TempTeam::ObjectManager::AddDragComponent(GameObject* gameObject)
+void StarBangBang::ObjectManager::AddDragComponent(GameObject* gameObject)
 {
 	DragComponent dragComponent(gameObject);
 	dragComponentList.push_back(dragComponent);
 }
 
 //Deprecated
-TempTeam::GameObject* TempTeam::ObjectManager::InitTestObject(Image* image)
+StarBangBang::GameObject* StarBangBang::ObjectManager::InitTestObject(Image* image)
 {
 	TestObject* object = new TestObject();
 	object->image = image;
@@ -52,14 +52,14 @@ TempTeam::GameObject* TempTeam::ObjectManager::InitTestObject(Image* image)
 	return object;
 }
 
-TempTeam::GameObject* TempTeam::ObjectManager::NewGameObject()
+StarBangBang::GameObject* StarBangBang::ObjectManager::NewGameObject()
 {
 	GameObject* gameObject = new GameObject();
 	gameObjectList.push_back(gameObject);
 	return gameObject;
 }
 
-TempTeam::GameObject* TempTeam::ObjectManager::NewGameObject(float width, float height)
+StarBangBang::GameObject* StarBangBang::ObjectManager::NewGameObject(float width, float height)
 {
 	GameObject* gameObject = new GameObject();
 	gameObject->width = width;
@@ -68,7 +68,7 @@ TempTeam::GameObject* TempTeam::ObjectManager::NewGameObject(float width, float 
 	return gameObject;
 }
 
-void TempTeam::ObjectManager::FreeObjects()
+void StarBangBang::ObjectManager::FreeObjects()
 {
 	for (GameObject* obj : gameObjectList)
 	{
@@ -79,7 +79,7 @@ void TempTeam::ObjectManager::FreeObjects()
 	}
 }
 
-void TempTeam::ObjectManager::UnloadImages()
+void StarBangBang::ObjectManager::UnloadImages()
 {
 	for (Image* img : imageList)
 	{
@@ -90,7 +90,7 @@ void TempTeam::ObjectManager::UnloadImages()
 	}
 }
 
-void TempTeam::ObjectManager::Draw()
+void StarBangBang::ObjectManager::Draw()
 {
 	for (ImageComponent image : imageComponentList)
 	{
@@ -98,7 +98,7 @@ void TempTeam::ObjectManager::Draw()
 	}
 }
 
-void TempTeam::ObjectManager::Update()
+void StarBangBang::ObjectManager::Update()
 {
 	AEVec2 mousePos = GetMouseWorldPos();
 	for (DragComponent &dragComponent : dragComponentList)

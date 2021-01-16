@@ -1,6 +1,6 @@
 #include "TransformComponent.h"
 
-TempTeam::TransformComponent::TransformComponent(GameObject* gameObject)
+StarBangBang::TransformComponent::TransformComponent(GameObject* gameObject)
 {
 	this->gameObject = gameObject;
 	position.x = 0;

@@ -1,22 +1,22 @@
 #include "ColliderAABB.h"
 
-void TempTeam::ColliderAABB::Init(float width, float height)
+void StarBangBang::ColliderAABB::Init(float width, float height)
 {
 	this->width = width;
 	this->height = height;
 }
 
-void TempTeam::ColliderAABB::OnEnter()
+void StarBangBang::ColliderAABB::OnEnter()
 {
 
 }
 
-void TempTeam::ColliderAABB::OnStay()
+void StarBangBang::ColliderAABB::OnStay()
 {
 
 }
 
-void TempTeam::ColliderAABB::OnExit()
+void StarBangBang::ColliderAABB::OnExit()
 {
 
 }

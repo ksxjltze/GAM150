@@ -6,7 +6,7 @@
 #include "DragComponent.h"
 #include <vector>
 
-namespace TempTeam
+namespace StarBangBang
 {
 	class ObjectManager
 	{

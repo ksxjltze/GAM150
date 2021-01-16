@@ -1,6 +1,6 @@
 #pragma once
 
-namespace TempTeam
+namespace StarBangBang
 {
 	class Collider
 	{

@@ -6,7 +6,7 @@
 #include "ObjectManager.h"
 #include "ImageComponent.h"
 
-namespace TempTeam
+namespace StarBangBang
 {
 	class TestState : public State
 	{

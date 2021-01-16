@@ -1,11 +1,11 @@
 #include "Drag.h"
 
-TempTeam::Drag::Drag()
+StarBangBang::Drag::Drag()
 {
 	enabled = false;
 }
 
-void TempTeam::Drag::Update(AEVec2 &objectPos, AEVec2 mousePos, float objectWidth, float objectHeight)
+void StarBangBang::Drag::Update(AEVec2 &objectPos, AEVec2 mousePos, float objectWidth, float objectHeight)
 {
 	//Drag object
 	float mouseX = mousePos.x, mouseY = mousePos.y;

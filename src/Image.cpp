@@ -1,20 +1,20 @@
 #include "Image.h"
 
-TempTeam::Image::Image()
+StarBangBang::Image::Image()
 {
 	this->mesh = 0;
 	this->texture = 0;
 	this->alpha = 255;
 }
 
-TempTeam::Image::Image(AEGfxVertexList* mesh, AEGfxTexture* texture, float alpha)
+StarBangBang::Image::Image(AEGfxVertexList* mesh, AEGfxTexture* texture, float alpha)
 {
 	this->mesh = mesh;
 	this->texture = texture;
 	this->alpha = alpha;
 }
 
-void TempTeam::Image::Init(const char* path, float width, float height, float alpha)
+void StarBangBang::Image::Init(const char* path, float width, float height, float alpha)
 {
 	this->texture = AEGfxTextureLoad(path);
 	AE_ASSERT_MESG(this->texture, "Failed to load texture!!");
@@ -39,7 +39,7 @@ void TempTeam::Image::Init(const char* path, float width, float height, float al
 	this->alpha = alpha;
 }
 
-void TempTeam::Image::Draw(AEVec2 position)
+void StarBangBang::Image::Draw(AEVec2 position)
 {
 	// Drawing object 2 - (first) - No tint
 	AEGfxSetRenderMode(AE_GFX_RM_TEXTURE);
@@ -55,7 +55,7 @@ void TempTeam::Image::Draw(AEVec2 position)
 	AEGfxMeshDraw(this->mesh, AE_GFX_MDM_TRIANGLES);
 }
 
-void TempTeam::Image::Exit()
+void StarBangBang::Image::Exit()
 {
 	AEGfxTextureUnload(this->texture);
 	AEGfxMeshFree(this->mesh);

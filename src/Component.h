@@ -1,7 +1,7 @@
 #pragma once
 #include "GameObject.h"
 
-namespace TempTeam
+namespace StarBangBang
 {
 	class Component
 	{

@@ -2,7 +2,7 @@
 #include "AEEngine.h"
 //Helper functions
 
-namespace TempTeam
+namespace StarBangBang
 {
 	AEVec2 GetMouseWorldPos();
 

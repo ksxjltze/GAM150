@@ -1,6 +1,6 @@
 #include "TestState.h"
 
-using namespace TempTeam;
+using namespace StarBangBang;
 
 TestState::TestState()
 {
@@ -10,7 +10,7 @@ TestState::TestState()
 	tileImage = nullptr;
 }
 
-void TempTeam::TestState::Load()
+void StarBangBang::TestState::Load()
 {
 	objectImage = objectManager.ImageLoad(graphicsManager, 100, 100, "../Resources/boi.png", 255);
 	tileImage = objectManager.ImageLoad(graphicsManager, 100, 100, "../Resources/grass.png", 255);
@@ -43,7 +43,7 @@ void TestState::Update()
 	tilemap.Update();
 }
 
-void TempTeam::TestState::Draw()
+void StarBangBang::TestState::Draw()
 {
 	object->Draw();
 	objectManager.Draw();
@@ -68,7 +68,7 @@ void TestState::Free()
 	objectManager.FreeObjects();
 }
 
-void TempTeam::TestState::Unload()
+void StarBangBang::TestState::Unload()
 {
 	graphicsManager.UnloadTextures();
 	graphicsManager.FreeMeshes();
