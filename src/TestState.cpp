@@ -15,9 +15,7 @@ void TempTeam::TestState::Load()
 	objectImage = objectManager.ImageLoad(graphicsManager, 100, 100, "../Resources/boi.png", 255);
 	tileImage = objectManager.ImageLoad(graphicsManager, 100, 100, "../Resources/grass.png", 255);
 
-	object2 = objectManager.NewGameObject();
-	object2->width = 100;
-	object2->height = 100;
+	object2 = objectManager.NewGameObject(100, 100);
 	objectManager.AddImageComponent(object2, graphicsManager, "../Resources/PlanetTexture.png");
 }
 

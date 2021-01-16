@@ -17,6 +17,7 @@ namespace TempTeam
 		void AddDragComponent(GameObject* gameObject);
 		GameObject* InitTestObject(Image* image);
 		GameObject* NewGameObject();
+		GameObject* NewGameObject(float width, float height);
 		void FreeObjects();
 		void UnloadImages();
 		void Draw();

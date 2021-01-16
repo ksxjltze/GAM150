@@ -2,6 +2,7 @@
 #include "TestObject.h"
 #include "Utils.h"
 
+//Deprecated
 TempTeam::Image* TempTeam::ObjectManager::ImageLoad(GraphicsManager& graphicsManager, float width, float height, const char* spritePath, float alpha)
 {
 	AEGfxVertexList* mesh = graphicsManager.CreateMesh(width, height);
@@ -41,6 +42,7 @@ void TempTeam::ObjectManager::AddDragComponent(GameObject* gameObject)
 	dragComponentList.push_back(dragComponent);
 }
 
+//Deprecated
 TempTeam::GameObject* TempTeam::ObjectManager::InitTestObject(Image* image)
 {
 	TestObject* object = new TestObject();
@@ -53,6 +55,15 @@ TempTeam::GameObject* TempTeam::ObjectManager::InitTestObject(Image* image)
 TempTeam::GameObject* TempTeam::ObjectManager::NewGameObject()
 {
 	GameObject* gameObject = new GameObject();
+	gameObjectList.push_back(gameObject);
+	return gameObject;
+}
+
+TempTeam::GameObject* TempTeam::ObjectManager::NewGameObject(float width, float height)
+{
+	GameObject* gameObject = new GameObject();
+	gameObject->width = width;
+	gameObject->height = height;
 	gameObjectList.push_back(gameObject);
 	return gameObject;
 }
