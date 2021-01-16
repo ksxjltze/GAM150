@@ -11,5 +11,6 @@ namespace TempTeam
 		virtual void Draw() {};
 		virtual void Exit() {};
 		Transform transform;
+		float width = 0, height = 0;
 	};
 }

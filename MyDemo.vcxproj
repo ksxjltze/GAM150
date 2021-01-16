@@ -91,6 +91,7 @@
     <ClCompile Include="src\ColliderAABB.cpp" />
     <ClCompile Include="src\CollisionManager.cpp" />
     <ClCompile Include="src\Drag.cpp" />
+    <ClCompile Include="src\DragComponent.cpp" />
     <ClCompile Include="src\GraphicsManager.cpp" />
     <ClCompile Include="src\Image.cpp" />
     <ClCompile Include="src\ImageComponent.cpp" />
@@ -109,6 +110,7 @@
     <ClInclude Include="src\CollisionManager.h" />
     <ClInclude Include="src\Component.h" />
     <ClInclude Include="src\Drag.h" />
+    <ClInclude Include="src\DragComponent.h" />
     <ClInclude Include="src\GameObject.h" />
     <ClInclude Include="src\Image.h" />
     <ClInclude Include="src\GraphicsManager.h" />

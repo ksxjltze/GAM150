@@ -1,5 +1,6 @@
 #include "ObjectManager.h"
 #include "TestObject.h"
+#include "Utils.h"
 
 TempTeam::Image* TempTeam::ObjectManager::ImageLoad(GraphicsManager& graphicsManager, float width, float height, const char* spritePath, float alpha)
 {
@@ -16,9 +17,9 @@ TempTeam::Image* TempTeam::ObjectManager::ImageLoad(GraphicsManager& graphicsMan
 	return nullptr;
 }
 
-void TempTeam::ObjectManager::AddImageComponent(GameObject* gameObject, GraphicsManager& graphicsManager, float width, float height, const char* spritePath)
+void TempTeam::ObjectManager::AddImageComponent(GameObject* gameObject, GraphicsManager& graphicsManager, const char* spritePath)
 {
-	AEGfxVertexList* mesh = graphicsManager.CreateMesh(width, height);
+	AEGfxVertexList* mesh = graphicsManager.CreateMesh(gameObject->width, gameObject->height);
 	AEGfxTexture* texture = graphicsManager.LoadTexture(spritePath);
 
 	if (mesh != nullptr && texture != nullptr)
@@ -32,6 +33,12 @@ void TempTeam::ObjectManager::AddTransformComponent(GameObject* gameObject)
 {
 	TransformComponent transform = TransformComponent(gameObject);
 	transformComponentList.push_back(transform);
+}
+
+void TempTeam::ObjectManager::AddDragComponent(GameObject* gameObject)
+{
+	DragComponent dragComponent(gameObject);
+	dragComponentList.push_back(dragComponent);
 }
 
 TempTeam::GameObject* TempTeam::ObjectManager::InitTestObject(Image* image)
@@ -77,5 +84,14 @@ void TempTeam::ObjectManager::Draw()
 	for (ImageComponent image : imageComponentList)
 	{
 		image.Draw();
+	}
+}
+
+void TempTeam::ObjectManager::Update()
+{
+	AEVec2 mousePos = GetMouseWorldPos();
+	for (DragComponent &dragComponent : dragComponentList)
+	{
+		dragComponent.Update(mousePos);
 	}
 }

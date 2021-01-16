@@ -5,6 +5,7 @@ using namespace TempTeam;
 TestState::TestState()
 {
 	object = nullptr;
+	object2 = nullptr;
 	objectImage = nullptr;
 	tileImage = nullptr;
 }
@@ -15,7 +16,9 @@ void TempTeam::TestState::Load()
 	tileImage = objectManager.ImageLoad(graphicsManager, 100, 100, "../Resources/grass.png", 255);
 
 	object2 = objectManager.NewGameObject();
-	objectManager.AddImageComponent(object2, graphicsManager, 100, 100, "../Resources/PlanetTexture.png");
+	object2->width = 100;
+	object2->height = 100;
+	objectManager.AddImageComponent(object2, graphicsManager, "../Resources/PlanetTexture.png");
 }
 
 void TestState::Init()
@@ -23,7 +26,10 @@ void TestState::Init()
 	////////////////////////////////
 	AEGfxSetBlendMode(AE_GFX_BM_BLEND);
 	object = objectManager.InitTestObject(objectImage);
+
 	object2->transform.position.x = 100;
+	objectManager.AddDragComponent(object2);
+
 	tilemap.Init();
 	//////////////////////////////////
 	// Creating Fonts	
@@ -35,6 +41,7 @@ void TestState::Init()
 void TestState::Update()
 {
 	object->Update();
+	objectManager.Update();
 	tilemap.Update();
 }
 
