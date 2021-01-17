@@ -60,6 +60,12 @@
     <ClCompile Include="src\DragComponent.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\CollisionComponent.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\TileManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\State.h">
@@ -122,12 +128,18 @@
     <ClInclude Include="src\CollisionComponent.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\TileManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Resources\PlanetTexture.png">
       <Filter>Resource Files</Filter>
     </Image>
     <Image Include="Resources\YellowTexture.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Resources\boi.png">
       <Filter>Resource Files</Filter>
     </Image>
   </ItemGroup>

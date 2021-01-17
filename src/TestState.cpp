@@ -13,7 +13,7 @@ TestState::TestState()
 void StarBangBang::TestState::Load()
 {
 	objectImage = objectManager.ImageLoad(graphicsManager, 100, 100, "../Resources/boi.png", 255);
-	tileImage = objectManager.ImageLoad(graphicsManager, 100, 100, "../Resources/grass.png", 255);
+	//tileImage = objectManager.ImageLoad(graphicsManager, 100, 100, "../Resources/grass.png", 255);
 
 	object2 = objectManager.NewGameObject(100, 100);
 	objectManager.AddImageComponent(object2, graphicsManager, "../Resources/PlanetTexture.png");
@@ -28,7 +28,10 @@ void TestState::Init()
 	object2->transform.position.x = 100;
 	objectManager.AddDragComponent(object2);
 
-	tilemap.Init();
+	//tilemap.Init();
+	tileManager.Init(objectManager, graphicsManager);
+
+
 	//////////////////////////////////
 	// Creating Fonts	
 	fontId = AEGfxCreateFont("../Resources/Roboto-Regular.ttf", 12);
@@ -40,14 +43,14 @@ void TestState::Update()
 {
 	object->Update();
 	objectManager.Update();
-	tilemap.Update();
+	//tilemap.Update();
 }
 
 void StarBangBang::TestState::Draw()
 {
 	object->Draw();
 	objectManager.Draw();
-	tilemap.Draw();
+	//tilemap.Draw();
 
 	char strBuffer[100];
 	memset(strBuffer, 0, 100 * sizeof(char));
@@ -64,7 +67,7 @@ void TestState::Free()
 	//Free objects and textures
 	AEGfxDestroyFont(fontId);
 	object->Exit();
-	tilemap.Exit();
+	//tilemap.Exit();
 	objectManager.FreeObjects();
 }
 

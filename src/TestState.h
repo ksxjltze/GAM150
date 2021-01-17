@@ -5,6 +5,7 @@
 #include "Tilemap.h"
 #include "ObjectManager.h"
 #include "ImageComponent.h"
+#include "TileManager.h"
 
 namespace StarBangBang
 {
@@ -22,6 +23,7 @@ namespace StarBangBang
 	private:
 		GraphicsManager graphicsManager;
 		ObjectManager objectManager;
+		TileManager tileManager;
 
 		Image* objectImage;
 		Image* tileImage;

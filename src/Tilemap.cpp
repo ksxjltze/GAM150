@@ -1,5 +1,6 @@
 #include "Tilemap.h"
 #include "Utils.h"
+#include "ObjectManager.h"
 
 void StarBangBang::Tilemap::Init()
 {
@@ -34,7 +35,7 @@ void StarBangBang::Tilemap::Init()
 
 void StarBangBang::Tilemap::Update()
 {
-	drag.Update(transform.position, GetMouseWorldPos(), collider.width, collider.height);
+
 }
 
 void StarBangBang::Tilemap::Draw()

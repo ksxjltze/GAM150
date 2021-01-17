@@ -13,6 +13,7 @@ namespace StarBangBang
 	public:
 		Image* ImageLoad(GraphicsManager &graphicsManager, float width, float height, const char* spritePath, float alpha);
 		void AddImageComponent(GameObject* gameObject, GraphicsManager& graphicsManager, const char* spritePath);
+		void AddImageComponent(GameObject* gameObject, AEGfxTexture* texture, AEGfxVertexList* mesh);
 		void AddTransformComponent(GameObject* gameObject);
 		void AddDragComponent(GameObject* gameObject);
 		GameObject* InitTestObject(Image* image);
