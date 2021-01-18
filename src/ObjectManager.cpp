@@ -1,22 +1,6 @@
 #include "ObjectManager.h"
 #include "Utils.h"
 
-//Deprecated
-StarBangBang::Image* StarBangBang::ObjectManager::ImageLoad(GraphicsManager& graphicsManager, float width, float height, const char* spritePath, float alpha)
-{
-	AEGfxVertexList* mesh = graphicsManager.CreateMesh(width, height);
-	AEGfxTexture* texture = graphicsManager.LoadTexture(spritePath);
-
-	if (mesh != nullptr && texture != nullptr)
-	{
-		Image* image = new Image(mesh, texture, alpha);
-		imageList.push_back(image);
-		return image;
-	}
-
-	return nullptr;
-}
-
 void StarBangBang::ObjectManager::AddImageComponent(GameObject* gameObject, GraphicsManager& graphicsManager, const char* spritePath)
 {
 	AEGfxVertexList* mesh = graphicsManager.CreateMesh(gameObject->width, gameObject->height);
@@ -58,16 +42,6 @@ void StarBangBang::ObjectManager::AddChildGameObject(GameObject* child, GameObje
 	child->transform.position = newPos;
 }
 
-//Deprecated
-//StarBangBang::GameObject* StarBangBang::ObjectManager::InitTestObject(Image* image)
-//{
-//	TestObject* object = new TestObject();
-//	object->image = image;
-//	object->Init();
-//	gameObjectList.push_back(object);
-//	return object;
-//}
-
 StarBangBang::GameObject* StarBangBang::ObjectManager::NewGameObject()
 {
 	GameObject* gameObject = new GameObject();
@@ -91,17 +65,6 @@ void StarBangBang::ObjectManager::FreeObjects()
 		if (obj)
 		{
 			delete obj;
-		}
-	}
-}
-
-void StarBangBang::ObjectManager::UnloadImages()
-{
-	for (Image* img : imageList)
-	{
-		if (img)
-		{
-			delete img;
 		}
 	}
 }

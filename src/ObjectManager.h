@@ -11,7 +11,6 @@ namespace StarBangBang
 	class ObjectManager
 	{
 	public:
-		Image* ImageLoad(GraphicsManager &graphicsManager, float width, float height, const char* spritePath, float alpha);
 		void AddImageComponent(GameObject* gameObject, GraphicsManager& graphicsManager, const char* spritePath);
 		void AddImageComponent(GameObject* gameObject, AEGfxTexture* texture, AEGfxVertexList* mesh);
 		void AddTransformComponent(GameObject* gameObject);
@@ -21,12 +20,10 @@ namespace StarBangBang
 		GameObject* NewGameObject();
 		GameObject* NewGameObject(float width, float height);
 		void FreeObjects();
-		void UnloadImages();
 		void Draw();
 		void Update();
 	private:
 		std::vector<GameObject*> gameObjectList;
-		std::vector<Image*> imageList;
 		std::vector<ImageComponent> imageComponentList;
 		std::vector<TransformComponent> transformComponentList;
 		std::vector<DragComponent> dragComponentList;

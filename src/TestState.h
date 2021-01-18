@@ -26,9 +26,6 @@ namespace StarBangBang
 		ObjectManager objectManager;
 		TileManager tileManager;
 
-		Image* objectImage;
-		Image* tileImage;
-
 		GameObject* object2;
 		GameObject* object2Child;
 

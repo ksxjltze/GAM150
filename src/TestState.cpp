@@ -5,16 +5,11 @@ TestState::TestState(GameStateManager* gameStateManager)
 {
 	object2 = nullptr;
 	object2Child = nullptr;
-	objectImage = nullptr;
-	tileImage = nullptr;
 	this->gameStateManager = gameStateManager;
 }
 
 void StarBangBang::TestState::Load()
 {
-	objectImage = objectManager.ImageLoad(graphicsManager, 100, 100, "../Resources/boi.png", 255);
-	tileImage = objectManager.ImageLoad(graphicsManager, 100, 100, "../Resources/grass.png", 255);
-
 	object2 = objectManager.NewGameObject(100, 100);
 	object2Child = objectManager.NewGameObject(50, 50);
 	objectManager.AddImageComponent(object2, graphicsManager, "../Resources/PlanetTexture.png");

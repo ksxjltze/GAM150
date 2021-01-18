@@ -1,6 +1,5 @@
 #pragma once
 #include <AEEngine.h>
-#include "Image.h"
 #include <vector>
 
 namespace StarBangBang
