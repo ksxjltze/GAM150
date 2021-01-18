@@ -1,15 +1,17 @@
 #pragma once
 #include "Transform.h"
 
-namespace TempTeam
+namespace StarBangBang
 {
 	class GameObject
 	{
 	public:
-		virtual void Init() = 0;
-		virtual void Update() = 0;
-		virtual void Draw() = 0;
-		virtual void Exit() = 0;
+		virtual void Init() {};
+		virtual void Update() {};
+		virtual void Draw() {};
+		virtual void Exit() {};
 		Transform transform;
+		float width = 0, height = 0;
+		GameObject* parent = nullptr;
 	};
 }

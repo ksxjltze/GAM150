@@ -19,7 +19,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 	// Variable declaration
 
 	int gGameRunning = 1;
-	State* currentState = new TempTeam::TestState();
+	State* currentState = new StarBangBang::TestState();
 
 	// Variable declaration end
 	///////////////////////////
@@ -36,8 +36,9 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 	// reset the system modules
 	AESysReset();
 
-	AEGfxSetBackgroundColor(0.0f, 0.0f, 0.0f);
+	AEGfxSetBackgroundColor(0.3f, 0.6f, 1.0f);
 
+	currentState->Load();
 	currentState->Init();
 
 	// Initialization end
@@ -64,7 +65,8 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 			gGameRunning = 0;
 	}
 
-	currentState->Exit();
+	currentState->Free();
+	currentState->Unload();
 	// free the system
 	AESysExit();
 }

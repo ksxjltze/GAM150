@@ -1,9 +1,12 @@
 #pragma once
 #include "GameObject.h"
+#include "ObjectManager.h"
 #include "Transform.h"
 #include "Image.h"
+#include "ColliderAABB.h"
+#include "Drag.h"
 
-namespace TempTeam
+namespace StarBangBang
 {
 	class TestObject : public GameObject
 	{
@@ -13,7 +16,10 @@ namespace TempTeam
 		void Draw();
 		void Exit();
 	private:
-		Image image;
+		Image* image;
+		ColliderAABB collider;
+		Drag dragComponent;
+		friend ObjectManager;
 		
 	};
 }

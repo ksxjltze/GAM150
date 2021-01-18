@@ -2,20 +2,37 @@
 #include "State.h"
 #include "AEEngine.h"
 #include "TestObject.h"
+#include "Tilemap.h"
+#include "ObjectManager.h"
+#include "ImageComponent.h"
+#include "TileManager.h"
 
-namespace TempTeam
+namespace StarBangBang
 {
 	class TestState : public State
 	{
 	public:
 		TestState();
+		void Load();
 		void Init();
 		void Update();
 		void Draw();
-		void Exit();
+		void Free();
+		void Unload();
 
 	private:
-		TestObject object;
+		GraphicsManager graphicsManager;
+		ObjectManager objectManager;
+		TileManager tileManager;
+
+		Image* objectImage;
+		Image* tileImage;
+
+		GameObject* object;
+		GameObject* object2;
+		GameObject* object2Child;
+
+		Tilemap tilemap;
 		float camX = 0, camY = 0;
 		s8 fontId = 0;
 	};

@@ -1,18 +1,21 @@
 #include "TestObject.h"
+#include <iostream>
+#include "Utils.h"
 
-void TempTeam::TestObject::Init()
+void StarBangBang::TestObject::Init()
 {
 	transform.position.x = 0;
 	transform.position.y = 0;
 	transform.rotation = 0;
 	transform.scale = 1;
 
-	image.Init("../Resources/PlanetTexture.png", 50, 50, 255);
+	//image.Init("../Resources/PlanetTexture.png", 100, 100, 255);
+	collider.Init(100, 100);
 }
 
-void TempTeam::TestObject::Update()
+void StarBangBang::TestObject::Update()
 {
-	if(AEInputCheckCurr(AEVK_W))
+	if (AEInputCheckCurr(AEVK_W))
 	{
 		transform.position.y += 10;
 	}
@@ -28,14 +31,17 @@ void TempTeam::TestObject::Update()
 	{
 		transform.position.x += 10;
 	}
+
+	dragComponent.Update(transform.position, GetMouseWorldPos(), 100, 100);
+
 }
 
-void TempTeam::TestObject::Draw()
+void StarBangBang::TestObject::Draw()
 {
-	image.Draw(transform.position);
+	image->Draw(transform.position);
 }
 
-void TempTeam::TestObject::Exit()
+void StarBangBang::TestObject::Exit()
 {
-	image.Exit();
+
 }
