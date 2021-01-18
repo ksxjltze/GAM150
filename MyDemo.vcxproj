@@ -101,6 +101,7 @@
     <ClCompile Include="src\ObjectManager.cpp" />
     <ClCompile Include="src\TestObject.cpp" />
     <ClCompile Include="src\TestState.cpp" />
+    <ClCompile Include="src\TestState2.cpp" />
     <ClCompile Include="src\Tile.cpp" />
     <ClCompile Include="src\TileManager.cpp" />
     <ClCompile Include="src\Tilemap.cpp" />
@@ -124,6 +125,7 @@
     <ClInclude Include="src\State.h" />
     <ClInclude Include="src\TestObject.h" />
     <ClInclude Include="src\TestState.h" />
+    <ClInclude Include="src\TestState2.h" />
     <ClInclude Include="src\Tile.h" />
     <ClInclude Include="src\TileManager.h" />
     <ClInclude Include="src\Tilemap.h" />

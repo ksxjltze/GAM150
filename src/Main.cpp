@@ -4,6 +4,7 @@
 #include "AEEngine.h"
 #include "GameStateManager.h"
 #include "TestState.h"
+#include "TestState2.h"
 
 // ---------------------------------------------------------------------------
 // main
@@ -21,7 +22,8 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 
 	int gGameRunning = 1;
 	StarBangBang::GameStateManager gameStateManager;
-	State* currentState = new StarBangBang::TestState();
+	//State* currentState = new StarBangBang::TestState();
+	State* currentState = new StarBangBang::TestState2();
 
 	gameStateManager.AddGameState(currentState);
 	gameStateManager.SetInitialState(currentState);
@@ -42,6 +44,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 	AESysReset();
 
 	AEGfxSetBackgroundColor(0.3f, 0.6f, 1.0f);
+	AEGfxSetBlendMode(AE_GFX_BM_BLEND);
 
 	//currentState->Load();
 	//currentState->Init();
