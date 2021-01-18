@@ -21,11 +21,13 @@ namespace StarBangBang
 
 		void SetInitialState(State* state);
 		void SetNextGameState(State* state);
+		void SetNextGameState(int id);
 		void Update();
 	private:
 		bool stateChanged;
 		State* prevState;
 		State* currentState;
+		State* nextState;
 		std::vector<State*> gameStateList;
 	};
 }

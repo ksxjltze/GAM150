@@ -67,6 +67,14 @@ void StarBangBang::ObjectManager::FreeObjects()
 			delete obj;
 		}
 	}
+	gameObjectList.clear();
+}
+
+void StarBangBang::ObjectManager::FreeComponents()
+{
+	imageComponentList.clear();
+	transformComponentList.clear();
+	dragComponentList.clear();
 }
 
 void StarBangBang::ObjectManager::Draw()

@@ -4,6 +4,7 @@
 #include "AEEngine.h"
 #include "GameStateManager.h"
 #include "TestState.h"
+#include "TestState2.h"
 
 // ---------------------------------------------------------------------------
 // main
@@ -21,11 +22,10 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 
 	int gGameRunning = 1;
 	StarBangBang::GameStateManager gameStateManager;
-	State* currentState = new StarBangBang::TestState(&gameStateManager);
-	//State* currentState = new StarBangBang::TestState2(&gameStateManager);
 
-	gameStateManager.AddGameState(currentState);
-	gameStateManager.SetInitialState(currentState);
+	State* state1 = gameStateManager.AddGameState<StarBangBang::TestState>();
+	State* state2 = gameStateManager.AddGameState<StarBangBang::TestState2>();
+	gameStateManager.SetInitialState(state1);
 
 	// Variable declaration end
 	///////////////////////////

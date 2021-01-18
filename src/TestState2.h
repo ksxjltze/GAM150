@@ -9,12 +9,12 @@ namespace StarBangBang
 	{
 	public:
 		TestState2(GameStateManager* gameStateManager);
-		virtual void Load();
-		virtual void Init();
-		virtual void Update();
-		virtual void Draw();
-		virtual void Free();
-		virtual void Unload();
+		void Load();
+		void Init();
+		void Update();
+		void Draw();
+		void Free();
+		void Unload();
 	private:
 		ObjectManager objectManager;
 		GraphicsManager graphicsManager;

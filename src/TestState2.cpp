@@ -1,4 +1,5 @@
 #include "TestState2.h"
+#include "TestState.h"
 
 StarBangBang::TestState2::TestState2(GameStateManager* gameStateManager)
 {
@@ -20,6 +21,10 @@ void StarBangBang::TestState2::Init()
 void StarBangBang::TestState2::Update()
 {
 	objectManager.Update();
+	if(AEInputCheckTriggered(VK_SPACE))
+	{
+		gameStateManager->SetNextGameState(0);
+	}
 }
 
 void StarBangBang::TestState2::Draw()
@@ -30,6 +35,7 @@ void StarBangBang::TestState2::Draw()
 void StarBangBang::TestState2::Free()
 {
 	objectManager.FreeObjects();
+	objectManager.FreeComponents();
 }
 
 void StarBangBang::TestState2::Unload()

@@ -20,6 +20,7 @@ namespace StarBangBang
 		GameObject* NewGameObject();
 		GameObject* NewGameObject(float width, float height);
 		void FreeObjects();
+		void FreeComponents();
 		void Draw();
 		void Update();
 	private:

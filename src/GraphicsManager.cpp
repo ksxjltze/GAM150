@@ -51,6 +51,7 @@ void StarBangBang::GraphicsManager::UnloadTextures()
 		AEGfxTextureUnload(texture);
 		texture = nullptr;
 	}
+	textureList.clear();
 }
 
 void StarBangBang::GraphicsManager::FreeMeshes()
@@ -60,4 +61,5 @@ void StarBangBang::GraphicsManager::FreeMeshes()
 		AEGfxMeshFree(mesh);
 		mesh = nullptr;
 	}
+	meshList.clear();
 }

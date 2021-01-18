@@ -1,7 +1,6 @@
 #include "TestState.h"
-using namespace StarBangBang;
 
-TestState::TestState(GameStateManager* gameStateManager)
+StarBangBang::TestState::TestState(StarBangBang::GameStateManager* gameStateManager)
 {
 	object2 = nullptr;
 	object2Child = nullptr;
@@ -14,9 +13,12 @@ void StarBangBang::TestState::Load()
 	object2Child = objectManager.NewGameObject(50, 50);
 	objectManager.AddImageComponent(object2, graphicsManager, "../Resources/PlanetTexture.png");
 	objectManager.AddImageComponent(object2Child, graphicsManager, "../Resources/boi.png");
+
+	if (fontId == 0)
+		fontId = AEGfxCreateFont("../Resources/Roboto-Regular.ttf", 12);
 }
 
-void TestState::Init()
+void StarBangBang::TestState::Init()
 {
 	////////////////////////////////
 	AEGfxSetBlendMode(AE_GFX_BM_BLEND);
@@ -27,16 +29,9 @@ void TestState::Init()
 	objectManager.AddChildGameObject(object2Child, object2);
 
 	tileManager.Init(objectManager, graphicsManager);
-
-
-	//////////////////////////////////
-	// Creating Fonts	
-	fontId = AEGfxCreateFont("../Resources/Roboto-Regular.ttf", 12);
-	// Creating Fonts end
-	//////////////////////////////////
 }
 
-void TestState::Update()
+void StarBangBang::TestState::Update()
 {
 	objectManager.Update();
 	//Move child
@@ -45,8 +40,9 @@ void TestState::Update()
 
 	if (AEInputCheckTriggered(VK_SPACE))
 	{
-		State* nextState = gameStateManager->AddGameState<TestState2>();
-		gameStateManager->SetNextGameState(nextState);
+		//State* nextState = gameStateManager->AddGameState<TestState2>();
+		gameStateManager->SetNextGameState(1);
+		//gameStateManager->SetNextGameState(1);
 	}
 }
 
@@ -64,11 +60,12 @@ void StarBangBang::TestState::Draw()
 	AEGfxPrint(fontId, strBuffer, 0.99f - TextWidth, 0.99f - TextHeight, 1.0f, 1.f, 1.f, 1.f);
 }
 
-void TestState::Free()
+void StarBangBang::TestState::Free()
 {
 	//Free objects and textures
-	AEGfxDestroyFont(fontId);
+	//AEGfxDestroyFont(fontId);
 	objectManager.FreeObjects();
+	objectManager.FreeComponents();
 }
 
 void StarBangBang::TestState::Unload()

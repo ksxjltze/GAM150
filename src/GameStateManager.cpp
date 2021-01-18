@@ -5,6 +5,7 @@ StarBangBang::GameStateManager::GameStateManager()
 {
 	currentState = nullptr;
 	prevState = nullptr;
+	nextState = nullptr;
 	stateChanged = false;
 }
 
@@ -28,8 +29,14 @@ void StarBangBang::GameStateManager::SetInitialState(State* state)
 
 void StarBangBang::GameStateManager::SetNextGameState(State* state)
 {
-	prevState = currentState;
-	currentState = state;
+	nextState = state;
+	stateChanged = true;
+}
+
+void StarBangBang::GameStateManager::SetNextGameState(int id)
+{
+	//will probably change later
+	nextState = gameStateList[id];
 	stateChanged = true;
 }
 
@@ -39,16 +46,16 @@ void StarBangBang::GameStateManager::Update()
 	{
 		if (stateChanged)
 		{
-			if (prevState != nullptr)
+			if (nextState != nullptr)
 			{
-				prevState->Unload();
-				prevState->Free();
+				currentState->Unload();
+				currentState->Free();
+				prevState = currentState;
+				currentState = nextState;
 			}
 
 			currentState->Load();
 			currentState->Init();
-
-			prevState = nullptr;
 			stateChanged = false;
 
 		}
