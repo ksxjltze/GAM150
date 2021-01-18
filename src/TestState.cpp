@@ -25,16 +25,13 @@ void TestState::Init()
 {
 	////////////////////////////////
 	AEGfxSetBlendMode(AE_GFX_BM_BLEND);
-	//object = objectManager.InitTestObject(objectImage);
 
 	object2->transform.position.x = 100;
 	objectManager.AddDragComponent(object2);
-
-	//TODO: Drag for child objects.
 	objectManager.AddDragComponent(object2Child);
 	objectManager.AddChildGameObject(object2Child, object2);
 
-	//tileManager.Init(objectManager, graphicsManager);
+	tileManager.Init(objectManager, graphicsManager);
 
 
 	//////////////////////////////////
