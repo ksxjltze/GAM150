@@ -2,6 +2,7 @@
 // includes
 
 #include "AEEngine.h"
+#include "GameStateManager.h"
 #include "TestState.h"
 
 // ---------------------------------------------------------------------------
@@ -19,7 +20,11 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 	// Variable declaration
 
 	int gGameRunning = 1;
+	StarBangBang::GameStateManager gameStateManager;
 	State* currentState = new StarBangBang::TestState();
+
+	gameStateManager.AddGameState(currentState);
+	gameStateManager.SetInitialState(currentState);
 
 	// Variable declaration end
 	///////////////////////////
@@ -38,8 +43,8 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 
 	AEGfxSetBackgroundColor(0.3f, 0.6f, 1.0f);
 
-	currentState->Load();
-	currentState->Init();
+	//currentState->Load();
+	//currentState->Init();
 
 	// Initialization end
 	/////////////////////
@@ -54,8 +59,9 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 		AEInputUpdate();
 
 		// Update State
-		currentState->Update();
-		currentState->Draw();
+		gameStateManager.Update();
+		//currentState->Update();
+		//currentState->Draw();
 
 		// Informing the system about the loop's end
 		AESysFrameEnd();
@@ -64,9 +70,9 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 		if (AEInputCheckTriggered(AEVK_ESCAPE) || 0 == AESysDoesWindowExist())
 			gGameRunning = 0;
 	}
-
-	currentState->Free();
-	currentState->Unload();
+	
+	//currentState->Free();
+	//currentState->Unload();
 	// free the system
 	AESysExit();
 }

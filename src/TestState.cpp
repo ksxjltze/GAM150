@@ -1,5 +1,4 @@
 #include "TestState.h"
-
 using namespace StarBangBang;
 
 TestState::TestState()
