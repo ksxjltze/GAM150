@@ -6,13 +6,15 @@
 #include "ObjectManager.h"
 #include "ImageComponent.h"
 #include "TileManager.h"
+#include "TestState2.h"
+#include "GameStateManager.h"
 
 namespace StarBangBang
 {
 	class TestState : public State
 	{
 	public:
-		TestState();
+		TestState(GameStateManager* gameStateManager);
 		void Load();
 		void Init();
 		void Update();
@@ -21,6 +23,7 @@ namespace StarBangBang
 		void Unload();
 
 	private:
+		GameStateManager* gameStateManager;
 		GraphicsManager graphicsManager;
 		ObjectManager objectManager;
 		TileManager tileManager;

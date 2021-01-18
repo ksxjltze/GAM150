@@ -5,6 +5,7 @@ StarBangBang::GameStateManager::GameStateManager()
 {
 	currentState = nullptr;
 	prevState = nullptr;
+	stateChanged = false;
 }
 
 StarBangBang::GameStateManager::~GameStateManager()

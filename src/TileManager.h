@@ -6,14 +6,15 @@ namespace StarBangBang
 	class TileManager
 	{
 	public:
+		TileManager();
 		void Init(ObjectManager &objectManager, GraphicsManager& graphicsManager);
 	private:
-		GameObject* tilemap;
+		GameObject* tilemapGameObject;
 		std::vector <std::vector<GameObject*>> tiles;
-		float tileWidth = 100;
-		float tileHeight = 100;
+		float tileWidth;
+		float tileHeight;
 
-		int mapWidth = 20;
-		int mapHeight = 1;
+		int mapWidth;
+		int mapHeight;
 	};
 }

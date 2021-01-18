@@ -1,13 +1,14 @@
 #include "TestState.h"
 using namespace StarBangBang;
 
-TestState::TestState()
+TestState::TestState(GameStateManager* gameStateManager)
 {
 	object = nullptr;
 	object2 = nullptr;
 	object2Child = nullptr;
 	objectImage = nullptr;
 	tileImage = nullptr;
+	this->gameStateManager = gameStateManager;
 }
 
 void StarBangBang::TestState::Load()
@@ -53,6 +54,13 @@ void TestState::Update()
 	//double dt = AEFrameRateControllerGetFrameTime();
 	//object2Child->transform.position.x += 100 * dt;
 	tilemap.Update();
+
+	if (AEInputCheckTriggered(VK_SPACE))
+	{
+		//scuffed, replace later.
+		State* nextState = new TestState2(gameStateManager);
+		gameStateManager->SetNextGameState(nextState);
+	}
 }
 
 void StarBangBang::TestState::Draw()

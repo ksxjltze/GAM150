@@ -1,8 +1,9 @@
 #include "TestState2.h"
 
-StarBangBang::TestState2::TestState2()
+StarBangBang::TestState2::TestState2(GameStateManager* gameStateManager)
 {
 	object1 = nullptr;
+	this->gameStateManager = gameStateManager;
 }
 
 void StarBangBang::TestState2::Load()
