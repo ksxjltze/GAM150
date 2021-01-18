@@ -5,16 +5,19 @@ StarBangBang::TestState2::TestState2(GameStateManager* gameStateManager, int id)
 {
 	object1 = nullptr;
 	this->gameStateManager = gameStateManager;
+	sprite = { nullptr, nullptr };
 }
 
 void StarBangBang::TestState2::Load()
 {
-	object1 = objectManager.NewGameObject(100, 100);
-	objectManager.AddImageComponent(object1, graphicsManager, "../Resources/boi.png");
+	sprite.texture = graphicsManager.LoadTexture("../Resources/boi.png");
+	sprite.mesh = graphicsManager.CreateMesh(100, 100);
 }
 
 void StarBangBang::TestState2::Init()
 {
+	object1 = objectManager.NewGameObject(100, 100);
+	objectManager.AddImageComponent(object1, sprite);
 	objectManager.AddDragComponent(object1);
 }
 

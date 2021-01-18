@@ -22,6 +22,15 @@ void StarBangBang::ObjectManager::AddImageComponent(GameObject* gameObject, AEGf
 	}
 }
 
+void StarBangBang::ObjectManager::AddImageComponent(GameObject* gameObject, Sprite sprite)
+{
+	if (sprite.mesh != nullptr && sprite.texture != nullptr)
+	{
+		ImageComponent image = ImageComponent(gameObject, sprite.mesh, sprite.texture);
+		imageComponentList.push_back(image);
+	}
+}
+
 void StarBangBang::ObjectManager::AddTransformComponent(GameObject* gameObject)
 {
 	TransformComponent transform = TransformComponent(gameObject);

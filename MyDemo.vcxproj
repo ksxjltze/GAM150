@@ -117,6 +117,7 @@
     <ClInclude Include="src\ImageComponent.h" />
     <ClInclude Include="src\ObjectManager.h" />
     <ClInclude Include="src\PhysicsComponent.h" />
+    <ClInclude Include="src\Sprite.h" />
     <ClInclude Include="src\State.h" />
     <ClInclude Include="src\TestState.h" />
     <ClInclude Include="src\TestState2.h" />
