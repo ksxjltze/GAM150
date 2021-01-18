@@ -23,7 +23,8 @@ void StarBangBang::TestState2::Update()
 	objectManager.Update();
 	if(AEInputCheckTriggered(VK_SPACE))
 	{
-		gameStateManager->SetNextGameState(0);
+		//gameStateManager->SetNextGameState(1);
+		gameStateManager->ReloadGameState();
 	}
 }
 

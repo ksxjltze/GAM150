@@ -22,6 +22,8 @@ namespace StarBangBang
 		void SetInitialState(State* state);
 		void SetNextGameState(State* state);
 		void SetNextGameState(int id);
+		void ResetGameState();
+		void ReloadGameState();
 		void Update();
 	private:
 		bool stateChanged;

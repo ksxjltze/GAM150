@@ -46,6 +46,19 @@ void StarBangBang::GameStateManager::SetNextGameState(int id)
 	stateChanged = true;
 }
 
+void StarBangBang::GameStateManager::ResetGameState()
+{
+	currentState->Init();
+}
+
+void StarBangBang::GameStateManager::ReloadGameState()
+{
+	currentState->Unload();
+	currentState->Free();
+	currentState->Load();
+	currentState->Init();
+}
+
 void StarBangBang::GameStateManager::Update()
 {
 	if (currentState)
