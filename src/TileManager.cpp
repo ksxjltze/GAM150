@@ -7,8 +7,8 @@ StarBangBang::TileManager::TileManager()
 	tileWidth = 100;
 	tileHeight = 100;
 
-	int mapWidth = 20;
-	int mapHeight = 1;
+	mapWidth = 20;
+	mapHeight = 1;
 }
 
 void StarBangBang::TileManager::Init(ObjectManager& objectManager, GraphicsManager& graphicsManager)

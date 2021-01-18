@@ -57,8 +57,6 @@ void TestState::Update()
 
 	if (AEInputCheckTriggered(VK_SPACE))
 	{
-		//scuffed, replace later.
-		//State* nextState = new TestState2(gameStateManager);
 		State* nextState = gameStateManager->AddGameState<TestState2>();
 		gameStateManager->SetNextGameState(nextState);
 	}
