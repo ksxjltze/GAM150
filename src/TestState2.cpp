@@ -1,7 +1,7 @@
 #include "TestState2.h"
 #include "TestState.h"
 
-StarBangBang::TestState2::TestState2(GameStateManager* gameStateManager)
+StarBangBang::TestState2::TestState2(GameStateManager* gameStateManager, int id) : State(id)
 {
 	object1 = nullptr;
 	this->gameStateManager = gameStateManager;

@@ -8,7 +8,7 @@ namespace StarBangBang
 	class TestState2 : public State
 	{
 	public:
-		TestState2(GameStateManager* gameStateManager);
+		TestState2(GameStateManager* gameStateManager, int id);
 		void Load();
 		void Init();
 		void Update();

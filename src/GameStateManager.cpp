@@ -36,7 +36,13 @@ void StarBangBang::GameStateManager::SetNextGameState(State* state)
 void StarBangBang::GameStateManager::SetNextGameState(int id)
 {
 	//will probably change later
-	nextState = gameStateList[id];
+	for (State* state : gameStateList)
+	{
+		if (state->getID() == id)
+		{
+			nextState = state;
+		}
+	}
 	stateChanged = true;
 }
 

@@ -1,6 +1,6 @@
 #include "TestState.h"
 
-StarBangBang::TestState::TestState(StarBangBang::GameStateManager* gameStateManager)
+StarBangBang::TestState::TestState(StarBangBang::GameStateManager* gameStateManager, int id) : State(id)
 {
 	object2 = nullptr;
 	object2Child = nullptr;

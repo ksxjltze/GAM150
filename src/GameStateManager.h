@@ -13,7 +13,7 @@ namespace StarBangBang
 		template <class StateType>
 		State* AddGameState()
 		{
-			State* newState = new StateType(this);
+			State* newState = new StateType(this, (int)gameStateList.size());
 			gameStateList.push_back(newState);
 			return newState;
 		}
