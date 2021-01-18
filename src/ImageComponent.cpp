@@ -1,4 +1,5 @@
 #include "ImageComponent.h"
+#include "Utils.h"
 
 StarBangBang::ImageComponent::ImageComponent(GameObject* gameObject, AEGfxVertexList* mesh, AEGfxTexture* texture)
 {
@@ -15,16 +16,8 @@ void StarBangBang::ImageComponent::Draw()
 	// Set texture
 	AEGfxTextureSet(texture, 0, 0);
 	// Set Position
-	if (gameObject->parent != nullptr)
-	{
-		AEVec2 pos;
-		AEVec2Add(&pos, &gameObject->parent->transform.position, &gameObject->transform.position);
-		AEGfxSetPosition(pos.x, pos.y);
-	}
-	else
-	{
-		AEGfxSetPosition(gameObject->transform.position.x, gameObject->transform.position.y);
-	}
+	AEVec2 pos = GetGameObjectPos(gameObject);
+	AEGfxSetPosition(pos.x, pos.y);
 	// Set Transparency
 	AEGfxSetTransparency(1.0f);
 	// Drawing the mesh (list of triangles)

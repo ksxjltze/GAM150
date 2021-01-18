@@ -28,9 +28,11 @@ void TestState::Init()
 	AEGfxSetBlendMode(AE_GFX_BM_BLEND);
 	//object = objectManager.InitTestObject(objectImage);
 
-	object2->transform.position.x = -100;
+	object2->transform.position.x = 100;
 	objectManager.AddDragComponent(object2);
 
+	//TODO: Drag for child objects.
+	objectManager.AddDragComponent(object2Child);
 	objectManager.AddChildGameObject(object2Child, object2);
 
 	tilemap.Init();
@@ -48,6 +50,9 @@ void TestState::Update()
 {
 	//object->Update();
 	objectManager.Update();
+	//Move child
+	//double dt = AEFrameRateControllerGetFrameTime();
+	//object2Child->transform.position.x += 100 * dt;
 	tilemap.Update();
 }
 

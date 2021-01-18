@@ -1,4 +1,5 @@
 #include "DragComponent.h"
+#include "Utils.h"
 
 StarBangBang::DragComponent::DragComponent(GameObject* gameObject)
 {
@@ -9,7 +10,7 @@ StarBangBang::DragComponent::DragComponent(GameObject* gameObject)
 void StarBangBang::DragComponent::Update(AEVec2 mousePos)
 {
 	float mouseX = mousePos.x, mouseY = mousePos.y;
-	AEVec2 &pos = gameObject->transform.position;
+	AEVec2 pos = GetGameObjectPos(gameObject);
 	float width = gameObject->width, height = gameObject->height;
 
 	if (AEInputCheckTriggered(AEVK_LBUTTON))
@@ -32,5 +33,6 @@ void StarBangBang::DragComponent::Update(AEVec2 mousePos)
 	{
 		pos.x = mouseX;
 		pos.y = -mouseY;
+		SetGameObjectPos(gameObject, pos);
 	}
 }

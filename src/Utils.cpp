@@ -8,3 +8,26 @@ AEVec2 StarBangBang::GetMouseWorldPos()
 	mouseY -= AEGetWindowHeight() / 2;
 	return { (float)mouseX, (float)mouseY };
 }
+
+AEVec2 StarBangBang::GetGameObjectPos(GameObject* gameObject)
+{
+	if (gameObject->parent != nullptr)
+	{
+		AEVec2 pos;
+		AEVec2Add(&pos, &gameObject->parent->transform.position, &gameObject->transform.position);
+		return pos;
+	}
+	return gameObject->transform.position;
+}
+
+void StarBangBang::SetGameObjectPos(GameObject* gameObject, AEVec2 newPos)
+{
+	if (gameObject->parent != nullptr)
+	{
+		AEVec2 pos;
+		AEVec2Sub(&pos, &newPos, &gameObject->parent->transform.position);
+		gameObject->transform.position = pos;
+	}
+	else
+		gameObject->transform.position = newPos;
+}
