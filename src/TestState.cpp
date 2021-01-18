@@ -3,7 +3,6 @@ using namespace StarBangBang;
 
 TestState::TestState(GameStateManager* gameStateManager)
 {
-	object = nullptr;
 	object2 = nullptr;
 	object2Child = nullptr;
 	objectImage = nullptr;
@@ -35,7 +34,6 @@ void TestState::Init()
 	objectManager.AddDragComponent(object2Child);
 	objectManager.AddChildGameObject(object2Child, object2);
 
-	tilemap.Init();
 	//tileManager.Init(objectManager, graphicsManager);
 
 
@@ -48,12 +46,10 @@ void TestState::Init()
 
 void TestState::Update()
 {
-	//object->Update();
 	objectManager.Update();
 	//Move child
 	//double dt = AEFrameRateControllerGetFrameTime();
 	//object2Child->transform.position.x += 100 * dt;
-	tilemap.Update();
 
 	if (AEInputCheckTriggered(VK_SPACE))
 	{
@@ -64,9 +60,7 @@ void TestState::Update()
 
 void StarBangBang::TestState::Draw()
 {
-	//object->Draw();
 	objectManager.Draw();
-	tilemap.Draw();
 
 	char strBuffer[100];
 	memset(strBuffer, 0, 100 * sizeof(char));
@@ -82,8 +76,6 @@ void TestState::Free()
 {
 	//Free objects and textures
 	AEGfxDestroyFont(fontId);
-	//object->Exit();
-	tilemap.Exit();
 	objectManager.FreeObjects();
 }
 

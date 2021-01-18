@@ -1,8 +1,6 @@
 #pragma once
 #include "State.h"
 #include "AEEngine.h"
-#include "TestObject.h"
-#include "Tilemap.h"
 #include "ObjectManager.h"
 #include "ImageComponent.h"
 #include "TileManager.h"
@@ -31,11 +29,9 @@ namespace StarBangBang
 		Image* objectImage;
 		Image* tileImage;
 
-		GameObject* object;
 		GameObject* object2;
 		GameObject* object2Child;
 
-		Tilemap tilemap;
 		float camX = 0, camY = 0;
 		s8 fontId = 0;
 	};

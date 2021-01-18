@@ -17,7 +17,7 @@ namespace StarBangBang
 		void AddTransformComponent(GameObject* gameObject);
 		void AddDragComponent(GameObject* gameObject);
 		void AddChildGameObject(GameObject* child, GameObject* parent);
-		GameObject* InitTestObject(Image* image);
+		//GameObject* InitTestObject(Image* image);
 		GameObject* NewGameObject();
 		GameObject* NewGameObject(float width, float height);
 		void FreeObjects();

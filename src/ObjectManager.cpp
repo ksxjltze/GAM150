@@ -1,5 +1,4 @@
 #include "ObjectManager.h"
-#include "TestObject.h"
 #include "Utils.h"
 
 //Deprecated
@@ -60,14 +59,14 @@ void StarBangBang::ObjectManager::AddChildGameObject(GameObject* child, GameObje
 }
 
 //Deprecated
-StarBangBang::GameObject* StarBangBang::ObjectManager::InitTestObject(Image* image)
-{
-	TestObject* object = new TestObject();
-	object->image = image;
-	object->Init();
-	gameObjectList.push_back(object);
-	return object;
-}
+//StarBangBang::GameObject* StarBangBang::ObjectManager::InitTestObject(Image* image)
+//{
+//	TestObject* object = new TestObject();
+//	object->image = image;
+//	object->Init();
+//	gameObjectList.push_back(object);
+//	return object;
+//}
 
 StarBangBang::GameObject* StarBangBang::ObjectManager::NewGameObject()
 {
