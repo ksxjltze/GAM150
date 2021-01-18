@@ -26,9 +26,9 @@ void TestState::Init()
 {
 	////////////////////////////////
 	AEGfxSetBlendMode(AE_GFX_BM_BLEND);
-	object = objectManager.InitTestObject(objectImage);
+	//object = objectManager.InitTestObject(objectImage);
 
-	object2->transform.position.x = 100;
+	object2->transform.position.x = -100;
 	objectManager.AddDragComponent(object2);
 
 	objectManager.AddChildGameObject(object2Child, object2);
@@ -46,14 +46,14 @@ void TestState::Init()
 
 void TestState::Update()
 {
-	object->Update();
+	//object->Update();
 	objectManager.Update();
 	tilemap.Update();
 }
 
 void StarBangBang::TestState::Draw()
 {
-	object->Draw();
+	//object->Draw();
 	objectManager.Draw();
 	tilemap.Draw();
 
@@ -71,7 +71,7 @@ void TestState::Free()
 {
 	//Free objects and textures
 	AEGfxDestroyFont(fontId);
-	object->Exit();
+	//object->Exit();
 	tilemap.Exit();
 	objectManager.FreeObjects();
 }

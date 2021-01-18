@@ -55,7 +55,7 @@ void StarBangBang::ObjectManager::AddChildGameObject(GameObject* child, GameObje
 {
 	child->parent = parent;
 	AEVec2 newPos;
-	AEVec2Sub(&newPos, &parent->transform.position, &child->transform.position);
+	AEVec2Sub(&newPos, &child->transform.position , &parent->transform.position);
 	child->transform.position = newPos;
 }
 
