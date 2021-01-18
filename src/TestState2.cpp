@@ -34,5 +34,6 @@ void StarBangBang::TestState2::Free()
 
 void StarBangBang::TestState2::Unload()
 {
-
+	graphicsManager.UnloadTextures();
+	graphicsManager.FreeMeshes();
 }
