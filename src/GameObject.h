@@ -12,5 +12,6 @@ namespace StarBangBang
 		virtual void Exit() {};
 		Transform transform;
 		float width = 0, height = 0;
+		GameObject* parent = nullptr;
 	};
 }

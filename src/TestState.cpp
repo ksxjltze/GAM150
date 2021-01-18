@@ -6,6 +6,7 @@ TestState::TestState()
 {
 	object = nullptr;
 	object2 = nullptr;
+	object2Child = nullptr;
 	objectImage = nullptr;
 	tileImage = nullptr;
 }
@@ -13,10 +14,12 @@ TestState::TestState()
 void StarBangBang::TestState::Load()
 {
 	objectImage = objectManager.ImageLoad(graphicsManager, 100, 100, "../Resources/boi.png", 255);
-	//tileImage = objectManager.ImageLoad(graphicsManager, 100, 100, "../Resources/grass.png", 255);
+	tileImage = objectManager.ImageLoad(graphicsManager, 100, 100, "../Resources/grass.png", 255);
 
 	object2 = objectManager.NewGameObject(100, 100);
+	object2Child = objectManager.NewGameObject(50, 50);
 	objectManager.AddImageComponent(object2, graphicsManager, "../Resources/PlanetTexture.png");
+	objectManager.AddImageComponent(object2Child, graphicsManager, "../Resources/boi.png");
 }
 
 void TestState::Init()
@@ -28,8 +31,10 @@ void TestState::Init()
 	object2->transform.position.x = 100;
 	objectManager.AddDragComponent(object2);
 
-	//tilemap.Init();
-	tileManager.Init(objectManager, graphicsManager);
+	objectManager.AddChildGameObject(object2Child, object2);
+
+	tilemap.Init();
+	//tileManager.Init(objectManager, graphicsManager);
 
 
 	//////////////////////////////////
@@ -43,14 +48,14 @@ void TestState::Update()
 {
 	object->Update();
 	objectManager.Update();
-	//tilemap.Update();
+	tilemap.Update();
 }
 
 void StarBangBang::TestState::Draw()
 {
 	object->Draw();
 	objectManager.Draw();
-	//tilemap.Draw();
+	tilemap.Draw();
 
 	char strBuffer[100];
 	memset(strBuffer, 0, 100 * sizeof(char));
@@ -67,7 +72,7 @@ void TestState::Free()
 	//Free objects and textures
 	AEGfxDestroyFont(fontId);
 	object->Exit();
-	//tilemap.Exit();
+	tilemap.Exit();
 	objectManager.FreeObjects();
 }
 

@@ -15,7 +15,16 @@ void StarBangBang::ImageComponent::Draw()
 	// Set texture
 	AEGfxTextureSet(texture, 0, 0);
 	// Set Position
-	AEGfxSetPosition(gameObject->transform.position.x, gameObject->transform.position.y);
+	if (gameObject->parent != nullptr)
+	{
+		AEVec2 pos;
+		AEVec2Add(&pos, &gameObject->parent->transform.position, &gameObject->transform.position);
+		AEGfxSetPosition(pos.x, pos.y);
+	}
+	else
+	{
+		AEGfxSetPosition(gameObject->transform.position.x, gameObject->transform.position.y);
+	}
 	// Set Transparency
 	AEGfxSetTransparency(1.0f);
 	// Drawing the mesh (list of triangles)

@@ -51,6 +51,14 @@ void StarBangBang::ObjectManager::AddDragComponent(GameObject* gameObject)
 	dragComponentList.push_back(dragComponent);
 }
 
+void StarBangBang::ObjectManager::AddChildGameObject(GameObject* child, GameObject* parent)
+{
+	child->parent = parent;
+	AEVec2 newPos;
+	AEVec2Sub(&newPos, &parent->transform.position, &child->transform.position);
+	child->transform.position = newPos;
+}
+
 //Deprecated
 StarBangBang::GameObject* StarBangBang::ObjectManager::InitTestObject(Image* image)
 {

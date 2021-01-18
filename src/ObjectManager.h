@@ -16,6 +16,7 @@ namespace StarBangBang
 		void AddImageComponent(GameObject* gameObject, AEGfxTexture* texture, AEGfxVertexList* mesh);
 		void AddTransformComponent(GameObject* gameObject);
 		void AddDragComponent(GameObject* gameObject);
+		void AddChildGameObject(GameObject* child, GameObject* parent);
 		GameObject* InitTestObject(Image* image);
 		GameObject* NewGameObject();
 		GameObject* NewGameObject(float width, float height);

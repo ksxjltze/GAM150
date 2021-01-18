@@ -30,6 +30,7 @@ namespace StarBangBang
 
 		GameObject* object;
 		GameObject* object2;
+		GameObject* object2Child;
 
 		Tilemap tilemap;
 		float camX = 0, camY = 0;
