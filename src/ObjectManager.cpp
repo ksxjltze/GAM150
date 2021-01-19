@@ -28,6 +28,7 @@ void StarBangBang::ObjectManager::AddImageComponent(GameObject* gameObject, Spri
 	{
 		ImageComponent image = ImageComponent(gameObject, sprite.mesh, sprite.texture);
 		imageComponentList.push_back(image);
+		gameObject->AddComponent(&imageComponentList.back());
 	}
 }
 

@@ -2,6 +2,7 @@
 
 StarBangBang::Level_Demo::Level_Demo(GameStateManager* manager, int id) : State(id)
 {
+	player = nullptr;
 	gameStateManager = manager;
 }
 
@@ -19,12 +20,17 @@ void StarBangBang::Level_Demo::Init()
 
 void StarBangBang::Level_Demo::Update()
 {
-	
+	State::Update();
 }
 
 void StarBangBang::Level_Demo::Draw()
 {
-	
+	State::Draw();
+	player->transform.position.x += 100;
+	ImageComponent* test = player->GetComponent<ImageComponent>();
+	test->Draw();
+	player->transform.position.x -= 100;
+
 }
 
 void StarBangBang::Level_Demo::Free()
