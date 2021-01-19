@@ -14,7 +14,6 @@ namespace StarBangBang
 		{
 			for (Component* component : componentList)
 			{
-				int a = T::id;
 				if (component->id == T::id)
 				{
 					return static_cast<T*>(component);
