@@ -7,10 +7,12 @@ namespace StarBangBang
 	{
 	public:
 		TileManager();
-		void Init(ObjectManager &objectManager, GraphicsManager& graphicsManager);
+		GameObject* Init(ObjectManager &objectManager, GraphicsManager& graphicsManager);
+		void Load(GraphicsManager& graphicsManager);
 	private:
-		GameObject* tilemapGameObject;
 		std::vector <std::vector<GameObject*>> tiles;
+		GameObject* tilemapGameObject;
+		Sprite tileSprite;
 		float tileWidth;
 		float tileHeight;
 

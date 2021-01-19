@@ -42,7 +42,6 @@ void StarBangBang::TestState::Update()
 	{
 		//State* nextState = gameStateManager->AddGameState<TestState2>();
 		gameStateManager->SetNextGameState(1);
-		//gameStateManager->SetNextGameState(1);
 	}
 }
 

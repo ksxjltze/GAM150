@@ -5,6 +5,7 @@
 #include "GameStateManager.h"
 #include "TestState.h"
 #include "TestState2.h"
+#include "MapEditor.h"
 
 // ---------------------------------------------------------------------------
 // main
@@ -25,6 +26,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 
 	State* state1 = gameStateManager.AddGameState<StarBangBang::TestState>();
 	State* state2 = gameStateManager.AddGameState<StarBangBang::TestState2>();
+	State* state3 = gameStateManager.AddGameState<StarBangBang::MapEditor>();
 	gameStateManager.SetInitialState(state1);
 
 	// Variable declaration end
