@@ -9,6 +9,7 @@ namespace StarBangBang
 	public:
 		ImageComponent(GameObject* gameObject, AEGfxVertexList* mesh, AEGfxTexture* texture);
 		void Draw();
+		const static int id = 1;
 	private:
 		AEGfxVertexList* mesh;
 		AEGfxTexture* texture;

@@ -6,6 +6,7 @@ StarBangBang::ImageComponent::ImageComponent(GameObject* gameObject, AEGfxVertex
 	this->mesh = mesh;
 	this->texture = texture;
 	this->gameObject = gameObject;
+	Component::id = id;
 }
 
 void StarBangBang::ImageComponent::Draw()

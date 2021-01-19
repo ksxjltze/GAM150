@@ -1,6 +1,7 @@
 #pragma once
 #include "Transform.h"
 #include <vector>
+#include <typeinfo>
 
 namespace StarBangBang
 {
@@ -11,7 +12,16 @@ namespace StarBangBang
 		template <class T>
 		inline T* GetComponent()
 		{
-			return static_cast<T*>(componentList[0]);
+			for (Component* component : componentList)
+			{
+				int a = T::id;
+				if (component->id == T::id)
+				{
+					return static_cast<T*>(component);
+				}
+			}
+			return nullptr;
+
 		}
 		inline void AddComponent(Component* component)
 		{
