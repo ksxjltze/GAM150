@@ -6,6 +6,7 @@
 #include "TileManager.h"
 #include "TestState2.h"
 #include "GameStateManager.h"
+#include "MemoryManager.h"
 
 namespace StarBangBang
 {
@@ -24,6 +25,7 @@ namespace StarBangBang
 		GameStateManager* gameStateManager;
 		GraphicsManager graphicsManager;
 		ObjectManager objectManager;
+		MemoryManager memoryManager { &objectManager, &graphicsManager };
 		TileManager tileManager;
 
 		GameObject* object2;

@@ -97,6 +97,7 @@
     <ClCompile Include="src\ImageComponent.cpp" />
     <ClCompile Include="src\Main.cpp" />
     <ClCompile Include="src\MapEditor.cpp" />
+    <ClCompile Include="src\MemoryManager.cpp" />
     <ClCompile Include="src\ObjectManager.cpp" />
     <ClCompile Include="src\PhysicsComponent.cpp" />
     <ClCompile Include="src\TestState.cpp" />
@@ -117,6 +118,7 @@
     <ClInclude Include="src\GraphicsManager.h" />
     <ClInclude Include="src\ImageComponent.h" />
     <ClInclude Include="src\MapEditor.h" />
+    <ClInclude Include="src\MemoryManager.h" />
     <ClInclude Include="src\ObjectManager.h" />
     <ClInclude Include="src\PhysicsComponent.h" />
     <ClInclude Include="src\Sprite.h" />

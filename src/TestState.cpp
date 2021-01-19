@@ -2,9 +2,10 @@
 
 StarBangBang::TestState::TestState(StarBangBang::GameStateManager* gameStateManager, int id) : State(id)
 {
+	this->gameStateManager = gameStateManager;
 	object2 = nullptr;
 	object2Child = nullptr;
-	this->gameStateManager = gameStateManager;
+
 }
 
 void StarBangBang::TestState::Load()
@@ -63,12 +64,10 @@ void StarBangBang::TestState::Free()
 {
 	//Free objects and textures
 	//AEGfxDestroyFont(fontId);
-	objectManager.FreeObjects();
-	objectManager.FreeComponents();
+	memoryManager.Free();
 }
 
 void StarBangBang::TestState::Unload()
 {
-	graphicsManager.UnloadTextures();
-	graphicsManager.FreeMeshes();
+	memoryManager.Unload();
 }
