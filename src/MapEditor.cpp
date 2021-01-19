@@ -24,7 +24,11 @@ void StarBangBang::MapEditor::Update()
 	//if (AEInputCheckTriggered(VK_LBUTTON))
 	//{
 	//	tileManager.AddTile(5, 1);
-	//}
+	//}	
+	if (AEInputCheckTriggered(VK_SPACE))
+	{
+		gameStateManager->ResetGameState();
+	}
 }
 
 void StarBangBang::MapEditor::Draw()

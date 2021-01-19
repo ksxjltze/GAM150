@@ -25,6 +25,7 @@ namespace StarBangBang
 		void ResetGameState();
 		void ReloadGameState();
 		void Update();
+		void ExitGame();
 	private:
 		bool stateChanged;
 		State* prevState;

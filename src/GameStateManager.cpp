@@ -11,8 +11,10 @@ StarBangBang::GameStateManager::GameStateManager()
 
 StarBangBang::GameStateManager::~GameStateManager()
 {
-	currentState->Free();
-	currentState->Unload();
+	if (currentState)
+	{
+		ExitGame();
+	}
 }
 
 void StarBangBang::GameStateManager::AddGameState(State* state)
@@ -48,6 +50,7 @@ void StarBangBang::GameStateManager::SetNextGameState(int id)
 
 void StarBangBang::GameStateManager::ResetGameState()
 {
+	currentState->Free();
 	currentState->Init();
 }
 
@@ -87,4 +90,12 @@ void StarBangBang::GameStateManager::Update()
 	{
 		std::cout << "ERROR: State not found." << std::endl;
 	}
+}
+
+void StarBangBang::GameStateManager::ExitGame()
+{
+	currentState->Unload();
+	currentState->Free();
+	currentState = nullptr;
+	nextState = nullptr;
 }
