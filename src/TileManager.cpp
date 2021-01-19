@@ -44,7 +44,7 @@ StarBangBang::GameObject* StarBangBang::TileManager::Init(GraphicsManager& graph
 
 			GameObject* tile = objectManager->NewGameObject(tileWidth, tileHeight);
 			objectManager->AddChildGameObject(tile, tilemapGameObject);
-			objectManager->AddImageComponent(tile, tileSprite.texture, tileSprite.mesh);
+			objectManager->AddImageComponent(tile, tileSprite);
 			tile->transform.position = pos;
 			row.push_back(tile);
 		}
@@ -59,7 +59,7 @@ void StarBangBang::TileManager::AddTile(int gridX, int gridY)
 	GameObject* tile = objectManager->NewGameObject(tileWidth, tileHeight);
 	tile->transform.position.x *= tileWidth;
 	tile->transform.position.y *= tileHeight;
-	objectManager->AddImageComponent(tile, tileSprite.texture, tileSprite.mesh);
+	objectManager->AddImageComponent(tile, tileSprite);
 	objectManager->AddChildGameObject(tile, tilemapGameObject);
 
 	std::vector<GameObject*> row;

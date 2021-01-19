@@ -1,27 +1,6 @@
 #include "ObjectManager.h"
 #include "Utils.h"
 
-void StarBangBang::ObjectManager::AddImageComponent(GameObject* gameObject, GraphicsManager& graphicsManager, const char* spritePath)
-{
-	AEGfxVertexList* mesh = graphicsManager.CreateMesh(gameObject->width, gameObject->height);
-	AEGfxTexture* texture = graphicsManager.LoadTexture(spritePath);
-
-	if (mesh != nullptr && texture != nullptr)
-	{
-		ImageComponent image = ImageComponent(gameObject, mesh, texture);
-		imageComponentList.push_back(image);
-	}
-}
-
-void StarBangBang::ObjectManager::AddImageComponent(GameObject* gameObject, AEGfxTexture* texture, AEGfxVertexList* mesh)
-{
-	if (mesh != nullptr && texture != nullptr)
-	{
-		ImageComponent image = ImageComponent(gameObject, mesh, texture);
-		imageComponentList.push_back(image);
-	}
-}
-
 void StarBangBang::ObjectManager::AddImageComponent(GameObject* gameObject, Sprite sprite)
 {
 	if (sprite.mesh != nullptr && sprite.texture != nullptr)
@@ -30,18 +9,6 @@ void StarBangBang::ObjectManager::AddImageComponent(GameObject* gameObject, Spri
 		imageComponentList.push_back(image);
 		gameObject->AddComponent(&imageComponentList.back());
 	}
-}
-
-void StarBangBang::ObjectManager::AddTransformComponent(GameObject* gameObject)
-{
-	TransformComponent transform = TransformComponent(gameObject);
-	transformComponentList.push_back(transform);
-}
-
-void StarBangBang::ObjectManager::AddDragComponent(GameObject* gameObject)
-{
-	DragComponent dragComponent(gameObject);
-	dragComponentList.push_back(dragComponent);
 }
 
 void StarBangBang::ObjectManager::AddChildGameObject(GameObject* child, GameObject* parent)
