@@ -4,6 +4,7 @@
 #include "AEEngine.h"
 #include "GameStateManager.h"
 #include "MapEditor.h"
+#include "Level_Demo.h"
 
 // ---------------------------------------------------------------------------
 // main
@@ -24,7 +25,8 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 	GameStateManager gameStateManager;
 
 	State* state1 = gameStateManager.AddGameState<MapEditor>();
-	gameStateManager.SetInitialState(state1);
+	State* demoState = gameStateManager.AddGameState<Level_Demo>();
+	gameStateManager.SetInitialState(demoState);
 
 	// Variable declaration end
 	///////////////////////////

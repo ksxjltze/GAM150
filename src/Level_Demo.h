@@ -18,6 +18,8 @@ namespace StarBangBang
 		void Free();
 		void Unload();
 	private:
+		Sprite playerImage;
+		GameObject* player;
 		GameStateManager* gameStateManager;
 	};
 }
