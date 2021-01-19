@@ -3,6 +3,7 @@
 
 #include "AEEngine.h"
 #include "TestState.h"
+#include "CollisionTest.h"
 
 // ---------------------------------------------------------------------------
 // main

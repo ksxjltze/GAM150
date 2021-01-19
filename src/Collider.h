@@ -1,23 +1,26 @@
 #pragma once
 #include "GameObject.h"
+#include "Component.h"
 namespace StarBangBang
 {
-	enum ShapeType {Box,Circle};
-	class Collider
+	enum class ShapeType {Box,Circle};
+	class Collider : public Component
 	{
 		
 		public:
-			ShapeType shape;
 			bool isTrigger = false;
-			GameObject *gameObject;
+		protected:
+			GameObject *gameObject = nullptr;
 			/*virtual void OnEnter() = 0;
 			virtual void OnStay() = 0;
 			virtual void OnExit() = 0;*/
 			
 
 	};
-	class CircleCollider : Collider 
+	class CircleCollider : public Collider 
 	{
+		private : 
+			ShapeType shape = ShapeType::Circle;
 		public:
 			float radius;
 			AEVec2 center = {0,0};
@@ -26,19 +29,23 @@ namespace StarBangBang
 			~CircleCollider(){}
 
 	};
-	class BoxCollider : Collider
+
+	class BoxCollider : public Collider
 	{
+		private:
+			ShapeType shape = ShapeType::Box;
 		public:
 			AEVec2 min;		
 			AEVec2 max;		
 			AEVec2 extend;	//half of width and height 
 			AEVec2 center;
-			BoxCollider(AEVec2 _min, AEVec2 _max, AEVec2 _center, float width = 1.0f, float height = 1.0f);
 			
 			~BoxCollider(){}
 			inline float GetHeight();
 		
 			inline float GetWidth();
+
+			BoxCollider(GameObject* _go,AEVec2 _center, float width = 1.0f, float height = 1.0f);
 		
 	};
 }

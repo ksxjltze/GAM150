@@ -11,15 +11,17 @@ float BoxCollider::GetWidth()
 {
     return extend.x * 2.0f;
 }
-BoxCollider::BoxCollider(AEVec2 _min, AEVec2 _max, AEVec2 _center, float width = 1.0f, float height = 1.0f)
+BoxCollider::BoxCollider(GameObject* _go,AEVec2 _center, float width, float height)
 {
 	shape = ShapeType::Box;
-	min = _min;
-	max = _max;
+	gameObject = _go;
+	extend = AEVec2{ width * 0.5f,height * 0.5f};
+	min = AEVec2{_center.x - extend.x , _center.y - extend.y} ;
+	max = AEVec2{ _center.x + extend.x , _center.y + extend.y };;
 	center = _center;
-	extend = AEVec2{ width,height };
+	
 }
-CircleCollider::CircleCollider(GameObject* _go, AEVec2 _center, float _rad = 1.0f)
+CircleCollider::CircleCollider(GameObject* _go, AEVec2 _center, float _rad )
 {
 	shape = ShapeType::Circle;
 	gameObject = _go;

@@ -3,10 +3,14 @@
 #include <iostream>
 using namespace StarBangBang;
 
+const float bounciness = 1.25f;
+unsigned int c_render_size = 20; // circle points render amount
 AEVec2 CollisionManager::ProjectOnToAxis(AEVec2 v, AEVec2 axis)
 {
 	//axis = AEVec2Normalize();
+	return AEVec2{ 0,0 };
 }
+
 bool CollisionManager::CircleVsCircle(CircleCollider c1, CircleCollider c2 , CollisionData* collision)
 {
 	float r = c1.radius + c2.radius;
@@ -16,15 +20,35 @@ bool CollisionManager::CircleVsCircle(CircleCollider c1, CircleCollider c2 , Col
 	d = sqrtf(d);
 	if (d != 0)
 	{
-		if (!collision)
+		if (collision)
+		{
+			collision->pen_depth = r - d;
+			collision->col_normal = AEVec2{ (c2.center.x - c1.center.x) / d , (c2.center.y - c1.center.y) / d };	
+			
+		}
+		else
+		{
+			collision = nullptr;
 			std::cout << "Error: CollisionData is nullptr" << "\n";
-		collision->pen_depth = r - d;
-		collision->col_normal = AEVec2{ (c2.center.x - c1.center.x)/d , (c2.center.y - c1.center.y)/d };
+		}
+				
 		return true;
 	}
 	else //circle center is on top of each other
 	{
-
+		if (collision)
+		{
+			collision->pen_depth = c1.radius;
+			collision->col_normal = AEVec2{ 0, 1 };
+			
+		}
+		else
+		{
+			collision = nullptr;
+			std::cout << "Error: CollisionData is nullptr" << "\n";
+		}
+		
+		return true;
 	}
 }
 bool CollisionManager::AABBvsAABB(BoxCollider b1, BoxCollider b2)
@@ -40,13 +64,46 @@ bool CollisionManager::AABBvsAABB(BoxCollider b1, BoxCollider b2)
 	return true;
 }
 
-void CollisionManager::Resolve(Collider c1, Collider c2 , CollisionData col)
+void CollisionManager::Resolve_CirclevsCircle(CircleCollider c1, CircleCollider c2 , CollisionData col)
 {
 	if (c1.isTrigger || c2.isTrigger)
 		return;
 	
+	AEVec2 resolveForce;
+	float scale = bounciness * col.pen_depth;
+	AEVec2Scale(&resolveForce, &col.col_normal, scale);
+	//movement force // (reminder)should over be dt 
+	AEVec2 temp = c1.center;
+	AEVec2Add(&c1.center, &temp, &resolveForce);
 }
+void CollisionManager::DebugCollider(BoxCollider c)
+{
+	
+}
+void CollisionManager::DebugCollider(CircleCollider c)
+{
+	AEGfxStart();
+	float inc_angle = round(2.0f * PI / c_render_size * 10.0f)/10.0f;
+	float vert_txt = roundf (1.0f / c_render_size * 10.0f )/10.0f;
+	AEVec2 start = AEVec2{ c.center.x , c.center.y * c.radius };
+	AEVec2 vresult;
+	AEMtx33 rot; 
+	AEGfxVertexList* verts;
+	AEGfxVertexAdd(start.x, start.y, 0x00FF00, 0.0f, inc_angle);
+	for (int i = 1; i < c_render_size; i++)
+	{
+		AEMtx33Rot(&rot, inc_angle * i);
+		AEMtx33MultVec(&vresult,&rot , &start);
+		//AEGfxVertexAdd(c.center.x + vresult.x, c.center.y + vresult.y, 0xFF0000, , )
+	}
+	//AEGfxMeshDraw
+	//AEGfxEnd();
 
+	(c.center.x);
+}
+void StarBangBang::CollisionManager::Resolve_BoxvsBox(BoxCollider b1, BoxCollider b2, CollisionData col)
+{
+}
 /*bool CollisionManager::SATBox(BoxCollider b1, BoxCollider b2)
 {
 	bool intersect;
