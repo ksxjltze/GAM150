@@ -4,6 +4,7 @@
 
 namespace StarBangBang
 {
+	void DrawImage(AEGfxVertexList* mesh, AEGfxTexture* texture, AEVec2 pos);
 	class GraphicsManager
 	{
 	public:
