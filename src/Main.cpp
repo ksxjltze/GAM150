@@ -18,11 +18,12 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 
 	///////////////////////
 	// Variable declaration
+	using namespace StarBangBang;
 
 	int gGameRunning = 1;
-	StarBangBang::GameStateManager gameStateManager;
+	GameStateManager gameStateManager;
 
-	State* state1 = gameStateManager.AddGameState<StarBangBang::MapEditor>();
+	State* state1 = gameStateManager.AddGameState<MapEditor>();
 	gameStateManager.SetInitialState(state1);
 
 	// Variable declaration end

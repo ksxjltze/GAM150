@@ -37,7 +37,6 @@ void StarBangBang::GameStateManager::SetNextGameState(State* state)
 
 void StarBangBang::GameStateManager::SetNextGameState(int id)
 {
-	//will probably change later
 	for (State* state : gameStateList)
 	{
 		if (state->getID() == id)
@@ -75,13 +74,11 @@ void StarBangBang::GameStateManager::Update()
 				prevState = currentState;
 				currentState = nextState;
 			}
-
 			currentState->Load();
 			currentState->Init();
 			stateChanged = false;
 
 		}
-
 		currentState->Update();
 		currentState->Draw();
 

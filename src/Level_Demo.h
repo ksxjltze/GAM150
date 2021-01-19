@@ -1,14 +1,16 @@
 #pragma once
-#include "TileManager.h"
-#include "GameStateManager.h"
+#include "State.h"
+#include "ObjectManager.h"
+#include "GraphicsManager.h"
 #include "MemoryManager.h"
+#include "GameStateManager.h"
 
 namespace StarBangBang
 {
-	class MapEditor : public State
+	class Level_Demo : public State
 	{
 	public:
-		MapEditor(GameStateManager* manager, int id);
+		Level_Demo(GameStateManager* manager, int id);
 		void Load();
 		void Init();
 		void Update();
@@ -16,9 +18,6 @@ namespace StarBangBang
 		void Free();
 		void Unload();
 	private:
-		TileManager tileManager { &objectManager };
-		GameObject* tileMap;
-
 		GameStateManager* gameStateManager;
 	};
 }
