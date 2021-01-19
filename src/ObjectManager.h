@@ -2,7 +2,6 @@
 #include "GraphicsManager.h"
 #include "GameObject.h"
 #include "ImageComponent.h"
-#include "TransformComponent.h"
 #include "DragComponent.h"
 #include "Sprite.h"
 #include <vector>

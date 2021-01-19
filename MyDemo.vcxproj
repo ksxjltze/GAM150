@@ -104,7 +104,6 @@
     <ClCompile Include="src\ObjectManager.cpp" />
     <ClCompile Include="src\PhysicsComponent.cpp" />
     <ClCompile Include="src\TileManager.cpp" />
-    <ClCompile Include="src\TransformComponent.cpp" />
     <ClCompile Include="src\Utils.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -127,7 +126,6 @@
     <ClInclude Include="src\State.h" />
     <ClInclude Include="src\TileManager.h" />
     <ClInclude Include="src\Transform.h" />
-    <ClInclude Include="src\TransformComponent.h" />
     <ClInclude Include="src\Utils.h" />
   </ItemGroup>
   <ItemGroup>
