@@ -49,9 +49,13 @@ void StarBangBang::ObjectManager::FreeObjects()
 
 void StarBangBang::ObjectManager::FreeComponents()
 {
+	for (Component* component : componentList)
+	{
+		delete component;
+		component = nullptr;
+	}
+	componentList.clear();
 	imageComponentList.clear();
-	transformComponentList.clear();
-	dragComponentList.clear();
 }
 
 void StarBangBang::ObjectManager::Draw()
@@ -64,9 +68,8 @@ void StarBangBang::ObjectManager::Draw()
 
 void StarBangBang::ObjectManager::Update()
 {
-	AEVec2 mousePos = GetMouseWorldPos();
-	for (DragComponent &dragComponent : dragComponentList)
+	for (Component* component : componentList)
 	{
-		dragComponent.Update(mousePos);
+		component->Update();
 	}
 }

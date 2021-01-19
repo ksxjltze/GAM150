@@ -7,8 +7,9 @@ StarBangBang::DragComponent::DragComponent(GameObject* gameObject)
 	enabled = false;
 }
 
-void StarBangBang::DragComponent::Update(AEVec2 mousePos)
+void StarBangBang::DragComponent::Update()
 {
+	AEVec2 mousePos = GetMouseWorldPos();
 	float mouseX = mousePos.x, mouseY = mousePos.y;
 	AEVec2 pos = GetGameObjectPos(gameObject);
 	float width = gameObject->width, height = gameObject->height;

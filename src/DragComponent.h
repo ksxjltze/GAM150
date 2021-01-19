@@ -7,7 +7,7 @@ namespace StarBangBang
 	{
 	public:
 		DragComponent(GameObject* gameObject);
-		void Update(AEVec2 mousePos);
+		void Update();
 	private:
 		bool enabled;
 	};

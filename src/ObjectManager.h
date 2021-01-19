@@ -15,9 +15,9 @@ namespace StarBangBang
 		template <class T>
 		void AddComponent(GameObject* gameObject)
 		{
-			T component(gameObject);
+			T* component = new T(gameObject);
 			componentList.push_back(component);
-			gameObject->AddComponent(&componentList.back());
+			gameObject->AddComponent(component);
 		}
 
 		void AddImageComponent(GameObject* gameObject, Sprite sprite);
@@ -32,8 +32,6 @@ namespace StarBangBang
 	private:
 		std::vector<GameObject*> gameObjectList;
 		std::vector<ImageComponent> imageComponentList;
-		std::vector<TransformComponent> transformComponentList;
-		std::vector<DragComponent> dragComponentList;
-		std::vector<Component> componentList;
+		std::vector<Component*> componentList;
 	};
 }
