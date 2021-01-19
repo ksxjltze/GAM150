@@ -19,7 +19,7 @@ void StarBangBang::MapEditor::Init()
 
 void StarBangBang::MapEditor::Update()
 {
-	tileMap->transform.position.x += 10 * AEFrameRateControllerGetFrameTime();
+	tileMap->transform.position.x += 10 * (float)AEFrameRateControllerGetFrameTime();
 	objectManager.Update();
 }
 
@@ -30,12 +30,10 @@ void StarBangBang::MapEditor::Draw()
 
 void StarBangBang::MapEditor::Free()
 {
-	objectManager.FreeComponents();
-	objectManager.FreeObjects();
+	memoryManager.Free();
 }
 
 void StarBangBang::MapEditor::Unload()
 {
-	graphicsManager.UnloadTextures();
-	graphicsManager.FreeMeshes();
+	memoryManager.Unload();
 }

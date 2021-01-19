@@ -2,7 +2,7 @@
 
 StarBangBang::TileManager::TileManager()
 {
-	tilemapGameObject = nullptr;
+	tilemapGameObject = nullptr; 
 
 	tileWidth = 100;
 	tileHeight = 100;

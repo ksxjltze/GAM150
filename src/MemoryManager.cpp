@@ -1,5 +1,11 @@
 #include "MemoryManager.h"
 
+StarBangBang::MemoryManager::MemoryManager()
+{
+    objectManager = nullptr;
+    graphicsManager = nullptr;
+}
+
 StarBangBang::MemoryManager::MemoryManager(ObjectManager* objectManager, GraphicsManager* graphicsManager)
 {
     this->objectManager = objectManager;
@@ -13,12 +19,21 @@ void StarBangBang::MemoryManager::Load()
 
 void StarBangBang::MemoryManager::Free()
 {
-    objectManager->FreeComponents();
-    objectManager->FreeObjects();
+    assert(objectManager);
+    if (objectManager)
+    {
+        objectManager->FreeComponents();
+        objectManager->FreeObjects();
+    }
+        
 }
 
 void StarBangBang::MemoryManager::Unload()
 {
-    graphicsManager->UnloadTextures();
-    graphicsManager->FreeMeshes();
+    assert(graphicsManager);
+    if (graphicsManager)
+    {
+        graphicsManager->UnloadTextures();
+        graphicsManager->FreeMeshes();
+    }
 }

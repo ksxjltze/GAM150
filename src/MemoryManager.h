@@ -6,6 +6,7 @@ namespace StarBangBang
 	class MemoryManager
 	{
 	public:
+		MemoryManager();
 		MemoryManager(ObjectManager* objectManager, GraphicsManager* graphicsManager);
 		void Load();
 		void Free();

@@ -3,6 +3,7 @@
 #include "ObjectManager.h"
 #include "GameStateManager.h"
 #include "Sprite.h"
+#include "MemoryManager.h"
 
 namespace StarBangBang
 {
@@ -18,6 +19,7 @@ namespace StarBangBang
 		void Unload();
 	private:
 		Sprite sprite;
+		MemoryManager memoryManager { &objectManager, &graphicsManager };
 		ObjectManager objectManager;
 		GraphicsManager graphicsManager;
 		GameStateManager* gameStateManager;

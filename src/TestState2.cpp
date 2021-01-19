@@ -38,12 +38,10 @@ void StarBangBang::TestState2::Draw()
 
 void StarBangBang::TestState2::Free()
 {
-	objectManager.FreeObjects();
-	objectManager.FreeComponents();
+	memoryManager.Free();
 }
 
 void StarBangBang::TestState2::Unload()
 {
-	graphicsManager.UnloadTextures();
-	graphicsManager.FreeMeshes();
+	memoryManager.Unload();
 }

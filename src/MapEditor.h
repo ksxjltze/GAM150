@@ -1,6 +1,7 @@
 #pragma once
 #include "TileManager.h"
 #include "GameStateManager.h"
+#include "MemoryManager.h"
 
 namespace StarBangBang
 {
@@ -17,8 +18,10 @@ namespace StarBangBang
 	private:
 		TileManager tileManager;
 		GameObject* tileMap;
+
+		GameStateManager* gameStateManager;
 		ObjectManager objectManager;
 		GraphicsManager graphicsManager;
-		GameStateManager* gameStateManager;
+		MemoryManager memoryManager{ &objectManager, &graphicsManager };
 	};
 }
