@@ -21,10 +21,10 @@ void StarBangBang::MapEditor::Update()
 {
 	//tileMap->transform.position.x += 10 * (float)AEFrameRateControllerGetFrameTime();
 	objectManager.Update();
-	if (AEInputCheckTriggered(VK_LBUTTON))
-	{
-		tileManager.AddTile(5, 1);
-	}
+	//if (AEInputCheckTriggered(VK_LBUTTON))
+	//{
+	//	tileManager.AddTile(5, 1);
+	//}
 }
 
 void StarBangBang::MapEditor::Draw()

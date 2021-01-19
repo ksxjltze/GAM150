@@ -100,8 +100,6 @@
     <ClCompile Include="src\MemoryManager.cpp" />
     <ClCompile Include="src\ObjectManager.cpp" />
     <ClCompile Include="src\PhysicsComponent.cpp" />
-    <ClCompile Include="src\TestState.cpp" />
-    <ClCompile Include="src\TestState2.cpp" />
     <ClCompile Include="src\TileManager.cpp" />
     <ClCompile Include="src\TransformComponent.cpp" />
     <ClCompile Include="src\Utils.cpp" />
@@ -123,8 +121,6 @@
     <ClInclude Include="src\PhysicsComponent.h" />
     <ClInclude Include="src\Sprite.h" />
     <ClInclude Include="src\State.h" />
-    <ClInclude Include="src\TestState.h" />
-    <ClInclude Include="src\TestState2.h" />
     <ClInclude Include="src\TileManager.h" />
     <ClInclude Include="src\Transform.h" />
     <ClInclude Include="src\TransformComponent.h" />
