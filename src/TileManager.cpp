@@ -19,7 +19,7 @@ void StarBangBang::TileManager::Load(GraphicsManager& graphicsManager)
 
 StarBangBang::GameObject* StarBangBang::TileManager::Init(ObjectManager& objectManager, GraphicsManager& graphicsManager)
 {
-	tilemapGameObject = objectManager.NewGameObject();
+	tilemapGameObject = objectManager.NewGameObject(tileWidth * mapWidth, tileHeight * mapHeight);
 	tilemapGameObject->transform.position.y -= AEGetWindowHeight() / 2;
 	tilemapGameObject->transform.position.x -= AEGetWindowWidth() / 2;
 

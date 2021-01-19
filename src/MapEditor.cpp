@@ -14,12 +14,12 @@ void StarBangBang::MapEditor::Load()
 void StarBangBang::MapEditor::Init()
 {
 	tileMap = tileManager.Init(objectManager, graphicsManager);
-	//objectManager.AddDragComponent(tileMap);
+	objectManager.AddDragComponent(tileMap);
 }
 
 void StarBangBang::MapEditor::Update()
 {
-	tileMap->transform.position.x += 10 * (float)AEFrameRateControllerGetFrameTime();
+	//tileMap->transform.position.x += 10 * (float)AEFrameRateControllerGetFrameTime();
 	objectManager.Update();
 }
 

@@ -5,7 +5,6 @@ StarBangBang::TestState2::TestState2(GameStateManager* gameStateManager, int id)
 {
 	object1 = nullptr;
 	this->gameStateManager = gameStateManager;
-	sprite = { nullptr, nullptr };
 }
 
 void StarBangBang::TestState2::Load()
