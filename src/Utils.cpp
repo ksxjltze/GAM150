@@ -31,3 +31,8 @@ void StarBangBang::SetGameObjectPos(GameObject* gameObject, AEVec2 newPos)
 	else
 		gameObject->transform.position = newPos;
 }
+
+bool StarBangBang::CompareGameObject(StarBangBang::GameObject* A, StarBangBang::GameObject* B)
+{
+	return A->transform.position.x < B->transform.position.x;
+}

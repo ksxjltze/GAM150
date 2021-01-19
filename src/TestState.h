@@ -26,7 +26,7 @@ namespace StarBangBang
 		GraphicsManager graphicsManager;
 		ObjectManager objectManager;
 		MemoryManager memoryManager { &objectManager, &graphicsManager };
-		TileManager tileManager;
+		TileManager tileManager{ &objectManager };
 
 		GameObject* object2;
 		GameObject* object2Child;

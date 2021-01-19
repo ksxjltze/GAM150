@@ -29,7 +29,7 @@ void StarBangBang::TestState::Init()
 	objectManager.AddDragComponent(object2Child);
 	objectManager.AddChildGameObject(object2Child, object2);
 
-	tileManager.Init(objectManager, graphicsManager);
+	tileManager.Init(graphicsManager);
 }
 
 void StarBangBang::TestState::Update()

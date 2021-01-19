@@ -16,7 +16,7 @@ namespace StarBangBang
 		void Free();
 		void Unload();
 	private:
-		TileManager tileManager;
+		TileManager tileManager { &objectManager };
 		GameObject* tileMap;
 
 		GameStateManager* gameStateManager;
