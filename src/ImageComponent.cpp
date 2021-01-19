@@ -13,7 +13,7 @@ void StarBangBang::ImageComponent::Draw()
 {
 	if (gameObject->active)
 	{
-		AEVec2 pos = GetGameObjectPos(gameObject);
+		AEVec2 pos = gameObject->GetPos();
 		DrawImage(mesh, texture, pos);
 	}
 }

@@ -11,7 +11,9 @@ void StarBangBang::DragComponent::Update()
 {
 	AEVec2 mousePos = GetMouseWorldPos();
 	float mouseX = mousePos.x, mouseY = mousePos.y;
-	AEVec2 pos = GetGameObjectPos(gameObject);
+	AEVec2 pos = gameObject->GetPos();
+
+	//Should probably change
 	float width = gameObject->width, height = gameObject->height;
 
 	if (AEInputCheckTriggered(AEVK_LBUTTON))
@@ -34,6 +36,6 @@ void StarBangBang::DragComponent::Update()
 	{
 		pos.x = mouseX;
 		pos.y = -mouseY;
-		SetGameObjectPos(gameObject, pos);
+		gameObject->SetPos(pos);
 	}
 }

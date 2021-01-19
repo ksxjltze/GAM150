@@ -22,15 +22,21 @@ namespace StarBangBang
 			return nullptr;
 
 		}
+
 		inline void AddComponent(Component* component)
 		{
 			componentList.push_back(component);
 		}
 
 		Transform transform;
+		GameObject* parent = nullptr;
+
 		float width = 0, height = 0;
 		bool active = true;
-		GameObject* parent = nullptr;
+
+		AEVec2 GetPos();
+		void SetPos(AEVec2 newPos);
+
 	private:
 		std::vector<Component*> componentList;
 	};

@@ -9,6 +9,6 @@ namespace StarBangBang
 		virtual void Update() {};
 		int id { 0 };
 	protected:
-		GameObject* gameObject;
+		GameObject* gameObject { nullptr };
 	};
 }
