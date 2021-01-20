@@ -4,6 +4,7 @@
 #include "GraphicsManager.h"
 #include "MemoryManager.h"
 #include "GameStateManager.h"
+#include "Player.h"
 
 namespace StarBangBang
 {
@@ -19,7 +20,7 @@ namespace StarBangBang
 		void Unload();
 	private:
 		Sprite playerImage;
-		GameObject* player;
+		Player player;
 		GameStateManager* gameStateManager;
 	};
 }
