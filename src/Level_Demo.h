@@ -21,6 +21,7 @@ namespace StarBangBang
 	private:
 		Sprite playerImage;
 		GameObject* player;
+		GameObject* player2;
 		GameStateManager* gameStateManager;
 	};
 }

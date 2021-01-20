@@ -18,6 +18,9 @@ void StarBangBang::Level_Demo::Init()
 	objectManager.AddImageComponent(player, playerImage);
 	objectManager.AddComponent<DragComponent>(player);
 	scriptManager.AddScript<Player>(player);
+
+	player2 = objectManager.CloneGameObject(player);
+	player2->transform.position.x += 100;
 }
 
 void StarBangBang::Level_Demo::Update()

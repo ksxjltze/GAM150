@@ -35,6 +35,15 @@ StarBangBang::GameObject* StarBangBang::ObjectManager::NewGameObject(float width
 	return gameObject;
 }
 
+StarBangBang::GameObject* StarBangBang::ObjectManager::CloneGameObject(GameObject* gameObject)
+{
+	std::vector<Component*> components = gameObject->GetComponents();
+	//Deep copy
+	GameObject* newObject = new GameObject(*gameObject);
+	gameObjectList.push_back(newObject);
+	return newObject;
+}
+
 void StarBangBang::ObjectManager::FreeObjects()
 {
 	for (GameObject* obj : gameObjectList)
