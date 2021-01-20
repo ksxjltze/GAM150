@@ -1,4 +1,5 @@
 #include "Level_Demo.h"
+#include "CameraComponent.h"
 
 StarBangBang::Level_Demo::Level_Demo(GameStateManager* manager, int id) : State(id)
 {
@@ -26,6 +27,8 @@ void StarBangBang::Level_Demo::Init()
 		testObjects[i]->transform.position.x += i * 50;
 		testObjects[i]->transform.position.y += i % 3 * 50;
 	}
+
+	objectManager.AddComponent<CameraComponent>(player);
 
 }
 

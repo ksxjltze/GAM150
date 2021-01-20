@@ -4,6 +4,6 @@ namespace StarBangBang
 {
 	namespace Constants
 	{
-		enum ComponentType {NONE, IMAGE, DRAG, SCRIPT};
+		enum ComponentType {NONE, IMAGE, DRAG, SCRIPT, CAMERA};
 	}
 }
