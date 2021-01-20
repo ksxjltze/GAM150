@@ -8,13 +8,13 @@ AEVec2 StarBangBang::GetMouseWorldPos()
 	AEInputGetCursorPosition(&mouseX, &mouseY);
 	AEGfxGetCamPosition(&CameraPos.x, &CameraPos.y);
 
-	//mouseX -= AEGetWindowWidth() / 2;
-	//mouseY -= AEGetWindowHeight() / 2;
+	AEVec2 pos = { mouseX, mouseY };
+	AEMtx33 mtx;
 
-	mouseX = mouseX - AEGetWindowWidth() / 2 + CameraPos.x;
-	mouseY = mouseY - AEGetWindowHeight() / 2 - CameraPos.y;
+	AEMtx33Trans(&mtx, -(AEGetWindowWidth() / 2 - CameraPos.x), -(AEGetWindowHeight() / 2 + CameraPos.y));
+	AEMtx33MultVec(&pos, &mtx, &pos);
 
-	return { (float)mouseX, (float)mouseY };
+	return pos;
 }
 
 bool StarBangBang::CompareGameObject(StarBangBang::GameObject* A, StarBangBang::GameObject* B)
