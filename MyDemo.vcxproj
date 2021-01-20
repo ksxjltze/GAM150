@@ -124,6 +124,7 @@
     <ClInclude Include="src\ObjectManager.h" />
     <ClInclude Include="src\PhysicsComponent.h" />
     <ClInclude Include="src\Player.h" />
+    <ClInclude Include="src\ScriptComponent.h" />
     <ClInclude Include="src\Sprite.h" />
     <ClInclude Include="src\State.h" />
     <ClInclude Include="src\TileManager.h" />

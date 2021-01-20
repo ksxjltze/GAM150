@@ -1,19 +1,17 @@
 #pragma once
-#include "GameObject.h"
-#include "ObjectManager.h"
-#include "GraphicsManager.h"
+#include "ScriptComponent.h"
 
 namespace StarBangBang
 {
-	class Player
+	class Player : public Script
 	{
 	public:
-		void Load(GraphicsManager& gfxManager);
-		void Start(ObjectManager& objManager);
+		Player(GameObject* gameObject);
+		void Load();
+		void Start();
 		void Update();
 	private:
 		GameObject* gameObject;
-		Sprite image;
 	};
 }
 

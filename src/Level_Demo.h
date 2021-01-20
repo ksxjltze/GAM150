@@ -20,7 +20,8 @@ namespace StarBangBang
 		void Unload();
 	private:
 		Sprite playerImage;
-		Player player;
+		GameObject* player;
+		Script* playerScript;
 		GameStateManager* gameStateManager;
 	};
 }
