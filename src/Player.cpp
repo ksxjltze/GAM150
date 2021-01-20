@@ -18,4 +18,5 @@ void StarBangBang::Player::Start()
 void StarBangBang::Player::Update()
 {
 	movementController.Update();
+	secondaryMovementController.Update();
 }
