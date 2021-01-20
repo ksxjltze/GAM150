@@ -6,6 +6,11 @@ StarBangBang::DragComponent::DragComponent(GameObject* gameObject) : Component(g
 	enabled = false;
 }
 
+StarBangBang::Component* StarBangBang::DragComponent::clone(GameObject* gameObject, Component* component)
+{
+	return new DragComponent(gameObject);
+}
+
 void StarBangBang::DragComponent::Update()
 {
 	AEVec2 mousePos = GetMouseWorldPos();
