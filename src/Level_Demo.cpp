@@ -28,11 +28,15 @@ void StarBangBang::Level_Demo::Init()
 
 	for (int i = 0; i < 10; i++)
 	{
-		testObjects.push_back(objectManager.CloneGameObject(player));
-		objectManager.AddComponent<DragComponent>(testObjects[i]);
+		GameObject* testObject = objectManager.CloneGameObject(player);
+		objectManager.AddComponent<DragComponent>(testObject);
 		testObjects[i]->transform.position.x += i * 50;
-		testObjects[i]->transform.position.y += i % 3 * 50;
+		testObjects[i]->transform.position.y += i % 3 * 100;
+
+		testObjects.push_back(testObject);
 	}
+
+	player->transform.position.y = 200;
 
 	objectManager.AddComponent<CameraComponent>(player);
 
