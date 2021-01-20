@@ -69,9 +69,6 @@
     <ClCompile Include="src\ImageComponent.cpp">
       <Filter>Source Files\Components</Filter>
     </ClCompile>
-    <ClCompile Include="src\PhysicsComponent.cpp">
-      <Filter>Source Files\Components</Filter>
-    </ClCompile>
     <ClCompile Include="src\DragComponent.cpp">
       <Filter>Source Files\Components</Filter>
     </ClCompile>
@@ -108,9 +105,6 @@
       <Filter>Header Files\Engine</Filter>
     </ClInclude>
     <ClInclude Include="src\ImageComponent.h">
-      <Filter>Header Files\Components</Filter>
-    </ClInclude>
-    <ClInclude Include="src\PhysicsComponent.h">
       <Filter>Header Files\Components</Filter>
     </ClInclude>
     <ClInclude Include="src\GameObject.h">

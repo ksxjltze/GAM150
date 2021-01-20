@@ -3,6 +3,7 @@
 StarBangBang::Level_Demo::Level_Demo(GameStateManager* manager, int id) : State(id)
 {
 	player = nullptr;
+	player2 = nullptr;
 	gameStateManager = manager;
 }
 

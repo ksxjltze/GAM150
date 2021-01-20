@@ -31,7 +31,7 @@ namespace StarBangBang
 		void Update();
 	private:
 		std::vector<GameObject*> gameObjectList;
-		std::vector<ImageComponent> imageComponentList;
+		std::vector<ImageComponent*> imageComponentList;
 		std::vector<Component*> componentList;
 	};
 }

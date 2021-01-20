@@ -8,6 +8,7 @@ namespace StarBangBang
 	public:
 		DragComponent(GameObject* gameObject);
 		void Update();
+		const static int id = 2;
 	private:
 		bool enabled;
 	};

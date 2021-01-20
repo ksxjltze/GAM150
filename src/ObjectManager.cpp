@@ -1,13 +1,14 @@
 #include "ObjectManager.h"
 #include "Utils.h"
+#include <typeinfo>
 
 void StarBangBang::ObjectManager::AddImageComponent(GameObject* gameObject, Sprite sprite)
 {
 	if (sprite.mesh != nullptr && sprite.texture != nullptr)
 	{
-		ImageComponent image = ImageComponent(gameObject, sprite.mesh, sprite.texture);
+		ImageComponent* image = new ImageComponent(gameObject, sprite.mesh, sprite.texture);
 		imageComponentList.push_back(image);
-		gameObject->AddComponent(&imageComponentList.back());
+		gameObject->AddComponent(image);
 	}
 }
 
@@ -38,8 +39,30 @@ StarBangBang::GameObject* StarBangBang::ObjectManager::NewGameObject(float width
 StarBangBang::GameObject* StarBangBang::ObjectManager::CloneGameObject(GameObject* gameObject)
 {
 	std::vector<Component*> components = gameObject->GetComponents();
-	//Deep copy
 	GameObject* newObject = new GameObject(*gameObject);
+	for (Component* component : components)
+	{
+		Component* newComponent = new Component();
+		newComponent->gameObject = newObject;
+
+		newComponent->Copy(*component);
+		newObject->AddComponent(newComponent);
+
+		//MAKE THIS BETTER
+		if (newComponent->id == ImageComponent::id)
+		{
+			ImageComponent* imageComponent = static_cast<ImageComponent*>(component);
+			ImageComponent* newImageComponent = static_cast<ImageComponent*>(newComponent);
+
+			newImageComponent->SetMesh(imageComponent->GetMesh());
+			newImageComponent->SetTexture(imageComponent->GetTexture());
+
+			imageComponentList.push_back(newImageComponent);
+		}
+		else
+			componentList.push_back(newComponent);	
+
+	}
 	gameObjectList.push_back(newObject);
 	return newObject;
 }
@@ -63,15 +86,22 @@ void StarBangBang::ObjectManager::FreeComponents()
 		delete component;
 		component = nullptr;
 	}
+
+	for (ImageComponent* imageComponent : imageComponentList)
+	{
+		delete imageComponent;
+		imageComponent = nullptr;
+	}
+
 	componentList.clear();
 	imageComponentList.clear();
 }
 
 void StarBangBang::ObjectManager::Draw()
 {
-	for (ImageComponent image : imageComponentList)
+	for (ImageComponent* image : imageComponentList)
 	{
-		image.Draw();
+		image->Draw();
 	}
 }
 
