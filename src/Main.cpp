@@ -58,7 +58,8 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 		currentState->Update();
 		currentState->Draw();
 
-		StarBangBang::Test_BoxUpdate();
+		//StarBangBang::Test_BoxUpdate();
+		//StarbangBang::Test_CircleUpdate();
 		// Informing the system about the loop's end
 		AESysFrameEnd();
 

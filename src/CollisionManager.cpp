@@ -130,7 +130,7 @@ void CollisionManager::Resolve_BoxvsBox(BoxCollider b1, BoxCollider b2, Collisio
 }
 void CollisionManager::DebugCollider(BoxCollider b)
 {
-
+	
 	//AEGfxStart();
 	AEGfxBox(	b.center.x, b.center.y, 0.0f, b.GetWidth(), 
 				b.GetHeight(), 0.0f, 0x00FF00, 0x00FF00);
