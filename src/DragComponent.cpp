@@ -6,7 +6,7 @@ StarBangBang::DragComponent::DragComponent(GameObject* gameObject) : Component(g
 	enabled = false;
 }
 
-StarBangBang::Component* StarBangBang::DragComponent::clone(GameObject* gameObject, Component* component)
+StarBangBang::Component* StarBangBang::DragComponent::Clone(GameObject* gameObject, Component* component)
 {
 	return new DragComponent(gameObject);
 }

@@ -7,7 +7,7 @@ namespace StarBangBang
 	{
 	public:
 		DragComponent(GameObject* gameObject);
-		Component* clone(GameObject* gameObject, Component* component);
+		Component* Clone(GameObject* gameObject, Component* component);
 		void Update();
 		const static int id = 2;
 	private:

@@ -43,18 +43,13 @@ StarBangBang::GameObject* StarBangBang::ObjectManager::CloneGameObject(GameObjec
 	for (Component* component : components)
 	{
 		//Component* newComponent = new Component(newObject, component->id);
-		Component* newComponent = component->clone(newObject, component);
+		Component* newComponent = component->Clone(newObject, component);
 		newObject->AddComponent(newComponent);
 
 		//MAKE THIS BETTER
 		if (newComponent->id == ImageComponent::id)
 		{
-			ImageComponent* imageComponent = static_cast<ImageComponent*>(component);
 			ImageComponent* newImageComponent = static_cast<ImageComponent*>(newComponent);
-
-			newImageComponent->SetMesh(imageComponent->GetMesh());
-			newImageComponent->SetTexture(imageComponent->GetTexture());
-
 			imageComponentList.push_back(newImageComponent);
 		}
 		else
