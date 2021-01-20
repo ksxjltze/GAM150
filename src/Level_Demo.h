@@ -21,7 +21,7 @@ namespace StarBangBang
 	private:
 		Sprite playerImage;
 		GameObject* player;
-		GameObject* player2;
+		std::vector<GameObject*> testObjects;
 		GameStateManager* gameStateManager;
 	};
 }

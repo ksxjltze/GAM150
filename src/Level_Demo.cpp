@@ -3,7 +3,6 @@
 StarBangBang::Level_Demo::Level_Demo(GameStateManager* manager, int id) : State(id)
 {
 	player = nullptr;
-	player2 = nullptr;
 	gameStateManager = manager;
 }
 
@@ -19,9 +18,15 @@ void StarBangBang::Level_Demo::Init()
 	objectManager.AddImageComponent(player, playerImage);
 	objectManager.AddComponent<DragComponent>(player);
 	scriptManager.AddScript<Player>(player);
+	player->transform.position.x = -300;
 
-	player2 = objectManager.CloneGameObject(player);
-	player2->transform.position.x += 100;
+	for (int i = 0; i < 10; i++)
+	{
+		testObjects.push_back(objectManager.CloneGameObject(player));
+		testObjects[i]->transform.position.x += i * 50;
+		testObjects[i]->transform.position.y += i % 3 * 50;
+	}
+
 }
 
 void StarBangBang::Level_Demo::Update()
