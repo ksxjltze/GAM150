@@ -12,6 +12,13 @@ StarBangBang::MemoryManager::MemoryManager(ObjectManager* objectManager, Graphic
     this->graphicsManager = graphicsManager;
 }
 
+StarBangBang::MemoryManager::MemoryManager(ObjectManager* objectManager, GraphicsManager* graphicsManager, ScriptManager* scriptManager)
+{
+    this->objectManager = objectManager;
+    this->graphicsManager = graphicsManager;
+    this->scriptManager = scriptManager;
+}
+
 void StarBangBang::MemoryManager::Load()
 {
 
@@ -24,6 +31,12 @@ void StarBangBang::MemoryManager::Free()
     {
         objectManager->FreeComponents();
         objectManager->FreeObjects();
+    }
+
+    assert(scriptManager);
+    if (scriptManager)
+    {
+        scriptManager->DestroyScripts();
     }
         
 }

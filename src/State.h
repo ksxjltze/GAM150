@@ -2,6 +2,7 @@
 #include "ObjectManager.h"
 #include "GraphicsManager.h"
 #include "MemoryManager.h"
+#include "ScriptManager.h"
 
 namespace StarBangBang
 {
@@ -19,7 +20,9 @@ namespace StarBangBang
 	protected:
 		StarBangBang::ObjectManager objectManager;
 		StarBangBang::GraphicsManager graphicsManager;
-		StarBangBang::MemoryManager memoryManager{ &objectManager, &graphicsManager };
+		StarBangBang::ScriptManager scriptManager;
+		//StarBangBang::MemoryManager memoryManager{ &objectManager, &graphicsManager };
+		StarBangBang::MemoryManager memoryManager{ &objectManager, &graphicsManager, &scriptManager };
 	private:
 		int id;
 	};
