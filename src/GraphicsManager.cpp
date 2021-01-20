@@ -51,6 +51,7 @@ void StarBangBang::GraphicsManager::UnloadTextures()
 		AEGfxTextureUnload(texture);
 		texture = nullptr;
 	}
+	textureList.clear();
 }
 
 void StarBangBang::GraphicsManager::FreeMeshes()
@@ -60,4 +61,21 @@ void StarBangBang::GraphicsManager::FreeMeshes()
 		AEGfxMeshFree(mesh);
 		mesh = nullptr;
 	}
+	meshList.clear();
 }
+
+void StarBangBang::DrawImage(AEGfxVertexList* mesh, AEGfxTexture* texture, AEVec2 pos)
+{
+	AEGfxSetRenderMode(AE_GFX_RM_TEXTURE);
+	// No tint
+	AEGfxSetTintColor(1.0f, 1.0f, 1.0f, 1.0f);
+	// Set texture
+	AEGfxTextureSet(texture, 0, 0);
+	// Set Position
+	AEGfxSetPosition(pos.x, pos.y);
+	// Set Transparency
+	AEGfxSetTransparency(1.0f);
+	// Drawing the mesh (list of triangles)
+	AEGfxMeshDraw(mesh, AE_GFX_MDM_TRIANGLES);
+}
+

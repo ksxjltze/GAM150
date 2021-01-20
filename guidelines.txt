@@ -1,1 +1,0 @@
-1. A component shall not exist alone (Outside of a gameObject).

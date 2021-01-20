@@ -1,66 +1,54 @@
 #include "TestState.h"
 
-using namespace StarBangBang;
-
-TestState::TestState()
+StarBangBang::TestState::TestState(StarBangBang::GameStateManager* gameStateManager, int id) : State(id)
 {
-	object = nullptr;
+	this->gameStateManager = gameStateManager;
 	object2 = nullptr;
 	object2Child = nullptr;
-	objectImage = nullptr;
-	tileImage = nullptr;
+
 }
 
 void StarBangBang::TestState::Load()
 {
-	objectImage = objectManager.ImageLoad(graphicsManager, 100, 100, "../Resources/boi.png", 255);
-	tileImage = objectManager.ImageLoad(graphicsManager, 100, 100, "../Resources/grass.png", 255);
-
 	object2 = objectManager.NewGameObject(100, 100);
 	object2Child = objectManager.NewGameObject(50, 50);
 	objectManager.AddImageComponent(object2, graphicsManager, "../Resources/PlanetTexture.png");
 	objectManager.AddImageComponent(object2Child, graphicsManager, "../Resources/boi.png");
+
+	if (fontId == 0)
+		fontId = AEGfxCreateFont("../Resources/Roboto-Regular.ttf", 12);
 }
 
-void TestState::Init()
+void StarBangBang::TestState::Init()
 {
 	////////////////////////////////
 	AEGfxSetBlendMode(AE_GFX_BM_BLEND);
-	//object = objectManager.InitTestObject(objectImage);
 
 	object2->transform.position.x = 100;
 	objectManager.AddDragComponent(object2);
-
-	//TODO: Drag for child objects.
 	objectManager.AddDragComponent(object2Child);
 	objectManager.AddChildGameObject(object2Child, object2);
 
-	tilemap.Init();
-	//tileManager.Init(objectManager, graphicsManager);
-
-
-	//////////////////////////////////
-	// Creating Fonts	
-	fontId = AEGfxCreateFont("../Resources/Roboto-Regular.ttf", 12);
-	// Creating Fonts end
-	//////////////////////////////////
+	tileManager.Init(graphicsManager);
 }
 
-void TestState::Update()
+void StarBangBang::TestState::Update()
 {
-	//object->Update();
 	objectManager.Update();
 	//Move child
 	//double dt = AEFrameRateControllerGetFrameTime();
 	//object2Child->transform.position.x += 100 * dt;
-	tilemap.Update();
+
+	if (AEInputCheckTriggered(VK_SPACE))
+	{
+		//State* nextState = gameStateManager->AddGameState<TestState2>();
+		gameStateManager->SetNextGameState(1);
+	}
 }
 
 void StarBangBang::TestState::Draw()
 {
-	//object->Draw();
 	objectManager.Draw();
-	tilemap.Draw();
 
 	char strBuffer[100];
 	memset(strBuffer, 0, 100 * sizeof(char));
@@ -72,17 +60,14 @@ void StarBangBang::TestState::Draw()
 	AEGfxPrint(fontId, strBuffer, 0.99f - TextWidth, 0.99f - TextHeight, 1.0f, 1.f, 1.f, 1.f);
 }
 
-void TestState::Free()
+void StarBangBang::TestState::Free()
 {
 	//Free objects and textures
-	AEGfxDestroyFont(fontId);
-	//object->Exit();
-	tilemap.Exit();
-	objectManager.FreeObjects();
+	//AEGfxDestroyFont(fontId);
+	memoryManager.Free();
 }
 
 void StarBangBang::TestState::Unload()
 {
-	graphicsManager.UnloadTextures();
-	graphicsManager.FreeMeshes();
+	memoryManager.Unload();
 }

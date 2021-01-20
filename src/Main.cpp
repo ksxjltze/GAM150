@@ -2,7 +2,9 @@
 // includes
 
 #include "AEEngine.h"
-#include "TestState.h"
+#include "GameStateManager.h"
+#include "MapEditor.h"
+#include "Level_Demo.h"
 
 // ---------------------------------------------------------------------------
 // main
@@ -17,9 +19,14 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 
 	///////////////////////
 	// Variable declaration
+	using namespace StarBangBang;
 
 	int gGameRunning = 1;
-	State* currentState = new StarBangBang::TestState();
+	GameStateManager gameStateManager;
+
+	State* state1 = gameStateManager.AddGameState<MapEditor>();
+	State* demoState = gameStateManager.AddGameState<Level_Demo>();
+	gameStateManager.SetInitialState(demoState);
 
 	// Variable declaration end
 	///////////////////////////
@@ -30,16 +37,18 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 	// Using custom window procedure
 	AESysInit(hInstance, nCmdShow, 800, 600, 1, 60, true, NULL);
 
+	//Full screen
+	//AESysInit(hInstance, nCmdShow, 1920, 1080, 1, 60, true, NULL);
+	//AEToogleFullScreen(true);
+
 	// Changing the window title
-	AESysSetWindowTitle("My New Demo!");
+	AESysSetWindowTitle("Captain Stealth");
 
 	// reset the system modules
 	AESysReset();
 
 	AEGfxSetBackgroundColor(0.3f, 0.6f, 1.0f);
-
-	currentState->Load();
-	currentState->Init();
+	AEGfxSetBlendMode(AE_GFX_BM_BLEND);
 
 	// Initialization end
 	/////////////////////
@@ -54,8 +63,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 		AEInputUpdate();
 
 		// Update State
-		currentState->Update();
-		currentState->Draw();
+		gameStateManager.Update();
 
 		// Informing the system about the loop's end
 		AESysFrameEnd();
@@ -64,9 +72,8 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 		if (AEInputCheckTriggered(AEVK_ESCAPE) || 0 == AESysDoesWindowExist())
 			gGameRunning = 0;
 	}
-
-	currentState->Free();
-	currentState->Unload();
+	gameStateManager.ExitGame();
+	
 	// free the system
 	AESysExit();
 }

@@ -1,10 +1,11 @@
 #pragma once
+#include "Sprite.h"
 #include <AEEngine.h>
-#include "Image.h"
 #include <vector>
 
 namespace StarBangBang
 {
+	void DrawImage(AEGfxVertexList* mesh, AEGfxTexture* texture, AEVec2 pos);
 	class GraphicsManager
 	{
 	public:
