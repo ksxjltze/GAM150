@@ -103,6 +103,7 @@
     <ClCompile Include="src\MemoryManager.cpp" />
     <ClCompile Include="src\ObjectManager.cpp" />
     <ClCompile Include="src\Player.cpp" />
+    <ClCompile Include="src\PrimaryMovementController.cpp" />
     <ClCompile Include="src\TileManager.cpp" />
     <ClCompile Include="src\Utils.cpp" />
   </ItemGroup>
@@ -123,6 +124,7 @@
     <ClInclude Include="src\MemoryManager.h" />
     <ClInclude Include="src\ObjectManager.h" />
     <ClInclude Include="src\Player.h" />
+    <ClInclude Include="src\PrimaryMovementController.h" />
     <ClInclude Include="src\ScriptComponent.h" />
     <ClInclude Include="src\ScriptManager.h" />
     <ClInclude Include="src\Sprite.h" />

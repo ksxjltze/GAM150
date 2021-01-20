@@ -90,6 +90,9 @@
     <ClCompile Include="src\CameraComponent.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\PrimaryMovementController.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Collider.h">
@@ -159,6 +162,9 @@
       <Filter>Header Files\Globals</Filter>
     </ClInclude>
     <ClInclude Include="src\Player.h">
+      <Filter>Header Files\Scripts</Filter>
+    </ClInclude>
+    <ClInclude Include="src\PrimaryMovementController.h">
       <Filter>Header Files\Scripts</Filter>
     </ClInclude>
   </ItemGroup>
