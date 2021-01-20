@@ -11,23 +11,33 @@ StarBangBang::Level_Demo::Level_Demo(GameStateManager* manager, int id) : State(
 void StarBangBang::Level_Demo::Load()
 {
 	playerImage.texture = graphicsManager.LoadTexture("../Resources/boi.png");
+	planetImage.texture = graphicsManager.LoadTexture("../Resources/PlanetTexture.png");
 	playerImage.mesh = graphicsManager.CreateMesh(100, 100);
+	planetImage.mesh = graphicsManager.CreateMesh(100, 100);
 }
 
 void StarBangBang::Level_Demo::Init()
 {
 	player = objectManager.NewGameObject(100, 100);
 	objectManager.AddImageComponent(player, playerImage);
-	objectManager.AddComponent<DragComponent>(player);
 	scriptManager.AddScript<Player>(player);
-	player->transform.position.y = -300;
+	player->transform.position.x = 200;
+
+	GameObject* worldOriginMarker = objectManager.NewGameObject();
+	objectManager.AddImageComponent(worldOriginMarker, planetImage);
+	testObjects.push_back(worldOriginMarker);
 
 	for (int i = 0; i < 10; i++)
 	{
-		testObjects.push_back(objectManager.CloneGameObject(player));
+		GameObject* testObject = objectManager.CloneGameObject(player);
+		objectManager.AddComponent<DragComponent>(testObject);
 		testObjects[i]->transform.position.x += i * 50;
-		testObjects[i]->transform.position.y += i % 3 * 50;
+		testObjects[i]->transform.position.y += i % 3 * 100;
+
+		testObjects.push_back(testObject);
 	}
+
+	player->transform.position.y = 200;
 
 	objectManager.AddComponent<CameraComponent>(player);
 

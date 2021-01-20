@@ -25,8 +25,8 @@ void StarBangBang::DragComponent::Update()
 	{
 		if (mouseX > pos.x - width / 2
 			&& mouseX < pos.x + width / 2
-			&& -mouseY > pos.y - height / 2
-			&& -mouseY < pos.y + height / 2)
+			&& mouseY > pos.y - height / 2
+			&& mouseY < pos.y + height / 2)
 		{
 			enabled = true;
 		}
@@ -40,7 +40,7 @@ void StarBangBang::DragComponent::Update()
 	if (enabled)
 	{
 		pos.x = mouseX;
-		pos.y = -mouseY;
+		pos.y = mouseY;
 		gameObject->SetPos(pos);
 	}
 }
