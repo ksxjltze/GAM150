@@ -57,9 +57,6 @@
     <ClCompile Include="src\TileManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\MapEditor.cpp">
-      <Filter>Source Files\Scenes</Filter>
-    </ClCompile>
     <ClCompile Include="src\Level_Demo.cpp">
       <Filter>Source Files\Scenes</Filter>
     </ClCompile>
@@ -138,9 +135,6 @@
       <Filter>Header Files\Engine</Filter>
     </ClInclude>
     <ClInclude Include="src\Level_Demo.h">
-      <Filter>Header Files\Scenes</Filter>
-    </ClInclude>
-    <ClInclude Include="src\MapEditor.h">
       <Filter>Header Files\Scenes</Filter>
     </ClInclude>
     <ClInclude Include="src\State.h">

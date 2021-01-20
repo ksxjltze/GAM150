@@ -3,7 +3,6 @@
 
 #include "AEEngine.h"
 #include "GameStateManager.h"
-#include "MapEditor.h"
 #include "Level_Demo.h"
 
 // ---------------------------------------------------------------------------
@@ -24,7 +23,6 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 	int gGameRunning = 1;
 	GameStateManager gameStateManager;
 
-	State* state1 = gameStateManager.AddGameState<MapEditor>();
 	State* demoState = gameStateManager.AddGameState<Level_Demo>();
 	gameStateManager.SetInitialState(demoState);
 

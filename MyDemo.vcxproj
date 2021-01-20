@@ -100,7 +100,6 @@
     <ClCompile Include="src\ImageComponent.cpp" />
     <ClCompile Include="src\Level_Demo.cpp" />
     <ClCompile Include="src\Main.cpp" />
-    <ClCompile Include="src\MapEditor.cpp" />
     <ClCompile Include="src\MemoryManager.cpp" />
     <ClCompile Include="src\ObjectManager.cpp" />
     <ClCompile Include="src\Player.cpp" />
@@ -121,7 +120,6 @@
     <ClInclude Include="src\GraphicsManager.h" />
     <ClInclude Include="src\ImageComponent.h" />
     <ClInclude Include="src\Level_Demo.h" />
-    <ClInclude Include="src\MapEditor.h" />
     <ClInclude Include="src\MemoryManager.h" />
     <ClInclude Include="src\ObjectManager.h" />
     <ClInclude Include="src\Player.h" />
