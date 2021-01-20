@@ -39,6 +39,7 @@ void StarBangBang::Level_Demo::Init()
 	player->transform.position.y = 200;
 
 	objectManager.AddComponent<CameraComponent>(player);
+	scriptManager.Start();
 
 }
 
