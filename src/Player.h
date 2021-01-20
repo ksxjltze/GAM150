@@ -10,8 +10,6 @@ namespace StarBangBang
 		void Load();
 		void Start();
 		void Update();
-	private:
-		GameObject* gameObject;
 	};
 }
 

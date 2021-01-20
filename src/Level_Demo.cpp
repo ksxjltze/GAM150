@@ -17,6 +17,7 @@ void StarBangBang::Level_Demo::Init()
 	player = objectManager.NewGameObject(100, 100);
 	objectManager.AddImageComponent(player, playerImage);
 	objectManager.AddComponent<DragComponent>(player);
+	scriptManager.AddScript<Player>(player);
 }
 
 void StarBangBang::Level_Demo::Update()

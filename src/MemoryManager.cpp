@@ -4,12 +4,15 @@ StarBangBang::MemoryManager::MemoryManager()
 {
     objectManager = nullptr;
     graphicsManager = nullptr;
+    scriptManager = nullptr;
 }
 
+//Deprecated
 StarBangBang::MemoryManager::MemoryManager(ObjectManager* objectManager, GraphicsManager* graphicsManager)
 {
     this->objectManager = objectManager;
     this->graphicsManager = graphicsManager;
+    scriptManager = nullptr;
 }
 
 StarBangBang::MemoryManager::MemoryManager(ObjectManager* objectManager, GraphicsManager* graphicsManager, ScriptManager* scriptManager)

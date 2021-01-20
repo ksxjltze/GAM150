@@ -10,7 +10,7 @@ namespace StarBangBang
 		template <class ScriptType>
 		inline void AddScript(GameObject* gameObject)
 		{
-			ScriptType script = new ScriptType(gameObject);
+			ScriptType* script = new ScriptType(gameObject);
 			scriptList.push_back(script);
 		}
 
@@ -22,6 +22,14 @@ namespace StarBangBang
 				s = nullptr;
 			}
 			scriptList.clear();
+		}
+
+		inline void Update()
+		{
+			for (Script* s : scriptList)
+			{
+				s->Update();
+			}
 		}
 
 	private:
