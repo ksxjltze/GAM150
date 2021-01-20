@@ -107,6 +107,7 @@
     <ClCompile Include="src\Utils.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\CameraComponent.h" />
     <ClInclude Include="src\Collider.h" />
     <ClInclude Include="src\ColliderAABB.h" />
     <ClInclude Include="src\CollisionComponent.h" />

@@ -33,4 +33,5 @@ void StarBangBang::Player::Update()
 	{
 		gameObject->transform.position.x += 10;
 	}
+	AEGfxSetCamPosition(gameObject->transform.position.x, gameObject->transform.position.y);
 }
