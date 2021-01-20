@@ -77,7 +77,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 		AEGfxSetBlendMode(AE_GFX_BM_BLEND);
 		f32 TextWidth, TextHeight;
 		AEGfxGetPrintSize(fontId, strBuffer, 1.0f, TextWidth, TextHeight);
-		AEGfxPrint(fontId, strBuffer, 0.99 - TextWidth, 0.99 - TextHeight, 1.0f, 1.f, 1.f, 1.f);
+		AEGfxPrint(fontId, strBuffer, 0.99f - TextWidth, 0.99f - TextHeight, 1.0f, 1.f, 1.f, 1.f);
 
 		// Informing the system about the loop's end
 		AESysFrameEnd();

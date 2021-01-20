@@ -12,11 +12,12 @@ void StarBangBang::Player::Load()
 
 void StarBangBang::Player::Start()
 {
-
+	movementController.Start();
+	secondaryMovementController.Start();
 }
 
 void StarBangBang::Player::Update()
 {
 	movementController.Update();
-	//secondaryMovementController.Update();
+	secondaryMovementController.Update();
 }

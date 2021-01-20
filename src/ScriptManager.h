@@ -24,6 +24,14 @@ namespace StarBangBang
 			scriptList.clear();
 		}
 
+		inline void Start()
+		{
+			for (Script* s : scriptList)
+			{
+				s->Start();
+			}
+		}
+
 		inline void Update()
 		{
 			for (Script* s : scriptList)
