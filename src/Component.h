@@ -1,5 +1,6 @@
 #pragma once
 #include "GameObject.h"
+#include "constants.h"
 
 namespace StarBangBang
 {
@@ -13,7 +14,7 @@ namespace StarBangBang
 			return new Component(gameObject, component->id);
 		}
 		virtual void Update() {};
-		int id { 0 };
+		int id { Constants::ComponentType::NONE };
 		GameObject* gameObject { nullptr };
 	};
 }
