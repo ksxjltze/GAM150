@@ -1,12 +1,10 @@
 #include "ImageComponent.h"
 #include "Utils.h"
 
-StarBangBang::ImageComponent::ImageComponent(GameObject* gameObject, AEGfxVertexList* mesh, AEGfxTexture* texture)
+StarBangBang::ImageComponent::ImageComponent(GameObject* gameObject, AEGfxVertexList* mesh, AEGfxTexture* texture) : Component (gameObject, id)
 {
 	this->mesh = mesh;
 	this->texture = texture;
-	this->gameObject = gameObject;
-	Component::id = id;
 }
 
 void StarBangBang::ImageComponent::Draw()

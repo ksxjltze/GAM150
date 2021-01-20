@@ -1,6 +1,6 @@
 #include "CollisionComponent.h"
 
-StarBangBang::CollisionComponent::CollisionComponent(GameObject* gameObject)
+StarBangBang::CollisionComponent::CollisionComponent(GameObject* gameObject) : Component(gameObject, id)
 {
-	this->gameObject = gameObject;
+	
 }

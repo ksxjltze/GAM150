@@ -6,7 +6,7 @@ namespace StarBangBang
 	class Script : public Component
 	{
 	public:
-		inline Script(GameObject* gameObject)
+		inline Script(GameObject* gameObject) : Component(gameObject, id)
 		{
 			this->gameObject = gameObject;
 		}

@@ -42,10 +42,7 @@ StarBangBang::GameObject* StarBangBang::ObjectManager::CloneGameObject(GameObjec
 	GameObject* newObject = new GameObject(*gameObject);
 	for (Component* component : components)
 	{
-		Component* newComponent = new Component();
-		newComponent->gameObject = newObject;
-
-		newComponent->Copy(*component);
+		Component* newComponent = new Component(newObject, component->id);
 		newObject->AddComponent(newComponent);
 
 		//MAKE THIS BETTER

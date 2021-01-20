@@ -1,9 +1,8 @@
 #include "DragComponent.h"
 #include "Utils.h"
 
-StarBangBang::DragComponent::DragComponent(GameObject* gameObject)
+StarBangBang::DragComponent::DragComponent(GameObject* gameObject) : Component(gameObject, id)
 {
-	this->gameObject = gameObject;
 	enabled = false;
 }
 
