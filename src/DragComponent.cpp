@@ -1,5 +1,6 @@
 #include "DragComponent.h"
 #include "Utils.h"
+#include <iostream>
 
 StarBangBang::DragComponent::DragComponent(GameObject* gameObject) : Component(gameObject, id)
 {

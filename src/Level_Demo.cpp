@@ -19,7 +19,7 @@ void StarBangBang::Level_Demo::Init()
 	objectManager.AddImageComponent(player, playerImage);
 	objectManager.AddComponent<DragComponent>(player);
 	scriptManager.AddScript<Player>(player);
-	player->transform.position.x = -300;
+	player->transform.position.y = -300;
 
 	for (int i = 0; i < 10; i++)
 	{

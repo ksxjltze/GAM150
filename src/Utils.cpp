@@ -3,34 +3,19 @@
 AEVec2 StarBangBang::GetMouseWorldPos()
 {
 	int mouseX = 0, mouseY = 0;
+	AEVec2 CameraPos { 0, 0 };
+
 	AEInputGetCursorPosition(&mouseX, &mouseY);
-	mouseX -= AEGetWindowWidth() / 2;
-	mouseY -= AEGetWindowHeight() / 2;
+	AEGfxGetCamPosition(&CameraPos.x, &CameraPos.y);
+
+	//mouseX -= AEGetWindowWidth() / 2;
+	//mouseY -= AEGetWindowHeight() / 2;
+
+	mouseX = mouseX - AEGetWindowWidth() / 2 + CameraPos.x;
+	mouseY = mouseY - AEGetWindowHeight() / 2 - CameraPos.y;
+
 	return { (float)mouseX, (float)mouseY };
 }
-
-//AEVec2 StarBangBang::GetGameObjectPos(GameObject* gameObject)
-//{
-//	if (gameObject->parent != nullptr)
-//	{
-//		AEVec2 pos;
-//		AEVec2Add(&pos, &gameObject->parent->transform.position, &gameObject->transform.position);
-//		return pos;
-//	}
-//	return gameObject->transform.position;
-//}
-//
-//void StarBangBang::SetGameObjectPos(GameObject* gameObject, AEVec2 newPos)
-//{
-//	if (gameObject->parent != nullptr)
-//	{
-//		AEVec2 pos;
-//		AEVec2Sub(&pos, &newPos, &gameObject->parent->transform.position);
-//		gameObject->transform.position = pos;
-//	}
-//	else
-//		gameObject->transform.position = newPos;
-//}
 
 bool StarBangBang::CompareGameObject(StarBangBang::GameObject* A, StarBangBang::GameObject* B)
 {
