@@ -19,9 +19,8 @@ void StarBangBang::Level_Demo::Init()
 {
 	player = objectManager.NewGameObject(100, 100);
 	objectManager.AddImageComponent(player, playerImage);
-	objectManager.AddComponent<DragComponent>(player);
 	scriptManager.AddScript<Player>(player);
-	//player->transform.position.y = -300;
+	player->transform.position.x = 200;
 
 	GameObject* worldOriginMarker = objectManager.NewGameObject();
 	objectManager.AddImageComponent(worldOriginMarker, planetImage);
@@ -30,6 +29,7 @@ void StarBangBang::Level_Demo::Init()
 	for (int i = 0; i < 10; i++)
 	{
 		testObjects.push_back(objectManager.CloneGameObject(player));
+		objectManager.AddComponent<DragComponent>(testObjects[i]);
 		testObjects[i]->transform.position.x += i * 50;
 		testObjects[i]->transform.position.y += i % 3 * 50;
 	}
