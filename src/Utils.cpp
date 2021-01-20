@@ -1,5 +1,4 @@
 #include "Utils.h"
-#include <iostream>
 
 AEVec2 StarBangBang::GetMouseWorldPos()
 {
@@ -11,11 +10,6 @@ AEVec2 StarBangBang::GetMouseWorldPos()
 
 	AEVec2 pos = { (float)mouseX, (float)-mouseY };
 	AEMtx33 mtx;
-	
-	if (AEInputCheckTriggered(VK_LBUTTON))
-	{
-		std::cout << "Screen: " << mouseX << " " << mouseY << std::endl;
-	}
 
 	AEMtx33Trans(&mtx, -AEGetWindowWidth() / 2 + CameraPos.x, AEGetWindowHeight() / 2 + CameraPos.y);
 	AEMtx33MultVec(&pos, &mtx, &pos);

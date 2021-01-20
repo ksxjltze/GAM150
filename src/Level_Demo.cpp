@@ -27,12 +27,12 @@ void StarBangBang::Level_Demo::Init()
 	objectManager.AddImageComponent(worldOriginMarker, planetImage);
 	testObjects.push_back(worldOriginMarker);
 
-	//for (int i = 0; i < 10; i++)
-	//{
-	//	testObjects.push_back(objectManager.CloneGameObject(player));
-	//	testObjects[i]->transform.position.x += i * 50;
-	//	testObjects[i]->transform.position.y += i % 3 * 50;
-	//}
+	for (int i = 0; i < 10; i++)
+	{
+		testObjects.push_back(objectManager.CloneGameObject(player));
+		testObjects[i]->transform.position.x += i * 50;
+		testObjects[i]->transform.position.y += i % 3 * 50;
+	}
 
 	objectManager.AddComponent<CameraComponent>(player);
 
