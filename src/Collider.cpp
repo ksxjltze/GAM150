@@ -7,7 +7,7 @@ float BoxCollider::GetHeight()
     return extend.y * 2.0f;
 }
 
-float BoxCollider::GetWidth()
+ float BoxCollider::GetWidth()
 {
     return extend.x * 2.0f;
 }

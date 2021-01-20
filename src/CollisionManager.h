@@ -6,10 +6,16 @@ namespace StarBangBang
 {
 	struct CollisionData
 	{
-		Collider* obj_1;
-		Collider* obj_2;
-		float pen_depth;
-		AEVec2 col_normal;
+		public:
+			float pen_depth = 0.0f;
+			AEVec2 col_normal;
+			
+			CollisionData() 
+			{
+				col_normal = AEVec2{ 0.0f,0.0f };
+				
+			}
+			~CollisionData() {}
 	};
 
 	class CollisionManager
@@ -19,16 +25,19 @@ namespace StarBangBang
 		
 			
 		public :
-			bool CircleVsCircle(CircleCollider c1, CircleCollider c2, CollisionData* collision);
-			bool AABBvsAABB(BoxCollider b1, BoxCollider b2);
 			
-			void Resolve_CirclevsCircle(CircleCollider c1, CircleCollider c2, CollisionData col);
+			bool CircleVsCircle(CircleCollider c1, CircleCollider c2, CollisionData* col);
 
-			void DebugCollider(BoxCollider c);
+			bool AABBvsAABB(BoxCollider b1, BoxCollider b2, CollisionData* col);
 
-			void DebugCollider(CircleCollider c);
+			void Resolve_CirclevsCircle(CircleCollider c1, CircleCollider c2, CollisionData* const col);
+
+			void Resolve_BoxvsBox(BoxCollider b1, BoxCollider b2, CollisionData* const col);
+
+			void DebugCollider(BoxCollider b);
+
+			void DebugCollider(CircleCollider c, unsigned int sides = 20u);
 			
-			void Resolve_BoxvsBox(BoxCollider b1, BoxCollider b2, CollisionData col);
 			//bool SATBox(BoxCollider b1, BoxCollider b2);
 		
 			

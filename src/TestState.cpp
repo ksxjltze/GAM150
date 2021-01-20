@@ -48,8 +48,8 @@ void TestState::Update()
 
 void StarBangBang::TestState::Draw()
 {
-	object->Draw();
-	objectManager.Draw();
+	//object->Draw();
+	//objectManager.Draw();
 	//tilemap.Draw();
 
 	char strBuffer[100];

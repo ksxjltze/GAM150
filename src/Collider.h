@@ -41,9 +41,9 @@ namespace StarBangBang
 			AEVec2 center;
 			
 			~BoxCollider(){}
-			inline float GetHeight();
+			 float GetHeight();
 		
-			inline float GetWidth();
+			 float GetWidth();
 
 			BoxCollider(GameObject* _go,AEVec2 _center, float width = 1.0f, float height = 1.0f);
 		
