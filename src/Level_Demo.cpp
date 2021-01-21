@@ -19,7 +19,7 @@ void StarBangBang::Level_Demo::Load()
 void StarBangBang::Level_Demo::Init()
 {
 	//Player 1
-	player = objectManager.NewGameObject();
+	player = objectManager.NewGameObject(100, 100);
 	objectManager.AddImageComponent(player, playerImage);
 	objectManager.AddScriptComponent<PrimaryMovementController>(player);
 
