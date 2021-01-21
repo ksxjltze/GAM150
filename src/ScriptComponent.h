@@ -12,7 +12,7 @@ namespace StarBangBang
 			this->gameObject = gameObject;
 		}
 
-		Component* Clone(GameObject* gameObject, Component* component) 
+		virtual Component* Clone(GameObject* gameObject, Component* component) 
 		{
 			return new Script(gameObject);
 		};
