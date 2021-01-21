@@ -52,10 +52,15 @@ StarBangBang::GameObject* StarBangBang::ObjectManager::CloneGameObject(GameObjec
 			ImageComponent* newImageComponent = dynamic_cast<ImageComponent*>(newComponent);
 			imageComponentList.push_back(newImageComponent);
 		}
+		else if (newComponent->id == Script::id)
+		{
+			scriptManager.scriptList.push_back(dynamic_cast<Script*>(newComponent));
+		}
 		else
 			componentList.push_back(newComponent);	
 
 	}
+
 	gameObjectList.push_back(newObject);
 	return newObject;
 }

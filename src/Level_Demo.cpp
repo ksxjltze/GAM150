@@ -23,16 +23,22 @@ void StarBangBang::Level_Demo::Load()
 
 void StarBangBang::Level_Demo::Init()
 {
+	//Player 1
 	player = objectManager.NewGameObject(100, 100);
 	objectManager.AddImageComponent(player, playerImage);
+	objectManager.AddScriptComponent<PrimaryMovementController>(player);
+
+	//Player 2
 	player2 = objectManager.CloneGameObject(player);
 	player2->GetComponent<ImageComponent>()->SetTexture(player2Image.texture); // testing
+	objectManager.AddScriptComponent<SecondaryMovementController>(player2);
 
-	scriptManager.AddScript<PrimaryMovementController>(player);
-	scriptManager.AddScript<SecondaryMovementController>(player2);
+	//Script Clone Test
+	testObjects.push_back(objectManager.CloneGameObject(player2));
+	testObjects.back()->transform.position.x = 200;
 
 	player->transform.position.x = 200;
-	player2->transform.position.x = -200;
+	player2->transform.position.x = -100;
 
 	testInteractable = objectManager.CloneGameObject(player);
 	testInteractable->SetPos({ 50, 50 });
@@ -43,17 +49,19 @@ void StarBangBang::Level_Demo::Init()
 	objectManager.AddImageComponent(worldOriginMarker, planetImage);
 	testObjects.push_back(worldOriginMarker);
 
-	//for (int i = 0; i < 10; i++)
-	//{
-	//	GameObject* testObject = objectManager.CloneGameObject(player);
-	//	objectManager.AddComponent<DragComponent>(testObject);
-	//	testObjects[i]->transform.position.x += i * 50;
-	//	testObjects[i]->transform.position.y += i % 3 * 100;
+	//Mass Clone Test
+	for (int i = 0; i < 10; i++)
+	{
+		GameObject* testObject = objectManager.CloneGameObject(player);
+		objectManager.AddComponent<DragComponent>(testObject);
+		testObjects[i]->transform.position.x += i * 50 + 500;
+		testObjects[i]->transform.position.y += i % 3 * 100;
 
-	//	testObjects.push_back(testObject);
-	//}
+		testObjects.push_back(testObject);
+	}
 
 	player->transform.position.y = 200;
+	player2->transform.position.y = 200;
 
 	objectManager.AddComponent<CameraComponent>(player);
 	scriptManager.Start();

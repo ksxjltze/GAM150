@@ -11,7 +11,13 @@ namespace StarBangBang
 		{
 			this->gameObject = gameObject;
 		}
-		virtual void Start() = 0;
-		virtual void Update() = 0;
+
+		virtual Component* Clone(GameObject* gameObject, Component* component) 
+		{
+			return new Script(gameObject);
+		};
+
+		virtual void Start() {};
+		virtual void Update() {};
 	};
 }
