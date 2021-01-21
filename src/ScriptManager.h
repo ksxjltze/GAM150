@@ -8,10 +8,20 @@ namespace StarBangBang
 	{
 	public:
 		template <class ScriptType>
-		inline void AddScript(GameObject* gameObject)
+		inline Script* NewScript(GameObject* gameObject)
 		{
 			ScriptType* script = new ScriptType(gameObject);
 			scriptList.push_back(script);
+			return script;
+		}
+		
+		//To be removed
+		template <class ScriptType>
+		inline Script* AddScript(GameObject* gameObject)
+		{
+			ScriptType* script = new ScriptType(gameObject);
+			scriptList.push_back(script);
+			return script;
 		}
 
 		inline void DestroyScripts()
@@ -41,6 +51,7 @@ namespace StarBangBang
 		}
 
 	private:
+		friend class ObjectManager;
 		std::vector<Script*> scriptList;
 	};
 }

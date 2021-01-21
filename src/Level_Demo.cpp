@@ -4,6 +4,7 @@
 StarBangBang::Level_Demo::Level_Demo(GameStateManager* manager, int id) : State(id)
 {
 	player = nullptr;
+	player2 = nullptr;
 	gameStateManager = manager;
 }
 
@@ -22,11 +23,13 @@ void StarBangBang::Level_Demo::Init()
 {
 	player = objectManager.NewGameObject(100, 100);
 	objectManager.AddImageComponent(player, playerImage);
+	objectManager.AddScriptComponent<SecondaryMovementController>(player);
 	player2 = objectManager.CloneGameObject(player);
 	player2->GetComponent<ImageComponent>()->SetTexture(player2Image.texture); // testing
 
-	scriptManager.AddScript<PrimaryMovementController>(player);
-	scriptManager.AddScript<SecondaryMovementController>(player2);
+	//scriptManager.NewScript<PrimaryMovementController>(player);
+
+	//testObjects.push_back(objectManager.CloneGameObject(player2));
 
 	player->transform.position.x = 200;
 	player2->transform.position.x = -100;
