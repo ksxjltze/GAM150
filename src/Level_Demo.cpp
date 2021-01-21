@@ -6,18 +6,14 @@ StarBangBang::Level_Demo::Level_Demo(GameStateManager* manager, int id) : State(
 	player = nullptr;
 	player2 = nullptr;
 	gameStateManager = manager;
-	// test push to branch
 }
 
 void StarBangBang::Level_Demo::Load()
 {
-	playerImage.texture = graphicsManager.LoadTexture("../Resources/boi.png");
-	player2Image.texture = graphicsManager.LoadTexture("../Resources/boi2.png");
-	planetImage.texture = graphicsManager.LoadTexture("../Resources/PlanetTexture.png");
+	playerImage = graphicsManager.CreateSprite("../Resources/boi.png", 100, 100);
+	player2Image = graphicsManager.CreateSprite("../Resources/boi2.png", 100, 100);
+	planetImage = graphicsManager.CreateSprite("../Resources/PlanetTexture.png", 100, 100);
 
-	playerImage.mesh = graphicsManager.CreateMesh(100, 100);
-	planetImage.mesh = graphicsManager.CreateMesh(100, 100);
-	player2Image.mesh = graphicsManager.CreateMesh(100, 100);
 }
 
 void StarBangBang::Level_Demo::Init()

@@ -44,6 +44,11 @@ AEGfxVertexList* StarBangBang::GraphicsManager::CreateMesh(float width, float he
     return nullptr;
 }
 
+StarBangBang::Sprite StarBangBang::GraphicsManager::CreateSprite(const char* filePath, float width, float height)
+{
+	return Sprite(LoadTexture(filePath), CreateMesh(width, height));
+}
+
 void StarBangBang::GraphicsManager::UnloadTextures()
 {
 	for (AEGfxTexture* texture : textureList)
