@@ -60,7 +60,7 @@
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
-      <WarningLevel>Level3</WarningLevel>
+      <WarningLevel>Level4</WarningLevel>
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
@@ -106,7 +106,6 @@
     <ClCompile Include="src\Player.cpp" />
     <ClCompile Include="src\PrimaryMovementController.cpp" />
     <ClCompile Include="src\SecondaryMovementController.cpp" />
-    <ClCompile Include="src\TileManager.cpp" />
     <ClCompile Include="src\Utils.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -132,7 +131,6 @@
     <ClInclude Include="src\SecondaryMovementController.h" />
     <ClInclude Include="src\Sprite.h" />
     <ClInclude Include="src\State.h" />
-    <ClInclude Include="src\TileManager.h" />
     <ClInclude Include="src\Transform.h" />
     <ClInclude Include="src\Utils.h" />
   </ItemGroup>

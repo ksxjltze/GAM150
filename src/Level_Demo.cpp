@@ -23,6 +23,10 @@ void StarBangBang::Level_Demo::Init()
 	objectManager.AddImageComponent(player, playerImage);
 	objectManager.AddScriptComponent<PrimaryMovementController>(player);
 
+	testObjects.push_back(objectManager.CloneGameObject(player));
+	objectManager.AddChildGameObject(testObjects.back(), player);
+	objectManager.AddChildGameObject(objectManager.CloneGameObject(player), player);
+
 	//Player 2
 	player2 = objectManager.CloneGameObject(player);
 	player2->GetComponent<ImageComponent>()->SetTexture(player2Image.texture); // testing

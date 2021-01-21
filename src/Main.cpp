@@ -21,7 +21,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 	using namespace StarBangBang;
 
 	int gGameRunning = 1;
-	u32 fontId = 0;
+	char fontId = 0;
 	GameStateManager gameStateManager;
 
 	State* demoState = gameStateManager.AddGameState<Level_Demo>();

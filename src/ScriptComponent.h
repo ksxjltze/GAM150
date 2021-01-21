@@ -12,9 +12,12 @@ namespace StarBangBang
 			this->gameObject = gameObject;
 		}
 
-		virtual Component* Clone(GameObject* gameObject, Component* component) 
+		virtual Component* Clone(GameObject* obj, Component* component = nullptr)
 		{
-			return new Script(gameObject);
+			if (component->id != id)
+				return nullptr;
+
+			return new Script(obj);
 		};
 
 		virtual void Start() {};

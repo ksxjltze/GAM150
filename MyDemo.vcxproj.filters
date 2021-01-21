@@ -99,9 +99,6 @@
     <ClCompile Include="src\CollisionComponent.cpp">
       <Filter>Source Files\Components</Filter>
     </ClCompile>
-    <ClCompile Include="src\TileManager.cpp">
-      <Filter>Source Files\Scripts</Filter>
-    </ClCompile>
     <ClCompile Include="src\Collider.cpp">
       <Filter>Source Files\Engine\Collision</Filter>
     </ClCompile>
@@ -169,9 +166,6 @@
     </ClInclude>
     <ClInclude Include="src\CameraComponent.h">
       <Filter>Header Files\Components</Filter>
-    </ClInclude>
-    <ClInclude Include="src\TileManager.h">
-      <Filter>Header Files\Scripts</Filter>
     </ClInclude>
     <ClInclude Include="src\Component.h">
       <Filter>Header Files\Engine\Game Logic</Filter>

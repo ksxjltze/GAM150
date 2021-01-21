@@ -5,9 +5,12 @@ StarBangBang::CameraComponent::CameraComponent(GameObject* gameObject) : Compone
 	position = { 0, 0 };
 }
 
-StarBangBang::Component* StarBangBang::CameraComponent::Clone(GameObject* gameObject, Component* component)
+StarBangBang::Component* StarBangBang::CameraComponent::Clone(GameObject* obj, Component* component = nullptr)
 {
-	return new CameraComponent(gameObject);
+	if (component->id != id)
+		return nullptr;
+
+	return new CameraComponent(obj);
 }
 
 void StarBangBang::CameraComponent::Update()

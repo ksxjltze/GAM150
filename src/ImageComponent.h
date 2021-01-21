@@ -11,8 +11,8 @@ namespace StarBangBang
 		ImageComponent(GameObject* gameObject, AEGfxVertexList* mesh, AEGfxTexture* texture);
 		Component* Clone(GameObject* gameObject, Component* component);
 
-		inline void SetTexture(AEGfxTexture* texture) { this->texture = texture; }
-		inline void SetMesh(AEGfxVertexList* mesh) { this->mesh = mesh; }
+		inline void SetTexture(AEGfxTexture* texturePtr) { texture = texturePtr; }
+		inline void SetMesh(AEGfxVertexList* meshPtr) { mesh = meshPtr; }
 
 		inline AEGfxTexture* GetTexture() { return texture; }
 		inline AEGfxVertexList* GetMesh() { return mesh; }

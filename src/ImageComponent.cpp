@@ -7,10 +7,10 @@ StarBangBang::ImageComponent::ImageComponent(GameObject* gameObject, AEGfxVertex
 	this->texture = texture;
 }
 
-StarBangBang::Component* StarBangBang::ImageComponent::Clone(GameObject* gameObject, Component* component)
+StarBangBang::Component* StarBangBang::ImageComponent::Clone(GameObject* obj, Component* component)
 {
 	ImageComponent* original = dynamic_cast<ImageComponent*>(component);
-	return new ImageComponent(gameObject, original->mesh, original->texture);
+	return new ImageComponent(obj, original->mesh, original->texture);
 }
 
 void StarBangBang::ImageComponent::Draw()
