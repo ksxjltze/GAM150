@@ -15,15 +15,6 @@ namespace StarBangBang
 			return script;
 		}
 		
-		//To be removed
-		template <class ScriptType>
-		inline Script* AddScript(GameObject* gameObject)
-		{
-			ScriptType* script = new ScriptType(gameObject);
-			scriptList.push_back(script);
-			return script;
-		}
-
 		inline void DestroyScripts()
 		{
 			for (Script* s : scriptList)
