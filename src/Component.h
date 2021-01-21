@@ -19,7 +19,7 @@ namespace StarBangBang
 		virtual void Update() {};
 		int id { Constants::ComponentType::NONE };
 		GameObject* gameObject { nullptr };
-
 		Component() {}
+		virtual ~Component() {}
 	};
 }

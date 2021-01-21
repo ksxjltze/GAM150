@@ -10,6 +10,7 @@ namespace StarBangBang
 	{
 	public:
 		State(int id) { this->id = id;}
+		virtual ~State() {};
 		inline int getID() { return id; }
 		virtual void Load() = 0;
 		virtual void Init() = 0;
