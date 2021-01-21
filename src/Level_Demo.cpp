@@ -1,11 +1,13 @@
 #include "Level_Demo.h"
 #include "CameraComponent.h"
+#include "InteractableComponent.h"
 
 StarBangBang::Level_Demo::Level_Demo(GameStateManager* manager, int id) : State(id)
 {
 	player = nullptr;
+	player2 = nullptr;
+	testInteractable = nullptr;
 	gameStateManager = manager;
-	// test push to branch
 }
 
 void StarBangBang::Level_Demo::Load()
@@ -32,6 +34,11 @@ void StarBangBang::Level_Demo::Init()
 	player->transform.position.x = 200;
 	player2->transform.position.x = -200;
 
+	testInteractable = objectManager.CloneGameObject(player);
+	testInteractable->SetPos({ 50, 50 });
+	objectManager.AddComponent<InteractableComponent>(testInteractable);
+	testInteractable->GetComponent<InteractableComponent>()->SetType(InteractableComponent::INTERACTABLE_TYPE::TYPE_PRINTER);
+
 	GameObject* worldOriginMarker = objectManager.NewGameObject();
 	objectManager.AddImageComponent(worldOriginMarker, planetImage);
 	testObjects.push_back(worldOriginMarker);
@@ -50,7 +57,6 @@ void StarBangBang::Level_Demo::Init()
 
 	objectManager.AddComponent<CameraComponent>(player);
 	scriptManager.Start();
-
 }
 
 void StarBangBang::Level_Demo::Update()

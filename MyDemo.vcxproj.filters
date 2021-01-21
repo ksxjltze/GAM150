@@ -96,6 +96,9 @@
     <ClCompile Include="src\SecondaryMovementController.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\InteractableComponent.cpp">
+      <Filter>Source Files\Components</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Collider.h">
@@ -172,6 +175,9 @@
     </ClInclude>
     <ClInclude Include="src\SecondaryMovementController.h">
       <Filter>Header Files\Scripts</Filter>
+    </ClInclude>
+    <ClInclude Include="src\InteractableComponent.h">
+      <Filter>Header Files\Components</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
