@@ -1,5 +1,7 @@
 #pragma once
 #include "ObjectManager.h"
+//DEPRECATED
+//REDO
 
 namespace StarBangBang
 {
