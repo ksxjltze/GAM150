@@ -56,8 +56,14 @@ StarBangBang::GameObject* StarBangBang::ObjectManager::CloneGameObject(GameObjec
 			componentList.push_back(newComponent);	
 
 	}
+
 	gameObjectList.push_back(newObject);
 	return newObject;
+}
+
+StarBangBang::ScriptManager& StarBangBang::ObjectManager::GetScriptManager()
+{
+	return scriptManager;
 }
 
 void StarBangBang::ObjectManager::FreeObjects()

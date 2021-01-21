@@ -29,7 +29,7 @@ void StarBangBang::Level_Demo::Init()
 	scriptManager.AddScript<SecondaryMovementController>(player2);
 
 	player->transform.position.x = 200;
-	player2->transform.position.x = -200;
+	player2->transform.position.x = -100;
 
 	GameObject* worldOriginMarker = objectManager.NewGameObject();
 	objectManager.AddImageComponent(worldOriginMarker, planetImage);
@@ -46,6 +46,7 @@ void StarBangBang::Level_Demo::Init()
 	//}
 
 	player->transform.position.y = 200;
+	player2->transform.position.y = 200;
 
 	objectManager.AddComponent<CameraComponent>(player);
 	scriptManager.Start();

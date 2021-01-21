@@ -1,6 +1,7 @@
 #pragma once
 #include "GraphicsManager.h"
 #include "GameObject.h"
+#include "ScriptManager.h"
 #include "ImageComponent.h"
 #include "DragComponent.h"
 #include "Sprite.h"
@@ -25,11 +26,14 @@ namespace StarBangBang
 		GameObject* NewGameObject();
 		GameObject* NewGameObject(float width, float height);
 		GameObject* CloneGameObject(GameObject* gameObject);
+		ScriptManager& GetScriptManager();
 		void FreeObjects();
 		void FreeComponents();
 		void Draw();
 		void Update();
 	private:
+		friend class State;
+		ScriptManager scriptManager;
 		std::vector<GameObject*> gameObjectList;
 		std::vector<ImageComponent*> imageComponentList;
 		std::vector<Component*> componentList;
