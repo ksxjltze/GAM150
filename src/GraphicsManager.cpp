@@ -84,3 +84,26 @@ void StarBangBang::DrawImage(AEGfxVertexList* mesh, AEGfxTexture* texture, AEVec
 	AEGfxMeshDraw(mesh, AE_GFX_MDM_TRIANGLES);
 }
 
+void StarBangBang::DrawImage(AEGfxVertexList* mesh, AEGfxTexture* texture, AEVec2 pos, AEVec2 scale)
+{
+	AEGfxSetRenderMode(AE_GFX_RM_TEXTURE);
+
+	// No tint
+	AEGfxSetTintColor(1.0f, 1.0f, 1.0f, 1.0f);
+
+	// Set texture
+	AEGfxTextureSet(texture, 0, 0);
+
+	// Set Scale
+	AEMtx33 scaleMtx;
+	AEMtx33Scale(&scaleMtx, scale.x, scale.y);
+	AEMtx33TransApply(&scaleMtx, &scaleMtx, pos.x, pos.y);
+	AEGfxSetTransform(scaleMtx.m);
+
+	// Set Transparency
+	AEGfxSetTransparency(1.0f);
+
+	// Drawing the mesh (list of triangles)
+	AEGfxMeshDraw(mesh, AE_GFX_MDM_TRIANGLES);
+}
+

@@ -5,7 +5,6 @@ namespace StarBangBang
 {
 	struct Transform
 	{
-		AEVec2 position;
-		float scale, rotation;
+		AEVec2 position, scale, rotation;
 	};
 }

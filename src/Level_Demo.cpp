@@ -51,6 +51,7 @@ void StarBangBang::Level_Demo::Init()
 	}
 
 	player->transform.position.y = 200;
+	player->transform.scale = { 2, 2 };
 	player2->transform.position.y = 200;
 
 	objectManager.AddComponent<CameraComponent>(player);
