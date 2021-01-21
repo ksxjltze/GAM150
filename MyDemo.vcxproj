@@ -105,6 +105,7 @@
     <ClCompile Include="src\ObjectManager.cpp" />
     <ClCompile Include="src\Player.cpp" />
     <ClCompile Include="src\PrimaryMovementController.cpp" />
+    <ClCompile Include="src\ScriptManager.cpp" />
     <ClCompile Include="src\SecondaryMovementController.cpp" />
     <ClCompile Include="src\Utils.cpp" />
   </ItemGroup>

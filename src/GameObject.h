@@ -27,11 +27,6 @@ namespace StarBangBang
 
 		}
 
-		inline void AddComponent(Component* component)
-		{
-			componentList.push_back(component);
-		}
-
 		inline std::vector<Component*> GetComponents()
 		{
 			return componentList;
@@ -47,6 +42,11 @@ namespace StarBangBang
 		void SetPos(AEVec2 newPos);
 
 	private:
+		friend class ObjectManager;
+		inline void AddComponent(Component* component)
+		{
+			componentList.push_back(component);
+		}
 		std::vector<Component*> componentList;
 	};
 }

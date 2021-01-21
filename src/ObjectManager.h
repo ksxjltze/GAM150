@@ -23,7 +23,6 @@ namespace StarBangBang
 		void AddImageComponent(GameObject* gameObject, Sprite sprite);
 		void AddChildGameObject(GameObject* child, GameObject* parent);
 		GameObject* NewGameObject();
-		GameObject* NewGameObject(float width, float height);
 		GameObject* CloneGameObject(GameObject* gameObject);
 
 		template <class ScriptType>
