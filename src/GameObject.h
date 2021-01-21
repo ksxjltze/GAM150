@@ -1,7 +1,7 @@
 #pragma once
 #include "Transform.h"
 #include <vector>
-#include <typeinfo>
+#include <algorithm>
 
 namespace StarBangBang
 {
@@ -9,6 +9,10 @@ namespace StarBangBang
 	class GameObject
 	{
 	public:
+		GameObject();
+		GameObject(const GameObject& prefab);
+		GameObject operator=(const GameObject& prefab) { return GameObject(prefab); };
+
 		template <class T>
 		inline T* GetComponent()
 		{
@@ -26,6 +30,11 @@ namespace StarBangBang
 		inline void AddComponent(Component* component)
 		{
 			componentList.push_back(component);
+		}
+
+		inline std::vector<Component*> GetComponents()
+		{
+			return componentList;
 		}
 
 		Transform transform;

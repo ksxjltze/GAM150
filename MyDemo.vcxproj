@@ -89,6 +89,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\CameraComponent.cpp" />
     <ClCompile Include="src\ColliderAABB.cpp" />
     <ClCompile Include="src\CollisionComponent.cpp" />
     <ClCompile Include="src\CollisionManager.cpp" />
@@ -99,33 +100,35 @@
     <ClCompile Include="src\ImageComponent.cpp" />
     <ClCompile Include="src\Level_Demo.cpp" />
     <ClCompile Include="src\Main.cpp" />
-    <ClCompile Include="src\MapEditor.cpp" />
     <ClCompile Include="src\MemoryManager.cpp" />
     <ClCompile Include="src\ObjectManager.cpp" />
-    <ClCompile Include="src\PhysicsComponent.cpp" />
     <ClCompile Include="src\Player.cpp" />
+    <ClCompile Include="src\PrimaryMovementController.cpp" />
+    <ClCompile Include="src\SecondaryMovementController.cpp" />
     <ClCompile Include="src\TileManager.cpp" />
     <ClCompile Include="src\Utils.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\CameraComponent.h" />
     <ClInclude Include="src\Collider.h" />
     <ClInclude Include="src\ColliderAABB.h" />
     <ClInclude Include="src\CollisionComponent.h" />
     <ClInclude Include="src\CollisionManager.h" />
     <ClInclude Include="src\Component.h" />
+    <ClInclude Include="src\constants.h" />
     <ClInclude Include="src\DragComponent.h" />
     <ClInclude Include="src\GameObject.h" />
     <ClInclude Include="src\GameStateManager.h" />
     <ClInclude Include="src\GraphicsManager.h" />
     <ClInclude Include="src\ImageComponent.h" />
     <ClInclude Include="src\Level_Demo.h" />
-    <ClInclude Include="src\MapEditor.h" />
     <ClInclude Include="src\MemoryManager.h" />
     <ClInclude Include="src\ObjectManager.h" />
-    <ClInclude Include="src\PhysicsComponent.h" />
     <ClInclude Include="src\Player.h" />
+    <ClInclude Include="src\PrimaryMovementController.h" />
     <ClInclude Include="src\ScriptComponent.h" />
     <ClInclude Include="src\ScriptManager.h" />
+    <ClInclude Include="src\SecondaryMovementController.h" />
     <ClInclude Include="src\Sprite.h" />
     <ClInclude Include="src\State.h" />
     <ClInclude Include="src\TileManager.h" />

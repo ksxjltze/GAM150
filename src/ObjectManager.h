@@ -24,13 +24,14 @@ namespace StarBangBang
 		//GameObject* InitTestObject(Image* image);
 		GameObject* NewGameObject();
 		GameObject* NewGameObject(float width, float height);
+		GameObject* CloneGameObject(GameObject* gameObject);
 		void FreeObjects();
 		void FreeComponents();
 		void Draw();
 		void Update();
 	private:
 		std::vector<GameObject*> gameObjectList;
-		std::vector<ImageComponent> imageComponentList;
+		std::vector<ImageComponent*> imageComponentList;
 		std::vector<Component*> componentList;
 	};
 }

@@ -3,7 +3,6 @@
 
 #include "AEEngine.h"
 #include "GameStateManager.h"
-#include "MapEditor.h"
 #include "Level_Demo.h"
 
 // ---------------------------------------------------------------------------
@@ -22,9 +21,9 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 	using namespace StarBangBang;
 
 	int gGameRunning = 1;
+	u32 fontId = 0;
 	GameStateManager gameStateManager;
 
-	State* state1 = gameStateManager.AddGameState<MapEditor>();
 	State* demoState = gameStateManager.AddGameState<Level_Demo>();
 	gameStateManager.SetInitialState(demoState);
 
@@ -50,6 +49,8 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 	AEGfxSetBackgroundColor(0.3f, 0.6f, 1.0f);
 	AEGfxSetBlendMode(AE_GFX_BM_BLEND);
 
+	fontId = AEGfxCreateFont("../Resources/Roboto-Regular.ttf", 12);
+
 	// Initialization end
 	/////////////////////
 
@@ -64,6 +65,19 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 
 		// Update State
 		gameStateManager.Update();
+
+		//FPS
+		AEVec2 camPos;
+		AEGfxGetCamPosition(&camPos.x, &camPos.y);
+
+		char strBuffer[100];
+		memset(strBuffer, 0, 100 * sizeof(char));
+		sprintf_s(strBuffer, "FPS:  %.6f", AEFrameRateControllerGetFrameRate());
+
+		AEGfxSetBlendMode(AE_GFX_BM_BLEND);
+		f32 TextWidth, TextHeight;
+		AEGfxGetPrintSize(fontId, strBuffer, 1.0f, TextWidth, TextHeight);
+		AEGfxPrint(fontId, strBuffer, 0.99f - TextWidth, 0.99f - TextHeight, 1.0f, 1.f, 1.f, 1.f);
 
 		// Informing the system about the loop's end
 		AESysFrameEnd();

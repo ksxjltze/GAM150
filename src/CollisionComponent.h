@@ -7,5 +7,6 @@ namespace StarBangBang
 	{
 	public:
 		CollisionComponent(GameObject* gameObject);
+		const static int id = 4;
 	};
 }

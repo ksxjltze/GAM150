@@ -1,10 +1,15 @@
 #include "DragComponent.h"
 #include "Utils.h"
+#include <iostream>
 
-StarBangBang::DragComponent::DragComponent(GameObject* gameObject)
+StarBangBang::DragComponent::DragComponent(GameObject* gameObject) : Component(gameObject, id)
 {
-	this->gameObject = gameObject;
 	enabled = false;
+}
+
+StarBangBang::Component* StarBangBang::DragComponent::Clone(GameObject* gameObject, Component* component)
+{
+	return new DragComponent(gameObject);
 }
 
 void StarBangBang::DragComponent::Update()
@@ -20,8 +25,8 @@ void StarBangBang::DragComponent::Update()
 	{
 		if (mouseX > pos.x - width / 2
 			&& mouseX < pos.x + width / 2
-			&& -mouseY > pos.y - height / 2
-			&& -mouseY < pos.y + height / 2)
+			&& mouseY > pos.y - height / 2
+			&& mouseY < pos.y + height / 2)
 		{
 			enabled = true;
 		}
@@ -35,7 +40,7 @@ void StarBangBang::DragComponent::Update()
 	if (enabled)
 	{
 		pos.x = mouseX;
-		pos.y = -mouseY;
+		pos.y = mouseY;
 		gameObject->SetPos(pos);
 	}
 }

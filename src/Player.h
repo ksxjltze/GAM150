@@ -1,5 +1,7 @@
 #pragma once
 #include "ScriptComponent.h"
+#include "PrimaryMovementController.h"
+#include "SecondaryMovementController.h"
 
 namespace StarBangBang
 {
@@ -10,6 +12,9 @@ namespace StarBangBang
 		void Load();
 		void Start();
 		void Update();
+	private:
+		PrimaryMovementController movementController {gameObject};
+		SecondaryMovementController secondaryMovementController {gameObject};
 	};
 }
 

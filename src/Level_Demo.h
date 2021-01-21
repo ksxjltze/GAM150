@@ -20,7 +20,11 @@ namespace StarBangBang
 		void Unload();
 	private:
 		Sprite playerImage;
+		Sprite player2Image;
+		Sprite planetImage;
 		GameObject* player;
+		GameObject* player2;
+		std::vector<GameObject*> testObjects;
 		GameStateManager* gameStateManager;
 	};
 }
