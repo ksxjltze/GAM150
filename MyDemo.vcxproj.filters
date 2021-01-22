@@ -120,8 +120,11 @@
     <ClCompile Include="src\GraphicsManager.cpp">
       <Filter>Source Files\Engine\Graphics</Filter>
     </ClCompile>
+    <ClCompile Include="src\Subject.cpp">
+      <Filter>Source Files\Engine\Game Logic</Filter>
+    </ClCompile>
     <ClCompile Include="src\ScriptManager.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Engine\Game Logic</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -196,6 +199,15 @@
     </ClInclude>
     <ClInclude Include="src\Sprite.h">
       <Filter>Header Files\Engine\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Observer.h">
+      <Filter>Header Files\Engine\Game Logic</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Event.h">
+      <Filter>Header Files\Engine\Game Logic</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Subject.h">
+      <Filter>Header Files\Engine\Game Logic</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

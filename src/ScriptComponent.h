@@ -1,5 +1,6 @@
 #pragma once
 #include "Component.h"
+#include "Observer.h"
 
 namespace StarBangBang
 {
