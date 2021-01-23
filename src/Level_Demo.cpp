@@ -1,5 +1,6 @@
 #include "Level_Demo.h"
 #include "CameraComponent.h"
+#include <iostream>
 
 StarBangBang::Level_Demo::Level_Demo(GameStateManager* manager, int id) : State(id)
 {
@@ -52,7 +53,12 @@ void StarBangBang::Level_Demo::Init()
 	}
 
 	player->transform.position.y = 200;
-	player->transform.scale = { 2, 2 };
+	player->GetComponent<PrimaryMovementController>()->gameObject->transform.scale = { 3, 3 };
+	player->GetComponent<PrimaryMovementController>()->doodoo = 10;
+	if (player->GetComponent<PrimaryMovementController>()->doodoo == 10)
+	{
+		std::cout << "Test";
+	}
 	player2->transform.position.y = 200;
 
 	objectManager.AddComponent<CameraComponent>(player);

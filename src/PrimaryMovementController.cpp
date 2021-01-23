@@ -2,6 +2,7 @@
 
 StarBangBang::PrimaryMovementController::PrimaryMovementController(GameObject* gameObject) : Script(gameObject)
 {
+	doodoo = 5;
 }
 
 void StarBangBang::PrimaryMovementController::Start()

@@ -9,5 +9,6 @@ namespace StarBangBang
 		PrimaryMovementController(GameObject* gameObject);
 		void Start();
 		void Update();
+		int doodoo;
 	};
 }
