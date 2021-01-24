@@ -7,6 +7,7 @@ StarBangBang::PrimaryMovementController::PrimaryMovementController(GameObject* g
 
 void StarBangBang::PrimaryMovementController::Start()
 {
+
 }
 
 void StarBangBang::PrimaryMovementController::Update()
