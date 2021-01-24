@@ -24,6 +24,8 @@ void StarBangBang::Level_Demo::Init()
 	objectManager.AddImageComponent(player, playerImage);
 	objectManager.AddScriptComponent<PrimaryMovementController>(player);
 
+	tagManager.AddTag(*player, "Test");
+
 	//Player 2
 	player2 = objectManager.CloneGameObject(player);
 	player2->GetComponent<ImageComponent>()->SetTexture(player2Image.texture); // testing
@@ -53,13 +55,14 @@ void StarBangBang::Level_Demo::Init()
 	}
 
 	player->transform.position.y = 200;
-	player->GetComponent<PrimaryMovementController>()->gameObject->transform.scale = { 3, 3 };
 	player->GetComponent<PrimaryMovementController>()->doodoo = 10;
 	if (player->GetComponent<PrimaryMovementController>()->doodoo == 10)
 	{
 		std::cout << "Test";
 	}
 	player2->transform.position.y = 200;
+
+	tagManager.GetGameObjectByTag("Test").transform.scale = { 4, 4 };
 
 	objectManager.AddComponent<CameraComponent>(player);
 	scriptManager.Start();

@@ -3,6 +3,7 @@
 #include "GraphicsManager.h"
 #include "MemoryManager.h"
 #include "ScriptManager.h"
+#include "TagManager.h"
 
 namespace StarBangBang
 {
@@ -22,6 +23,7 @@ namespace StarBangBang
 		StarBangBang::GraphicsManager graphicsManager;
 		StarBangBang::ObjectManager objectManager;
 		StarBangBang::ScriptManager& scriptManager { objectManager.scriptManager };
+		StarBangBang::TagManager tagManager;
 		//StarBangBang::MemoryManager memoryManager{ &objectManager, &graphicsManager };
 		StarBangBang::MemoryManager memoryManager{ &objectManager, &graphicsManager, &scriptManager };
 	private:
