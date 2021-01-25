@@ -129,8 +129,14 @@
     <ClCompile Include="src\TagManager.cpp">
       <Filter>Source Files\Engine\Game Logic</Filter>
     </ClCompile>
+    <ClCompile Include="src\EventTest.cpp">
+      <Filter>Source Files\Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ObserverTest.cpp">
+      <Filter>Source Files\Scripts</Filter>
+    </ClCompile>
     <ClCompile Include="src\TestScene.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Scripts</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -220,6 +226,12 @@
     </ClInclude>
     <ClInclude Include="src\TestScene.h">
       <Filter>Header Files\Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="src\EventTest.h">
+      <Filter>Header Files\Scripts</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ObserverTest.h">
+      <Filter>Header Files\Scripts</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

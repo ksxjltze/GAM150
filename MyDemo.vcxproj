@@ -95,6 +95,7 @@
     <ClCompile Include="src\CollisionComponent.cpp" />
     <ClCompile Include="src\CollisionManager.cpp" />
     <ClCompile Include="src\DragComponent.cpp" />
+    <ClCompile Include="src\EventTest.cpp" />
     <ClCompile Include="src\GameObject.cpp" />
     <ClCompile Include="src\GameStateManager.cpp" />
     <ClCompile Include="src\GraphicsManager.cpp" />
@@ -103,6 +104,7 @@
     <ClCompile Include="src\Main.cpp" />
     <ClCompile Include="src\MemoryManager.cpp" />
     <ClCompile Include="src\ObjectManager.cpp" />
+    <ClCompile Include="src\ObserverTest.cpp" />
     <ClCompile Include="src\Player.cpp" />
     <ClCompile Include="src\PrimaryMovementController.cpp" />
     <ClCompile Include="src\ScriptManager.cpp" />
@@ -122,6 +124,7 @@
     <ClInclude Include="src\constants.h" />
     <ClInclude Include="src\DragComponent.h" />
     <ClInclude Include="src\Event.h" />
+    <ClInclude Include="src\EventTest.h" />
     <ClInclude Include="src\GameObject.h" />
     <ClInclude Include="src\GameStateManager.h" />
     <ClInclude Include="src\GraphicsManager.h" />
@@ -130,6 +133,7 @@
     <ClInclude Include="src\MemoryManager.h" />
     <ClInclude Include="src\ObjectManager.h" />
     <ClInclude Include="src\Observer.h" />
+    <ClInclude Include="src\ObserverTest.h" />
     <ClInclude Include="src\Player.h" />
     <ClInclude Include="src\PrimaryMovementController.h" />
     <ClInclude Include="src\ScriptComponent.h" />
