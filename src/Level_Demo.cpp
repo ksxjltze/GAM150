@@ -63,7 +63,8 @@ void StarBangBang::Level_Demo::Init()
 	}
 	player2->transform.position.y = 200;
 
-	tagManager.GetGameObjectByTag("Test").transform.scale = { 4, 4 };
+	tagManager.GetGameObjectByTag("Test").transform.scale = { 10, 2 };
+	tagManager.GetGameObjectByTag("Test").transform.rotation = 69;
 
 	objectManager.AddComponent<CameraComponent>(player);
 	scriptManager.Start();

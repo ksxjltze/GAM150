@@ -57,6 +57,10 @@ void StarBangBang::TestScene::Init()
 void StarBangBang::TestScene::Update()
 {
 	State::Update();
+	if (AEInputCheckTriggered(VK_SPACE))
+	{
+		gameStateManager->SetNextGameState(Constants::SceneID::DEMO);
+	}
 }
 
 void StarBangBang::TestScene::Draw()
