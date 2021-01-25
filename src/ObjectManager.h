@@ -16,18 +16,18 @@ namespace StarBangBang
 		inline void AddComponent(GameObject* gameObject)
 		{
 			T* component = new T(gameObject);
-			componentList.push_back(component);
-			gameObject->AddComponent(component);
+			AddComponent(gameObject, component);
 		}
 
-		void AddImageComponent(GameObject* gameObject, Sprite sprite);
+		void AddComponent(GameObject* gameObject, Component* component);
+		void AddImage(GameObject* gameObject, Sprite sprite);
 		void AddChildGameObject(GameObject* child, GameObject* parent);
 		GameObject* NewGameObject();
 		GameObject* NewGameObject(float width, float height);
 		GameObject* CloneGameObject(GameObject* gameObject);
 
 		template <class ScriptType>
-		inline void AddScriptComponent(GameObject* gameObject)
+		inline void AddScript(GameObject* gameObject)
 		{
 			Script* scriptComponent = scriptManager.NewScript<ScriptType>(gameObject);
 			gameObject->AddComponent(scriptComponent);

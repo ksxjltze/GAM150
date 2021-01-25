@@ -18,9 +18,9 @@ void StarBangBang::TestScene::Init()
 	GameObject* obj = objectManager.NewGameObject();
 	GameObject* obj2 = objectManager.NewGameObject();
 
-	objectManager.AddImageComponent(obj, testSprite);
-	objectManager.AddScriptComponent<EventTest>(obj);
-	objectManager.AddScriptComponent<ObserverTest>(obj2);
+	objectManager.AddImage(obj, testSprite);
+	objectManager.AddScript<EventTest>(obj);
+	objectManager.AddScript<ObserverTest>(obj2);
 
 	obj->GetComponent<EventTest>()->subject.addObserver(obj2->GetComponent<ObserverTest>());
 	gameObjects.push_back(obj);

@@ -22,15 +22,15 @@ void StarBangBang::Level_Demo::Init()
 {
 	//Player 1
 	player = objectManager.NewGameObject(100, 100);
-	objectManager.AddImageComponent(player, playerImage);
-	objectManager.AddScriptComponent<PrimaryMovementController>(player);
+	objectManager.AddImage(player, playerImage);
+	objectManager.AddScript<PrimaryMovementController>(player);
 
 	tagManager.AddTag(*player, "Test");
 
 	//Player 2
 	player2 = objectManager.CloneGameObject(player);
 	player2->GetComponent<ImageComponent>()->SetTexture(player2Image.texture); // testing
-	objectManager.AddScriptComponent<SecondaryMovementController>(player2);
+	objectManager.AddScript<SecondaryMovementController>(player2);
 
 	//Script Clone Test
 	testObjects.push_back(objectManager.CloneGameObject(player2));
@@ -41,7 +41,7 @@ void StarBangBang::Level_Demo::Init()
 	player2->transform.position.x = -100;
 
 	GameObject* worldOriginMarker = objectManager.NewGameObject();
-	objectManager.AddImageComponent(worldOriginMarker, planetImage);
+	objectManager.AddImage(worldOriginMarker, planetImage);
 	testObjects.push_back(worldOriginMarker);
 
 	//Mass Clone Test
