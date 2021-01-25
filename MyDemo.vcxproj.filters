@@ -64,6 +64,12 @@
     <Filter Include="Source Files\Engine\Graphics">
       <UniqueIdentifier>{cd76ce61-9d72-4106-8afc-7ae05fdfbdca}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Scripts\Testing">
+      <UniqueIdentifier>{aed5af73-6747-4c96-a3d0-f944b2bdb769}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Scripts\Testing">
+      <UniqueIdentifier>{be99017c-a055-4c1c-8ef1-0499df5fa214}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Main.cpp">
@@ -129,14 +135,14 @@
     <ClCompile Include="src\TagManager.cpp">
       <Filter>Source Files\Engine\Game Logic</Filter>
     </ClCompile>
-    <ClCompile Include="src\EventTest.cpp">
+    <ClCompile Include="src\TestScene.cpp">
       <Filter>Source Files\Scenes</Filter>
     </ClCompile>
-    <ClCompile Include="src\ObserverTest.cpp">
-      <Filter>Source Files\Scripts</Filter>
+    <ClCompile Include="src\EventTest.cpp">
+      <Filter>Source Files\Scripts\Testing</Filter>
     </ClCompile>
-    <ClCompile Include="src\TestScene.cpp">
-      <Filter>Source Files\Scripts</Filter>
+    <ClCompile Include="src\ObserverTest.cpp">
+      <Filter>Source Files\Scripts\Testing</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -227,11 +233,11 @@
     <ClInclude Include="src\TestScene.h">
       <Filter>Header Files\Scenes</Filter>
     </ClInclude>
-    <ClInclude Include="src\EventTest.h">
-      <Filter>Header Files\Scripts</Filter>
-    </ClInclude>
     <ClInclude Include="src\ObserverTest.h">
-      <Filter>Header Files\Scripts</Filter>
+      <Filter>Header Files\Scripts\Testing</Filter>
+    </ClInclude>
+    <ClInclude Include="src\EventTest.h">
+      <Filter>Header Files\Scripts\Testing</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
