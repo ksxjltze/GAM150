@@ -6,6 +6,7 @@
 #include "Level_Demo.h"
 #include "TestScene.h"
 #include "constants.h"
+#include "LevelEditor.h"
 
 // ---------------------------------------------------------------------------
 // main
@@ -27,8 +28,9 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 	GameStateManager gameStateManager;
 
 	gameStateManager.AddGameState<Level_Demo>(Constants::SceneID::DEMO);
-	State* testScene = gameStateManager.AddGameState<TestScene>(Constants::SceneID::TEST);
-	gameStateManager.SetInitialState(testScene);
+	State* scene = gameStateManager.AddGameState<LevelEditor>(Constants::SceneID::EDITOR);
+	gameStateManager.AddGameState<TestScene>(Constants::SceneID::TEST);
+	gameStateManager.SetInitialState(scene);
 
 	// Variable declaration end
 	///////////////////////////
