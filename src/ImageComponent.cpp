@@ -18,6 +18,6 @@ void StarBangBang::ImageComponent::Draw()
 	if (gameObject->active)
 	{
 		AEVec2 pos = gameObject->GetPos();
-		DrawImage(mesh, texture, pos, gameObject->transform.scale);
+		Graphics::DrawImage(mesh, texture, pos, gameObject->transform.scale, gameObject->transform.rotation);
 	}
 }

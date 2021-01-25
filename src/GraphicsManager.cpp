@@ -69,22 +69,7 @@ void StarBangBang::GraphicsManager::FreeMeshes()
 	meshList.clear();
 }
 
-void StarBangBang::DrawImage(AEGfxVertexList* mesh, AEGfxTexture* texture, AEVec2 pos)
-{
-	AEGfxSetRenderMode(AE_GFX_RM_TEXTURE);
-	// No tint
-	AEGfxSetTintColor(1.0f, 1.0f, 1.0f, 1.0f);
-	// Set texture
-	AEGfxTextureSet(texture, 0, 0);
-	// Set Position
-	AEGfxSetPosition(pos.x, pos.y);
-	// Set Transparency
-	AEGfxSetTransparency(1.0f);
-	// Drawing the mesh (list of triangles)
-	AEGfxMeshDraw(mesh, AE_GFX_MDM_TRIANGLES);
-}
-
-void StarBangBang::DrawImage(AEGfxVertexList* mesh, AEGfxTexture* texture, AEVec2 pos, AEVec2 scale)
+void StarBangBang::Graphics::DrawImage(AEGfxVertexList* mesh, AEGfxTexture* texture, AEVec2 pos, AEVec2 scale, float rotation)
 {
 	AEGfxSetRenderMode(AE_GFX_RM_TEXTURE);
 
@@ -93,12 +78,23 @@ void StarBangBang::DrawImage(AEGfxVertexList* mesh, AEGfxTexture* texture, AEVec
 
 	// Set texture
 	AEGfxTextureSet(texture, 0, 0);
+
+	// Transform matrix
+	AEMtx33 transformMtx;
 
 	// Set Scale
 	AEMtx33 scaleMtx;
 	AEMtx33Scale(&scaleMtx, scale.x, scale.y);
-	AEMtx33TransApply(&scaleMtx, &scaleMtx, pos.x, pos.y);
-	AEGfxSetTransform(scaleMtx.m);
+
+	// Set Rotation
+	AEMtx33 rotationMtx;
+	AEMtx33RotDeg(&rotationMtx, rotation);
+
+	// Set Transform
+	AEMtx33Concat(&transformMtx, &scaleMtx, &rotationMtx);
+	AEMtx33TransApply(&transformMtx, &transformMtx, pos.x, pos.y);
+
+	AEGfxSetTransform(transformMtx.m);
 
 	// Set Transparency
 	AEGfxSetTransparency(1.0f);
@@ -106,4 +102,5 @@ void StarBangBang::DrawImage(AEGfxVertexList* mesh, AEGfxTexture* texture, AEVec
 	// Drawing the mesh (list of triangles)
 	AEGfxMeshDraw(mesh, AE_GFX_MDM_TRIANGLES);
 }
+
 
