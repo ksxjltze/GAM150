@@ -1,6 +1,7 @@
 #include "Level_Demo.h"
 #include "CameraComponent.h"
 #include <iostream>
+#include "constants.h"
 
 StarBangBang::Level_Demo::Level_Demo(GameStateManager* manager, int id) : State(id)
 {
@@ -72,6 +73,10 @@ void StarBangBang::Level_Demo::Init()
 void StarBangBang::Level_Demo::Update()
 {
 	State::Update();
+	if (AEInputCheckTriggered(VK_SPACE))
+	{
+		gameStateManager->SetNextGameState(Constants::SceneID::TEST);
+	}
 }
 
 void StarBangBang::Level_Demo::Draw()

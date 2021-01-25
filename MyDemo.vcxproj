@@ -109,6 +109,7 @@
     <ClCompile Include="src\SecondaryMovementController.cpp" />
     <ClCompile Include="src\Subject.cpp" />
     <ClCompile Include="src\TagManager.cpp" />
+    <ClCompile Include="src\TestScene.cpp" />
     <ClCompile Include="src\Utils.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -138,6 +139,7 @@
     <ClInclude Include="src\State.h" />
     <ClInclude Include="src\Subject.h" />
     <ClInclude Include="src\TagManager.h" />
+    <ClInclude Include="src\TestScene.h" />
     <ClInclude Include="src\Transform.h" />
     <ClInclude Include="src\Utils.h" />
   </ItemGroup>

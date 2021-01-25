@@ -27,6 +27,7 @@ namespace StarBangBang
 		//StarBangBang::MemoryManager memoryManager{ &objectManager, &graphicsManager };
 		StarBangBang::MemoryManager memoryManager{ &objectManager, &graphicsManager, &scriptManager };
 	private:
+		friend class GameStateManager;
 		int id;
 	};
 

@@ -129,6 +129,9 @@
     <ClCompile Include="src\TagManager.cpp">
       <Filter>Source Files\Engine\Game Logic</Filter>
     </ClCompile>
+    <ClCompile Include="src\TestScene.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\DragComponent.h">
@@ -214,6 +217,9 @@
     </ClInclude>
     <ClInclude Include="src\TagManager.h">
       <Filter>Header Files\Engine\Game Logic</Filter>
+    </ClInclude>
+    <ClInclude Include="src\TestScene.h">
+      <Filter>Header Files\Scenes</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
