@@ -18,5 +18,7 @@ namespace StarBangBang
 		void Start();
 		void Update();
 		void onNotify(const GameObject& obj, Event e);
+	private:
+		int eventCount;
 	};
 }

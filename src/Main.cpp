@@ -26,7 +26,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 	char fontId = 0;
 	GameStateManager gameStateManager;
 
-	State* demoState = gameStateManager.AddGameState<Level_Demo>(Constants::SceneID::DEMO);
+	gameStateManager.AddGameState<Level_Demo>(Constants::SceneID::DEMO);
 	State* testScene = gameStateManager.AddGameState<TestScene>(Constants::SceneID::TEST);
 	gameStateManager.SetInitialState(testScene);
 

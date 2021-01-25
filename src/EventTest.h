@@ -18,5 +18,7 @@ namespace StarBangBang
 		void Start();
 		void Update();
 		Subject subject;
+	private:
+		int eventCount;
 	};
 }

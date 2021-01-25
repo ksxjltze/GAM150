@@ -2,12 +2,12 @@
 
 StarBangBang::EventTest::EventTest(GameObject* gameObject) : Script(gameObject)
 {
-
+	eventCount = 0;
 }
 
 void StarBangBang::EventTest::Start()
 {
-	subject.notify(*gameObject, { 69 });
+	subject.notify(*gameObject, { ++eventCount });
 }
 
 void StarBangBang::EventTest::Update()
