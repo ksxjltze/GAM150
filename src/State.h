@@ -17,8 +17,8 @@ namespace StarBangBang
 		virtual void Init() = 0;
 		virtual void Update() { objectManager.Update(); scriptManager.Update(); }
 		virtual void Draw() { objectManager.Draw(); }
-		virtual void Free() = 0;
-		virtual void Unload() = 0;
+		virtual void Free() { memoryManager.Free(); }
+		virtual void Unload() { memoryManager.Unload(); }
 	protected:
 		StarBangBang::GraphicsManager graphicsManager;
 		StarBangBang::ObjectManager objectManager;

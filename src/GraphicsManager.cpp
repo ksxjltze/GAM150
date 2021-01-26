@@ -1,4 +1,5 @@
 #include "GraphicsManager.h"
+#include "constants.h"
 
 AEGfxTexture* StarBangBang::GraphicsManager::LoadTexture(const char* filePath)
 {
@@ -44,9 +45,25 @@ AEGfxVertexList* StarBangBang::GraphicsManager::CreateMesh(float width, float he
     return nullptr;
 }
 
+AEGfxVertexList* StarBangBang::GraphicsManager::GetMesh()
+{
+	if (normalizedMesh == nullptr)
+	{
+		normalizedMesh = CreateMesh(Constants::Graphics::MESH_WIDTH, Constants::Graphics::MESH_HEIGHT);
+		meshList.push_back(normalizedMesh);
+	}
+
+	return normalizedMesh;
+}
+
 StarBangBang::Sprite StarBangBang::GraphicsManager::CreateSprite(const char* filePath, float width, float height)
 {
 	return Sprite(LoadTexture(filePath), CreateMesh(width, height));
+}
+
+StarBangBang::Sprite StarBangBang::GraphicsManager::CreateSprite(const char* filePath)
+{
+	return Sprite(LoadTexture(filePath), GetMesh());
 }
 
 void StarBangBang::GraphicsManager::UnloadTextures()

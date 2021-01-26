@@ -15,7 +15,7 @@ StarBangBang::Component* StarBangBang::ImageComponent::Clone(GameObject* obj, Co
 
 void StarBangBang::ImageComponent::Draw()
 {
-	if (gameObject->active)
+ 	if (gameObject->active)
 	{
 		AEVec2 pos = gameObject->GetPos();
 		Graphics::DrawImage(mesh, texture, pos, gameObject->transform.scale, gameObject->transform.rotation);

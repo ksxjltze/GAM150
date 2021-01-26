@@ -70,10 +70,10 @@ void StarBangBang::TestScene::Draw()
 
 void StarBangBang::TestScene::Free()
 {
-
+	State::Free();
 }
 
 void StarBangBang::TestScene::Unload()
 {
-
+	State::Unload();
 }
