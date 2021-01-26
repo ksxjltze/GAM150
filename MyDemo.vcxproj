@@ -102,6 +102,7 @@
     <ClCompile Include="src\GraphicsManager.cpp" />
     <ClCompile Include="src\ImageComponent.cpp" />
     <ClCompile Include="src\LevelEditor.cpp" />
+    <ClCompile Include="src\InteractableComponent.cpp" />
     <ClCompile Include="src\Level_Demo.cpp" />
     <ClCompile Include="src\Main.cpp" />
     <ClCompile Include="src\MemoryManager.cpp" />
@@ -133,6 +134,7 @@
     <ClInclude Include="src\GraphicsManager.h" />
     <ClInclude Include="src\ImageComponent.h" />
     <ClInclude Include="src\LevelEditor.h" />
+    <ClInclude Include="src\InteractableComponent.h" />
     <ClInclude Include="src\Level_Demo.h" />
     <ClInclude Include="src\MemoryManager.h" />
     <ClInclude Include="src\ObjectManager.h" />

@@ -54,3 +54,8 @@ void StarBangBang::AudioEngine::Update()
 {
 	system->update();
 }
+
+void StarBangBang::AudioEngine::Exit()
+{
+	system->close();
+}

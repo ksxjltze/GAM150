@@ -100,7 +100,10 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 			gGameRunning = 0;
 	}
 	gameStateManager.ExitGame();
+
+	//Audio Engine (temp implementation)
 	audioEngine.ReleaseSound(sound);
+	audioEngine.Exit();
 	
 	// free the system
 	AESysExit();

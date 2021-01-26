@@ -24,6 +24,7 @@ namespace StarBangBang
 		Sprite planetImage;
 		GameObject* player;
 		GameObject* player2;
+		GameObject* testInteractable;
 		std::vector<GameObject*> testObjects;
 		GameStateManager* gameStateManager;
 	};

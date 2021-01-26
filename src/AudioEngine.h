@@ -12,6 +12,7 @@ namespace StarBangBang
 		void playSound(FMOD::Sound* sound, bool loop = false);
 		void ReleaseSound(FMOD::Sound* sound);
 		void Update();
+		void Exit();
 	private:
 		FMOD::System* system;
 	};
