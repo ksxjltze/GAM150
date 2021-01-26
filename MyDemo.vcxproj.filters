@@ -174,6 +174,9 @@
     <ClCompile Include="src\InteractableComponent.cpp">
       <Filter>Source Files\Scripts</Filter>
     </ClCompile>
+    <ClCompile Include="src\MovementManager.cpp">
+      <Filter>Source Files\Scripts</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\ImageComponent.h">
@@ -289,6 +292,9 @@
     </ClInclude>
     <ClInclude Include="src\DragComponent.h">
       <Filter>Header Files\Deprecated</Filter>
+    </ClInclude>
+    <ClInclude Include="src\MovementManager.h">
+      <Filter>Header Files\Scripts</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -22,6 +22,7 @@ void StarBangBang::ScriptManager::Update()
 {
 	for (Script* s : scriptList)
 	{
-		s->Update();
+		if (s->active)
+			s->Update();
 	}
 }

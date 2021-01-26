@@ -4,6 +4,8 @@
 #include "InteractableComponent.h"
 #include "Guard.h"
 
+#include "MovementManager.h"
+
 #include <iostream>
 #include "constants.h"
 
@@ -47,7 +49,7 @@ void StarBangBang::Level_Demo::Init()
 	testInteractable = objectManager.CloneGameObject(player2);
 
 	player->SetPos({ 200, 200 });
-	player2->SetPos({ -200, 200 });
+	player2->SetPos({ -150, 200 });
 	testInteractable->SetPos({ 50, 50 });
 
 	objectManager.AddComponent<CameraComponent>(player);
@@ -56,8 +58,12 @@ void StarBangBang::Level_Demo::Init()
 	objectManager.AddScript<Guard>(testGuard);
 	objectManager.AddScript<GuardMovement>(testGuard);
 	objectManager.AddScript<PrimaryMovementController>(player);
-	objectManager.AddScript<SecondaryMovementController>(player2);
+	objectManager.AddScript<PrimaryMovementController>(player2);
+	//objectManager.AddScript<SecondaryMovementController>(player2);
+	objectManager.AddScript<MovementManager>(movementController);
 
+	movementController->GetComponent<MovementManager>()->AddController(player);
+	movementController->GetComponent<MovementManager>()->AddController(player2);
 	testInteractable->GetComponent<InteractableComponent>()->SetType(InteractableComponent::INTERACTABLE_TYPE::TYPE_PRINTER);
 
 	//Testing Tags
