@@ -17,6 +17,8 @@ namespace StarBangBang
 
 	public:
 		Guard(GameObject* gameObject);
+		Component* Clone(GameObject* obj, Component*) { return new Guard(obj); }
+
 		void Start();
 		void Update();
 
