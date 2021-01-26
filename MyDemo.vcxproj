@@ -90,6 +90,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="src\AudioEngine.cpp" />
+    <ClCompile Include="src\BusNode.cpp" />
     <ClCompile Include="src\CameraComponent.cpp" />
     <ClCompile Include="src\Collider.cpp" />
     <ClCompile Include="src\ColliderAABB.cpp" />
@@ -123,6 +124,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\AudioEngine.h" />
+    <ClInclude Include="src\BusNode.h" />
     <ClInclude Include="src\CameraComponent.h" />
     <ClInclude Include="src\Collider.h" />
     <ClInclude Include="src\ColliderAABB.h" />

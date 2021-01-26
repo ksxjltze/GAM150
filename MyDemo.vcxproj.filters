@@ -178,7 +178,10 @@
       <Filter>Source Files\Scripts</Filter>
     </ClCompile>
     <ClCompile Include="src\MessageBus.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Engine\Game Logic</Filter>
+    </ClCompile>
+    <ClCompile Include="src\BusNode.cpp">
+      <Filter>Source Files\Engine\Game Logic</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -298,6 +301,9 @@
     </ClInclude>
     <ClInclude Include="src\MovementManager.h">
       <Filter>Header Files\Scripts</Filter>
+    </ClInclude>
+    <ClInclude Include="src\BusNode.h">
+      <Filter>Header Files\Engine\Game Logic</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

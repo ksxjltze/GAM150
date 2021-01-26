@@ -4,6 +4,7 @@
 #include <vector>
 #include "Message.h"
 
+//Adapted from https://seanballais.github.io/blog/implementing-a-simple-message-bus-in-cpp/
 namespace StarBangBang
 {
 	class MessageBus
