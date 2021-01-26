@@ -65,11 +65,6 @@ void StarBangBang::Level_Demo::Init()
 	}
 
 	player->transform.position.y = 200;
-	player->GetComponent<PrimaryMovementController>()->doodoo = 10;
-	if (player->GetComponent<PrimaryMovementController>()->doodoo == 10)
-	{
-		std::cout << "Test";
-	}
 	player2->transform.position.y = 200;
 
 	tagManager.GetGameObjectByTag("Test").transform.scale = { 10, 2 };

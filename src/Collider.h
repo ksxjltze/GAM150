@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Component.h"
+
 namespace StarBangBang
 {
 	enum class ShapeType {Box,Circle};
@@ -11,11 +12,7 @@ namespace StarBangBang
 			bool isTrigger = false;
 		protected:
 			GameObject* gameObject = nullptr;
-			Collider()
-			{
-				isTrigger = false;
-				gameObject = nullptr;
-			}
+			Collider() : Component(gameObject) { isTrigger = false;}
 			~Collider() {}
 			
 			

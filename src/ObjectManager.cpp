@@ -53,7 +53,7 @@ StarBangBang::GameObject* StarBangBang::ObjectManager::CloneGameObject(GameObjec
 		newObject->AddComponent(newComponent);
 
 		//MAKE THIS BETTER
-		if (newComponent->id == ImageComponent::id)
+		if (typeid(*newComponent).name() == typeid(ImageComponent).name())
 		{
 			ImageComponent* newImageComponent = dynamic_cast<ImageComponent*>(newComponent);
 			imageComponentList.push_back(newImageComponent);

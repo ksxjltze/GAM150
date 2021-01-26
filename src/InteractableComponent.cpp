@@ -1,7 +1,7 @@
 #include "InteractableComponent.h"
 #include <iostream>
 
-StarBangBang::InteractableComponent::InteractableComponent(GameObject* gameObject) : Component(gameObject, id)
+StarBangBang::InteractableComponent::InteractableComponent(GameObject* gameObject) : Component(gameObject)
 {
 	enabled = false;
 	type = INTERACTABLE_TYPE::TYPE_NONE;

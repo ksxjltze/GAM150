@@ -9,6 +9,7 @@ namespace StarBangBang
 	{
 	public:
 		Player(GameObject* gameObject);
+		Component* Clone(GameObject* obj, Component* base) { return new Player(obj); }
 		void Load();
 		void Start();
 		void Update();

@@ -7,7 +7,7 @@ namespace StarBangBang
 	{
 	public:
 		SecondaryMovementController(GameObject* gameObject) : Script(gameObject) {};
-		Component* Clone(Component* component) { return new SecondaryMovementController(component->gameObject); };
+		Component* Clone(GameObject* obj, Component* component) { return new SecondaryMovementController(obj); }
 		void Start();
 		void Update();
 	private:
