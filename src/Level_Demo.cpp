@@ -27,7 +27,6 @@ void StarBangBang::Level_Demo::Init()
 	//Player 1
 	player = objectManager.NewGameObject(100, 100);
 	objectManager.AddImage(player, playerImage);
-	objectManager.AddScript<PrimaryMovementController>(player);
 
 	tagManager.AddTag(*player, "Test");
 
@@ -67,10 +66,11 @@ void StarBangBang::Level_Demo::Init()
 	player->transform.position.y = 200;
 	player2->transform.position.y = 200;
 
-	tagManager.GetGameObjectByTag("Test").transform.scale = { 10, 2 };
-	tagManager.GetGameObjectByTag("Test").transform.rotation = 69;
+	tagManager.GetGameObjectByTag("Test").transform.scale = { 20, 3 };
+	tagManager.GetGameObjectByTag("Test").transform.rotation = 120;
 
 	objectManager.AddComponent<CameraComponent>(player);
+	objectManager.AddScript<PrimaryMovementController>(player);
 	scriptManager.Start();
 }
 
