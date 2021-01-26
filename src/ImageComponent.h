@@ -7,7 +7,6 @@ namespace StarBangBang
 	class ImageComponent : public Component
 	{
 	public:
-		const static int id = Constants::ComponentType::IMAGE;
 		ImageComponent(GameObject* gameObject, AEGfxVertexList* mesh, AEGfxTexture* texture);
 		Component* Clone(GameObject* gameObject, Component* component);
 

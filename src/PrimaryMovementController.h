@@ -7,6 +7,7 @@ namespace StarBangBang
 	{
 	public:
 		PrimaryMovementController(GameObject* gameObject);
+		Component* Clone(GameObject* obj, Component*) { return new PrimaryMovementController(obj); };
 		void Start();
 		void Update();
 		int doodoo;

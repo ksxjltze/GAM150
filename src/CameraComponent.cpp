@@ -1,15 +1,12 @@
 #include "CameraComponent.h"
 
-StarBangBang::CameraComponent::CameraComponent(GameObject* gameObject) : Component(gameObject, id)
+StarBangBang::CameraComponent::CameraComponent(GameObject* gameObject) : Component(gameObject)
 {
 	position = { 0, 0 };
 }
 
-StarBangBang::Component* StarBangBang::CameraComponent::Clone(GameObject* obj, Component* component = nullptr)
+StarBangBang::Component* StarBangBang::CameraComponent::Clone(GameObject* obj, Component*)
 {
-	if (component->id != id)
-		return nullptr;
-
 	return new CameraComponent(obj);
 }
 

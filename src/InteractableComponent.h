@@ -14,9 +14,8 @@ namespace StarBangBang
 			TYPE_TOTAL,
 		};
 
-		const static int id = Constants::ComponentType::INTERACTABLE;
 		InteractableComponent(GameObject* gameObject);
-		Component* Clone(GameObject* gameObject, Component* component);
+		Component* Clone(GameObject* gameObject, Component*);
 
 		void OnUse();
 		inline void SetType(INTERACTABLE_TYPE _type) { type = _type; }

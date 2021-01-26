@@ -1,6 +1,7 @@
 #pragma once
 #include "Transform.h"
 #include <vector>
+#include <typeinfo>
 #include <algorithm>
 
 namespace StarBangBang
@@ -18,7 +19,7 @@ namespace StarBangBang
 		{
 			for (Component* component : componentList)
 			{
-				if (component->id == T::id)
+				if (typeid(T).name() == typeid(*component).name())
 				{
 					return static_cast<T*>(component);
 				}

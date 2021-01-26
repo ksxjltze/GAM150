@@ -6,6 +6,8 @@
 #include "Level_Demo.h"
 #include "TestScene.h"
 #include "constants.h"
+#include "LevelEditor.h"
+#include "AudioEngine.h"
 
 // ---------------------------------------------------------------------------
 // main
@@ -24,11 +26,22 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 
 	int gGameRunning = 1;
 	char fontId = 0;
+
+	AudioEngine audioEngine;
+	FMOD::Sound* sound = nullptr;
+	audioEngine.CreateSound(&sound, "../Resources/drumloop.wav");
+	audioEngine.playSound(sound, false);
+
 	GameStateManager gameStateManager;
 
 	gameStateManager.AddGameState<Level_Demo>(Constants::SceneID::DEMO);
 	State* testScene = gameStateManager.AddGameState<Level_Demo>(Constants::SceneID::TEST);
 	gameStateManager.SetInitialState(testScene);
+
+	State* sceneDemo = gameStateManager.AddGameState<Level_Demo>(Constants::SceneID::DEMO);
+	State* sceneEditor = gameStateManager.AddGameState<LevelEditor>(Constants::SceneID::EDITOR);
+	State* sceneTest = gameStateManager.AddGameState<TestScene>(Constants::SceneID::TEST);
+	gameStateManager.SetInitialState(sceneDemo);
 
 	// Variable declaration end
 	///////////////////////////
@@ -68,6 +81,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 
 		// Update State
 		gameStateManager.Update();
+		audioEngine.Update();
 
 		//FPS
 		AEVec2 camPos;
@@ -90,7 +104,12 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 			gGameRunning = 0;
 	}
 	gameStateManager.ExitGame();
+
+	//Audio Engine (temp implementation)
+	audioEngine.ReleaseSound(sound);
+	audioEngine.Exit();
 	
 	// free the system
 	AESysExit();
+
 }
