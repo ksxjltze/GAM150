@@ -8,7 +8,7 @@ namespace StarBangBang
 	{
 	public:
 		EventTest(GameObject* gameObject);
-		inline Component* Clone(GameObject* obj, Component* base) {return new EventTest(obj);}
+		inline Component* Clone(GameObject* obj, Component*) {return new EventTest(obj);}
 		void Start();
 		void Update();
 		Subject subject;
