@@ -9,15 +9,17 @@ namespace StarBangBang
 	public:
 		Component(GameObject* gameObject, int componentId) { this->gameObject = gameObject; id = componentId; }
 		inline GameObject* GetGameObject() { return gameObject; }
-		inline virtual Component* Clone(GameObject* gameObject, Component* component) 
+		inline virtual Component* Clone(GameObject* obj, Component* component = nullptr) 
 		{ 
-			return new Component(gameObject, component->id);
+			if (component->id != id)
+				return nullptr;
+
+			return new Component(obj, component->id);
 		}
 		virtual void Update() {};
 		int id { Constants::ComponentType::NONE };
 		GameObject* gameObject { nullptr };
-
 		Component() {}
-		~Component() {}
+		virtual ~Component() {}
 	};
 }

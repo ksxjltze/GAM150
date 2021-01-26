@@ -4,6 +4,8 @@
 #include "AEEngine.h"
 #include "GameStateManager.h"
 #include "Level_Demo.h"
+#include "TestScene.h"
+#include "constants.h"
 
 // ---------------------------------------------------------------------------
 // main
@@ -21,11 +23,12 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 	using namespace StarBangBang;
 
 	int gGameRunning = 1;
-	u32 fontId = 0;
+	char fontId = 0;
 	GameStateManager gameStateManager;
 
-	State* demoState = gameStateManager.AddGameState<Level_Demo>();
-	gameStateManager.SetInitialState(demoState);
+	gameStateManager.AddGameState<Level_Demo>(Constants::SceneID::DEMO);
+	State* testScene = gameStateManager.AddGameState<TestScene>(Constants::SceneID::TEST);
+	gameStateManager.SetInitialState(testScene);
 
 	// Variable declaration end
 	///////////////////////////

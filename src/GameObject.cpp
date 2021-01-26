@@ -3,9 +3,9 @@
 StarBangBang::GameObject::GameObject()
 {
 	active = true;
-	transform.position = { 0, 0 };
+	transform.scale = { 1, 1 };
 	transform.rotation = 0;
-	transform.scale = 1;
+	transform.position = { 0, 0 };
 }
 
 StarBangBang::GameObject::GameObject(const GameObject& prefab)

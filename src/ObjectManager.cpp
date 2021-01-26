@@ -2,7 +2,13 @@
 #include "Utils.h"
 #include <typeinfo>
 
-void StarBangBang::ObjectManager::AddImageComponent(GameObject* gameObject, Sprite sprite)
+void StarBangBang::ObjectManager::AddComponent(GameObject* gameObject, Component* component)
+{
+	componentList.push_back(component);
+	gameObject->AddComponent(component);
+}
+
+void StarBangBang::ObjectManager::AddImage(GameObject* gameObject, Sprite sprite)
 {
 	if (sprite.mesh != nullptr && sprite.texture != nullptr)
 	{

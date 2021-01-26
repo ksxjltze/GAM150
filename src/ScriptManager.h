@@ -7,6 +7,13 @@ namespace StarBangBang
 	class ScriptManager
 	{
 	public:
+		void Start();
+		void Update();
+
+	private:
+		friend class ObjectManager;
+		friend class MemoryManager;
+
 		template <class ScriptType>
 		inline Script* NewScript(GameObject* gameObject)
 		{
@@ -14,35 +21,7 @@ namespace StarBangBang
 			scriptList.push_back(script);
 			return script;
 		}
-		
-		inline void DestroyScripts()
-		{
-			for (Script* s : scriptList)
-			{
-				delete s;
-				s = nullptr;
-			}
-			scriptList.clear();
-		}
-
-		inline void Start()
-		{
-			for (Script* s : scriptList)
-			{
-				s->Start();
-			}
-		}
-
-		inline void Update()
-		{
-			for (Script* s : scriptList)
-			{
-				s->Update();
-			}
-		}
-
-	private:
-		friend class ObjectManager;
+		void DestroyScripts();
 		std::vector<Script*> scriptList;
 	};
 }

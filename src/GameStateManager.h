@@ -17,6 +17,16 @@ namespace StarBangBang
 			gameStateList.push_back(newState);
 			return newState;
 		}
+
+		template <class StateType>
+		State* AddGameState(int id)
+		{
+			State* newState = new StateType(this, (int)gameStateList.size());
+			newState->id = id;
+			gameStateList.push_back(newState);
+			return newState;
+		}
+
 		void AddGameState(State* state);
 
 		void SetInitialState(State* state);

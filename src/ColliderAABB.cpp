@@ -1,9 +1,9 @@
 #include "ColliderAABB.h"
 
-void StarBangBang::ColliderAABB::Init(float width, float height)
+void StarBangBang::ColliderAABB::Init(float w, float h)
 {
-	this->width = width;
-	this->height = height;
+	width = w;
+	height = h;
 }
 
 void StarBangBang::ColliderAABB::OnEnter()

@@ -1,23 +1,24 @@
 #pragma once
 #include "ScriptComponent.h"
+#include "Observer.h"
 
 namespace StarBangBang
 {
-	class SecondaryMovementController : public Script
+	class ObserverTest : public Script, public Observer
 	{
 	public:
-		SecondaryMovementController(GameObject* gameObject) : Script(gameObject) {};
+		ObserverTest(GameObject* obj);
 		inline Component* Clone(GameObject* obj, Component* component = nullptr)
 		{
 			if (component->id != id)
 				return nullptr;
 
-			return new SecondaryMovementController(obj);
+			return new ObserverTest(obj);
 		};
 		void Start();
 		void Update();
+		void onNotify(const GameObject& obj, Event e);
 	private:
-		AEVec2 velocity { 0, 0 };
-		AEVec2 targetPos { 0, 0 };
+		int eventCount;
 	};
 }
