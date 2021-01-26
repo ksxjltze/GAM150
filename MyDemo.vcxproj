@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|x64">
@@ -60,7 +60,7 @@
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
-      <WarningLevel>Level3</WarningLevel>
+      <WarningLevel>Level4</WarningLevel>
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
@@ -73,7 +73,7 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
-      <WarningLevel>Level3</WarningLevel>
+      <WarningLevel>Level4</WarningLevel>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
@@ -89,9 +89,9 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\BasicMeshShape.cpp" />
     <ClCompile Include="src\CameraComponent.cpp" />
     <ClCompile Include="src\Collider.cpp" />
-    <ClCompile Include="src\ColliderAABB.cpp" />
     <ClCompile Include="src\CollisionComponent.cpp" />
     <ClCompile Include="src\CollisionManager.cpp" />
     <ClCompile Include="src\DragComponent.cpp" />
@@ -110,11 +110,12 @@
     <ClCompile Include="src\Utils.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\BasicMeshShape.h" />
     <ClInclude Include="src\CameraComponent.h" />
     <ClInclude Include="src\Collider.h" />
-    <ClInclude Include="src\ColliderAABB.h" />
     <ClInclude Include="src\CollisionComponent.h" />
     <ClInclude Include="src\CollisionManager.h" />
+    <ClInclude Include="src\CollisionTest.h" />
     <ClInclude Include="src\Component.h" />
     <ClInclude Include="src\constants.h" />
     <ClInclude Include="src\DragComponent.h" />

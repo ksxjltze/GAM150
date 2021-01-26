@@ -4,6 +4,7 @@
 #include "AEEngine.h"
 #include "GameStateManager.h"
 #include "Level_Demo.h"
+#include "CollisionTest.h"
 
 // ---------------------------------------------------------------------------
 // main
@@ -21,7 +22,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 	using namespace StarBangBang;
 
 	int gGameRunning = 1;
-	u32 fontId = 0;
+	s8 fontId = 0;
 	GameStateManager gameStateManager;
 
 	State* demoState = gameStateManager.AddGameState<Level_Demo>();
@@ -36,6 +37,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 	// Using custom window procedure
 	AESysInit(hInstance, nCmdShow, 800, 600, 1, 60, true, NULL);
 
+	StarBangBang::InitBasicMesh();
 	//Full screen
 	//AESysInit(hInstance, nCmdShow, 1920, 1080, 1, 60, true, NULL);
 	//AEToogleFullScreen(true);
@@ -70,6 +72,9 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 		AEVec2 camPos;
 		AEGfxGetCamPosition(&camPos.x, &camPos.y);
 
+
+		StarBangBang::Test_BoxUpdate();
+		//StarBangBang::Test_CircleUpdate();
 		char strBuffer[100];
 		memset(strBuffer, 0, 100 * sizeof(char));
 		sprintf_s(strBuffer, "FPS:  %.6f", AEFrameRateControllerGetFrameRate());

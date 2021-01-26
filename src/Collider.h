@@ -10,11 +10,12 @@ namespace StarBangBang
 		public:
 			bool isTrigger = false;
 		protected:
-			GameObject* gameObject = nullptr;
-			Collider()
+			AEVec2 offset = { 0,0 };
+			GameObject* gameObject;
+			Collider(GameObject* _gameObject)
 			{
 				isTrigger = false;
-				gameObject = nullptr;
+				gameObject = _gameObject;
 			}
 			~Collider() {}
 			
@@ -26,6 +27,7 @@ namespace StarBangBang
 			ShapeType shape = ShapeType::Circle;
 		public:
 			float radius;
+			
 			AEVec2 center = {0,0};
 			CircleCollider(GameObject* _go, AEVec2 _center, float _rad = 1.0f);
 		

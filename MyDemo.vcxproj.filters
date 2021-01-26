@@ -45,9 +45,6 @@
     <ClCompile Include="src\Main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\ColliderAABB.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\CollisionManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -99,12 +96,12 @@
     <ClCompile Include="src\Collider.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\BasicMeshShape.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Collider.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\ColliderAABB.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\CollisionManager.h">
@@ -175,6 +172,12 @@
     </ClInclude>
     <ClInclude Include="src\SecondaryMovementController.h">
       <Filter>Header Files\Scripts</Filter>
+    </ClInclude>
+    <ClInclude Include="src\CollisionTest.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\BasicMeshShape.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

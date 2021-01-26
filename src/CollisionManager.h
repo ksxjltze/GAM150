@@ -26,17 +26,17 @@ namespace StarBangBang
 			
 		public :
 			
-			bool CircleVsCircle(CircleCollider c1, CircleCollider c2, CollisionData* col);
+			bool CircleVsCircle(CircleCollider c1, CircleCollider c2, CollisionData& col);
 
-			bool AABBvsAABB(BoxCollider b1, BoxCollider b2, CollisionData* col);
+			bool AABBvsAABB(BoxCollider b1, BoxCollider b2, CollisionData& col);
 
 			void Resolve_CirclevsCircle(CircleCollider c1, CircleCollider c2, CollisionData* const col);
 
-			void Resolve_BoxvsBox(BoxCollider b1, BoxCollider b2, CollisionData* const col);
+			void Resolve_BoxvsBox(BoxCollider& b1, BoxCollider& b2, CollisionData* const col);
 
 			void DebugCollider(BoxCollider b);
 
-			void DebugCollider(CircleCollider c, unsigned int sides = 20u);
+			void DebugCollider(CircleCollider c);
 			
 			//bool SATBox(BoxCollider b1, BoxCollider b2);
 		
