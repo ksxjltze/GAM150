@@ -1,5 +1,10 @@
 #include "ScriptManager.h"
 
+void StarBangBang::ScriptManager::AddScript(Script* script)
+{
+	scriptList.push_back(script);
+}
+
 void StarBangBang::ScriptManager::DestroyScripts()
 {
 	for (Script* s : scriptList)

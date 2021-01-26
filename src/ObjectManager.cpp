@@ -58,6 +58,10 @@ StarBangBang::GameObject* StarBangBang::ObjectManager::CloneGameObject(GameObjec
 			ImageComponent* newImageComponent = dynamic_cast<ImageComponent*>(newComponent);
 			imageComponentList.push_back(newImageComponent);
 		}
+		else if (typeid(*newComponent).name() == typeid(Script).name())
+		{
+			scriptManager.AddScript(dynamic_cast<Script*>(newComponent));
+		}
 		else
 			componentList.push_back(newComponent);	
 

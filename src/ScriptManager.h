@@ -21,6 +21,7 @@ namespace StarBangBang
 			scriptList.push_back(script);
 			return script;
 		}
+		void AddScript(Script* script);
 		void DestroyScripts();
 		std::vector<Script*> scriptList;
 	};
