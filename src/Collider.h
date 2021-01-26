@@ -9,12 +9,15 @@ namespace StarBangBang
 		
 		public:
 			bool isTrigger = false;
+			//collider is 
+			bool isStatic = false;
 		protected:
 			AEVec2 offset = { 0,0 };
 			GameObject* gameObject;
-			Collider(GameObject* _gameObject)
+			Collider(GameObject* _gameObject,bool _isStatic)
 			{
 				isTrigger = false;
+				isStatic = _isStatic;
 				gameObject = _gameObject;
 			}
 			~Collider() {}

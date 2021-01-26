@@ -4,15 +4,6 @@
 #include "BasicMeshShape.h"
 using namespace StarBangBang;
 
-const float bounciness = 1.2f;
-
-
-AEVec2 CollisionManager::ProjectOnToAxis(AEVec2 v, AEVec2 axis)
-{
-	//axis = AEVec2Normalize();
-	return AEVec2{ 0,0 };
-}
-
 bool CollisionManager::CircleVsCircle(CircleCollider c1, CircleCollider c2, CollisionData& col)
 {
 	//both is trigger no collision
@@ -29,11 +20,12 @@ bool CollisionManager::CircleVsCircle(CircleCollider c1, CircleCollider c2, Coll
 	if (d != 0)
 	{	
 		col.pen_depth = r - d;
+		//normalize normal with calculated distance
 		col.col_normal = AEVec2{ (c2.center.x - c1.center.x) / d , (c2.center.y - c1.center.y) / d };
 		return true;
 	}
 	//same circle center	
-	col.pen_depth = c1.radius;
+	col.pen_depth = c1.radius > c2.radius ? c2.radius: c1.radius;
 	col.col_normal = AEVec2{ 0, 1 };
 	return true;
 	
@@ -48,12 +40,12 @@ bool CollisionManager::AABBvsAABB(BoxCollider b1, BoxCollider b2, CollisionData&
 	float x_intersect = b1.extend.x + b2.extend.x - fabs(dist.x);
 	float y_intersect = b1.extend.y + b2.extend.y - fabs(dist.y);
 	//same box center
-	if (dist.x == 0 && dist.y == 0)
-	{
-		col.col_normal = AEVec2{ -1,0 };
-		col.pen_depth = b1.extend.x;
-		return true;
-	}
+	///*if (dist.x == 0 && dist.y == 0)
+	//{
+	//	col.col_normal = AEVec2{ -1,0 };
+	//	col.pen_depth = b1.extend.x;
+	//	return true;
+	//}*/
 	//intersect on both axis 
 	if (x_intersect > 0)
 	{
@@ -62,23 +54,23 @@ bool CollisionManager::AABBvsAABB(BoxCollider b1, BoxCollider b2, CollisionData&
 			//Find the min intersect distance 
 			if (x_intersect > y_intersect)
 			{
-				col.pen_depth = x_intersect;
+				col.pen_depth = x_intersect * 0.5f;
 				// means that b2 center on the left of b1 center (as center.x is b2-b1)
 				if (dist.x < 0)
-					col.col_normal = AEVec2{ -1.0f,0.0f };
-				else
 					col.col_normal = AEVec2{ 1.0f,0.0f };
+				else
+					col.col_normal = AEVec2{ -1.0f,0.0f };
 
 				return true;
 			}
 			else
 			{
-				col.pen_depth = y_intersect;
+				col.pen_depth = y_intersect * 0.5f;
 				//means b2 center is below b1 center
 				if (dist.y < 0)
-					col.col_normal = AEVec2{ 0.0f, -1.0f };
+					col.col_normal = AEVec2{ 0.0f, 1.0f };
 				else
-					col.col_normal = AEVec2{ 0.0f,1.0f };
+					col.col_normal = AEVec2{ 0.0f,-1.0f };
 
 				return true;
 			}
@@ -90,48 +82,7 @@ bool CollisionManager::AABBvsAABB(BoxCollider b1, BoxCollider b2, CollisionData&
 
 }
 
-void CollisionManager::Resolve_CirclevsCircle(CircleCollider c1, CircleCollider c2 ,  CollisionData* col)
-{
-	if (c1.isTrigger || c2.isTrigger)
-		return;
-	
-	AEVec2 resolveForce;
-	if (col)
-	{
-		float scale = bounciness * col->pen_depth;
-		AEVec2Scale(&resolveForce, &col->col_normal, scale);
-		//movement force // (reminder)should over be dt 
-		AEVec2 temp = c1.center;
-		AEVec2 temp1 = c2.center;
-		//push c1
-		AEVec2Add(&c1.center, &temp, &resolveForce);
-		////invert direction
-		resolveForce = AEVec2{ resolveForce.x * -1.0f,resolveForce.y * -1.0f };
-		//push c2
-		AEVec2Add(&c2.center, &temp1, &resolveForce);
-	}
-	
-}
-void CollisionManager::Resolve_BoxvsBox(BoxCollider& b1, BoxCollider& b2, CollisionData* const col)
-{
-	if (b1.isTrigger || b2.isTrigger)
-		return;
-	AEVec2 resolveForce;
-	if (col)
-	{
-		float scale = bounciness * col->pen_depth;
-		AEVec2Scale(&resolveForce, &col->col_normal, scale);
-		//movement force // (reminder)should over be dt 
-		AEVec2 temp = b1.center;
-		AEVec2 temp1 = b2.center;
-		//push box1
-		AEVec2Add(&b1.center, &temp, &resolveForce);
-		//invert direction
-		//resolveForce = AEVec2{ resolveForce.x * -1.0f,resolveForce.y * -1.0f };
-		////push box2
-		//AEVec2Add(&b2.center, &temp1, &resolveForce);
-	}
-}
+
 void CollisionManager::DebugCollider(BoxCollider b)
 {
 	

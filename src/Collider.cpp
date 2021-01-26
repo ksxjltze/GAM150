@@ -1,5 +1,5 @@
 #include "Collider.h"
-
+#include "Physics.h"
 using namespace StarBangBang;
 
 float BoxCollider::GetHeight()
@@ -11,7 +11,7 @@ float BoxCollider::GetWidth()
 {
     return extend.x * 2.0f;
 }
-BoxCollider::BoxCollider(GameObject* _go,AEVec2 _center, float width, float height) : Collider(_go)
+BoxCollider::BoxCollider(GameObject* _go,AEVec2 _center, float width, float height) : Collider(_go, false)
 {
 	shape = ShapeType::Box;
 	//gameObject = _go;
@@ -21,7 +21,7 @@ BoxCollider::BoxCollider(GameObject* _go,AEVec2 _center, float width, float heig
 	center = _center;
 	
 }
-CircleCollider::CircleCollider(GameObject* _go, AEVec2 _center, float _rad ) : Collider(_go)
+CircleCollider::CircleCollider(GameObject* _go, AEVec2 _center, float _rad ) : Collider(_go,false)
 {
 	shape = ShapeType::Circle;
 	//gameObject = _go;

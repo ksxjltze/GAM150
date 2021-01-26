@@ -7,17 +7,18 @@ void StarBangBang::InitBasicMesh()
 {
 	//build unit box mesh
 	AEGfxMeshStart();
-	AEGfxVertexAdd(-0.5f,0.5f, 0xFFFFFFFF,0.0f,0.0f);
-	AEGfxVertexAdd(0.5f, 0.5f, 0xFFFFFFFF, 0.0f, 0.0f);
-	AEGfxVertexAdd(0.5f, -0.5f, 0xFFFFFFFF, 0.0f, 0.0f);
-	AEGfxVertexAdd(-0.5f, -0.5f, 0xFFFFFFFF, 0.0f, 0.0f);
-	AEGfxVertexAdd(-0.5f, 0.5f, 0xFFFFFFFF, 0.0f, 0.0f);
+	AEGfxVertexAdd(-0.5f,0.5f, 0xFF00FF00,0.0f,0.0f);
+	AEGfxVertexAdd(0.5f, 0.5f, 0xFF00FF00, 0.0f, 0.0f);
+	AEGfxVertexAdd(0.5f, -0.5f, 0xFF00FF00, 0.0f, 0.0f);
+	AEGfxVertexAdd(-0.5f, -0.5f, 0xFF00FF00, 0.0f, 0.0f);
+	AEGfxVertexAdd(-0.5f, 0.5f, 0xFF00FF00, 0.0f, 0.0f);
 
 	unitboxMesh = AEGfxMeshEnd();
 
 	//build unit circle mesh
 	AEGfxMeshStart();
 	float interval = 2.0f * PI / sides;
+	//float x = 0, y = 0;
 	for (unsigned int i = 0; i < sides; i++)
 	{
 		float radian = interval * i;
@@ -25,11 +26,11 @@ void StarBangBang::InitBasicMesh()
 		float x = sin(radian);
 		float y = cos(radian);
 		
-		AEGfxVertexAdd(x,y, 0xFFFFFFFF,0.0f,0.0f);
+		AEGfxVertexAdd(x,y, 0xFF00FF00,0.0f,0.0f);
 		
 
 	}
-
+	AEGfxVertexAdd(0.0f, 1.0f, 0xFF00FF00, 0.0f, 0.0f);
 	unitcircleMesh = AEGfxMeshEnd();
 	
 }

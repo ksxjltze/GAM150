@@ -103,6 +103,7 @@
     <ClCompile Include="src\Main.cpp" />
     <ClCompile Include="src\MemoryManager.cpp" />
     <ClCompile Include="src\ObjectManager.cpp" />
+    <ClCompile Include="src\Physics.cpp" />
     <ClCompile Include="src\Player.cpp" />
     <ClCompile Include="src\PrimaryMovementController.cpp" />
     <ClCompile Include="src\SecondaryMovementController.cpp" />
@@ -126,6 +127,7 @@
     <ClInclude Include="src\Level_Demo.h" />
     <ClInclude Include="src\MemoryManager.h" />
     <ClInclude Include="src\ObjectManager.h" />
+    <ClInclude Include="src\Physics.h" />
     <ClInclude Include="src\Player.h" />
     <ClInclude Include="src\PrimaryMovementController.h" />
     <ClInclude Include="src\ScriptComponent.h" />
