@@ -10,7 +10,7 @@ StarBangBang::TestScene::TestScene(GameStateManager* manager, int id) : State(id
 
 void StarBangBang::TestScene::Load()
 {
-	testSprite = graphicsManager.CreateSprite(Constants::PROTOTYPE_SPRITE_2_PATH, 100, 100);
+	testSprite = graphicsManager.CreateSprite(Constants::PROTOTYPE_SPRITE_2_PATH);
 }
 
 void StarBangBang::TestScene::Init()

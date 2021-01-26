@@ -26,43 +26,45 @@ void StarBangBang::Level_Demo::Load()
 
 void StarBangBang::Level_Demo::Init()
 {
+	GameObject* worldOriginMarker = objectManager.NewGameObject();
+	testObjects.push_back(worldOriginMarker);
+
 	//Player 1
 	player = objectManager.NewGameObject(100, 100);
-	objectManager.AddImage(player, playerImage);
-
-	tagManager.AddTag(*player, "Test");
 
 	//Player 2
 	player2 = objectManager.CloneGameObject(player);
-	player2->GetComponent<ImageComponent>()->SetTexture(player2Image.texture); // testing
-	objectManager.AddScript<SecondaryMovementController>(player2);
-
-	player->transform.position.x = 200;
-	player2->transform.position.x = -100;
 
 	// Interactable test
 	testInteractable = objectManager.CloneGameObject(player);
-	testInteractable->SetPos({ 50, 50 });
-	objectManager.AddComponent<InteractableComponent>(testInteractable);
-	testInteractable->GetComponent<InteractableComponent>()->SetType(InteractableComponent::INTERACTABLE_TYPE::TYPE_PRINTER);
 
 	// Guard test
 	testGuard = objectManager.NewGameObject(0, 0);
-	objectManager.AddImage(testGuard, playerImage);
-	objectManager.AddScript<Guard>(testGuard);
-	objectManager.AddScript<GuardMovement>(testGuard);
 
-	GameObject* worldOriginMarker = objectManager.NewGameObject();
 	objectManager.AddImage(worldOriginMarker, planetImage);
-	testObjects.push_back(worldOriginMarker);
+	objectManager.AddImage(player, playerImage);
+	objectManager.AddImage(player2, player2Image);
+	objectManager.AddImage(testInteractable, playerImage);
+	objectManager.AddImage(testGuard, playerImage);
 
-	player->transform.position.y = 200;
-	player2->transform.position.y = 200;
-
-	tagManager.GetGameObjectByTag("Test").transform.scale = { 2, 2 };
+	testInteractable->SetPos({ 50, 50 });
+	player->SetPos({ 200, 200 });
+	player2->SetPos({ -200, 200 });
 
 	objectManager.AddComponent<CameraComponent>(player);
+	objectManager.AddComponent<InteractableComponent>(testInteractable);
+
+	objectManager.AddScript<Guard>(testGuard);
+	objectManager.AddScript<GuardMovement>(testGuard);
 	objectManager.AddScript<PrimaryMovementController>(player);
+	objectManager.AddScript<SecondaryMovementController>(player2);
+
+	testInteractable->GetComponent<InteractableComponent>()->SetType(InteractableComponent::INTERACTABLE_TYPE::TYPE_PRINTER);
+
+	//Testing Tags
+	tagManager.AddTag(*player, "Test");
+	tagManager.GetGameObjectByTag("Test").transform.scale = { 2, 2 };
+
 	scriptManager.Start();
 }
 
