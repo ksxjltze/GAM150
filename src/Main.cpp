@@ -34,10 +34,10 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 
 	GameStateManager gameStateManager;
 
-	gameStateManager.AddGameState<Level_Demo>(Constants::SceneID::DEMO);
-	State* scene = gameStateManager.AddGameState<LevelEditor>(Constants::SceneID::EDITOR);
-	gameStateManager.AddGameState<TestScene>(Constants::SceneID::TEST);
-	gameStateManager.SetInitialState(scene);
+	State* sceneDemo = gameStateManager.AddGameState<Level_Demo>(Constants::SceneID::DEMO);
+	State* sceneEditor = gameStateManager.AddGameState<LevelEditor>(Constants::SceneID::EDITOR);
+	State* sceneTest = gameStateManager.AddGameState<TestScene>(Constants::SceneID::TEST);
+	gameStateManager.SetInitialState(sceneDemo);
 
 	// Variable declaration end
 	///////////////////////////

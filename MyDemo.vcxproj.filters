@@ -16,17 +16,11 @@
     <Filter Include="Source Files\Scenes">
       <UniqueIdentifier>{addfafb2-18e5-4132-b45f-5b9285b9ecdf}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\Components">
-      <UniqueIdentifier>{40c71447-9ded-4149-886d-9ff320faecc2}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source Files\Engine">
       <UniqueIdentifier>{86efb461-fbf6-433a-92c0-0b6cf9f4cef6}</UniqueIdentifier>
     </Filter>
     <Filter Include="Header Files\Engine">
       <UniqueIdentifier>{919ce974-0b8d-4ca0-9ac8-addd9be2c69a}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\Components">
-      <UniqueIdentifier>{137efb71-189a-4c64-b445-f77773d50f41}</UniqueIdentifier>
     </Filter>
     <Filter Include="Header Files\Scenes">
       <UniqueIdentifier>{fac28e8e-a1bb-4e89-8e40-f696d1a83622}</UniqueIdentifier>
@@ -79,7 +73,13 @@
     <Filter Include="Source Files\Tools">
       <UniqueIdentifier>{23851eef-3b46-410f-a4d6-778bfc3f1fe7}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\Audio">
+    <Filter Include="Header Files\Engine\Components">
+      <UniqueIdentifier>{137efb71-189a-4c64-b445-f77773d50f41}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Engine\Components">
+      <UniqueIdentifier>{40c71447-9ded-4149-886d-9ff320faecc2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Engine\Audio">
       <UniqueIdentifier>{a2f3e8f9-449a-4427-a3f5-86204551bb7e}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
@@ -94,10 +94,10 @@
       <Filter>Source Files\Engine</Filter>
     </ClCompile>
     <ClCompile Include="src\ImageComponent.cpp">
-      <Filter>Source Files\Components</Filter>
+      <Filter>Source Files\Engine\Components</Filter>
     </ClCompile>
     <ClCompile Include="src\DragComponent.cpp">
-      <Filter>Source Files\Components</Filter>
+      <Filter>Source Files\Engine\Components</Filter>
     </ClCompile>
     <ClCompile Include="src\Utils.cpp">
       <Filter>Source Files\Engine</Filter>
@@ -112,10 +112,10 @@
       <Filter>Source Files\Scripts</Filter>
     </ClCompile>
     <ClCompile Include="src\CameraComponent.cpp">
-      <Filter>Source Files\Components</Filter>
+      <Filter>Source Files\Engine\Components</Filter>
     </ClCompile>
     <ClCompile Include="src\CollisionComponent.cpp">
-      <Filter>Source Files\Components</Filter>
+      <Filter>Source Files\Engine\Components</Filter>
     </ClCompile>
     <ClCompile Include="src\Collider.cpp">
       <Filter>Source Files\Engine\Collision</Filter>
@@ -160,15 +160,18 @@
       <Filter>Source Files\Tools</Filter>
     </ClCompile>
     <ClCompile Include="src\AudioEngine.cpp">
-      <Filter>Source Files\Audio</Filter>
+      <Filter>Source Files\Engine\Audio</Filter>
+    </ClCompile>
+    <ClCompile Include="src\InteractableComponent.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\DragComponent.h">
-      <Filter>Header Files\Components</Filter>
+      <Filter>Header Files\Engine\Components</Filter>
     </ClInclude>
     <ClInclude Include="src\ImageComponent.h">
-      <Filter>Header Files\Components</Filter>
+      <Filter>Header Files\Engine\Components</Filter>
     </ClInclude>
     <ClInclude Include="src\MemoryManager.h">
       <Filter>Header Files\Engine</Filter>
@@ -180,7 +183,7 @@
       <Filter>Header Files\Engine</Filter>
     </ClInclude>
     <ClInclude Include="src\ScriptComponent.h">
-      <Filter>Header Files\Components</Filter>
+      <Filter>Header Files\Engine\Components</Filter>
     </ClInclude>
     <ClInclude Include="src\constants.h">
       <Filter>Header Files\Globals</Filter>
@@ -207,7 +210,7 @@
       <Filter>Header Files\Engine\Collision</Filter>
     </ClInclude>
     <ClInclude Include="src\CameraComponent.h">
-      <Filter>Header Files\Components</Filter>
+      <Filter>Header Files\Engine\Components</Filter>
     </ClInclude>
     <ClInclude Include="src\Component.h">
       <Filter>Header Files\Engine\Game Logic</Filter>
@@ -262,6 +265,9 @@
     </ClInclude>
     <ClInclude Include="src\AudioEngine.h">
       <Filter>Header Files\Engine\Audio</Filter>
+    </ClInclude>
+    <ClInclude Include="src\InteractableComponent.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
