@@ -7,6 +7,7 @@
 #include "TestScene.h"
 #include "constants.h"
 #include "LevelEditor.h"
+#include "AudioEngine.h"
 
 // ---------------------------------------------------------------------------
 // main
@@ -25,6 +26,12 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 
 	int gGameRunning = 1;
 	char fontId = 0;
+
+	AudioEngine audioEngine;
+	FMOD::Sound* sound = nullptr;
+	audioEngine.CreateSound(&sound, "../Resources/drumloop.wav");
+	audioEngine.playSound(sound, false);
+
 	GameStateManager gameStateManager;
 
 	gameStateManager.AddGameState<Level_Demo>(Constants::SceneID::DEMO);
@@ -70,6 +77,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 
 		// Update State
 		gameStateManager.Update();
+		audioEngine.Update();
 
 		//FPS
 		AEVec2 camPos;
@@ -95,4 +103,5 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 	
 	// free the system
 	AESysExit();
+
 }

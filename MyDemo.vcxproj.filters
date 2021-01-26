@@ -73,6 +73,15 @@
     <Filter Include="Header Files\Tools">
       <UniqueIdentifier>{30161b69-e39a-417e-939e-5ca13637b658}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Engine\Audio">
+      <UniqueIdentifier>{b4d35a5e-b45f-4963-9407-d12237d64e56}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Tools">
+      <UniqueIdentifier>{23851eef-3b46-410f-a4d6-778bfc3f1fe7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Audio">
+      <UniqueIdentifier>{a2f3e8f9-449a-4427-a3f5-86204551bb7e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Main.cpp">
@@ -148,7 +157,10 @@
       <Filter>Source Files\Scripts\Testing</Filter>
     </ClCompile>
     <ClCompile Include="src\LevelEditor.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Tools</Filter>
+    </ClCompile>
+    <ClCompile Include="src\AudioEngine.cpp">
+      <Filter>Source Files\Audio</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -247,6 +259,9 @@
     </ClInclude>
     <ClInclude Include="src\LevelEditor.h">
       <Filter>Header Files\Tools</Filter>
+    </ClInclude>
+    <ClInclude Include="src\AudioEngine.h">
+      <Filter>Header Files\Engine\Audio</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
