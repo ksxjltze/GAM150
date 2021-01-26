@@ -27,7 +27,6 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 
 	int gGameRunning = 1;
 	s8 fontId = 0;
-	char fontId = 0;
 
 	AudioEngine audioEngine;
 	FMOD::Sound* sound = nullptr;

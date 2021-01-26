@@ -54,7 +54,7 @@ bool CollisionManager::AABBvsAABB(BoxCollider b1, BoxCollider b2, CollisionData&
 			//Find the min intersect distance 
 			if (x_intersect > y_intersect)
 			{
-				col.pen_depth = x_intersect * 0.5f;
+				col.pen_depth = x_intersect ;
 				// means that b2 center on the left of b1 center (as center.x is b2-b1)
 				if (dist.x < 0)
 					col.col_normal = AEVec2{ 1.0f,0.0f };
@@ -65,7 +65,7 @@ bool CollisionManager::AABBvsAABB(BoxCollider b1, BoxCollider b2, CollisionData&
 			}
 			else
 			{
-				col.pen_depth = y_intersect * 0.5f;
+				col.pen_depth = y_intersect ;
 				//means b2 center is below b1 center
 				if (dist.y < 0)
 					col.col_normal = AEVec2{ 0.0f, 1.0f };

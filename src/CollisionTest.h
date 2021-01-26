@@ -10,14 +10,12 @@ namespace StarBangBang
 	CircleCollider circle2
 		= CircleCollider(nullptr, AEVec2{ 0.0f,0.0f }, 100.0f);
 	BoxCollider box1
-		= BoxCollider(nullptr, AEVec2{ 0.0f,200.0f }, 300.0f, 150.0f);
+		= BoxCollider(nullptr, AEVec2{ 0.0f,100.0f }, 100.0f, 150.0f);
 	BoxCollider box2
-		= BoxCollider(nullptr, AEVec2{ 0.0f,200.0f }, 200.0f, 200.0f);
+		= BoxCollider(nullptr, AEVec2{ 0.0f,200.0f }, 80.0f, 200.0f );
 
 	CollisionManager manager = CollisionManager();
 	CollisionData data = CollisionData();
-
-	//bool update_Box = false;
 
 	void Test_BoxUpdate()
 	{
@@ -27,12 +25,11 @@ namespace StarBangBang
 		
 		if (manager.AABBvsAABB(box1, box2, data))
 		{
-			std::cout << "Box collide \n";
+			//std::cout << "Box collide \n";
 			manager.Resolve(box1, box2, &data);
 		}
 		if (AEInputCheckTriggered(VK_LBUTTON))
 		{
-			//update_Box = !update_Box;
 			AEVec2 mousePos = GetMouseWorldPos();
 			box2.center.x = mousePos.x;
 			box2.center.y = mousePos.y;
@@ -43,7 +40,6 @@ namespace StarBangBang
 
 		
 	}
-	bool update_circle = false;
 	void Test_CircleUpdate()
 	{	
 		manager.DebugCollider(circle2);
@@ -52,7 +48,7 @@ namespace StarBangBang
 
 		if (manager.CircleVsCircle(circle1, circle2, data))
 		{
-			std::cout << "Circle collide \n";
+			//std::cout << "Circle collide \n";
 			manager.Resolve(circle1,circle2,&data);
 		}
 		if (AEInputCheckTriggered(VK_LBUTTON))

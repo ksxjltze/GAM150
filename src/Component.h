@@ -11,6 +11,7 @@ namespace StarBangBang
 		inline virtual Component* Clone(GameObject* obj, Component* component) = 0;
 		virtual void Update() {};
 		GameObject* gameObject { nullptr };
+		Component();
 		virtual ~Component() {}
 	};
 }

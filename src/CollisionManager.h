@@ -4,7 +4,7 @@
 
 namespace StarBangBang
 {
-	const float bounciness= 0.1f;
+	const float bounciness= 0.2f;
 	struct CollisionData
 	{
 		public:

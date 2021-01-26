@@ -10,21 +10,21 @@ namespace StarBangBang
 		
 		public:
 			bool isTrigger = false;
-			//collider is 
+			//collider does not move
 			bool isStatic = false;
 		protected:
 			AEVec2 offset = { 0,0 };
-			GameObject* gameObject;
+			GameObject* gameObject = nullptr;
+
 			Collider(GameObject* _gameObject,bool _isStatic)
 			{
 				isTrigger = false;
 				isStatic = _isStatic;
 				gameObject = _gameObject;
 			}
+		
 			Component* Clone(GameObject* obj, Component*) { return new Collider(); }
-		protected:
-			GameObject* gameObject = nullptr;
-			Collider() : Component(gameObject) { isTrigger = false;}
+			Collider() : Component(gameObject) { isTrigger = false, isStatic = false; }
 			~Collider() {}
 			
 			
@@ -52,10 +52,16 @@ namespace StarBangBang
 			AEVec2 max;		
 			AEVec2 extend;	//half of width and height 
 			AEVec2 center;
-			
-			 float GetHeight();
+			;
+			inline float GetHeight()
+			{
+				return extend.y * 2.0f;
+			}
 		
-			 float GetWidth();
+			inline float GetWidth()
+			{
+				return extend.x * 2.0f;
+			}
 
 			 BoxCollider(GameObject* _go, AEVec2 _center, float width = 1.0f, float height = 1.0f);
 
