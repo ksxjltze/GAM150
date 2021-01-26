@@ -28,7 +28,7 @@ void StarBangBang::AudioEngine::CreateSound(FMOD::Sound** sound, const char* fil
 
 void StarBangBang::AudioEngine::playSound(FMOD::Sound* sound, bool loop)
 {
-	if (loop)
+	if (!loop)
 	{
 		sound->setMode(FMOD_LOOP_OFF);
 	}
