@@ -2,7 +2,13 @@
 #include "Utils.h"
 #include <typeinfo>
 
-void StarBangBang::ObjectManager::AddImageComponent(GameObject* gameObject, Sprite sprite)
+void StarBangBang::ObjectManager::AddComponent(GameObject* gameObject, Component* component)
+{
+	componentList.push_back(component);
+	gameObject->AddComponent(component);
+}
+
+void StarBangBang::ObjectManager::AddImage(GameObject* gameObject, Sprite sprite)
 {
 	if (sprite.mesh != nullptr && sprite.texture != nullptr)
 	{
@@ -47,7 +53,7 @@ StarBangBang::GameObject* StarBangBang::ObjectManager::CloneGameObject(GameObjec
 		newObject->AddComponent(newComponent);
 
 		//MAKE THIS BETTER
-		if (newComponent->id == ImageComponent::id)
+		if (typeid(*newComponent).name() == typeid(ImageComponent).name())
 		{
 			ImageComponent* newImageComponent = dynamic_cast<ImageComponent*>(newComponent);
 			imageComponentList.push_back(newImageComponent);
@@ -56,6 +62,7 @@ StarBangBang::GameObject* StarBangBang::ObjectManager::CloneGameObject(GameObjec
 			componentList.push_back(newComponent);	
 
 	}
+
 	gameObjectList.push_back(newObject);
 	return newObject;
 }

@@ -48,8 +48,8 @@
     <LinkIncremental>true</LinkIncremental>
     <OutDir>$(SolutionDir)\bin\$(Configuration)-$(Platform)\</OutDir>
     <IntDir>$(SolutionDir)\.tmp\$(Configuration)-$(Platform)\</IntDir>
-    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);$(SolutionDir)Extern\AlphaEngine_V3.08\include</IncludePath>
-    <LibraryPath>$(VC_LibraryPath_x64);$(WindowsSDK_LibraryPath_x64);$(SolutionDir)Extern\AlphaEngine_V3.08\lib</LibraryPath>
+    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);$(SolutionDir)Extern\AlphaEngine_V3.08\include;$(SolutionDir)Extern\Fmod\include</IncludePath>
+    <LibraryPath>$(VC_LibraryPath_x64);$(WindowsSDK_LibraryPath_x64);$(SolutionDir)Extern\Fmod\lib;$(SolutionDir)Extern\AlphaEngine_V3.08\lib</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
@@ -68,7 +68,7 @@
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>Alpha_EngineD.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>Alpha_EngineD.lib;fmod_vc.lib;fmodL_vc.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -90,28 +90,40 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="src\BasicMeshShape.cpp" />
+    <ClCompile Include="src\AudioEngine.cpp" />
     <ClCompile Include="src\CameraComponent.cpp" />
     <ClCompile Include="src\Collider.cpp" />
     <ClCompile Include="src\CollisionComponent.cpp" />
     <ClCompile Include="src\CollisionManager.cpp" />
     <ClCompile Include="src\DragComponent.cpp" />
+    <ClCompile Include="src\EventTest.cpp" />
     <ClCompile Include="src\GameObject.cpp" />
     <ClCompile Include="src\GameStateManager.cpp" />
     <ClCompile Include="src\GraphicsManager.cpp" />
+    <ClCompile Include="src\Guard.cpp" />
+    <ClCompile Include="src\GuardMovement.cpp" />
     <ClCompile Include="src\ImageComponent.cpp" />
+    <ClCompile Include="src\LevelEditor.cpp" />
+    <ClCompile Include="src\InteractableComponent.cpp" />
     <ClCompile Include="src\Level_Demo.cpp" />
     <ClCompile Include="src\Main.cpp" />
     <ClCompile Include="src\MemoryManager.cpp" />
+    <ClCompile Include="src\MovementManager.cpp" />
     <ClCompile Include="src\ObjectManager.cpp" />
     <ClCompile Include="src\Physics.cpp" />
+    <ClCompile Include="src\ObserverTest.cpp" />
     <ClCompile Include="src\Player.cpp" />
     <ClCompile Include="src\PrimaryMovementController.cpp" />
+    <ClCompile Include="src\ScriptManager.cpp" />
     <ClCompile Include="src\SecondaryMovementController.cpp" />
-    <ClCompile Include="src\TileManager.cpp" />
+    <ClCompile Include="src\Subject.cpp" />
+    <ClCompile Include="src\TagManager.cpp" />
+    <ClCompile Include="src\TestScene.cpp" />
     <ClCompile Include="src\Utils.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\BasicMeshShape.h" />
+    <ClInclude Include="src\AudioEngine.h" />
     <ClInclude Include="src\CameraComponent.h" />
     <ClInclude Include="src\Collider.h" />
     <ClInclude Include="src\CollisionComponent.h" />
@@ -120,14 +132,25 @@
     <ClInclude Include="src\Component.h" />
     <ClInclude Include="src\constants.h" />
     <ClInclude Include="src\DragComponent.h" />
+    <ClInclude Include="src\Event.h" />
+    <ClInclude Include="src\EventTest.h" />
     <ClInclude Include="src\GameObject.h" />
     <ClInclude Include="src\GameStateManager.h" />
     <ClInclude Include="src\GraphicsManager.h" />
+    <ClInclude Include="src\Guard.h" />
+    <ClInclude Include="src\GuardMovement.h" />
     <ClInclude Include="src\ImageComponent.h" />
+    <ClInclude Include="src\LevelEditor.h" />
+    <ClInclude Include="src\InteractableComponent.h" />
     <ClInclude Include="src\Level_Demo.h" />
     <ClInclude Include="src\MemoryManager.h" />
+    <ClInclude Include="src\Message.h" />
+    <ClInclude Include="src\MessageBus.h" />
+    <ClInclude Include="src\MovementManager.h" />
     <ClInclude Include="src\ObjectManager.h" />
     <ClInclude Include="src\Physics.h" />
+    <ClInclude Include="src\Observer.h" />
+    <ClInclude Include="src\ObserverTest.h" />
     <ClInclude Include="src\Player.h" />
     <ClInclude Include="src\PrimaryMovementController.h" />
     <ClInclude Include="src\ScriptComponent.h" />
@@ -135,12 +158,15 @@
     <ClInclude Include="src\SecondaryMovementController.h" />
     <ClInclude Include="src\Sprite.h" />
     <ClInclude Include="src\State.h" />
-    <ClInclude Include="src\TileManager.h" />
+    <ClInclude Include="src\Subject.h" />
+    <ClInclude Include="src\TagManager.h" />
+    <ClInclude Include="src\TestScene.h" />
     <ClInclude Include="src\Transform.h" />
     <ClInclude Include="src\Utils.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Resources\boi.png" />
+    <Image Include="Resources\grass.png" />
     <Image Include="Resources\PlanetTexture.png" />
     <Image Include="Resources\YellowTexture.png" />
   </ItemGroup>

@@ -2,14 +2,14 @@
 #include "Utils.h"
 #include <iostream>
 
-StarBangBang::DragComponent::DragComponent(GameObject* gameObject) : Component(gameObject, id)
+StarBangBang::DragComponent::DragComponent(GameObject* gameObject) : Component(gameObject)
 {
 	enabled = false;
 }
 
-StarBangBang::Component* StarBangBang::DragComponent::Clone(GameObject* gameObject, Component* component)
+StarBangBang::Component* StarBangBang::DragComponent::Clone(GameObject* obj, Component*)
 {
-	return new DragComponent(gameObject);
+	return new DragComponent(obj);
 }
 
 void StarBangBang::DragComponent::Update()

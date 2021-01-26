@@ -1,17 +1,21 @@
 #pragma once
 #include "Component.h"
+#include "Observer.h"
 
 namespace StarBangBang
 {
 	class Script : public Component
 	{
 	public:
-		const static int id = Constants::ComponentType::SCRIPT;
-		inline Script(GameObject* gameObject) : Component(gameObject, id)
-		{
-			this->gameObject = gameObject;
-		}
-		virtual void Start() = 0;
-		virtual void Update() = 0;
+		inline Script(GameObject* gameObject) : Component(gameObject) {this->gameObject = gameObject;}
+		virtual Component* Clone(GameObject* gameObject, Component* component) = 0;
+		inline void SetActive(bool status) { active = status; }
+
+		virtual void Start() {};
+		virtual void Update() {};
+
+	private:
+		friend class ScriptManager;
+		bool active { true };
 	};
 }

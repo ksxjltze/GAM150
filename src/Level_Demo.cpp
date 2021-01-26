@@ -1,61 +1,89 @@
 #include "Level_Demo.h"
 #include "CameraComponent.h"
 
+#include "InteractableComponent.h"
+#include "Guard.h"
+
+#include "MovementManager.h"
+
+#include <iostream>
+#include "constants.h"
+
 StarBangBang::Level_Demo::Level_Demo(GameStateManager* manager, int id) : State(id)
 {
 	player = nullptr;
+	player2 = nullptr;
+
+	movementController = nullptr;
+
+	testGuard = nullptr;
+	testInteractable = nullptr;
+
 	gameStateManager = manager;
-	// test push to branch
 }
 
 void StarBangBang::Level_Demo::Load()
 {
-	playerImage.texture = graphicsManager.LoadTexture("../Resources/boi.png");
-	player2Image.texture = graphicsManager.LoadTexture("../Resources/boi2.png");
-	planetImage.texture = graphicsManager.LoadTexture("../Resources/PlanetTexture.png");
+	playerImage = graphicsManager.CreateSprite("../Resources/boi.png");
+	player2Image = graphicsManager.CreateSprite("../Resources/boi2.png");
+	planetImage = graphicsManager.CreateSprite("../Resources/PlanetTexture.png");
 
-	playerImage.mesh = graphicsManager.CreateMesh(100, 100);
-	planetImage.mesh = graphicsManager.CreateMesh(100, 100);
-	player2Image.mesh = graphicsManager.CreateMesh(100, 100);
 }
 
+//Initialization of game objects, components and scripts.
 void StarBangBang::Level_Demo::Init()
 {
-	player = objectManager.NewGameObject(100, 100);
-	objectManager.AddImageComponent(player, playerImage);
-	player2 = objectManager.CloneGameObject(player);
-	player2->GetComponent<ImageComponent>()->SetTexture(player2Image.texture); // testing
-
-	scriptManager.AddScript<PrimaryMovementController>(player);
-	scriptManager.AddScript<SecondaryMovementController>(player2);
-
-	player->transform.position.x = 200;
-	player2->transform.position.x = -200;
-
 	GameObject* worldOriginMarker = objectManager.NewGameObject();
-	objectManager.AddImageComponent(worldOriginMarker, planetImage);
-	testObjects.push_back(worldOriginMarker);
+	player = objectManager.NewGameObject();
+	testGuard = objectManager.NewGameObject();
+	movementController = objectManager.NewGameObject();
 
-	//for (int i = 0; i < 10; i++)
-	//{
-	//	GameObject* testObject = objectManager.CloneGameObject(player);
-	//	objectManager.AddComponent<DragComponent>(testObject);
-	//	testObjects[i]->transform.position.x += i * 50;
-	//	testObjects[i]->transform.position.y += i % 3 * 100;
+	objectManager.AddImage(worldOriginMarker, planetImage);
+	objectManager.AddImage(player, playerImage);
+	objectManager.AddImage(testGuard, playerImage);
 
-	//	testObjects.push_back(testObject);
-	//}
+	//Creates a clone of the player gameObject and changes the sprite texture.
+	player2 = objectManager.CloneGameObject(player);
+	player2->GetComponent<ImageComponent>()->SetTexture(player2Image.texture);
 
-	player->transform.position.y = 200;
+	testInteractable = objectManager.CloneGameObject(player2);
+
+	player->SetPos({ 200, 200 });
+	player2->SetPos({ -150, 200 });
+	testInteractable->SetPos({ 50, 50 });
 
 	objectManager.AddComponent<CameraComponent>(player);
-	scriptManager.Start();
+	objectManager.AddComponent<InteractableComponent>(testInteractable);
 
+	objectManager.AddScript<Guard>(testGuard);
+	objectManager.AddScript<GuardMovement>(testGuard);
+	objectManager.AddScript<PrimaryMovementController>(player);
+	objectManager.AddScript<PrimaryMovementController>(player2);
+	//objectManager.AddScript<SecondaryMovementController>(player2);
+	objectManager.AddScript<MovementManager>(movementController);
+
+	movementController->GetComponent<MovementManager>()->AddController(player);
+	movementController->GetComponent<MovementManager>()->AddController(player2);
+	testInteractable->GetComponent<InteractableComponent>()->SetType(InteractableComponent::INTERACTABLE_TYPE::TYPE_PRINTER);
+
+	//Testing Tags
+	tagManager.AddTag(*player, "Test");
+	tagManager.GetGameObjectByTag("Test").transform.scale = { 2, 2 };
+
+	//Scale test
+	worldOriginMarker->transform.scale = { 0.5, 0.5 };
+	testObjects.push_back(worldOriginMarker);
+
+	scriptManager.Start();
 }
 
 void StarBangBang::Level_Demo::Update()
 {
 	State::Update();
+	if (AEInputCheckTriggered(VK_SPACE))
+	{
+		gameStateManager->SetNextGameState(Constants::SceneID::TEST);
+	}
 }
 
 void StarBangBang::Level_Demo::Draw()
@@ -66,7 +94,7 @@ void StarBangBang::Level_Demo::Draw()
 
 void StarBangBang::Level_Demo::Free()
 {
-
+	State::Free();
 }
 
 void StarBangBang::Level_Demo::Unload()
