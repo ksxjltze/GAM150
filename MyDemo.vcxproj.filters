@@ -82,7 +82,7 @@
     <Filter Include="Source Files\Engine\Audio">
       <UniqueIdentifier>{a2f3e8f9-449a-4427-a3f5-86204551bb7e}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\Engine\Game Logic\Deprecated">
+    <Filter Include="Header Files\Deprecated">
       <UniqueIdentifier>{5c24f530-1d4e-4458-89c6-a6fe33b1fb30}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
@@ -176,9 +176,6 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\DragComponent.h">
-      <Filter>Header Files\Engine\Components</Filter>
-    </ClInclude>
     <ClInclude Include="src\ImageComponent.h">
       <Filter>Header Files\Engine\Components</Filter>
     </ClInclude>
@@ -276,19 +273,22 @@
       <Filter>Header Files\Scripts</Filter>
     </ClInclude>
     <ClInclude Include="src\Event.h">
-      <Filter>Header Files\Engine\Game Logic\Deprecated</Filter>
+      <Filter>Header Files\Deprecated</Filter>
     </ClInclude>
     <ClInclude Include="src\Observer.h">
-      <Filter>Header Files\Engine\Game Logic\Deprecated</Filter>
+      <Filter>Header Files\Deprecated</Filter>
     </ClInclude>
     <ClInclude Include="src\Subject.h">
-      <Filter>Header Files\Engine\Game Logic\Deprecated</Filter>
+      <Filter>Header Files\Deprecated</Filter>
     </ClInclude>
     <ClInclude Include="src\Message.h">
       <Filter>Header Files\Engine\Game Logic</Filter>
     </ClInclude>
     <ClInclude Include="src\MessageBus.h">
       <Filter>Header Files\Engine\Game Logic</Filter>
+    </ClInclude>
+    <ClInclude Include="src\DragComponent.h">
+      <Filter>Header Files\Deprecated</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

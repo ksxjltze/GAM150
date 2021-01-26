@@ -11,45 +11,44 @@ StarBangBang::Level_Demo::Level_Demo(GameStateManager* manager, int id) : State(
 {
 	player = nullptr;
 	player2 = nullptr;
-	testInteractable = nullptr;
+
+	movementController = nullptr;
+
 	testGuard = nullptr;
+	testInteractable = nullptr;
+
 	gameStateManager = manager;
 }
 
 void StarBangBang::Level_Demo::Load()
 {
-	playerImage = graphicsManager.CreateSprite("../Resources/boi.png", 100, 100);
-	player2Image = graphicsManager.CreateSprite("../Resources/boi2.png", 100, 100);
-	planetImage = graphicsManager.CreateSprite("../Resources/PlanetTexture.png", 100, 100);
+	playerImage = graphicsManager.CreateSprite("../Resources/boi.png");
+	player2Image = graphicsManager.CreateSprite("../Resources/boi2.png");
+	planetImage = graphicsManager.CreateSprite("../Resources/PlanetTexture.png");
 
 }
 
+//Initialization of game objects, components and scripts.
 void StarBangBang::Level_Demo::Init()
 {
 	GameObject* worldOriginMarker = objectManager.NewGameObject();
-	testObjects.push_back(worldOriginMarker);
-
-	//Player 1
-	player = objectManager.NewGameObject(100, 100);
-
-	//Player 2
-	player2 = objectManager.CloneGameObject(player);
-
-	// Interactable test
-	testInteractable = objectManager.CloneGameObject(player);
-
-	// Guard test
-	testGuard = objectManager.NewGameObject(0, 0);
+	player = objectManager.NewGameObject();
+	testGuard = objectManager.NewGameObject();
+	movementController = objectManager.NewGameObject();
 
 	objectManager.AddImage(worldOriginMarker, planetImage);
 	objectManager.AddImage(player, playerImage);
-	objectManager.AddImage(player2, player2Image);
-	objectManager.AddImage(testInteractable, playerImage);
 	objectManager.AddImage(testGuard, playerImage);
 
-	testInteractable->SetPos({ 50, 50 });
+	//Creates a clone of the player gameObject and changes the sprite texture.
+	player2 = objectManager.CloneGameObject(player);
+	player2->GetComponent<ImageComponent>()->SetTexture(player2Image.texture);
+
+	testInteractable = objectManager.CloneGameObject(player2);
+
 	player->SetPos({ 200, 200 });
 	player2->SetPos({ -200, 200 });
+	testInteractable->SetPos({ 50, 50 });
 
 	objectManager.AddComponent<CameraComponent>(player);
 	objectManager.AddComponent<InteractableComponent>(testInteractable);
@@ -64,6 +63,10 @@ void StarBangBang::Level_Demo::Init()
 	//Testing Tags
 	tagManager.AddTag(*player, "Test");
 	tagManager.GetGameObjectByTag("Test").transform.scale = { 2, 2 };
+
+	//Scale test
+	worldOriginMarker->transform.scale = { 0.5, 0.5 };
+	testObjects.push_back(worldOriginMarker);
 
 	scriptManager.Start();
 }
