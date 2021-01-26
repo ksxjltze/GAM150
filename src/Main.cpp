@@ -34,6 +34,10 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 
 	GameStateManager gameStateManager;
 
+	gameStateManager.AddGameState<Level_Demo>(Constants::SceneID::DEMO);
+	State* testScene = gameStateManager.AddGameState<Level_Demo>(Constants::SceneID::TEST);
+	gameStateManager.SetInitialState(testScene);
+
 	State* sceneDemo = gameStateManager.AddGameState<Level_Demo>(Constants::SceneID::DEMO);
 	State* sceneEditor = gameStateManager.AddGameState<LevelEditor>(Constants::SceneID::EDITOR);
 	State* sceneTest = gameStateManager.AddGameState<TestScene>(Constants::SceneID::TEST);

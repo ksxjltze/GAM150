@@ -165,8 +165,14 @@
     <ClCompile Include="src\AudioEngine.cpp">
       <Filter>Source Files\Engine\Audio</Filter>
     </ClCompile>
+    <ClCompile Include="src\Guard.cpp">
+      <Filter>Source Files\Scripts</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GuardMovement.cpp">
+      <Filter>Source Files\Scripts</Filter>
+    </ClCompile>
     <ClCompile Include="src\InteractableComponent.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Scripts</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -260,8 +266,14 @@
     <ClInclude Include="src\AudioEngine.h">
       <Filter>Header Files\Engine\Audio</Filter>
     </ClInclude>
+    <ClInclude Include="src\Guard.h">
+      <Filter>Header Files\Scripts</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GuardMovement.h">
+      <Filter>Header Files\Scripts</Filter>
+    </ClInclude>
     <ClInclude Include="src\InteractableComponent.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Scripts</Filter>
     </ClInclude>
     <ClInclude Include="src\Event.h">
       <Filter>Header Files\Engine\Game Logic\Deprecated</Filter>
