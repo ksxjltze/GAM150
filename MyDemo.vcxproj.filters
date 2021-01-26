@@ -144,6 +144,15 @@
     <ClCompile Include="src\ObserverTest.cpp">
       <Filter>Source Files\Scripts\Testing</Filter>
     </ClCompile>
+    <ClCompile Include="src\InteractableComponent.cpp">
+      <Filter>Source Files\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Guard.cpp">
+      <Filter>Source Files\Scripts</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GuardMovement.cpp">
+      <Filter>Source Files\Scripts</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\DragComponent.h">
@@ -238,6 +247,15 @@
     </ClInclude>
     <ClInclude Include="src\EventTest.h">
       <Filter>Header Files\Scripts\Testing</Filter>
+    </ClInclude>
+    <ClInclude Include="src\InteractableComponent.h">
+      <Filter>Header Files\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Guard.h">
+      <Filter>Header Files\Scripts</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GuardMovement.h">
+      <Filter>Header Files\Scripts</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

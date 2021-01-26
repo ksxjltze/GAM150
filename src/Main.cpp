@@ -27,7 +27,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 	GameStateManager gameStateManager;
 
 	gameStateManager.AddGameState<Level_Demo>(Constants::SceneID::DEMO);
-	State* testScene = gameStateManager.AddGameState<TestScene>(Constants::SceneID::TEST);
+	State* testScene = gameStateManager.AddGameState<Level_Demo>(Constants::SceneID::TEST);
 	gameStateManager.SetInitialState(testScene);
 
 	// Variable declaration end

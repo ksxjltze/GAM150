@@ -25,6 +25,7 @@ namespace StarBangBang
 		GameObject* player;
 		GameObject* player2;
 		GameObject* testInteractable;
+		GameObject* testGuard;
 		std::vector<GameObject*> testObjects;
 		GameStateManager* gameStateManager;
 	};

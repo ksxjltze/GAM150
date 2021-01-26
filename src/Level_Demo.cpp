@@ -2,6 +2,7 @@
 #include "CameraComponent.h"
 
 #include "InteractableComponent.h"
+#include "Guard.h"
 
 #include <iostream>
 #include "constants.h"
@@ -11,6 +12,7 @@ StarBangBang::Level_Demo::Level_Demo(GameStateManager* manager, int id) : State(
 	player = nullptr;
 	player2 = nullptr;
 	testInteractable = nullptr;
+	testGuard = nullptr;
 	gameStateManager = manager;
 }
 
@@ -44,10 +46,17 @@ void StarBangBang::Level_Demo::Init()
 	player->transform.position.x = 200;
 	player2->transform.position.x = -100;
 
+	// Interactable test
 	testInteractable = objectManager.CloneGameObject(player);
 	testInteractable->SetPos({ 50, 50 });
 	objectManager.AddComponent<InteractableComponent>(testInteractable);
 	testInteractable->GetComponent<InteractableComponent>()->SetType(InteractableComponent::INTERACTABLE_TYPE::TYPE_PRINTER);
+
+	// Guard test
+	testGuard = objectManager.NewGameObject(0, 0);
+	objectManager.AddImage(testGuard, playerImage);
+	objectManager.AddScript<Guard>(testGuard);
+	objectManager.AddScript<GuardMovement>(testGuard);
 
 	GameObject* worldOriginMarker = objectManager.NewGameObject();
 	objectManager.AddImage(worldOriginMarker, planetImage);
