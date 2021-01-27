@@ -3,7 +3,7 @@
 
 namespace StarBangBang
 {
-	class CameraComponent : public ComponentCRTP<CameraComponent>
+	class CameraComponent : public Component<CameraComponent>
 	{
 	public:
 		CameraComponent(GameObject* gameObject);

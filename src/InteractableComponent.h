@@ -3,7 +3,7 @@
 
 namespace StarBangBang
 {
-	class InteractableComponent : public Component
+	class InteractableComponent : public _Component
 	{
 	public:
 		enum class INTERACTABLE_TYPE
@@ -15,7 +15,7 @@ namespace StarBangBang
 		};
 
 		InteractableComponent(GameObject* gameObject);
-		Component* Clone(GameObject* gameObject, Component*);
+		_Component* Clone(GameObject* gameObject, _Component*);
 
 		void OnUse();
 		inline void SetType(INTERACTABLE_TYPE _type) { type = _type; }

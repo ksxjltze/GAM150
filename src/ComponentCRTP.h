@@ -4,13 +4,13 @@
 namespace StarBangBang
 {
 	template <typename ComponentType>
-	class ComponentCRTP : public Component
+	class Component : public _Component
 	{
 	public:
-		ComponentCRTP(GameObject* obj) : Component(obj) {}
-		Component* Clone(GameObject* obj) const //const to prevent original component from being modified
+		Component(GameObject* obj) : _Component(obj) {}
+		_Component* Clone(GameObject* obj) const //const to prevent original component from being modified
 		{
-			Component* clonedComponent = new ComponentType(static_cast<ComponentType const&>(*this));
+			_Component* clonedComponent = new ComponentType(static_cast<ComponentType const&>(*this));
 			clonedComponent->gameObject = obj;
 			return clonedComponent;
 		}

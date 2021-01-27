@@ -5,13 +5,13 @@
 
 namespace StarBangBang
 {
-	class Component : BusNode
+	class _Component : BusNode
 	{
 	public:
-		Component(GameObject* gameObject) { this->gameObject = gameObject; }
-		inline virtual Component* Clone(GameObject* obj, Component* component) { return new Component(obj); }
+		_Component(GameObject* gameObject) { this->gameObject = gameObject; }
+		inline virtual _Component* Clone(GameObject* obj, _Component*) { return new _Component(obj); }
 		virtual void Update() {};
 		GameObject* gameObject { nullptr };
-		virtual ~Component() {}
+		virtual ~_Component() {}
 	};
 }

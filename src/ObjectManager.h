@@ -20,7 +20,7 @@ namespace StarBangBang
 			AddComponent(gameObject, component);
 		}
 
-		void AddComponent(GameObject* gameObject, Component* component);
+		void AddComponent(GameObject* gameObject, _Component* component);
 		void AddImage(GameObject* gameObject, Sprite sprite);
 		void AddChildGameObject(GameObject* child, GameObject* parent);
 		GameObject* NewGameObject();
@@ -43,6 +43,6 @@ namespace StarBangBang
 		ScriptManager scriptManager;
 		std::vector<GameObject*> gameObjectList;
 		std::vector<ImageComponent*> imageComponentList;
-		std::vector<Component*> componentList;
+		std::vector<_Component*> componentList;
 	};
 }

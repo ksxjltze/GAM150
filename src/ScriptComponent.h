@@ -4,11 +4,11 @@
 
 namespace StarBangBang
 {
-	class Script : public Component
+	class Script : public _Component
 	{
 	public:
-		inline Script(GameObject* gameObject) : Component(gameObject) {this->gameObject = gameObject;}
-		virtual Component* Clone(GameObject* gameObject, Component* component) = 0;
+		inline Script(GameObject* gameObject) : _Component(gameObject) {this->gameObject = gameObject;}
+		virtual _Component* Clone(GameObject* gameObject, _Component* component) = 0;
 		inline void SetActive(bool status) { active = status; }
 
 		virtual void Start() {};

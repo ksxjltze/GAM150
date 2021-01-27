@@ -2,7 +2,7 @@
 #include "Utils.h"
 #include <typeinfo>
 
-void StarBangBang::ObjectManager::AddComponent(GameObject* gameObject, Component* component)
+void StarBangBang::ObjectManager::AddComponent(GameObject* gameObject, _Component* component)
 {
 	componentList.push_back(component);
 	gameObject->AddComponent(component);
@@ -44,12 +44,12 @@ StarBangBang::GameObject* StarBangBang::ObjectManager::NewGameObject(float width
 
 StarBangBang::GameObject* StarBangBang::ObjectManager::CloneGameObject(GameObject* gameObject)
 {
-	std::vector<Component*> components = gameObject->GetComponents();
+	std::vector<_Component*> components = gameObject->GetComponents();
 	GameObject* newObject = new GameObject(*gameObject);
-	for (Component* component : components)
+	for (_Component* component : components)
 	{
-		//Component* newComponent = new Component(newObject, component->id);
-		Component* newComponent = component->Clone(newObject, component);
+		//_Component* newComponent = new _Component(newObject, component->id);
+		_Component* newComponent = component->Clone(newObject, component);
 		newObject->AddComponent(newComponent);
 
 		//MAKE THIS BETTER
@@ -85,7 +85,7 @@ void StarBangBang::ObjectManager::FreeObjects()
 
 void StarBangBang::ObjectManager::FreeComponents()
 {
-	for (Component* component : componentList)
+	for (_Component* component : componentList)
 	{
 		delete component;
 		component = nullptr;
@@ -111,7 +111,7 @@ void StarBangBang::ObjectManager::Draw()
 
 void StarBangBang::ObjectManager::Update()
 {
-	for (Component* component : componentList)
+	for (_Component* component : componentList)
 	{
 		component->Update();
 	}

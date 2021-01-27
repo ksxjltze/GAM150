@@ -1,6 +1,6 @@
 #include "CameraComponent.h"
 
-StarBangBang::CameraComponent::CameraComponent(GameObject* gameObject) : ComponentCRTP<CameraComponent>(gameObject)
+StarBangBang::CameraComponent::CameraComponent(GameObject* gameObject) : Component<CameraComponent>(gameObject)
 {
 	position = { 0, 0 };
 }

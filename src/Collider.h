@@ -5,15 +5,15 @@
 namespace StarBangBang
 {
 	enum class ShapeType {Box,Circle};
-	class Collider : public Component
+	class Collider : public _Component
 	{
 		
 		public:
 			bool isTrigger = false;
-			Component* Clone(GameObject* obj, Component*) { return new Collider(); }
+			_Component* Clone(GameObject* obj, _Component*) { return new Collider(); }
 		protected:
 			GameObject* gameObject = nullptr;
-			Collider() : Component(gameObject) { isTrigger = false;}
+			Collider() : _Component(gameObject) { isTrigger = false;}
 			~Collider() {}
 			
 			

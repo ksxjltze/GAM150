@@ -6,7 +6,7 @@
 
 namespace StarBangBang
 {
-	class Component;
+	class _Component;
 	class GameObject
 	{
 	public:
@@ -17,7 +17,7 @@ namespace StarBangBang
 		template <class T>
 		inline T* GetComponent()
 		{
-			for (Component* component : componentList)
+			for (_Component* component : componentList)
 			{
 				if (typeid(T).name() == typeid(*component).name())
 				{
@@ -28,7 +28,7 @@ namespace StarBangBang
 
 		}
 
-		inline std::vector<Component*> GetComponents()
+		inline std::vector<_Component*> GetComponents()
 		{
 			return componentList;
 		}
@@ -44,10 +44,10 @@ namespace StarBangBang
 
 	private:
 		friend class ObjectManager;
-		inline void AddComponent(Component* component)
+		inline void AddComponent(_Component* component)
 		{
 			componentList.push_back(component);
 		}
-		std::vector<Component*> componentList;
+		std::vector<_Component*> componentList;
 	};
 }
