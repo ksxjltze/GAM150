@@ -7,7 +7,8 @@ namespace StarBangBang
 	class BusNode
 	{
 	public:
-		BusNode(MessageBus* bus) { messageBus = bus; bus->addReceiver(this->GetNotifyFunction()); }
+        BusNode() { messageBus = nullptr; };
+        void Init(MessageBus* bus) { messageBus = bus; bus->addReceiver(this->GetNotifyFunction()); };
 	protected:
 		MessageBus* messageBus;
         std::function<void(Message)> GetNotifyFunction()
@@ -20,7 +21,8 @@ namespace StarBangBang
 
         void Send(Message message)
         {
-            messageBus->sendMessage(message);
+            if (messageBus)
+                messageBus->sendMessage(message);
         }
 
         virtual void OnNotify(Message message)
