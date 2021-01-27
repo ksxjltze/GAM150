@@ -1,13 +1,12 @@
 #pragma once
-#include "Component.h"
+#include "ComponentCRTP.h"
 
 namespace StarBangBang
 {
-	class CameraComponent : public Component
+	class CameraComponent : public ComponentCRTP<CameraComponent>
 	{
 	public:
 		CameraComponent(GameObject* gameObject);
-		Component* Clone(GameObject* gameObject, Component* component);
 		void Update();
 		AEVec2 position;
 	};

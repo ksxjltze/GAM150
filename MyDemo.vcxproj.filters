@@ -305,6 +305,9 @@
     <ClInclude Include="src\BusNode.h">
       <Filter>Header Files\Engine\Game Logic</Filter>
     </ClInclude>
+    <ClInclude Include="src\ComponentCRTP.h">
+      <Filter>Header Files\Engine\Game Logic</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Resources\PlanetTexture.png">

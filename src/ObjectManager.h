@@ -6,6 +6,7 @@
 #include "DragComponent.h"
 #include "Sprite.h"
 #include <vector>
+#include <typeinfo>
 
 namespace StarBangBang
 {

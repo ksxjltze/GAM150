@@ -1,5 +1,5 @@
 #pragma once
-#include "Component.h"
+#include "ComponentCRTP.h"
 #include "GraphicsManager.h"
 
 namespace StarBangBang

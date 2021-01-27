@@ -131,6 +131,7 @@
     <ClInclude Include="src\CollisionComponent.h" />
     <ClInclude Include="src\CollisionManager.h" />
     <ClInclude Include="src\Component.h" />
+    <ClInclude Include="src\ComponentCRTP.h" />
     <ClInclude Include="src\constants.h" />
     <ClInclude Include="src\DragComponent.h" />
     <ClInclude Include="src\Event.h" />
