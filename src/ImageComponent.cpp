@@ -1,16 +1,10 @@
 #include "ImageComponent.h"
 #include "Utils.h"
 
-StarBangBang::ImageComponent::ImageComponent(GameObject* gameObject, AEGfxVertexList* mesh, AEGfxTexture* texture) : _Component (gameObject)
+StarBangBang::ImageComponent::ImageComponent(GameObject* gameObject, AEGfxVertexList* mesh, AEGfxTexture* texture) : Component (gameObject)
 {
 	this->mesh = mesh;
 	this->texture = texture;
-}
-
-StarBangBang::_Component* StarBangBang::ImageComponent::Clone(GameObject* obj, _Component* component)
-{
-	ImageComponent* original = dynamic_cast<ImageComponent*>(component);
-	return new ImageComponent(obj, original->mesh, original->texture);
 }
 
 void StarBangBang::ImageComponent::Draw()

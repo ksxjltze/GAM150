@@ -4,11 +4,10 @@
 
 namespace StarBangBang
 {
-	class ImageComponent : public _Component
+	class ImageComponent : public Component<ImageComponent>
 	{
 	public:
 		ImageComponent(GameObject* gameObject, AEGfxVertexList* mesh, AEGfxTexture* texture);
-		_Component* Clone(GameObject* gameObject, _Component* component);
 
 		inline void SetTexture(AEGfxTexture* texturePtr) { texture = texturePtr; }
 		inline void SetMesh(AEGfxVertexList* meshPtr) { mesh = meshPtr; }
