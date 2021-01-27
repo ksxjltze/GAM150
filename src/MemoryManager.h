@@ -9,7 +9,6 @@ namespace StarBangBang
 	public:
 		MemoryManager();
 		MemoryManager(ObjectManager* objectManager, GraphicsManager* graphicsManager);
-		MemoryManager(ObjectManager* objectManager, GraphicsManager* graphicsManager, ScriptManager* scriptManager);
 		void Load();
 		void Free();
 		void Unload();
@@ -18,6 +17,5 @@ namespace StarBangBang
 		//Might wanna rethink how this is done
 		ObjectManager* objectManager;
 		GraphicsManager* graphicsManager;
-		ScriptManager* scriptManager;
 	};
 }

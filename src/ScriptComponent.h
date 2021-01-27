@@ -15,6 +15,5 @@ namespace StarBangBang
 
 	private:
 		friend class ScriptManager;
-		bool active { true };
 	};
 }

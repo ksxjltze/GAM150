@@ -27,20 +27,13 @@ namespace StarBangBang
 		GameObject* NewGameObject(float width, float height);
 		GameObject* CloneGameObject(GameObject* gameObject);
 
-		template <class ScriptType>
-		inline void AddScript(GameObject* gameObject)
-		{
-			Script* scriptComponent = scriptManager.NewScript<ScriptType>(gameObject);
-			gameObject->AddComponent(scriptComponent);
-		}
-
 		void FreeObjects();
 		void FreeComponents();
+		void Init();
 		void Draw();
 		void Update();
 	private:
 		friend class State;
-		ScriptManager scriptManager;
 		std::vector<GameObject*> gameObjectList;
 		std::vector<ImageComponent*> imageComponentList;
 		std::vector<_Component*> componentList;

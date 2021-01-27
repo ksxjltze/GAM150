@@ -50,9 +50,7 @@ AEGfxVertexList* StarBangBang::GraphicsManager::GetMesh()
 	if (normalizedMesh == nullptr)
 	{
 		normalizedMesh = CreateMesh(Constants::Graphics::MESH_WIDTH, Constants::Graphics::MESH_HEIGHT);
-		meshList.push_back(normalizedMesh);
 	}
-
 	return normalizedMesh;
 }
 
@@ -80,9 +78,13 @@ void StarBangBang::GraphicsManager::FreeMeshes()
 {
 	for (AEGfxVertexList* mesh : meshList)
 	{
-		AEGfxMeshFree(mesh);
-		mesh = nullptr;
+		if (mesh)
+		{
+			AEGfxMeshFree(mesh);
+			mesh = nullptr;
+		}
 	}
+	normalizedMesh = nullptr;
 	meshList.clear();
 }
 

@@ -55,12 +55,12 @@ void StarBangBang::Level_Demo::Init()
 	objectManager.AddComponent<CameraComponent>(player);
 	objectManager.AddComponent<InteractableComponent>(testInteractable);
 
-	objectManager.AddScript<Guard>(testGuard);
-	objectManager.AddScript<GuardMovement>(testGuard);
-	objectManager.AddScript<PrimaryMovementController>(player);
-	objectManager.AddScript<PrimaryMovementController>(player2);
+	objectManager.AddComponent<Guard>(testGuard);
+	objectManager.AddComponent<GuardMovement>(testGuard);
+	objectManager.AddComponent<PrimaryMovementController>(player);
+	objectManager.AddComponent<PrimaryMovementController>(player2);
 	//objectManager.AddScript<SecondaryMovementController>(player2);
-	objectManager.AddScript<MovementManager>(movementController);
+	objectManager.AddComponent<MovementManager>(movementController);
 
 	movementController->GetComponent<MovementManager>()->AddController(player);
 	movementController->GetComponent<MovementManager>()->AddController(player2);
@@ -73,8 +73,7 @@ void StarBangBang::Level_Demo::Init()
 	//Scale test
 	worldOriginMarker->transform.scale = { 0.5, 0.5 };
 	testObjects.push_back(worldOriginMarker);
-
-	scriptManager.Start();
+	objectManager.Init();
 }
 
 void StarBangBang::Level_Demo::Update()
@@ -99,5 +98,5 @@ void StarBangBang::Level_Demo::Free()
 
 void StarBangBang::Level_Demo::Unload()
 {
-
+	State::Unload();
 }

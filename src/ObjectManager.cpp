@@ -58,10 +58,6 @@ StarBangBang::GameObject* StarBangBang::ObjectManager::CloneGameObject(GameObjec
 			ImageComponent* newImageComponent = dynamic_cast<ImageComponent*>(newComponent);
 			imageComponentList.push_back(newImageComponent);
 		}
-		else if (typeid(*newComponent).name() == typeid(Script).name())
-		{
-			scriptManager.AddScript(dynamic_cast<Script*>(newComponent));
-		}
 		else
 			componentList.push_back(newComponent);	
 
@@ -101,6 +97,14 @@ void StarBangBang::ObjectManager::FreeComponents()
 	imageComponentList.clear();
 }
 
+void StarBangBang::ObjectManager::Init()
+{
+	for (_Component* component : componentList)
+	{
+		component->Start();
+	}
+}
+
 void StarBangBang::ObjectManager::Draw()
 {
 	for (ImageComponent* image : imageComponentList)
@@ -113,6 +117,7 @@ void StarBangBang::ObjectManager::Update()
 {
 	for (_Component* component : componentList)
 	{
-		component->Update();
+		if (component->active)
+			component->Update();
 	}
 }

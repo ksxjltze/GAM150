@@ -10,7 +10,7 @@ namespace StarBangBang
 		
 		public:
 			bool isTrigger = false;
-			_Component* Clone(GameObject* obj, _Component*) { return new Collider(); }
+			_Component* Clone(GameObject*, _Component*) { return new Collider(); }
 		protected:
 			GameObject* gameObject = nullptr;
 			Collider() : _Component(gameObject) { isTrigger = false;}
