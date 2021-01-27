@@ -7,11 +7,6 @@ StarBangBang::InteractableComponent::InteractableComponent(GameObject* obj) : _C
 	type = INTERACTABLE_TYPE::TYPE_NONE;
 }
 
-StarBangBang::_Component* StarBangBang::InteractableComponent::Clone(GameObject* obj, _Component*)
-{
-	return new InteractableComponent(obj);
-}
-
 void StarBangBang::InteractableComponent::OnUse()
 {
 	switch (type)

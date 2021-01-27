@@ -15,7 +15,6 @@ namespace StarBangBang
 		};
 
 		InteractableComponent(GameObject* gameObject);
-		_Component* Clone(GameObject* gameObject, _Component*);
 
 		void OnUse();
 		inline void SetType(INTERACTABLE_TYPE _type) { type = _type; }

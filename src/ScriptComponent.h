@@ -1,14 +1,13 @@
 #pragma once
-#include "Component.h"
+#include "ComponentCRTP.h"
 #include "Observer.h"
 
 namespace StarBangBang
 {
-	class Script : public _Component
+	class Script : public Component<Script>
 	{
 	public:
-		inline Script(GameObject* gameObject) : _Component(gameObject) {this->gameObject = gameObject;}
-		virtual _Component* Clone(GameObject* gameObject, _Component* component) = 0;
+		inline Script(GameObject* gameObject) : Component(gameObject) {}
 		inline void SetActive(bool status) { active = status; }
 
 		virtual void Start() {};

@@ -8,7 +8,6 @@ namespace StarBangBang
 	{
 	public:
 		MovementManager(GameObject* obj) : Script(obj) {}
-		_Component* Clone(GameObject* obj, _Component*) { return new MovementManager(obj); };
 		void AddController(GameObject* obj);
 		void Start();
 		void Update();

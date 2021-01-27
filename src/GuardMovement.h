@@ -8,7 +8,6 @@ namespace StarBangBang
 	{
 	public:
 		GuardMovement(GameObject* gameObject);
-		_Component* Clone(GameObject* obj, _Component*) { return new GuardMovement(obj); }
 
 		void Patrol();
 		void Chase();
