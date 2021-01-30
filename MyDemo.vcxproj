@@ -100,6 +100,7 @@
     <ClCompile Include="src\GameObject.cpp" />
     <ClCompile Include="src\GameStateManager.cpp" />
     <ClCompile Include="src\GraphicsManager.cpp" />
+    <ClCompile Include="src\Grid.cpp" />
     <ClCompile Include="src\Guard.cpp" />
     <ClCompile Include="src\GuardMovement.cpp" />
     <ClCompile Include="src\ImageComponent.cpp" />
@@ -147,6 +148,7 @@
     <ClInclude Include="src\Message.h" />
     <ClInclude Include="src\MessageBus.h" />
     <ClInclude Include="src\MovementManager.h" />
+    <ClInclude Include="src\Grid.h" />
     <ClInclude Include="src\ObjectManager.h" />
     <ClInclude Include="src\Physics.h" />
     <ClInclude Include="src\Observer.h" />

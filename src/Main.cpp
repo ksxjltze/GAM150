@@ -71,7 +71,8 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 
 	// Initialization end
 	/////////////////////
-
+	//Init all the stuff for testing in collisionTest.h
+	StarBangBang::InitTest();
 	// Game Loop
 	while (gGameRunning)
 	{
@@ -92,6 +93,9 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 
 		StarBangBang::Test_BoxUpdate();
 		//StarBangBang::Test_CircleUpdate();
+		StarBangBang::GridDrawTest();
+
+
 		char strBuffer[100];
 		memset(strBuffer, 0, 100 * sizeof(char));
 		sprintf_s(strBuffer, "FPS:  %.6f", AEFrameRateControllerGetFrameRate());

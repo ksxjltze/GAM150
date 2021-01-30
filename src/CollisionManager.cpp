@@ -39,14 +39,8 @@ bool CollisionManager::AABBvsAABB(BoxCollider b1, BoxCollider b2, CollisionData&
 	AEVec2 dist = AEVec2{ b2.center.x - b1.center.x , b2.center.y - b1.center.y };
 	float x_intersect = b1.extend.x + b2.extend.x - fabs(dist.x);
 	float y_intersect = b1.extend.y + b2.extend.y - fabs(dist.y);
-	//same box center
-	///*if (dist.x == 0 && dist.y == 0)
-	//{
-	//	col.col_normal = AEVec2{ -1,0 };
-	//	col.pen_depth = b1.extend.x;
-	//	return true;
-	//}*/
-	//intersect on both axis 
+
+	//intersect
 	if (x_intersect > 0)
 	{
 		if (y_intersect > 0)

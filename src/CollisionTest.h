@@ -3,6 +3,7 @@
 #include "BasicMeshShape.h"
 #include <iostream>
 #include "Utils.h"
+#include "Grid.h"
 namespace StarBangBang
 {
 	CircleCollider circle1
@@ -16,6 +17,15 @@ namespace StarBangBang
 
 	CollisionManager manager = CollisionManager();
 	CollisionData data = CollisionData();
+
+	
+	Grid grid;
+	
+	void InitTest()
+	{
+		
+		grid.CreateGrid(30.0f, AEVec2{ static_cast<f32>(AEGetWindowWidth()), static_cast<f32>(AEGetWindowHeight()) });
+	}
 
 	void Test_BoxUpdate()
 	{
@@ -61,5 +71,14 @@ namespace StarBangBang
 		
 		}
 		
+	}
+	
+	void GridDrawTest()
+	{
+		AEVec2 mousePos = GetMouseWorldPos();
+		Node* n = grid.GetNodeFromPosition(mousePos);
+		if(n)
+			StarBangBang::DrawCircle(10.0f,n->nodePos );
+		grid.DrawGrid();
 	}
 }
