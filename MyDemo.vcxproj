@@ -111,6 +111,7 @@
     <ClCompile Include="src\MemoryManager.cpp" />
     <ClCompile Include="src\MovementManager.cpp" />
     <ClCompile Include="src\ObjectManager.cpp" />
+    <ClCompile Include="src\PathFinder.cpp" />
     <ClCompile Include="src\Physics.cpp" />
     <ClCompile Include="src\ObserverTest.cpp" />
     <ClCompile Include="src\Player.cpp" />
@@ -150,6 +151,7 @@
     <ClInclude Include="src\MovementManager.h" />
     <ClInclude Include="src\Grid.h" />
     <ClInclude Include="src\ObjectManager.h" />
+    <ClInclude Include="src\PathFinder.h" />
     <ClInclude Include="src\Physics.h" />
     <ClInclude Include="src\Observer.h" />
     <ClInclude Include="src\ObserverTest.h" />

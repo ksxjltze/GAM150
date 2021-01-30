@@ -48,11 +48,34 @@ void Grid::CreateGrid(float _nodeSize, AEVec2 gridSize, AEVec2 _offset )
 		for (size_t x = 0; x < size_x; x++)
 		{
 			//calculate position
+			grid[y][x].index_x = x;
+			grid[y][x].index_y = y;
 			grid[y][x].nodePos = AEVec2{ startNode.x + x * nodeSize , startNode.y + nodeSize * y };
 			//check if occupied
 		
 		}
 	}
+}
+std::vector<Node*> Grid::GetNodeNeighbours(Node* node)
+{
+	std::vector<Node*> n;
+	n.reserve(8);
+	for (int x = -1; x < 2; x++)
+	{
+		for (int y = -1; y < 2; y++)
+		{
+			//it is the node we passed in so skip it
+			if (x == 0 && y == 0)
+				continue;
+			int index_x = node->index_x + x;
+			int index_y = node->index_y + y;
+
+			if (index_x >= 0 && index_x < size_x && index_y >= 0 && index_y < size_y)
+				n.push_back(&grid[index_y][index_x]);
+		}
+	}
+	
+	return n;
 }
 Node* Grid::GetNodeFromPosition(AEVec2 pos)
 {
