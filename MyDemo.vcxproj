@@ -90,7 +90,6 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="src\AudioEngine.cpp" />
-    <ClCompile Include="src\BusNode.cpp" />
     <ClCompile Include="src\CameraComponent.cpp" />
     <ClCompile Include="src\Collider.cpp" />
     <ClCompile Include="src\ColliderAABB.cpp" />
@@ -109,7 +108,6 @@
     <ClCompile Include="src\Level_Demo.cpp" />
     <ClCompile Include="src\Main.cpp" />
     <ClCompile Include="src\MemoryManager.cpp" />
-    <ClCompile Include="src\MessageBus.cpp" />
     <ClCompile Include="src\MovementManager.cpp" />
     <ClCompile Include="src\ObjectManager.cpp" />
     <ClCompile Include="src\ObserverTest.cpp" />
@@ -124,7 +122,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\AudioEngine.h" />
-    <ClInclude Include="src\BusNode.h" />
     <ClInclude Include="src\CameraComponent.h" />
     <ClInclude Include="src\Collider.h" />
     <ClInclude Include="src\ColliderAABB.h" />
@@ -147,7 +144,6 @@
     <ClInclude Include="src\Level_Demo.h" />
     <ClInclude Include="src\MemoryManager.h" />
     <ClInclude Include="src\Message.h" />
-    <ClInclude Include="src\MessageBus.h" />
     <ClInclude Include="src\MovementManager.h" />
     <ClInclude Include="src\ObjectManager.h" />
     <ClInclude Include="src\Observer.h" />

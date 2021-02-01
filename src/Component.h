@@ -1,11 +1,10 @@
 #pragma once
 #include "GameObject.h"
 #include "constants.h"
-#include "BusNode.h"
 
 namespace StarBangBang
 {
-	class _Component : BusNode
+	class _Component
 	{
 	public:
 		_Component(GameObject* gameObject) { this->gameObject = gameObject; }

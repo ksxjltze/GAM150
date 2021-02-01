@@ -177,12 +177,6 @@
     <ClCompile Include="src\MovementManager.cpp">
       <Filter>Source Files\Scripts</Filter>
     </ClCompile>
-    <ClCompile Include="src\MessageBus.cpp">
-      <Filter>Source Files\Engine\Game Logic</Filter>
-    </ClCompile>
-    <ClCompile Include="src\BusNode.cpp">
-      <Filter>Source Files\Engine\Game Logic</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\ImageComponent.h">
@@ -293,17 +287,11 @@
     <ClInclude Include="src\Message.h">
       <Filter>Header Files\Engine\Game Logic</Filter>
     </ClInclude>
-    <ClInclude Include="src\MessageBus.h">
-      <Filter>Header Files\Engine\Game Logic</Filter>
-    </ClInclude>
     <ClInclude Include="src\DragComponent.h">
       <Filter>Header Files\Deprecated</Filter>
     </ClInclude>
     <ClInclude Include="src\MovementManager.h">
       <Filter>Header Files\Scripts</Filter>
-    </ClInclude>
-    <ClInclude Include="src\BusNode.h">
-      <Filter>Header Files\Engine\Game Logic</Filter>
     </ClInclude>
     <ClInclude Include="src\ComponentCRTP.h">
       <Filter>Header Files\Engine\Game Logic</Filter>
