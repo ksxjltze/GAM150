@@ -17,14 +17,17 @@ namespace StarBangBang
 		template <class T>
 		inline T* GetComponent()
 		{
+			_Component* result = nullptr;
 			for (_Component* component : componentList)
 			{
 				if (typeid(T).name() == typeid(*component).name())
 				{
-					return static_cast<T*>(component);
+					result = component;
+					break;
 				}
 			}
-			return nullptr;
+			assert(result != nullptr);
+			return static_cast<T*>(result);
 
 		}
 

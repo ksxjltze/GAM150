@@ -143,7 +143,6 @@
     <ClInclude Include="src\InteractableComponent.h" />
     <ClInclude Include="src\Level_Demo.h" />
     <ClInclude Include="src\MemoryManager.h" />
-    <ClInclude Include="src\Message.h" />
     <ClInclude Include="src\MovementManager.h" />
     <ClInclude Include="src\ObjectManager.h" />
     <ClInclude Include="src\Observer.h" />

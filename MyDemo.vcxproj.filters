@@ -275,18 +275,6 @@
     <ClInclude Include="src\InteractableComponent.h">
       <Filter>Header Files\Scripts</Filter>
     </ClInclude>
-    <ClInclude Include="src\Event.h">
-      <Filter>Header Files\Deprecated</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Observer.h">
-      <Filter>Header Files\Deprecated</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Subject.h">
-      <Filter>Header Files\Deprecated</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Message.h">
-      <Filter>Header Files\Engine\Game Logic</Filter>
-    </ClInclude>
     <ClInclude Include="src\DragComponent.h">
       <Filter>Header Files\Deprecated</Filter>
     </ClInclude>
@@ -295,6 +283,15 @@
     </ClInclude>
     <ClInclude Include="src\ComponentCRTP.h">
       <Filter>Header Files\Engine\Game Logic</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Event.h">
+      <Filter>Header Files\Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Observer.h">
+      <Filter>Header Files\Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Subject.h">
+      <Filter>Header Files\Engine</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -8,7 +8,6 @@ namespace StarBangBang
 	{
 	public:
 		ObserverTest(GameObject* obj);
-		inline _Component* Clone(GameObject* obj, _Component*) { return new ObserverTest(obj); };
 		void Start();
 		void Update();
 		void onNotify(const GameObject& obj, Event e);
