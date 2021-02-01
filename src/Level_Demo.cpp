@@ -62,8 +62,8 @@ void StarBangBang::Level_Demo::Init()
 	objectManager.AddComponent<GuardMovement>(testGuard);
 	objectManager.AddComponent<PrimaryMovementController>(player);
 	objectManager.AddComponent<PrimaryMovementController>(player2);
-	//objectManager.AddScript<SecondaryMovementController>(player2);
 	objectManager.AddComponent<MovementManager>(movementController);
+	objectManager.AddComponent<SecondaryMovementController>(testInteractable);
 
 	movementController->GetComponent<MovementManager>()->AddController(player);
 	movementController->GetComponent<MovementManager>()->AddController(player2);
@@ -81,7 +81,7 @@ void StarBangBang::Level_Demo::Init()
 	objectManager.AddComponent<ObserverTest>(player2);
 
 	EventTest* test = player->GetComponent<EventTest>();
-	ObserverTest* obs = player->GetComponent<ObserverTest>();
+	ObserverTest* obs = player2->GetComponent<ObserverTest>();
 	test->subject.addObserver(obs);
 
 	objectManager.Init();

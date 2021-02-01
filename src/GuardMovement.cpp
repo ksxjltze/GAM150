@@ -15,7 +15,7 @@ void StarBangBang::GuardMovement::Patrol()
 
 	AEVec2 target = { 0, 0 }, dir = { 0, 0 };
 	AEVec2 test = { 100, 10 };
-	std::cout << waypoints.size() << "\n";
+	//std::cout << waypoints.size() << "\n";
 	
 	AEVec2Sub(&target, &test, &gameObject->transform.position);
 	AEVec2Scale(&dir, &waypoints.front(), dt);
