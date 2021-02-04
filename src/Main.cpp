@@ -5,6 +5,7 @@
 #include "GameStateManager.h"
 #include "Level_Demo.h"
 #include "TestScene.h"
+#include "Sample_Scene.h"
 #include "constants.h"
 #include "LevelEditor.h"
 #include "AudioEngine.h"
@@ -34,14 +35,11 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 
 	GameStateManager gameStateManager;
 
-	gameStateManager.AddGameState<Level_Demo>(Constants::SceneID::DEMO);
-	State* testScene = gameStateManager.AddGameState<Level_Demo>(Constants::SceneID::TEST);
-	gameStateManager.SetInitialState(testScene);
-
 	State* sceneDemo = gameStateManager.AddGameState<Level_Demo>(Constants::SceneID::DEMO);
 	State* sceneEditor = gameStateManager.AddGameState<LevelEditor>(Constants::SceneID::EDITOR);
 	State* sceneTest = gameStateManager.AddGameState<TestScene>(Constants::SceneID::TEST);
-	gameStateManager.SetInitialState(sceneDemo);
+	State* sampleScene = gameStateManager.AddGameState<Sample_Scene>(Constants::SceneID::SAMPLE);
+	gameStateManager.SetInitialState(sampleScene);
 
 	// Variable declaration end
 	///////////////////////////
