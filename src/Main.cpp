@@ -26,7 +26,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 	using namespace StarBangBang;
 
 	int gGameRunning = 1;
-	char fontId = 0;
+	char fontId = -1;
 
 	AudioEngine audioEngine;
 	FMOD::Sound* sound = nullptr;
@@ -63,8 +63,12 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 	AEGfxSetBackgroundColor(0.3f, 0.6f, 1.0f);
 	AEGfxSetBlendMode(AE_GFX_BM_BLEND);
 
+	// ALWAYS CREATE FONTS FIRST
 	fontId = AEGfxCreateFont("../Resources/Roboto-Regular.ttf", 12);
-
+	if (fontId < 0)
+	{
+		AE_ASSERT(0, "FAILED TO CREATE FONT");
+	}
 	// Initialization end
 	/////////////////////
 
@@ -106,6 +110,9 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 	//Audio Engine (temp implementation)
 	audioEngine.ReleaseSound(sound);
 	audioEngine.Exit();
+
+	//free font
+	AEGfxDestroyFont(fontId);
 	
 	// free the system
 	AESysExit();

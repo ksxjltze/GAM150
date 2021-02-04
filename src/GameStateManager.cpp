@@ -37,14 +37,24 @@ void StarBangBang::GameStateManager::SetNextGameState(State* state)
 
 void StarBangBang::GameStateManager::SetNextGameState(int id)
 {
+	bool found = false;
 	for (State* state : gameStateList)
 	{
 		if (state->getID() == id)
 		{
+			found = true;
 			nextState = state;
+			break;
 		}
 	}
-	stateChanged = true;
+
+	if (found)
+	{
+		stateChanged = true;
+		return;
+	}
+	else
+		std::cout << "Specified State does not exist!" << std::endl;
 }
 
 void StarBangBang::GameStateManager::ResetGameState()
