@@ -4,14 +4,15 @@
 #include "MemoryManager.h"
 #include "ScriptManager.h"
 #include "TagManager.h"
+#include "GameStateManager.h"
 
 namespace StarBangBang
 {
-	class State
+	class Scene
 	{
 	public:
-		State(int id) { this->id = id;}
-		virtual ~State() {};
+		Scene(int id, GameStateManager& manager) : id(id), gameStateManager(manager) {}
+		virtual ~Scene() {};
 		inline int getID() { return id; }
 		virtual void Load() = 0;
 		virtual void Init() = 0;
@@ -20,12 +21,12 @@ namespace StarBangBang
 		virtual void Free() { memoryManager.Free(); }
 		virtual void Unload() { memoryManager.Unload(); }
 	protected:
+		friend class GameStateManager;
 		StarBangBang::GraphicsManager graphicsManager;
 		StarBangBang::ObjectManager objectManager;
 		StarBangBang::TagManager tagManager;
 		StarBangBang::MemoryManager memoryManager{ &objectManager, &graphicsManager };
-	private:
-		friend class GameStateManager;
+		GameStateManager& gameStateManager;
 		int id;
 	};
 

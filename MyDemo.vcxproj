@@ -114,11 +114,11 @@
     <ClCompile Include="src\ObserverTest.cpp" />
     <ClCompile Include="src\Player.cpp" />
     <ClCompile Include="src\PrimaryMovementController.cpp" />
+    <ClCompile Include="src\Sample_Scene.cpp" />
     <ClCompile Include="src\ScriptManager.cpp" />
     <ClCompile Include="src\SecondaryMovementController.cpp" />
     <ClCompile Include="src\Subject.cpp" />
     <ClCompile Include="src\TagManager.cpp" />
-    <ClCompile Include="src\TestScene.cpp" />
     <ClCompile Include="src\Utils.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -151,6 +151,7 @@
     <ClInclude Include="src\ObserverTest.h" />
     <ClInclude Include="src\Player.h" />
     <ClInclude Include="src\PrimaryMovementController.h" />
+    <ClInclude Include="src\Sample_Scene.h" />
     <ClInclude Include="src\ScriptComponent.h" />
     <ClInclude Include="src\ScriptManager.h" />
     <ClInclude Include="src\SecondaryMovementController.h" />
@@ -158,7 +159,6 @@
     <ClInclude Include="src\State.h" />
     <ClInclude Include="src\Subject.h" />
     <ClInclude Include="src\TagManager.h" />
-    <ClInclude Include="src\TestScene.h" />
     <ClInclude Include="src\Transform.h" />
     <ClInclude Include="src\Utils.h" />
   </ItemGroup>

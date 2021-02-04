@@ -1,4 +1,5 @@
 #include "GameStateManager.h"
+#include "State.h"
 #include <iostream>
 
 StarBangBang::GameStateManager::GameStateManager()
@@ -17,19 +18,19 @@ StarBangBang::GameStateManager::~GameStateManager()
 	}
 }
 
-void StarBangBang::GameStateManager::AddGameState(State* state)
+void StarBangBang::GameStateManager::AddGameState(Scene* state)
 {
 	if (state)
 		gameStateList.push_back(state);
 }
 
-void StarBangBang::GameStateManager::SetInitialState(State* state)
+void StarBangBang::GameStateManager::SetInitialState(Scene* state)
 {
 	currentState = state;
 	stateChanged = true;
 }
 
-void StarBangBang::GameStateManager::SetNextGameState(State* state)
+void StarBangBang::GameStateManager::SetNextGameState(Scene* state)
 {
 	nextState = state;
 	stateChanged = true;
@@ -37,14 +38,24 @@ void StarBangBang::GameStateManager::SetNextGameState(State* state)
 
 void StarBangBang::GameStateManager::SetNextGameState(int id)
 {
-	for (State* state : gameStateList)
+	bool found = false;
+	for (Scene* state : gameStateList)
 	{
 		if (state->getID() == id)
 		{
+			found = true;
 			nextState = state;
+			break;
 		}
 	}
-	stateChanged = true;
+
+	if (found)
+	{
+		stateChanged = true;
+		return;
+	}
+	else
+		std::cout << "Specified State does not exist!" << std::endl;
 }
 
 void StarBangBang::GameStateManager::ResetGameState()

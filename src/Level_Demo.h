@@ -8,10 +8,10 @@
 
 namespace StarBangBang
 {
-	class Level_Demo : public State
+	class Level_Demo : public Scene
 	{
 	public:
-		Level_Demo(GameStateManager* manager, int id);
+		Level_Demo(int id, GameStateManager& manager);
 		void Load();
 		void Init();
 		void Update();
@@ -31,6 +31,5 @@ namespace StarBangBang
 		GameObject* testGuard;
 
 		std::vector<GameObject*> testObjects;
-		GameStateManager* gameStateManager;
 	};
 }
