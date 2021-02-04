@@ -45,10 +45,12 @@ namespace StarBangBang
 
 		//create grid object
 		void CreateGrid(float _nodeSize, AEVec2 gridSize, AEVec2 _offset = AEVec2{ 0,0 });
+		void CreateGrid(float _nodeSize, int width, int height);
 
 		std::vector<Node*> GetNodeNeighbours(Node* node);
 
 		Node* GetNodeFromPosition(AEVec2 pos);
+		float GetNodeSize() { return nodeSize; }
 		
 		Grid();
 

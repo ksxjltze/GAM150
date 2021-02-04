@@ -62,6 +62,13 @@ void Grid::CreateGrid(float _nodeSize, AEVec2 gridSize, AEVec2 _offset )
 		}
 	}
 }
+
+void StarBangBang::Grid::CreateGrid(float _nodeSize, int width, int height)
+{
+	AEVec2 size = { width * _nodeSize, height * _nodeSize };
+	CreateGrid(_nodeSize, size, { _nodeSize / 2, _nodeSize / 2 - size.y});
+}
+
 std::vector<Node*> Grid::GetNodeNeighbours(Node* node)
 {
 	std::vector<Node*> n;

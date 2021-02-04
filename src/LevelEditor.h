@@ -2,6 +2,7 @@
 #include "State.h"
 #include "GameStateManager.h"
 #include "Sprite.h"
+#include "Grid.h"
 
 namespace StarBangBang
 {
@@ -18,6 +19,8 @@ namespace StarBangBang
 	private:
 		float tileWidth, tileHeight;
 		std::map<std::string, Sprite> palette;
-		std::vector<std::vector<AEVec2>> grid;
+		std::vector<GameObject*> tileObjects;
+		//std::vector<std::vector<AEVec2>> grid;
+		Grid grid;
 	};
 }
