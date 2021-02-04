@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|x64">
@@ -73,7 +73,7 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
-      <WarningLevel>Level3</WarningLevel>
+      <WarningLevel>Level4</WarningLevel>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
@@ -89,10 +89,10 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\BasicMeshShape.cpp" />
     <ClCompile Include="src\AudioEngine.cpp" />
     <ClCompile Include="src\CameraComponent.cpp" />
     <ClCompile Include="src\Collider.cpp" />
-    <ClCompile Include="src\ColliderAABB.cpp" />
     <ClCompile Include="src\CollisionComponent.cpp" />
     <ClCompile Include="src\CollisionManager.cpp" />
     <ClCompile Include="src\DragComponent.cpp" />
@@ -100,6 +100,7 @@
     <ClCompile Include="src\GameObject.cpp" />
     <ClCompile Include="src\GameStateManager.cpp" />
     <ClCompile Include="src\GraphicsManager.cpp" />
+    <ClCompile Include="src\Grid.cpp" />
     <ClCompile Include="src\Guard.cpp" />
     <ClCompile Include="src\GuardMovement.cpp" />
     <ClCompile Include="src\ImageComponent.cpp" />
@@ -110,6 +111,8 @@
     <ClCompile Include="src\MemoryManager.cpp" />
     <ClCompile Include="src\MovementManager.cpp" />
     <ClCompile Include="src\ObjectManager.cpp" />
+    <ClCompile Include="src\PathFinder.cpp" />
+    <ClCompile Include="src\Physics.cpp" />
     <ClCompile Include="src\ObserverTest.cpp" />
     <ClCompile Include="src\Player.cpp" />
     <ClCompile Include="src\PrimaryMovementController.cpp" />
@@ -122,12 +125,13 @@
     <ClCompile Include="src\Utils.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\BasicMeshShape.h" />
     <ClInclude Include="src\AudioEngine.h" />
     <ClInclude Include="src\CameraComponent.h" />
     <ClInclude Include="src\Collider.h" />
-    <ClInclude Include="src\ColliderAABB.h" />
     <ClInclude Include="src\CollisionComponent.h" />
     <ClInclude Include="src\CollisionManager.h" />
+    <ClInclude Include="src\CollisionTest.h" />
     <ClInclude Include="src\Component.h" />
     <ClInclude Include="src\ComponentCRTP.h" />
     <ClInclude Include="src\constants.h" />
@@ -145,7 +149,10 @@
     <ClInclude Include="src\Level_Demo.h" />
     <ClInclude Include="src\MemoryManager.h" />
     <ClInclude Include="src\MovementManager.h" />
+    <ClInclude Include="src\Grid.h" />
     <ClInclude Include="src\ObjectManager.h" />
+    <ClInclude Include="src\PathFinder.h" />
+    <ClInclude Include="src\Physics.h" />
     <ClInclude Include="src\Observer.h" />
     <ClInclude Include="src\ObserverTest.h" />
     <ClInclude Include="src\Player.h" />

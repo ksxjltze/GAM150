@@ -10,10 +10,21 @@ namespace StarBangBang
 		
 		public:
 			bool isTrigger = false;
-			_Component* Clone(GameObject*, _Component*) { return new Collider(); }
-		protected:
+			//collider does not move
+			bool isStatic = false;
+			
+			AEVec2 offset = { 0,0 };
 			GameObject* gameObject = nullptr;
-			Collider() : _Component(gameObject) { isTrigger = false;}
+		
+			Collider(GameObject* _gameObject,bool _isStatic)
+			{
+				isTrigger = false;
+				isStatic = _isStatic;
+				gameObject = _gameObject;
+			}
+		
+			Component* Clone(GameObject* obj, Component*) { return new Collider(); }
+			Collider() : Component(gameObject) { isTrigger = false, isStatic = false; }
 			~Collider() {}
 			
 			
@@ -24,6 +35,7 @@ namespace StarBangBang
 			ShapeType shape = ShapeType::Circle;
 		public:
 			float radius;
+			
 			AEVec2 center = {0,0};
 			CircleCollider(GameObject* _go, AEVec2 _center, float _rad = 1.0f);
 		
@@ -40,10 +52,16 @@ namespace StarBangBang
 			AEVec2 max;		
 			AEVec2 extend;	//half of width and height 
 			AEVec2 center;
-			
-			 float GetHeight();
+			;
+			inline float GetHeight()
+			{
+				return extend.y * 2.0f;
+			}
 		
-			 float GetWidth();
+			inline float GetWidth()
+			{
+				return extend.x * 2.0f;
+			}
 
 			 BoxCollider(GameObject* _go, AEVec2 _center, float width = 1.0f, float height = 1.0f);
 

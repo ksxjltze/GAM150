@@ -1,4 +1,5 @@
 #include "GameStateManager.h"
+#include "BasicMeshShape.h"
 #include <iostream>
 
 StarBangBang::GameStateManager::GameStateManager()
@@ -93,6 +94,8 @@ void StarBangBang::GameStateManager::ExitGame()
 {
 	currentState->Unload();
 	currentState->Free();
+	//free all unit meshes built
+	StarBangBang::FreeUnitMeshes();
 	currentState = nullptr;
 	nextState = nullptr;
 }

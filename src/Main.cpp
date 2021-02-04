@@ -4,6 +4,7 @@
 #include "AEEngine.h"
 #include "GameStateManager.h"
 #include "Level_Demo.h"
+#include "CollisionTest.h"
 #include "TestScene.h"
 #include "Sample_Scene.h"
 #include "constants.h"
@@ -26,7 +27,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 	using namespace StarBangBang;
 
 	int gGameRunning = 1;
-	char fontId = 0;
+	s8 fontId = 0;
 
 	AudioEngine audioEngine;
 	FMOD::Sound* sound = nullptr;
@@ -50,6 +51,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 	// Using custom window procedure
 	AESysInit(hInstance, nCmdShow, 800, 600, 1, 60, true, NULL);
 
+	StarBangBang::InitBasicMesh();
 	//Full screen
 	//AESysInit(hInstance, nCmdShow, 1920, 1080, 1, 60, true, NULL);
 	//AEToogleFullScreen(true);
@@ -67,7 +69,8 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 
 	// Initialization end
 	/////////////////////
-
+	//Init all the stuff for testing in collisionTest.h
+	StarBangBang::InitTest();
 	// Game Loop
 	while (gGameRunning)
 	{
@@ -84,6 +87,12 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 		//FPS
 		AEVec2 camPos;
 		AEGfxGetCamPosition(&camPos.x, &camPos.y);
+
+
+		StarBangBang::Test_BoxUpdate();
+		//StarBangBang::Test_CircleUpdate();
+		StarBangBang::TestGrid();
+
 
 		char strBuffer[100];
 		memset(strBuffer, 0, 100 * sizeof(char));

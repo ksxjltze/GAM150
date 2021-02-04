@@ -14,5 +14,6 @@ namespace StarBangBang
 		GameObject* gameObject { nullptr };
 		virtual ~_Component() {}
 		bool active { true };
+		Component();
 	};
 }
