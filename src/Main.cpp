@@ -93,7 +93,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 
 		StarBangBang::Test_BoxUpdate();
 		//StarBangBang::Test_CircleUpdate();
-		StarBangBang::GridDrawTest();
+		StarBangBang::TestGrid();
 
 
 		char strBuffer[100];

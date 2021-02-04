@@ -35,6 +35,7 @@ bool CollisionManager::AABBvsAABB(BoxCollider b1, BoxCollider b2, CollisionData&
 	//both is trigger no collision
 	if (b1.isTrigger && b1.isTrigger)
 		return false;
+	
 
 	AEVec2 dist = AEVec2{ b2.center.x - b1.center.x , b2.center.y - b1.center.y };
 	float x_intersect = b1.extend.x + b2.extend.x - fabs(dist.x);

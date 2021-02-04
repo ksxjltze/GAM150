@@ -50,7 +50,9 @@ namespace StarBangBang
 
 		Node* GetNodeFromPosition(AEVec2 pos);
 		
-		//Grid(float _nodeSize, AEVec2 gridSize, AEVec2 _offset = AEVec2{ 0,0 });
+		Grid();
+
+		Grid(float _nodeSize, AEVec2 gridSize, AEVec2 _offset = AEVec2{ 0,0 });
 
 	
 	};

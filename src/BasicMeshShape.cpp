@@ -42,7 +42,6 @@ void StarBangBang::DrawBox(AEVec2 size,AEVec2 pos)
 	AEGfxSetRenderMode(AE_GFX_RM_COLOR);
 	AEMtx33Scale(&scale,size.x, size.y);
 	AEMtx33TransApply(&result,&scale,pos.x,pos.y);
-	//AEGfxSetTintColor(1.0f,0.0f,0.0f,1.0f);
 	AEGfxSetTransform(result.m);
 	AEGfxMeshDraw(unitboxMesh, AEGfxMeshDrawMode::AE_GFX_MDM_LINES_STRIP);
 }

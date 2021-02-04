@@ -1,9 +1,24 @@
-#include "Grid.h"
+
 #include "PathFinder.h"
 #include <unordered_set>
+#include "Utils.h"
+#include "BasicMeshShape.h"
 using namespace StarBangBang;
 
+Grid grid;
 
+void PathFinder::Init()
+{
+	grid = Grid();
+}
+void PathFinder::GridDraw()
+{
+	AEVec2 mousePos = GetMouseWorldPos();
+	Node* n = grid.GetNodeFromPosition(mousePos);
+	if (n)
+		StarBangBang::DrawCircle(10.0f, n->nodePos);
+	grid.DrawGrid();
+}
 void PathFinder::SearchForPath(AEVec2 start, AEVec2 target)
 {
 	Node* startNode = grid.GetNodeFromPosition(start);

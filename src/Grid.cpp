@@ -4,13 +4,19 @@
 #include "BasicMeshShape.h"
 using namespace StarBangBang;
 
-//Grid::Grid(float _nodeSize, AEVec2 gridSize, AEVec2 _offset)
-//{
-//	std::cout << "Construct \n";
-//	this->nodeSize = _nodeSize;
-//	this->offset = _offset;
-//	CreateGrid(_nodeSize, gridSize, AEVec2{ 0,0 });
-//}
+Grid::Grid()
+{
+	nodeSize = 30.0f;
+	offset = AEVec2{0,0};
+	CreateGrid(nodeSize, AEVec2{ static_cast<f32>(AEGetWindowWidth()), static_cast<f32>(AEGetWindowHeight()) });
+}
+Grid::Grid(float _nodeSize, AEVec2 gridSize, AEVec2 _offset)
+{
+	std::cout << "Construct \n";
+	this->nodeSize = _nodeSize;
+	this->offset = _offset;
+	CreateGrid(_nodeSize, gridSize, AEVec2{ 0,0 });
+}
 
 void Grid::CreateGrid(float _nodeSize, AEVec2 gridSize, AEVec2 _offset )
 {
@@ -97,6 +103,7 @@ Node* Grid::GetNodeFromPosition(AEVec2 pos)
 	else
 		return nullptr;
 }
+
 
 
 void Grid::DrawGrid(void)

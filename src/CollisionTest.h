@@ -3,7 +3,7 @@
 #include "BasicMeshShape.h"
 #include <iostream>
 #include "Utils.h"
-#include "Grid.h"
+#include "PathFinder.h"
 namespace StarBangBang
 {
 	CircleCollider circle1
@@ -19,12 +19,10 @@ namespace StarBangBang
 	CollisionData data = CollisionData();
 
 	
-	Grid grid;
-	
 	void InitTest()
 	{
-		
-		grid.CreateGrid(30.0f, AEVec2{ static_cast<f32>(AEGetWindowWidth()), static_cast<f32>(AEGetWindowHeight()) });
+		PathFinder::Init();
+		//grid.CreateGrid(30.0f, AEVec2{ static_cast<f32>(AEGetWindowWidth()), static_cast<f32>(AEGetWindowHeight()) });
 	}
 
 	void Test_BoxUpdate()
@@ -73,12 +71,8 @@ namespace StarBangBang
 		
 	}
 	
-	void GridDrawTest()
+	void TestGrid()
 	{
-		AEVec2 mousePos = GetMouseWorldPos();
-		Node* n = grid.GetNodeFromPosition(mousePos);
-		if(n)
-			StarBangBang::DrawCircle(10.0f,n->nodePos );
-		grid.DrawGrid();
+		PathFinder::GridDraw();
 	}
 }
