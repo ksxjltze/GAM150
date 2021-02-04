@@ -1,9 +1,13 @@
 #include "LevelEditor.h"
 #include "BasicMeshShape.h"
 #include "Utils.h"
+#include <iostream>
 
 namespace StarBangBang
 {
+	typedef std::pair<std::string, Sprite> TileImage;
+	typedef std::pair<Node*, GameObject*> Tile;
+
 	void HighLightGridNode(Grid& grid)
 	{
 		AEVec2 mousePos = GetMouseWorldPos();
@@ -22,8 +26,8 @@ namespace StarBangBang
 		Sprite grassSprite = graphicsManager.CreateSprite(Constants::PROTOTYPE_SPRITE_GRASS_PATH, tileWidth, tileHeight);
 		Sprite stoneSprite = graphicsManager.CreateSprite(Constants::PROTOTYPE_SPRITE_STONE_PATH, tileWidth, tileHeight);
 
-		std::pair<std::string, Sprite> grassTile = std::pair<std::string, Sprite>("Grass", grassSprite);
-		std::pair<std::string, Sprite> stoneTile = std::pair<std::string, Sprite>("Stone", stoneSprite);
+		auto grassTile = TileImage("Grass", grassSprite);
+		auto stoneTile = TileImage("Stone", stoneSprite);
 
 		palette.insert(grassTile);
 		palette.insert(stoneTile);
@@ -40,8 +44,6 @@ namespace StarBangBang
 		obj2->transform.position.x += tileWidth;
 		grid.CreateGrid(tileWidth, 20, 20);
 
-		tileObjects.push_back(obj);
-		tileObjects.push_back(obj2);
 	}
 
 	void LevelEditor::Update()
@@ -56,7 +58,14 @@ namespace StarBangBang
 				GameObject* obj = objectManager.NewGameObject();
 				obj->SetPos(n->nodePos);
 				objectManager.AddImage(obj, palette.at("Grass"));
-				tileObjects.push_back(obj);
+				if (!n->occupied)
+				{
+					tileObjects.insert(Tile(n, obj));
+					n->occupied = true;
+					std::cout << "TILE INSERTED" << std::endl;
+				}
+				else
+					std::cout << "NODE OCCUPIED" << std::endl;
 			}
 		}
 	}
