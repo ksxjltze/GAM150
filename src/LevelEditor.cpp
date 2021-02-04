@@ -57,15 +57,18 @@ namespace StarBangBang
 			{
 				GameObject* obj = objectManager.NewGameObject();
 				obj->SetPos(n->nodePos);
-				objectManager.AddImage(obj, palette.at("Grass"));
 				if (!n->occupied)
 				{
+					objectManager.AddImage(obj, palette.at("Grass"));
 					tileObjects.insert(Tile(n, obj));
 					n->occupied = true;
 					std::cout << "TILE INSERTED" << std::endl;
 				}
 				else
+				{
 					std::cout << "NODE OCCUPIED" << std::endl;
+					objectManager.DestroyGameObject(tileObjects.at(n));
+				}
 			}
 		}
 	}

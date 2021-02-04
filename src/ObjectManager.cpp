@@ -67,6 +67,15 @@ StarBangBang::GameObject* StarBangBang::ObjectManager::CloneGameObject(GameObjec
 	return newObject;
 }
 
+void StarBangBang::ObjectManager::DestroyGameObject(GameObject* gameObject)
+{
+	gameObject->active = false;
+	for (_Component* component : gameObject->GetComponents())
+	{
+		component->active = false;
+	}
+}
+
 void StarBangBang::ObjectManager::FreeObjects()
 {
 	for (GameObject* obj : gameObjectList)
@@ -109,7 +118,10 @@ void StarBangBang::ObjectManager::Draw()
 {
 	for (ImageComponent* image : imageComponentList)
 	{
-		image->Draw();
+		if (image->active && image->gameObject->active)
+		{
+			image->Draw();
+		}
 	}
 }
 
