@@ -68,6 +68,8 @@ namespace StarBangBang
 				{
 					std::cout << "NODE OCCUPIED" << std::endl;
 					objectManager.DestroyGameObject(tileObjects.at(n));
+					tileObjects.erase(n);
+					n->occupied = false;
 				}
 			}
 		}

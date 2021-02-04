@@ -10,20 +10,28 @@ void StarBangBang::ObjectManager::AddComponent(GameObject* gameObject, _Componen
 
 void StarBangBang::ObjectManager::AddImage(GameObject* gameObject, Sprite sprite)
 {
-	if (sprite.mesh != nullptr && sprite.texture != nullptr)
+	if (gameObject)
 	{
-		ImageComponent* image = new ImageComponent(gameObject, sprite.mesh, sprite.texture);
-		imageComponentList.push_back(image);
-		gameObject->AddComponent(image);
+		if (sprite.mesh != nullptr && sprite.texture != nullptr)
+		{
+			ImageComponent* image = new ImageComponent(gameObject, sprite.mesh, sprite.texture);
+			imageComponentList.push_back(image);
+			gameObject->AddComponent(image);
+		}
+
 	}
 }
 
 void StarBangBang::ObjectManager::AddChildGameObject(GameObject* child, GameObject* parent)
 {
-	child->parent = parent;
-	AEVec2 newPos;
-	AEVec2Sub(&newPos, &child->transform.position , &parent->transform.position);
-	child->transform.position = newPos;
+	if (child && parent)
+	{
+		child->parent = parent;
+		AEVec2 newPos;
+		AEVec2Sub(&newPos, &child->transform.position , &parent->transform.position);
+		child->transform.position = newPos;
+
+	}
 }
 
 StarBangBang::GameObject* StarBangBang::ObjectManager::NewGameObject()
@@ -44,35 +52,63 @@ StarBangBang::GameObject* StarBangBang::ObjectManager::NewGameObject(float width
 
 StarBangBang::GameObject* StarBangBang::ObjectManager::CloneGameObject(GameObject* gameObject)
 {
-	std::vector<_Component*> components = gameObject->GetComponents();
-	GameObject* newObject = new GameObject(*gameObject);
-	for (_Component* component : components)
+	if (gameObject)
 	{
-		//_Component* newComponent = new _Component(newObject, component->id);
-		_Component* newComponent = component->Clone(newObject, component);
-		newObject->AddComponent(newComponent);
-
-		//MAKE THIS BETTER
-		if (typeid(*newComponent).name() == typeid(ImageComponent).name())
+		std::vector<_Component*> components = gameObject->GetComponents();
+		GameObject* newObject = new GameObject(*gameObject);
+		for (_Component* component : components)
 		{
-			ImageComponent* newImageComponent = dynamic_cast<ImageComponent*>(newComponent);
-			imageComponentList.push_back(newImageComponent);
+			//_Component* newComponent = new _Component(newObject, component->id);
+			_Component* newComponent = component->Clone(newObject, component);
+			newObject->AddComponent(newComponent);
+
+			//MAKE THIS BETTER
+			if (typeid(*newComponent).name() == typeid(ImageComponent).name())
+			{
+				ImageComponent* newImageComponent = dynamic_cast<ImageComponent*>(newComponent);
+				imageComponentList.push_back(newImageComponent);
+			}
+			else
+				componentList.push_back(newComponent);	
+
 		}
-		else
-			componentList.push_back(newComponent);	
+
+		gameObjectList.push_back(newObject);
+		return newObject;
 
 	}
-
-	gameObjectList.push_back(newObject);
-	return newObject;
+	return nullptr;
 }
 
 void StarBangBang::ObjectManager::DestroyGameObject(GameObject* gameObject)
 {
-	gameObject->active = false;
-	for (_Component* component : gameObject->GetComponents())
+	if (gameObject)
 	{
-		component->active = false;
+		for (_Component* objComponent : gameObject->GetComponents())
+		{
+			for (auto image = imageComponentList.begin(); image != imageComponentList.end(); image++)
+			{
+				if (objComponent == *image)
+				{
+					delete *image;
+					imageComponentList.erase(image);
+					break;
+				}
+			}
+
+			for (auto component = componentList.begin(); component != componentList.end(); component++)
+			{
+				if (objComponent == *component)
+				{
+					delete *component;
+					componentList.erase(component);
+					break;
+				}
+			}
+
+		}
+
+		delete gameObject;
 	}
 }
 
@@ -118,7 +154,7 @@ void StarBangBang::ObjectManager::Draw()
 {
 	for (ImageComponent* image : imageComponentList)
 	{
-		if (image->active && image->gameObject->active)
+		if (image->active)
 		{
 			image->Draw();
 		}
