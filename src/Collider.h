@@ -1,11 +1,11 @@
 #pragma once
 
-#include "Component.h"
+#include "ComponentCRTP.h"
 
 namespace StarBangBang
 {
 	enum class ShapeType {Box,Circle};
-	class Collider : public _Component
+	class Collider : public Component<Collider>
 	{
 		
 		public:
@@ -15,15 +15,14 @@ namespace StarBangBang
 			
 			AEVec2 offset = { 0,0 };
 			GameObject* gameObject = nullptr;
-		
-			Collider(GameObject* _gameObject,bool _isStatic)
+
+			Collider(GameObject* _gameObject,bool _isStatic): Component(gameObject)
 			{
 				isTrigger = false;
 				isStatic = _isStatic;
 				gameObject = _gameObject;
 			}
-		
-			Component* Clone(GameObject* obj, Component*) { return new Collider(); }
+	
 			Collider() : Component(gameObject) { isTrigger = false, isStatic = false; }
 			~Collider() {}
 			
