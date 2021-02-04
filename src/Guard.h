@@ -1,28 +1,35 @@
 #pragma once
 #include "ScriptComponent.h"
 #include "GuardMovement.h"
+#include "GuardVision.h"
 
 namespace StarBangBang
 {
 	class Guard : public Script
 	{
-	private:
+	public:
 		enum class GUARD_STATE
 		{
-			STATE_PATROL = 0,
+			STATE_IDLE = 0,
+			STATE_PATROL,
 			STATE_CHASE,
 			STATE_DISTRACTED,
 			STATE_TOTAL
 		};
 
-	public:
 		Guard(GameObject* gameObject);
 
 		void Start();
 		void Update();
 
+		inline void SetState(GUARD_STATE _state) { state = _state; }
+		//void NotifyGuard(GameObject* gameObject);
+
 	private:
+
 		GUARD_STATE state;
+		GuardVision* vision;
+		GuardMovement* movement;
 	};
 }
 
