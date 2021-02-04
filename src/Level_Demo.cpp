@@ -12,7 +12,7 @@
 #include "ObserverTest.h"
 #include "EventTest.h"
 
-StarBangBang::Level_Demo::Level_Demo(GameStateManager* manager, int id) : State(id)
+StarBangBang::Level_Demo::Level_Demo(int id, GameStateManager& manager) : Scene(id, manager)
 {
 	player = nullptr;
 	player2 = nullptr;
@@ -21,8 +21,6 @@ StarBangBang::Level_Demo::Level_Demo(GameStateManager* manager, int id) : State(
 
 	testGuard = nullptr;
 	testInteractable = nullptr;
-
-	gameStateManager = manager;
 }
 
 void StarBangBang::Level_Demo::Load()
@@ -89,25 +87,25 @@ void StarBangBang::Level_Demo::Init()
 
 void StarBangBang::Level_Demo::Update()
 {
-	State::Update();
+	Scene::Update();
 	if (AEInputCheckTriggered(VK_SPACE))
 	{
-		gameStateManager->SetNextGameState(Constants::SceneID::TEST);
+		gameStateManager.SetNextGameState(Constants::SceneID::SAMPLE);
 	}
 }
 
 void StarBangBang::Level_Demo::Draw()
 {
-	State::Draw();
+	Scene::Draw();
 
 }
 
 void StarBangBang::Level_Demo::Free()
 {
-	State::Free();
+	Scene::Free();
 }
 
 void StarBangBang::Level_Demo::Unload()
 {
-	State::Unload();
+	Scene::Unload();
 }

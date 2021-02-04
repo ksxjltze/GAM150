@@ -1,14 +1,13 @@
 #pragma once
 #include "State.h"
-#include "GameStateManager.h"
 #include "Player.h"
 
 namespace StarBangBang
 {
-	class Sample_Scene : public State
+	class Sample_Scene : public Scene
 	{
 	public:
-		Sample_Scene(GameStateManager* manager, int id);
+		Sample_Scene(int id, GameStateManager& manager);
 		void Load();
 		void Init();
 		void Update();
@@ -18,6 +17,5 @@ namespace StarBangBang
 	private:
 		Sprite image;
 		GameObject* gameObject;
-		GameStateManager* gameStateManager;
 	};
 }

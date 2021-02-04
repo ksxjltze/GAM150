@@ -5,10 +5,10 @@
 
 namespace StarBangBang
 {
-	class LevelEditor : public State
+	class LevelEditor : public Scene
 	{
 	public:
-		LevelEditor(GameStateManager* manager, int id);
+		LevelEditor(int id, GameStateManager& manager);
 		void Load();
 		void Init();
 		void Update();
@@ -19,6 +19,5 @@ namespace StarBangBang
 		float tileWidth, tileHeight;
 		std::map<std::string, Sprite> palette;
 		std::vector<std::vector<AEVec2>> grid;
-		GameStateManager* gameStateManager;
 	};
 }

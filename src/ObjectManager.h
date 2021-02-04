@@ -33,7 +33,7 @@ namespace StarBangBang
 		void Draw();
 		void Update();
 	private:
-		friend class State;
+		friend class Scene;
 		std::vector<GameObject*> gameObjectList;
 		std::vector<ImageComponent*> imageComponentList;
 		std::vector<_Component*> componentList;
