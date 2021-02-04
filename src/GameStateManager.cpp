@@ -18,19 +18,19 @@ StarBangBang::GameStateManager::~GameStateManager()
 	}
 }
 
-void StarBangBang::GameStateManager::AddGameState(State* state)
+void StarBangBang::GameStateManager::AddGameState(Scene* state)
 {
 	if (state)
 		gameStateList.push_back(state);
 }
 
-void StarBangBang::GameStateManager::SetInitialState(State* state)
+void StarBangBang::GameStateManager::SetInitialState(Scene* state)
 {
 	currentState = state;
 	stateChanged = true;
 }
 
-void StarBangBang::GameStateManager::SetNextGameState(State* state)
+void StarBangBang::GameStateManager::SetNextGameState(Scene* state)
 {
 	nextState = state;
 	stateChanged = true;
@@ -39,7 +39,7 @@ void StarBangBang::GameStateManager::SetNextGameState(State* state)
 void StarBangBang::GameStateManager::SetNextGameState(int id)
 {
 	bool found = false;
-	for (State* state : gameStateList)
+	for (Scene* state : gameStateList)
 	{
 		if (state->getID() == id)
 		{

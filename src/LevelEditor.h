@@ -5,7 +5,7 @@
 
 namespace StarBangBang
 {
-	class LevelEditor : public State
+	class LevelEditor : public Scene
 	{
 	public:
 		LevelEditor(int id, GameStateManager& manager);

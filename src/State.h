@@ -8,11 +8,11 @@
 
 namespace StarBangBang
 {
-	class State
+	class Scene
 	{
 	public:
-		State(int id, GameStateManager& manager) : id(id), gameStateManager(manager) {}
-		virtual ~State() {};
+		Scene(int id, GameStateManager& manager) : id(id), gameStateManager(manager) {}
+		virtual ~Scene() {};
 		inline int getID() { return id; }
 		virtual void Load() = 0;
 		virtual void Init() = 0;

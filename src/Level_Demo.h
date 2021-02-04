@@ -8,7 +8,7 @@
 
 namespace StarBangBang
 {
-	class Level_Demo : public State
+	class Level_Demo : public Scene
 	{
 	public:
 		Level_Demo(int id, GameStateManager& manager);

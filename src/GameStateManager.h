@@ -3,7 +3,7 @@
 
 namespace StarBangBang
 {
-	class State;
+	class Scene;
 	class GameStateManager
 	{
 	public:
@@ -11,25 +11,25 @@ namespace StarBangBang
 		~GameStateManager();
 
 		template <class StateType>
-		State* AddGameState()
+		Scene* AddGameState()
 		{
-			State* newState = new StateType((int)gameStateList.size(), *this);
+			Scene* newState = new StateType((int)gameStateList.size(), *this);
 			gameStateList.push_back(newState);
 			return newState;
 		}
 
 		template <class StateType>
-		State* AddGameState(int id)
+		Scene* AddGameState(int id)
 		{
-			State* newState = new StateType(id, *this);
+			Scene* newState = new StateType(id, *this);
 			gameStateList.push_back(newState);
 			return newState;
 		}
 
-		void AddGameState(State* state);
+		void AddGameState(Scene* state);
 
-		void SetInitialState(State* state);
-		void SetNextGameState(State* state);
+		void SetInitialState(Scene* state);
+		void SetNextGameState(Scene* state);
 		void SetNextGameState(int id);
 		void ResetGameState();
 		void ReloadGameState();
@@ -37,9 +37,9 @@ namespace StarBangBang
 		void ExitGame();
 	private:
 		bool stateChanged;
-		State* prevState;
-		State* currentState;
-		State* nextState;
-		std::vector<State*> gameStateList;
+		Scene* prevState;
+		Scene* currentState;
+		Scene* nextState;
+		std::vector<Scene*> gameStateList;
 	};
 }

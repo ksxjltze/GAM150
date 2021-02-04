@@ -3,11 +3,12 @@
 
 #include "AEEngine.h"
 #include "GameStateManager.h"
+#include "constants.h"
+#include "AudioEngine.h"
+
 #include "Level_Demo.h"
 #include "Sample_Scene.h"
-#include "constants.h"
 #include "LevelEditor.h"
-#include "AudioEngine.h"
 
 // ---------------------------------------------------------------------------
 // main
@@ -29,15 +30,10 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 
 	AudioEngine audioEngine;
 	FMOD::Sound* sound = nullptr;
-	audioEngine.CreateSound(&sound, "../Resources/drumloop.wav");
+	audioEngine.CreateSound(&sound, "../Resources/drumloop.wav"); //CHANGE THIS (copyright and stuff)
 	audioEngine.playSound(sound, false);
 
 	GameStateManager gameStateManager;
-
-	State* sceneDemo = gameStateManager.AddGameState<Level_Demo>(Constants::SceneID::DEMO);
-	State* sceneEditor = gameStateManager.AddGameState<LevelEditor>(Constants::SceneID::EDITOR);
-	State* sampleScene = gameStateManager.AddGameState<Sample_Scene>(Constants::SceneID::SAMPLE);
-	gameStateManager.SetInitialState(sampleScene);
 
 	// Variable declaration end
 	///////////////////////////
@@ -45,6 +41,21 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 
 	/////////////////
 	// Initialization
+
+	// Add Game States/Scenes
+
+	Scene* sceneDemo = gameStateManager.AddGameState<Level_Demo>(Constants::SceneID::DEMO);
+	Scene* sceneEditor = gameStateManager.AddGameState<LevelEditor>(Constants::SceneID::EDITOR);
+	Scene* sampleScene = gameStateManager.AddGameState<Sample_Scene>(Constants::SceneID::SAMPLE);
+
+	UNREFERENCED_PARAMETER(sceneEditor);
+	UNREFERENCED_PARAMETER(sceneDemo);
+	//UNREFERENCED_PARAMETER(sampleScene);
+
+	// Set Initial State
+
+	gameStateManager.SetInitialState(sampleScene);
+
 	// Using custom window procedure
 	AESysInit(hInstance, nCmdShow, 800, 600, 1, 60, true, NULL);
 
@@ -61,7 +72,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 	AEGfxSetBackgroundColor(0.3f, 0.6f, 1.0f);
 	AEGfxSetBlendMode(AE_GFX_BM_BLEND);
 
-	// ALWAYS CREATE FONTS FIRST
+	// ALWAYS CREATE FONTS OUTSIDE LOOP
 	fontId = AEGfxCreateFont("../Resources/Roboto-Regular.ttf", 12);
 	if (fontId < 0)
 	{

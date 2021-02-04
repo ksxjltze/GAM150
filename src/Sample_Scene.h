@@ -4,7 +4,7 @@
 
 namespace StarBangBang
 {
-	class Sample_Scene : public State
+	class Sample_Scene : public Scene
 	{
 	public:
 		Sample_Scene(int id, GameStateManager& manager);

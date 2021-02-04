@@ -1,6 +1,6 @@
 #include "Sample_Scene.h"
 
-StarBangBang::Sample_Scene::Sample_Scene(int id, GameStateManager& manager) : State(id, manager)
+StarBangBang::Sample_Scene::Sample_Scene(int id, GameStateManager& manager) : Scene(id, manager)
 {
 	
 }
@@ -18,22 +18,22 @@ void StarBangBang::Sample_Scene::Init()
 
 void StarBangBang::Sample_Scene::Update()
 {
-	State::Update();
+	Scene::Update();
 }
 
 void StarBangBang::Sample_Scene::Draw()
 {
-	State::Draw();
+	Scene::Draw();
 }
 
 void StarBangBang::Sample_Scene::Free()
 {
-	State::Free();
+	Scene::Free();
 }
 
 void StarBangBang::Sample_Scene::Unload()
 {
-	State::Free();
+	Scene::Free();
 }
 
 
