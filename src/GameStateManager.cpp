@@ -1,4 +1,5 @@
 #include "GameStateManager.h"
+#include "State.h"
 #include <iostream>
 
 StarBangBang::GameStateManager::GameStateManager()

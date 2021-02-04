@@ -1,8 +1,7 @@
 #include "LevelEditor.h"
 
-StarBangBang::LevelEditor::LevelEditor(GameStateManager* manager, int id) : State(id)
+StarBangBang::LevelEditor::LevelEditor(int id, GameStateManager& manager) : State(id, manager)
 {
-	gameStateManager = manager;
 	tileWidth = 50; tileHeight = 50;
 }
 

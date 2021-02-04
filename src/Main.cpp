@@ -4,7 +4,6 @@
 #include "AEEngine.h"
 #include "GameStateManager.h"
 #include "Level_Demo.h"
-#include "TestScene.h"
 #include "Sample_Scene.h"
 #include "constants.h"
 #include "LevelEditor.h"
@@ -37,7 +36,6 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 
 	State* sceneDemo = gameStateManager.AddGameState<Level_Demo>(Constants::SceneID::DEMO);
 	State* sceneEditor = gameStateManager.AddGameState<LevelEditor>(Constants::SceneID::EDITOR);
-	State* sceneTest = gameStateManager.AddGameState<TestScene>(Constants::SceneID::TEST);
 	State* sampleScene = gameStateManager.AddGameState<Sample_Scene>(Constants::SceneID::SAMPLE);
 	gameStateManager.SetInitialState(sampleScene);
 
@@ -67,7 +65,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 	fontId = AEGfxCreateFont("../Resources/Roboto-Regular.ttf", 12);
 	if (fontId < 0)
 	{
-		AE_ASSERT(0, "FAILED TO CREATE FONT");
+		AE_ASSERT("FAILED TO CREATE FONT");
 	}
 	// Initialization end
 	/////////////////////

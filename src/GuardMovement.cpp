@@ -11,7 +11,7 @@ void StarBangBang::GuardMovement::Patrol()
 {
 	//std::cout << "GUARD: PATROL" << "\n";
 	float dt = (float)AEFrameRateControllerGetFrameTime();
-	gameObject->transform.position.x += 50.0 * dt;
+	gameObject->transform.position.x += 50.0f * dt;
 
 	AEVec2 target = { 0, 0 }, dir = { 0, 0 };
 	AEVec2 test = { 100, 10 };

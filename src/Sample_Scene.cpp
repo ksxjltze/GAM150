@@ -1,8 +1,8 @@
 #include "Sample_Scene.h"
 
-StarBangBang::Sample_Scene::Sample_Scene(GameStateManager* manager, int id) : State(id)
+StarBangBang::Sample_Scene::Sample_Scene(int id, GameStateManager& manager) : State(id, manager)
 {
-	gameStateManager = manager;
+	
 }
 
 void StarBangBang::Sample_Scene::Load()

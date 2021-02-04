@@ -1,9 +1,9 @@
 #pragma once
-#include "State.h"
 #include <vector>
 
 namespace StarBangBang
 {
+	class State;
 	class GameStateManager
 	{
 	public:
@@ -13,7 +13,7 @@ namespace StarBangBang
 		template <class StateType>
 		State* AddGameState()
 		{
-			State* newState = new StateType(this, (int)gameStateList.size());
+			State* newState = new StateType((int)gameStateList.size(), *this);
 			gameStateList.push_back(newState);
 			return newState;
 		}
@@ -21,8 +21,7 @@ namespace StarBangBang
 		template <class StateType>
 		State* AddGameState(int id)
 		{
-			State* newState = new StateType(this, (int)gameStateList.size());
-			newState->id = id;
+			State* newState = new StateType(id, *this);
 			gameStateList.push_back(newState);
 			return newState;
 		}
