@@ -123,6 +123,9 @@
     <ClCompile Include="src\Collider.cpp">
       <Filter>Source Files\Engine\Collision</Filter>
     </ClCompile>
+    <ClCompile Include="src\ColliderAABB.cpp">
+      <Filter>Source Files\Engine\Collision</Filter>
+    </ClCompile>
     <ClCompile Include="src\CollisionManager.cpp">
       <Filter>Source Files\Engine\Collision</Filter>
     </ClCompile>
@@ -174,17 +177,8 @@
     <ClCompile Include="src\Sample_Scene.cpp">
       <Filter>Source Files\Scenes</Filter>
     </ClCompile>
-    <ClCompile Include="src\BasicMeshShape.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Grid.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\PathFinder.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Physics.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="src\GuardVision.cpp">
+      <Filter>Source Files\Scripts</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -216,6 +210,9 @@
       <Filter>Header Files\Scripts</Filter>
     </ClInclude>
     <ClInclude Include="src\Collider.h">
+      <Filter>Header Files\Engine\Collision</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ColliderAABB.h">
       <Filter>Header Files\Engine\Collision</Filter>
     </ClInclude>
     <ClInclude Include="src\CollisionComponent.h">
@@ -299,20 +296,8 @@
     <ClInclude Include="src\Sample_Scene.h">
       <Filter>Header Files\Scenes</Filter>
     </ClInclude>
-    <ClInclude Include="src\BasicMeshShape.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\CollisionTest.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Grid.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\PathFinder.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Physics.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="src\GuardVision.h">
+      <Filter>Header Files\Scripts</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
