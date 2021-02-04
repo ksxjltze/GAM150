@@ -1,5 +1,9 @@
 #include "GuardMovement.h"
+#include "GuardVision.h"
+#include "Guard.h"
 #include <iostream>
+
+using namespace StarBangBang;
 
 StarBangBang::GuardMovement::GuardMovement(GameObject* gameObject) : Script(gameObject)
 {
@@ -7,10 +11,15 @@ StarBangBang::GuardMovement::GuardMovement(GameObject* gameObject) : Script(game
 	std::cout << waypoints.size() << "\n";
 }
 
+void StarBangBang::GuardMovement::Idle()
+{
+
+}
+
 void StarBangBang::GuardMovement::Patrol()
 {
 	//std::cout << "GUARD: PATROL" << "\n";
-	float dt = (float)AEFrameRateControllerGetFrameTime();
+	double dt = AEFrameRateControllerGetFrameTime();
 	gameObject->transform.position.x += 50.0 * dt;
 
 	AEVec2 target = { 0, 0 }, dir = { 0, 0 };
@@ -25,12 +34,26 @@ void StarBangBang::GuardMovement::Patrol()
 
 void StarBangBang::GuardMovement::Chase()
 {
+	// chase player
+	// ...
 
+	// if can't see player after some time, change to patrol state
+	static double time = 0.0;
+	time += AEFrameRateControllerGetFrameTime();
+	if (time >= CHASE_TIME)
+	{
+		if (!gameObject->GetComponent<GuardVision>()->GetDetectedPlayer())
+		{
+			gameObject->GetComponent<Guard>()->SetState(Guard::GUARD_STATE::STATE_PATROL);
+			time = 0.0;
+		}
+	}
 }
 
 void StarBangBang::GuardMovement::Distracted()
 {
-
+	// go to interactable object
+	// ...
 }
 
 void StarBangBang::GuardMovement::SetWaypoints()

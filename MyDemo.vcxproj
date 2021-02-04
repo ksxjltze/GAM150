@@ -102,6 +102,7 @@
     <ClCompile Include="src\GraphicsManager.cpp" />
     <ClCompile Include="src\Guard.cpp" />
     <ClCompile Include="src\GuardMovement.cpp" />
+    <ClCompile Include="src\GuardVision.cpp" />
     <ClCompile Include="src\ImageComponent.cpp" />
     <ClCompile Include="src\LevelEditor.cpp" />
     <ClCompile Include="src\InteractableComponent.cpp" />
@@ -138,6 +139,7 @@
     <ClInclude Include="src\GraphicsManager.h" />
     <ClInclude Include="src\Guard.h" />
     <ClInclude Include="src\GuardMovement.h" />
+    <ClInclude Include="src\GuardVision.h" />
     <ClInclude Include="src\ImageComponent.h" />
     <ClInclude Include="src\LevelEditor.h" />
     <ClInclude Include="src\InteractableComponent.h" />

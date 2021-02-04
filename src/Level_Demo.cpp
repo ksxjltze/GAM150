@@ -59,7 +59,9 @@ void StarBangBang::Level_Demo::Init()
 	objectManager.AddComponent<InteractableComponent>(testInteractable);
 
 	objectManager.AddComponent<Guard>(testGuard);
+	objectManager.AddComponent<GuardVision>(testGuard);
 	objectManager.AddComponent<GuardMovement>(testGuard);
+
 	objectManager.AddComponent<PrimaryMovementController>(player);
 	objectManager.AddComponent<PrimaryMovementController>(player2);
 	objectManager.AddComponent<MovementManager>(movementController);
