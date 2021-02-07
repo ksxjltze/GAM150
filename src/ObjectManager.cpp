@@ -75,21 +75,18 @@ void StarBangBang::ObjectManager::DestroyGameObject(GameObject* gameObject)
 {
 	if (gameObject)
 	{
-
-		for (_Component* objComponent : gameObject->GetComponents())
+		auto component_it = componentList.begin();
+		while(component_it != componentList.end())
 		{
-			for (auto component = componentList.begin(); component != componentList.end(); component++)
+			_Component* component = *component_it;
+			if (component->gameObject == gameObject)
 			{
-				if (objComponent == *component)
-				{
-					delete *component;
-					componentList.erase(component);
-					break;
-				}
+				delete component;
+				component_it = componentList.erase(component_it);
 			}
-
+			else
+				component_it++;
 		}
-
 		delete gameObject;
 	}
 }
@@ -111,7 +108,6 @@ void StarBangBang::ObjectManager::FreeComponents()
 	for (_Component* component : componentList)
 	{
 		delete component;
-		component = nullptr;
 	}
 
 	componentList.clear();

@@ -13,7 +13,6 @@ namespace StarBangBang
 		void Unload();
 	
 	private:
-		//Might wanna rethink how this is done
 		ObjectManager* objectManager;
 		GraphicsManager* graphicsManager;
 	};
