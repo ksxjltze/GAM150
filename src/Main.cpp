@@ -1,6 +1,10 @@
 // ---------------------------------------------------------------------------
 // includes
 
+#define _CRTDBG_MAP_ALLOC
+#include <stdlib.h>
+#include <crtdbg.h>
+
 #include "AEEngine.h"
 #include "GameStateManager.h"
 #include "constants.h"
@@ -53,11 +57,11 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 
 	UNREFERENCED_PARAMETER(sceneEditor);
 	UNREFERENCED_PARAMETER(sceneDemo);
-	//UNREFERENCED_PARAMETER(sampleScene);
+	UNREFERENCED_PARAMETER(sampleScene);
 
 	// Set Initial State
 
-	gameStateManager.SetInitialState(sceneEditor);
+	gameStateManager.SetInitialState(sceneDemo);
 
 	// Using custom window procedure
 	AESysInit(hInstance, nCmdShow, 800, 600, 1, 60, true, NULL);
@@ -134,7 +138,9 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 	//free font
 	AEGfxDestroyFont(fontId);
 	
-	// free the system
+	 //free the system
 	AESysExit();
+
+	_CrtDumpMemoryLeaks();
 
 }

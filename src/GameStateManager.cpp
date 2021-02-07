@@ -17,6 +17,11 @@ StarBangBang::GameStateManager::~GameStateManager()
 	{
 		ExitGame();
 	}
+
+	for (Scene* scene : gameStateList)
+	{
+		delete scene;
+	}
 }
 
 void StarBangBang::GameStateManager::AddGameState(Scene* state)

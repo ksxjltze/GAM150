@@ -15,7 +15,7 @@ void StarBangBang::ObjectManager::AddImage(GameObject* gameObject, Sprite sprite
 		if (sprite.mesh != nullptr && sprite.texture != nullptr)
 		{
 			ImageComponent* image = new ImageComponent(gameObject, sprite.mesh, sprite.texture);
-			imageComponentList.push_back(image);
+			componentList.push_back(image);
 			gameObject->AddComponent(image);
 		}
 
@@ -61,16 +61,7 @@ StarBangBang::GameObject* StarBangBang::ObjectManager::CloneGameObject(GameObjec
 			//_Component* newComponent = new _Component(newObject, component->id);
 			_Component* newComponent = component->Clone(newObject, component);
 			newObject->AddComponent(newComponent);
-
-			//MAKE THIS BETTER
-			if (typeid(*newComponent).name() == typeid(ImageComponent).name())
-			{
-				ImageComponent* newImageComponent = dynamic_cast<ImageComponent*>(newComponent);
-				imageComponentList.push_back(newImageComponent);
-			}
-			else
-				componentList.push_back(newComponent);	
-
+			componentList.push_back(newComponent);	
 		}
 
 		gameObjectList.push_back(newObject);
@@ -84,18 +75,9 @@ void StarBangBang::ObjectManager::DestroyGameObject(GameObject* gameObject)
 {
 	if (gameObject)
 	{
+
 		for (_Component* objComponent : gameObject->GetComponents())
 		{
-			for (auto image = imageComponentList.begin(); image != imageComponentList.end(); image++)
-			{
-				if (objComponent == *image)
-				{
-					delete *image;
-					imageComponentList.erase(image);
-					break;
-				}
-			}
-
 			for (auto component = componentList.begin(); component != componentList.end(); component++)
 			{
 				if (objComponent == *component)
@@ -132,14 +114,7 @@ void StarBangBang::ObjectManager::FreeComponents()
 		component = nullptr;
 	}
 
-	for (ImageComponent* imageComponent : imageComponentList)
-	{
-		delete imageComponent;
-		imageComponent = nullptr;
-	}
-
 	componentList.clear();
-	imageComponentList.clear();
 }
 
 void StarBangBang::ObjectManager::Init()
@@ -152,11 +127,11 @@ void StarBangBang::ObjectManager::Init()
 
 void StarBangBang::ObjectManager::Draw()
 {
-	for (ImageComponent* image : imageComponentList)
+	for (_Component* component : componentList)
 	{
-		if (image->active)
+		if (typeid(*component).name() == typeid(ImageComponent).name() && component->active)
 		{
-			image->Draw();
+			static_cast<ImageComponent*>(component)->Draw();
 		}
 	}
 }

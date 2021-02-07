@@ -2,7 +2,6 @@
 #include "ObjectManager.h"
 #include "GraphicsManager.h"
 #include "MemoryManager.h"
-#include "ScriptManager.h"
 #include "TagManager.h"
 #include "GameStateManager.h"
 

@@ -1,7 +1,6 @@
 #pragma once
 #include "GraphicsManager.h"
 #include "GameObject.h"
-#include "ScriptManager.h"
 #include "ImageComponent.h"
 #include "DragComponent.h"
 #include "Sprite.h"
@@ -36,7 +35,6 @@ namespace StarBangBang
 	private:
 		friend class Scene;
 		std::vector<GameObject*> gameObjectList;
-		std::vector<ImageComponent*> imageComponentList;
 		std::vector<_Component*> componentList;
 	};
 }

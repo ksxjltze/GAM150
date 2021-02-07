@@ -1,6 +1,5 @@
 #pragma once
 #include "ObjectManager.h"
-#include "ScriptManager.h"
 
 namespace StarBangBang
 {
