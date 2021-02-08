@@ -73,6 +73,7 @@ StarBangBang::GameObject* StarBangBang::ObjectManager::CloneGameObject(GameObjec
 
 void StarBangBang::ObjectManager::DestroyGameObject(GameObject* gameObject)
 {
+	//Could have pretty high overhead, maybe change this in the future
 	if (gameObject)
 	{
 		auto component_it = componentList.begin();
@@ -87,7 +88,17 @@ void StarBangBang::ObjectManager::DestroyGameObject(GameObject* gameObject)
 			else
 				component_it++;
 		}
-		delete gameObject;
+
+		for (auto gameObject_it = gameObjectList.begin(); gameObject_it != gameObjectList.end(); gameObject_it++)
+		{
+			if (*gameObject_it == gameObject)
+			{
+				gameObjectList.erase(gameObject_it);
+				delete gameObject;
+				return;
+			}
+			
+		}
 	}
 }
 

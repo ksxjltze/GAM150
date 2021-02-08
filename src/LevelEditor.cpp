@@ -44,11 +44,22 @@ namespace StarBangBang
 		obj2->transform.position.x += tileWidth;
 		grid.CreateGrid(tileWidth, 20, 20);
 
+		selectedTile = palette.at("Grass");
+
 	}
 
 	void LevelEditor::Update()
 	{
 		Scene::Update();
+		if (AEInputCheckTriggered(AEVK_1))
+		{
+			selectedTile = palette.at("Grass");
+		}
+		else if (AEInputCheckTriggered(AEVK_2))
+		{
+			selectedTile = palette.at("Stone");
+		}
+
 		if (AEInputCheckTriggered(AEVK_LBUTTON))
 		{
 			AEVec2 mousePos = GetMouseWorldPos();
@@ -59,7 +70,7 @@ namespace StarBangBang
 				obj->SetPos(n->nodePos);
 				if (!n->occupied)
 				{
-					objectManager.AddImage(obj, palette.at("Grass"));
+					objectManager.AddImage(obj, selectedTile);
 					tileObjects.insert(Tile(n, obj));
 					n->occupied = true;
 					std::cout << "TILE INSERTED" << std::endl;
@@ -84,10 +95,12 @@ namespace StarBangBang
 
 	void LevelEditor::Free()
 	{
+		Scene::Free();
 	}
 
 	void LevelEditor::Unload()
 	{
+		Scene::Unload();
 	}
 }
 

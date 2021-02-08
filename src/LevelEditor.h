@@ -20,6 +20,7 @@ namespace StarBangBang
 		float tileWidth, tileHeight;
 		std::map<std::string, Sprite> palette;
 		std::map<Node*, GameObject*> tileObjects;
+		Sprite selectedTile;
 		//std::vector<GameObject*> tileObjects;
 		//std::vector<std::vector<AEVec2>> grid;
 		Grid grid;
