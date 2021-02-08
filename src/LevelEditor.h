@@ -17,6 +17,9 @@ namespace StarBangBang
 		void Free();
 		void Unload();
 	private:
+		void InsertTile(Node* n);
+		void RemoveTile(Node* n);
+		
 		float tileWidth, tileHeight;
 		std::map<std::string, Sprite> palette;
 		std::map<Node*, GameObject*> tileObjects;

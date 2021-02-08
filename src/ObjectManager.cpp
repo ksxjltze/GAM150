@@ -76,6 +76,7 @@ void StarBangBang::ObjectManager::DestroyGameObject(GameObject* gameObject)
 	//Could have pretty high overhead, maybe change this in the future
 	if (gameObject)
 	{
+		//Delete components
 		auto component_it = componentList.begin();
 		while(component_it != componentList.end())
 		{
@@ -89,6 +90,7 @@ void StarBangBang::ObjectManager::DestroyGameObject(GameObject* gameObject)
 				component_it++;
 		}
 
+		//Delete game object
 		for (auto gameObject_it = gameObjectList.begin(); gameObject_it != gameObjectList.end(); gameObject_it++)
 		{
 			if (*gameObject_it == gameObject)

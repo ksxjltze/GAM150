@@ -66,24 +66,37 @@ namespace StarBangBang
 			Node* n = grid.GetNodeFromPosition(mousePos);
 			if (n)
 			{
-				GameObject* obj = objectManager.NewGameObject();
-				obj->SetPos(n->nodePos);
+
 				if (!n->occupied)
 				{
-					objectManager.AddImage(obj, selectedTile);
-					tileObjects.insert(Tile(n, obj));
-					n->occupied = true;
-					std::cout << "TILE INSERTED" << std::endl;
+					InsertTile(n);
 				}
 				else
 				{
-					std::cout << "NODE OCCUPIED" << std::endl;
-					objectManager.DestroyGameObject(tileObjects.at(n));
-					tileObjects.erase(n);
-					n->occupied = false;
+					RemoveTile(n);
+					InsertTile(n);
 				}
 			}
 		}
+	}
+
+	void LevelEditor::InsertTile(Node* node)
+	{
+		GameObject* obj = objectManager.NewGameObject();
+		obj->SetPos(node->nodePos);
+
+		objectManager.AddImage(obj, selectedTile);
+		tileObjects.insert(Tile(node, obj));
+		node->occupied = true;
+		std::cout << "LevelEditor: TILE INSERTED" << std::endl;
+	}
+
+	void LevelEditor::RemoveTile(Node* n)
+	{
+		std::cout << "LevelEditor: NODE OCCUPIED" << std::endl;
+		objectManager.DestroyGameObject(tileObjects.at(n));
+		tileObjects.erase(n);
+		n->occupied = false;
 	}
 
 	void LevelEditor::Draw()
