@@ -3,6 +3,8 @@
 #include "Utils.h"
 #include <iostream>
 
+#include "PrimaryMovementController.h"
+
 namespace StarBangBang
 {
 	typedef std::pair<std::string, Sprite> TileImage;
@@ -46,11 +48,16 @@ namespace StarBangBang
 
 		selectedTile = palette.at("Grass");
 
+		camera = objectManager.NewGameObject();
+		objectManager.AddComponent<CameraComponent>(camera);
+		objectManager.AddComponent<PrimaryMovementController>(camera);
+
 	}
 
 	void LevelEditor::Update()
 	{
 		Scene::Update();
+
 		if (AEInputCheckTriggered(AEVK_1))
 		{
 			selectedTile = palette.at("Grass");
@@ -60,9 +67,10 @@ namespace StarBangBang
 			selectedTile = palette.at("Stone");
 		}
 
+		//Insert/Replace/Remove Tile.
+		AEVec2 mousePos = GetMouseWorldPos();
 		if (AEInputCheckTriggered(AEVK_LBUTTON))
 		{
-			AEVec2 mousePos = GetMouseWorldPos();
 			Node* n = grid.GetNodeFromPosition(mousePos);
 			if (n)
 			{
@@ -76,6 +84,15 @@ namespace StarBangBang
 					RemoveTile(n);
 					InsertTile(n);
 				}
+			}
+		}
+
+		if (AEInputCheckTriggered(AEVK_RBUTTON))
+		{
+			Node* n = grid.GetNodeFromPosition(mousePos);
+			if (n->occupied)
+			{
+				RemoveTile(n);
 			}
 		}
 	}

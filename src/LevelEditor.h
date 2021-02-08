@@ -3,6 +3,7 @@
 #include "GameStateManager.h"
 #include "Sprite.h"
 #include "Grid.h"
+#include "CameraComponent.h"
 
 namespace StarBangBang
 {
@@ -21,11 +22,12 @@ namespace StarBangBang
 		void RemoveTile(Node* n);
 		
 		float tileWidth, tileHeight;
+		Sprite selectedTile;
+
 		std::map<std::string, Sprite> palette;
 		std::map<Node*, GameObject*> tileObjects;
-		Sprite selectedTile;
-		//std::vector<GameObject*> tileObjects;
-		//std::vector<std::vector<AEVec2>> grid;
+
+		GameObject* camera{ nullptr };
 		Grid grid;
 	};
 }
