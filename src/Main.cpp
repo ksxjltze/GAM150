@@ -66,10 +66,13 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 
 	// Set Initial State
 
-	gameStateManager.SetInitialState(sceneDemo);
+	gameStateManager.SetInitialState(sceneEditor);
 
 	//// Using custom window procedure
 	AESysInit(hInstance, nCmdShow, 800, 600, 1, 60, true, NULL);
+
+	////Init all the stuff for testing in collisionTest.h
+	StarBangBang::InitTest();
 
 	//Full screen
 	//AESysInit(hInstance, nCmdShow, 1920, 1080, 1, 60, true, NULL);
@@ -92,8 +95,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 	}
 	// Initialization end
 	/////////////////////
-	////Init all the stuff for testing in collisionTest.h
-	StarBangBang::InitTest();
+
 	// Game Loop
 	while (gGameRunning)
 	{
@@ -104,7 +106,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 		AEInputUpdate();
 
 		// Update State
-		//gameStateManager.Update();
+		gameStateManager.Update();
 		audioEngine.Update();
 
 		//FPS

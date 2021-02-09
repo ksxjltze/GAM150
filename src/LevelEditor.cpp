@@ -126,6 +126,7 @@ namespace StarBangBang
 	void LevelEditor::Free()
 	{
 		Scene::Free();
+		grid.FreeGrid();
 	}
 
 	void LevelEditor::Unload()

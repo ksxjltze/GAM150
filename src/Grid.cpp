@@ -11,6 +11,7 @@ Grid::Grid()
 	CreateGrid(nodeSize, AEVec2{ static_cast<f32>(AEGetWindowWidth()), static_cast<f32>(AEGetWindowHeight()) });
 }
 
+//Change to destructor some time
 void Grid::FreeGrid()
 {
 	for (int i = 0; i < size_y; i++)
