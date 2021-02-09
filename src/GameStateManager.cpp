@@ -86,8 +86,8 @@ void StarBangBang::GameStateManager::Update()
 		{
 			if (nextState != nullptr)
 			{
-				currentState->Unload();
 				currentState->Free();
+				currentState->Unload();
 				prevState = currentState;
 				currentState = nextState;
 			}
@@ -108,10 +108,9 @@ void StarBangBang::GameStateManager::Update()
 
 void StarBangBang::GameStateManager::ExitGame()
 {
-	currentState->Unload();
 	currentState->Free();
 	//free all unit meshes built
-	StarBangBang::FreeUnitMeshes();
+	currentState->Unload();
 	currentState = nullptr;
 	nextState = nullptr;
 }

@@ -8,7 +8,7 @@ namespace StarBangBang
 	{
 	public:
 		_Component(GameObject* gameObject) { this->gameObject = gameObject; }
-		inline virtual _Component* Clone(GameObject* obj, _Component*) const { return new _Component(obj); }
+		virtual _Component* Clone(GameObject* obj, _Component*) const { return new _Component(obj); }
 		virtual void Start() {};
 		virtual void Update() {};
 		GameObject* gameObject { nullptr };

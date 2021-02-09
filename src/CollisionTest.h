@@ -21,8 +21,15 @@ namespace StarBangBang
 	
 	void InitTest()
 	{
+		StarBangBang::InitBasicMesh();
 		PathFinder::Init();
 		//grid.CreateGrid(30.0f, AEVec2{ static_cast<f32>(AEGetWindowWidth()), static_cast<f32>(AEGetWindowHeight()) });
+	}
+
+	void FreeTest()
+	{
+		StarBangBang::FreeUnitMeshes();
+		PathFinder::Free();
 	}
 
 	void Test_BoxUpdate()

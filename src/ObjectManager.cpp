@@ -113,7 +113,7 @@ void StarBangBang::ObjectManager::FreeObjects()
 			delete obj;
 		}
 	}
-	gameObjectList.clear();
+	//gameObjectList.clear();
 }
 
 void StarBangBang::ObjectManager::FreeComponents()
@@ -123,7 +123,7 @@ void StarBangBang::ObjectManager::FreeComponents()
 		delete component;
 	}
 
-	componentList.clear();
+	//componentList.clear();
 }
 
 void StarBangBang::ObjectManager::Init()

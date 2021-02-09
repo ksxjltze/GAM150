@@ -9,6 +9,7 @@ namespace StarBangBang
 	namespace PathFinder
 	{
 		void Init();
+		void Free();
 		void SearchForPath(AEVec2 start, AEVec2 target);
 		void GridDraw();
 	}

@@ -53,7 +53,7 @@ namespace StarBangBang
 		float GetNodeSize() { return nodeSize; }
 		
 		Grid();
-
+		void FreeGrid();
 		Grid(float _nodeSize, AEVec2 gridSize, AEVec2 _offset = AEVec2{ 0,0 });
 
 	

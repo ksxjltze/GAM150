@@ -11,6 +11,12 @@ void PathFinder::Init()
 {
 	grid = Grid();
 }
+
+void PathFinder::Free()
+{
+	grid.FreeGrid();
+}
+
 void PathFinder::GridDraw()
 {
 	AEVec2 mousePos = GetMouseWorldPos();
@@ -19,6 +25,7 @@ void PathFinder::GridDraw()
 		StarBangBang::DrawCircle(10.0f, n->nodePos);
 	grid.DrawGrid();
 }
+
 void PathFinder::SearchForPath(AEVec2 start, AEVec2 target)
 {
 	Node* startNode = grid.GetNodeFromPosition(start);

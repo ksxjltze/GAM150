@@ -40,9 +40,6 @@
     <Filter Include="Header Files\Engine\Collision">
       <UniqueIdentifier>{9d8ec4f6-9b06-4139-a57a-95b5d1096d24}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\Engine\Game State">
-      <UniqueIdentifier>{02327dd9-f1a5-492c-aa27-631955614f8a}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Header Files\Engine\Graphics">
       <UniqueIdentifier>{c8a2d45f-4663-43aa-8ecf-3a469c82a52e}</UniqueIdentifier>
     </Filter>
@@ -84,6 +81,9 @@
     </Filter>
     <Filter Include="Header Files\Deprecated">
       <UniqueIdentifier>{5c24f530-1d4e-4458-89c6-a6fe33b1fb30}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Engine\Game State">
+      <UniqueIdentifier>{02327dd9-f1a5-492c-aa27-631955614f8a}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

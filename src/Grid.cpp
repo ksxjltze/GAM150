@@ -10,6 +10,16 @@ Grid::Grid()
 	offset = AEVec2{0,0};
 	CreateGrid(nodeSize, AEVec2{ static_cast<f32>(AEGetWindowWidth()), static_cast<f32>(AEGetWindowHeight()) });
 }
+
+void Grid::FreeGrid()
+{
+	for (int i = 0; i < size_y; i++)
+	{
+		delete[] grid[i];
+	}
+	delete[] grid;
+}
+
 Grid::Grid(float _nodeSize, AEVec2 gridSize, AEVec2 _offset)
 {
 	std::cout << "Construct \n";

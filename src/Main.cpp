@@ -23,6 +23,11 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 	_In_ LPWSTR    lpCmdLine,
 	_In_ int       nCmdShow)
 {
+
+#if defined(DEBUG) | defined(_DEBUG)
+	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
+#endif
+
 	UNREFERENCED_PARAMETER(hPrevInstance);
 	UNREFERENCED_PARAMETER(lpCmdLine);
 
@@ -40,7 +45,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 
 	GameStateManager gameStateManager;
 
-	
+	//
 
 	// Variable declaration end
 	///////////////////////////
@@ -55,18 +60,17 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 	Scene* sceneEditor = gameStateManager.AddGameState<LevelEditor>(Constants::SceneID::EDITOR);
 	Scene* sampleScene = gameStateManager.AddGameState<Sample_Scene>(Constants::SceneID::SAMPLE);
 
-	UNREFERENCED_PARAMETER(sceneEditor);
-	UNREFERENCED_PARAMETER(sceneDemo);
-	UNREFERENCED_PARAMETER(sampleScene);
+	//UNREFERENCED_PARAMETER(sceneEditor);
+	//UNREFERENCED_PARAMETER(sceneDemo);
+	//UNREFERENCED_PARAMETER(sampleScene);
 
 	// Set Initial State
 
-	gameStateManager.SetInitialState(sceneEditor);
+	gameStateManager.SetInitialState(sceneDemo);
 
-	// Using custom window procedure
+	//// Using custom window procedure
 	AESysInit(hInstance, nCmdShow, 800, 600, 1, 60, true, NULL);
 
-	StarBangBang::InitBasicMesh();
 	//Full screen
 	//AESysInit(hInstance, nCmdShow, 1920, 1080, 1, 60, true, NULL);
 	//AEToogleFullScreen(true);
@@ -88,7 +92,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 	}
 	// Initialization end
 	/////////////////////
-	//Init all the stuff for testing in collisionTest.h
+	////Init all the stuff for testing in collisionTest.h
 	StarBangBang::InitTest();
 	// Game Loop
 	while (gGameRunning)
@@ -100,7 +104,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 		AEInputUpdate();
 
 		// Update State
-		gameStateManager.Update();
+		//gameStateManager.Update();
 		audioEngine.Update();
 
 		//FPS
@@ -109,7 +113,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 
 
 		StarBangBang::Test_BoxUpdate();
-		//StarBangBang::Test_CircleUpdate();
+		StarBangBang::Test_CircleUpdate();
 		StarBangBang::TestGrid();
 
 
@@ -129,18 +133,17 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 		if (AEInputCheckTriggered(AEVK_ESCAPE) || 0 == AESysDoesWindowExist())
 			gGameRunning = 0;
 	}
-	gameStateManager.ExitGame();
 
-	//Audio Engine (temp implementation)
+	////Audio Engine (temp implementation)
 	audioEngine.ReleaseSound(sound);
 	audioEngine.Exit();
 
+	FreeTest();
+
 	//free font
 	AEGfxDestroyFont(fontId);
-	
-	 //free the system
+	//
+	// //free the system
 	AESysExit();
-
-	_CrtDumpMemoryLeaks();
 
 }
