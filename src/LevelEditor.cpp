@@ -141,6 +141,17 @@ namespace StarBangBang
 	{
 		std::fstream outputStream;
 		outputStream.open("../Resources/Levels/test.txt", std::fstream::out);
+		std::cout << "Saving Level..." << std::endl;
+
+		for (auto row : tileObjects)
+		{
+			for (Tile tile : row)
+			{
+				outputStream << tile.sprite.id;
+			}
+			outputStream << std::endl;
+		}
+
 		outputStream.close();
 	}
 
