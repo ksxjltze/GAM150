@@ -122,6 +122,11 @@ Node* Grid::GetNodeFromPosition(AEVec2 pos)
 		return nullptr;
 }
 
+Node* StarBangBang::Grid::GetNode(int x, int y)
+{
+	return &grid[y][x];
+}
+
 
 
 void Grid::DrawGrid(void)

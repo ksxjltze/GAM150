@@ -51,6 +51,7 @@ namespace StarBangBang
 
 		Node* GetNodeFromPosition(AEVec2 pos);
 		float GetNodeSize() { return nodeSize; }
+		Node* GetNode(int x, int y);
 		
 		Grid();
 		void FreeGrid();

@@ -38,16 +38,25 @@ namespace StarBangBang
 
 	void LevelEditor::Init()
 	{
-		GameObject* obj = objectManager.NewGameObject();
-		GameObject* obj2 = objectManager.NewGameObject();
-
-		objectManager.AddImage(obj, palette.at("Grass").sprite);
-		objectManager.AddImage(obj2, palette.at("Stone").sprite);
-
-		obj2->transform.position.x += tileWidth;
-		grid.CreateGrid(tileWidth, 20, 20);
-
+		int size_x = 20, size_y = 20;
+		grid.CreateGrid(tileWidth, size_x, size_y);
 		selectedTile = palette.at("Grass");
+
+		for (int y = 0; y < size_y; y++)
+		{
+			for (int x = 0; x < size_x; x++)
+			{
+				Node* node = grid.GetNode(x, y);
+				GameObject* obj = objectManager.NewGameObject();
+				objectManager.AddImage(obj, selectedTile.sprite);
+
+				obj->SetPos(node->nodePos);
+				Tile tile{ selectedTile , obj };
+
+				node->occupied = true;
+				tileObjects.insert({node , tile });
+			}
+		}
 
 		camera = objectManager.NewGameObject();
 		objectManager.AddComponent<CameraComponent>(camera);
@@ -129,12 +138,10 @@ namespace StarBangBang
 		std::fstream outputStream;
 		outputStream.open("../Resources/Levels/test.txt", std::fstream::out);
 
-		outputStream << "TEST";
-
-		//for (auto tile : tileObjects)
-		//{
-		//	
-		//}
+		for (auto tile : tileObjects)
+		{
+			outputStream << tile.second.sprite.id;
+		}
 
 		outputStream.close();
 	}
