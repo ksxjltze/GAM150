@@ -21,7 +21,7 @@ namespace StarBangBang
 
 	LevelEditor::LevelEditor(int id, GameStateManager& manager) : Scene(id, manager)
 	{
-		tileWidth = 50; tileHeight = 50;
+		tileWidth = 100; tileHeight = 100;
 		mapWidth = 20, mapHeight = 20;
 	}
 
@@ -114,7 +114,7 @@ namespace StarBangBang
 		if (AEInputCheckTriggered(AEVK_RBUTTON))
 		{
 			Node* n = grid.GetNodeFromPosition(mousePos);
-			if (n->occupied)
+			if (n && n->occupied)
 			{
 				RemoveTile(n);
 			}
