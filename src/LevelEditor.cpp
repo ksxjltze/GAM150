@@ -22,10 +22,12 @@ namespace StarBangBang
 	LevelEditor::LevelEditor(int id, GameStateManager& manager) : Scene(id, manager)
 	{
 		tileWidth = 50; tileHeight = 50;
+		mapWidth = 20, mapHeight = 20;
 	}
 
 	void LevelEditor::Load()
 	{
+		tileObjects.reserve(mapHeight);
 		Sprite grassSprite = graphicsManager.CreateSprite(Constants::PROTOTYPE_SPRITE_GRASS_PATH, tileWidth, tileHeight);
 		Sprite stoneSprite = graphicsManager.CreateSprite(Constants::PROTOTYPE_SPRITE_STONE_PATH, tileWidth, tileHeight);
 
@@ -38,13 +40,15 @@ namespace StarBangBang
 
 	void LevelEditor::Init()
 	{
-		int size_x = 20, size_y = 20;
-		grid.CreateGrid(tileWidth, size_x, size_y);
-		selectedTile = palette.at("Grass");
+		grid.CreateGrid(tileWidth, mapWidth, mapHeight);
+		selectedTile = palette.at("Stone");
 
-		for (int y = 0; y < size_y; y++)
+		for (int y = 0; y < mapHeight; y++)
 		{
-			for (int x = 0; x < size_x; x++)
+			std::vector<Tile> row;
+			row.reserve(mapWidth);
+
+			for (int x = 0; x < mapWidth; x++)
 			{
 				Node* node = grid.GetNode(x, y);
 				GameObject* obj = objectManager.NewGameObject();
@@ -54,8 +58,9 @@ namespace StarBangBang
 				Tile tile{ selectedTile , obj };
 
 				node->occupied = true;
-				tileObjects.insert({node , tile });
+				row.push_back(tile);
 			}
+			tileObjects.push_back(row);
 		}
 
 		camera = objectManager.NewGameObject();
@@ -120,7 +125,7 @@ namespace StarBangBang
 		Tile tile{ selectedTile , obj };
 
 		objectManager.AddImage(obj, selectedTile.sprite);
-		tileObjects.insert(std::pair<Node*, Tile>(node, tile));
+		tileObjects[node->index_y][node->index_x] = tile;
 		node->occupied = true;
 		std::cout << "LevelEditor: TILE INSERTED" << std::endl;
 	}
@@ -128,8 +133,7 @@ namespace StarBangBang
 	void LevelEditor::RemoveTile(Node* n)
 	{
 		std::cout << "LevelEditor: NODE OCCUPIED" << std::endl;
-		objectManager.DestroyGameObject(tileObjects.at(n).gameObject);
-		tileObjects.erase(n);
+		objectManager.DestroyGameObject(tileObjects[n->index_y][n->index_x].gameObject);
 		n->occupied = false;
 	}
 
@@ -137,12 +141,6 @@ namespace StarBangBang
 	{
 		std::fstream outputStream;
 		outputStream.open("../Resources/Levels/test.txt", std::fstream::out);
-
-		for (auto tile : tileObjects)
-		{
-			outputStream << tile.second.sprite.id;
-		}
-
 		outputStream.close();
 	}
 

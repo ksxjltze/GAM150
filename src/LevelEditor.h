@@ -36,10 +36,11 @@ namespace StarBangBang
 		void SaveLevel();
 		
 		float tileWidth, tileHeight;
+		int mapWidth, mapHeight;
 		TileSprite selectedTile;
 
 		std::map<std::string, TileSprite> palette;
-		std::map<Node*, Tile> tileObjects;
+		std::vector<std::vector<Tile>> tileObjects;
 
 		GameObject* camera{ nullptr };
 		Grid grid;
