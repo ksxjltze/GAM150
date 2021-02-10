@@ -34,12 +34,13 @@ namespace StarBangBang
 		void InsertTile(Node* n);
 		void RemoveTile(Node* n);
 		void SaveLevel();
+		void LoadLevel();
 		
 		float tileWidth, tileHeight;
 		int mapWidth, mapHeight;
 		TileSprite selectedTile;
 
-		std::map<std::string, TileSprite> palette;
+		std::map<int, TileSprite> palette;
 		std::vector<std::vector<Tile>> tileObjects;
 
 		GameObject* camera{ nullptr };

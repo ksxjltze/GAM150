@@ -31,8 +31,8 @@ namespace StarBangBang
 		Sprite grassSprite = graphicsManager.CreateSprite(Constants::PROTOTYPE_SPRITE_GRASS_PATH, tileWidth, tileHeight);
 		Sprite stoneSprite = graphicsManager.CreateSprite(Constants::PROTOTYPE_SPRITE_STONE_PATH, tileWidth, tileHeight);
 
-		auto grassTile = std::pair<std::string, TileSprite>("Grass", { 1, "Grass", grassSprite });
-		auto stoneTile = std::pair<std::string, TileSprite>("Stone", { 2, "Stone", stoneSprite });
+		auto grassTile = std::pair<int, TileSprite>(1, { 1, "Grass", grassSprite });
+		auto stoneTile = std::pair<int, TileSprite>(2, { 2, "Stone", stoneSprite });
 
 		palette.insert(grassTile);
 		palette.insert(stoneTile);
@@ -41,27 +41,29 @@ namespace StarBangBang
 	void LevelEditor::Init()
 	{
 		grid.CreateGrid(tileWidth, mapWidth, mapHeight);
-		selectedTile = palette.at("Stone");
+		selectedTile = palette.at(2);
 
-		for (int y = 0; y < mapHeight; y++)
-		{
-			std::vector<Tile> row;
-			row.reserve(mapWidth);
+		LoadLevel();
 
-			for (int x = 0; x < mapWidth; x++)
-			{
-				Node* node = grid.GetNode(x, y);
-				GameObject* obj = objectManager.NewGameObject();
-				objectManager.AddImage(obj, selectedTile.sprite);
+		//for (int y = 0; y < mapHeight; y++)
+		//{
+		//	std::vector<Tile> row;
+		//	row.reserve(mapWidth);
 
-				obj->SetPos(node->nodePos);
-				Tile tile{ selectedTile , obj };
+		//	for (int x = 0; x < mapWidth; x++)
+		//	{
+		//		Node* node = grid.GetNode(x, y);
+		//		GameObject* obj = objectManager.NewGameObject();
+		//		objectManager.AddImage(obj, selectedTile.sprite);
 
-				node->occupied = true;
-				row.push_back(tile);
-			}
-			tileObjects.push_back(row);
-		}
+		//		obj->SetPos(node->nodePos);
+		//		Tile tile{ selectedTile , obj };
+
+		//		node->occupied = true;
+		//		row.push_back(tile);
+		//	}
+		//	tileObjects.push_back(row);
+		//}
 
 		camera = objectManager.NewGameObject();
 		objectManager.AddComponent<CameraComponent>(camera);
@@ -75,11 +77,13 @@ namespace StarBangBang
 
 		if (AEInputCheckTriggered(AEVK_1))
 		{
-			selectedTile = palette.at("Grass");
+			selectedTile = palette.at(1);
+			//selectedTile = palette.at("Grass");
 		}
 		else if (AEInputCheckTriggered(AEVK_2))
 		{
-			selectedTile = palette.at("Stone");
+			selectedTile = palette.at(2);
+			//selectedTile = palette.at("Stone");
 		}
 
 		if (AEInputCheckTriggered(AEVK_RETURN))
@@ -139,20 +143,65 @@ namespace StarBangBang
 
 	void LevelEditor::SaveLevel()
 	{
-		std::fstream outputStream;
-		outputStream.open("../Resources/Levels/test.txt", std::fstream::out);
+		std::ofstream outputStream;
+		outputStream.open("../Resources/Levels/test.txt", std::fstream::trunc);
 		std::cout << "Saving Level..." << std::endl;
 
-		for (auto row : tileObjects)
+		if (outputStream.is_open())
 		{
-			for (Tile tile : row)
+			for (auto row : tileObjects)
 			{
-				outputStream << tile.sprite.id;
+				for (Tile tile : row)
+				{
+					outputStream << tile.sprite.id;
+				}
+				outputStream << std::endl;
 			}
-			outputStream << std::endl;
-		}
 
-		outputStream.close();
+			outputStream.close();
+
+		}
+	}
+
+	void LevelEditor::LoadLevel()
+	{
+		std::ifstream inputStream;
+		inputStream.open("../Resources/Levels/test.txt");
+
+		if (inputStream.is_open())
+		{;
+			std::string line;
+			
+			int y = 0;
+			while (std::getline(inputStream, line))
+			{
+				int x = 0;
+				std::vector<Tile> row;
+
+				//make this better later
+				for (auto c : line)
+				{
+					Tile tile;
+
+					Node* node = grid.GetNode(x++, y);
+
+					tile.sprite.id = c - '0';
+					tile.gameObject = objectManager.NewGameObject();
+					tile.sprite = palette.at(tile.sprite.id);
+
+					objectManager.AddImage(tile.gameObject, tile.sprite.sprite);
+					tile.gameObject->SetPos(node->nodePos);
+					node->occupied = true;
+					row.push_back(tile);
+				}
+
+				y++;
+				tileObjects.push_back(row);
+
+			}
+
+			inputStream.close();
+		}
 	}
 
 	void LevelEditor::Draw()
