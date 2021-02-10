@@ -8,7 +8,7 @@
 
 namespace StarBangBang
 {
-	typedef std::pair<std::string, Sprite> TileImage;
+	//typedef std::pair<std::string, Sprite> TileImage;
 	//typedef std::pair<Node*, GameObject*> Tile;
 
 	void HighLightGridNode(Grid& grid)
@@ -29,8 +29,8 @@ namespace StarBangBang
 		Sprite grassSprite = graphicsManager.CreateSprite(Constants::PROTOTYPE_SPRITE_GRASS_PATH, tileWidth, tileHeight);
 		Sprite stoneSprite = graphicsManager.CreateSprite(Constants::PROTOTYPE_SPRITE_STONE_PATH, tileWidth, tileHeight);
 
-		auto grassTile = TileImage("Grass", grassSprite);
-		auto stoneTile = TileImage("Stone", stoneSprite);
+		auto grassTile = std::pair<std::string, TileSprite>("Grass", { 1, "Grass", grassSprite });
+		auto stoneTile = std::pair<std::string, TileSprite>("Stone", { 2, "Stone", stoneSprite });
 
 		palette.insert(grassTile);
 		palette.insert(stoneTile);
@@ -41,8 +41,8 @@ namespace StarBangBang
 		GameObject* obj = objectManager.NewGameObject();
 		GameObject* obj2 = objectManager.NewGameObject();
 
-		objectManager.AddImage(obj, palette.at("Grass"));
-		objectManager.AddImage(obj2, palette.at("Stone"));
+		objectManager.AddImage(obj, palette.at("Grass").sprite);
+		objectManager.AddImage(obj2, palette.at("Stone").sprite);
 
 		obj2->transform.position.x += tileWidth;
 		grid.CreateGrid(tileWidth, 20, 20);
@@ -110,7 +110,7 @@ namespace StarBangBang
 
 		Tile tile{ selectedTile , obj };
 
-		objectManager.AddImage(obj, selectedTile);
+		objectManager.AddImage(obj, selectedTile.sprite);
 		tileObjects.insert(std::pair<Node*, Tile>(node, tile));
 		node->occupied = true;
 		std::cout << "LevelEditor: TILE INSERTED" << std::endl;
@@ -130,6 +130,11 @@ namespace StarBangBang
 		outputStream.open("../Resources/Levels/test.txt", std::fstream::out);
 
 		outputStream << "TEST";
+
+		//for (auto tile : tileObjects)
+		//{
+		//	
+		//}
 
 		outputStream.close();
 	}

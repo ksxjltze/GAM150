@@ -7,9 +7,16 @@
 
 namespace StarBangBang
 {
+	struct TileSprite
+	{
+		int id;
+		std::string name;
+		Sprite sprite;
+	};
+
 	struct Tile
 	{
-		Sprite sprite;
+		TileSprite sprite;
 		GameObject* gameObject;
 	};
 
@@ -29,9 +36,9 @@ namespace StarBangBang
 		void SaveLevel();
 		
 		float tileWidth, tileHeight;
-		Sprite selectedTile;
+		TileSprite selectedTile;
 
-		std::map<std::string, Sprite> palette;
+		std::map<std::string, TileSprite> palette;
 		std::map<Node*, Tile> tileObjects;
 
 		GameObject* camera{ nullptr };
