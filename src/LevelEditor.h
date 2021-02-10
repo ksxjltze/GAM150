@@ -7,6 +7,12 @@
 
 namespace StarBangBang
 {
+	struct Tile
+	{
+		Sprite sprite;
+		GameObject* gameObject;
+	};
+
 	class LevelEditor : public Scene
 	{
 	public:
@@ -20,12 +26,13 @@ namespace StarBangBang
 	private:
 		void InsertTile(Node* n);
 		void RemoveTile(Node* n);
+		void SaveLevel();
 		
 		float tileWidth, tileHeight;
 		Sprite selectedTile;
 
 		std::map<std::string, Sprite> palette;
-		std::map<Node*, GameObject*> tileObjects;
+		std::map<Node*, Tile> tileObjects;
 
 		GameObject* camera{ nullptr };
 		Grid grid;

@@ -2,13 +2,14 @@
 #include "BasicMeshShape.h"
 #include "Utils.h"
 #include <iostream>
+#include <fstream>
 
 #include "PrimaryMovementController.h"
 
 namespace StarBangBang
 {
 	typedef std::pair<std::string, Sprite> TileImage;
-	typedef std::pair<Node*, GameObject*> Tile;
+	//typedef std::pair<Node*, GameObject*> Tile;
 
 	void HighLightGridNode(Grid& grid)
 	{
@@ -67,6 +68,11 @@ namespace StarBangBang
 			selectedTile = palette.at("Stone");
 		}
 
+		if (AEInputCheckTriggered(AEVK_RETURN))
+		{
+			SaveLevel();
+		}
+
 		//Insert/Replace/Remove Tile.
 		AEVec2 mousePos = GetMouseWorldPos();
 		if (AEInputCheckTriggered(AEVK_LBUTTON))
@@ -102,8 +108,10 @@ namespace StarBangBang
 		GameObject* obj = objectManager.NewGameObject();
 		obj->SetPos(node->nodePos);
 
+		Tile tile{ selectedTile , obj };
+
 		objectManager.AddImage(obj, selectedTile);
-		tileObjects.insert(Tile(node, obj));
+		tileObjects.insert(std::pair<Node*, Tile>(node, tile));
 		node->occupied = true;
 		std::cout << "LevelEditor: TILE INSERTED" << std::endl;
 	}
@@ -111,9 +119,19 @@ namespace StarBangBang
 	void LevelEditor::RemoveTile(Node* n)
 	{
 		std::cout << "LevelEditor: NODE OCCUPIED" << std::endl;
-		objectManager.DestroyGameObject(tileObjects.at(n));
+		objectManager.DestroyGameObject(tileObjects.at(n).gameObject);
 		tileObjects.erase(n);
 		n->occupied = false;
+	}
+
+	void LevelEditor::SaveLevel()
+	{
+		std::fstream outputStream;
+		outputStream.open("../Resources/Levels/test.txt", std::fstream::out);
+
+		outputStream << "TEST";
+
+		outputStream.close();
 	}
 
 	void LevelEditor::Draw()

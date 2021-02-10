@@ -114,9 +114,9 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 		AEGfxGetCamPosition(&camPos.x, &camPos.y);
 
 
-		StarBangBang::Test_BoxUpdate();
-		StarBangBang::Test_CircleUpdate();
-		StarBangBang::TestGrid();
+		//StarBangBang::Test_BoxUpdate();
+		//StarBangBang::Test_CircleUpdate();
+		//StarBangBang::TestGrid();
 
 
 		char strBuffer[100];

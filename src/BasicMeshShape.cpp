@@ -1,8 +1,10 @@
 #include "BasicMeshShape.h"
 using namespace StarBangBang;
 const unsigned int sides = 30;
+
 static AEGfxVertexList* unitboxMesh;
 static AEGfxVertexList* unitcircleMesh;
+
 void StarBangBang::InitBasicMesh()
 {
 	//build unit box mesh
