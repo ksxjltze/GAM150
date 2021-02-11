@@ -10,6 +10,7 @@ namespace StarBangBang
 		static float zoom = 1;
 		void DrawImage(AEGfxVertexList* mesh, AEGfxTexture* texture, AEVec2 pos, AEVec2 scale, float rotation);
 		void SetZoom(float scale);
+		float GetZoom();
 	}
 
 	class GraphicsManager

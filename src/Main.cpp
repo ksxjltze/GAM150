@@ -60,9 +60,9 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 	Scene* sceneEditor = gameStateManager.AddGameState<LevelEditor>(Constants::SceneID::EDITOR);
 	Scene* sampleScene = gameStateManager.AddGameState<Sample_Scene>(Constants::SceneID::SAMPLE);
 
-	//UNREFERENCED_PARAMETER(sceneEditor);
-	//UNREFERENCED_PARAMETER(sceneDemo);
-	//UNREFERENCED_PARAMETER(sampleScene);
+	UNREFERENCED_PARAMETER(sceneEditor);
+	UNREFERENCED_PARAMETER(sceneDemo);
+	UNREFERENCED_PARAMETER(sampleScene);
 
 	// Set Initial State
 
@@ -91,7 +91,8 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 	fontId = AEGfxCreateFont("../Resources/Roboto-Regular.ttf", 12);
 	if (fontId < 0)
 	{
-		AE_ASSERT("FAILED TO CREATE FONT");
+		fontId = 0;
+		AE_ASSERT_MESG(fontId, "FAILED TO CREATE FONT");
 	}
 	// Initialization end
 	/////////////////////

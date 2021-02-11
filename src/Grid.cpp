@@ -37,8 +37,8 @@ void Grid::CreateGrid(float _nodeSize, AEVec2 gridSize, AEVec2 _offset )
 
 	if(gridSize.x == 0 || gridSize.y == 0)
 		std::cout << "Error : Grid size cannot be 0 \n" ;
-	size_x = round(gridSize.x/nodeSize);
-	size_y = round(gridSize.x/nodeSize);
+	size_x = static_cast<int>(round(gridSize.x/nodeSize));
+	size_y = static_cast<int>(round(gridSize.x/nodeSize));
 	
 	try
 	{
@@ -60,9 +60,9 @@ void Grid::CreateGrid(float _nodeSize, AEVec2 gridSize, AEVec2 _offset )
 
 	//top right node
 	AEVec2 startNode = AEVec2{ offset.x - extend.x - half_node  , offset.y + extend.y - half_node };
-	for (size_t y = 0; y < size_y; y++)
+	for (int y = 0; y < size_y; y++)
 	{
-		for (size_t x = 0; x < size_x; x++)
+		for (int x = 0; x < size_x; x++)
 		{
 			//calculate position
 			grid[y][x].index_x = x;
@@ -110,9 +110,9 @@ Node* Grid::GetNodeFromPosition(AEVec2 pos)
 	result.x += gridExtend.x;
 	result.y -= gridExtend.y;
 
-	float half_size = nodeSize * 0.5f;
-	unsigned int  x = static_cast<unsigned int>(ceil(result.x  / nodeSize));
-	unsigned int  y = static_cast<unsigned int>(ceil(result.y  / nodeSize));
+	//float half_size = nodeSize * 0.5f;
+	int  x = static_cast<int>(ceil(result.x  / nodeSize));
+	int  y = static_cast<int>(ceil(result.y  / nodeSize));
 
 	if (x >= 0 && x < size_x && y >= 0 && y < size_y)
 	{

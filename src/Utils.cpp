@@ -1,4 +1,5 @@
 #include "Utils.h"
+#include "GraphicsManager.h"
 
 AEVec2 StarBangBang::GetMouseWorldPos()
 {
@@ -10,8 +11,10 @@ AEVec2 StarBangBang::GetMouseWorldPos()
 
 	AEVec2 pos = { (float)mouseX, (float)-mouseY };
 	AEMtx33 mtx;
+	float zoom = Graphics::GetZoom();
 
 	AEMtx33Trans(&mtx, -AEGetWindowWidth() / 2 + CameraPos.x, AEGetWindowHeight() / 2 + CameraPos.y);
+	AEMtx33ScaleApply(&mtx, &mtx, 1 / zoom, 1 / zoom);
 	AEMtx33MultVec(&pos, &mtx, &pos);
 
 	return pos;

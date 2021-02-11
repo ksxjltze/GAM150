@@ -1,4 +1,6 @@
 #include "BasicMeshShape.h"
+#include "GraphicsManager.h"
+
 using namespace StarBangBang;
 const unsigned int sides = 30;
 
@@ -25,8 +27,8 @@ void StarBangBang::InitBasicMesh()
 	{
 		float radian = interval * i;
 	
-		float x = sin(radian);
-		float y = cos(radian);
+		float x = static_cast<float>(sin(radian));
+		float y = static_cast<float>(cos(radian));
 		
 		AEGfxVertexAdd(x,y, 0xFF00FF00,0.0f,0.0f);
 		
@@ -40,11 +42,16 @@ void StarBangBang::DrawBox(AEVec2 size,AEVec2 pos)
 {
 	AEMtx33 scale = AEMtx33();
 	AEMtx33 result = AEMtx33();
+	float zoom = Graphics::GetZoom();
 	
 	AEGfxSetRenderMode(AE_GFX_RM_COLOR);
+
 	AEMtx33Scale(&scale,size.x, size.y);
 	AEMtx33TransApply(&result,&scale,pos.x,pos.y);
+	AEMtx33ScaleApply(&result, &result, zoom, zoom);
 	AEGfxSetTransform(result.m);
+
+
 	AEGfxMeshDraw(unitboxMesh, AEGfxMeshDrawMode::AE_GFX_MDM_LINES_STRIP);
 }
 
@@ -53,11 +60,15 @@ void StarBangBang::DrawCircle(float radius, AEVec2 pos)
 {
 	AEMtx33 scale = AEMtx33();
 	AEMtx33 result = AEMtx33();
+	float zoom = Graphics::GetZoom();
+
 	AEGfxSetRenderMode(AE_GFX_RM_COLOR);
 	AEMtx33Scale(&scale, radius, radius);
 
 	AEMtx33TransApply(&result, &scale, pos.x, pos.y);
+	AEMtx33ScaleApply(&result, &result, zoom, zoom);
 	AEGfxSetTransform(result.m);
+
 	AEGfxMeshDraw(unitcircleMesh, AEGfxMeshDrawMode::AE_GFX_MDM_LINES_STRIP);
 }
 

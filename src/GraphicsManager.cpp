@@ -93,6 +93,11 @@ void StarBangBang::Graphics::SetZoom(float scale)
 	zoom = scale;
 }
 
+float StarBangBang::Graphics::GetZoom()
+{
+	return zoom;
+}
+
 void StarBangBang::Graphics::DrawImage(AEGfxVertexList* mesh, AEGfxTexture* texture, AEVec2 pos, AEVec2 scale, float rotation)
 {
 	AEGfxSetRenderMode(AE_GFX_RM_TEXTURE);
