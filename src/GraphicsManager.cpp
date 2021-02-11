@@ -88,6 +88,11 @@ void StarBangBang::GraphicsManager::FreeMeshes()
 	meshList.clear();
 }
 
+void StarBangBang::Graphics::SetZoom(float scale)
+{
+	zoom = scale;
+}
+
 void StarBangBang::Graphics::DrawImage(AEGfxVertexList* mesh, AEGfxTexture* texture, AEVec2 pos, AEVec2 scale, float rotation)
 {
 	AEGfxSetRenderMode(AE_GFX_RM_TEXTURE);
@@ -112,6 +117,9 @@ void StarBangBang::Graphics::DrawImage(AEGfxVertexList* mesh, AEGfxTexture* text
 	// Set Transform
 	AEMtx33Concat(&transformMtx, &scaleMtx, &rotationMtx);
 	AEMtx33TransApply(&transformMtx, &transformMtx, pos.x, pos.y);
+
+	// Camera Zoom
+	AEMtx33ScaleApply(&transformMtx, &transformMtx, zoom, zoom);
 
 	AEGfxSetTransform(transformMtx.m);
 

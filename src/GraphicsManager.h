@@ -7,7 +7,9 @@ namespace StarBangBang
 {
 	namespace Graphics
 	{
+		static float zoom = 1;
 		void DrawImage(AEGfxVertexList* mesh, AEGfxTexture* texture, AEVec2 pos, AEVec2 scale, float rotation);
+		void SetZoom(float scale);
 	}
 
 	class GraphicsManager

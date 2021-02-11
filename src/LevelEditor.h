@@ -9,7 +9,7 @@ namespace StarBangBang
 {
 	struct TileSprite
 	{
-		int id;
+		int id = -1;
 		std::string name;
 		Sprite sprite;
 	};
@@ -17,7 +17,7 @@ namespace StarBangBang
 	struct Tile
 	{
 		TileSprite sprite;
-		GameObject* gameObject;
+		GameObject* gameObject { nullptr };
 	};
 
 	class LevelEditor : public Scene

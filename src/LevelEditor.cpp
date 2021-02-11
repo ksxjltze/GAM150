@@ -8,8 +8,6 @@
 
 namespace StarBangBang
 {
-	//typedef std::pair<std::string, Sprite> TileImage;
-	//typedef std::pair<Node*, GameObject*> Tile;
 
 	void HighLightGridNode(Grid& grid)
 	{
