@@ -97,6 +97,7 @@
     <ClCompile Include="src\CollisionManager.cpp" />
     <ClCompile Include="src\DragComponent.cpp" />
     <ClCompile Include="src\EventTest.cpp" />
+    <ClCompile Include="src\FileManager.cpp" />
     <ClCompile Include="src\GameObject.cpp" />
     <ClCompile Include="src\GameStateManager.cpp" />
     <ClCompile Include="src\GraphicsManager.cpp" />
@@ -137,6 +138,7 @@
     <ClInclude Include="src\DragComponent.h" />
     <ClInclude Include="src\Event.h" />
     <ClInclude Include="src\EventTest.h" />
+    <ClInclude Include="src\FileManager.h" />
     <ClInclude Include="src\GameObject.h" />
     <ClInclude Include="src\GameStateManager.h" />
     <ClInclude Include="src\GraphicsManager.h" />

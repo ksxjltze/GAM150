@@ -1,6 +1,7 @@
 #include "ObjectManager.h"
 #include "Utils.h"
 #include <typeinfo>
+#include <fstream>
 
 void StarBangBang::ObjectManager::AddComponent(GameObject* gameObject, _Component* component)
 {
@@ -104,9 +105,35 @@ void StarBangBang::ObjectManager::DestroyGameObject(GameObject* gameObject)
 	}
 }
 
-void StarBangBang::ObjectManager::SaveGameObject()
+void StarBangBang::ObjectManager::SaveGameObject(const GameObject& gameObject)
 {
+	std::ofstream ofs;
+	ofs.open("../Resources/test.bin", std::fstream::binary | std::ostream::trunc);
+	if (ofs.is_open())
+	{
+		//Write Transform
+		ofs.write(reinterpret_cast<const char*>(&gameObject.transform), sizeof(gameObject.transform));
+		ofs.close();
+	}
+	else
+		fprintf(stderr, "Object Manager: ERROR WRITING TO FILE");
+}
 
+void StarBangBang::ObjectManager::ReadGameObject(const char* path)
+{
+	std::ifstream ifs;
+	ifs.open(path);
+	if (ifs.is_open())
+	{
+		Transform t;
+		ifs.read(reinterpret_cast<char*>(&t), sizeof(Transform));
+		printf("Position: %f %f\n", t.position.x, t.position.y);
+		printf("Rotation: %f\n", t.rotation);
+		printf("Scale:	  %f %f\n", t.scale.x, t.scale.y);
+		ifs.close();
+	}
+	else
+		fprintf(stderr, "Object Manager: ERROR READING FILE");
 }
 
 void StarBangBang::ObjectManager::FreeObjects()

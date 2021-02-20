@@ -89,6 +89,11 @@ namespace StarBangBang
 		if (AEInputCheckTriggered(AEVK_RETURN))
 		{
 			SaveLevel();
+			GameObject* serializeTestObj = objectManager.NewGameObject();
+			printf("Saving Game Object\n");
+			objectManager.SaveGameObject(*serializeTestObj);
+			printf("Reading Game Object\n");
+			objectManager.ReadGameObject("../Resources/Test.bin");
 		}
 
 		//Insert/Replace/Remove Tile.
