@@ -35,6 +35,7 @@ namespace StarBangBang
 		void RemoveTile(Node* n);
 		void SaveLevel();
 		void LoadLevel();
+		void CreateLevel();
 		
 		float tileWidth, tileHeight;
 		int mapWidth, mapHeight;

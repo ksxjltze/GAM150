@@ -104,6 +104,11 @@ void StarBangBang::ObjectManager::DestroyGameObject(GameObject* gameObject)
 	}
 }
 
+void StarBangBang::ObjectManager::SaveGameObject()
+{
+
+}
+
 void StarBangBang::ObjectManager::FreeObjects()
 {
 	for (GameObject* obj : gameObjectList)

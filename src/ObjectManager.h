@@ -26,6 +26,7 @@ namespace StarBangBang
 		GameObject* NewGameObject(float width, float height);
 		GameObject* CloneGameObject(GameObject* gameObject);
 		void DestroyGameObject(GameObject* gameObject);
+		void SaveGameObject(); //Serialize
 
 		void FreeObjects();
 		void FreeComponents();

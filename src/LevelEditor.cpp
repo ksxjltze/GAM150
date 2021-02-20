@@ -3,7 +3,6 @@
 #include "Utils.h"
 #include <iostream>
 #include <fstream>
-
 #include "PrimaryMovementController.h"
 
 namespace StarBangBang
@@ -36,32 +35,35 @@ namespace StarBangBang
 		palette.insert(stoneTile);
 	}
 
+	void LevelEditor::CreateLevel()
+	{
+		for (int y = 0; y < mapHeight; y++)
+		{
+			std::vector<Tile> row;
+			row.reserve(mapWidth);
+
+			for (int x = 0; x < mapWidth; x++)
+			{
+				Node* node = grid.GetNode(x, y);
+				GameObject* obj = objectManager.NewGameObject();
+				objectManager.AddImage(obj, selectedTile.sprite);
+
+				obj->SetPos(node->nodePos);
+				Tile tile{ selectedTile , obj };
+
+				node->occupied = true;
+				row.push_back(tile);
+			}
+			tileObjects.push_back(row);
+		}
+	}
+
 	void LevelEditor::Init()
 	{
 		grid.CreateGrid(tileWidth, mapWidth, mapHeight);
 		selectedTile = palette.at(2);
 
 		LoadLevel();
-
-		//for (int y = 0; y < mapHeight; y++)
-		//{
-		//	std::vector<Tile> row;
-		//	row.reserve(mapWidth);
-
-		//	for (int x = 0; x < mapWidth; x++)
-		//	{
-		//		Node* node = grid.GetNode(x, y);
-		//		GameObject* obj = objectManager.NewGameObject();
-		//		objectManager.AddImage(obj, selectedTile.sprite);
-
-		//		obj->SetPos(node->nodePos);
-		//		Tile tile{ selectedTile , obj };
-
-		//		node->occupied = true;
-		//		row.push_back(tile);
-		//	}
-		//	tileObjects.push_back(row);
-		//}
 
 		camera = objectManager.NewGameObject();
 		objectManager.AddComponent<CameraComponent>(camera);
@@ -147,7 +149,7 @@ namespace StarBangBang
 
 		if (outputStream.is_open())
 		{
-			for (auto row : tileObjects)
+			for (auto row : tileObjects)	//For Row in Grid (vector<vector<Tile>>)
 			{
 				for (Tile tile : row)
 				{
@@ -167,7 +169,7 @@ namespace StarBangBang
 		inputStream.open("../Resources/Levels/test.txt");
 
 		if (inputStream.is_open())
-		{;
+		{
 			std::string line;
 			
 			int y = 0;
