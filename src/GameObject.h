@@ -31,7 +31,7 @@ namespace StarBangBang
 
 		}
 
-		inline std::vector<_Component*> GetComponents()
+		inline std::vector<_Component*> GetComponents() const
 		{
 			return componentList;
 		}

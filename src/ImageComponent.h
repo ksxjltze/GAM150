@@ -7,6 +7,7 @@ namespace StarBangBang
 	class ImageComponent : public Component<ImageComponent>
 	{
 	public:
+		ImageComponent(GameObject* gameObject);
 		ImageComponent(GameObject* gameObject, AEGfxVertexList* mesh, AEGfxTexture* texture);
 
 		inline void SetTexture(AEGfxTexture* texturePtr) { texture = texturePtr; }

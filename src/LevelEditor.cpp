@@ -27,6 +27,7 @@ namespace StarBangBang
 		tileObjects.reserve(mapHeight);
 		Sprite grassSprite = graphicsManager.CreateSprite(Constants::PROTOTYPE_SPRITE_GRASS_PATH, tileWidth, tileHeight);
 		Sprite stoneSprite = graphicsManager.CreateSprite(Constants::PROTOTYPE_SPRITE_STONE_PATH, tileWidth, tileHeight);
+		boi		   = graphicsManager.CreateSprite(Constants::PROTOTYPE_SPRITE_1_PATH, tileWidth, tileHeight);
 
 		auto grassTile = std::pair<int, TileSprite>(1, { 1, "Grass", grassSprite });
 		auto stoneTile = std::pair<int, TileSprite>(2, { 2, "Stone", stoneSprite });
@@ -90,10 +91,24 @@ namespace StarBangBang
 		{
 			SaveLevel();
 			GameObject* serializeTestObj = objectManager.NewGameObject();
+			objectManager.AddImage(serializeTestObj, boi);
+
 			printf("Saving Game Object\n");
 			objectManager.SaveGameObject(*serializeTestObj);
+			objectManager.DestroyGameObject(serializeTestObj);
+		}
+
+		if (AEInputCheckTriggered(AEVK_R))
+		{
 			printf("Reading Game Object\n");
-			objectManager.ReadGameObject("../Resources/Test.bin");
+			GameObject* obj = &objectManager.ReadGameObject("../Resources/Test.bin");
+			ImageComponent* image = obj->GetComponent<ImageComponent>();
+
+			if (image)
+			{
+				image->SetMesh(boi.mesh);
+				image->SetTexture(boi.texture);
+			}
 		}
 
 		//Insert/Replace/Remove Tile.

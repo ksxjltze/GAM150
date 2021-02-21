@@ -105,7 +105,7 @@ void StarBangBang::ObjectManager::DestroyGameObject(GameObject* gameObject)
 	}
 }
 
-void StarBangBang::ObjectManager::SaveGameObject(const GameObject& gameObject)
+void StarBangBang::ObjectManager::SaveGameObject(GameObject& gameObject)
 {
 	std::ofstream ofs;
 	ofs.open("../Resources/test.bin", std::fstream::binary | std::ostream::trunc);
@@ -113,27 +113,57 @@ void StarBangBang::ObjectManager::SaveGameObject(const GameObject& gameObject)
 	{
 		//Write Transform
 		ofs.write(reinterpret_cast<const char*>(&gameObject.transform), sizeof(gameObject.transform));
+
+		//Write Components
+		for (_Component* c : (&gameObject)->GetComponents())
+		{
+			char test[64];
+			memset(test, 0, 64);
+			strcpy_s(test, 64, typeid(*c).name());
+
+			ofs.write(reinterpret_cast<const char*>(&test), sizeof(test));
+		}
 		ofs.close();
 	}
 	else
 		fprintf(stderr, "Object Manager: ERROR WRITING TO FILE");
 }
 
-void StarBangBang::ObjectManager::ReadGameObject(const char* path)
+StarBangBang::GameObject& StarBangBang::ObjectManager::ReadGameObject(const char* path)
 {
 	std::ifstream ifs;
 	ifs.open(path);
+	GameObject* gameObject = NewGameObject();
+
 	if (ifs.is_open())
 	{
-		Transform t;
-		ifs.read(reinterpret_cast<char*>(&t), sizeof(Transform));
+		ifs.read(reinterpret_cast<char*>(&gameObject->transform), sizeof(Transform));
+
+		Transform t = gameObject->transform;
 		printf("Position: %f %f\n", t.position.x, t.position.y);
 		printf("Rotation: %f\n", t.rotation);
 		printf("Scale:	  %f %f\n", t.scale.x, t.scale.y);
+		
+		char type[64];
+		memset(type, 0, 64);
+
+		ifs.read(reinterpret_cast<char*>(&type), sizeof(type));
+		printf("Component Type: %s", type);
+
+		if (std::string(type) == std::string(typeid(ImageComponent).name()))
+		{
+			printf("COMPONENT MATCH\n");
+			ImageComponent* image = new ImageComponent(gameObject);
+			componentList.push_back(image);
+			gameObject->AddComponent(image);
+		}
+
 		ifs.close();
 	}
 	else
 		fprintf(stderr, "Object Manager: ERROR READING FILE");
+
+	return *gameObject;
 }
 
 void StarBangBang::ObjectManager::FreeObjects()

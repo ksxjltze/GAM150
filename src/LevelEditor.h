@@ -40,6 +40,7 @@ namespace StarBangBang
 		float tileWidth, tileHeight;
 		int mapWidth, mapHeight;
 		TileSprite selectedTile;
+		Sprite boi;
 
 		std::map<int, TileSprite> palette;
 		std::vector<std::vector<Tile>> tileObjects;
