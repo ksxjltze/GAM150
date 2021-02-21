@@ -153,9 +153,6 @@ StarBangBang::GameObject& StarBangBang::ObjectManager::ReadGameObject(const char
 		if (std::string(type) == std::string(typeid(ImageComponent).name()))
 		{
 			printf("COMPONENT MATCH\n");
-			ImageComponent* image = new ImageComponent(gameObject);
-			componentList.push_back(image);
-			gameObject->AddComponent(image);
 		}
 
 		ifs.close();

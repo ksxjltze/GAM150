@@ -106,8 +106,7 @@ namespace StarBangBang
 
 			if (image)
 			{
-				image->SetMesh(boi.mesh);
-				image->SetTexture(boi.texture);
+				image->SetSprite(boi);
 			}
 		}
 

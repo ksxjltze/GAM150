@@ -8,17 +8,15 @@ namespace StarBangBang
 	{
 	public:
 		ImageComponent(GameObject* gameObject);
+		ImageComponent(GameObject* gameObject, Sprite sprite);
 		ImageComponent(GameObject* gameObject, AEGfxVertexList* mesh, AEGfxTexture* texture);
-
-		inline void SetTexture(AEGfxTexture* texturePtr) { texture = texturePtr; }
-		inline void SetMesh(AEGfxVertexList* meshPtr) { mesh = meshPtr; }
-
-		inline AEGfxTexture* GetTexture() { return texture; }
-		inline AEGfxVertexList* GetMesh() { return mesh; }
+		void SetSprite(Sprite s) { sprite = s; }
+		void SetTexture(AEGfxTexture* texture);
+		void SetMesh(AEGfxVertexList* mesh);
+		Sprite GetSprite() { return sprite; }
 
 		void Draw();
 	private:
-		AEGfxVertexList* mesh;
-		AEGfxTexture* texture;
+		Sprite sprite;
 	};
 }
