@@ -124,7 +124,8 @@ Node* Grid::GetNodeFromPosition(AEVec2 pos)
 
 Node* StarBangBang::Grid::GetNode(int x, int y)
 {
-	return &grid[y][x];
+	if(x >= 0 && x < size_x && y >= 0 && y < size_y)
+		return &grid[y][x];
 }
 
 

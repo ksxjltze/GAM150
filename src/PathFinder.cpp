@@ -5,11 +5,10 @@
 #include "BasicMeshShape.h"
 using namespace StarBangBang;
 
-Grid grid;
 
 void PathFinder::Init()
 {
-	grid = Grid();
+	PathFinder::grid = Grid();
 }
 
 void PathFinder::Free()

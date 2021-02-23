@@ -4,6 +4,198 @@
 #include "BasicMeshShape.h"
 using namespace StarBangBang;
 
+
+std::queue<CollisionPair> resolveQueue;
+
+CollisionData::CollisionData() 
+	:pen_depth{ 0.0f }, col_normal{ 0.0f, 0.0f } {}
+
+
+
+
+void CalculateCollisionData(BoxCollider b1, BoxCollider b2, CollisionData& col)
+{
+	AEVec2 dist = AEVec2{ b2.center.x - b1.center.x , b2.center.y - b1.center.y };
+	float x_intersect = b1.extend.x + b2.extend.x - fabs(dist.x);
+	float y_intersect = b1.extend.y + b2.extend.y - fabs(dist.y);
+
+	//Find the min intersect distance 
+	if (x_intersect > y_intersect)
+	{
+		col.pen_depth = x_intersect;
+		// means that b2 center on the left of b1 center 
+		if (dist.x < 0)
+			col.col_normal = AEVec2{ 1.0f,0.0f };
+		else
+			col.col_normal = AEVec2{ -1.0f,0.0f };
+	}
+	else
+	{
+		col.pen_depth = y_intersect;
+		//means b2 center is below b1 center
+		if (dist.y < 0)
+			col.col_normal = AEVec2{ 0.0f, 1.0f };
+		else
+			col.col_normal = AEVec2{ 0.0f,-1.0f };
+
+	}
+	
+
+}
+//vip
+void CollisionManager::ResolverUpdate()
+{
+	if (resolveQueue.empty())
+		return;
+	for (size_t i = 0; i < resolveQueue.size(); i++)
+	{
+		CollisionPair& pair = resolveQueue.front();
+		//CollisionManager::Resolve()
+	}
+	
+	
+}
+
+void CollisionManager::AddToResolveQueue(CollisionPair& pair)
+{
+	resolveQueue.push(pair);
+}
+//check for static aabb
+bool CollisionManager::StaticAABB_Check(const BoxCollider& A, const BoxCollider& B , CollisionData& data)
+{
+
+	if (A.isTrigger || B.isTrigger)
+		return false;
+
+	//A is outside B bounding box
+	if (A.Min().x > B.Max().x || A.Min().y > B.Max().y)
+	{
+		return false;
+	}
+	//B is outside A bounding box
+	if (B.Min().x > A.Max().x || B.Min().y > A.Max().y)
+	{
+		return false;
+	}
+	CalculateCollisionData(A,B,data);
+	return true;
+}
+
+//check for moving aabbs
+bool CollisionManager::Dynamic_AABB(const BoxCollider& A, const AEVec2& vel1,
+	const BoxCollider& B, const AEVec2& vel2, CollisionData& data)
+{ 
+	if (StaticAABB_Check(A, B,data))
+		return true;
+	//first collision time //collision exit time
+	float t_first = 0, t_last = (float)AEFrameRateControllerGetFrameTime();
+	//B relative velocity to A (where A = aabb1,vel1 , B = aabb2 , vel2)
+	AEVec2 rVel_B{ vel2.x - vel1.x,vel2.y - vel1.y };
+
+	//x-axis
+	//B moving left
+	if (rVel_B.x < 0)
+	{
+		//A is on the right
+		if (A.Min().x > B.Max().x)
+			return false;
+		//A is on the left
+		if (A.Max().x < B.Min().x)
+		{
+			//curr collision time
+			float f_temp = (A.Max().x - B.Min().x) / rVel_B.x;
+			//take the max time compared to last frame
+			t_first = max(f_temp, t_first);
+
+		}
+		//the frame where B is exiting A
+		if (A.Min().x < B.Max().x)
+		{
+			//last collision time
+			float l_temp = (A.Min().x - B.Max().x) / rVel_B.x;
+			//take the min time compared to last frame
+			t_last = min(l_temp, t_last);
+		}
+
+
+	}
+	//B moving right
+	if (rVel_B.x > 0)
+	{
+		//A is on the left
+		if (A.Max().x < B.Min().x)
+			return false;
+		//A is on the right
+		if (A.Min().x > B.Max().x)
+		{
+			float f_temp = (A.Min().x - B.Max().x) / rVel_B.x;
+			t_first = max(f_temp, t_first);
+
+		}
+		//the frame where B is exiting A
+		if (A.Max().x > B.Min().x)
+		{
+			float l_temp = (A.Max().x - B.Min().x) / rVel_B.x;
+			t_last = min(l_temp, t_last);
+		}
+
+	}
+
+	//y-axis
+	//B moving down
+	if (rVel_B.y < 0)
+	{
+		//A is on top
+		if (A.Min().y > B.Max().y)
+			return false;
+		//A is on the bottom
+		if (A.Max().y < B.Min().y)
+		{
+			float f_temp = (A.Max().y - B.Min().y) / rVel_B.y;
+			t_first = max(f_temp, t_first);
+
+		}
+		//the frame where B is exiting A
+		if (A.Min().y < B.Max().y)
+		{
+			float l_temp = (A.Min().y - B.Max().y) / rVel_B.y;
+			t_last = min(l_temp, t_last);
+		}
+
+	}
+	//B moving up
+	if (rVel_B.y > 0)
+	{
+		//A is on the bottom
+		if (A.Max().y < B.Min().y)
+			return false;
+		//A is on the top
+		if (A.Min().y > B.Max().y)
+		{
+			float f_temp = (A.Min().y - B.Max().y) / rVel_B.y;
+			t_first = max(f_temp, t_first);
+
+		}
+		//the frame where B is exiting A
+		if (A.Min().y < B.Max().y)
+		{
+			float l_temp = (A.Max().y - B.Min().y) / rVel_B.y;
+			t_last = min(l_temp, t_last);
+		}
+
+	}
+	//no collision 
+	if (t_first > t_last)
+		return false;
+
+
+	//Special case where either A and B static and not intersecting  OR 
+	//They are moving at the same velocity and not colliding with each other in the first place
+	return false;
+
+	
+}
+
 bool CollisionManager::CircleVsCircle(CircleCollider c1, CircleCollider c2, CollisionData& col)
 {
 	//both is trigger no collision
@@ -30,53 +222,6 @@ bool CollisionManager::CircleVsCircle(CircleCollider c1, CircleCollider c2, Coll
 	return true;
 	
 }
-bool CollisionManager::AABBvsAABB(BoxCollider b1, BoxCollider b2, CollisionData& col)
-{
-	//both is trigger no collision
-	if (b1.isTrigger && b1.isTrigger)
-		return false;
-	
-
-	AEVec2 dist = AEVec2{ b2.center.x - b1.center.x , b2.center.y - b1.center.y };
-	float x_intersect = b1.extend.x + b2.extend.x - fabs(dist.x);
-	float y_intersect = b1.extend.y + b2.extend.y - fabs(dist.y);
-
-	//intersect
-	if (x_intersect > 0)
-	{
-		if (y_intersect > 0)
-		{
-			//Find the min intersect distance 
-			if (x_intersect > y_intersect)
-			{
-				col.pen_depth = x_intersect ;
-				// means that b2 center on the left of b1 center (as center.x is b2-b1)
-				if (dist.x < 0)
-					col.col_normal = AEVec2{ 1.0f,0.0f };
-				else
-					col.col_normal = AEVec2{ -1.0f,0.0f };
-
-				return true;
-			}
-			else
-			{
-				col.pen_depth = y_intersect ;
-				//means b2 center is below b1 center
-				if (dist.y < 0)
-					col.col_normal = AEVec2{ 0.0f, 1.0f };
-				else
-					col.col_normal = AEVec2{ 0.0f,-1.0f };
-
-				return true;
-			}
-		}
-			
-	}
-
-	return false;
-
-}
-
 
 void CollisionManager::DebugCollider(BoxCollider b)
 {
@@ -92,70 +237,4 @@ void CollisionManager::DebugCollider(CircleCollider c)
 	StarBangBang::DrawCircle(c.radius,c.center);
 
 }
-
-/*bool CollisionManager::SATBox(BoxCollider b1, BoxCollider b2)
-{
-	bool intersect;
-	AEVec2 axis[6];
-	AEVec2Sub(&axis[0], &b1.points[1], &b1.points[0]);
-	AEVec2Sub(&axis[1], &b1.points[1], &b1.points[2]);
-	AEVec2Sub(&axis[2], &b2.points[1], &b2.points[0]);
-	AEVec2Sub(&axis[3], &b2.points[2], &b2.points[1]);
-	AEVec2Sub(&axis[4], &b2.points[3], &b2.points[2]);
-	AEVec2Sub(&axis[5], &b2.points[3], &b2.points[0]);
-	unsigned int currAxis = 0;
-
-	float b1_min = 10000000.0f, b1_max = -10000000.0f;
-	float b2_min = 10000000.0f, b2_max = -10000000.0f;
-
-	while (currAxis < 7)
-	{
-		//reset value for another test
-		b1_min = 10000000.0f;
-		b1_max = -10000000.0f;
-		b2_min = 10000000.0f;
-		b2_max = -10000000.0f;
-		for (int i = 0; i < 4; i++)
-		{
-			AEVec2 proj_B1 = ProjectOnToAxis(b1.points[i], axis[currAxis]);
-			float b1_temp = AEVec2DotProduct(&proj_B1, &axis[currAxis]);
-
-			//keep track of min and max value on axis for each box corners
-			if (b1_temp < b1_min)
-			{
-				b1_min = b1_temp;
-			}
-			if (b1_temp > b1_max)
-			{
-				b1_max = b1_temp;
-			}
-			AEVec2 proj_B2 = ProjectOnToAxis(b2.points[i], axis[currAxis]);
-			float b2_temp = AEVec2DotProduct(&proj_B2, &axis[currAxis]);
-			//keep track of min and max value on axis for each box corners
-			if (b2_temp < b2_min)
-			{
-				b2_min = b2_temp;
-			}
-			if (b2_temp > b2_max)
-			{
-				b2_max = b2_temp;
-			}
-
-		}
-		//failed to intersect
-		if (b1_max < b2_min || b2_max < b1_min)
-		{
-			return 0;
-		}
-		else
-		{
-			currAxis++;
-			intersect = 1;
-		}
-	}
-
-
-	return intersect;
-}*/
-
 
