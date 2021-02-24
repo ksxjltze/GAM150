@@ -5,15 +5,21 @@
 using namespace StarBangBang;
 
 
-std::queue<CollisionPair> resolveQueue;
+
 
 CollisionData::CollisionData() 
 	:pen_depth{ 0.0f }, col_normal{ 0.0f, 0.0f } {}
 
+CollisionPair::CollisionPair(BoxCollider A, BoxCollider B, CollisionData data) : A{ A }, B{ B }, data()
+{
+}
+namespace 
+{
+	std::queue<CollisionPair> resolveQueue;
+}
 
 
-
-void CalculateCollisionData(BoxCollider b1, BoxCollider b2, CollisionData& col)
+void CalculateCollisionData(const BoxCollider& b1, const BoxCollider& b2, CollisionData& col)
 {
 	AEVec2 dist = AEVec2{ b2.center.x - b1.center.x , b2.center.y - b1.center.y };
 	float x_intersect = b1.extend.x + b2.extend.x - fabs(dist.x);
@@ -42,7 +48,7 @@ void CalculateCollisionData(BoxCollider b1, BoxCollider b2, CollisionData& col)
 	
 
 }
-//vip
+//wip
 void CollisionManager::ResolverUpdate()
 {
 	if (resolveQueue.empty())
@@ -50,13 +56,14 @@ void CollisionManager::ResolverUpdate()
 	for (size_t i = 0; i < resolveQueue.size(); i++)
 	{
 		CollisionPair& pair = resolveQueue.front();
-		//CollisionManager::Resolve()
+		CollisionManager::Resolve(pair.A,pair.B,pair.data);
+		resolveQueue.pop();
 	}
 	
 	
 }
-
-void CollisionManager::AddToResolveQueue(CollisionPair& pair)
+//wip
+void CollisionManager::AddToResolveQueue(CollisionPair pair)
 {
 	resolveQueue.push(pair);
 }
@@ -237,4 +244,5 @@ void CollisionManager::DebugCollider(CircleCollider c)
 	StarBangBang::DrawCircle(c.radius,c.center);
 
 }
+
 

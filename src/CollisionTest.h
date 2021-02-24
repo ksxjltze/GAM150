@@ -39,12 +39,11 @@ namespace StarBangBang
 		
 		if (CollisionManager::Dynamic_AABB(box1, AEVec2{ -500,0 },box2, AEVec2{ 500,0 },data))
 		{
-			//std::cout << "Box collide \n";
+		
 			CollisionManager::Resolve(box1, box2, data);
 		}
 		if (AEInputCheckTriggered(VK_LBUTTON))
-		{
-			
+		{		
 			start = !start;
 		}
 		if (start)
@@ -76,7 +75,41 @@ namespace StarBangBang
 		}
 		
 	}
+	AEVec2 startPos {-128,752};
+	AEVec2 endPos{-415,389};
 	
+	void PathFinderTest()
+	{
+		if (AEInputCheckTriggered(VK_LBUTTON))
+		{
+			endPos = GetMouseWorldPos();
+		}
+		//set occupied node for testing
+		if (AEInputCheckTriggered(VK_RBUTTON))
+		{
+			Node* n = PathFinder::grid.GetNodeFromPosition(GetMouseWorldPos());
+			if (n)
+			{
+				n->occupied = true;
+			}
+				
+		}
+
+		for (int y = 0; y < PathFinder::grid.GetGridSizeY(); y++)
+		{
+			for (int x = 0; x < PathFinder::grid.GetGridSizeX(); x++)
+			{
+				if (PathFinder::grid.GetNode(y, x)->occupied)
+				{
+					std::cout << "Set\n";
+				}
+			}
+		}
+		//std::cout << '(' << GetMouseWorldPos().x << ',' << GetMouseWorldPos().y << ")\n";
+		PathFinder::SearchForPath(startPos, endPos);
+
+	
+	}
 	void TestGrid()
 	{
 		PathFinder::GridDraw();

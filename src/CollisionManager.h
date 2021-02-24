@@ -17,11 +17,11 @@ namespace StarBangBang
 	struct CollisionPair
 	{
 	public:
-		CollisionData data = CollisionData();
-		BoxCollider A;
-		BoxCollider B;
 		
-		CollisionPair() = default;
+		BoxCollider A ;
+		BoxCollider B;
+		CollisionData data;
+		CollisionPair(BoxCollider A, BoxCollider B, CollisionData data);
 	};
 
 
@@ -29,7 +29,7 @@ namespace StarBangBang
 	namespace CollisionManager
 	{
 		void ResolverUpdate();
-		void AddToResolveQueue(CollisionPair&);
+		void AddToResolveQueue(CollisionPair);
 
 		bool StaticAABB_Check(const BoxCollider& A, const BoxCollider& B, CollisionData& data);
 		bool Dynamic_AABB(const BoxCollider& A, const AEVec2& vel1, const BoxCollider& B, const AEVec2& vel2, CollisionData& data);

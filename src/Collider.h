@@ -71,6 +71,6 @@ namespace StarBangBang
 			}
 
 			 BoxCollider( AEVec2 _center, float width = 1.0f, float height = 1.0f);
-		
+			 BoxCollider(const BoxCollider& b) = default;
 	};
 }

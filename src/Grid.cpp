@@ -8,9 +8,8 @@ Grid::Grid()
 {
 	nodeSize = 30.0f;
 	offset = AEVec2{0,0};
-	CreateGrid(nodeSize, AEVec2{ static_cast<f32>(AEGetWindowWidth()), static_cast<f32>(AEGetWindowHeight()) });
+	CreateGrid(nodeSize, AEVec2{ 1000.0f, 1000.0f});
 }
-
 //Change to destructor some time
 void Grid::FreeGrid()
 {
@@ -20,10 +19,15 @@ void Grid::FreeGrid()
 	}
 	delete[] grid;
 }
+Grid::~Grid()
+{
+	//Grid::FreeGrid();
+}
+
+
 
 Grid::Grid(float _nodeSize, AEVec2 gridSize, AEVec2 _offset)
 {
-	std::cout << "Construct \n";
 	this->nodeSize = _nodeSize;
 	this->offset = _offset;
 	CreateGrid(_nodeSize, gridSize, AEVec2{ 0,0 });
@@ -31,14 +35,13 @@ Grid::Grid(float _nodeSize, AEVec2 gridSize, AEVec2 _offset)
 
 void Grid::CreateGrid(float _nodeSize, AEVec2 gridSize, AEVec2 _offset )
 {
-	std::cout << "Create \n";
 	nodeSize = _nodeSize;
 	offset = _offset;
 
 	if(gridSize.x == 0 || gridSize.y == 0)
 		std::cout << "Error : Grid size cannot be 0 \n" ;
 	size_x = static_cast<int>(round(gridSize.x/nodeSize));
-	size_y = static_cast<int>(round(gridSize.x/nodeSize));
+	size_y = static_cast<int>(round(gridSize.y/nodeSize));
 	
 	try
 	{
@@ -50,7 +53,7 @@ void Grid::CreateGrid(float _nodeSize, AEVec2 gridSize, AEVec2 _offset )
 
 		}
 	}
-	catch (std::bad_alloc& exp)
+	catch (const std::bad_alloc& exp)
 	{
 		std::cout << "Allocation failed for grid object:" << exp.what() << std::endl;
 	}
@@ -80,7 +83,7 @@ void StarBangBang::Grid::CreateGrid(float _nodeSize, int width, int height)
 	CreateGrid(_nodeSize, size, { _nodeSize / 2, _nodeSize / 2 - size.y});
 }
 
-std::vector<Node*> Grid::GetNodeNeighbours(Node* node)
+std::vector<Node*> Grid::GetNodeNeighbours(const Node* node)
 {
 	std::vector<Node*> n;
 	n.reserve(8);

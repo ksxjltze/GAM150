@@ -118,6 +118,9 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 		StarBangBang::Test_BoxUpdate();
 		//StarBangBang::Test_CircleUpdate();
 		StarBangBang::TestGrid();
+		CollisionManager::ResolverUpdate();
+		StarBangBang::PathFinderTest();
+
 
 		char strBuffer[100];
 		memset(strBuffer, 0, 100 * sizeof(char));
