@@ -100,6 +100,7 @@ namespace StarBangBang
 
 		if (AEInputCheckTriggered(AEVK_R))
 		{
+			LoadLevel();
 			printf("Reading Game Object\n");
 			GameObject* obj = &objectManager.ReadGameObject("../Resources/Test.bin");
 			ImageComponent* image = obj->GetComponent<ImageComponent>();
