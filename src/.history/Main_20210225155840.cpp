@@ -14,7 +14,8 @@
 #include "CollisionTest.h"
 #include "Sample_Scene.h"
 #include "LevelEditor.h"
-#include "BasicMeshShape.h"
+#include "TestState.h"
+#include "CollisionTest.h"
 
 // ---------------------------------------------------------------------------
 // main
@@ -72,6 +73,9 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 	//// Using custom window procedure
 	AESysInit(hInstance, nCmdShow, 800, 600, 1, 60, true, NULL);
 
+	////Init all the stuff for testing in collisionTest.h
+	StarBangBang::InitTest();
+
 	//Full screen
 	//AESysInit(hInstance, nCmdShow, 1920, 1080, 1, 60, true, NULL);
 	//AEToogleFullScreen(true);
@@ -92,8 +96,6 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 		fontId = 0;
 		AE_ASSERT_MESG(fontId, "FAILED TO CREATE FONT");
 	}
-
-	StarBangBang::InitBasicMesh();
 	// Initialization end
 	/////////////////////
 
@@ -142,6 +144,8 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 	////Audio Engine (temp implementation)
 	audioEngine.ReleaseSound(sound);
 	audioEngine.Exit();
+
+	FreeTest();
 
 	//free font
 	AEGfxDestroyFont(fontId);

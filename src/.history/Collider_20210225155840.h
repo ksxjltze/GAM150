@@ -1,14 +1,13 @@
 #pragma once
 #include "GameObject.h"
-#include "ComponentCRTP.h"
-
+#include "Component.h"
 namespace StarBangBang
 {
 	enum class ShapeType {Box,Circle};
-	class Collider : public Component<Collider>
+	class Collider : public Component
 	{
+		
 		public:
-			Collider(GameObject* gameObject) : Component<Collider>(gameObject) {}
 			bool isTrigger = false;
 		protected:
 			GameObject *gameObject = nullptr;

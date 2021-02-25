@@ -1,9 +1,9 @@
 #include "CollisionManager.h"
 #include <cmath>
 #include <iostream>
+#include "BasicMeshShape.h"
 #include <time.h>
 using namespace StarBangBang;
-
 const float bounciness = 1.25f;
 
 AEVec2 CollisionManager::ProjectOnToAxis(AEVec2 v, AEVec2 axis)
@@ -23,6 +23,77 @@ bool CollisionManager::CircleVsCircle(CircleCollider c1, CircleCollider c2, Coll
 
 	if (d != 0)
 	{	
+		col.pen_depth = r - d;
+		//normalize normal with calculated distance
+		col.col_normal = AEVec2{ (c2.center.x - c1.center.x) / d , (c2.center.y - c1.center.y) / d };
+		return true;
+	}
+	//same circle center	
+	col.pen_depth = c1.radius > c2.radius ? c2.radius: c1.radius;
+	col.col_normal = AEVec2{ 0, 1 };
+	return true;
+	
+}
+bool CollisionManager::AABBvsAABB(BoxCollider b1, BoxCollider b2, CollisionData& col)
+{
+	//both is trigger no collision
+	if (b1.isTrigger && b1.isTrigger)
+		return false;
+	
+
+	AEVec2 dist = AEVec2{ b2.center.x - b1.center.x , b2.center.y - b1.center.y };
+	float x_intersect = b1.extend.x + b2.extend.x - fabs(dist.x);
+	float y_intersect = b1.extend.y + b2.extend.y - fabs(dist.y);
+
+	//intersect
+	if (x_intersect > 0)
+	{
+		if (y_intersect > 0)
+		{
+			//Find the min intersect distance 
+			if (x_intersect > y_intersect)
+			{
+				col.pen_depth = x_intersect ;
+				// means that b2 center on the left of b1 center (as center.x is b2-b1)
+				if (dist.x < 0)
+					col.col_normal = AEVec2{ 1.0f,0.0f };
+				else
+					col.col_normal = AEVec2{ -1.0f,0.0f };
+
+				return true;
+			}
+			else
+			{
+				col.pen_depth = y_intersect ;
+				//means b2 center is below b1 center
+				if (dist.y < 0)
+					col.col_normal = AEVec2{ 0.0f, 1.0f };
+				else
+					col.col_normal = AEVec2{ 0.0f,-1.0f };
+
+				return true;
+			}
+		}
+			
+	}
+
+	return false;
+
+}
+
+
+void CollisionManager::DebugCollider(BoxCollider b)
+{
+	
+	AEVec2 size = AEVec2{ b.GetWidth(),b.GetHeight() };
+	StarBangBang::DrawBox(size, b.center);
+
+}
+
+void CollisionManager::DebugCollider(CircleCollider c)
+{
+
+	StarBangBang::DrawCircle(c.radius,c.center);
 		col->pen_depth = r - d;
 		col->col_normal = AEVec2{ (c2.center.x - c1.center.x) / d , (c2.center.y - c1.center.y) / d };
 		return true;

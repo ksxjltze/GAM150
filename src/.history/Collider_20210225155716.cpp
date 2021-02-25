@@ -11,8 +11,7 @@ float BoxCollider::GetHeight()
 {
     return extend.x * 2.0f;
 }
-
-BoxCollider::BoxCollider(GameObject* _go, AEVec2 _center, float width, float height) : Collider(_go)
+BoxCollider::BoxCollider(GameObject* _go,AEVec2 _center, float width, float height)
 {
 	shape = ShapeType::Box;
 	gameObject = _go;
@@ -22,8 +21,7 @@ BoxCollider::BoxCollider(GameObject* _go, AEVec2 _center, float width, float hei
 	center = _center;
 	
 }
-
-CircleCollider::CircleCollider(GameObject* _go, AEVec2 _center, float _rad ) : Collider(_go)
+CircleCollider::CircleCollider(GameObject* _go, AEVec2 _center, float _rad )
 {
 	shape = ShapeType::Circle;
 	gameObject = _go;

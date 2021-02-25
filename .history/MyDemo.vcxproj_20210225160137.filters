@@ -183,11 +183,20 @@
     <ClCompile Include="src\PathFinder.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\TileManager.cpp">
+<<<<<<< HEAD
     <ClCompile Include="src\Physics.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\FileManager.cpp">
+=======
+    <ClCompile Include="src\TileManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Collider.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GameObject.cpp">
+>>>>>>> Yg
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -198,11 +207,16 @@
     <ClInclude Include="src\MemoryManager.h">
       <Filter>Header Files\Engine</Filter>
     </ClInclude>
+<<<<<<< HEAD
     <ClInclude Include="src\Level_Demo.h">
       <Filter>Header Files\Scenes</Filter>
     </ClInclude>
     <ClInclude Include="src\Utils.h">
       <Filter>Header Files\Engine</Filter>
+=======
+    <ClInclude Include="src\TestObject.h">
+      <Filter>Header Files</Filter>
+>>>>>>> Yg
     </ClInclude>
     <ClInclude Include="src\ScriptComponent.h">
       <Filter>Header Files\Engine\Components</Filter>
