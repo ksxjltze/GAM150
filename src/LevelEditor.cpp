@@ -4,6 +4,7 @@
 #include <iostream>
 #include <fstream>
 #include "PrimaryMovementController.h"
+#include "Serialization.h"
 
 namespace StarBangBang
 {
@@ -16,10 +17,15 @@ namespace StarBangBang
 			DrawCircle(grid.GetNodeSize() / 2, n->nodePos);
 	}
 
-	LevelEditor::LevelEditor(int id, GameStateManager& manager) : Scene(id, manager), serializeTestObj{ 0 }
+	LevelEditor::LevelEditor(int id, GameStateManager& manager) : Scene(id, manager), serializeTestObj{*(new SerializeTest(0))}
 	{
 		tileWidth = 100; tileHeight = 100;
 		mapWidth = 20, mapHeight = 20;
+	}
+
+	LevelEditor::~LevelEditor()
+	{
+		delete &serializeTestObj;
 	}
 
 	void LevelEditor::Load()
@@ -90,6 +96,7 @@ namespace StarBangBang
 		if (AEInputCheckTriggered(AEVK_RETURN))
 		{
 			SaveLevel();
+			Serialization::SaveObject(serializeTestObj);
 			//GameObject* serializeTestObj = objectManager.NewGameObject();
 			//objectManager.AddImage(serializeTestObj, boi);
 
@@ -101,6 +108,7 @@ namespace StarBangBang
 		if (AEInputCheckTriggered(AEVK_R))
 		{
 			LoadLevel();
+			Serialization::LoadObject(serializeTestObj);
 			//printf("Reading Game Object\n");
 			//GameObject* obj = &objectManager.ReadGameObject("../Resources/Test.bin");
 			//ImageComponent* image = obj->GetComponent<ImageComponent>();

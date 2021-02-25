@@ -3,16 +3,16 @@
 
 namespace StarBangBang
 {
-	class SerializeTest : private ISerializable
+	class SerializeTest : public ISerializable
 	{
 	public:
-		int test { 0 };
+		SerializeTest(int id);
+		int test { 69 };
 	private:
 		//temp
-		friend class LevelEditor;
+		friend class Serialization;
 
-		SerializeTest(int id);
-		std::ostream& Save(std::ostream&);
+		std::ostream& Save(std::ostream&) const;
 		std::istream& Load(std::istream&);
 
 	};

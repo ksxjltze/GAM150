@@ -9,9 +9,10 @@ namespace StarBangBang
 	{
 	protected:
 		ISerializable(int id) : id{ id } {}
-		virtual std::ostream& Save(std::ostream&) = 0;
+		virtual std::ostream& Save(std::ostream&) const = 0;
 		virtual std::istream& Load(std::istream&) = 0;
 	private:
+		friend class Serialization;
 		const int id;
 
 	};

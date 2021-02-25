@@ -25,6 +25,8 @@ namespace StarBangBang
 	{
 	public:
 		LevelEditor(int id, GameStateManager& manager);
+		~LevelEditor();
+
 		void Load();
 		void Init();
 		void Update();
@@ -49,6 +51,6 @@ namespace StarBangBang
 		GameObject* camera{ nullptr };
 		Grid grid;
 
-		SerializeTest serializeTestObj;
+		SerializeTest& serializeTestObj;
 	};
 }
