@@ -127,6 +127,6 @@ std::vector<Node*> PathFinder::SearchForPath(AEVec2 start, AEVec2 target)
 			}
 		}
 	}
-
+	return pathing;
 }
 
