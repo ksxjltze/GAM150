@@ -17,11 +17,10 @@ namespace StarBangBang
 
 	static CollisionData data = CollisionData();
 
+	extern Grid worldGrid;
 	void InitTest()
 	{
-		StarBangBang::InitBasicMesh();
-		PathFinder::Init();
-		//grid.CreateGrid(30.0f, AEVec2{ static_cast<f32>(AEGetWindowWidth()), static_cast<f32>(AEGetWindowHeight()) });
+		
 	}
 
 	void FreeTest()
@@ -32,14 +31,13 @@ namespace StarBangBang
 	bool start = false;
 	void Test_BoxUpdate()
 	{
-		float dt = AEFrameRateControllerGetFrameTime();
+		float dt = (float)AEFrameRateControllerGetFrameTime();
 		//box1.isStatic = true;
 		CollisionManager::DebugCollider(box1);
 		CollisionManager::DebugCollider(box2);
-		
 		if (CollisionManager::Dynamic_AABB(box1, AEVec2{ -500,0 },box2, AEVec2{ 500,0 },data))
 		{
-		
+			
 			CollisionManager::Resolve(box1, box2, data);
 		}
 		if (AEInputCheckTriggered(VK_LBUTTON))
@@ -76,37 +74,39 @@ namespace StarBangBang
 		
 	}
 	AEVec2 startPos {-128,752};
-	AEVec2 endPos{-415,389};
-	
+	AEVec2 endPos{-514,840};
+	std::vector<Node*> path;
 	void PathFinderTest()
 	{
+		//set start pos 
+		if (AEInputCheckTriggered(VK_RBUTTON))
+			startPos = GetMouseWorldPos();
+
+		//set end pos and start pathfinding
 		if (AEInputCheckTriggered(VK_LBUTTON))
 		{
 			endPos = GetMouseWorldPos();
+			path = PathFinder::SearchForPath(startPos, endPos);
 		}
-		//set occupied node for testing
-		if (AEInputCheckTriggered(VK_RBUTTON))
+		if (AEInputCheckTriggered(AEVK_RETURN))
 		{
-			Node* n = PathFinder::grid.GetNodeFromPosition(GetMouseWorldPos());
-			if (n)
-			{
-				n->occupied = true;
-			}
-				
+			PathFinder::worldGrid.GetNodeFromPosition(GetMouseWorldPos())->occupied = true;
+		}
+		if (AEInputCheckTriggered(AEVK_1))
+			PRINT("(%f,%f)\n", GetMouseWorldPos().x, GetMouseWorldPos().y);
+		
+		if (path.empty())
+			return;
+
+		for (const Node* n : path)
+		{
+			DrawCircle(10.0f, n->nodePos);
 		}
 
-		for (int y = 0; y < PathFinder::grid.GetGridSizeY(); y++)
-		{
-			for (int x = 0; x < PathFinder::grid.GetGridSizeX(); x++)
-			{
-				if (PathFinder::grid.GetNode(y, x)->occupied)
-				{
-					std::cout << "Set\n";
-				}
-			}
-		}
-		//std::cout << '(' << GetMouseWorldPos().x << ',' << GetMouseWorldPos().y << ")\n";
-		PathFinder::SearchForPath(startPos, endPos);
+		
+			
+
+		
 
 	
 	}

@@ -6,7 +6,6 @@ using namespace StarBangBang;
 
 
 
-
 CollisionData::CollisionData() 
 	:pen_depth{ 0.0f }, col_normal{ 0.0f, 0.0f } {}
 
@@ -16,6 +15,7 @@ CollisionPair::CollisionPair(BoxCollider A, BoxCollider B, CollisionData data) :
 namespace 
 {
 	std::queue<CollisionPair> resolveQueue;
+	std::vector<BoxCollider> colliders;
 }
 
 
@@ -234,7 +234,7 @@ void CollisionManager::DebugCollider(BoxCollider b)
 {
 	
 	AEVec2 size = AEVec2{ b.GetWidth(),b.GetHeight() };
-	StarBangBang::DrawBox(size, b.center);
+	StarBangBang::DrawBoxWired(size, b.center);
 
 }
 

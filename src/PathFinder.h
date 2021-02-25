@@ -4,15 +4,13 @@
 
 namespace StarBangBang
 {
-	
-	
 	namespace PathFinder
 	{
-		 static Grid grid;
-		void Init();
+		
 		void Free();
-		void SearchForPath(AEVec2 start, AEVec2 target);
+		std::vector<Node*>  SearchForPath(AEVec2 start, AEVec2 target);
 		void GridDraw();
+		extern Grid worldGrid;
 	}
 	
 }

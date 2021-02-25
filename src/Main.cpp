@@ -9,7 +9,7 @@
 #include "GameStateManager.h"
 #include "constants.h"
 #include "AudioEngine.h"
-
+#include "BasicMeshShape.h"
 #include "Level_Demo.h"
 #include "CollisionTest.h"
 #include "Sample_Scene.h"
@@ -70,8 +70,8 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 
 	//// Using custom window procedure
 	AESysInit(hInstance, nCmdShow, 800, 600, 1, 60, true, NULL);
-
-	////Init all the stuff for testing in collisionTest.h
+	StarBangBang::InitBasicMesh();
+	//Init all the stuff for testing in collisionTest.h
 	StarBangBang::InitTest();
 
 	//Full screen
@@ -106,10 +106,11 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 		// Handling Input
 		AEInputUpdate();
 
+
 		// Update State
 		gameStateManager.Update();
 		audioEngine.Update();
-
+		
 		//FPS
 		AEVec2 camPos;
 		AEGfxGetCamPosition(&camPos.x, &camPos.y);

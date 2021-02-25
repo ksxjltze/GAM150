@@ -5,19 +5,62 @@ using namespace StarBangBang;
 const unsigned int sides = 30;
 
 static AEGfxVertexList* unitboxMesh;
+static AEGfxVertexList* unitboxWiredMesh;
 static AEGfxVertexList* unitcircleMesh;
+//static AEGfxVertexList* unitboxMesh;
+
+
+const Color StarBangBang::Red()
+{
+	return Color(1.0f, 0.0f, 0.0f, 1.0f);
+}
+const Color StarBangBang::Blue()
+{
+	return Color(1.0f, 1.0f, 1.0f, 1.0f);
+}
+const Color StarBangBang::White()
+{
+	return Color(1.0f, 1.0f, 1.0f, 1.0f);
+}
+const Color StarBangBang::Green()
+{
+	return Color(0.0f, 1.0f, 0.0f, 1.0f);
+}
+const Color StarBangBang::Black()
+{
+	return Color(0.0f, 0.0f, 0.0f, 1.0f);
+}
+const Color StarBangBang::Cyan()
+{
+	return Color(0.0f, 1.0f, 1.0f, 1.0f);
+}
 
 void StarBangBang::InitBasicMesh()
 {
-	//build unit box mesh
+	//build unit box wired mesh
 	AEGfxMeshStart();
-	AEGfxVertexAdd(-0.5f,0.5f, 0xFF00FF00,0.0f,0.0f);
-	AEGfxVertexAdd(0.5f, 0.5f, 0xFF00FF00, 0.0f, 0.0f);
-	AEGfxVertexAdd(0.5f, -0.5f, 0xFF00FF00, 0.0f, 0.0f);
-	AEGfxVertexAdd(-0.5f, -0.5f, 0xFF00FF00, 0.0f, 0.0f);
-	AEGfxVertexAdd(-0.5f, 0.5f, 0xFF00FF00, 0.0f, 0.0f);
+	AEGfxVertexAdd(-0.5f,0.5f, 0xFFFFFFFF,0.0f,0.0f);
+	AEGfxVertexAdd(0.5f, 0.5f, 0xFFFFFFFF, 0.0f, 0.0f);
+	AEGfxVertexAdd(0.5f, -0.5f, 0xFFFFFFFF, 0.0f, 0.0f);
+	AEGfxVertexAdd(-0.5f, -0.5f, 0xFFFFFFFF, 0.0f, 0.0f);
+	AEGfxVertexAdd(-0.5f, 0.5f, 0xFFFFFFFF, 0.0f, 0.0f);
+
+	unitboxWiredMesh = AEGfxMeshEnd();
+	AE_ASSERT_MESG(unitboxWiredMesh, "Failed to create wired box\n");
+
+	//build unit box  mesh
+	AEGfxMeshStart();
+	AEGfxTriAdd(
+		-0.5f, 0.5f, 0xFFFFFFFF, 0.0f, 1.0f,
+		0.5f, 0.5f, 0xFFFFFFFF, 1.0f, 1.0f,
+		0.5f, -0.5, 0xFFFFFFFF, 1.0f, 0.0f);
+	AEGfxTriAdd(
+		0.5f, -0.5f, 0xFFFFFFFF, 1.0f, 0.0f,
+		-0.5f, -0.5f, 0xFFFFFFFF, 0.0f, 0.0f,
+		-0.5f, 0.5f, 0xFFFFFFFF, 0.0f, 1.0f);
 
 	unitboxMesh = AEGfxMeshEnd();
+	AE_ASSERT_MESG(unitboxWiredMesh, "Failed to create box mesh\n");
 
 	//build unit circle mesh
 	AEGfxMeshStart();
@@ -36,9 +79,9 @@ void StarBangBang::InitBasicMesh()
 	}
 	AEGfxVertexAdd(0.0f, 1.0f, 0xFF00FF00, 0.0f, 0.0f);
 	unitcircleMesh = AEGfxMeshEnd();
-	
+	AE_ASSERT_MESG(unitcircleMesh, "Failed to create wired circle\n");
 }
-void StarBangBang::DrawBox(AEVec2 size,AEVec2 pos)
+void StarBangBang::DrawBoxWired(AEVec2 size,AEVec2 pos , Color color)
 {
 	AEMtx33 scale = AEMtx33();
 	AEMtx33 result = AEMtx33();
@@ -51,8 +94,25 @@ void StarBangBang::DrawBox(AEVec2 size,AEVec2 pos)
 	AEMtx33ScaleApply(&result, &result, zoom, zoom);
 	AEGfxSetTransform(result.m);
 
+	AEGfxSetTintColor(color.R(), color.G(), color.B(), color.A());
+	AEGfxMeshDraw(unitboxWiredMesh, AEGfxMeshDrawMode::AE_GFX_MDM_LINES_STRIP);
+}
 
-	AEGfxMeshDraw(unitboxMesh, AEGfxMeshDrawMode::AE_GFX_MDM_LINES_STRIP);
+void StarBangBang::DrawBox(AEVec2 size, AEVec2 pos, Color color)
+{
+	AEMtx33 scale = AEMtx33();
+	AEMtx33 result = AEMtx33();
+	float zoom = Graphics::GetZoom();
+
+	AEGfxSetRenderMode(AE_GFX_RM_COLOR);
+
+	AEMtx33Scale(&scale, size.x, size.y);
+	AEMtx33TransApply(&result, &scale, pos.x, pos.y);
+	AEMtx33ScaleApply(&result, &result, zoom, zoom);
+	AEGfxSetTransform(result.m);
+	AEGfxSetTintColor(color.R(), color.G(), color.B(), color.A());
+
+	AEGfxMeshDraw(unitboxMesh, AEGfxMeshDrawMode::AE_GFX_MDM_TRIANGLES);
 }
 
 

@@ -8,22 +8,14 @@ namespace StarBangBang
 			
 		public:
 			AEVec2 nodePos = AEVec2{0,0};
-			bool occupied = false;
-			int hcost = 0;	 //cost from current to end node
-			int gcost = 0;	 //cost to start node to end node
+			bool occupied = false;	
 			int index_x = 0; //the x index of the node inside the grid array
 			int index_y = 0; //the y index of the node inside the grid array
-			Node* parent;	 //used to trace back node path
+			Node* parent = nullptr;	 //used to trace back node path
+			int hcost = 0;	 //cost from current to end node
+			int gcost = 0;	 //cost to start node to end node
 			constexpr int GetfCost()  const  {return hcost + gcost;}
 
-			Node() {}
-			Node(AEVec2 _nodePos,int _index_x ,int _index_y,bool _occupied = false)
-			{
-				nodePos = _nodePos;
-				occupied = _occupied;
-				index_x = _index_x;
-				index_y = _index_y;
-			}
 			
 	};
 	
@@ -35,6 +27,7 @@ namespace StarBangBang
 		AEVec2 offset;	// grid offset from center (ie to place it in other position)
 		int size_x = 0; // number of nodes in a row
 		int size_y = 0; // number of nodes in a column
+		void CheckOccupiedGrid();
 	public:
 		constexpr AEVec2 GetGridExtend() const
 		{ 
@@ -45,21 +38,23 @@ namespace StarBangBang
 		constexpr int GetGridSizeX() const { return size_x; }
 		constexpr int GetGridSizeY() const { return size_y; }
 
-		void DrawGrid(void);
-
+		void DrawGrid();
+		void FreeGrid(void);
 		//create grid object
 		void CreateGrid(float _nodeSize, AEVec2 gridSize, AEVec2 _offset = AEVec2{ 0,0 });
 		void CreateGrid(float _nodeSize, int width, int height);
 
 		std::vector<Node*> GetNodeNeighbours(const Node* node);
 
-		Node* GetNodeFromPosition(AEVec2 pos);
+		Node* GetNodeFromPosition(AEVec2 pos) ;
 		float GetNodeSize() { return nodeSize; }
-		Node* GetNode(int x, int y);
+		Node* GetNode(int x, int y) const;
 		
 		Grid();
-		void FreeGrid();
+		
 		Grid(float _nodeSize, AEVec2 gridSize, AEVec2 _offset = AEVec2{ 0,0 });
+
+		
 
 		~Grid();
 	

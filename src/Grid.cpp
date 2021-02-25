@@ -4,11 +4,12 @@
 #include "BasicMeshShape.h"
 using namespace StarBangBang;
 
+
 Grid::Grid()
 {
 	nodeSize = 30.0f;
 	offset = AEVec2{0,0};
-	CreateGrid(nodeSize, AEVec2{ 1000.0f, 1000.0f});
+	CreateGrid(nodeSize, AEVec2{ 1000.0f, 1000.0f });
 }
 //Change to destructor some time
 void Grid::FreeGrid()
@@ -28,13 +29,20 @@ Grid::~Grid()
 
 Grid::Grid(float _nodeSize, AEVec2 gridSize, AEVec2 _offset)
 {
+	std::cout << "Init \n";
 	this->nodeSize = _nodeSize;
 	this->offset = _offset;
 	CreateGrid(_nodeSize, gridSize, AEVec2{ 0,0 });
 }
 
+void Grid::CheckOccupiedGrid()
+{
+
+}
+
 void Grid::CreateGrid(float _nodeSize, AEVec2 gridSize, AEVec2 _offset )
 {
+
 	nodeSize = _nodeSize;
 	offset = _offset;
 
@@ -57,7 +65,8 @@ void Grid::CreateGrid(float _nodeSize, AEVec2 gridSize, AEVec2 _offset )
 	{
 		std::cout << "Allocation failed for grid object:" << exp.what() << std::endl;
 	}
-	
+	std::cout << "X:" << size_x << std::endl;
+	std::cout << "Y:" << size_y << std::endl;
 	AEVec2 extend = GetGridExtend();
 	float half_node = nodeSize * 0.5f;
 
@@ -72,9 +81,13 @@ void Grid::CreateGrid(float _nodeSize, AEVec2 gridSize, AEVec2 _offset )
 			grid[y][x].index_y = y;
 			grid[y][x].nodePos = AEVec2{ startNode.x + x * nodeSize , startNode.y + nodeSize * y };
 			//check if occupied
-		
+				
 		}
+	
 	}
+	grid[10][1].occupied = true;
+	grid[11][1].occupied = true;
+	grid[12][1].occupied = true;
 }
 
 void StarBangBang::Grid::CreateGrid(float _nodeSize, int width, int height)
@@ -98,13 +111,13 @@ std::vector<Node*> Grid::GetNodeNeighbours(const Node* node)
 			int index_y = node->index_y + y;
 
 			if (index_x >= 0 && index_x < size_x && index_y >= 0 && index_y < size_y)
-				n.push_back(&grid[index_y][index_x]);
+				n.push_back(grid[index_y]+index_x);
 		}
 	}
 	
 	return n;
 }
-Node* Grid::GetNodeFromPosition(AEVec2 pos)
+Node* Grid::GetNodeFromPosition(AEVec2 pos) 
 {
 	AEVec2 result;
 	AEVec2Sub(&result, &pos, &offset);
@@ -119,13 +132,13 @@ Node* Grid::GetNodeFromPosition(AEVec2 pos)
 
 	if (x >= 0 && x < size_x && y >= 0 && y < size_y)
 	{
-		return &grid[y][x];
+		return grid[y]+x;
 	}
 	else
 		return nullptr;
 }
 
-Node* StarBangBang::Grid::GetNode(int x, int y)
+Node* StarBangBang::Grid::GetNode(int x, int y) const
 {
 	if(x >= 0 && x < size_x && y >= 0 && y < size_y)
 		return &grid[y][x];
@@ -133,14 +146,19 @@ Node* StarBangBang::Grid::GetNode(int x, int y)
 
 
 
-void Grid::DrawGrid(void)
+void Grid::DrawGrid()
 {
 	
 	for (size_t y = 0; y < size_y; y++)
 	{
 		for (size_t x = 0; x < size_x; x++)
-		{
-			StarBangBang::DrawBox(AEVec2{ nodeSize,nodeSize }, grid[y][x].nodePos);
+		{	
+			if (grid[y][x].occupied)
+			{
+				StarBangBang::DrawBox(AEVec2{ nodeSize,nodeSize }, grid[y][x].nodePos,Red());
+			}
+			else
+				StarBangBang::DrawBoxWired(AEVec2{ nodeSize,nodeSize }, grid[y][x].nodePos,Green());
 		}
 	}
 }

@@ -4,29 +4,27 @@
 #include <algorithm>
 #include "Utils.h"
 #include "BasicMeshShape.h"
+#include <iostream>
 
 using namespace StarBangBang;
 
 const int diagonal_Cost = 14;
 const int straight_Cost = 10;
 
-void PathFinder::Init()
-{
-	PathFinder::grid = Grid();
-}
+Grid worldGrid;
 
 void PathFinder::Free()
 {
-	PathFinder::grid.FreeGrid();
+	PathFinder::worldGrid.FreeGrid();
 }
 
 void PathFinder::GridDraw()
 {
 	AEVec2 mousePos = GetMouseWorldPos();
-	Node* n = grid.GetNodeFromPosition(mousePos);
+	Node* n = worldGrid.GetNodeFromPosition(mousePos);
 	if (n)
 		StarBangBang::DrawCircle(10.0f, n->nodePos);
-	PathFinder::grid.DrawGrid();
+	PathFinder::worldGrid.DrawGrid();
 }
 
 int NodeDistance(const Node* lhs, const Node* rhs)
@@ -42,10 +40,9 @@ int NodeDistance(const Node* lhs, const Node* rhs)
 	return distX * diagonal_Cost + (distY - distX) * straight_Cost;
 	
 }
-void TracePath( Node* start,  Node* end)
+void TracePath( Node* start,  Node* end , std::vector<Node*>& p)
 {
-	std::vector<Node*> p;
-	p.reserve(100);
+	
 	Node* currNode = end;
 	while (currNode != start)
 	{
@@ -54,17 +51,15 @@ void TracePath( Node* start,  Node* end)
 	}
 	p.push_back(start);
 	std::reverse(p.begin(), p.end());
-	
-	for (const Node* n : p)
-	{
-		DrawCircle(10.0f, n->nodePos);
-	}
 
 }
-void PathFinder::SearchForPath(AEVec2 start, AEVec2 target)
+std::vector<Node*> PathFinder::SearchForPath(AEVec2 start, AEVec2 target)
 {
-	Node* startNode = grid.GetNodeFromPosition(start);
-	Node* endNode = grid.GetNodeFromPosition(target);
+	std::vector<Node*> pathing;
+	pathing.reserve(100);
+
+	Node* startNode = PathFinder::worldGrid.GetNodeFromPosition(start);
+	Node* endNode = PathFinder::worldGrid.GetNodeFromPosition(target);
 	std::vector<Node*> openList;
 	openList.reserve(30);
 	std::unordered_set<Node*> closeList;
@@ -72,7 +67,13 @@ void PathFinder::SearchForPath(AEVec2 start, AEVec2 target)
 
 	//invalid positions
 	if (!endNode || !startNode)
-		return;
+		return pathing;
+	if (endNode->occupied)
+	{
+		PRINT("End node occupied\n");
+		return pathing;
+	}
+		
 	openList.push_back(startNode);
 
 	while (openList.size() > 0)
@@ -90,26 +91,24 @@ void PathFinder::SearchForPath(AEVec2 start, AEVec2 target)
 			}
 			
 		}
-		openList.erase(openList.begin() + (i-1));
+		openList.erase(std::remove(openList.begin(), openList.end(), currNode), openList.end());
 		//scanned nodes
 		closeList.insert(currNode);
 
 		if (currNode == endNode)
 		{
-			TracePath(startNode,endNode);
-			return;
+			TracePath(startNode,endNode, pathing);
+			return pathing;
 		}
 			
 
-		for ( Node* neighbour : grid.GetNodeNeighbours(currNode))
+		for ( Node* neighbour : PathFinder::worldGrid.GetNodeNeighbours(currNode))
 		{
 			std::unordered_set<Node*>::const_iterator u_iter = closeList.find(neighbour);
-			/*if (neighbour->occupied || u_iter != closeList.end())
-				continue;
-
-			*/
+			
+			
 			//not occupied and not in closed hashlist
-			if (!neighbour->occupied && u_iter == closeList.end())
+			if (!(neighbour->occupied) && u_iter == closeList.end())
 			{
 				int movementCost = currNode->gcost + NodeDistance(currNode, neighbour);
 
