@@ -1,9 +1,6 @@
 #pragma once
 #include "CollisionManager.h"
-#include "BasicMeshShape.h"
 #include <iostream>
-#include "Utils.h"
-#include "PathFinder.h"
 namespace StarBangBang
 {
 	static CircleCollider circle1
@@ -50,6 +47,7 @@ namespace StarBangBang
 		}
 	
 	}
+
 	void Test_CircleUpdate()
 	{	
 		CollisionManager::DebugCollider(circle2);
@@ -63,12 +61,11 @@ namespace StarBangBang
 		}
 		if (AEInputCheckTriggered(VK_LBUTTON))
 		{
-		
-			AEVec2 mousePos = GetMouseWorldPos();
+			int x = 0, y = 0;
+			AEInputGetCursorPosition(&x,&y);
+			circle2.center.x = (f32)x;
+			circle2.center.y = (f32)y;
 
-			circle2.center.x = mousePos.x;
-			circle2.center.y = mousePos.y;
-		
 		}
 		
 	}

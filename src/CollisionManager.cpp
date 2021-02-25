@@ -1,7 +1,7 @@
 #include "CollisionManager.h"
 #include <cmath>
 #include <iostream>
-#include "BasicMeshShape.h"
+#include <time.h>
 using namespace StarBangBang;
 
 
@@ -205,10 +205,12 @@ bool CollisionManager::Dynamic_AABB(const BoxCollider& A, const AEVec2& vel1,
 
 bool CollisionManager::CircleVsCircle(CircleCollider c1, CircleCollider c2, CollisionData& col)
 {
-	//both is trigger no collision
-	if (c1.isTrigger && c2.isTrigger)
-		return false;
+	//axis = AEVec2Normalize();
+	return AEVec2{ 0,0 };
+}
 
+bool CollisionManager::CircleVsCircle(CircleCollider c1, CircleCollider c2, CollisionData* col)
+{
 	float r = c1.radius + c2.radius;
 	float d = AEVec2SquareDistance(&c1.center, &c2.center);
 	if (d > r * r)
@@ -218,14 +220,13 @@ bool CollisionManager::CircleVsCircle(CircleCollider c1, CircleCollider c2, Coll
 
 	if (d != 0)
 	{	
-		col.pen_depth = r - d;
-		//normalize normal with calculated distance
-		col.col_normal = AEVec2{ (c2.center.x - c1.center.x) / d , (c2.center.y - c1.center.y) / d };
+		col->pen_depth = r - d;
+		col->col_normal = AEVec2{ (c2.center.x - c1.center.x) / d , (c2.center.y - c1.center.y) / d };
 		return true;
 	}
 	//same circle center	
-	col.pen_depth = c1.radius > c2.radius ? c2.radius: c1.radius;
-	col.col_normal = AEVec2{ 0, 1 };
+	col->pen_depth = c1.radius;
+	col->col_normal = AEVec2{ 0, 1 };
 	return true;
 	
 }
@@ -238,10 +239,30 @@ void CollisionManager::DebugCollider(BoxCollider b)
 
 }
 
-void CollisionManager::DebugCollider(CircleCollider c)
+void CollisionManager::DebugCollider(CircleCollider c, unsigned int sides)
 {
 
-	StarBangBang::DrawCircle(c.radius,c.center);
+	//AEGfxStart();
+
+	float interval = roundf(2.0f * PI / sides / 10.0f) * 10.0f;
+	for (unsigned int i = 0; i < sides; i++)
+	{
+		float radian  = interval * i;
+		if (i + 1 < sides)
+		{
+			float x = c.radius * asinf(radian);
+			float y = c.radius * acosf(radian);
+			float x1 = c.radius * asinf(radian + interval);
+			float y1 = c.radius * acosf(radian + interval);
+			
+			AEGfxLine(	c.center.x + x , c.center.y + y, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f,
+						c.center.x + x1, c.center.y + y1 , 0.0f ,0.0f ,0.0f ,0.0f ,1.0f
+					
+			);
+		}
+	}
+	
+	//AEGfxEnd();
 
 }
 

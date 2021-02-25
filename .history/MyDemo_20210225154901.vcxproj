@@ -89,16 +89,26 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+<<<<<<< HEAD
     <ClCompile Include="src\BasicMeshShape.cpp" />
     <ClCompile Include="src\AudioEngine.cpp" />
     <ClCompile Include="src\CameraComponent.cpp" />
     <ClCompile Include="src\Collider.cpp" />
+    <ClCompile Include="src\CollisionComponent.cpp" />
+=======
+    <ClCompile Include="src\Collider.cpp" />
+    <ClCompile Include="src\ColliderAABB.cpp" />
+>>>>>>> Yg
     <ClCompile Include="src\CollisionManager.cpp" />
     <ClCompile Include="src\DragComponent.cpp" />
+<<<<<<< HEAD
     <ClCompile Include="src\EventTest.cpp" />
     <ClCompile Include="src\FileManager.cpp" />
     <ClCompile Include="src\GameObject.cpp" />
     <ClCompile Include="src\GameStateManager.cpp" />
+=======
+    <ClCompile Include="src\GameObject.cpp" />
+>>>>>>> Yg
     <ClCompile Include="src\GraphicsManager.cpp" />
     <ClCompile Include="src\Grid.cpp" />
     <ClCompile Include="src\Guard.cpp" />
@@ -128,7 +138,11 @@
     <ClInclude Include="src\AudioEngine.h" />
     <ClInclude Include="src\CameraComponent.h" />
     <ClInclude Include="src\Collider.h" />
+<<<<<<< HEAD
+    <ClInclude Include="src\CollisionComponent.h" />
+=======
     <ClInclude Include="src\ColliderAABB.h" />
+>>>>>>> Yg
     <ClInclude Include="src\CollisionManager.h" />
     <ClInclude Include="src\CollisionTest.h" />
     <ClInclude Include="src\Component.h" />
@@ -152,6 +166,7 @@
     <ClInclude Include="src\MovementManager.h" />
     <ClInclude Include="src\Grid.h" />
     <ClInclude Include="src\ObjectManager.h" />
+<<<<<<< HEAD
     <ClInclude Include="src\PathFinder.h" />
     <ClInclude Include="src\Physics.h" />
     <ClInclude Include="src\Observer.h" />
@@ -162,6 +177,9 @@
     <ClInclude Include="src\ScriptComponent.h" />
     <ClInclude Include="src\SecondaryMovementController.h" />
     <ClInclude Include="src\Sprite.h" />
+=======
+    <ClInclude Include="src\Rigidbody.h" />
+>>>>>>> Yg
     <ClInclude Include="src\State.h" />
     <ClInclude Include="src\Subject.h" />
     <ClInclude Include="src\TagManager.h" />

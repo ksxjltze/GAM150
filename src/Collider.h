@@ -1,5 +1,5 @@
 #pragma once
-
+#include "GameObject.h"
 #include "ComponentCRTP.h"
 
 namespace StarBangBang
@@ -26,7 +26,6 @@ namespace StarBangBang
 			ShapeType shape = ShapeType::Circle;
 		public:
 			float radius;
-			
 			AEVec2 center = {0,0};
 			CircleCollider( AEVec2 _center, float _rad = 1.0f);
 

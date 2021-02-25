@@ -14,6 +14,7 @@
 #include "CollisionTest.h"
 #include "Sample_Scene.h"
 #include "LevelEditor.h"
+#include "BasicMeshShape.h"
 
 // ---------------------------------------------------------------------------
 // main
@@ -94,6 +95,8 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 		fontId = 0;
 		AE_ASSERT_MESG(fontId, "FAILED TO CREATE FONT");
 	}
+
+	StarBangBang::InitBasicMesh();
 	// Initialization end
 	/////////////////////
 
@@ -132,6 +135,8 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 		AEGfxGetPrintSize(fontId, strBuffer, 1.0f, TextWidth, TextHeight);
 		AEGfxPrint(fontId, strBuffer, 0.99f - TextWidth, 0.99f - TextHeight, 1.0f, 1.f, 1.f, 1.f);
 
+		//StarBangBang::Test_BoxUpdate();
+		//StarbangBang::Test_CircleUpdate();
 		// Informing the system about the loop's end
 		AESysFrameEnd();
 
@@ -143,8 +148,6 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 	////Audio Engine (temp implementation)
 	audioEngine.ReleaseSound(sound);
 	audioEngine.Exit();
-
-	FreeTest();
 
 	//free font
 	AEGfxDestroyFont(fontId);
