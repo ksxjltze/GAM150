@@ -16,7 +16,7 @@ namespace StarBangBang
 			DrawCircle(grid.GetNodeSize() / 2, n->nodePos);
 	}
 
-	LevelEditor::LevelEditor(int id, GameStateManager& manager) : Scene(id, manager)
+	LevelEditor::LevelEditor(int id, GameStateManager& manager) : Scene(id, manager), serializeTestObj{ 0 }
 	{
 		tileWidth = 100; tileHeight = 100;
 		mapWidth = 20, mapHeight = 20;
@@ -27,7 +27,7 @@ namespace StarBangBang
 		tileObjects.reserve(mapHeight);
 		Sprite grassSprite = graphicsManager.CreateSprite(Constants::PROTOTYPE_SPRITE_GRASS_PATH, tileWidth, tileHeight);
 		Sprite stoneSprite = graphicsManager.CreateSprite(Constants::PROTOTYPE_SPRITE_STONE_PATH, tileWidth, tileHeight);
-		boi		   = graphicsManager.CreateSprite(Constants::PROTOTYPE_SPRITE_1_PATH, tileWidth, tileHeight);
+		boi				   = graphicsManager.CreateSprite(Constants::PROTOTYPE_SPRITE_1_PATH, tileWidth, tileHeight);
 
 		auto grassTile = std::pair<int, TileSprite>(1, { 1, "Grass", grassSprite });
 		auto stoneTile = std::pair<int, TileSprite>(2, { 2, "Stone", stoneSprite });
@@ -90,25 +90,25 @@ namespace StarBangBang
 		if (AEInputCheckTriggered(AEVK_RETURN))
 		{
 			SaveLevel();
-			GameObject* serializeTestObj = objectManager.NewGameObject();
-			objectManager.AddImage(serializeTestObj, boi);
+			//GameObject* serializeTestObj = objectManager.NewGameObject();
+			//objectManager.AddImage(serializeTestObj, boi);
 
-			printf("Saving Game Object\n");
-			objectManager.SaveGameObject(*serializeTestObj);
-			objectManager.DestroyGameObject(serializeTestObj);
+			//printf("Saving Game Object\n");
+			//objectManager.SaveGameObject(*serializeTestObj);
+			//objectManager.DestroyGameObject(serializeTestObj);
 		}
 
 		if (AEInputCheckTriggered(AEVK_R))
 		{
 			LoadLevel();
-			printf("Reading Game Object\n");
-			GameObject* obj = &objectManager.ReadGameObject("../Resources/Test.bin");
-			ImageComponent* image = obj->GetComponent<ImageComponent>();
+			//printf("Reading Game Object\n");
+			//GameObject* obj = &objectManager.ReadGameObject("../Resources/Test.bin");
+			//ImageComponent* image = obj->GetComponent<ImageComponent>();
 
-			if (image)
-			{
-				image->SetSprite(boi);
-			}
+			//if (image)
+			//{
+			//	image->SetSprite(boi);
+			//}
 		}
 
 		//Insert/Replace/Remove Tile.

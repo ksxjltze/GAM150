@@ -4,6 +4,7 @@
 #include "Sprite.h"
 #include "Grid.h"
 #include "CameraComponent.h"
+#include "SerializeTest.h"
 
 namespace StarBangBang
 {
@@ -47,5 +48,7 @@ namespace StarBangBang
 
 		GameObject* camera{ nullptr };
 		Grid grid;
+
+		SerializeTest serializeTestObj;
 	};
 }

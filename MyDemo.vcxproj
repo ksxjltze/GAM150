@@ -119,6 +119,7 @@
     <ClCompile Include="src\PrimaryMovementController.cpp" />
     <ClCompile Include="src\Sample_Scene.cpp" />
     <ClCompile Include="src\SecondaryMovementController.cpp" />
+    <ClCompile Include="src\SerializeTest.cpp" />
     <ClCompile Include="src\Subject.cpp" />
     <ClCompile Include="src\TagManager.cpp" />
     <ClCompile Include="src\Utils.cpp" />
@@ -145,6 +146,7 @@
     <ClInclude Include="src\GuardMovement.h" />
     <ClInclude Include="src\GuardVision.h" />
     <ClInclude Include="src\ImageComponent.h" />
+    <ClInclude Include="src\ISerializable.h" />
     <ClInclude Include="src\LevelEditor.h" />
     <ClInclude Include="src\InteractableComponent.h" />
     <ClInclude Include="src\Level_Demo.h" />
@@ -161,6 +163,7 @@
     <ClInclude Include="src\Sample_Scene.h" />
     <ClInclude Include="src\ScriptComponent.h" />
     <ClInclude Include="src\SecondaryMovementController.h" />
+    <ClInclude Include="src\SerializeTest.h" />
     <ClInclude Include="src\Sprite.h" />
     <ClInclude Include="src\State.h" />
     <ClInclude Include="src\Subject.h" />
