@@ -11,7 +11,7 @@ using namespace StarBangBang;
 const int diagonal_Cost = 14;
 const int straight_Cost = 10;
 
-Grid worldGrid;
+//Grid worldGrid;
 
 void PathFinder::Free()
 {

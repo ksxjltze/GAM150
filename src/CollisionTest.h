@@ -17,7 +17,6 @@ namespace StarBangBang
 
 	static CollisionData data = CollisionData();
 
-	extern Grid worldGrid;
 	void InitTest()
 	{
 		
