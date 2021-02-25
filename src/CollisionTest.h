@@ -1,5 +1,7 @@
 #pragma once
 #include "CollisionManager.h"
+#include "Utils.h"
+#include "PathFinder.h"
 #include <iostream>
 namespace StarBangBang
 {

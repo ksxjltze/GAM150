@@ -1,10 +1,11 @@
 #include "CollisionManager.h"
+#include "BasicMeshShape.h"
 #include <cmath>
 #include <iostream>
 #include <time.h>
 using namespace StarBangBang;
 
-
+const unsigned int sides = 30;
 
 CollisionData::CollisionData() 
 	:pen_depth{ 0.0f }, col_normal{ 0.0f, 0.0f } {}
@@ -205,12 +206,6 @@ bool CollisionManager::Dynamic_AABB(const BoxCollider& A, const AEVec2& vel1,
 
 bool CollisionManager::CircleVsCircle(CircleCollider c1, CircleCollider c2, CollisionData& col)
 {
-	//axis = AEVec2Normalize();
-	return AEVec2{ 0,0 };
-}
-
-bool CollisionManager::CircleVsCircle(CircleCollider c1, CircleCollider c2, CollisionData* col)
-{
 	float r = c1.radius + c2.radius;
 	float d = AEVec2SquareDistance(&c1.center, &c2.center);
 	if (d > r * r)
@@ -220,13 +215,13 @@ bool CollisionManager::CircleVsCircle(CircleCollider c1, CircleCollider c2, Coll
 
 	if (d != 0)
 	{	
-		col->pen_depth = r - d;
-		col->col_normal = AEVec2{ (c2.center.x - c1.center.x) / d , (c2.center.y - c1.center.y) / d };
+		col.pen_depth = r - d;
+		col.col_normal = AEVec2{ (c2.center.x - c1.center.x) / d , (c2.center.y - c1.center.y) / d };
 		return true;
 	}
 	//same circle center	
-	col->pen_depth = c1.radius;
-	col->col_normal = AEVec2{ 0, 1 };
+	col.pen_depth = c1.radius;
+	col.col_normal = AEVec2{ 0, 1 };
 	return true;
 	
 }
@@ -239,9 +234,8 @@ void CollisionManager::DebugCollider(BoxCollider b)
 
 }
 
-void CollisionManager::DebugCollider(CircleCollider c, unsigned int sides)
+void CollisionManager::DebugCollider(CircleCollider c)
 {
-
 	//AEGfxStart();
 
 	float interval = roundf(2.0f * PI / sides / 10.0f) * 10.0f;
