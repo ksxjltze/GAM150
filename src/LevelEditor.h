@@ -31,8 +31,8 @@ namespace StarBangBang
 		void Free();
 		void Unload();
 	private:
-		void InsertTile(Node* n);
-		void RemoveTile(Node* n);
+		void InsertTile(A_Node* n);
+		void RemoveTile(A_Node* n);
 		void SaveLevel();
 		void LoadLevel();
 		void CreateLevel();

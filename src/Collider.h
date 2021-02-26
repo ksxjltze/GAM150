@@ -5,6 +5,11 @@
 namespace StarBangBang
 {
 	
+	struct CellIndexes
+	{
+		unsigned int x = 0;
+		unsigned int y= 0;
+	};
 
 	enum class ShapeType {Box,Circle};
 	class Collider : public Component<Collider>
@@ -38,6 +43,8 @@ namespace StarBangBang
 			ShapeType shape = ShapeType::Box;
 			AEVec2 min;
 			AEVec2 max;
+			//indexes to cells they occupy
+			std::vector<CellIndexes> cell_indexes;
 		public:
 			
 			AEVec2 extend;	//half of width and height 
@@ -69,7 +76,12 @@ namespace StarBangBang
 				return extend.x * 2.0f;
 			}
 
-			 BoxCollider( AEVec2 _center, float width = 1.0f, float height = 1.0f);
-			 BoxCollider(const BoxCollider& b) = default;
+			void ClearCellList();
+			void AddToCellList(unsigned int,unsigned int);
+			
+			const std::vector<CellIndexes>& GetCellIndexes() const;
+
+			BoxCollider( AEVec2 _center,bool _isStatic = false ,float width = 1.0f, float height = 1.0f);
+			BoxCollider(const BoxCollider& b) = default;
 	};
 }

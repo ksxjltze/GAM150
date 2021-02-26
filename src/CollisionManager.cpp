@@ -1,22 +1,26 @@
 #include "CollisionManager.h"
 #include "BasicMeshShape.h"
+#include "Grid.h"
 #include <cmath>
 #include <iostream>
-#include <time.h>
 using namespace StarBangBang;
 
 const unsigned int sides = 30;
 
+
+
 CollisionData::CollisionData() 
 	:pen_depth{ 0.0f }, col_normal{ 0.0f, 0.0f } {}
 
-CollisionPair::CollisionPair(BoxCollider A, BoxCollider B, CollisionData data) : A{ A }, B{ B }, data()
+CollisionPair::CollisionPair(BoxCollider& A, BoxCollider& B, CollisionData data) : A{ A }, B{ B }, data{data}
 {
 }
 namespace 
 {
+	PartitionGrid p_grid;
 	std::queue<CollisionPair> resolveQueue;
-	std::vector<BoxCollider> colliders;
+	//all colliders created
+	std::vector<BoxCollider> collider_list;
 }
 
 
@@ -49,17 +53,183 @@ void CalculateCollisionData(const BoxCollider& b1, const BoxCollider& b2, Collis
 	
 
 }
+void FetchAllColliderCells(const BoxCollider& c, std::vector<Cell*>& list)
+{
+	Cell* maxCell = p_grid.GetNodeFromPosition(c.Max());
+	Cell* minCell = p_grid.GetNodeFromPosition(c.Min());
+	if (!maxCell || !minCell)
+	{
+		PRINT("Collider out of bounds(p_grid)!\n");
+		return;
+	}
+
+	if (maxCell == minCell)
+	{
+		list.push_back(maxCell);
+	}
+	int h = maxCell->index_y - minCell->index_y;
+	int w = maxCell->index_x - minCell->index_x;
+	for (int y = h; y > 0; y--)
+	{
+		for (int x = 0; x < w; x++)
+		{
+			Cell* cell = p_grid.GetNode(minCell->index_x + x, maxCell->index_y - y);
+			if (cell)
+				list.push_back(cell);
+		}
+	}
+}
+void CollisionManager::AddToColliders(BoxCollider c)
+{
+	
+	Cell* maxCell = p_grid.GetNodeFromPosition(c.Max());
+	Cell* minCell = p_grid.GetNodeFromPosition(c.Min());
+
+	//the collider must be within the p_grid
+	if (!maxCell || !minCell)
+	{
+		PRINT("Collider out of bounds(p_grid)!\n");
+		return;
+	}
+	
+	collider_list.push_back(c);
+	//cache the boxcollider into container for each cell they occupy
+	//collider list index
+	unsigned int index = (unsigned int)collider_list.size() - 1;
+	//same cell the collider is within a cell only
+	if (maxCell == minCell)
+	{
+		collider_list[index].AddToCellList(static_cast<unsigned int>(maxCell->index_x),
+			static_cast<unsigned int>(maxCell->index_y));
+		maxCell->cell_colliders.insert(&collider_list[index]);
+		return;
+	}
+	int h = maxCell->index_y - minCell->index_y;
+	int w = maxCell->index_x - minCell->index_x;
+	for (int y = h; y > 0; y--)
+	{
+		for (int x = 0; x < w; x++)
+		{
+			Cell* cell = p_grid.GetNode(minCell->index_x + x, maxCell->index_y - y);
+			if (cell)
+			{
+				collider_list[index].AddToCellList(static_cast<unsigned int>(cell->index_x),
+					static_cast<unsigned int>(cell->index_y));
+				cell->cell_colliders.insert(&collider_list[index]);
+			}
+		}
+	}
+	
+	
+}
+void Debug_PartitionGrid()
+{
+	//debug partition grid 
+	for (int y = 0; y < p_grid.GetGridSizeY(); y++)
+	{
+		for (int x = 0; x < p_grid.GetGridSizeX(); x++)
+		{
+			Cell* c = p_grid.GetNode(x, y);
+			if (c && c->cell_colliders.size() > 0)
+			{
+				DrawBoxWired(AEVec2{ p_grid.GetNodeSize(),p_grid.GetNodeSize() }, 
+					p_grid.GetNode(x, y)->nodePos, Color(1.0f, 0.0f, 0.0f, 0.8f));
+			}
+
+		}
+	}
+}
 //wip
 void CollisionManager::ResolverUpdate()
 {
-	if (resolveQueue.empty())
-		return;
-	for (size_t i = 0; i < resolveQueue.size(); i++)
+	
+	if (collider_list.empty())
+		PRINT("Empty collider list\n");
+	else
+		p_grid.DrawGrid();
+
+	
+	//non-partition 
+	for (BoxCollider& col : collider_list)
 	{
-		CollisionPair& pair = resolveQueue.front();
-		CollisionManager::Resolve(pair.A,pair.B,pair.data);
-		resolveQueue.pop();
+		for (BoxCollider& col2 : collider_list)
+		{
+			if (&col == &col2)
+				continue;
+			CollisionData data;
+			if (Dynamic_AABB(col, AEVec2{ 0,0 }, col2, AEVec2{ 0,0 }, data))
+			{
+				CollisionPair p{ col,col2, data };
+				AddToResolveQueue(p);
+				//Resolve(col, *box, data);
+			}
+		}
+		DebugCollider(col, Black());
 	}
+
+	Debug_PartitionGrid();
+
+	//paritition (buggy as non-static collider always colliding for some reason)
+	/*if (collider_list.size() >= 2)
+	{
+		for (BoxCollider& col : collider_list)
+		{
+			//if collider moved clear the cell_colliders of each cell it occupy 
+			//dynamic colliders
+			if (!col.isStatic)
+			{
+				//clear the cells collider occupies
+				for (const CellIndexes& indexes : col.GetCellIndexes())
+				{
+					
+					Cell* c = p_grid.GetNode(indexes.x, indexes.y);
+					c->cell_colliders.erase(&col);
+				}
+				//clear all cell data from collider
+				col.ClearCellList();
+				//update the new cells collider occupies
+				std::vector<Cell*> cell_list;
+				FetchAllColliderCells(col, cell_list);
+				for (Cell* cell_ref : cell_list)
+				{
+					cell_ref->cell_colliders.insert(&col);
+					col.AddToCellList(cell_ref->index_x,cell_ref->index_y);
+					
+				}
+			}
+			
+			for (const CellIndexes& indexes : col.GetCellIndexes())
+			{
+				Cell* c = p_grid.GetNode(indexes.x, indexes.y);
+					
+				for (BoxCollider* box : c->cell_colliders)
+				{
+					CollisionData data;
+					if (Dynamic_AABB(col, AEVec2{ 0,0 }, *box, AEVec2{ 0,0 }, data))
+					{
+						CollisionPair p{col,*box, data};
+						AddToResolveQueue(p);
+						//Resolve(col, *box, data);
+					}
+				}
+
+			}
+			
+			DebugCollider(col, Black());
+		}
+	}*/
+	
+
+	if (!resolveQueue.empty())
+	{
+		for (size_t i = 0; i < resolveQueue.size(); i++)
+		{
+			CollisionPair& pair = resolveQueue.front();
+			CollisionManager::Resolve(pair.A, pair.B, pair.data);
+			resolveQueue.pop();
+		}
+	}
+	
 	
 	
 }
@@ -67,6 +237,7 @@ void CollisionManager::ResolverUpdate()
 void CollisionManager::AddToResolveQueue(CollisionPair pair)
 {
 	resolveQueue.push(pair);
+	
 }
 //check for static aabb
 bool CollisionManager::StaticAABB_Check(const BoxCollider& A, const BoxCollider& B , CollisionData& data)
@@ -226,18 +397,16 @@ bool CollisionManager::CircleVsCircle(CircleCollider c1, CircleCollider c2, Coll
 	
 }
 
-void CollisionManager::DebugCollider(BoxCollider b)
+void CollisionManager::DebugCollider(BoxCollider b, Color c)
 {
 	
 	AEVec2 size = AEVec2{ b.GetWidth(),b.GetHeight() };
-	StarBangBang::DrawBoxWired(size, b.center);
+	StarBangBang::DrawBoxWired(size, b.center, c);
 
 }
 
 void CollisionManager::DebugCollider(CircleCollider c)
 {
-	//AEGfxStart();
-
 	float interval = roundf(2.0f * PI / sides / 10.0f) * 10.0f;
 	for (unsigned int i = 0; i < sides; i++)
 	{
@@ -256,8 +425,6 @@ void CollisionManager::DebugCollider(CircleCollider c)
 		}
 	}
 	
-	//AEGfxEnd();
-
 }
 
 

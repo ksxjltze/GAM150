@@ -21,13 +21,13 @@ void PathFinder::Free()
 void PathFinder::GridDraw()
 {
 	AEVec2 mousePos = GetMouseWorldPos();
-	Node* n = worldGrid.GetNodeFromPosition(mousePos);
+	A_Node* n = worldGrid.GetNodeFromPosition(mousePos);
 	if (n)
 		StarBangBang::DrawCircle(10.0f, n->nodePos);
 	PathFinder::worldGrid.DrawGrid();
 }
 
-int NodeDistance(const Node* lhs, const Node* rhs)
+int NodeDistance(const A_Node* lhs, const A_Node* rhs)
 {
 	int distX = abs(lhs->index_x - rhs->index_x);
 	int distY = abs(lhs->index_y - rhs->index_y);
@@ -40,10 +40,10 @@ int NodeDistance(const Node* lhs, const Node* rhs)
 	return distX * diagonal_Cost + (distY - distX) * straight_Cost;
 	
 }
-void TracePath( Node* start,  Node* end , std::vector<Node*>& p)
+void TracePath(A_Node* start, A_Node* end , std::vector<A_Node*>& p)
 {
 	
-	Node* currNode = end;
+	A_Node* currNode = end;
 	while (currNode != start)
 	{
 		p.push_back(currNode);
@@ -53,16 +53,16 @@ void TracePath( Node* start,  Node* end , std::vector<Node*>& p)
 	std::reverse(p.begin(), p.end());
 
 }
-std::vector<Node*> PathFinder::SearchForPath(AEVec2 start, AEVec2 target)
+std::vector<A_Node*> PathFinder::SearchForPath(AEVec2 start, AEVec2 target)
 {
-	std::vector<Node*> pathing;
+	std::vector<A_Node*> pathing;
 	pathing.reserve(100);
 
-	Node* startNode = PathFinder::worldGrid.GetNodeFromPosition(start);
-	Node* endNode = PathFinder::worldGrid.GetNodeFromPosition(target);
-	std::vector<Node*> openList;
+	A_Node* startNode = PathFinder::worldGrid.GetNodeFromPosition(start);
+	A_Node* endNode = PathFinder::worldGrid.GetNodeFromPosition(target);
+	std::vector<A_Node*> openList;
 	openList.reserve(30);
-	std::unordered_set<Node*> closeList;
+	std::unordered_set<A_Node*> closeList;
 	closeList.reserve(30);
 
 	//invalid positions
@@ -78,7 +78,7 @@ std::vector<Node*> PathFinder::SearchForPath(AEVec2 start, AEVec2 target)
 
 	while (openList.size() > 0)
 	{
-		Node* currNode = openList[0];
+		A_Node* currNode = openList[0];
 		size_t i = 1;
 		for (i ; i < openList.size(); i++)
 		{
@@ -102,9 +102,9 @@ std::vector<Node*> PathFinder::SearchForPath(AEVec2 start, AEVec2 target)
 		}
 			
 
-		for ( Node* neighbour : PathFinder::worldGrid.GetNodeNeighbours(currNode))
+		for (A_Node* neighbour : PathFinder::worldGrid.GetNodeNeighbours(currNode))
 		{
-			std::unordered_set<Node*>::const_iterator u_iter = closeList.find(neighbour);
+			std::unordered_set<A_Node*>::const_iterator u_iter = closeList.find(neighbour);
 			
 			
 			//not occupied and not in closed hashlist
@@ -112,7 +112,7 @@ std::vector<Node*> PathFinder::SearchForPath(AEVec2 start, AEVec2 target)
 			{
 				int movementCost = currNode->gcost + NodeDistance(currNode, neighbour);
 
-				std::vector<Node*>::const_iterator v_iter2 = (std::find(openList.begin(), openList.end(), neighbour));
+				std::vector<A_Node*>::const_iterator v_iter2 = (std::find(openList.begin(), openList.end(), neighbour));
 
 				//movement from neighbour / is not in openlist
 				if (movementCost < neighbour->gcost || v_iter2 == openList.end()) {

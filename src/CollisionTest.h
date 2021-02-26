@@ -10,9 +10,9 @@ namespace StarBangBang
 	static CircleCollider circle2
 		= CircleCollider( AEVec2{ 0.0f,0.0f }, 100.0f);
 	static BoxCollider box1
-		= BoxCollider( AEVec2{ 0.0f,100.0f }, 100.0f, 150.0f);
+		= BoxCollider( AEVec2{ 0.0f,100.0f }, false,100.0f, 150.0f);
 	static BoxCollider box2
-		= BoxCollider( AEVec2{ 0.0f,200.0f }, 80.0f, 200.0f );
+		= BoxCollider( AEVec2{ 300.0f,200.0f }, false, 80.0f, 200.0f );
 
 	static CollisionData data = CollisionData();
 
@@ -31,9 +31,9 @@ namespace StarBangBang
 	{
 		float dt = (float)AEFrameRateControllerGetFrameTime();
 		//box1.isStatic = true;
-		CollisionManager::DebugCollider(box1);
-		CollisionManager::DebugCollider(box2);
-		if (CollisionManager::Dynamic_AABB(box1, AEVec2{ -500,0 },box2, AEVec2{ 500,0 },data))
+		CollisionManager::DebugCollider(box1,Green());
+		CollisionManager::DebugCollider(box2, Green());
+		if (CollisionManager::Dynamic_AABB(box1, AEVec2{ 500,0 },box2, AEVec2{ -500,0 },data))
 		{
 			
 			CollisionManager::Resolve(box1, box2, data);
@@ -73,7 +73,7 @@ namespace StarBangBang
 	}
 	AEVec2 startPos {-128,752};
 	AEVec2 endPos{-514,840};
-	std::vector<Node*> path;
+	std::vector<A_Node*> path;
 	void PathFinderTest()
 	{
 		//set start pos 
@@ -86,9 +86,18 @@ namespace StarBangBang
 			endPos = GetMouseWorldPos();
 			path = PathFinder::SearchForPath(startPos, endPos);
 		}
-		if (AEInputCheckTriggered(AEVK_RETURN))
+		//
+		if (AEInputCheckTriggered(AEVK_Q))
 		{
-			PathFinder::worldGrid.GetNodeFromPosition(GetMouseWorldPos())->occupied = true;
+			BoxCollider b = BoxCollider(GetMouseWorldPos(), true ,120.0f, 120.0f);
+			//CollisionManager::AddToColliders(b);
+			//PathFinder::worldGrid.GetNodeFromPosition(GetMouseWorldPos())->occupied = true;
+		}
+		if (AEInputCheckTriggered(AEVK_E))
+		{
+			BoxCollider b = BoxCollider(GetMouseWorldPos(), false, 120.0f, 120.0f);
+			//CollisionManager::AddToColliders(b);
+			//PathFinder::worldGrid.GetNodeFromPosition(GetMouseWorldPos())->occupied = true;
 		}
 		if (AEInputCheckTriggered(AEVK_1))
 			PRINT("(%f,%f)\n", GetMouseWorldPos().x, GetMouseWorldPos().y);
@@ -96,16 +105,10 @@ namespace StarBangBang
 		if (path.empty())
 			return;
 
-		for (const Node* n : path)
+		for (const A_Node* n : path)
 		{
 			DrawCircle(10.0f, n->nodePos);
 		}
-
-		
-			
-
-		
-
 	
 	}
 	void TestGrid()

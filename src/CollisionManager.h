@@ -3,7 +3,12 @@
 #include <queue>
 namespace StarBangBang
 {
+	
+	class Color;
+
 	const float bounciness = 0.1f;
+	class PartitionGrid;
+
 
 	struct CollisionData
 	{
@@ -18,16 +23,18 @@ namespace StarBangBang
 	{
 	public:
 		
-		BoxCollider A ;
-		BoxCollider B;
+		BoxCollider& A ;
+		BoxCollider& B;
 		CollisionData data;
-		CollisionPair(BoxCollider A, BoxCollider B, CollisionData data);
+		CollisionPair(BoxCollider& A, BoxCollider& B, CollisionData data);
 	};
 
 
 
 	namespace CollisionManager
 	{
+
+		void AddToColliders(BoxCollider);
 		void ResolverUpdate();
 		void AddToResolveQueue(CollisionPair);
 
@@ -36,7 +43,7 @@ namespace StarBangBang
 		bool CircleVsCircle(CircleCollider c1, CircleCollider c2, CollisionData& col);
 
 			
-		void DebugCollider(BoxCollider b);
+		void DebugCollider(BoxCollider b, Color c );
 
 		void DebugCollider(CircleCollider c);
 
