@@ -57,18 +57,19 @@ namespace StarBangBang
 			AEVec2 normal = data.col_normal;
 
 			float scale = (1.0f + bounciness) + data.pen_depth;
-			AEVec2Scale(&resolveForce, &normal, scale);
 			//movement force
-			AEVec2 temp = obj1.center;
-			AEVec2 temp1 = obj2.center;
+			AEVec2Scale(&resolveForce, &normal, scale);
+			
 			//push obj1
 			if (!obj1.isStatic)
-				AEVec2Add(&obj1.center, &temp, &resolveForce);
+				obj1.Translate(resolveForce.x, resolveForce.y);
+							
 			//invert direction
 			resolveForce = AEVec2{ resolveForce.x * -1.0f,resolveForce.y * -1.0f };
 			//push obj2
 			if (!obj2.isStatic)
-				AEVec2Add(&obj2.center, &temp1, &resolveForce);
+				obj2.Translate(resolveForce.x, resolveForce.y);
+	
 
 			}
 

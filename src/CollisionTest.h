@@ -44,8 +44,8 @@ namespace StarBangBang
 		}
 		if (start)
 		{
-			box2.center.x += -500 * dt;
-			box1.center.x += 500 * dt;
+			box2.Translate(-500 * dt, 0);
+			box1.Translate(500 * dt, 0);
 		}
 	
 	}
@@ -65,8 +65,7 @@ namespace StarBangBang
 		{
 			int x = 0, y = 0;
 			AEInputGetCursorPosition(&x,&y);
-			circle2.center.x = (f32)x;
-			circle2.center.y = (f32)y;
+			circle2.SetCenter((float)x, (float)y);
 
 		}
 		
@@ -76,28 +75,29 @@ namespace StarBangBang
 	std::vector<A_Node*> path;
 	void PathFinderTest()
 	{
-		//set start pos 
+		//set occupied nodes
 		if (AEInputCheckTriggered(VK_RBUTTON))
-			startPos = GetMouseWorldPos();
-
+		{
+			A_Node* n = PathFinder::GetWorldGrid().GetNodeFromPosition(GetMouseWorldPos());
+			n->occupied = true;
+		}
+			
 		//set end pos and start pathfinding
 		if (AEInputCheckTriggered(VK_LBUTTON))
 		{
 			endPos = GetMouseWorldPos();
 			path = PathFinder::SearchForPath(startPos, endPos);
 		}
-		//
+		//place static collider (they cannot move)
 		if (AEInputCheckTriggered(AEVK_Q))
 		{
 			BoxCollider b = BoxCollider(GetMouseWorldPos(), true ,120.0f, 120.0f);
-			//CollisionManager::AddToColliders(b);
-			//PathFinder::worldGrid.GetNodeFromPosition(GetMouseWorldPos())->occupied = true;
+		
 		}
+		//place dynamic collider
 		if (AEInputCheckTriggered(AEVK_E))
 		{
 			BoxCollider b = BoxCollider(GetMouseWorldPos(), false, 120.0f, 120.0f);
-			//CollisionManager::AddToColliders(b);
-			//PathFinder::worldGrid.GetNodeFromPosition(GetMouseWorldPos())->occupied = true;
 		}
 		if (AEInputCheckTriggered(AEVK_1))
 			PRINT("(%f,%f)\n", GetMouseWorldPos().x, GetMouseWorldPos().y);

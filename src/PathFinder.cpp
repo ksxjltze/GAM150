@@ -11,11 +11,11 @@ using namespace StarBangBang;
 const int diagonal_Cost = 14;
 const int straight_Cost = 10;
 
-//Grid worldGrid;
+Grid worldGrid;
 
 void PathFinder::Free()
 {
-	PathFinder::worldGrid.FreeGrid();
+	worldGrid.FreeGrid();
 }
 
 void PathFinder::GridDraw()
@@ -24,7 +24,12 @@ void PathFinder::GridDraw()
 	A_Node* n = worldGrid.GetNodeFromPosition(mousePos);
 	if (n)
 		StarBangBang::DrawCircle(10.0f, n->nodePos);
-	PathFinder::worldGrid.DrawGrid();
+	worldGrid.DrawGrid();
+}
+
+Grid& PathFinder::GetWorldGrid()
+{
+	return worldGrid;
 }
 
 int NodeDistance(const A_Node* lhs, const A_Node* rhs)
@@ -58,8 +63,8 @@ std::vector<A_Node*> PathFinder::SearchForPath(AEVec2 start, AEVec2 target)
 	std::vector<A_Node*> pathing;
 	pathing.reserve(100);
 
-	A_Node* startNode = PathFinder::worldGrid.GetNodeFromPosition(start);
-	A_Node* endNode = PathFinder::worldGrid.GetNodeFromPosition(target);
+	A_Node* startNode = worldGrid.GetNodeFromPosition(start);
+	A_Node* endNode = worldGrid.GetNodeFromPosition(target);
 	std::vector<A_Node*> openList;
 	openList.reserve(30);
 	std::unordered_set<A_Node*> closeList;
@@ -102,7 +107,7 @@ std::vector<A_Node*> PathFinder::SearchForPath(AEVec2 start, AEVec2 target)
 		}
 			
 
-		for (A_Node* neighbour : PathFinder::worldGrid.GetNodeNeighbours(currNode))
+		for (A_Node* neighbour : worldGrid.GetNodeNeighbours(currNode))
 		{
 			std::unordered_set<A_Node*>::const_iterator u_iter = closeList.find(neighbour);
 			

@@ -240,9 +240,7 @@ using namespace StarBangBang;
 			}
 
 		}
-		grid[10][1].occupied = true;
-		grid[11][1].occupied = true;
-		grid[12][1].occupied = true;
+		
 	}
 
 	void StarBangBang::Grid::CreateGrid(float _nodeSize, int width, int height)

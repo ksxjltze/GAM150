@@ -26,9 +26,9 @@ namespace
 
 void CalculateCollisionData(const BoxCollider& b1, const BoxCollider& b2, CollisionData& col)
 {
-	AEVec2 dist = AEVec2{ b2.center.x - b1.center.x , b2.center.y - b1.center.y };
-	float x_intersect = b1.extend.x + b2.extend.x - fabs(dist.x);
-	float y_intersect = b1.extend.y + b2.extend.y - fabs(dist.y);
+	AEVec2 dist = AEVec2{ b2.GetCenter().x - b1.GetCenter().x , b2.GetCenter().y - b1.GetCenter().y };
+	float x_intersect = b1.GetExtend().x + b2.GetExtend().x - fabs(dist.x);
+	float y_intersect = b1.GetExtend().y + b2.GetExtend().y - fabs(dist.y);
 
 	//Find the min intersect distance 
 	if (x_intersect > y_intersect)
@@ -377,8 +377,10 @@ bool CollisionManager::Dynamic_AABB(const BoxCollider& A, const AEVec2& vel1,
 
 bool CollisionManager::CircleVsCircle(CircleCollider c1, CircleCollider c2, CollisionData& col)
 {
-	float r = c1.radius + c2.radius;
-	float d = AEVec2SquareDistance(&c1.center, &c2.center);
+	float r = c1.GetRadius() + c2.GetRadius();
+	AEVec2 c1_center = c1.GetCenter();
+	AEVec2 c2_center = c2.GetCenter();
+	float d = AEVec2SquareDistance(&c1_center, &c2_center);
 	if (d > r * r)
 		return false;
 	//collided
@@ -387,11 +389,11 @@ bool CollisionManager::CircleVsCircle(CircleCollider c1, CircleCollider c2, Coll
 	if (d != 0)
 	{	
 		col.pen_depth = r - d;
-		col.col_normal = AEVec2{ (c2.center.x - c1.center.x) / d , (c2.center.y - c1.center.y) / d };
+		col.col_normal = AEVec2{ (c2_center.x - c1_center.x) / d , (c2_center.y - c1_center.y) / d };
 		return true;
 	}
 	//same circle center	
-	col.pen_depth = c1.radius;
+	col.pen_depth = c1.GetRadius();
 	col.col_normal = AEVec2{ 0, 1 };
 	return true;
 	
@@ -401,7 +403,7 @@ void CollisionManager::DebugCollider(BoxCollider b, Color c)
 {
 	
 	AEVec2 size = AEVec2{ b.GetWidth(),b.GetHeight() };
-	StarBangBang::DrawBoxWired(size, b.center, c);
+	StarBangBang::DrawBoxWired(size, b.GetCenter(), c);
 
 }
 
@@ -413,13 +415,13 @@ void CollisionManager::DebugCollider(CircleCollider c)
 		float radian  = interval * i;
 		if (i + 1 < sides)
 		{
-			float x = c.radius * asinf(radian);
-			float y = c.radius * acosf(radian);
-			float x1 = c.radius * asinf(radian + interval);
-			float y1 = c.radius * acosf(radian + interval);
+			float x = c.GetRadius() * asinf(radian);
+			float y = c.GetRadius() * acosf(radian);
+			float x1 = c.GetRadius() * asinf(radian + interval);
+			float y1 = c.GetRadius() * acosf(radian + interval);
 			
-			AEGfxLine(	c.center.x + x , c.center.y + y, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f,
-						c.center.x + x1, c.center.y + y1 , 0.0f ,0.0f ,0.0f ,0.0f ,1.0f
+			AEGfxLine(	c.GetCenter().x + x , c.GetCenter().y + y, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f,
+						c.GetCenter().x + x1, c.GetCenter().y + y1 , 0.0f ,0.0f ,0.0f ,0.0f ,1.0f
 					
 			);
 		}

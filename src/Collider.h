@@ -11,7 +11,6 @@ namespace StarBangBang
 		unsigned int y= 0;
 	};
 
-	enum class ShapeType {Box,Circle};
 	class Collider : public Component<Collider>
 	{
 
@@ -28,27 +27,42 @@ namespace StarBangBang
 	class CircleCollider : public Collider 
 	{
 		private : 
-			ShapeType shape = ShapeType::Circle;
-		public:
 			float radius;
-			AEVec2 center = {0,0};
+			AEVec2 center = { 0,0 };
+		public:
+			inline float GetRadius() const
+			{
+				return radius;
+			}
+			inline AEVec2 GetCenter() const
+			{
+				return center;
+			}
 			CircleCollider( AEVec2 _center, float _rad = 1.0f);
+			void SetCenter(float x, float y);
 
+			void Translate(float x, float y);
 	};
 
 	//AABB only
 	class BoxCollider : public Collider
 	{
 		private:
-			ShapeType shape = ShapeType::Box;
 			AEVec2 min;
 			AEVec2 max;
+			AEVec2 extend;	//half of width and height 
+			AEVec2 center;
 			//indexes to cells they occupy
 			std::vector<CellIndexes> cell_indexes;
 		public:
-			
-			AEVec2 extend;	//half of width and height 
-			AEVec2 center;
+			inline AEVec2 GetExtend() const
+			{
+				return extend;
+			}
+			inline AEVec2 GetCenter() const
+			{
+				return center;
+			}
 
 			inline AEVec2 Min() const 
 			{
@@ -75,6 +89,10 @@ namespace StarBangBang
 			{
 				return extend.x * 2.0f;
 			}
+
+			void SetCenter(float x, float y);
+
+			void Translate(float x, float y);
 
 			void ClearCellList();
 			void AddToCellList(unsigned int,unsigned int);

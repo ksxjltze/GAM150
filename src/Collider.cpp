@@ -3,6 +3,16 @@
 
 using namespace StarBangBang;
 
+void BoxCollider::SetCenter(float x, float y)
+{
+	center.x = x;
+	center.y = y;
+}
+void BoxCollider::Translate(float x , float y)
+{
+	center.x += x;
+	center.y += y;
+}
 
 void BoxCollider::ClearCellList()
 {
@@ -34,4 +44,16 @@ CircleCollider::CircleCollider(AEVec2 _center, float _rad ) : Collider()
 {
 	center = _center;
 	radius = _rad;
+}
+
+void CircleCollider::SetCenter(float x, float y)
+{
+	center.x = x;
+	center.y = y;
+}
+
+void CircleCollider::Translate(float x, float y)
+{
+	center.x += x;
+	center.y += y;
 }

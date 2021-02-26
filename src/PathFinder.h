@@ -10,7 +10,7 @@ namespace StarBangBang
 		void Free();
 		std::vector<A_Node*>  SearchForPath(AEVec2 start, AEVec2 target);
 		void GridDraw();
-		static Grid worldGrid;
+		Grid& GetWorldGrid();
 	}
 	
 }
