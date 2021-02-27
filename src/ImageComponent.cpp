@@ -33,7 +33,7 @@ void StarBangBang::ImageComponent::Draw()
 		if (sprite.mesh && sprite.texture)
 		{
 			AEVec2 pos = gameObject->GetPos();
-			Graphics::DrawImage(sprite.mesh, sprite.texture, pos, gameObject->transform.scale, gameObject->transform.rotation);
+			GRAPHICS::DrawImage(sprite.mesh, sprite.texture, pos, gameObject->transform.scale, gameObject->transform.rotation);
 
 		}
 	}

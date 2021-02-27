@@ -49,7 +49,7 @@ AEGfxVertexList* StarBangBang::GraphicsManager::GetMesh()
 {
 	if (normalizedMesh == nullptr)
 	{
-		normalizedMesh = CreateMesh(Constants::Graphics::MESH_WIDTH, Constants::Graphics::MESH_HEIGHT);
+		normalizedMesh = CreateMesh(GRAPHICS::MESH_WIDTH, GRAPHICS::MESH_HEIGHT);
 	}
 	return normalizedMesh;
 }
@@ -88,17 +88,17 @@ void StarBangBang::GraphicsManager::FreeMeshes()
 	meshList.clear();
 }
 
-void StarBangBang::Graphics::SetZoom(float scale)
+void StarBangBang::GRAPHICS::SetZoom(float scale)
 {
 	zoom = scale;
 }
 
-float StarBangBang::Graphics::GetZoom()
+float StarBangBang::GRAPHICS::GetZoom()
 {
 	return zoom;
 }
 
-void StarBangBang::Graphics::DrawImage(AEGfxVertexList* mesh, AEGfxTexture* texture, AEVec2 pos, AEVec2 scale, float rotation)
+void StarBangBang::GRAPHICS::DrawImage(AEGfxVertexList* mesh, AEGfxTexture* texture, AEVec2 pos, AEVec2 scale, float rotation)
 {
 	AEGfxSetRenderMode(AE_GFX_RM_TEXTURE);
 

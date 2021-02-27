@@ -183,14 +183,14 @@
     <ClCompile Include="src\Physics.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\CaptainStealth.cpp">
+      <Filter>Source Files\Scenes</Filter>
+    </ClCompile>
     <ClCompile Include="src\SerializeTest.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Scripts\Testing</Filter>
     </ClCompile>
     <ClCompile Include="src\Serialization.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\CaptainStealth.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Engine</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -329,11 +329,11 @@
     <ClInclude Include="src\Serialization.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\CaptainStealth.h">
-      <Filter>Source Files\Scenes</Filter>
-    </ClInclude>
     <ClInclude Include="src\Scenes.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\CaptainStealth.h">
+      <Filter>Header Files\Scenes</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

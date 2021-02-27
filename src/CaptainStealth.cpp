@@ -1,35 +1,46 @@
 #include "CaptainStealth.h"
+#include "constants.h"
+#include "Player.h"
 
-StarBangBang::CaptainStealth::CaptainStealth(int id, GameStateManager& gsm) : Scene(id, gsm)
+namespace StarBangBang
 {
+	static Sprite playerSprite;
+
+	StarBangBang::CaptainStealth::CaptainStealth(int id, GameStateManager& gsm) : Scene(id, gsm), player{*objectManager.NewGameObject()}
+	{
+
+	}
+
+	void StarBangBang::CaptainStealth::Load()
+	{
+		playerSprite = graphicsManager.CreateSprite(RESOURCES::SPRITE_PLAYER_PATH);
+	}
+
+	void StarBangBang::CaptainStealth::Init()
+	{
+		objectManager.AddComponent<Player>(&player);
+		objectManager.AddImage(&player, playerSprite);
+	}
+
+	void StarBangBang::CaptainStealth::Update()
+	{
+		Scene::Update();
+	}
+
+	void StarBangBang::CaptainStealth::Draw()
+	{
+		Scene::Draw();
+	}
+
+	void StarBangBang::CaptainStealth::Free()
+	{
+		Scene::Free();
+	}
+
+	void StarBangBang::CaptainStealth::Unload()
+	{
+		Scene::Unload();
+	}
+
 }
 
-void StarBangBang::CaptainStealth::Load()
-{
-	
-}
-
-void StarBangBang::CaptainStealth::Init()
-{
-
-}
-
-void StarBangBang::CaptainStealth::Update()
-{
-	Scene::Update();
-}
-
-void StarBangBang::CaptainStealth::Draw()
-{
-	Scene::Draw();
-}
-
-void StarBangBang::CaptainStealth::Free()
-{
-	Scene::Free();
-}
-
-void StarBangBang::CaptainStealth::Unload()
-{
-	Scene::Unload();
-}

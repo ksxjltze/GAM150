@@ -31,9 +31,9 @@ namespace StarBangBang
 	void LevelEditor::Load()
 	{
 		tileObjects.reserve(mapHeight);
-		Sprite grassSprite = graphicsManager.CreateSprite(Constants::PROTOTYPE_SPRITE_GRASS_PATH, tileWidth, tileHeight);
-		Sprite stoneSprite = graphicsManager.CreateSprite(Constants::PROTOTYPE_SPRITE_STONE_PATH, tileWidth, tileHeight);
-		boi				   = graphicsManager.CreateSprite(Constants::PROTOTYPE_SPRITE_1_PATH, tileWidth, tileHeight);
+		Sprite grassSprite = graphicsManager.CreateSprite(RESOURCES::PROTOTYPE_SPRITE_GRASS_PATH, tileWidth, tileHeight);
+		Sprite stoneSprite = graphicsManager.CreateSprite(RESOURCES::PROTOTYPE_SPRITE_STONE_PATH, tileWidth, tileHeight);
+		boi				   = graphicsManager.CreateSprite(RESOURCES::PROTOTYPE_SPRITE_1_PATH, tileWidth, tileHeight);
 
 		auto grassTile = std::pair<int, TileSprite>(1, { 1, "Grass", grassSprite });
 		auto stoneTile = std::pair<int, TileSprite>(2, { 2, "Stone", stoneSprite });

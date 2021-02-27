@@ -14,7 +14,6 @@ namespace StarBangBang
 		void Update();
 	private:
 		PrimaryMovementController movementController {gameObject};
-		SecondaryMovementController secondaryMovementController {gameObject};
 	};
 }
 

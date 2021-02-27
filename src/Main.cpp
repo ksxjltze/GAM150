@@ -60,10 +60,10 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 
 	// Add Game States/Scenes
 
-	Scene* sceneDemo = gameStateManager.AddGameState<Level_Demo>(Constants::SceneID::DEMO);
-	Scene* sceneEditor = gameStateManager.AddGameState<LevelEditor>(Constants::SceneID::EDITOR);
-	Scene* sampleScene = gameStateManager.AddGameState<Sample_Scene>(Constants::SceneID::SAMPLE);
-	Scene* gameScene = gameStateManager.AddGameState<CaptainStealth>(Constants::SceneID::SAMPLE);
+	Scene* sceneDemo = gameStateManager.AddGameState<Level_Demo>(SCENE::DEMO);
+	Scene* sceneEditor = gameStateManager.AddGameState<LevelEditor>(SCENE::EDITOR);
+	Scene* sampleScene = gameStateManager.AddGameState<Sample_Scene>(SCENE::SAMPLE);
+	Scene* gameScene = gameStateManager.AddGameState<CaptainStealth>(SCENE::GAME);
 
 	UNREFERENCED_PARAMETER(sceneEditor);
 	UNREFERENCED_PARAMETER(sceneDemo);

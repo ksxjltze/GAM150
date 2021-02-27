@@ -1,5 +1,6 @@
 #pragma once
 #include "State.h"
+#include "Player.h"
 
 namespace StarBangBang
 {
@@ -13,6 +14,9 @@ namespace StarBangBang
 		void Draw();
 		void Free();
 		void Unload();
+
+	private:
+		GameObject& player;
 	};
 
 }
