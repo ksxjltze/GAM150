@@ -6,15 +6,18 @@
 #include <crtdbg.h>
 
 #include "AEEngine.h"
-#include "GameStateManager.h"
-#include "constants.h"
 #include "AudioEngine.h"
 
-#include "Level_Demo.h"
+#include "GameStateManager.h"
+#include "constants.h"
+
+#include "BasicMeshShape.h"
 #include "CollisionTest.h"
+
+#include "Level_Demo.h"
 #include "Sample_Scene.h"
 #include "LevelEditor.h"
-#include "BasicMeshShape.h"
+#include "CaptainStealth.h"
 
 // ---------------------------------------------------------------------------
 // main
@@ -60,6 +63,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 	Scene* sceneDemo = gameStateManager.AddGameState<Level_Demo>(Constants::SceneID::DEMO);
 	Scene* sceneEditor = gameStateManager.AddGameState<LevelEditor>(Constants::SceneID::EDITOR);
 	Scene* sampleScene = gameStateManager.AddGameState<Sample_Scene>(Constants::SceneID::SAMPLE);
+	Scene* gameScene = gameStateManager.AddGameState<CaptainStealth>(Constants::SceneID::SAMPLE);
 
 	UNREFERENCED_PARAMETER(sceneEditor);
 	UNREFERENCED_PARAMETER(sceneDemo);
@@ -67,7 +71,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 
 	// Set Initial State
 
-	gameStateManager.SetInitialState(sceneEditor);
+	gameStateManager.SetInitialState(gameScene);
 
 	//// Using custom window procedure
 	AESysInit(hInstance, nCmdShow, 800, 600, 1, 60, true, NULL);
