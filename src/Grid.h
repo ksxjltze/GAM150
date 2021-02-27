@@ -38,7 +38,6 @@ namespace StarBangBang
 	class Cell : public Node
 	{
 	public:
-		//std::vector<Cell*> cells;
 		//all the colliders in this cell
 		std::unordered_set<BoxCollider*> cell_colliders;
 
@@ -66,8 +65,7 @@ namespace StarBangBang
 		void FreeGrid(void);
 		//create grid object
 		void CreateGrid(float _nodeSize, AEVec2 gridSize, AEVec2 _offset = AEVec2{ 0,0 });
-		void CreateGrid(float _nodeSize, int width, int height);
-
+		
 		std::vector<Cell*> GetNodeNeighbours(const Cell* node);
 
 		Cell* GetNodeFromPosition(AEVec2 pos);
@@ -75,9 +73,6 @@ namespace StarBangBang
 		Cell* GetNode(int x, int y) const;
 
 		PartitionGrid();
-
-		PartitionGrid(float _nodeSize, AEVec2 gridSize, AEVec2 _offset = AEVec2{ 0,0 });
-
 
 
 		~PartitionGrid();
@@ -88,8 +83,8 @@ namespace StarBangBang
 	{
 	private:
 		A_Node** grid = nullptr;
-		float nodeSize;
-		AEVec2 offset;	// grid offset from center (ie to place it in other position)
+		float nodeSize = 0.0f;
+		AEVec2 offset = AEVec2();	// grid offset from center (ie to place it in other position)
 		int size_x = 0; // number of nodes in a row
 		int size_y = 0; // number of nodes in a column
 		void CheckOccupiedGrid();
@@ -99,8 +94,9 @@ namespace StarBangBang
 			return AEVec2{nodeSize * size_x * 0.5f, nodeSize * size_y * 0.5f};
 		}
 		constexpr AEVec2 GetGridOffset() const { return offset; }
-
+		//how many nodes in x 
 		constexpr int GetGridSizeX() const { return size_x; }
+		//how many nodes in y
 		constexpr int GetGridSizeY() const { return size_y; }
 		constexpr float GetNodeSize() const { return nodeSize; }
 
@@ -109,15 +105,13 @@ namespace StarBangBang
 		void FreeGrid(void);
 		//create grid object
 		void CreateGrid(float _nodeSize, AEVec2 gridSize, AEVec2 _offset = AEVec2{ 0,0 });
-		void CreateGrid(float _nodeSize, int width, int height);
-
+		
 		std::vector<A_Node*> GetNodeNeighbours(const A_Node* node);
 
 		A_Node* GetNodeFromPosition(AEVec2 pos) ;
 		float GetNodeSize() { return nodeSize; }
 		A_Node* GetNode(int x, int y) const;
-		
-		Grid();
+		Grid() = default;
 		
 		Grid(float _nodeSize, AEVec2 gridSize, AEVec2 _offset = AEVec2{ 0,0 });
 

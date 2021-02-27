@@ -72,9 +72,8 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 	//// Using custom window procedure
 	AESysInit(hInstance, nCmdShow, 800, 600, 1, 60, true, NULL);
 	StarBangBang::InitBasicMesh();
-	//Init all the stuff for testing in collisionTest.h
-	StarBangBang::InitTest();
-
+	
+	PathFinder::PathFinderInit();
 	//Full screen
 	//AESysInit(hInstance, nCmdShow, 1920, 1080, 1, 60, true, NULL);
 	//AEToogleFullScreen(true);
@@ -119,8 +118,6 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 		AEGfxGetCamPosition(&camPos.x, &camPos.y);
 
 
-		StarBangBang::Test_BoxUpdate();
-		//StarBangBang::Test_CircleUpdate();
 		StarBangBang::TestGrid();
 		CollisionManager::ResolverUpdate();
 		StarBangBang::PathFinderTest();
