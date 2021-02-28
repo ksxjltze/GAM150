@@ -3,17 +3,19 @@
 
 using namespace StarBangBang;
 
-StarBangBang::GuardVision::GuardVision(GameObject* gameObject) : Script(gameObject)
+GuardVision::GuardVision(GameObject* gameObject) : Script(gameObject)
 {
-	detected_player = false;
+	detected = false;
+	player = nullptr;
+	client = nullptr;
 }
 
-void StarBangBang::GuardVision::Update()
+void GuardVision::Update()
 {
 	// update guard's vision stuff here
 	// ...
 
-	if (detected_player)
+	if (detected)
 	{
 		gameObject->GetComponent<Guard>()->SetState(Guard::GUARD_STATE::STATE_CHASE);
 	}

@@ -5,6 +5,7 @@
 #include "MemoryManager.h"
 #include "GameStateManager.h"
 #include "Player.h"
+#include "GuardManager.h"
 
 namespace StarBangBang
 {
@@ -29,6 +30,7 @@ namespace StarBangBang
 
 		GameObject* testInteractable;
 		GameObject* testGuard;
+		GuardManager* guardManager;
 
 		std::vector<GameObject*> testObjects;
 	};

@@ -24,12 +24,13 @@ namespace StarBangBang
 
 		inline void SetState(GUARD_STATE _state) { state = _state; }
 		//void NotifyGuard(GameObject* gameObject);
+		inline int GetID() const { return id; }
 
 	private:
-
 		GUARD_STATE state;
 		GuardVision* vision;
 		GuardMovement* movement;
+		static int id;
 	};
 }
 
