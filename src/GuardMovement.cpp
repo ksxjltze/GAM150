@@ -2,6 +2,7 @@
 #include "GuardVision.h"
 #include "Guard.h"
 #include <iostream>
+#include <string>
 
 using namespace StarBangBang;
 
@@ -9,7 +10,9 @@ GuardMovement::GuardMovement(GameObject* gameObject) : Script(gameObject)
 {
 	SetWaypoints();
 	//std::cout << waypoints.size() << "\n";
-	std::cout << "Guard ID: " << gameObject->GetComponent<Guard>()->GetID() << std::endl;
+
+	std::string text = "Guard ID: " + std::to_string(gameObject->GetComponent<Guard>()->GetID()) + "\n";
+	PRINT(text.c_str());
 }
 
 void GuardMovement::Idle()

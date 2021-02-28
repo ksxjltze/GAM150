@@ -30,7 +30,7 @@ namespace StarBangBang
 
 		GameObject* testInteractable;
 		GameObject* testGuard;
-		GuardManager* guardManager;
+		GameObject* guardManager;
 
 		std::vector<GameObject*> testObjects;
 	};

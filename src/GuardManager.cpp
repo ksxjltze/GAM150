@@ -3,18 +3,24 @@
 
 using namespace StarBangBang;
 
-GuardManager::GuardManager(ObjectManager& _manager, Sprite& _sprite)
-	: objectManager(&_manager), guard_sprite(&_sprite)
+//GuardManager::GuardManager(ObjectManager& _manager, Sprite& _sprite)
+//	: objectManager(&_manager), guard_sprite(&_sprite)
+//{
+//	Start();
+//}
+
+GuardManager::GuardManager(GameObject* gameObject) 
+	: Script(gameObject), objectManager(nullptr), guard_sprite(nullptr)
 {
-	Start();
+
 }
 
-GuardManager::~GuardManager()
-{
-	guards.clear();
-}
+//GuardManager::~GuardManager()
+//{
+//	guards.clear();
+//}
 
-void GuardManager::Start()
+void GuardManager::Init()
 {
 	for (size_t i = 0; i < NUM_GUARDS; i++)
 	{

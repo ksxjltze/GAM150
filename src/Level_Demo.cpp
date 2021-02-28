@@ -21,6 +21,7 @@ StarBangBang::Level_Demo::Level_Demo(int id, GameStateManager& manager) : Scene(
 
 	testGuard = nullptr;
 	testInteractable = nullptr;
+	guardManager = nullptr;
 }
 
 void StarBangBang::Level_Demo::Load()
@@ -36,19 +37,16 @@ void StarBangBang::Level_Demo::Init()
 {
 	GameObject* worldOriginMarker = objectManager.NewGameObject();
 	player = objectManager.NewGameObject();
-	//testGuard = objectManager.NewGameObject();
 	movementController = objectManager.NewGameObject();
-
-	guardManager = new GuardManager(objectManager, playerImage);
-
-	//GameObject* guardManager = objectManager.NewGameObject();
-	//objectManager.AddComponent<GuardManager>(guardManager);
-	//guardManager->GetComponent<GuardManager>()->SetObjectManager(&objectManager);
-	//guardManager->GetComponent<GuardManager>()->SetSprite(&planetImage);
 
 	objectManager.AddImage(worldOriginMarker, planetImage);
 	objectManager.AddImage(player, playerImage);
-	//objectManager.AddImage(testGuard, playerImage);
+
+	guardManager = objectManager.NewGameObject();
+	objectManager.AddComponent<GuardManager>(guardManager);
+	guardManager->GetComponent<GuardManager>()->SetObjectManager(&objectManager);
+	guardManager->GetComponent<GuardManager>()->SetSprite(&playerImage);
+	guardManager->GetComponent<GuardManager>()->Init();
 
 	//Creates a clone of the player gameObject and changes the sprite texture.
 	player2 = objectManager.CloneGameObject(player);
@@ -62,11 +60,6 @@ void StarBangBang::Level_Demo::Init()
 
 	objectManager.AddComponent<CameraComponent>(player);
 	objectManager.AddComponent<InteractableComponent>(testInteractable);
-
-	//objectManager.AddComponent<Guard>(testGuard);
-	//objectManager.AddComponent<GuardVision>(testGuard);
-	//objectManager.AddComponent<GuardMovement>(testGuard);
-	//testGuard->GetComponent<GuardVision>()->SetPlayerAndClient(player, player2);
 
 	objectManager.AddComponent<PrimaryMovementController>(player);
 	objectManager.AddComponent<PrimaryMovementController>(player2);
