@@ -102,7 +102,7 @@ void StarBangBang::DrawBox(AEVec2 size, AEVec2 pos, Color color)
 {
 	AEMtx33 scale = AEMtx33();
 	AEMtx33 result = AEMtx33();
-	float zoom = Graphics::GetZoom();
+	float zoom = GRAPHICS::GetZoom();
 
 	AEGfxSetRenderMode(AE_GFX_RM_COLOR);
 
