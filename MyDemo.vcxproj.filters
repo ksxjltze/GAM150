@@ -85,6 +85,12 @@
     <Filter Include="Header Files\Deprecated">
       <UniqueIdentifier>{5c24f530-1d4e-4458-89c6-a6fe33b1fb30}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Scripts\Guard">
+      <UniqueIdentifier>{942d5473-2e13-44ae-b9e8-2c6c6f199d1d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Scripts\Guard">
+      <UniqueIdentifier>{379e158a-4f12-4f6d-9788-ef2e790e399c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Main.cpp">
@@ -123,9 +129,6 @@
     <ClCompile Include="src\Collider.cpp">
       <Filter>Source Files\Engine\Collision</Filter>
     </ClCompile>
-    <ClCompile Include="src\ColliderAABB.cpp">
-      <Filter>Source Files\Engine\Collision</Filter>
-    </ClCompile>
     <ClCompile Include="src\CollisionManager.cpp">
       <Filter>Source Files\Engine\Collision</Filter>
     </ClCompile>
@@ -162,12 +165,6 @@
     <ClCompile Include="src\AudioEngine.cpp">
       <Filter>Source Files\Engine\Audio</Filter>
     </ClCompile>
-    <ClCompile Include="src\Guard.cpp">
-      <Filter>Source Files\Scripts</Filter>
-    </ClCompile>
-    <ClCompile Include="src\GuardMovement.cpp">
-      <Filter>Source Files\Scripts</Filter>
-    </ClCompile>
     <ClCompile Include="src\InteractableComponent.cpp">
       <Filter>Source Files\Scripts</Filter>
     </ClCompile>
@@ -177,8 +174,29 @@
     <ClCompile Include="src\Sample_Scene.cpp">
       <Filter>Source Files\Scenes</Filter>
     </ClCompile>
+    <ClCompile Include="src\BasicMeshShape.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Grid.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\PathFinder.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Physics.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Guard.cpp">
+      <Filter>Source Files\Scripts\Guard</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GuardMovement.cpp">
+      <Filter>Source Files\Scripts\Guard</Filter>
+    </ClCompile>
     <ClCompile Include="src\GuardVision.cpp">
-      <Filter>Source Files\Scripts</Filter>
+      <Filter>Source Files\Scripts\Guard</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GuardManager.cpp">
+      <Filter>Source Files\Scripts\Guard</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -210,9 +228,6 @@
       <Filter>Header Files\Scripts</Filter>
     </ClInclude>
     <ClInclude Include="src\Collider.h">
-      <Filter>Header Files\Engine\Collision</Filter>
-    </ClInclude>
-    <ClInclude Include="src\ColliderAABB.h">
       <Filter>Header Files\Engine\Collision</Filter>
     </ClInclude>
     <ClInclude Include="src\CollisionComponent.h">
@@ -266,12 +281,6 @@
     <ClInclude Include="src\AudioEngine.h">
       <Filter>Header Files\Engine\Audio</Filter>
     </ClInclude>
-    <ClInclude Include="src\Guard.h">
-      <Filter>Header Files\Scripts</Filter>
-    </ClInclude>
-    <ClInclude Include="src\GuardMovement.h">
-      <Filter>Header Files\Scripts</Filter>
-    </ClInclude>
     <ClInclude Include="src\InteractableComponent.h">
       <Filter>Header Files\Scripts</Filter>
     </ClInclude>
@@ -296,8 +305,32 @@
     <ClInclude Include="src\Sample_Scene.h">
       <Filter>Header Files\Scenes</Filter>
     </ClInclude>
+    <ClInclude Include="src\BasicMeshShape.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\CollisionTest.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Grid.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\PathFinder.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Physics.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Guard.h">
+      <Filter>Header Files\Scripts\Guard</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GuardManager.h">
+      <Filter>Header Files\Scripts\Guard</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GuardMovement.h">
+      <Filter>Header Files\Scripts\Guard</Filter>
+    </ClInclude>
     <ClInclude Include="src\GuardVision.h">
-      <Filter>Header Files\Scripts</Filter>
+      <Filter>Header Files\Scripts\Guard</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
