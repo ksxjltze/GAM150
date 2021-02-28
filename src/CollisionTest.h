@@ -5,21 +5,7 @@
 #include <iostream>
 namespace StarBangBang
 {
-	static CircleCollider circle1
-		= CircleCollider( AEVec2{ 0.0f,0.0f }, 200.0f);
-	static CircleCollider circle2
-		= CircleCollider( AEVec2{ 0.0f,0.0f }, 100.0f);
-	static BoxCollider box1
-		= BoxCollider( AEVec2{ 0.0f,100.0f }, false,100.0f, 150.0f);
-	static BoxCollider box2
-		= BoxCollider( AEVec2{ 300.0f,200.0f }, false, 80.0f, 200.0f );
-
-	static CollisionData data = CollisionData();
-
-	void InitTest()
-	{
-		
-	}
+	
 
 	void FreeTest()
 	{
@@ -27,49 +13,7 @@ namespace StarBangBang
 		//PathFinder::Free();
 	}
 	bool start = false;
-	void Test_BoxUpdate()
-	{
-		float dt = (float)AEFrameRateControllerGetFrameTime();
-		//box1.isStatic = true;
-		CollisionManager::DebugCollider(box1,Green());
-		CollisionManager::DebugCollider(box2, Green());
-		if (CollisionManager::Dynamic_AABB(box1, AEVec2{ 500,0 },box2, AEVec2{ -500,0 },data))
-		{
-			
-			CollisionManager::Resolve(box1, box2, data);
-		}
-		if (AEInputCheckTriggered(VK_LBUTTON))
-		{		
-			start = !start;
-		}
-		if (start)
-		{
-			box2.Translate(-500 * dt, 0);
-			box1.Translate(500 * dt, 0);
-		}
 	
-	}
-
-	void Test_CircleUpdate()
-	{	
-		CollisionManager::DebugCollider(circle2);
-		CollisionManager::DebugCollider(circle1);
-	
-
-		if (CollisionManager::CircleVsCircle(circle1, circle2, data))
-		{
-			//std::cout << "Circle collide \n";
-			CollisionManager::Resolve(circle1,circle2,data);
-		}
-		if (AEInputCheckTriggered(VK_LBUTTON))
-		{
-			int x = 0, y = 0;
-			AEInputGetCursorPosition(&x,&y);
-			circle2.SetCenter((float)x, (float)y);
-
-		}
-		
-	}
 	AEVec2 startPos {-128,752};
 	AEVec2 endPos{-514,840};
 	std::vector<A_Node*> path;
@@ -111,6 +55,7 @@ namespace StarBangBang
 		}
 	
 	}
+	//draw can cause lag with alot of nodes
 	void TestGrid()
 	{
 		PathFinder::GridDraw();

@@ -67,7 +67,7 @@ namespace StarBangBang
 
 	void LevelEditor::Init()
 	{
-		grid.CreateGrid(tileWidth, mapWidth, mapHeight);
+		grid.CreateGrid(tileWidth, AEVec2{ (f32)mapWidth,(f32)mapHeight });
 		selectedTile = palette.at(2);
 
 		LoadLevel();

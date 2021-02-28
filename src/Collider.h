@@ -90,6 +90,8 @@ namespace StarBangBang
 				return extend.x * 2.0f;
 			}
 
+			BoxCollider Union(const BoxCollider&);
+
 			void SetCenter(float x, float y);
 
 			void Translate(float x, float y);
@@ -100,6 +102,7 @@ namespace StarBangBang
 			const std::vector<CellIndexes>& GetCellIndexes() const;
 
 			BoxCollider( AEVec2 _center,bool _isStatic = false ,float width = 1.0f, float height = 1.0f);
+			BoxCollider(AEVec2 min, AEVec2 max , bool isStatic = true);
 			BoxCollider(const BoxCollider& b) = default;
 	};
 }

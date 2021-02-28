@@ -12,10 +12,12 @@ using namespace StarBangBang;
 
 	PartitionGrid::PartitionGrid()
 	{
-		PRINT("HELP\n");
-		nodeSize = 60;
-		offset = AEVec2{ 10,10 };
-		CreateGrid(nodeSize, AEVec2{ 1000.0f, 1000.0f }, offset);
+
+		const int width = 1000;
+		const int height = 1000;
+		nodeSize = 30 ;
+		offset = AEVec2{ 0,0 };
+		CreateGrid(nodeSize, AEVec2{ width ,height }, offset);
 		
 	}
 	//Change to destructor some time
@@ -32,21 +34,14 @@ using namespace StarBangBang;
 		PartitionGrid::FreeGrid();
 	}
 
-	PartitionGrid::PartitionGrid(float _nodeSize, AEVec2 gridSize, AEVec2 _offset)
-	{
-		this->nodeSize = _nodeSize;
-		this->offset = _offset;
-		CreateGrid(_nodeSize, gridSize, AEVec2{ 0,0 });
-	}
-
 	void PartitionGrid::CreateGrid(float _nodeSize, AEVec2 gridSize, AEVec2 _offset)
 	{
 
 		nodeSize = _nodeSize;
 		offset = _offset;
 
-		if (gridSize.x == 0 || gridSize.y == 0)
-			std::cout << "Error : Grid size cannot be 0 \n";
+		if (gridSize.x <= 0 || gridSize.y <= 0)
+			std::cout << "Error : Grid size cannot be 0/negative \n";
 		size_x = static_cast<int>(ceil(gridSize.x / nodeSize));
 		size_y = static_cast<int>(ceil(gridSize.y / nodeSize));
 
@@ -84,12 +79,6 @@ using namespace StarBangBang;
 
 		}
 
-	}
-
-	void PartitionGrid::CreateGrid(float _nodeSize, int width, int height)
-	{
-		AEVec2 size = { width * _nodeSize, height * _nodeSize };
-		CreateGrid(_nodeSize, size, { _nodeSize / 2, _nodeSize / 2 - size.y });
 	}
 
 	std::vector<Cell*> PartitionGrid::GetNodeNeighbours(const Cell* node)
@@ -160,12 +149,7 @@ using namespace StarBangBang;
 
 
 	#pragma region A* grid
-	Grid::Grid()
-	{
-		nodeSize = 30.0f;
-		offset = AEVec2{ 0,0 };
-		CreateGrid(nodeSize, AEVec2{ 1000.0f, 1000.0f });
-	}
+	
 	//Change to destructor some time
 	void Grid::FreeGrid()
 	{
@@ -201,10 +185,10 @@ using namespace StarBangBang;
 		nodeSize = _nodeSize;
 		offset = _offset;
 
-		if (gridSize.x == 0 || gridSize.y == 0)
+		if (gridSize.x <= 0 || gridSize.y <= 0)
 			std::cout << "Error : Grid size cannot be 0 \n";
-		size_x = static_cast<int>(round(gridSize.x / nodeSize));
-		size_y = static_cast<int>(round(gridSize.y / nodeSize));
+		size_x = static_cast<int>(ceil(gridSize.x / nodeSize));
+		size_y = static_cast<int>(ceil(gridSize.y / nodeSize));
 
 		try
 		{
@@ -241,12 +225,6 @@ using namespace StarBangBang;
 
 		}
 		
-	}
-
-	void StarBangBang::Grid::CreateGrid(float _nodeSize, int width, int height)
-	{
-		AEVec2 size = { width * _nodeSize, height * _nodeSize };
-		CreateGrid(_nodeSize, size, { _nodeSize / 2, _nodeSize / 2 - size.y });
 	}
 
 	std::vector<A_Node*> Grid::GetNodeNeighbours(const A_Node* node)

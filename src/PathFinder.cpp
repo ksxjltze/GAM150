@@ -13,6 +13,11 @@ const int straight_Cost = 10;
 
 Grid worldGrid;
 
+void PathFinder::PathFinderInit()
+{
+	worldGrid.CreateGrid(30.0f, AEVec2{(f32)1000,(f32)1000 }, AEVec2{ 0,0 });
+}
+
 void PathFinder::Free()
 {
 	worldGrid.FreeGrid();
