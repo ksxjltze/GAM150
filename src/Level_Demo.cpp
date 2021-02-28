@@ -105,7 +105,7 @@ void StarBangBang::Level_Demo::Draw()
 
 void StarBangBang::Level_Demo::Free()
 {
-	delete guardManager;
+	//delete guardManager;
 	Scene::Free();
 }
 
