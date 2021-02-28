@@ -89,6 +89,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\AABBTree.cpp" />
     <ClCompile Include="src\BasicMeshShape.cpp" />
     <ClCompile Include="src\AudioEngine.cpp" />
     <ClCompile Include="src\CameraComponent.cpp" />
@@ -125,6 +126,7 @@
     <ClCompile Include="src\Utils.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\AABBTree.h" />
     <ClInclude Include="src\BasicMeshShape.h" />
     <ClInclude Include="src\AudioEngine.h" />
     <ClInclude Include="src\CameraComponent.h" />

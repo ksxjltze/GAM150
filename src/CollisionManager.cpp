@@ -24,6 +24,7 @@ namespace
 }
 
 
+
 void CalculateCollisionData(const BoxCollider& b1, const BoxCollider& b2, CollisionData& col)
 {
 	AEVec2 dist = AEVec2{ b2.GetCenter().x - b1.GetCenter().x , b2.GetCenter().y - b1.GetCenter().y };
@@ -53,73 +54,95 @@ void CalculateCollisionData(const BoxCollider& b1, const BoxCollider& b2, Collis
 	
 
 }
+
 void FetchAllColliderCells(const BoxCollider& c, std::vector<Cell*>& list)
 {
-	Cell* maxCell = p_grid.GetNodeFromPosition(c.Max());
-	Cell* minCell = p_grid.GetNodeFromPosition(c.Min());
-	if (!maxCell || !minCell)
+	//The collider can fit in one cell
+	if (c.GetExtend().x * 2 < p_grid.GetNodeSize()
+		&& c.GetExtend().y * 2 < p_grid.GetNodeSize())
 	{
-		PRINT("Collider out of bounds(p_grid)!\n");
+		Cell* cell = p_grid.GetNodeFromPosition(c.GetCenter());
+		if (cell)
+		{
+			list.push_back(cell);
+		}
 		return;
 	}
 
-	if (maxCell == minCell)
+	Cell* maxCell = p_grid.GetNodeFromPosition(c.Max());
+	Cell* minCell = p_grid.GetNodeFromPosition(c.Min());
+
+	//both are within p_grid
+	if (maxCell && minCell)
 	{
-		list.push_back(maxCell);
-	}
-	int h = maxCell->index_y - minCell->index_y;
-	int w = maxCell->index_x - minCell->index_x;
-	for (int y = h; y > 0; y--)
-	{
-		for (int x = 0; x < w; x++)
+		for (int y = 0; y < maxCell->index_y - minCell->index_y; y++)
 		{
-			Cell* cell = p_grid.GetNode(minCell->index_x + x, maxCell->index_y - y);
-			if (cell)
+			for (int x = 0; x < maxCell->index_x - minCell->index_x; x++)
+			{
+				Cell* cell = p_grid.GetNode(minCell->index_x + x, minCell->index_y + y);
+
+				if (!cell)
+					continue;
 				list.push_back(cell);
+				
+			}
 		}
 	}
 }
+
 void CollisionManager::AddToColliders(BoxCollider c)
 {
-	
+	unsigned int index = 0;
+	//The collider can fit in one cell
+	if (c.GetExtend().x * 2 < p_grid.GetNodeSize()
+		&& c.GetExtend().y * 2 < p_grid.GetNodeSize())
+	{
+		Cell* cell = p_grid.GetNodeFromPosition(c.GetCenter());
+		collider_list.push_back(c);
+		if (cell)
+		{
+			index = (unsigned int)collider_list.size() - 1;
+
+			collider_list[index].AddToCellList((unsigned int)(cell->index_x),
+				(unsigned int)(cell->index_y));
+			cell->cell_colliders.insert(&collider_list[index]);
+		}
+		return;
+	}
+
 	Cell* maxCell = p_grid.GetNodeFromPosition(c.Max());
 	Cell* minCell = p_grid.GetNodeFromPosition(c.Min());
 
-	//the collider must be within the p_grid
-	if (!maxCell || !minCell)
+	//both are within p_grid
+	if (maxCell && minCell)
 	{
-		PRINT("Collider out of bounds(p_grid)!\n");
-		return;
-	}
-	
-	collider_list.push_back(c);
-	//cache the boxcollider into container for each cell they occupy
-	//collider list index
-	unsigned int index = (unsigned int)collider_list.size() - 1;
-	//same cell the collider is within a cell only
-	if (maxCell == minCell)
-	{
-		collider_list[index].AddToCellList(static_cast<unsigned int>(maxCell->index_x),
-			static_cast<unsigned int>(maxCell->index_y));
-		maxCell->cell_colliders.insert(&collider_list[index]);
-		return;
-	}
-	int h = maxCell->index_y - minCell->index_y;
-	int w = maxCell->index_x - minCell->index_x;
-	for (int y = h; y > 0; y--)
-	{
-		for (int x = 0; x < w; x++)
+		collider_list.push_back(c);
+		index = (unsigned int)collider_list.size() - 1;
+		for (int y = 0; y < maxCell->index_y - minCell->index_y; y++)
 		{
-			Cell* cell = p_grid.GetNode(minCell->index_x + x, maxCell->index_y - y);
-			if (cell)
+			for (int x = 0; x < maxCell->index_x - minCell->index_x ; x++)
 			{
-				collider_list[index].AddToCellList(static_cast<unsigned int>(cell->index_x),
-					static_cast<unsigned int>(cell->index_y));
-				cell->cell_colliders.insert(&collider_list[index]);
+				Cell* cell = p_grid.GetNode(minCell->index_x + x, minCell->index_y + y);
+
+				if (!cell)
+					continue;
+
+				BoxCollider* collider = &collider_list[index];
+				if (!collider)
+				{
+					PRINT("Collider is null \n");
+					return;
+				}
+					
+
+				collider_list[index].AddToCellList
+				((unsigned int)(minCell->index_x + x), (unsigned int)(minCell->index_y + y));
+				cell->cell_colliders.insert(collider);
 			}
 		}
 	}
 	
+
 	
 }
 void Debug_PartitionGrid()
@@ -143,9 +166,7 @@ void Debug_PartitionGrid()
 void CollisionManager::ResolverUpdate()
 {
 	
-	if (collider_list.empty())
-		PRINT("Empty collider list\n");
-	else
+	if (!collider_list.empty())
 		p_grid.DrawGrid();
 
 	
@@ -161,7 +182,6 @@ void CollisionManager::ResolverUpdate()
 			{
 				CollisionPair p{ col,col2, data };
 				AddToResolveQueue(p);
-				//Resolve(col, *box, data);
 			}
 		}
 		DebugCollider(col, Black());
@@ -169,56 +189,58 @@ void CollisionManager::ResolverUpdate()
 
 	Debug_PartitionGrid();
 
-	//paritition (buggy as non-static collider always colliding for some reason)
-	/*if (collider_list.size() >= 2)
-	{
-		for (BoxCollider& col : collider_list)
-		{
-			//if collider moved clear the cell_colliders of each cell it occupy 
-			//dynamic colliders
-			if (!col.isStatic)
-			{
-				//clear the cells collider occupies
-				for (const CellIndexes& indexes : col.GetCellIndexes())
-				{
-					
-					Cell* c = p_grid.GetNode(indexes.x, indexes.y);
-					c->cell_colliders.erase(&col);
-				}
-				//clear all cell data from collider
-				col.ClearCellList();
-				//update the new cells collider occupies
-				std::vector<Cell*> cell_list;
-				FetchAllColliderCells(col, cell_list);
-				for (Cell* cell_ref : cell_list)
-				{
-					cell_ref->cell_colliders.insert(&col);
-					col.AddToCellList(cell_ref->index_x,cell_ref->index_y);
-					
-				}
-			}
-			
-			for (const CellIndexes& indexes : col.GetCellIndexes())
-			{
-				Cell* c = p_grid.GetNode(indexes.x, indexes.y);
-					
-				for (BoxCollider* box : c->cell_colliders)
-				{
-					CollisionData data;
-					if (Dynamic_AABB(col, AEVec2{ 0,0 }, *box, AEVec2{ 0,0 }, data))
-					{
-						CollisionPair p{col,*box, data};
-						AddToResolveQueue(p);
-						//Resolve(col, *box, data);
-					}
-				}
+	//paritition (still have some bugs)
+	//if (collider_list.size() >= 2)
+	//{
+	//	for (BoxCollider& col : collider_list)
+	//	{
+	//		//if collider moved clear the cell_colliders of each cell it occupy 
+	//		//dynamic colliders
+	//		if (!col.isStatic)
+	//		{
+	//			//clear the cells collider occupies
+	//			for (const CellIndexes& indexes : col.GetCellIndexes())
+	//			{
+	//				
+	//				Cell* c = p_grid.GetNode(indexes.x, indexes.y);
+	//				c->cell_colliders.erase(&col);
+	//			}
+	//			//clear all cell data from collider
+	//			col.ClearCellList();
+	//			//update the new cells collider occupies
+	//			std::vector<Cell*> cell_list;
+	//			FetchAllColliderCells(col, cell_list);
+	//			for (Cell* cell_ref : cell_list)
+	//			{
+	//				cell_ref->cell_colliders.insert(&col);
+	//				col.AddToCellList(cell_ref->index_x,cell_ref->index_y);
+	//				
+	//			}
+	//		}
+	//		
+	//		for (const CellIndexes& indexes : col.GetCellIndexes())
+	//		{
+	//			Cell* c = p_grid.GetNode(indexes.x, indexes.y);
+	//				
+	//			for (BoxCollider* box : c->cell_colliders)
+	//			{
+	//				if (box == &col)
+	//					continue;
+	//				CollisionData data;
+	//				if (Dynamic_AABB(col, AEVec2{ 0,0 }, *box, AEVec2{ 0,0 }, data))
+	//				{
+	//					CollisionPair p{col,*box, data};
+	//					AddToResolveQueue(p);
 
-			}
-			
-			DebugCollider(col, Black());
-		}
-	}*/
-	
+	//				}
+	//			}
+
+	//		}
+	//		
+	//		DebugCollider(col, Black());
+	//	}
+	//}
+	//Debug_PartitionGrid();
 
 	if (!resolveQueue.empty())
 	{
@@ -319,7 +341,9 @@ bool CollisionManager::Dynamic_AABB(const BoxCollider& A, const AEVec2& vel1,
 		}
 
 	}
-
+	//no collision 
+	if (t_first > t_last)
+		return false;
 	//y-axis
 	//B moving down
 	if (rVel_B.y < 0)
@@ -367,10 +391,7 @@ bool CollisionManager::Dynamic_AABB(const BoxCollider& A, const AEVec2& vel1,
 	if (t_first > t_last)
 		return false;
 
-
-	//Special case where either A and B static and not intersecting  OR 
-	//They are moving at the same velocity and not colliding with each other in the first place
-	return false;
+	return true;
 
 	
 }

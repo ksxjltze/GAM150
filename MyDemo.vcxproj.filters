@@ -123,9 +123,6 @@
     <ClCompile Include="src\CameraComponent.cpp">
       <Filter>Source Files\Engine\Components</Filter>
     </ClCompile>
-    <ClCompile Include="src\CollisionComponent.cpp">
-      <Filter>Source Files\Engine\Components</Filter>
-    </ClCompile>
     <ClCompile Include="src\Collider.cpp">
       <Filter>Source Files\Engine\Collision</Filter>
     </ClCompile>
@@ -210,6 +207,9 @@
     <ClCompile Include="src\FileManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\AABBTree.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\ImageComponent.h">
@@ -240,9 +240,6 @@
       <Filter>Header Files\Scripts</Filter>
     </ClInclude>
     <ClInclude Include="src\Collider.h">
-      <Filter>Header Files\Engine\Collision</Filter>
-    </ClInclude>
-    <ClInclude Include="src\CollisionComponent.h">
       <Filter>Header Files\Engine\Collision</Filter>
     </ClInclude>
     <ClInclude Include="src\CollisionManager.h">
@@ -357,6 +354,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\FileManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ColliderAABB.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\AABBTree.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
