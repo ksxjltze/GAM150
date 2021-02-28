@@ -1,32 +1,59 @@
 #include "Collider.h"
+#include "CollisionManager.h"
 
 using namespace StarBangBang;
 
-float BoxCollider::GetHeight()
+void BoxCollider::SetCenter(float x, float y)
 {
-    return extend.y * 2.0f;
+	center.x = x;
+	center.y = y;
+}
+void BoxCollider::Translate(float x , float y)
+{
+	center.x += x;
+	center.y += y;
 }
 
- float BoxCollider::GetWidth()
+void BoxCollider::ClearCellList()
 {
-    return extend.x * 2.0f;
+	cell_indexes.clear();
 }
 
-BoxCollider::BoxCollider(GameObject* _go, AEVec2 _center, float width, float height) : Collider(_go)
+void BoxCollider::AddToCellList(unsigned int x , unsigned int y)
 {
-	shape = ShapeType::Box;
-	gameObject = _go;
+	cell_indexes.push_back(CellIndexes{x,y});
+}
+
+const std::vector<CellIndexes>& BoxCollider::GetCellIndexes() const
+{
+	return cell_indexes;
+}
+
+
+BoxCollider::BoxCollider(AEVec2 _center, bool _isStatic , float width, float height) : Collider()
+{
 	extend = AEVec2{ width * 0.5f,height * 0.5f};
 	min = AEVec2{_center.x - extend.x , _center.y - extend.y} ;
-	max = AEVec2{ _center.x + extend.x , _center.y + extend.y };;
+	max = AEVec2{ _center.x + extend.x , _center.y + extend.y };
+	isStatic = _isStatic;
 	center = _center;
+	CollisionManager::AddToColliders(*this);
 	
 }
-
-CircleCollider::CircleCollider(GameObject* _go, AEVec2 _center, float _rad ) : Collider(_go)
+CircleCollider::CircleCollider(AEVec2 _center, float _rad ) : Collider()
 {
-	shape = ShapeType::Circle;
-	gameObject = _go;
 	center = _center;
 	radius = _rad;
+}
+
+void CircleCollider::SetCenter(float x, float y)
+{
+	center.x = x;
+	center.y = y;
+}
+
+void CircleCollider::Translate(float x, float y)
+{
+	center.x += x;
+	center.y += y;
 }

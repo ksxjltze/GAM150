@@ -1,57 +1,118 @@
 #pragma once
 #include "CollisionManager.h"
+#include "Utils.h"
+#include "PathFinder.h"
 #include <iostream>
 namespace StarBangBang
 {
-	CircleCollider circle1
-		= CircleCollider(&GameObject(), AEVec2{ 0.0f,0.0f }, 10.0f);
-	CircleCollider circle2
-		= CircleCollider(&GameObject(), AEVec2{ 0.0f,0.0f }, 25.0f);
-	BoxCollider box1
-		= BoxCollider(&GameObject(), AEVec2{ 0.0f,0.0f }, 100.0f, 250.0f);
-	BoxCollider box2
-		= BoxCollider(&GameObject(), AEVec2{ 0.0f,0.0f }, 200.0f, 80.0f);
+	static CircleCollider circle1
+		= CircleCollider( AEVec2{ 0.0f,0.0f }, 200.0f);
+	static CircleCollider circle2
+		= CircleCollider( AEVec2{ 0.0f,0.0f }, 100.0f);
+	static BoxCollider box1
+		= BoxCollider( AEVec2{ 0.0f,100.0f }, false,100.0f, 150.0f);
+	static BoxCollider box2
+		= BoxCollider( AEVec2{ 300.0f,200.0f }, false, 80.0f, 200.0f );
 
-	CollisionManager manager = CollisionManager();
-	CollisionData data = CollisionData();
+	static CollisionData data = CollisionData();
 
+	void InitTest()
+	{
+		
+	}
+
+	void FreeTest()
+	{
+		StarBangBang::FreeUnitMeshes();
+		PathFinder::Free();
+	}
+	bool start = false;
 	void Test_BoxUpdate()
 	{
-		manager.DebugCollider(box1);
-		manager.DebugCollider(box2);
-
-
-		if (manager.AABBvsAABB(box1, box2, &data))
+		float dt = (float)AEFrameRateControllerGetFrameTime();
+		//box1.isStatic = true;
+		CollisionManager::DebugCollider(box1,Green());
+		CollisionManager::DebugCollider(box2, Green());
+		if (CollisionManager::Dynamic_AABB(box1, AEVec2{ 500,0 },box2, AEVec2{ -500,0 },data))
 		{
-			manager.Resolve_BoxvsBox(box1, box2, &data);
+			
+			CollisionManager::Resolve(box1, box2, data);
 		}
 		if (AEInputCheckTriggered(VK_LBUTTON))
-		{
-			int x = 0, y = 0;
-			AEInputGetCursorPosition(&x, &y);
-			box2.center.x = (f32)x;
-			box2.center.y = (f32)y;
-
+		{		
+			start = !start;
 		}
+		if (start)
+		{
+			box2.Translate(-500 * dt, 0);
+			box1.Translate(500 * dt, 0);
+		}
+	
 	}
 
 	void Test_CircleUpdate()
 	{	
-		manager.DebugCollider(circle2);
-		manager.DebugCollider(circle1);
+		CollisionManager::DebugCollider(circle2);
+		CollisionManager::DebugCollider(circle1);
 	
 
-		if (manager.CircleVsCircle(circle1, circle2, &data))
+		if (CollisionManager::CircleVsCircle(circle1, circle2, data))
 		{
-			manager.Resolve_CirclevsCircle(circle1,circle2,&data);
+			//std::cout << "Circle collide \n";
+			CollisionManager::Resolve(circle1,circle2,data);
 		}
 		if (AEInputCheckTriggered(VK_LBUTTON))
 		{
 			int x = 0, y = 0;
 			AEInputGetCursorPosition(&x,&y);
-			circle2.center.x = (f32)x;
-			circle2.center.y = (f32)y;
+			circle2.SetCenter((float)x, (float)y);
 
 		}
+		
+	}
+	AEVec2 startPos {-128,752};
+	AEVec2 endPos{-514,840};
+	std::vector<A_Node*> path;
+	void PathFinderTest()
+	{
+		//set occupied nodes
+		if (AEInputCheckTriggered(VK_RBUTTON))
+		{
+			A_Node* n = PathFinder::GetWorldGrid().GetNodeFromPosition(GetMouseWorldPos());
+			n->occupied = true;
+		}
+			
+		//set end pos and start pathfinding
+		if (AEInputCheckTriggered(VK_LBUTTON))
+		{
+			endPos = GetMouseWorldPos();
+			path = PathFinder::SearchForPath(startPos, endPos);
+		}
+		//place static collider (they cannot move)
+		if (AEInputCheckTriggered(AEVK_Q))
+		{
+			BoxCollider b = BoxCollider(GetMouseWorldPos(), true ,120.0f, 120.0f);
+		
+		}
+		//place dynamic collider
+		if (AEInputCheckTriggered(AEVK_E))
+		{
+			BoxCollider b = BoxCollider(GetMouseWorldPos(), false, 120.0f, 120.0f);
+		}
+		if (AEInputCheckTriggered(AEVK_1))
+			PRINT("(%f,%f)\n", GetMouseWorldPos().x, GetMouseWorldPos().y);
+		
+		if (path.empty())
+			return;
+
+		for (const A_Node* n : path)
+		{
+			DrawCircle(10.0f, n->nodePos);
+		}
+	
+	}
+	void TestGrid()
+	{
+		PathFinder::GridDraw();
 	}
 }

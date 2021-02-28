@@ -12,7 +12,7 @@ namespace StarBangBang
 	void HighLightGridNode(Grid& grid)
 	{
 		AEVec2 mousePos = GetMouseWorldPos();
-		Node* n = grid.GetNodeFromPosition(mousePos);
+		A_Node* n = grid.GetNodeFromPosition(mousePos);
 		if (n)
 			DrawCircle(grid.GetNodeSize() / 2, n->nodePos);
 	}
@@ -51,7 +51,7 @@ namespace StarBangBang
 
 			for (int x = 0; x < mapWidth; x++)
 			{
-				Node* node = grid.GetNode(x, y);
+				A_Node* node = grid.GetNode(x, y);
 				GameObject* obj = objectManager.NewGameObject();
 				objectManager.AddImage(obj, selectedTile.sprite);
 
@@ -123,7 +123,7 @@ namespace StarBangBang
 		AEVec2 mousePos = GetMouseWorldPos();
 		if (AEInputCheckTriggered(AEVK_LBUTTON))
 		{
-			Node* n = grid.GetNodeFromPosition(mousePos);
+			A_Node* n = grid.GetNodeFromPosition(mousePos);
 			if (n)
 			{
 
@@ -141,7 +141,7 @@ namespace StarBangBang
 
 		if (AEInputCheckTriggered(AEVK_RBUTTON))
 		{
-			Node* n = grid.GetNodeFromPosition(mousePos);
+			A_Node* n = grid.GetNodeFromPosition(mousePos);
 			if (n && n->occupied)
 			{
 				RemoveTile(n);
@@ -149,7 +149,7 @@ namespace StarBangBang
 		}
 	}
 
-	void LevelEditor::InsertTile(Node* node)
+	void LevelEditor::InsertTile(A_Node* node)
 	{
 		GameObject* obj = objectManager.NewGameObject();
 		obj->SetPos(node->nodePos);
@@ -162,7 +162,7 @@ namespace StarBangBang
 		std::cout << "LevelEditor: TILE INSERTED" << std::endl;
 	}
 
-	void LevelEditor::RemoveTile(Node* n)
+	void LevelEditor::RemoveTile(A_Node* n)
 	{
 		std::cout << "LevelEditor: NODE OCCUPIED" << std::endl;
 		objectManager.DestroyGameObject(tileObjects[n->index_y][n->index_x].gameObject);
@@ -211,7 +211,7 @@ namespace StarBangBang
 				{
 					Tile tile;
 
-					Node* node = grid.GetNode(x++, y);
+					A_Node* node = grid.GetNode(x++, y);
 
 					tile.sprite.id = c - '0';
 					tile.gameObject = objectManager.NewGameObject();

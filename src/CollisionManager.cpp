@@ -1,21 +1,386 @@
 #include "CollisionManager.h"
+#include "BasicMeshShape.h"
+#include "Grid.h"
 #include <cmath>
 #include <iostream>
-#include <time.h>
 using namespace StarBangBang;
 
-const float bounciness = 1.25f;
+const unsigned int sides = 30;
 
-AEVec2 CollisionManager::ProjectOnToAxis(AEVec2 v, AEVec2 axis)
+
+
+CollisionData::CollisionData() 
+	:pen_depth{ 0.0f }, col_normal{ 0.0f, 0.0f } {}
+
+CollisionPair::CollisionPair(BoxCollider& A, BoxCollider& B, CollisionData data) : A{ A }, B{ B }, data{data}
 {
-	//axis = AEVec2Normalize();
-	return AEVec2{ 0,0 };
+}
+namespace 
+{
+	PartitionGrid p_grid;
+	std::queue<CollisionPair> resolveQueue;
+	//all colliders created
+	std::vector<BoxCollider> collider_list;
 }
 
-bool CollisionManager::CircleVsCircle(CircleCollider c1, CircleCollider c2, CollisionData* col)
+
+void CalculateCollisionData(const BoxCollider& b1, const BoxCollider& b2, CollisionData& col)
 {
-	float r = c1.radius + c2.radius;
-	float d = AEVec2SquareDistance(&c1.center, &c2.center);
+	AEVec2 dist = AEVec2{ b2.GetCenter().x - b1.GetCenter().x , b2.GetCenter().y - b1.GetCenter().y };
+	float x_intersect = b1.GetExtend().x + b2.GetExtend().x - fabs(dist.x);
+	float y_intersect = b1.GetExtend().y + b2.GetExtend().y - fabs(dist.y);
+
+	//Find the min intersect distance 
+	if (x_intersect > y_intersect)
+	{
+		col.pen_depth = x_intersect;
+		// means that b2 center on the left of b1 center 
+		if (dist.x < 0)
+			col.col_normal = AEVec2{ 1.0f,0.0f };
+		else
+			col.col_normal = AEVec2{ -1.0f,0.0f };
+	}
+	else
+	{
+		col.pen_depth = y_intersect;
+		//means b2 center is below b1 center
+		if (dist.y < 0)
+			col.col_normal = AEVec2{ 0.0f, 1.0f };
+		else
+			col.col_normal = AEVec2{ 0.0f,-1.0f };
+
+	}
+	
+
+}
+void FetchAllColliderCells(const BoxCollider& c, std::vector<Cell*>& list)
+{
+	Cell* maxCell = p_grid.GetNodeFromPosition(c.Max());
+	Cell* minCell = p_grid.GetNodeFromPosition(c.Min());
+	if (!maxCell || !minCell)
+	{
+		PRINT("Collider out of bounds(p_grid)!\n");
+		return;
+	}
+
+	if (maxCell == minCell)
+	{
+		list.push_back(maxCell);
+	}
+	int h = maxCell->index_y - minCell->index_y;
+	int w = maxCell->index_x - minCell->index_x;
+	for (int y = h; y > 0; y--)
+	{
+		for (int x = 0; x < w; x++)
+		{
+			Cell* cell = p_grid.GetNode(minCell->index_x + x, maxCell->index_y - y);
+			if (cell)
+				list.push_back(cell);
+		}
+	}
+}
+void CollisionManager::AddToColliders(BoxCollider c)
+{
+	
+	Cell* maxCell = p_grid.GetNodeFromPosition(c.Max());
+	Cell* minCell = p_grid.GetNodeFromPosition(c.Min());
+
+	//the collider must be within the p_grid
+	if (!maxCell || !minCell)
+	{
+		PRINT("Collider out of bounds(p_grid)!\n");
+		return;
+	}
+	
+	collider_list.push_back(c);
+	//cache the boxcollider into container for each cell they occupy
+	//collider list index
+	unsigned int index = (unsigned int)collider_list.size() - 1;
+	//same cell the collider is within a cell only
+	if (maxCell == minCell)
+	{
+		collider_list[index].AddToCellList(static_cast<unsigned int>(maxCell->index_x),
+			static_cast<unsigned int>(maxCell->index_y));
+		maxCell->cell_colliders.insert(&collider_list[index]);
+		return;
+	}
+	int h = maxCell->index_y - minCell->index_y;
+	int w = maxCell->index_x - minCell->index_x;
+	for (int y = h; y > 0; y--)
+	{
+		for (int x = 0; x < w; x++)
+		{
+			Cell* cell = p_grid.GetNode(minCell->index_x + x, maxCell->index_y - y);
+			if (cell)
+			{
+				collider_list[index].AddToCellList(static_cast<unsigned int>(cell->index_x),
+					static_cast<unsigned int>(cell->index_y));
+				cell->cell_colliders.insert(&collider_list[index]);
+			}
+		}
+	}
+	
+	
+}
+void Debug_PartitionGrid()
+{
+	//debug partition grid 
+	for (int y = 0; y < p_grid.GetGridSizeY(); y++)
+	{
+		for (int x = 0; x < p_grid.GetGridSizeX(); x++)
+		{
+			Cell* c = p_grid.GetNode(x, y);
+			if (c && c->cell_colliders.size() > 0)
+			{
+				DrawBoxWired(AEVec2{ p_grid.GetNodeSize(),p_grid.GetNodeSize() }, 
+					p_grid.GetNode(x, y)->nodePos, Color(1.0f, 0.0f, 0.0f, 0.8f));
+			}
+
+		}
+	}
+}
+//wip
+void CollisionManager::ResolverUpdate()
+{
+	
+	if (collider_list.empty())
+		PRINT("Empty collider list\n");
+	else
+		p_grid.DrawGrid();
+
+	
+	//non-partition 
+	for (BoxCollider& col : collider_list)
+	{
+		for (BoxCollider& col2 : collider_list)
+		{
+			if (&col == &col2)
+				continue;
+			CollisionData data;
+			if (Dynamic_AABB(col, AEVec2{ 0,0 }, col2, AEVec2{ 0,0 }, data))
+			{
+				CollisionPair p{ col,col2, data };
+				AddToResolveQueue(p);
+				//Resolve(col, *box, data);
+			}
+		}
+		DebugCollider(col, Black());
+	}
+
+	Debug_PartitionGrid();
+
+	//paritition (buggy as non-static collider always colliding for some reason)
+	/*if (collider_list.size() >= 2)
+	{
+		for (BoxCollider& col : collider_list)
+		{
+			//if collider moved clear the cell_colliders of each cell it occupy 
+			//dynamic colliders
+			if (!col.isStatic)
+			{
+				//clear the cells collider occupies
+				for (const CellIndexes& indexes : col.GetCellIndexes())
+				{
+					
+					Cell* c = p_grid.GetNode(indexes.x, indexes.y);
+					c->cell_colliders.erase(&col);
+				}
+				//clear all cell data from collider
+				col.ClearCellList();
+				//update the new cells collider occupies
+				std::vector<Cell*> cell_list;
+				FetchAllColliderCells(col, cell_list);
+				for (Cell* cell_ref : cell_list)
+				{
+					cell_ref->cell_colliders.insert(&col);
+					col.AddToCellList(cell_ref->index_x,cell_ref->index_y);
+					
+				}
+			}
+			
+			for (const CellIndexes& indexes : col.GetCellIndexes())
+			{
+				Cell* c = p_grid.GetNode(indexes.x, indexes.y);
+					
+				for (BoxCollider* box : c->cell_colliders)
+				{
+					CollisionData data;
+					if (Dynamic_AABB(col, AEVec2{ 0,0 }, *box, AEVec2{ 0,0 }, data))
+					{
+						CollisionPair p{col,*box, data};
+						AddToResolveQueue(p);
+						//Resolve(col, *box, data);
+					}
+				}
+
+			}
+			
+			DebugCollider(col, Black());
+		}
+	}*/
+	
+
+	if (!resolveQueue.empty())
+	{
+		for (size_t i = 0; i < resolveQueue.size(); i++)
+		{
+			CollisionPair& pair = resolveQueue.front();
+			CollisionManager::Resolve(pair.A, pair.B, pair.data);
+			resolveQueue.pop();
+		}
+	}
+	
+	
+	
+}
+//wip
+void CollisionManager::AddToResolveQueue(CollisionPair pair)
+{
+	resolveQueue.push(pair);
+	
+}
+//check for static aabb
+bool CollisionManager::StaticAABB_Check(const BoxCollider& A, const BoxCollider& B , CollisionData& data)
+{
+
+	if (A.isTrigger || B.isTrigger)
+		return false;
+
+	//A is outside B bounding box
+	if (A.Min().x > B.Max().x || A.Min().y > B.Max().y)
+	{
+		return false;
+	}
+	//B is outside A bounding box
+	if (B.Min().x > A.Max().x || B.Min().y > A.Max().y)
+	{
+		return false;
+	}
+	CalculateCollisionData(A,B,data);
+	return true;
+}
+
+//check for moving aabbs
+bool CollisionManager::Dynamic_AABB(const BoxCollider& A, const AEVec2& vel1,
+	const BoxCollider& B, const AEVec2& vel2, CollisionData& data)
+{ 
+	if (StaticAABB_Check(A, B,data))
+		return true;
+	//first collision time //collision exit time
+	float t_first = 0, t_last = (float)AEFrameRateControllerGetFrameTime();
+	//B relative velocity to A (where A = aabb1,vel1 , B = aabb2 , vel2)
+	AEVec2 rVel_B{ vel2.x - vel1.x,vel2.y - vel1.y };
+
+	//x-axis
+	//B moving left
+	if (rVel_B.x < 0)
+	{
+		//A is on the right
+		if (A.Min().x > B.Max().x)
+			return false;
+		//A is on the left
+		if (A.Max().x < B.Min().x)
+		{
+			//curr collision time
+			float f_temp = (A.Max().x - B.Min().x) / rVel_B.x;
+			//take the max time compared to last frame
+			t_first = max(f_temp, t_first);
+
+		}
+		//the frame where B is exiting A
+		if (A.Min().x < B.Max().x)
+		{
+			//last collision time
+			float l_temp = (A.Min().x - B.Max().x) / rVel_B.x;
+			//take the min time compared to last frame
+			t_last = min(l_temp, t_last);
+		}
+
+
+	}
+	//B moving right
+	if (rVel_B.x > 0)
+	{
+		//A is on the left
+		if (A.Max().x < B.Min().x)
+			return false;
+		//A is on the right
+		if (A.Min().x > B.Max().x)
+		{
+			float f_temp = (A.Min().x - B.Max().x) / rVel_B.x;
+			t_first = max(f_temp, t_first);
+
+		}
+		//the frame where B is exiting A
+		if (A.Max().x > B.Min().x)
+		{
+			float l_temp = (A.Max().x - B.Min().x) / rVel_B.x;
+			t_last = min(l_temp, t_last);
+		}
+
+	}
+
+	//y-axis
+	//B moving down
+	if (rVel_B.y < 0)
+	{
+		//A is on top
+		if (A.Min().y > B.Max().y)
+			return false;
+		//A is on the bottom
+		if (A.Max().y < B.Min().y)
+		{
+			float f_temp = (A.Max().y - B.Min().y) / rVel_B.y;
+			t_first = max(f_temp, t_first);
+
+		}
+		//the frame where B is exiting A
+		if (A.Min().y < B.Max().y)
+		{
+			float l_temp = (A.Min().y - B.Max().y) / rVel_B.y;
+			t_last = min(l_temp, t_last);
+		}
+
+	}
+	//B moving up
+	if (rVel_B.y > 0)
+	{
+		//A is on the bottom
+		if (A.Max().y < B.Min().y)
+			return false;
+		//A is on the top
+		if (A.Min().y > B.Max().y)
+		{
+			float f_temp = (A.Min().y - B.Max().y) / rVel_B.y;
+			t_first = max(f_temp, t_first);
+
+		}
+		//the frame where B is exiting A
+		if (A.Min().y < B.Max().y)
+		{
+			float l_temp = (A.Max().y - B.Min().y) / rVel_B.y;
+			t_last = min(l_temp, t_last);
+		}
+
+	}
+	//no collision 
+	if (t_first > t_last)
+		return false;
+
+
+	//Special case where either A and B static and not intersecting  OR 
+	//They are moving at the same velocity and not colliding with each other in the first place
+	return false;
+
+	
+}
+
+bool CollisionManager::CircleVsCircle(CircleCollider c1, CircleCollider c2, CollisionData& col)
+{
+	float r = c1.GetRadius() + c2.GetRadius();
+	AEVec2 c1_center = c1.GetCenter();
+	AEVec2 c2_center = c2.GetCenter();
+	float d = AEVec2SquareDistance(&c1_center, &c2_center);
 	if (d > r * r)
 		return false;
 	//collided
@@ -23,210 +388,45 @@ bool CollisionManager::CircleVsCircle(CircleCollider c1, CircleCollider c2, Coll
 
 	if (d != 0)
 	{	
-		col->pen_depth = r - d;
-		col->col_normal = AEVec2{ (c2.center.x - c1.center.x) / d , (c2.center.y - c1.center.y) / d };
+		col.pen_depth = r - d;
+		col.col_normal = AEVec2{ (c2_center.x - c1_center.x) / d , (c2_center.y - c1_center.y) / d };
 		return true;
 	}
 	//same circle center	
-	col->pen_depth = c1.radius;
-	col->col_normal = AEVec2{ 0, 1 };
+	col.pen_depth = c1.GetRadius();
+	col.col_normal = AEVec2{ 0, 1 };
 	return true;
 	
 }
-bool CollisionManager::AABBvsAABB(BoxCollider b1, BoxCollider b2, CollisionData* col)
-{
-	AEVec2 dist = AEVec2{ b2.center.x - b1.center.x , b2.center.y - b1.center.y };
-	float x_intersect = b1.extend.x + b2.extend.x - fabs(dist.x);
-	float y_intersect = b1.extend.y + b2.extend.y - fabs(dist.y);
-	//same box center
-	if (dist.x == 0 && dist.y == 0)
-	{
-		col->col_normal = AEVec2{ -1,0 };
-		col->pen_depth = b1.extend.x;
-		return true;
-	}
-	//intersect on both axis || only x-axis || only y-axis
-	if (x_intersect > 0 && y_intersect > 0 || x_intersect > 0 || y_intersect > 0)
-	{
-		//Find the min intersect distance 
-		if (x_intersect < y_intersect || x_intersect > 0)
-		{
-			col->pen_depth = x_intersect;
-			// means that b2 center on the left of b1 center (as center.x is b2-b1)
-			if (dist.x < 0)
-				col->col_normal = AEVec2{ -1.0f,0.0f };
-			else
-				col->col_normal = AEVec2{ 1.0f,0.0f };
 
-			return true;
-		}
-		if (x_intersect > y_intersect || y_intersect > 0)
-		{
-			col->pen_depth = y_intersect;
-			//means b2 center is below b1 center
-			if (dist.y < 0)
-				col->col_normal = AEVec2{ 0.0f, -1.0f };
-			else
-				col->col_normal = AEVec2{ 0.0f,1.0f };
-
-			return true;
-		}
-	
-		return false;
-		
-	}
-
-	/*if (b2.min.x - b1.max.x > 0 || b2.min.y - b1.max.y > 0)
-	{
-		col.collide = false;
-	}
-	if (b1.min.x - b2.max.x > 0 || b1.min.y - b2.max.y > 0)
-	{
-		col.collide = false;
-	}*/
-}
-
-void CollisionManager::Resolve_CirclevsCircle(CircleCollider c1, CircleCollider c2 ,  CollisionData* const col)
-{
-	if (c1.isTrigger || c2.isTrigger)
-		return;
-	
-	AEVec2 resolveForce;
-	if (col)
-	{
-		float scale = bounciness * col->pen_depth;
-		AEVec2Scale(&resolveForce, &col->col_normal, scale);
-		//movement force // (reminder)should over be dt 
-		AEVec2 temp = c1.center;
-		AEVec2 temp1 = c2.center;
-		//push c1
-		AEVec2Add(&c1.center, &temp, &resolveForce);
-		//invert direction
-		resolveForce = AEVec2{ resolveForce.x * -1.0f,resolveForce.y * -1.0f };
-		//push c2
-		AEVec2Add(&c2.center, &temp1, &resolveForce);
-	}
-	
-}
-void CollisionManager::Resolve_BoxvsBox(BoxCollider b1, BoxCollider b2, CollisionData* const col)
-{
-	if (b1.isTrigger || b2.isTrigger)
-		return;
-	AEVec2 resolveForce;
-	if (col)
-	{
-		float scale = bounciness * col->pen_depth;
-		AEVec2Scale(&resolveForce, &col->col_normal, scale);
-		//movement force // (reminder)should over be dt 
-		AEVec2 temp = b1.center;
-		AEVec2 temp1 = b2.center;
-		//push box1
-		AEVec2Add(&b1.center, &temp, &resolveForce);
-		//invert direction
-		resolveForce = AEVec2{ resolveForce.x * -1.0f,resolveForce.y * -1.0f };
-		//push box2
-		AEVec2Add(&b2.center, &temp1, &resolveForce);
-	}
-}
-void CollisionManager::DebugCollider(BoxCollider b)
+void CollisionManager::DebugCollider(BoxCollider b, Color c)
 {
 	
-	//AEGfxStart();
-	AEGfxBox(	b.center.x, b.center.y, 0.0f, b.GetWidth(), 
-				b.GetHeight(), 0.0f, 0x00FF00, 0x00FF00);
-	//AEGfxEnd();
+	AEVec2 size = AEVec2{ b.GetWidth(),b.GetHeight() };
+	StarBangBang::DrawBoxWired(size, b.GetCenter(), c);
+
 }
 
-void CollisionManager::DebugCollider(CircleCollider c, unsigned int sides)
+void CollisionManager::DebugCollider(CircleCollider c)
 {
-
-	//AEGfxStart();
-
 	float interval = roundf(2.0f * PI / sides / 10.0f) * 10.0f;
 	for (unsigned int i = 0; i < sides; i++)
 	{
 		float radian  = interval * i;
 		if (i + 1 < sides)
 		{
-			float x = c.radius * asinf(radian);
-			float y = c.radius * acosf(radian);
-			float x1 = c.radius * asinf(radian + interval);
-			float y1 = c.radius * acosf(radian + interval);
+			float x = c.GetRadius() * asinf(radian);
+			float y = c.GetRadius() * acosf(radian);
+			float x1 = c.GetRadius() * asinf(radian + interval);
+			float y1 = c.GetRadius() * acosf(radian + interval);
 			
-			AEGfxLine(	c.center.x + x , c.center.y + y, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f,
-						c.center.x + x1, c.center.y + y1 , 0.0f ,0.0f ,0.0f ,0.0f ,1.0f
+			AEGfxLine(	c.GetCenter().x + x , c.GetCenter().y + y, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f,
+						c.GetCenter().x + x1, c.GetCenter().y + y1 , 0.0f ,0.0f ,0.0f ,0.0f ,1.0f
 					
 			);
 		}
 	}
 	
-	//AEGfxEnd();
-
 }
-
-/*bool CollisionManager::SATBox(BoxCollider b1, BoxCollider b2)
-{
-	bool intersect;
-	AEVec2 axis[6];
-	AEVec2Sub(&axis[0], &b1.points[1], &b1.points[0]);
-	AEVec2Sub(&axis[1], &b1.points[1], &b1.points[2]);
-	AEVec2Sub(&axis[2], &b2.points[1], &b2.points[0]);
-	AEVec2Sub(&axis[3], &b2.points[2], &b2.points[1]);
-	AEVec2Sub(&axis[4], &b2.points[3], &b2.points[2]);
-	AEVec2Sub(&axis[5], &b2.points[3], &b2.points[0]);
-	unsigned int currAxis = 0;
-
-	float b1_min = 10000000.0f, b1_max = -10000000.0f;
-	float b2_min = 10000000.0f, b2_max = -10000000.0f;
-
-	while (currAxis < 7)
-	{
-		//reset value for another test
-		b1_min = 10000000.0f;
-		b1_max = -10000000.0f;
-		b2_min = 10000000.0f;
-		b2_max = -10000000.0f;
-		for (int i = 0; i < 4; i++)
-		{
-			AEVec2 proj_B1 = ProjectOnToAxis(b1.points[i], axis[currAxis]);
-			float b1_temp = AEVec2DotProduct(&proj_B1, &axis[currAxis]);
-
-			//keep track of min and max value on axis for each box corners
-			if (b1_temp < b1_min)
-			{
-				b1_min = b1_temp;
-			}
-			if (b1_temp > b1_max)
-			{
-				b1_max = b1_temp;
-			}
-			AEVec2 proj_B2 = ProjectOnToAxis(b2.points[i], axis[currAxis]);
-			float b2_temp = AEVec2DotProduct(&proj_B2, &axis[currAxis]);
-			//keep track of min and max value on axis for each box corners
-			if (b2_temp < b2_min)
-			{
-				b2_min = b2_temp;
-			}
-			if (b2_temp > b2_max)
-			{
-				b2_max = b2_temp;
-			}
-
-		}
-		//failed to intersect
-		if (b1_max < b2_min || b2_max < b1_min)
-		{
-			return 0;
-		}
-		else
-		{
-			currAxis++;
-			intersect = 1;
-		}
-	}
-
-
-	return intersect;
-}*/
 
 

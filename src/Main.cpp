@@ -71,10 +71,13 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 
 	// Set Initial State
 
-	gameStateManager.SetInitialState(gameScene);
+	gameStateManager.SetInitialState(sceneDemo);
 
 	//// Using custom window procedure
 	AESysInit(hInstance, nCmdShow, 800, 600, 1, 60, true, NULL);
+	StarBangBang::InitBasicMesh();
+	//Init all the stuff for testing in collisionTest.h
+	StarBangBang::InitTest();
 
 	//Full screen
 	//AESysInit(hInstance, nCmdShow, 1920, 1080, 1, 60, true, NULL);
@@ -110,18 +113,21 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 		// Handling Input
 		AEInputUpdate();
 
+
 		// Update State
 		gameStateManager.Update();
 		audioEngine.Update();
-
+		
 		//FPS
 		AEVec2 camPos;
 		AEGfxGetCamPosition(&camPos.x, &camPos.y);
 
 
-		//StarBangBang::Test_BoxUpdate();
+		StarBangBang::Test_BoxUpdate();
 		//StarBangBang::Test_CircleUpdate();
-		//StarBangBang::TestGrid();
+		StarBangBang::TestGrid();
+		CollisionManager::ResolverUpdate();
+		StarBangBang::PathFinderTest();
 
 
 		char strBuffer[100];
