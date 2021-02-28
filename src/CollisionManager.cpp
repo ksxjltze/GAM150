@@ -341,7 +341,9 @@ bool CollisionManager::Dynamic_AABB(const BoxCollider& A, const AEVec2& vel1,
 		}
 
 	}
-
+	//no collision 
+	if (t_first > t_last)
+		return false;
 	//y-axis
 	//B moving down
 	if (rVel_B.y < 0)
@@ -388,11 +390,8 @@ bool CollisionManager::Dynamic_AABB(const BoxCollider& A, const AEVec2& vel1,
 	//no collision 
 	if (t_first > t_last)
 		return false;
-	
 
-	//Special case where either A and B static and not intersecting  OR 
-	//They are moving at the same velocity and not colliding with each other in the first place
-	return false;
+	return true;
 
 	
 }
