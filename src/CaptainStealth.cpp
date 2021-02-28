@@ -6,7 +6,7 @@ namespace StarBangBang
 {
 	static Sprite playerSprite;
 
-	StarBangBang::CaptainStealth::CaptainStealth(int id, GameStateManager& gsm) : Scene(id, gsm), player{*objectManager.NewGameObject()}
+	StarBangBang::CaptainStealth::CaptainStealth(int id, GameStateManager& gsm) : Scene(id, gsm), player{ nullptr }
 	{
 
 	}
@@ -18,8 +18,9 @@ namespace StarBangBang
 
 	void StarBangBang::CaptainStealth::Init()
 	{
-		objectManager.AddComponent<Player>(&player);
-		objectManager.AddImage(&player, playerSprite);
+		player = objectManager.NewGameObject();
+		objectManager.AddComponent<Player>(player);
+		objectManager.AddImage(player, playerSprite);
 	}
 
 	void StarBangBang::CaptainStealth::Update()

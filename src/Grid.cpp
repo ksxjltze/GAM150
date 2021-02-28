@@ -166,7 +166,7 @@ using namespace StarBangBang;
 		offset = AEVec2{ 0,0 };
 		CreateGrid(nodeSize, AEVec2{ 1000.0f, 1000.0f });
 	}
-
+	//Change to destructor some time
 	void Grid::FreeGrid()
 	{
 		for (int i = 0; i < size_y; i++)

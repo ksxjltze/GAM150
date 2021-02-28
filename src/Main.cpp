@@ -104,7 +104,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 	// Initialization end
 	/////////////////////
 
-	// Game Loop
+	//Game Loop
 	while (gGameRunning)
 	{
 		// Informing the system about the loop's start
@@ -151,15 +151,15 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 
 
 	FreeTest();
-	////Audio Engine (temp implementation)
+	//Audio Engine (temp implementation)
 	audioEngine.ReleaseSound(sound);
 	audioEngine.Exit();
 
 
 	//free font
 	AEGfxDestroyFont(fontId);
-	//
-	// //free the system
+
+	//free the system
 	AESysExit();
 
 

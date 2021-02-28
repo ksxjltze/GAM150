@@ -16,7 +16,7 @@ namespace StarBangBang
 		void Unload();
 
 	private:
-		GameObject& player;
+		GameObject* player;
 	};
 
 }
