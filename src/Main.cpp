@@ -37,8 +37,8 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 
 	///////////////////////
 	// Variable declaration
-	using namespace StarBangBang;
 
+	using namespace StarBangBang;
 	int gGameRunning = 1;
 	s8 fontId = -1;
 
@@ -68,6 +68,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 	UNREFERENCED_PARAMETER(sceneEditor);
 	UNREFERENCED_PARAMETER(sceneDemo);
 	UNREFERENCED_PARAMETER(sampleScene);
+	UNREFERENCED_PARAMETER(gameScene);
 
 	// Set Initial State
 
@@ -100,7 +101,6 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 		AE_ASSERT_MESG(fontId, "FAILED TO CREATE FONT");
 	}
 
-	StarBangBang::InitBasicMesh();
 	// Initialization end
 	/////////////////////
 
@@ -149,14 +149,18 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 			gGameRunning = 0;
 	}
 
+
+	FreeTest();
 	////Audio Engine (temp implementation)
 	audioEngine.ReleaseSound(sound);
 	audioEngine.Exit();
+
 
 	//free font
 	AEGfxDestroyFont(fontId);
 	//
 	// //free the system
 	AESysExit();
+
 
 }

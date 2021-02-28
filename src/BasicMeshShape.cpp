@@ -136,5 +136,6 @@ void StarBangBang::FreeUnitMeshes(void)
 {
 	AEGfxMeshFree(unitboxMesh);
 	AEGfxMeshFree(unitcircleMesh);
+	AEGfxMeshFree(unitboxWiredMesh);
 
 }

@@ -109,8 +109,8 @@ void StarBangBang::GameStateManager::Update()
 void StarBangBang::GameStateManager::ExitGame()
 {
 	currentState->Free();
-	//free all unit meshes built
-	StarBangBang::FreeUnitMeshes();
+	////free all unit meshes built
+	//StarBangBang::FreeUnitMeshes();
 	currentState->Unload();
 	currentState = nullptr;
 	nextState = nullptr;
