@@ -5,18 +5,18 @@ using namespace StarBangBang;
 
 GuardVision::GuardVision(GameObject* gameObject) : Script(gameObject)
 {
-	detected = false;
+	detected_player = false;
 	player = nullptr;
 	client = nullptr;
 }
 
-void GuardVision::Update()
+void GuardVision::Scan()
 {
 	// update guard's vision stuff here
 	// ...
 
-	if (detected)
+	if (detected_player)
 	{
-		gameObject->GetComponent<Guard>()->SetState(Guard::GUARD_STATE::STATE_CHASE);
+		// notify event manager: game over
 	}
 }

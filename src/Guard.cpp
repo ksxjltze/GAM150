@@ -21,7 +21,7 @@ void Guard::Start()
 
 void Guard::Update()
 {
-	vision->Update();
+	vision->Scan();
 
 	switch (state)
 	{

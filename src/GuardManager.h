@@ -1,6 +1,7 @@
 #pragma once
 #include "ScriptComponent.h"
 #include "ObjectManager.h"
+#include "Guard.h"
 #include <vector>
 
 namespace StarBangBang
@@ -8,9 +9,7 @@ namespace StarBangBang
 	class GuardManager : public Script
 	{
 	public:
-		//GuardManager(ObjectManager& _manager, Sprite& _sprite);
 		GuardManager(GameObject* gameObject);
-		//~GuardManager();
 
 		void Start() {};
 		void Update();
@@ -20,7 +19,9 @@ namespace StarBangBang
 		inline void SetSprite(Sprite* _sprite) { guard_sprite = _sprite; }
 
 	private:
-		static const int NUM_GUARDS = 2;
+		static const int NUM_GUARDS = 1;
+
+		GameObject* GetNearestGuard(AEVec2& _pos);
 
 		ObjectManager* objectManager;
 		Sprite* guard_sprite;

@@ -9,14 +9,15 @@ namespace StarBangBang
 		GuardVision(GameObject* gameObject);
 
 		void Start() {}
-		void Update();
+		void Update() {};
+		void Scan();
 
 		inline void SetPlayerAndClient(GameObject* _player, GameObject* _client) { player = _player; client = _client; }
-		inline void SetDetected(bool _detected) { detected = _detected; }
-		inline bool GetDetected() { return detected; }
+		inline void SetDetected(bool _detected) { detected_player = _detected; }
+		inline bool GetDetected() { return detected_player; }
 
 	private:
-		bool detected;
+		bool detected_player;
 		GameObject* player;
 		GameObject* client;
 	};
