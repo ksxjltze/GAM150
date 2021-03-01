@@ -84,7 +84,7 @@
     </Filter>
     <Filter Include="Header Files\Engine\Game State">
       <UniqueIdentifier>{02327dd9-f1a5-492c-aa27-631955614f8a}</UniqueIdentifier>
-	</Filter>
+    </Filter>
     <Filter Include="Header Files\Scripts\Guard">
       <UniqueIdentifier>{942d5473-2e13-44ae-b9e8-2c6c6f199d1d}</UniqueIdentifier>
     </Filter>
@@ -214,6 +214,12 @@
       <Filter>Source Files\Engine</Filter>
     </ClCompile>
     <ClCompile Include="src\AABBTree.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\TileMap.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\constants.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -382,6 +388,9 @@
     </ClInclude>
     <ClInclude Include="src\CaptainStealth.h">
       <Filter>Header Files\Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="src\TileMap.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

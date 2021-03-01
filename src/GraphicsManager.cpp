@@ -64,6 +64,17 @@ StarBangBang::Sprite StarBangBang::GraphicsManager::CreateSprite(const char* fil
 	return Sprite(LoadTexture(filePath), GetMesh());
 }
 
+StarBangBang::Sprite StarBangBang::GraphicsManager::CreateSprite(std::string filePath, float width, float height)
+{
+	return CreateSprite(filePath.c_str(), width, height);
+}
+
+StarBangBang::Sprite StarBangBang::GraphicsManager::CreateSprite(std::string filePath)
+{
+	return CreateSprite(filePath.c_str());
+}
+
+
 void StarBangBang::GraphicsManager::UnloadTextures()
 {
 	for (AEGfxTexture* texture : textureList)

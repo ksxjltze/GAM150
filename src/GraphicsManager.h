@@ -2,6 +2,7 @@
 #include "Sprite.h"
 #include <AEEngine.h>
 #include <vector>
+#include <string>
 
 namespace StarBangBang
 {
@@ -22,7 +23,9 @@ namespace StarBangBang
 		AEGfxVertexList* GetMesh(); //get base quad mesh
 
 		Sprite CreateSprite(const char* filePath, float width, float height); //create and use new quad mesh
+		Sprite CreateSprite(std::string filePath, float width, float height);
 		Sprite CreateSprite(const char* filePath); //use base quad mesh
+		Sprite CreateSprite(std::string filePath); //use base quad mesh
 
 		void UnloadTextures();
 		void FreeMeshes();

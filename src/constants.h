@@ -1,4 +1,5 @@
 #pragma once
+#include <string>
 
 namespace StarBangBang
 {
@@ -16,11 +17,14 @@ namespace StarBangBang
 	}
 	namespace RESOURCES
 	{
-		static const char* PROTOTYPE_SPRITE_1_PATH = "../Resources/PlanetTexture.png";
-		static const char* PROTOTYPE_SPRITE_2_PATH = "../Resources/boi.png";
-		static const char* PROTOTYPE_SPRITE_GRASS_PATH = "../Resources/grass.png";
-		static const char* PROTOTYPE_SPRITE_STONE_PATH = "../Resources/stone.png";
-		static const char* SPRITE_PLAYER_PATH = "../Resources/player.png";
+		extern const std::string&& RESOURCES_PATH;
+		extern const std::string&& PROTOTYPE_SPRITE_1_PATH;
+		extern const std::string&& PROTOTYPE_SPRITE_2_PATH;
+		extern const std::string&& PROTOTYPE_SPRITE_GRASS_PATH;
+		extern const std::string&& PROTOTYPE_SPRITE_STONE_PATH;
+		extern const std::string&& SPRITE_PLAYER_PATH;
+								 
+		extern const std::string&& LEVEL_TEST_PATH;
 
 	}
 }
