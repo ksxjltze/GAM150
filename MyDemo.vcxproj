@@ -127,6 +127,7 @@
     <ClCompile Include="src\Subject.cpp" />
     <ClCompile Include="src\TagManager.cpp" />
     <ClCompile Include="src\TileMap.cpp" />
+    <ClCompile Include="src\TileSet.cpp" />
     <ClCompile Include="src\Utils.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -178,6 +179,7 @@
     <ClInclude Include="src\Subject.h" />
     <ClInclude Include="src\TagManager.h" />
     <ClInclude Include="src\TileMap.h" />
+    <ClInclude Include="src\TileSet.h" />
     <ClInclude Include="src\Transform.h" />
     <ClInclude Include="src\Utils.h" />
   </ItemGroup>
