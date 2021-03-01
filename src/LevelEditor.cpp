@@ -46,7 +46,7 @@ namespace StarBangBang
 	{
 		for (int y = 0; y < mapHeight; y++)
 		{
-			std::vector<Tile> row;
+			std::vector<Tile_Old> row;
 			row.reserve(mapWidth);
 
 			for (int x = 0; x < mapWidth; x++)
@@ -56,7 +56,7 @@ namespace StarBangBang
 				objectManager.AddImage(obj, selectedTile.sprite);
 
 				obj->SetPos(node->nodePos);
-				Tile tile{ selectedTile , obj };
+				Tile_Old tile{ selectedTile , obj };
 
 				node->occupied = true;
 				row.push_back(tile);
@@ -154,7 +154,7 @@ namespace StarBangBang
 		GameObject* obj = objectManager.NewGameObject();
 		obj->SetPos(node->nodePos);
 
-		Tile tile{ selectedTile , obj };
+		Tile_Old tile{ selectedTile , obj };
 
 		objectManager.AddImage(obj, selectedTile.sprite);
 		tileObjects[node->index_y][node->index_x] = tile;
@@ -179,7 +179,7 @@ namespace StarBangBang
 		{
 			for (auto row : tileObjects)	//For Row in Grid (vector<vector<Tile>>)
 			{
-				for (Tile tile : row)
+				for (Tile_Old tile : row)
 				{
 					outputStream << tile.sprite.id;
 				}
@@ -204,12 +204,12 @@ namespace StarBangBang
 			while (std::getline(inputStream, line))
 			{
 				int x = 0;
-				std::vector<Tile> row;
+				std::vector<Tile_Old> row;
 
 				//make this better later
 				for (auto c : line)
 				{
-					Tile tile;
+					Tile_Old tile;
 
 					A_Node* node = grid.GetNode(x++, y);
 

@@ -5,10 +5,10 @@
 
 namespace StarBangBang
 {
-	struct Tile
+	TileMap::TileMap() : tileWidth{ 0 }, tileHeight{ 0 }, mapWidth{ 0 }, mapHeight{ 0 }
 	{
-		ImageComponent* spriteObject;
-	};
+
+	}
 
 	void StarBangBang::TileMap::Load(std::string path, ObjectManager& objMgr, GraphicsManager& gfxMgr)
 	{
@@ -26,6 +26,8 @@ namespace StarBangBang
 				is >> row;
 
 				//Test
+				tileWidth = 50.0f;
+				tileHeight = 50.0f;
 				Sprite sprite = gfxMgr.CreateSprite(RESOURCES::PROTOTYPE_SPRITE_GRASS_PATH);
 
 				for (auto ch : row)
@@ -34,12 +36,17 @@ namespace StarBangBang
 					ImageComponent* spriteObj = objMgr.AddImage(tileObj, sprite);
 
 					Tile tile{ spriteObj };
+					tileObj->SetPos({ x * tileWidth, y * tileHeight });
 					map.insert({ {x++, y}, tile });
 				}
 				y++;
 
 			}
 			is.close();
+		}
+		else
+		{
+			fprintf(stderr, "TileMap: ERROR OPENING FILE\n");
 		}
 	}
 

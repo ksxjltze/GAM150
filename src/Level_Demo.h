@@ -6,6 +6,7 @@
 #include "GameStateManager.h"
 #include "Player.h"
 #include "GuardManager.h"
+#include "TileMap.h"
 
 namespace StarBangBang
 {
@@ -33,5 +34,7 @@ namespace StarBangBang
 		GameObject* guardManager;
 
 		std::vector<GameObject*> testObjects;
+
+		TileMap tilemap;
 	};
 }

@@ -15,7 +15,7 @@ namespace StarBangBang
 		Sprite sprite;
 	};
 
-	struct Tile
+	struct Tile_Old
 	{
 		TileSprite sprite;
 		GameObject* gameObject { nullptr };
@@ -46,7 +46,7 @@ namespace StarBangBang
 		Sprite boi;
 
 		std::map<int, TileSprite> palette;
-		std::vector<std::vector<Tile>> tileObjects;
+		std::vector<std::vector<Tile_Old>> tileObjects;
 
 		GameObject* camera{ nullptr };
 		Grid grid;

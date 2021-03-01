@@ -30,11 +30,14 @@ void StarBangBang::Level_Demo::Load()
 	player2Image = graphicsManager.CreateSprite("../Resources/boi2.png");
 	planetImage = graphicsManager.CreateSprite("../Resources/PlanetTexture.png");
 
+
 }
 
 //Initialization of game objects, components and scripts.
 void StarBangBang::Level_Demo::Init()
 {
+	tilemap.Load(RESOURCES::LEVEL_TEST_PATH, objectManager, graphicsManager);
+
 	GameObject* worldOriginMarker = objectManager.NewGameObject();
 	player = objectManager.NewGameObject();
 	movementController = objectManager.NewGameObject();

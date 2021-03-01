@@ -17,7 +17,7 @@ namespace StarBangBang
 	}
 	namespace RESOURCES
 	{
-		extern const std::string&& RESOURCES_PATH;
+		extern const std::string&& ROOT_PATH;
 		extern const std::string&& PROTOTYPE_SPRITE_1_PATH;
 		extern const std::string&& PROTOTYPE_SPRITE_2_PATH;
 		extern const std::string&& PROTOTYPE_SPRITE_GRASS_PATH;
