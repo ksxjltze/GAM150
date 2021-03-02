@@ -15,9 +15,12 @@ namespace StarBangBang
 	public:
 		TileMap();
 		void Load(std::string path, ObjectManager& objMgr, GraphicsManager& gfxMgr);
+		float GetTileScale();
+		int GetMapWidth();
+		int GetMapHeight();
 	private:
-		float tileWidth, tileHeight;
-		float mapWidth, mapHeight;
+		float scale;
+		int mapWidth, mapHeight;
 
 		TileSet tileSet;
 		std::map<std::pair<int, int>, Tile> map;

@@ -5,7 +5,7 @@
 
 namespace StarBangBang
 {
-	TileMap::TileMap() : tileWidth{ 0 }, tileHeight{ 0 }, mapWidth{ 0 }, mapHeight{ 0 }
+	TileMap::TileMap() : scale{ 1.0f }, mapWidth{ 0 }, mapHeight{ 0 }
 	{
 
 	}
@@ -15,8 +15,15 @@ namespace StarBangBang
 		std::ifstream is;
 		is.open(path);
 
+		//Test
+		scale = 50.0f;
+
 		if (is.is_open())
 		{
+			//TEST
+			mapWidth = 20;
+			mapHeight = 20;
+
 			int y {0};
 			tileSet.Load(gfxMgr);
 
@@ -26,10 +33,6 @@ namespace StarBangBang
 				std::string row;
 				is >> row;
 
-				//Test
-				tileWidth = 50.0f;
-				tileHeight = 50.0f;
-
 				for (auto ch : row)
 				{
 					int type = ch - '0';
@@ -38,7 +41,7 @@ namespace StarBangBang
 					ImageComponent* spriteObj = objMgr.AddImage(tileObj, sprite);
 
 					Tile tile{ spriteObj };
-					tileObj->SetPos({ x * tileWidth, y * tileHeight });
+					tileObj->SetPos({ x * scale, y * scale });
 					map.insert({ {x++, y}, tile });
 				}
 				y++;
@@ -50,6 +53,21 @@ namespace StarBangBang
 		{
 			fprintf(stderr, "TileMap: ERROR OPENING FILE\n");
 		}
+	}
+
+	float TileMap::GetTileScale()
+	{
+		return scale;
+	}
+
+	int TileMap::GetMapWidth()
+	{
+		return mapWidth;
+	}
+
+	int TileMap::GetMapHeight()
+	{
+		return mapHeight;
 	}
 
 }

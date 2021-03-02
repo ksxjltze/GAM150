@@ -19,8 +19,7 @@ namespace StarBangBang
 
 	LevelEditor::LevelEditor(int id, GameStateManager& manager) : Scene(id, manager)
 	{
-		tileWidth = 100; tileHeight = 100;
-		mapWidth = 20, mapHeight = 20;
+
 	}
 
 	LevelEditor::~LevelEditor()
@@ -35,8 +34,6 @@ namespace StarBangBang
 
 	void LevelEditor::Init()
 	{
-		grid.CreateGrid(tileWidth, AEVec2{ (f32)mapWidth,(f32)mapHeight });
-
 		LoadLevel(RESOURCES::LEVEL_TEST_PATH);
 
 		camera = objectManager.NewGameObject();
@@ -99,7 +96,6 @@ namespace StarBangBang
 	void LevelEditor::Free()
 	{
 		Scene::Free();
-		grid.FreeGrid();
 	}
 
 	void LevelEditor::Unload()
@@ -125,6 +121,9 @@ namespace StarBangBang
 	void LevelEditor::LoadLevel(const std::string& path)
 	{
 		tileMap.Load(path, objectManager, graphicsManager);
+		float scale = tileMap.GetTileScale();
+		AEVec2 dimensions = { scale * tileMap.GetMapWidth(), scale * tileMap.GetMapHeight() };
+		grid.CreateGrid(scale, dimensions);
 	}
 
 	void LevelEditor::CreateLevel()

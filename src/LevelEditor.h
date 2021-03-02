@@ -41,14 +41,12 @@ namespace StarBangBang
 		void LoadLevel(const std::string& path);
 		void CreateLevel();
 		
-		float tileWidth, tileHeight;
-		int mapWidth, mapHeight;
 		Sprite boi;
 
 		TileMap tileMap;
+		Grid grid;
 
 		GameObject* camera{ nullptr };
-		Grid grid;
 
 		//TileSprite_Old selectedTile;
 		//std::map<int, TileSprite_Old> palette;
