@@ -4,22 +4,22 @@
 using namespace StarBangBang;
 
 GuardManager::GuardManager(GameObject* gameObject) 
-	: Script(gameObject), objectManager(nullptr), guard_sprite(nullptr)
+	: Script(gameObject)
 {
 
 }
 
-void GuardManager::Init()
+void GuardManager::Init(ObjectManager* objManager, Sprite* sprite)
 {
 	for (size_t i = 0; i < NUM_GUARDS; i++)
 	{
-		guards.push_back(objectManager->NewGameObject());
+		guards.push_back(objManager->NewGameObject());
 		guards[i]->SetPos({ 250, 200 });
 		guards[i]->transform.scale = {1.f, 1.f};
-		objectManager->AddImage(guards[i], *guard_sprite);
-		objectManager->AddComponent<Guard>(guards[i]);
-		objectManager->AddComponent<GuardMovement>(guards[i]);
-		objectManager->AddComponent<GuardVision>(guards[i]);
+		objManager->AddImage(guards[i], *sprite);
+		objManager->AddComponent<Guard>(guards[i]);
+		objManager->AddComponent<GuardMovement>(guards[i]);
+		objManager->AddComponent<GuardVision>(guards[i]);
 	}
 }
 

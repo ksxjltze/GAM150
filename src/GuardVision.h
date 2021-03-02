@@ -9,8 +9,7 @@ namespace StarBangBang
 		GuardVision(GameObject* gameObject);
 
 		void Start() {}
-		void Update() {};
-		void Scan();
+		void Update();
 
 		inline void SetPlayerAndClient(GameObject* _player, GameObject* _client) { player = _player; client = _client; }
 		inline void SetDetected(bool _detected) { detected_player = _detected; }

@@ -10,7 +10,7 @@ GuardVision::GuardVision(GameObject* gameObject) : Script(gameObject)
 	client = nullptr;
 }
 
-void GuardVision::Scan()
+void GuardVision::Update()
 {
 	// update guard's vision stuff here
 	// ...

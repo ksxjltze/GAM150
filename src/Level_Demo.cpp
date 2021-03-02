@@ -43,9 +43,7 @@ void StarBangBang::Level_Demo::Init()
 
 	guardManager = objectManager.NewGameObject();
 	objectManager.AddComponent<GuardManager>(guardManager);
-	guardManager->GetComponent<GuardManager>()->SetObjectManager(&objectManager);
-	guardManager->GetComponent<GuardManager>()->SetSprite(&guardImage);
-	guardManager->GetComponent<GuardManager>()->Init();
+	guardManager->GetComponent<GuardManager>()->Init(&objectManager, &guardImage);
 
 	//Creates a clone of the player gameObject and changes the sprite texture.
 	player2 = objectManager.CloneGameObject(player);
