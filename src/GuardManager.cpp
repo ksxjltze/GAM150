@@ -1,4 +1,5 @@
 #include "GuardManager.h"
+#include "ObjectManager.h"
 #include "Guard.h"
 
 using namespace StarBangBang;

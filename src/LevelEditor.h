@@ -4,6 +4,7 @@
 #include "Sprite.h"
 #include "Grid.h"
 #include "CameraComponent.h"
+#include "SerializeTest.h"
 
 namespace StarBangBang
 {
@@ -14,7 +15,7 @@ namespace StarBangBang
 		Sprite sprite;
 	};
 
-	struct Tile
+	struct Tile_Old
 	{
 		TileSprite sprite;
 		GameObject* gameObject { nullptr };
@@ -24,6 +25,8 @@ namespace StarBangBang
 	{
 	public:
 		LevelEditor(int id, GameStateManager& manager);
+		~LevelEditor();
+
 		void Load();
 		void Init();
 		void Update();
@@ -43,9 +46,11 @@ namespace StarBangBang
 		Sprite boi;
 
 		std::map<int, TileSprite> palette;
-		std::vector<std::vector<Tile>> tileObjects;
+		std::vector<std::vector<Tile_Old>> tileObjects;
 
 		GameObject* camera{ nullptr };
 		Grid grid;
+
+		SerializeTest& serializeTestObj;
 	};
 }

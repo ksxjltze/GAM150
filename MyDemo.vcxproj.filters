@@ -84,7 +84,7 @@
     </Filter>
     <Filter Include="Header Files\Engine\Game State">
       <UniqueIdentifier>{02327dd9-f1a5-492c-aa27-631955614f8a}</UniqueIdentifier>
-	</Filter>
+    </Filter>
     <Filter Include="Header Files\Scripts\Guard">
       <UniqueIdentifier>{942d5473-2e13-44ae-b9e8-2c6c6f199d1d}</UniqueIdentifier>
     </Filter>
@@ -204,10 +204,25 @@
     <ClCompile Include="src\Physics.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\FileManager.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="src\CaptainStealth.cpp">
+      <Filter>Source Files\Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="src\SerializeTest.cpp">
+      <Filter>Source Files\Scripts\Testing</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Serialization.cpp">
+      <Filter>Source Files\Engine</Filter>
     </ClCompile>
     <ClCompile Include="src\AABBTree.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\TileMap.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\constants.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\TileSet.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -353,13 +368,34 @@
     <ClInclude Include="src\Physics.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\FileManager.h">
+    <ClInclude Include="src\ColliderAABB.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ISerializable.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\SerializeTest.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Serialization.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Scenes.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\ColliderAABB.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\AABBTree.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\CaptainStealth.h">
+      <Filter>Header Files\Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="src\TileMap.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\TileSet.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

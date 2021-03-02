@@ -4,6 +4,7 @@
 #include <iostream>
 #include <fstream>
 #include "PrimaryMovementController.h"
+#include "Serialization.h"
 
 namespace StarBangBang
 {
@@ -16,18 +17,23 @@ namespace StarBangBang
 			DrawCircle(grid.GetNodeSize() / 2, n->nodePos);
 	}
 
-	LevelEditor::LevelEditor(int id, GameStateManager& manager) : Scene(id, manager)
+	LevelEditor::LevelEditor(int id, GameStateManager& manager) : Scene(id, manager), serializeTestObj{*(new SerializeTest(0))}
 	{
 		tileWidth = 100; tileHeight = 100;
 		mapWidth = 20, mapHeight = 20;
 	}
 
+	LevelEditor::~LevelEditor()
+	{
+		delete &serializeTestObj;
+	}
+
 	void LevelEditor::Load()
 	{
 		tileObjects.reserve(mapHeight);
-		Sprite grassSprite = graphicsManager.CreateSprite(Constants::PROTOTYPE_SPRITE_GRASS_PATH, tileWidth, tileHeight);
-		Sprite stoneSprite = graphicsManager.CreateSprite(Constants::PROTOTYPE_SPRITE_STONE_PATH, tileWidth, tileHeight);
-		boi		   = graphicsManager.CreateSprite(Constants::PROTOTYPE_SPRITE_1_PATH, tileWidth, tileHeight);
+		Sprite grassSprite = graphicsManager.CreateSprite(RESOURCES::PROTOTYPE_SPRITE_GRASS_PATH, tileWidth, tileHeight);
+		Sprite stoneSprite = graphicsManager.CreateSprite(RESOURCES::PROTOTYPE_SPRITE_STONE_PATH, tileWidth, tileHeight);
+		boi				   = graphicsManager.CreateSprite(RESOURCES::PROTOTYPE_SPRITE_1_PATH, tileWidth, tileHeight);
 
 		auto grassTile = std::pair<int, TileSprite>(1, { 1, "Grass", grassSprite });
 		auto stoneTile = std::pair<int, TileSprite>(2, { 2, "Stone", stoneSprite });
@@ -40,7 +46,7 @@ namespace StarBangBang
 	{
 		for (int y = 0; y < mapHeight; y++)
 		{
-			std::vector<Tile> row;
+			std::vector<Tile_Old> row;
 			row.reserve(mapWidth);
 
 			for (int x = 0; x < mapWidth; x++)
@@ -50,7 +56,7 @@ namespace StarBangBang
 				objectManager.AddImage(obj, selectedTile.sprite);
 
 				obj->SetPos(node->nodePos);
-				Tile tile{ selectedTile , obj };
+				Tile_Old tile{ selectedTile , obj };
 
 				node->occupied = true;
 				row.push_back(tile);
@@ -90,25 +96,27 @@ namespace StarBangBang
 		if (AEInputCheckTriggered(AEVK_RETURN))
 		{
 			SaveLevel();
-			GameObject* serializeTestObj = objectManager.NewGameObject();
-			objectManager.AddImage(serializeTestObj, boi);
+			Serialization::SaveObject(serializeTestObj);
+			//GameObject* serializeTestObj = objectManager.NewGameObject();
+			//objectManager.AddImage(serializeTestObj, boi);
 
-			printf("Saving Game Object\n");
-			objectManager.SaveGameObject(*serializeTestObj);
-			objectManager.DestroyGameObject(serializeTestObj);
+			//printf("Saving Game Object\n");
+			//objectManager.SaveGameObject(*serializeTestObj);
+			//objectManager.DestroyGameObject(serializeTestObj);
 		}
 
 		if (AEInputCheckTriggered(AEVK_R))
 		{
 			LoadLevel();
-			printf("Reading Game Object\n");
-			GameObject* obj = &objectManager.ReadGameObject("../Resources/Test.bin");
-			ImageComponent* image = obj->GetComponent<ImageComponent>();
+			Serialization::LoadObject(serializeTestObj);
+			//printf("Reading Game Object\n");
+			//GameObject* obj = &objectManager.ReadGameObject("../Resources/Test.bin");
+			//ImageComponent* image = obj->GetComponent<ImageComponent>();
 
-			if (image)
-			{
-				image->SetSprite(boi);
-			}
+			//if (image)
+			//{
+			//	image->SetSprite(boi);
+			//}
 		}
 
 		//Insert/Replace/Remove Tile.
@@ -146,7 +154,7 @@ namespace StarBangBang
 		GameObject* obj = objectManager.NewGameObject();
 		obj->SetPos(node->nodePos);
 
-		Tile tile{ selectedTile , obj };
+		Tile_Old tile{ selectedTile , obj };
 
 		objectManager.AddImage(obj, selectedTile.sprite);
 		tileObjects[node->index_y][node->index_x] = tile;
@@ -171,7 +179,7 @@ namespace StarBangBang
 		{
 			for (auto row : tileObjects)	//For Row in Grid (vector<vector<Tile>>)
 			{
-				for (Tile tile : row)
+				for (Tile_Old tile : row)
 				{
 					outputStream << tile.sprite.id;
 				}
@@ -196,12 +204,12 @@ namespace StarBangBang
 			while (std::getline(inputStream, line))
 			{
 				int x = 0;
-				std::vector<Tile> row;
+				std::vector<Tile_Old> row;
 
 				//make this better later
 				for (auto c : line)
 				{
-					Tile tile;
+					Tile_Old tile;
 
 					A_Node* node = grid.GetNode(x++, y);
 

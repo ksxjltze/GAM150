@@ -29,11 +29,14 @@ void StarBangBang::Level_Demo::Load()
 	player2Image = graphicsManager.CreateSprite("../Resources/boi2.png");
 	planetImage = graphicsManager.CreateSprite("../Resources/PlanetTexture.png");
 	guardImage = graphicsManager.CreateSprite("../Resources/grass.png");
+	guardImage = graphicsManager.CreateSprite("../Resources/guard.png");
 }
 
 //Initialization of game objects, components and scripts.
 void StarBangBang::Level_Demo::Init()
 {
+	tilemap.Load(RESOURCES::LEVEL_TEST_PATH, objectManager, graphicsManager);
+
 	GameObject* worldOriginMarker = objectManager.NewGameObject();
 	player = objectManager.NewGameObject();
 	movementController = objectManager.NewGameObject();
@@ -90,7 +93,7 @@ void StarBangBang::Level_Demo::Update()
 	Scene::Update();
 	if (AEInputCheckTriggered(VK_SPACE))
 	{
-		gameStateManager.SetNextGameState(Constants::SceneID::SAMPLE);
+		gameStateManager.SetNextGameState(SCENE::SAMPLE);
 	}
 }
 

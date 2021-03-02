@@ -4,7 +4,7 @@ using namespace StarBangBang;
 
 int Guard::id = -1;
 
-Guard::Guard(GameObject* gameObject) 
+Guard::Guard(GameObject* gameObject)
 	: Script(gameObject),
 	  state(GUARD_STATE::STATE_PATROL),
 	  movement(nullptr)

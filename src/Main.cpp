@@ -6,15 +6,18 @@
 #include <crtdbg.h>
 
 #include "AEEngine.h"
+#include "AudioEngine.h"
+
 #include "GameStateManager.h"
 #include "constants.h"
-#include "AudioEngine.h"
+
 #include "BasicMeshShape.h"
-#include "Level_Demo.h"
 #include "CollisionTest.h"
+
+#include "Level_Demo.h"
 #include "Sample_Scene.h"
 #include "LevelEditor.h"
-#include "BasicMeshShape.h"
+#include "CaptainStealth.h"
 
 // ---------------------------------------------------------------------------
 // main
@@ -34,8 +37,8 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 
 	///////////////////////
 	// Variable declaration
-	using namespace StarBangBang;
 
+	using namespace StarBangBang;
 	int gGameRunning = 1;
 	s8 fontId = -1;
 
@@ -57,13 +60,15 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 
 	// Add Game States/Scenes
 
-	Scene* sceneDemo = gameStateManager.AddGameState<Level_Demo>(Constants::SceneID::DEMO);
-	Scene* sceneEditor = gameStateManager.AddGameState<LevelEditor>(Constants::SceneID::EDITOR);
-	Scene* sampleScene = gameStateManager.AddGameState<Sample_Scene>(Constants::SceneID::SAMPLE);
+	Scene* sceneDemo = gameStateManager.AddGameState<Level_Demo>(SCENE::DEMO);
+	Scene* sceneEditor = gameStateManager.AddGameState<LevelEditor>(SCENE::EDITOR);
+	Scene* sampleScene = gameStateManager.AddGameState<Sample_Scene>(SCENE::SAMPLE);
+	Scene* gameScene = gameStateManager.AddGameState<CaptainStealth>(SCENE::GAME);
 
 	UNREFERENCED_PARAMETER(sceneEditor);
 	UNREFERENCED_PARAMETER(sceneDemo);
 	UNREFERENCED_PARAMETER(sampleScene);
+	UNREFERENCED_PARAMETER(gameScene);
 
 	// Set Initial State
 
@@ -95,11 +100,10 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 		AE_ASSERT_MESG(fontId, "FAILED TO CREATE FONT");
 	}
 
-	StarBangBang::InitBasicMesh();
 	// Initialization end
 	/////////////////////
 
-	// Game Loop
+	//Game Loop
 	while (gGameRunning)
 	{
 		// Informing the system about the loop's start
@@ -142,14 +146,18 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 			gGameRunning = 0;
 	}
 
-	////Audio Engine (temp implementation)
+
+	FreeTest();
+	//Audio Engine (temp implementation)
 	audioEngine.ReleaseSound(sound);
 	audioEngine.Exit();
 
+
 	//free font
 	AEGfxDestroyFont(fontId);
-	//
-	// //free the system
+
+	//free the system
 	AESysExit();
+
 
 }

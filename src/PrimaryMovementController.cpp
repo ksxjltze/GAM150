@@ -12,8 +12,8 @@ void StarBangBang::PrimaryMovementController::Start()
 
 void StarBangBang::PrimaryMovementController::Update()
 {
-	float dt = (float)AEFrameRateControllerGetFrameTime();
-	float speed = Constants::PLAYER_SPEED * dt;
+	float dt = static_cast<float>(AEFrameRateControllerGetFrameTime());
+	float speed = PLAYER::PLAYER_SPEED * dt;
 	if (AEInputCheckCurr(AEVK_W))
 	{
 		gameObject->transform.position.y += speed;

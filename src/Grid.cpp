@@ -161,7 +161,7 @@ using namespace StarBangBang;
 	}
 	Grid::~Grid()
 	{
-		//Grid::FreeGrid();
+		Grid::FreeGrid();
 	}
 
 
