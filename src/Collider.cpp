@@ -9,16 +9,23 @@ void BoxCollider::SetCenter(float x, float y)
 {
 	center.x = x;
 	center.y = y;
+	//CollisionManager::RecalculateColliderCells(this);
 }
 void BoxCollider::Translate(float x , float y)
 {
 	center.x += x;
 	center.y += y;
+	//CollisionManager::RecalculateColliderCells(this);
 }
 
 void BoxCollider::ClearCellList()
 {
 	cell_indexes.clear();
+}
+
+unsigned int StarBangBang::BoxCollider::GetCellListSize() const
+{
+	return (unsigned int)cell_indexes.size();
 }
 
 void BoxCollider::AddToCellList(unsigned int x , unsigned int y)

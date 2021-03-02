@@ -8,14 +8,14 @@ using namespace StarBangBang;
 
 
 
-	#pragma region Partition Grid
+#pragma region Partition Grid
 
 	PartitionGrid::PartitionGrid()
 	{
 
 		const int width = 1000;
 		const int height = 1000;
-		nodeSize = 30 ;
+		nodeSize = 200 ;
 		offset = AEVec2{ 0,0 };
 		CreateGrid(nodeSize, AEVec2{ width ,height }, offset);
 		
@@ -111,9 +111,9 @@ using namespace StarBangBang;
 		result.x += gridExtend.x;
 		result.y -= gridExtend.y;
 
-		float half_size = nodeSize * 0.5f;
-		int  x = static_cast<int>(ceil((result.x - half_size) / nodeSize));
-		int  y = static_cast<int>(ceil((result.y + half_size) / nodeSize));
+		//float half_size = nodeSize * 0.5f;
+		int  x = static_cast<int>(ceil(result.x / nodeSize));
+		int  y = static_cast<int>(ceil(result.y / nodeSize));
 
 		if (x >= 0 && x < size_x && y >= 0 && y < size_y)
 		{
@@ -148,7 +148,7 @@ using namespace StarBangBang;
 
 
 
-	#pragma region A* grid
+#pragma region A* grid
 	
 	//Change to destructor some time
 	void Grid::FreeGrid()
@@ -293,5 +293,5 @@ using namespace StarBangBang;
 		}
 	}
 
-	#pragma endregion
+#pragma endregion
 

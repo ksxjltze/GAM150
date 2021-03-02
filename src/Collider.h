@@ -55,6 +55,7 @@ namespace StarBangBang
 			//indexes to cells they occupy
 			std::vector<CellIndexes> cell_indexes;
 		public:
+			bool hasBool;
 			inline AEVec2 GetExtend() const
 			{
 				return extend;
@@ -97,12 +98,14 @@ namespace StarBangBang
 			void Translate(float x, float y);
 
 			void ClearCellList();
+			unsigned int GetCellListSize() const;
 			void AddToCellList(unsigned int,unsigned int);
 			
 			const std::vector<CellIndexes>& GetCellIndexes() const;
 
-			BoxCollider( AEVec2 _center,bool _isStatic = false ,float width = 1.0f, float height = 1.0f);
+			BoxCollider( AEVec2 _center,bool _isStatic = true ,float width = 1.0f, float height = 1.0f);
 			BoxCollider(AEVec2 min, AEVec2 max , bool isStatic = true);
-			BoxCollider(const BoxCollider& b) = default;
+			BoxCollider(const BoxCollider& rhs) = default;
+			BoxCollider& operator=(const BoxCollider& rhs) = default;
 	};
 }

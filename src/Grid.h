@@ -14,14 +14,8 @@ namespace StarBangBang
 			
 		public:
 			AEVec2 nodePos = AEVec2{0,0};
-			//bool occupied = false;	
 			int index_x = 0; //the x index of the node inside the grid array
 			int index_y = 0; //the y index of the node inside the grid array
-			//Node* parent = nullptr;	 //used to trace back node path
-			//int hcost = 0;	 //cost from current to end node
-			//int gcost = 0;	 //cost to start node to end node
-			//constexpr int GetfCost()  const  {return hcost + gcost;}
-
 			
 	};
 	//A* star node
@@ -40,7 +34,7 @@ namespace StarBangBang
 	public:
 		//all the colliders in this cell
 		std::unordered_set<BoxCollider*> cell_colliders;
-
+	
 	};
 	
 	class PartitionGrid

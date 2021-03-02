@@ -42,7 +42,8 @@ namespace StarBangBang
 		bool Dynamic_AABB(const BoxCollider& A, const AEVec2& vel1, const BoxCollider& B, const AEVec2& vel2, CollisionData& data);
 		bool CircleVsCircle(CircleCollider c1, CircleCollider c2, CollisionData& col);
 
-			
+		void RecalculateColliderCells(BoxCollider*);
+
 		void DebugCollider(BoxCollider b, Color c );
 
 		void DebugCollider(CircleCollider c);
@@ -56,7 +57,10 @@ namespace StarBangBang
 			AEVec2 resolveForce;
 			AEVec2 normal = data.col_normal;
 
-			float scale = (1.0f + bounciness) + data.pen_depth;
+			float scale = !obj1.isStatic && !obj2.isStatic ?
+				(1.0f + bounciness) + data.pen_depth * 0.5f
+				: (1.0f + bounciness) + data.pen_depth;
+
 			//movement force
 			AEVec2Scale(&resolveForce, &normal, scale);
 			
@@ -71,7 +75,7 @@ namespace StarBangBang
 				obj2.Translate(resolveForce.x, resolveForce.y);
 	
 
-			}
+		}
 
 	}
 	

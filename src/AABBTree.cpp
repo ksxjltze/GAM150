@@ -1,8 +1,6 @@
 #include "AABBTree.h"
 using namespace StarBangBang;
-
-
-namespace 
+namespace
 {
     AABB_Tree tree;
 }
@@ -37,19 +35,49 @@ void AABB_Node::UpdateAABB(float margin)
     else
         // make union of child AABBs of child nodes
         fatAABB = tree.GetTreeNode(child1).userData
-        ->Union(*tree.GetTreeNode(child2).userData);
+        ->Union(*(tree.GetTreeNode(child2).userData));
 }
 
 AABB_Node& AABB_Node::GetSibling() const
 {
     return treeIndex == child1 
-        ? tree.GetTreeNode(child2) : tree.GetTreeNode(child1);
+        ? tree.GetTreeNode(child2) 
+        : tree.GetTreeNode(child1);
    
 }
+void AABB_Tree::InsertNode(AABB_Node& node , AABB_Node& parent)
+{
+    //spilt
+    if (parent.IsLeaf())
+    {
 
+    }
+    else
+    {
+
+    }
+}
 void AABB_Tree::Add(BoxCollider* aabb)
 {
-
+    //not root node
+    if (nodes.size() > 0)
+    {
+        AABB_Node n(nodes.size());
+        nodes.push_back(n);
+        nodes[n.treeIndex].SetAsLeaf(aabb);
+        nodes[n.treeIndex].UpdateAABB(margin_aabb);
+        InsertNode(n,nodes[rootIndex]);
+    }
+    //root node
+    else
+    {
+        AABB_Node n(nodes.size());
+        nodes.push_back(n);
+        rootIndex = nodes.size() - 1;
+      
+        //nodes[rootIndex]->SetAsLeaf(aabb);
+        //nodes[rootIndex]->UpdateAABB(margin_aabb);
+    }
 }
 
 void AABB_Tree::Remove(BoxCollider* aabb)
@@ -59,5 +87,17 @@ void AABB_Tree::Remove(BoxCollider* aabb)
 
 void AABB_Tree::UpdateTree(void)
 {
+    if (nodes.size() > 0)
+    {
+       if (nodes[rootIndex].IsLeaf())
+       {
+           nodes[rootIndex].UpdateAABB(margin_aabb);
+       }
+       else
+       {
 
+       }
+    }
 }
+
+

@@ -40,20 +40,24 @@ namespace StarBangBang
 		 void Add(BoxCollider* aabb);
 		 void Remove(BoxCollider* aabb);
 		 void UpdateTree(void);
-		 inline AABB_Node& GetTreeNode(int index) const
+		 inline AABB_Node& GetTreeNode(int index) 
 		 {
-			 return *nodes[index];
+			 return nodes[index];
+		 }
+		 inline size_t GetNodeCount() const
+		 {
+			 return nodes.size();
 		 }
 	private:
 		//array of nodes
-		std::vector<AABB_Node*> nodes;
-		int nodeCounts;
-		int rootIndex;
+		std::vector<AABB_Node> nodes;
+		int rootIndex = 0;
 		//addition offset for fat aabb
 		float margin_aabb;
 
 		void InsertLeaf(int node_index , int parent_index);
 		void RemoveLeaf(int node_index);
+		void InsertNode(AABB_Node&, AABB_Node&);
 
 	};
 
