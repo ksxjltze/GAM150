@@ -6,7 +6,8 @@
 
 using namespace StarBangBang;
 
-GuardMovement::GuardMovement(GameObject* gameObject) : Script(gameObject)
+GuardMovement::GuardMovement(GameObject* gameObject)
+	: Script(gameObject)
 {
 	SetWaypoints();
 	//std::cout << waypoints.size() << "\n";
@@ -17,29 +18,53 @@ GuardMovement::GuardMovement(GameObject* gameObject) : Script(gameObject)
 
 void GuardMovement::Idle()
 {
+	//std::cout << "GUARD: IDLE" << "\n";
 
+	// rotate between left, front, right, back sprites
+	// ...
 }
 
 void GuardMovement::Patrol()
 {
 	//std::cout << "GUARD: PATROL" << "\n";
-	float dt = static_cast<float>(AEFrameRateControllerGetFrameTime());
-	gameObject->transform.position.x += 50.0 * dt;
 
-	AEVec2 target = { 0, 0 }, dir = { 0, 0 };
+	/*AEVec2 target = { 0, 0 }, dir = { 0, 0 };
 	AEVec2 test = { 100, 10 };
-	//std::cout << waypoints.size() << "\n";
-	
+
 	AEVec2Sub(&target, &test, &gameObject->transform.position);
 	AEVec2Scale(&dir, &waypoints.front(), dt);
 	AEVec2Normalize(&dir, &dir);
-	AEVec2Add(&gameObject->transform.position, &gameObject->transform.position, &dir);
+	AEVec2Add(&gameObject->transform.position, &gameObject->transform.position, &dir);*/
+
+	MoveTo(waypoints.front());
 }
 
 void GuardMovement::Distracted()
 {
+	//std::cout << "GUARD: DISTRACTED" << "\n";
+
 	// go to interactable object
-	// ...
+	if (MoveTo(distraction_position))
+	{
+		// deactivate interactable object
+	}
+}
+
+bool GuardMovement::MoveTo(AEVec2 pos)
+{
+	float minDistToTarget = 2.f;
+	if (AEVec2SquareDistance(&pos, &gameObject->transform.position) <= minDistToTarget * minDistToTarget)
+		return true;
+
+	double dt = AEFrameRateControllerGetFrameTime();
+	AEVec2 dir = { 0, 0 };
+
+	AEVec2Sub(&dir, &pos, &gameObject->transform.position);
+	AEVec2Normalize(&dir, &dir);
+	AEVec2Scale(&dir, &dir, dt * 300.0);
+	AEVec2Add(&gameObject->transform.position, &gameObject->transform.position, &dir);
+
+	return false;
 }
 
 void GuardMovement::SetWaypoints()
