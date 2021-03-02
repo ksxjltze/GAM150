@@ -5,21 +5,22 @@
 #include "Grid.h"
 #include "CameraComponent.h"
 #include "SerializeTest.h"
+#include "TileMap.h"
 
 namespace StarBangBang
 {
-	struct TileSprite_Old
-	{
-		int id = -1;
-		std::string name;
-		Sprite sprite;
-	};
+	//struct TileSprite_Old
+	//{
+	//	int id = -1;
+	//	std::string name;
+	//	Sprite sprite;
+	//};
 
-	struct Tile_Old
-	{
-		TileSprite_Old sprite;
-		GameObject* gameObject { nullptr };
-	};
+	//struct Tile_Old
+	//{
+	//	TileSprite_Old sprite;
+	//	GameObject* gameObject { nullptr };
+	//};
 
 	class LevelEditor : public Scene
 	{
@@ -36,21 +37,21 @@ namespace StarBangBang
 	private:
 		void InsertTile(A_Node* n);
 		void RemoveTile(A_Node* n);
-		void SaveLevel();
-		void LoadLevel();
+		void SaveLevel(const std::string& path);
+		void LoadLevel(const std::string& path);
 		void CreateLevel();
 		
 		float tileWidth, tileHeight;
 		int mapWidth, mapHeight;
-		TileSprite_Old selectedTile;
 		Sprite boi;
 
-		std::map<int, TileSprite_Old> palette;
-		std::vector<std::vector<Tile_Old>> tileObjects;
+		TileMap tileMap;
 
 		GameObject* camera{ nullptr };
 		Grid grid;
 
-		SerializeTest& serializeTestObj;
+		//TileSprite_Old selectedTile;
+		//std::map<int, TileSprite_Old> palette;
+		//std::vector<std::vector<Tile_Old>> tileObjects;
 	};
 }
