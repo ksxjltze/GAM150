@@ -35,7 +35,7 @@ namespace StarBangBang
 	void LevelEditor::Init()
 	{
 		tileMap.Init();
-		//CreateLevel(20, 20, 100);
+		//CreateLevel(20, 20, 50);
 		LoadLevel(RESOURCES::LEVEL_TEST_PATH);
 
 		camera = objectManager.NewGameObject();
@@ -136,7 +136,7 @@ namespace StarBangBang
 	{
 		float scale = tileMap.GetTileScale();
 		AEVec2 dimensions = { scale * tileMap.GetMapWidth(), scale * tileMap.GetMapHeight() };
-		grid.CreateGrid(scale, dimensions, { 0, -dimensions.y });
+		grid.CreateGrid(scale, dimensions, { scale / 2, -dimensions.y + scale / 2 });
 	}
 
 #pragma region OLD

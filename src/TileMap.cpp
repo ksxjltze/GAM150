@@ -20,8 +20,8 @@ namespace StarBangBang
 		//Default sprite
 		TileSprite tileSprite = tileSet.GetTileSprite(TileType::STONE);
 
-		float x_offset = tileSize * (width + 1) / 2;
-		float y_offset = tileSize * (height + 1) / 2;
+		float x_offset = (tileSize * width) / 2;
+		float y_offset = (tileSize * height) / 2;
 
 		mapWidth = width;
 		mapHeight = height;
@@ -51,8 +51,8 @@ namespace StarBangBang
 		if (is.is_open())
 		{
 			//TEST
-			mapWidth = 21;
-			mapHeight = 21;
+			mapWidth = 20;
+			mapHeight = 20;
 
 			//Centre TileMap
 			float x_offset = (scale * mapWidth)  / 2;
@@ -130,6 +130,7 @@ namespace StarBangBang
 	Tile TileMap::CreateNewTile(AEVec2 pos, TileSprite tileSprite)
 	{
 		GameObject* tileObj = objMgr.NewGameObject();
+		tileObj->transform.scale = { scale / GRAPHICS::MESH_WIDTH, scale / GRAPHICS::MESH_HEIGHT };
 		ImageComponent* spriteObj = objMgr.AddImage(tileObj, tileSprite.sprite);
 
 		tileObj->SetPos(pos);
