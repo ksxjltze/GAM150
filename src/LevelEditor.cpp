@@ -17,9 +17,9 @@ namespace StarBangBang
 			DrawCircle(grid.GetNodeSize() / 2, n->nodePos);
 	}
 
-	LevelEditor::LevelEditor(int id, GameStateManager& manager) : Scene(id, manager), tileMap{objectManager, graphicsManager}
+	LevelEditor::LevelEditor(int id, GameStateManager& manager) : Scene(id, manager), tileMap{objectManager, graphicsManager}, selectedType{TileType::STONE}
 	{
-
+		
 	}
 
 	LevelEditor::~LevelEditor()
@@ -34,6 +34,7 @@ namespace StarBangBang
 
 	void LevelEditor::Init()
 	{
+		tileMap.Init();
 		//CreateLevel(20, 20, 100);
 		LoadLevel(RESOURCES::LEVEL_TEST_PATH);
 
@@ -106,7 +107,7 @@ namespace StarBangBang
 
 	void LevelEditor::InsertTile(A_Node* n)
 	{
-		//tileMap.Insert(n->nodePos, selectedTile);
+		tileMap.Insert(n->index_x, n->index_y, selectedType);
 	}
 
 	void LevelEditor::RemoveTile(A_Node* n)

@@ -45,6 +45,7 @@ namespace StarBangBang
 		Sprite boi;
 
 		TileMap tileMap;
+		TileType selectedType;
 		Grid grid;
 
 		GameObject* camera{ nullptr };

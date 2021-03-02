@@ -10,10 +10,14 @@ namespace StarBangBang
 		
 	}
 
+	void TileMap::Init()
+	{
+		tileSet.Load(gfxMgr);
+	}
+
 	void TileMap::Generate(int width, int height, float tileSize)
 	{
 		//Default sprite
-		tileSet.Load(gfxMgr);
 		TileSprite tileSprite = tileSet.GetTileSprite(TileType::STONE);
 
 		float x_offset = tileSize * (width + 1) / 2;
@@ -27,15 +31,11 @@ namespace StarBangBang
 		{
 			for (int x = 0; x < width; x++)
 			{
-				std::pair<int, int> position = { x, y};
+				std::pair<int, int> index = { x, y};
+				AEVec2 pos = { x * scale - x_offset, y * scale - y_offset };
 
-				GameObject* tileObj = objMgr.NewGameObject();
-				tileObj->SetPos({x * tileSize - x_offset, y * tileSize - y_offset });
-				
-				ImageComponent* spriteObj = objMgr.AddImage(tileObj, tileSprite.sprite);
-				Tile tile = { spriteObj };
-
-				map.insert({ position, tile });
+				Tile tile = CreateNewTile(pos, tileSprite);
+				map.insert({ index, tile });
 			}
 		}
 	}
@@ -54,11 +54,9 @@ namespace StarBangBang
 			mapWidth = 21;
 			mapHeight = 21;
 
-			tileSet.Load(gfxMgr);
-
 			//Centre TileMap
-			float x_offset = scale * mapWidth / 2;
-			float y_offset = scale * mapHeight / 2;
+			float x_offset = (scale * mapWidth)  / 2;
+			float y_offset = (scale * mapHeight) / 2;
 
 			int y {0};
 
@@ -71,12 +69,10 @@ namespace StarBangBang
 				for (auto ch : row)
 				{
 					int type = ch - '0';
-					Sprite sprite = tileSet.GetTileSprite(static_cast<TileType>(type)).sprite;
-					GameObject* tileObj = objMgr.NewGameObject();
-					ImageComponent* spriteObj = objMgr.AddImage(tileObj, sprite);
+					TileSprite sprite = tileSet.GetTileSprite(static_cast<TileType>(type));
 
-					Tile tile{ spriteObj };
-					tileObj->SetPos({ x * scale - x_offset, y * scale - y_offset});
+					AEVec2 pos = { x * scale - x_offset, y * scale - y_offset};
+					Tile tile = CreateNewTile(pos, sprite);
 					map.insert({ {x++, y}, tile });
 				}
 				y++;
@@ -103,6 +99,43 @@ namespace StarBangBang
 	int TileMap::GetMapHeight()
 	{
 		return mapHeight;
+	}
+
+	void TileMap::Insert(int x, int y, TileType type)
+	{
+		if (map.find({ x,y }) != map.end())
+		{
+			objMgr.DestroyGameObject(map.at({ x, y }).spriteObject->gameObject);
+			Erase(x, y);
+		}
+
+		float x_offset = scale * (mapWidth + 1) / 2;
+		float y_offset = scale * (mapHeight + 1) / 2;
+
+		TileSprite sprite = tileSet.GetTileSprite(type);
+		AEVec2 position = { x * scale - x_offset, y * scale - y_offset };
+
+		Tile tile = CreateNewTile(position, sprite);
+
+		std::pair<int, int> pos = { x, y };
+		map.insert({ pos, tile });
+
+	}
+
+	void TileMap::Erase(int x, int y)
+	{
+		map.erase({ x, y });
+	}
+	
+	Tile TileMap::CreateNewTile(AEVec2 pos, TileSprite tileSprite)
+	{
+		GameObject* tileObj = objMgr.NewGameObject();
+		ImageComponent* spriteObj = objMgr.AddImage(tileObj, tileSprite.sprite);
+
+		tileObj->SetPos(pos);
+		Tile tile = { spriteObj };
+
+		return tile;
 	}
 
 }
