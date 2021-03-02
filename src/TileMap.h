@@ -13,14 +13,18 @@ namespace StarBangBang
 	class TileMap
 	{
 	public:
-		TileMap();
-		void Load(std::string path, ObjectManager& objMgr, GraphicsManager& gfxMgr);
+		TileMap(ObjectManager&, GraphicsManager&);
+		void Generate(int width, int height, float tileSize);
+		void Load(std::string path);
 		float GetTileScale();
 		int GetMapWidth();
 		int GetMapHeight();
 	private:
 		float scale;
 		int mapWidth, mapHeight;
+
+		ObjectManager& objMgr;
+		GraphicsManager& gfxMgr;
 
 		TileSet tileSet;
 		std::map<std::pair<int, int>, Tile> map;

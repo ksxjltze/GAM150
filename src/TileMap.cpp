@@ -5,12 +5,42 @@
 
 namespace StarBangBang
 {
-	TileMap::TileMap() : scale{ 1.0f }, mapWidth{ 0 }, mapHeight{ 0 }
+	TileMap::TileMap(ObjectManager& objM, GraphicsManager& gfxM) : scale{ 1.0f }, mapWidth{ 0 }, mapHeight{ 0 }, objMgr{ objM }, gfxMgr{ gfxM }
 	{
-
+		
 	}
 
-	void StarBangBang::TileMap::Load(std::string path, ObjectManager& objMgr, GraphicsManager& gfxMgr)
+	void TileMap::Generate(int width, int height, float tileSize)
+	{
+		//Default sprite
+		tileSet.Load(gfxMgr);
+		TileSprite tileSprite = tileSet.GetTileSprite(TileType::STONE);
+
+		float x_offset = tileSize * width / 2;
+		float y_offset = tileSize * height / 2;
+
+		mapWidth = width;
+		mapHeight = height;
+		scale = tileSize;
+
+		for (int y = 0; y < height; y++)
+		{
+			for (int x = 0; x < width; x++)
+			{
+				std::pair<int, int> position = { x, y};
+
+				GameObject* tileObj = objMgr.NewGameObject();
+				tileObj->SetPos({x * tileSize - x_offset, y * tileSize - y_offset });
+				
+				ImageComponent* spriteObj = objMgr.AddImage(tileObj, tileSprite.sprite);
+				Tile tile = { spriteObj };
+
+				map.insert({ position, tile });
+			}
+		}
+	}
+
+	void StarBangBang::TileMap::Load(std::string path)
 	{
 		std::ifstream is;
 		is.open(path);
@@ -24,12 +54,13 @@ namespace StarBangBang
 			mapWidth = 21;
 			mapHeight = 21;
 
+			tileSet.Load(gfxMgr);
+
 			//Centre TileMap
 			float x_offset = scale * mapWidth / 2;
 			float y_offset = scale * mapHeight / 2;
 
 			int y {0};
-			tileSet.Load(gfxMgr);
 
 			while (!is.eof())
 			{

@@ -7,7 +7,7 @@ namespace StarBangBang
 	void TileSet::Load(GraphicsManager& gfxMgr)
 	{
 		Sprite grassSprite = gfxMgr.CreateSprite(RESOURCES::PROTOTYPE_SPRITE_GRASS_PATH);
-		Sprite stoneSprite = gfxMgr.CreateSprite(RESOURCES::PROTOTYPE_SPRITE_GRASS_PATH);
+		Sprite stoneSprite = gfxMgr.CreateSprite(RESOURCES::PROTOTYPE_SPRITE_STONE_PATH);
 
 		set.insert({ TileType::GRASS, { grassSprite, TileType::GRASS } });
 		set.insert({ TileType::STONE, { stoneSprite, TileType::STONE } });
