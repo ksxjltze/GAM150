@@ -21,8 +21,12 @@ namespace StarBangBang
 		if (is.is_open())
 		{
 			//TEST
-			mapWidth = 20;
-			mapHeight = 20;
+			mapWidth = 21;
+			mapHeight = 21;
+
+			//Centre TileMap
+			float x_offset = scale * mapWidth / 2;
+			float y_offset = scale * mapHeight / 2;
 
 			int y {0};
 			tileSet.Load(gfxMgr);
@@ -41,7 +45,7 @@ namespace StarBangBang
 					ImageComponent* spriteObj = objMgr.AddImage(tileObj, sprite);
 
 					Tile tile{ spriteObj };
-					tileObj->SetPos({ x * scale, y * scale });
+					tileObj->SetPos({ x * scale - x_offset, y * scale - y_offset});
 					map.insert({ {x++, y}, tile });
 				}
 				y++;

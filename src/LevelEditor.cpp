@@ -123,7 +123,7 @@ namespace StarBangBang
 		tileMap.Load(path, objectManager, graphicsManager);
 		float scale = tileMap.GetTileScale();
 		AEVec2 dimensions = { scale * tileMap.GetMapWidth(), scale * tileMap.GetMapHeight() };
-		grid.CreateGrid(scale, dimensions);
+		grid.CreateGrid(scale, dimensions, { 0, -dimensions.y });
 	}
 
 	void LevelEditor::CreateLevel()
