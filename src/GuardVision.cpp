@@ -4,9 +4,10 @@
 
 using namespace StarBangBang;
 
-GuardVision::GuardVision(GameObject* gameObject) : Script(gameObject)
+GuardVision::GuardVision(GameObject* gameObject) 
+	: Script(gameObject)
+	, detected_player(false)
 {
-	detected_player = false;
 	player = nullptr;
 	client = nullptr;
 }

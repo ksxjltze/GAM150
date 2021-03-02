@@ -15,8 +15,8 @@ void GuardManager::Init(ObjectManager* objManager, Sprite* sprite)
 	for (size_t i = 0; i < NUM_GUARDS; i++)
 	{
 		guards.push_back(objManager->NewGameObject());
-		guards[i]->SetPos({ 250, 200 });
-		guards[i]->transform.scale = {1.f, 1.f};
+		guards[i]->SetPos({ 250, 700 });
+		guards[i]->transform.scale = {0.25f, 0.25f};
 		objManager->AddImage(guards[i], *sprite);
 		objManager->AddComponent<Guard>(guards[i]);
 		objManager->AddComponent<GuardMovement>(guards[i]);
