@@ -8,7 +8,7 @@
 
 namespace StarBangBang
 {
-	struct TileSprite
+	struct TileSprite_Old
 	{
 		int id = -1;
 		std::string name;
@@ -17,7 +17,7 @@ namespace StarBangBang
 
 	struct Tile_Old
 	{
-		TileSprite sprite;
+		TileSprite_Old sprite;
 		GameObject* gameObject { nullptr };
 	};
 
@@ -42,10 +42,10 @@ namespace StarBangBang
 		
 		float tileWidth, tileHeight;
 		int mapWidth, mapHeight;
-		TileSprite selectedTile;
+		TileSprite_Old selectedTile;
 		Sprite boi;
 
-		std::map<int, TileSprite> palette;
+		std::map<int, TileSprite_Old> palette;
 		std::vector<std::vector<Tile_Old>> tileObjects;
 
 		GameObject* camera{ nullptr };

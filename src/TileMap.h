@@ -1,6 +1,7 @@
 #pragma once
 #include <map>
 #include "ObjectManager.h"
+#include "TileSet.h"
 
 namespace StarBangBang
 {
@@ -17,6 +18,8 @@ namespace StarBangBang
 	private:
 		float tileWidth, tileHeight;
 		float mapWidth, mapHeight;
+
+		TileSet tileSet;
 		std::map<std::pair<int, int>, Tile> map;
 	};
 }

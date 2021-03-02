@@ -18,6 +18,7 @@ namespace StarBangBang
 		if (is.is_open())
 		{
 			int y {0};
+			tileSet.Load(gfxMgr);
 
 			while (!is.eof())
 			{
@@ -28,10 +29,11 @@ namespace StarBangBang
 				//Test
 				tileWidth = 50.0f;
 				tileHeight = 50.0f;
-				Sprite sprite = gfxMgr.CreateSprite(RESOURCES::PROTOTYPE_SPRITE_GRASS_PATH);
 
 				for (auto ch : row)
 				{
+					int type = ch - '0';
+					Sprite sprite = tileSet.GetTileSprite(static_cast<TileType>(type)).sprite;
 					GameObject* tileObj = objMgr.NewGameObject();
 					ImageComponent* spriteObj = objMgr.AddImage(tileObj, sprite);
 
