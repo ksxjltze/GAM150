@@ -23,7 +23,8 @@ namespace StarBangBang
 		if (AEInputCheckTriggered(VK_RBUTTON))
 		{
 			A_Node* n = PathFinder::GetWorldGrid().GetNodeFromPosition(GetMouseWorldPos());
-			n->occupied = true;
+			if (n)
+				n->occupied = true;
 		}
 			
 		//set end pos and start pathfinding
