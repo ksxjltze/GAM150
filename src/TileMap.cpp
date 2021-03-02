@@ -16,8 +16,8 @@ namespace StarBangBang
 		tileSet.Load(gfxMgr);
 		TileSprite tileSprite = tileSet.GetTileSprite(TileType::STONE);
 
-		float x_offset = tileSize * width / 2;
-		float y_offset = tileSize * height / 2;
+		float x_offset = tileSize * (width + 1) / 2;
+		float y_offset = tileSize * (height + 1) / 2;
 
 		mapWidth = width;
 		mapHeight = height;
