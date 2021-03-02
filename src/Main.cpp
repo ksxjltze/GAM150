@@ -18,6 +18,7 @@
 #include "Sample_Scene.h"
 #include "LevelEditor.h"
 #include "CaptainStealth.h"
+#include "Main_Menu.h"
 
 // ---------------------------------------------------------------------------
 // main
@@ -64,6 +65,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 	Scene* sceneEditor = gameStateManager.AddGameState<LevelEditor>(SCENE::EDITOR);
 	Scene* sampleScene = gameStateManager.AddGameState<Sample_Scene>(SCENE::SAMPLE);
 	Scene* gameScene = gameStateManager.AddGameState<CaptainStealth>(SCENE::GAME);
+	Scene* mainMenuScene = gameStateManager.AddGameState<Main_Menu>(SCENE::MAINMENU);
 
 	UNREFERENCED_PARAMETER(sceneEditor);
 	UNREFERENCED_PARAMETER(sceneDemo);

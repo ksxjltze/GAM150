@@ -225,6 +225,9 @@
     <ClCompile Include="src\TileSet.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\Main_Menu.cpp">
+      <Filter>Source Files\Scenes</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\ImageComponent.h">
@@ -397,6 +400,9 @@
     </ClInclude>
     <ClInclude Include="src\TileSet.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Main_Menu.h">
+      <Filter>Header Files\Scenes</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
