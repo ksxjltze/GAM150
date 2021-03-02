@@ -17,58 +17,134 @@ namespace StarBangBang
 			DrawCircle(grid.GetNodeSize() / 2, n->nodePos);
 	}
 
-	LevelEditor::LevelEditor(int id, GameStateManager& manager) : Scene(id, manager), serializeTestObj{*(new SerializeTest(0))}
+	LevelEditor::LevelEditor(int id, GameStateManager& manager) : Scene(id, manager), tileMap{objectManager, graphicsManager}
 	{
-		tileWidth = 100; tileHeight = 100;
-		mapWidth = 20, mapHeight = 20;
+
 	}
 
 	LevelEditor::~LevelEditor()
 	{
-		delete &serializeTestObj;
+
 	}
 
 	void LevelEditor::Load()
 	{
-		tileObjects.reserve(mapHeight);
-		Sprite grassSprite = graphicsManager.CreateSprite(RESOURCES::PROTOTYPE_SPRITE_GRASS_PATH, tileWidth, tileHeight);
-		Sprite stoneSprite = graphicsManager.CreateSprite(RESOURCES::PROTOTYPE_SPRITE_STONE_PATH, tileWidth, tileHeight);
-		boi				   = graphicsManager.CreateSprite(RESOURCES::PROTOTYPE_SPRITE_1_PATH, tileWidth, tileHeight);
 
-		auto grassTile = std::pair<int, TileSprite>(1, { 1, "Grass", grassSprite });
-		auto stoneTile = std::pair<int, TileSprite>(2, { 2, "Stone", stoneSprite });
-
-		palette.insert(grassTile);
-		palette.insert(stoneTile);
-	}
-
-	void LevelEditor::CreateLevel()
-	{
-		for (int y = 0; y < mapHeight; y++)
-		{
-			std::vector<Tile_Old> row;
-			row.reserve(mapWidth);
-
-			for (int x = 0; x < mapWidth; x++)
-			{
-				A_Node* node = grid.GetNode(x, y);
-				GameObject* obj = objectManager.NewGameObject();
-				objectManager.AddImage(obj, selectedTile.sprite);
-
-				obj->SetPos(node->nodePos);
-				Tile_Old tile{ selectedTile , obj };
-
-				node->occupied = true;
-				row.push_back(tile);
-			}
-			tileObjects.push_back(row);
-		}
 	}
 
 	void LevelEditor::Init()
 	{
+		//CreateLevel(20, 20, 100);
+		LoadLevel(RESOURCES::LEVEL_TEST_PATH);
+
+		camera = objectManager.NewGameObject();
+		objectManager.AddComponent<CameraComponent>(camera);
+		objectManager.AddComponent<PrimaryMovementController>(camera);
+
+	}
+
+	void LevelEditor::Update()
+	{
+		Scene::Update();
+
+		if (AEInputCheckTriggered(AEVK_RETURN))
+		{
+			//SaveLevel();
+		}
+
+		if (AEInputCheckTriggered(AEVK_R))
+		{
+			//LoadLevel();
+		}
+
+		//Insert/Replace/Remove Tile.
+		AEVec2 mousePos = GetMouseWorldPos();
+		if (AEInputCheckTriggered(AEVK_LBUTTON))
+		{
+			A_Node* n = grid.GetNodeFromPosition(mousePos);
+			if (n)
+			{
+
+				if (!n->occupied)
+				{
+					InsertTile(n);
+				}
+				else
+				{
+					RemoveTile(n);
+					InsertTile(n);
+				}
+			}
+		}
+
+		if (AEInputCheckTriggered(AEVK_RBUTTON))
+		{
+			A_Node* n = grid.GetNodeFromPosition(mousePos);
+			if (n && n->occupied)
+			{
+				RemoveTile(n);
+			}
+		}
+	}
+
+	void LevelEditor::Draw()
+	{
+		Scene::Draw();
+		HighLightGridNode(grid);
+		grid.DrawGrid();
+	}
+
+	void LevelEditor::Free()
+	{
+		Scene::Free();
+	}
+
+	void LevelEditor::Unload()
+	{
+		Scene::Unload();
+	}
+
+	void LevelEditor::InsertTile(A_Node* n)
+	{
+		//tileMap.Insert(n->nodePos, selectedTile);
+	}
+
+	void LevelEditor::RemoveTile(A_Node* n)
+	{
+
+	}
+
+	void LevelEditor::SaveLevel(const std::string& path)
+	{
+
+	}
+
+	void LevelEditor::LoadLevel(const std::string& path)
+	{
+		tileMap.Load(path);
+		SetGrid();
+	}
+
+	void LevelEditor::CreateLevel(int width, int height, float tileSize)
+	{
+		tileMap.Generate(width, height, tileSize);
+		SetGrid();
+	}
+
+	void LevelEditor::SetGrid()
+	{
+		float scale = tileMap.GetTileScale();
+		AEVec2 dimensions = { scale * tileMap.GetMapWidth(), scale * tileMap.GetMapHeight() };
+		grid.CreateGrid(scale, dimensions, { 0, -dimensions.y });
+	}
+
+#pragma region OLD
+#if 0
+
+	void LevelEditor::Init()
+	{
 		grid.CreateGrid(tileWidth, AEVec2{ (f32)mapWidth,(f32)mapHeight });
-		selectedTile = palette.at(2);
+		//selectedTile = palette.at(2);
 
 		LoadLevel();
 
@@ -82,16 +158,16 @@ namespace StarBangBang
 	{
 		Scene::Update();
 
-		if (AEInputCheckTriggered(AEVK_1))
-		{
-			selectedTile = palette.at(1);
-			//selectedTile = palette.at("Grass");
-		}
-		else if (AEInputCheckTriggered(AEVK_2))
-		{
-			selectedTile = palette.at(2);
-			//selectedTile = palette.at("Stone");
-		}
+		//if (AEInputCheckTriggered(AEVK_1))
+		//{
+		//	selectedTile = palette.at(1);
+		//	//selectedTile = palette.at("Grass");
+		//}
+		//else if (AEInputCheckTriggered(AEVK_2))
+		//{
+		//	selectedTile = palette.at(2);
+		//	//selectedTile = palette.at("Stone");
+		//}
 
 		if (AEInputCheckTriggered(AEVK_RETURN))
 		{
@@ -149,6 +225,43 @@ namespace StarBangBang
 		}
 	}
 
+	void LevelEditor::Load()
+	{
+		tileObjects.reserve(mapHeight);
+		Sprite grassSprite = graphicsManager.CreateSprite(RESOURCES::PROTOTYPE_SPRITE_GRASS_PATH, tileWidth, tileHeight);
+		Sprite stoneSprite = graphicsManager.CreateSprite(RESOURCES::PROTOTYPE_SPRITE_STONE_PATH, tileWidth, tileHeight);
+		boi = graphicsManager.CreateSprite(RESOURCES::PROTOTYPE_SPRITE_1_PATH, tileWidth, tileHeight);
+
+		auto grassTile = std::pair<int, TileSprite_Old>(1, { 1, "Grass", grassSprite });
+		auto stoneTile = std::pair<int, TileSprite_Old>(2, { 2, "Stone", stoneSprite });
+
+		palette.insert(grassTile);
+		palette.insert(stoneTile);
+	}
+
+	void LevelEditor::CreateLevel()
+	{
+		for (int y = 0; y < mapHeight; y++)
+		{
+			std::vector<Tile_Old> row;
+			row.reserve(mapWidth);
+
+			for (int x = 0; x < mapWidth; x++)
+			{
+				A_Node* node = grid.GetNode(x, y);
+				GameObject* obj = objectManager.NewGameObject();
+				objectManager.AddImage(obj, selectedTile.sprite);
+
+				obj->SetPos(node->nodePos);
+				Tile_Old tile{ selectedTile , obj };
+
+				node->occupied = true;
+				row.push_back(tile);
+			}
+			tileObjects.push_back(row);
+		}
+	}
+
 	void LevelEditor::InsertTile(A_Node* node)
 	{
 		GameObject* obj = objectManager.NewGameObject();
@@ -199,7 +312,7 @@ namespace StarBangBang
 		if (inputStream.is_open())
 		{
 			std::string line;
-			
+
 			int y = 0;
 			while (std::getline(inputStream, line))
 			{
@@ -232,22 +345,7 @@ namespace StarBangBang
 		}
 	}
 
-	void LevelEditor::Draw()
-	{
-		Scene::Draw();
-		HighLightGridNode(grid);
-		grid.DrawGrid();
-	}
-
-	void LevelEditor::Free()
-	{
-		Scene::Free();
-		grid.FreeGrid();
-	}
-
-	void LevelEditor::Unload()
-	{
-		Scene::Unload();
-	}
+#endif
+#pragma endregion
 }
 
