@@ -109,8 +109,8 @@ namespace StarBangBang
 			Erase(x, y);
 		}
 
-		float x_offset = scale * (mapWidth + 1) / 2;
-		float y_offset = scale * (mapHeight + 1) / 2;
+		float x_offset = (scale * mapWidth) / 2;
+		float y_offset = (scale * mapHeight) / 2;
 
 		TileSprite sprite = tileSet.GetTileSprite(type);
 		AEVec2 position = { x * scale - x_offset, y * scale - y_offset };
