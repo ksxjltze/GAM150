@@ -6,20 +6,24 @@ namespace StarBangBang
 {
 	enum class TileType
 	{
-		GRASS, STONE
+		GRASS = 1, STONE
 	};
 
-	struct TileTexture
+	struct TileSprite
 	{
-		AEGfxTexture* texture;
+		Sprite sprite;
 		TileType type;
 	};
 
 	class TileSet
 	{
 	public:
-		void Load(std::string path);
+		void Load(GraphicsManager&);
+		void Load(const std::string& path);
+		void Load(const std::string&& directoryPath);
+
+		TileSprite GetTileSprite(TileType);
 	private:
-		std::map<TileType, TileTexture> set;
+		std::map<TileType, TileSprite> set;
 	};
 }

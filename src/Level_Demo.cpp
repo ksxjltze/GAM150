@@ -12,7 +12,7 @@
 #include "ObserverTest.h"
 #include "EventTest.h"
 
-StarBangBang::Level_Demo::Level_Demo(int id, GameStateManager& manager) : Scene(id, manager)
+StarBangBang::Level_Demo::Level_Demo(int id, GameStateManager& manager) : Scene(id, manager), tilemap{ objectManager, graphicsManager }
 {
 	player = nullptr;
 	player2 = nullptr;
@@ -35,7 +35,7 @@ void StarBangBang::Level_Demo::Load()
 //Initialization of game objects, components and scripts.
 void StarBangBang::Level_Demo::Init()
 {
-	tilemap.Load(RESOURCES::LEVEL_TEST_PATH, objectManager, graphicsManager);
+	tilemap.Load(RESOURCES::LEVEL_TEST_PATH);
 
 	GameObject* worldOriginMarker = objectManager.NewGameObject();
 	player = objectManager.NewGameObject();
@@ -93,7 +93,7 @@ void StarBangBang::Level_Demo::Update()
 	Scene::Update();
 	if (AEInputCheckTriggered(VK_SPACE))
 	{
-		gameStateManager.SetNextGameState(SCENE::SAMPLE);
+		gameStateManager.SetNextGameState(SCENE::EDITOR);
 	}
 }
 
