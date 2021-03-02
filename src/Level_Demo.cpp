@@ -28,7 +28,6 @@ void StarBangBang::Level_Demo::Load()
 	playerImage = graphicsManager.CreateSprite("../Resources/boi.png");
 	player2Image = graphicsManager.CreateSprite("../Resources/boi2.png");
 	planetImage = graphicsManager.CreateSprite("../Resources/PlanetTexture.png");
-	guardImage = graphicsManager.CreateSprite("../Resources/grass.png");
 	guardImage = graphicsManager.CreateSprite("../Resources/guard.png");
 }
 
