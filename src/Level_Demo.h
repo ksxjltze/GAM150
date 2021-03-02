@@ -5,6 +5,8 @@
 #include "MemoryManager.h"
 #include "GameStateManager.h"
 #include "Player.h"
+#include "GuardManager.h"
+#include "TileMap.h"
 
 namespace StarBangBang
 {
@@ -22,14 +24,17 @@ namespace StarBangBang
 		Sprite playerImage;
 		Sprite player2Image;
 		Sprite planetImage;
+		Sprite guardImage;
 
 		GameObject* movementController;
 		GameObject* player;
 		GameObject* player2;
 
 		GameObject* testInteractable;
-		GameObject* testGuard;
+		GameObject* guardManager;
 
 		std::vector<GameObject*> testObjects;
+
+		TileMap tilemap;
 	};
 }

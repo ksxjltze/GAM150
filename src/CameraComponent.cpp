@@ -21,7 +21,8 @@ void StarBangBang::CameraComponent::Update()
 	}
 
 	position = gameObject->transform.position;
-	Graphics::SetZoom(scale);
+	AEVec2Scale(&position, &position, scale);
+	GRAPHICS::SetZoom(scale);
 
 
 	//temp

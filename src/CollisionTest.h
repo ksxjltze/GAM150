@@ -10,7 +10,7 @@ namespace StarBangBang
 	void FreeTest()
 	{
 		StarBangBang::FreeUnitMeshes();
-		PathFinder::Free();
+		//PathFinder::Free();
 	}
 	bool start = false;
 	

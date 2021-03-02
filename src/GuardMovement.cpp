@@ -1,64 +1,127 @@
 #include "GuardMovement.h"
 #include "GuardVision.h"
 #include "Guard.h"
+#include "Utils.h"
 #include <iostream>
+
+#include "BasicMeshShape.h"
 
 using namespace StarBangBang;
 
-StarBangBang::GuardMovement::GuardMovement(GameObject* gameObject) : Script(gameObject)
+GuardMovement::GuardMovement(GameObject* gameObject)
+	: Script(gameObject)
+	, nodeIndex(0)
+	, foundPath(false)
+	, timeBeforeNextNode(1.f)
 {
 	SetWaypoints();
-	std::cout << waypoints.size() << "\n";
+	//std::cout << waypoints.size() << "\n";
+
+	std::string text = "Guard ID: " + std::to_string(gameObject->GetComponent<Guard>()->GetID()) + "\n";
+	PRINT(text.c_str());
+	distraction_position = waypoints.front();
 }
 
-void StarBangBang::GuardMovement::Idle()
+void GuardMovement::Idle()
 {
+	//std::cout << "GUARD: IDLE" << "\n";
 
+	// rotate between left, front, right, back sprites
+	// ...
 }
 
-void StarBangBang::GuardMovement::Patrol()
+void GuardMovement::Patrol()
 {
 	//std::cout << "GUARD: PATROL" << "\n";
-	double dt = AEFrameRateControllerGetFrameTime();
-	gameObject->transform.position.x += 50.0 * dt;
 
-	AEVec2 target = { 0, 0 }, dir = { 0, 0 };
+	/*AEVec2 target = { 0, 0 }, dir = { 0, 0 };
 	AEVec2 test = { 100, 10 };
-	//std::cout << waypoints.size() << "\n";
-	
+
 	AEVec2Sub(&target, &test, &gameObject->transform.position);
 	AEVec2Scale(&dir, &waypoints.front(), dt);
 	AEVec2Normalize(&dir, &dir);
-	AEVec2Add(&gameObject->transform.position, &gameObject->transform.position, &dir);
+	AEVec2Add(&gameObject->transform.position, &gameObject->transform.position, &dir);*/
+
+	//MoveTo(waypoints.front());
+	Distracted();
 }
 
-void StarBangBang::GuardMovement::Chase()
+void GuardMovement::Distracted()
 {
-	// chase player
-	// ...
-
-	// if can't see player after some time, change to patrol state
-	static double time = 0.0;
-	time += AEFrameRateControllerGetFrameTime();
-	if (time >= CHASE_TIME)
+	if (AEInputCheckTriggered(VK_LBUTTON))
 	{
-		if (!gameObject->GetComponent<GuardVision>()->GetDetectedPlayer())
+		if (foundPath) // changing path midway into moving along the path
 		{
-			gameObject->GetComponent<Guard>()->SetState(Guard::GUARD_STATE::STATE_PATROL);
-			time = 0.0;
+			nodeIndex = 0;
+			timer = 0.f;
+		}
+
+		distraction_position = GetMouseWorldPos();
+		path = PathFinder::SearchForPath(gameObject->transform.position, distraction_position);
+		foundPath = (path.size() > 0);
+	}
+
+	if (foundPath)
+	{
+		for (const A_Node* n : path)
+		{
+			DrawCircle(10.0f, n->nodePos);
+		}
+
+		// go to interactable object
+		if (nodeIndex < path.size())
+		{
+			if (MoveTo(path[nodeIndex]->nodePos))
+			{
+				double dt = AEFrameRateControllerGetFrameTime();
+				timer += dt;
+				if (timer >= 0.01f)
+				{
+					++nodeIndex;
+					timer = 0.f;
+				}
+			}
+		}
+		else
+		{
+			// deactivate interactable object
+			// ...
+
+			path.clear();
+			nodeIndex = 0;
+			foundPath = false;
 		}
 	}
 }
 
-void StarBangBang::GuardMovement::Distracted()
+bool GuardMovement::MoveTo(AEVec2 pos)
 {
-	// go to interactable object
-	// ...
+	if (ReachedPos(pos))
+	{
+		//gameObject->transform.position = pos; // this snapping to position causes the obj to vanish
+		return true;
+	}
+
+	double dt = AEFrameRateControllerGetFrameTime();
+	AEVec2 dir = { 0, 0 };
+
+	AEVec2Sub(&dir, &pos, &gameObject->transform.position);
+	AEVec2Normalize(&dir, &dir);
+	AEVec2Scale(&dir, &dir, dt * SPEED);
+	AEVec2Add(&gameObject->transform.position, &gameObject->transform.position, &dir);
+
+	return false;
 }
 
-void StarBangBang::GuardMovement::SetWaypoints()
+bool GuardMovement::ReachedPos(AEVec2 pos)
 {
-	std::cout << "GUARD: SETTING WAYPOINTS\n";
+	float minDistToTarget = 2.f;
+	return (AEVec2SquareDistance(&pos, &gameObject->transform.position) <= minDistToTarget * minDistToTarget);
+}
+
+void GuardMovement::SetWaypoints()
+{
+	//std::cout << "GUARD: SETTING WAYPOINTS\n";
 	// Test
 	waypoints.push_back({ 100, 10 });
 

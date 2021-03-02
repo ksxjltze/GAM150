@@ -4,26 +4,30 @@
 #include "Sprite.h"
 #include "Grid.h"
 #include "CameraComponent.h"
+#include "SerializeTest.h"
+#include "TileMap.h"
 
 namespace StarBangBang
 {
-	struct TileSprite
-	{
-		int id = -1;
-		std::string name;
-		Sprite sprite;
-	};
+	//struct TileSprite_Old
+	//{
+	//	int id = -1;
+	//	std::string name;
+	//	Sprite sprite;
+	//};
 
-	struct Tile
-	{
-		TileSprite sprite;
-		GameObject* gameObject { nullptr };
-	};
+	//struct Tile_Old
+	//{
+	//	TileSprite_Old sprite;
+	//	GameObject* gameObject { nullptr };
+	//};
 
 	class LevelEditor : public Scene
 	{
 	public:
 		LevelEditor(int id, GameStateManager& manager);
+		~LevelEditor();
+
 		void Load();
 		void Init();
 		void Update();
@@ -33,19 +37,20 @@ namespace StarBangBang
 	private:
 		void InsertTile(A_Node* n);
 		void RemoveTile(A_Node* n);
-		void SaveLevel();
-		void LoadLevel();
-		void CreateLevel();
+		void SaveLevel(const std::string& path);
+		void LoadLevel(const std::string& path);
+		void CreateLevel(int width, int height, float tileSize);
+		void SetGrid();
 		
-		float tileWidth, tileHeight;
-		int mapWidth, mapHeight;
-		TileSprite selectedTile;
 		Sprite boi;
 
-		std::map<int, TileSprite> palette;
-		std::vector<std::vector<Tile>> tileObjects;
+		TileMap tileMap;
+		Grid grid;
 
 		GameObject* camera{ nullptr };
-		Grid grid;
+
+		//TileSprite_Old selectedTile;
+		//std::map<int, TileSprite_Old> palette;
+		//std::vector<std::vector<Tile_Old>> tileObjects;
 	};
 }

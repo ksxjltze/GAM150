@@ -85,7 +85,7 @@ void StarBangBang::DrawBoxWired(AEVec2 size,AEVec2 pos , Color color)
 {
 	AEMtx33 scale = AEMtx33();
 	AEMtx33 result = AEMtx33();
-	float zoom = Graphics::GetZoom();
+	float zoom = GRAPHICS::GetZoom();
 	
 	AEGfxSetRenderMode(AE_GFX_RM_COLOR);
 
@@ -102,7 +102,7 @@ void StarBangBang::DrawBox(AEVec2 size, AEVec2 pos, Color color)
 {
 	AEMtx33 scale = AEMtx33();
 	AEMtx33 result = AEMtx33();
-	float zoom = Graphics::GetZoom();
+	float zoom = GRAPHICS::GetZoom();
 
 	AEGfxSetRenderMode(AE_GFX_RM_COLOR);
 
@@ -120,7 +120,7 @@ void StarBangBang::DrawCircle(float radius, AEVec2 pos)
 {
 	AEMtx33 scale = AEMtx33();
 	AEMtx33 result = AEMtx33();
-	float zoom = Graphics::GetZoom();
+	float zoom = GRAPHICS::GetZoom();
 
 	AEGfxSetRenderMode(AE_GFX_RM_COLOR);
 	AEMtx33Scale(&scale, radius, radius);
@@ -136,5 +136,6 @@ void StarBangBang::FreeUnitMeshes(void)
 {
 	AEGfxMeshFree(unitboxMesh);
 	AEGfxMeshFree(unitcircleMesh);
+	AEGfxMeshFree(unitboxWiredMesh);
 
 }

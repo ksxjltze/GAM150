@@ -93,16 +93,18 @@
     <ClCompile Include="src\BasicMeshShape.cpp" />
     <ClCompile Include="src\AudioEngine.cpp" />
     <ClCompile Include="src\CameraComponent.cpp" />
+    <ClCompile Include="src\CaptainStealth.cpp" />
     <ClCompile Include="src\Collider.cpp" />
     <ClCompile Include="src\CollisionManager.cpp" />
+    <ClCompile Include="src\constants.cpp" />
     <ClCompile Include="src\DragComponent.cpp" />
     <ClCompile Include="src\EventTest.cpp" />
-    <ClCompile Include="src\FileManager.cpp" />
     <ClCompile Include="src\GameObject.cpp" />
     <ClCompile Include="src\GameStateManager.cpp" />
     <ClCompile Include="src\GraphicsManager.cpp" />
     <ClCompile Include="src\Grid.cpp" />
     <ClCompile Include="src\Guard.cpp" />
+    <ClCompile Include="src\GuardManager.cpp" />
     <ClCompile Include="src\GuardMovement.cpp" />
     <ClCompile Include="src\GuardVision.cpp" />
     <ClCompile Include="src\ImageComponent.cpp" />
@@ -120,8 +122,12 @@
     <ClCompile Include="src\PrimaryMovementController.cpp" />
     <ClCompile Include="src\Sample_Scene.cpp" />
     <ClCompile Include="src\SecondaryMovementController.cpp" />
+    <ClCompile Include="src\Serialization.cpp" />
+    <ClCompile Include="src\SerializeTest.cpp" />
     <ClCompile Include="src\Subject.cpp" />
     <ClCompile Include="src\TagManager.cpp" />
+    <ClCompile Include="src\TileMap.cpp" />
+    <ClCompile Include="src\TileSet.cpp" />
     <ClCompile Include="src\Utils.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -129,6 +135,7 @@
     <ClInclude Include="src\BasicMeshShape.h" />
     <ClInclude Include="src\AudioEngine.h" />
     <ClInclude Include="src\CameraComponent.h" />
+    <ClInclude Include="src\CaptainStealth.h" />
     <ClInclude Include="src\Collider.h" />
     <ClInclude Include="src\ColliderAABB.h" />
     <ClInclude Include="src\CollisionManager.h" />
@@ -139,14 +146,15 @@
     <ClInclude Include="src\DragComponent.h" />
     <ClInclude Include="src\Event.h" />
     <ClInclude Include="src\EventTest.h" />
-    <ClInclude Include="src\FileManager.h" />
     <ClInclude Include="src\GameObject.h" />
     <ClInclude Include="src\GameStateManager.h" />
     <ClInclude Include="src\GraphicsManager.h" />
     <ClInclude Include="src\Guard.h" />
+    <ClInclude Include="src\GuardManager.h" />
     <ClInclude Include="src\GuardMovement.h" />
     <ClInclude Include="src\GuardVision.h" />
     <ClInclude Include="src\ImageComponent.h" />
+    <ClInclude Include="src\ISerializable.h" />
     <ClInclude Include="src\LevelEditor.h" />
     <ClInclude Include="src\InteractableComponent.h" />
     <ClInclude Include="src\Level_Demo.h" />
@@ -161,12 +169,17 @@
     <ClInclude Include="src\Player.h" />
     <ClInclude Include="src\PrimaryMovementController.h" />
     <ClInclude Include="src\Sample_Scene.h" />
+    <ClInclude Include="src\Scenes.h" />
     <ClInclude Include="src\ScriptComponent.h" />
     <ClInclude Include="src\SecondaryMovementController.h" />
+    <ClInclude Include="src\Serialization.h" />
+    <ClInclude Include="src\SerializeTest.h" />
     <ClInclude Include="src\Sprite.h" />
     <ClInclude Include="src\State.h" />
     <ClInclude Include="src\Subject.h" />
     <ClInclude Include="src\TagManager.h" />
+    <ClInclude Include="src\TileMap.h" />
+    <ClInclude Include="src\TileSet.h" />
     <ClInclude Include="src\Transform.h" />
     <ClInclude Include="src\Utils.h" />
   </ItemGroup>

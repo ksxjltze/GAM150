@@ -1,35 +1,33 @@
 #include "Guard.h"
 
-StarBangBang::Guard::Guard(GameObject* gameObject) : Script(gameObject)
+using namespace StarBangBang;
+
+int Guard::id = -1;
+
+Guard::Guard(GameObject* gameObject)
+	: Script(gameObject)
+	, state(GUARD_STATE::STATE_PATROL)
+	, movement(nullptr)
 {
-	// Guard's starting state
-	state = GUARD_STATE::STATE_PATROL;
-	vision = nullptr;
-	movement = nullptr;
+	++id;
 }
 
-void StarBangBang::Guard::Start()
+void Guard::Start()
 {
-	vision = gameObject->GetComponent<GuardVision>();
 	movement = gameObject->GetComponent<GuardMovement>();
 }
 
-void StarBangBang::Guard::Update()
+void Guard::Update()
 {
-	vision->Update();
-
 	switch (state)
 	{
-	case StarBangBang::Guard::GUARD_STATE::STATE_IDLE:
+	case Guard::GUARD_STATE::STATE_IDLE:
 		movement->Idle();
 		break;
-	case StarBangBang::Guard::GUARD_STATE::STATE_PATROL:
+	case Guard::GUARD_STATE::STATE_PATROL:
 		movement->Patrol();
 		break;
-	case StarBangBang::Guard::GUARD_STATE::STATE_CHASE:
-		movement->Chase();
-		break;
-	case StarBangBang::Guard::GUARD_STATE::STATE_DISTRACTED:
+	case Guard::GUARD_STATE::STATE_DISTRACTED:
 		movement->Distracted();
 		break;
 	default:

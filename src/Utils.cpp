@@ -11,7 +11,7 @@ AEVec2 StarBangBang::GetMouseWorldPos()
 
 	AEVec2 pos = { (float)mouseX, (float)-mouseY };
 	AEMtx33 mtx;
-	float zoom = Graphics::GetZoom();
+	float zoom = GRAPHICS::GetZoom();
 
 	AEMtx33Trans(&mtx, -AEGetWindowWidth() / 2 + CameraPos.x, AEGetWindowHeight() / 2 + CameraPos.y);
 	AEMtx33ScaleApply(&mtx, &mtx, 1 / zoom, 1 / zoom);

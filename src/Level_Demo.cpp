@@ -12,15 +12,15 @@
 #include "ObserverTest.h"
 #include "EventTest.h"
 
-StarBangBang::Level_Demo::Level_Demo(int id, GameStateManager& manager) : Scene(id, manager)
+StarBangBang::Level_Demo::Level_Demo(int id, GameStateManager& manager) : Scene(id, manager), tilemap{ objectManager, graphicsManager }
 {
 	player = nullptr;
 	player2 = nullptr;
 
 	movementController = nullptr;
 
-	testGuard = nullptr;
 	testInteractable = nullptr;
+	guardManager = nullptr;
 }
 
 void StarBangBang::Level_Demo::Load()
@@ -28,20 +28,24 @@ void StarBangBang::Level_Demo::Load()
 	playerImage = graphicsManager.CreateSprite("../Resources/boi.png");
 	player2Image = graphicsManager.CreateSprite("../Resources/boi2.png");
 	planetImage = graphicsManager.CreateSprite("../Resources/PlanetTexture.png");
-
+	guardImage = graphicsManager.CreateSprite("../Resources/guard.png");
 }
 
 //Initialization of game objects, components and scripts.
 void StarBangBang::Level_Demo::Init()
 {
+	tilemap.Load(RESOURCES::LEVEL_TEST_PATH);
+
 	GameObject* worldOriginMarker = objectManager.NewGameObject();
 	player = objectManager.NewGameObject();
-	testGuard = objectManager.NewGameObject();
 	movementController = objectManager.NewGameObject();
 
 	objectManager.AddImage(worldOriginMarker, planetImage);
 	objectManager.AddImage(player, playerImage);
-	objectManager.AddImage(testGuard, playerImage);
+
+	guardManager = objectManager.NewGameObject();
+	objectManager.AddComponent<GuardManager>(guardManager);
+	guardManager->GetComponent<GuardManager>()->Init(&objectManager, &guardImage);
 
 	//Creates a clone of the player gameObject and changes the sprite texture.
 	player2 = objectManager.CloneGameObject(player);
@@ -55,10 +59,6 @@ void StarBangBang::Level_Demo::Init()
 
 	objectManager.AddComponent<CameraComponent>(player);
 	objectManager.AddComponent<InteractableComponent>(testInteractable);
-
-	objectManager.AddComponent<Guard>(testGuard);
-	objectManager.AddComponent<GuardVision>(testGuard);
-	objectManager.AddComponent<GuardMovement>(testGuard);
 
 	objectManager.AddComponent<PrimaryMovementController>(player);
 	objectManager.AddComponent<PrimaryMovementController>(player2);
@@ -92,7 +92,7 @@ void StarBangBang::Level_Demo::Update()
 	Scene::Update();
 	if (AEInputCheckTriggered(VK_SPACE))
 	{
-		gameStateManager.SetNextGameState(Constants::SceneID::SAMPLE);
+		gameStateManager.SetNextGameState(SCENE::EDITOR);
 	}
 }
 

@@ -9,7 +9,7 @@ void StarBangBang::ObjectManager::AddComponent(GameObject* gameObject, _Componen
 	gameObject->AddComponent(component);
 }
 
-void StarBangBang::ObjectManager::AddImage(GameObject* gameObject, Sprite sprite)
+StarBangBang::ImageComponent* StarBangBang::ObjectManager::AddImage(GameObject* gameObject, Sprite sprite)
 {
 	if (gameObject)
 	{
@@ -18,9 +18,11 @@ void StarBangBang::ObjectManager::AddImage(GameObject* gameObject, Sprite sprite
 			ImageComponent* image = new ImageComponent(gameObject, sprite.mesh, sprite.texture);
 			componentList.push_back(image);
 			gameObject->AddComponent(image);
+			return image;
 		}
-
+		
 	}
+	return nullptr;
 }
 
 void StarBangBang::ObjectManager::AddChildGameObject(GameObject* child, GameObject* parent)
