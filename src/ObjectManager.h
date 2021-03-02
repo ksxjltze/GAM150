@@ -20,7 +20,7 @@ namespace StarBangBang
 		}
 
 		void AddComponent(GameObject* gameObject, _Component* component);
-		void AddImage(GameObject* gameObject, Sprite sprite);
+		StarBangBang::ImageComponent* AddImage(GameObject* gameObject, Sprite sprite);
 		void AddChildGameObject(GameObject* child, GameObject* parent);
 		GameObject* NewGameObject();
 		GameObject* NewGameObject(float width, float height);

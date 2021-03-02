@@ -10,7 +10,7 @@ namespace StarBangBang
 	class Scene
 	{
 	public:
-		Scene(int id, GameStateManager& manager) : id(id), gameStateManager(manager) {}
+		Scene(int id, GameStateManager& gsm) : id(id), gameStateManager(gsm) {}
 		virtual ~Scene() {};
 		inline int getID() { return id; }
 		virtual void Load() = 0;
@@ -26,7 +26,7 @@ namespace StarBangBang
 		StarBangBang::TagManager tagManager;
 		StarBangBang::MemoryManager memoryManager{ &objectManager, &graphicsManager };
 		GameStateManager& gameStateManager;
-		int id;
+		const int id;
 	};
 
 }
