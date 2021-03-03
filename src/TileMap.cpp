@@ -225,9 +225,13 @@ namespace StarBangBang
 
 	void TileMap::Erase(int x, int y)
 	{
-		GameObject* obj = map.at({ x,y }).spriteObject->gameObject;
-		objMgr.DestroyGameObject(obj);
-		map.erase({ x, y });
+		std::pair<int, int> pos = { x,y };
+		if (map.find(pos) != map.end())
+		{
+			GameObject* obj = map.at(pos).spriteObject->gameObject;
+			objMgr.DestroyGameObject(obj);
+			map.erase(pos);
+		}
 	}
 	
 	Tile TileMap::CreateNewTile(AEVec2 pos, TileSprite tileSprite)
