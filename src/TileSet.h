@@ -6,7 +6,7 @@ namespace StarBangBang
 {
 	enum class TileType
 	{
-		GRASS = 1, STONE
+		NONE = 0, GRASS, STONE
 	};
 
 	struct TileSprite

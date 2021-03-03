@@ -19,7 +19,7 @@ namespace StarBangBang
 		void Init();
 		void Generate(int width, int height, float tileSize);
 		void Save(std::string path);
-		void Load(std::string path);
+		bool Load(std::string path);
 
 		float GetTileScale();
 

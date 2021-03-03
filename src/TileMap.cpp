@@ -47,16 +47,25 @@ namespace StarBangBang
 		
 		if (os.is_open())
 		{
+			printf("Tilemap: SAVING LEVEL\n");
 			os << "Width: " << mapWidth << std::endl;
 			os << "Height: " << mapHeight << std::endl;
 			os << "Tile Size: " << scale << std::endl;
 
-			for (int y = 0; y < mapHeight; y++)
+			for (int y = mapHeight - 1; y >= 0; --y)
 			{
-				for (int x = 0; x < mapWidth; x++)
+				for (int x = 0; x < mapWidth; ++x)
 				{
-					const Tile& tile = map.at({ x,y });
-					os << static_cast<int>(tile.type);
+					std::pair<int, int> pos = { x, y };
+					if (map.find(pos) != map.end())
+					{
+						const Tile& tile = map.at(pos);
+						os << static_cast<int>(tile.type);
+					}
+					else
+					{
+						os << static_cast<int>(TileType::NONE);
+					}
 
 					if (x < mapWidth - 1)
 						os << ',';
@@ -67,15 +76,20 @@ namespace StarBangBang
 		}
 	}
 
-	void StarBangBang::TileMap::Load(std::string path)
+	bool StarBangBang::TileMap::Load(std::string path)
 	{
 		std::ifstream is;
 		is.open(path);
 
-		//Test (CHANGE LATER)
-		//scale = 50.0f;
-		//mapWidth = 20;
-		//mapHeight = 20;
+		if (!map.empty())
+		{
+			for (auto tile : map)
+			{
+				GameObject* obj = tile.second.spriteObject->gameObject;
+				objMgr.DestroyGameObject(obj);
+			}
+			map.clear();
+		}
 
 		if (is.is_open())
 		{
@@ -88,7 +102,7 @@ namespace StarBangBang
 			if(widthStr.find(STRING_TAGS::TILEMAP_WIDTH_TAG) == widthStr.npos)
 			{
 				fprintf(stderr, "TileMap: Error Reading Width!\n");
-				return;
+				return false;
 			}
 
 			is >> widthStr;
@@ -99,7 +113,7 @@ namespace StarBangBang
 			if (heightStr.find(STRING_TAGS::TILEMAP_HEIGHT_TAG) == heightStr.npos)
 			{
 				fprintf(stderr, "TileMap: Error Reading Height!\n");
-				return;
+				return false;
 			}
 
 			is >> heightStr;
@@ -114,7 +128,7 @@ namespace StarBangBang
 			if (sizeStr.find(STRING_TAGS::TILEMAP_SIZE_TAG) == sizeStr.npos)
 			{
 				fprintf(stderr, "TileMap: Error Reading Tile Size!\n");
-				return;
+				return false;
 			}
 
 			is >> sizeStr;
@@ -125,7 +139,7 @@ namespace StarBangBang
 
 			mapWidth = atoi(widthStr.c_str());
 			mapHeight = atoi(heightStr.c_str());
-			scale = atof(sizeStr.c_str());
+			scale = static_cast<float>(atof(sizeStr.c_str()));
 
 			//Centre TileMap
 			float x_offset = (scale * mapWidth)  / 2;
@@ -144,22 +158,30 @@ namespace StarBangBang
 					//Improve later to accomodate for > 10
 					if (ch != ',')
 					{
-						int type = ch - '0';
-						TileSprite sprite = tileSet.GetTileSprite(static_cast<TileType>(type));
+						TileType type = static_cast<TileType>(ch - '0');
 
-						AEVec2 pos = { x * scale - x_offset, y * scale - y_offset};
-						Tile tile = CreateNewTile(pos, sprite);
-						map.insert({ {x++, y}, tile });
+						if (type != TileType::NONE)
+						{
+							TileSprite sprite = tileSet.GetTileSprite(type);
+
+							AEVec2 pos = { x * scale - x_offset, y * scale - y_offset};
+							Tile tile = CreateNewTile(pos, sprite);
+							map.insert({ {x++, y}, tile });
+
+						}
+
 					}
 				}
 				y++;
 
 			}
 			is.close();
+			return true;
 		}
 		else
 		{
 			fprintf(stderr, "TileMap: ERROR OPENING FILE\n");
+			return false;
 		}
 	}
 
