@@ -37,7 +37,7 @@ namespace StarBangBang
 		//TODO: Optimize tile drawing (Low FPS on 100 x 100 tile map)
 		if (!LoadLevel(RESOURCES::LEVEL_TEST_PATH))
 		{
-			CreateLevel(50, 50, 50);
+			CreateLevel(TILEMAP::DEFAULT_WIDTH, TILEMAP::DEFAULT_WIDTH, TILEMAP::DEFAULT_TILE_SIZE);
 		}
 
 		camera = objectManager.NewGameObject();
