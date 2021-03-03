@@ -81,18 +81,20 @@ namespace StarBangBang
 		std::ifstream is;
 		is.open(path);
 
-		if (!map.empty())
-		{
-			for (auto tile : map)
-			{
-				GameObject* obj = tile.second.spriteObject->gameObject;
-				objMgr.DestroyGameObject(obj);
-			}
-			map.clear();
-		}
-
 		if (is.is_open())
 		{
+			//Clear map
+			if (!map.empty())
+			{
+				using coords = std::pair<int, int>;
+				for (const std::pair<coords, Tile>& tile : map)
+				{
+					GameObject* obj = tile.second.spriteObject->gameObject;
+					objMgr.DestroyGameObject(obj);
+				}
+				map.clear();
+			}
+
 			std::string widthStr;
 			std::string heightStr;
 			std::string sizeStr;
