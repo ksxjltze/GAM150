@@ -26,9 +26,6 @@ namespace StarBangBang
 
 		bool foundPath;
 		unsigned int nodeIndex;
-		float requiredDistSq;
-		float timeBeforeNextNode;
-		float timer = 0.f;
 
 		// Waypoints specific to this guard
 		std::vector<AEVec2> waypoints;

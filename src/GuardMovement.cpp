@@ -12,7 +12,6 @@ GuardMovement::GuardMovement(GameObject* gameObject)
 	: Script(gameObject)
 	, nodeIndex(0)
 	, foundPath(false)
-	, timeBeforeNextNode(1.f)
 {
 	SetWaypoints();
 	//std::cout << waypoints.size() << "\n";
@@ -53,7 +52,7 @@ void GuardMovement::Distracted()
 		if (foundPath) // changing path midway into moving along the path
 		{
 			nodeIndex = 0;
-			timer = 0.f;
+			//timer = 0.f;
 		}
 
 		distraction_position = GetMouseWorldPos();
@@ -71,10 +70,10 @@ void GuardMovement::Distracted()
 		// go to interactable object
 		if (nodeIndex < path.size())
 		{
+			float timer = 0.f;
 			if (MoveTo(path[nodeIndex]->nodePos))
 			{
-				double dt = AEFrameRateControllerGetFrameTime();
-				timer += dt;
+				timer += AEFrameRateControllerGetFrameTime();
 				if (timer >= 0.01f)
 				{
 					++nodeIndex;

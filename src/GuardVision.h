@@ -17,6 +17,7 @@ namespace StarBangBang
 
 	private:
 		bool detected_player;
+		float fieldOfView;
 		GameObject* player;
 		GameObject* client;
 	};
