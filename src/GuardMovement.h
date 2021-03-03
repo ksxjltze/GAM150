@@ -1,11 +1,14 @@
 #pragma once
 #include "ScriptComponent.h"
+#include "PathFinder.h"
 #include <vector>
 
 namespace StarBangBang
 {
 	class GuardMovement : public Script
 	{
+	private:
+		const float SPEED = 150.f;
 	public:
 		GuardMovement(GameObject* gameObject);
 
@@ -17,9 +20,21 @@ namespace StarBangBang
 		void Distracted();
 
 	private:
+		bool MoveTo(AEVec2 pos);
+		bool ReachedPos(AEVec2 pos);
 		void SetWaypoints();
+
+		bool foundPath;
+		unsigned int nodeIndex;
+		float requiredDistSq;
+		float timeBeforeNextNode;
+		float timer = 0.f;
 
 		// Waypoints specific to this guard
 		std::vector<AEVec2> waypoints;
+
+		std::vector<A_Node*> path;
+
+		AEVec2 distraction_position;
 	};
 }

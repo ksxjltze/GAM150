@@ -3,7 +3,7 @@
 
 namespace StarBangBang
 {
-	enum SCENE {DEMO, EDITOR, SAMPLE, GAME};
+	enum SCENE {DEMO, EDITOR, SAMPLE, GAME, MAINMENU};
 	namespace GRAPHICS
 	{
 		static const int MESH_WIDTH = 100, MESH_HEIGHT = 100;
@@ -36,5 +36,9 @@ namespace StarBangBang
 								 
 		extern const std::string&& LEVEL_TEST_PATH;
 
+		extern const std::string&& STARTGAME_BUTTON_PATH;
+		extern const std::string&& SETTINGS_BUTTON_PATH;
+		extern const std::string&& CREDITS_BUTTON_PATH;
+		extern const std::string&& EXITGAME_BUTTON_PATH;
 	}
 }

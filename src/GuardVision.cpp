@@ -1,11 +1,13 @@
+
 #include "GuardVision.h"
 #include "Guard.h"
 
 using namespace StarBangBang;
 
-GuardVision::GuardVision(GameObject* gameObject) : Script(gameObject)
+GuardVision::GuardVision(GameObject* gameObject) 
+	: Script(gameObject)
+	, detected_player(false)
 {
-	detected = false;
 	player = nullptr;
 	client = nullptr;
 }
@@ -15,8 +17,8 @@ void GuardVision::Update()
 	// update guard's vision stuff here
 	// ...
 
-	if (detected)
+	if (detected_player)
 	{
-		gameObject->GetComponent<Guard>()->SetState(Guard::GUARD_STATE::STATE_CHASE);
+		// notify event manager: game over
 	}
 }

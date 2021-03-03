@@ -19,7 +19,6 @@ StarBangBang::Level_Demo::Level_Demo(int id, GameStateManager& manager) : Scene(
 
 	movementController = nullptr;
 
-	testGuard = nullptr;
 	testInteractable = nullptr;
 	guardManager = nullptr;
 }
@@ -29,8 +28,7 @@ void StarBangBang::Level_Demo::Load()
 	playerImage = graphicsManager.CreateSprite("../Resources/boi.png");
 	player2Image = graphicsManager.CreateSprite("../Resources/boi2.png");
 	planetImage = graphicsManager.CreateSprite("../Resources/PlanetTexture.png");
-
-
+	guardImage = graphicsManager.CreateSprite("../Resources/guard.png");
 }
 
 //Initialization of game objects, components and scripts.
@@ -48,9 +46,7 @@ void StarBangBang::Level_Demo::Init()
 
 	guardManager = objectManager.NewGameObject();
 	objectManager.AddComponent<GuardManager>(guardManager);
-	guardManager->GetComponent<GuardManager>()->SetObjectManager(&objectManager);
-	guardManager->GetComponent<GuardManager>()->SetSprite(&playerImage);
-	guardManager->GetComponent<GuardManager>()->Init();
+	guardManager->GetComponent<GuardManager>()->Init(&objectManager, &guardImage);
 
 	//Creates a clone of the player gameObject and changes the sprite texture.
 	player2 = objectManager.CloneGameObject(player);
@@ -109,7 +105,6 @@ void StarBangBang::Level_Demo::Draw()
 
 void StarBangBang::Level_Demo::Free()
 {
-	//delete guardManager;
 	Scene::Free();
 }
 

@@ -12,7 +12,6 @@ namespace StarBangBang
 		{
 			STATE_IDLE = 0,
 			STATE_PATROL,
-			STATE_CHASE,
 			STATE_DISTRACTED,
 			STATE_TOTAL
 		};
@@ -23,12 +22,12 @@ namespace StarBangBang
 		void Update();
 
 		inline void SetState(GUARD_STATE _state) { state = _state; }
-		//void NotifyGuard(GameObject* gameObject);
 		inline int GetID() const { return id; }
+
+		void DistractGuard(AEVec2 const& pos);
 
 	private:
 		GUARD_STATE state;
-		GuardVision* vision;
 		GuardMovement* movement;
 		static int id;
 	};
