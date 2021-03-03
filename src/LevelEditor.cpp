@@ -51,12 +51,12 @@ namespace StarBangBang
 
 		if (AEInputCheckTriggered(AEVK_RETURN))
 		{
-			//SaveLevel();
+			SaveLevel(RESOURCES::LEVEL_TEST_PATH);
 		}
 
 		if (AEInputCheckTriggered(AEVK_R))
 		{
-			//LoadLevel();
+			LoadLevel(RESOURCES::LEVEL_TEST_PATH);
 		}
 
 		//Insert/Replace/Remove Tile.
@@ -66,23 +66,14 @@ namespace StarBangBang
 			A_Node* n = grid.GetNodeFromPosition(mousePos);
 			if (n)
 			{
-
-				if (!n->occupied)
-				{
-					InsertTile(n);
-				}
-				else
-				{
-					RemoveTile(n);
-					InsertTile(n);
-				}
+				InsertTile(n);
 			}
 		}
 
 		if (AEInputCheckTriggered(AEVK_RBUTTON))
 		{
 			A_Node* n = grid.GetNodeFromPosition(mousePos);
-			if (n && n->occupied)
+			if (n)
 			{
 				RemoveTile(n);
 			}
@@ -113,7 +104,7 @@ namespace StarBangBang
 
 	void LevelEditor::RemoveTile(A_Node* n)
 	{
-
+		tileMap.Erase(n->index_x, n->index_y);
 	}
 
 	void LevelEditor::SaveLevel(const std::string& path)

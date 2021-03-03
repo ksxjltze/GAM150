@@ -141,6 +141,7 @@ namespace StarBangBang
 
 				for (auto ch : row)
 				{
+					//Improve later to accomodate for > 10
 					if (ch != ',')
 					{
 						int type = ch - '0';
@@ -200,6 +201,8 @@ namespace StarBangBang
 
 	void TileMap::Erase(int x, int y)
 	{
+		GameObject* obj = map.at({ x,y }).spriteObject->gameObject;
+		objMgr.DestroyGameObject(obj);
 		map.erase({ x, y });
 	}
 	
