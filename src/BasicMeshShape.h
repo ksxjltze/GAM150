@@ -44,6 +44,8 @@ namespace StarBangBang
 
 	void DrawCircle(float radius, AEVec2 pos);
 
+	void DrawLine(float length, AEVec2 pos, float angle, Color color = White());
+
 	void FreeUnitMeshes(void);
 
 }
