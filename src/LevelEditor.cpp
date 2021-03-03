@@ -116,6 +116,7 @@ namespace StarBangBang
 	bool LevelEditor::LoadLevel(const std::string& path)
 	{
 		bool success = tileMap.Load(path);
+		grid.FreeGrid();
 		SetGrid();
 
 		return success;
