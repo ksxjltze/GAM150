@@ -15,9 +15,19 @@ namespace StarBangBang
 		static const float PLAYER_SPEED = 300.0f;
 
 	}
+
+	namespace STRING_TAGS
+	{
+		extern const std::string&& NUMERALS_STRING;
+		extern const std::string&& TILEMAP_WIDTH_TAG;
+		extern const std::string&& TILEMAP_HEIGHT_TAG;
+		extern const std::string&& TILEMAP_SIZE_TAG;
+	}
+
 	namespace RESOURCES
 	{
 		extern const std::string&& ROOT_PATH;
+		extern const std::string&& LEVELS_PATH;
 		extern const std::string&& PROTOTYPE_SPRITE_1_PATH;
 		extern const std::string&& PROTOTYPE_SPRITE_2_PATH;
 		extern const std::string&& PROTOTYPE_SPRITE_GRASS_PATH;

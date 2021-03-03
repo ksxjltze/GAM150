@@ -29,13 +29,14 @@ namespace StarBangBang
 
 	void LevelEditor::Load()
 	{
-
+		tileMap.Init();
 	}
 
 	void LevelEditor::Init()
 	{
-		tileMap.Init();
-		//CreateLevel(20, 20, 50);
+		//TODO: Optimize tile drawing (Low FPS on 100 x 100 tile map)
+		//CreateLevel(50, 50, 50);
+		//tileMap.Save(RESOURCES::LEVELS_PATH + "Test2.txt");
 		LoadLevel(RESOURCES::LEVEL_TEST_PATH);
 
 		camera = objectManager.NewGameObject();

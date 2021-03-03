@@ -8,6 +8,7 @@ namespace StarBangBang
 	struct Tile
 	{
 		ImageComponent* spriteObject;
+		TileType type;
 	};
 
 	class TileMap
@@ -17,6 +18,7 @@ namespace StarBangBang
 
 		void Init();
 		void Generate(int width, int height, float tileSize);
+		void Save(std::string path);
 		void Load(std::string path);
 
 		float GetTileScale();
