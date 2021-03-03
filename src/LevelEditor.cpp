@@ -37,8 +37,8 @@ namespace StarBangBang
 		//TODO: Optimize tile drawing (Low FPS on 100 x 100 tile map)
 		if (!LoadLevel(RESOURCES::LEVEL_TEST_PATH))
 		{
-			//CreateLevel(TILEMAP::DEFAULT_WIDTH, TILEMAP::DEFAULT_WIDTH, TILEMAP::DEFAULT_TILE_SIZE);
-			CreateLevel(200, 200, TILEMAP::DEFAULT_TILE_SIZE);
+			CreateLevel(TILEMAP::DEFAULT_WIDTH, TILEMAP::DEFAULT_WIDTH, TILEMAP::DEFAULT_TILE_SIZE);
+			//CreateLevel(200, 200, TILEMAP::DEFAULT_TILE_SIZE);
 		}
 
 		//Camera Object
@@ -52,9 +52,9 @@ namespace StarBangBang
 	{
 		Scene::Update();
 
-		if (AEInputCheckTriggered(AEVK_1))
+		if (AEInputCheckTriggered(AEVK_TAB))
 		{
-			selectedType = TileType::GRASS;
+			++selectedType;
 		}
 
 		if (AEInputCheckTriggered(AEVK_RETURN))

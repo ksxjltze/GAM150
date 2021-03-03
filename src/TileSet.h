@@ -6,7 +6,7 @@ namespace StarBangBang
 {
 	enum class TileType
 	{
-		NONE = 0, GRASS, STONE
+		NONE = 0, GRASS, STONE, END = STONE
 	};
 
 	struct TileSprite
@@ -26,4 +26,7 @@ namespace StarBangBang
 	private:
 		std::map<TileType, TileSprite> set;
 	};
+
+	TileType& operator++(TileType& tileType);
+	TileType operator++(TileType& tileType, int);
 }
