@@ -7,6 +7,9 @@ namespace StarBangBang
 	namespace GRAPHICS
 	{
 		static const int MESH_WIDTH = 100, MESH_HEIGHT = 100;
+		static const float CAMERA_SCALE_FACTOR = 0.2f;
+		static const float CAMERA_SCALE_MIN = 0.0f;
+		static const float CAMERA_SCALE_MAX = 3.0f;
 
 	}
 

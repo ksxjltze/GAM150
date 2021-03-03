@@ -5,7 +5,7 @@ StarBangBang::CameraComponent::CameraComponent(GameObject* gameObject) : Compone
 {
 	position = { 0, 0 };
 	scale = 1.0f;
-	scaleFactor = 0.5f;
+	scaleFactor = GRAPHICS::CAMERA_SCALE_FACTOR;
 }
 
 void StarBangBang::CameraComponent::Update()
@@ -14,10 +14,14 @@ void StarBangBang::CameraComponent::Update()
 	if (AEInputCheckCurr(AEVK_MINUS))
 	{
 		scale -= scaleFactor * dt;
+		if (scale < GRAPHICS::CAMERA_SCALE_MIN)
+			scale = GRAPHICS::CAMERA_SCALE_MIN;
 	}
 	else if (AEInputCheckCurr(AEVK_EQUAL))
 	{
 		scale += scaleFactor * dt;
+		if (scale > GRAPHICS::CAMERA_SCALE_MAX)
+			scale = GRAPHICS::CAMERA_SCALE_MAX;
 	}
 
 	position = gameObject->transform.position;
