@@ -37,9 +37,11 @@ namespace StarBangBang
 		//TODO: Optimize tile drawing (Low FPS on 100 x 100 tile map)
 		if (!LoadLevel(RESOURCES::LEVEL_TEST_PATH))
 		{
-			CreateLevel(TILEMAP::DEFAULT_WIDTH, TILEMAP::DEFAULT_WIDTH, TILEMAP::DEFAULT_TILE_SIZE);
+			//CreateLevel(TILEMAP::DEFAULT_WIDTH, TILEMAP::DEFAULT_WIDTH, TILEMAP::DEFAULT_TILE_SIZE);
+			CreateLevel(200, 200, TILEMAP::DEFAULT_TILE_SIZE);
 		}
 
+		//Camera Object
 		camera = objectManager.NewGameObject();
 		objectManager.AddComponent<CameraComponent>(camera);
 		objectManager.AddComponent<PrimaryMovementController>(camera);
@@ -49,6 +51,11 @@ namespace StarBangBang
 	void LevelEditor::Update()
 	{
 		Scene::Update();
+
+		if (AEInputCheckTriggered(AEVK_1))
+		{
+			selectedType = TileType::GRASS;
+		}
 
 		if (AEInputCheckTriggered(AEVK_RETURN))
 		{
@@ -116,7 +123,6 @@ namespace StarBangBang
 	bool LevelEditor::LoadLevel(const std::string& path)
 	{
 		bool success = tileMap.Load(path);
-		grid.FreeGrid();
 		SetGrid();
 
 		return success;
@@ -130,6 +136,7 @@ namespace StarBangBang
 
 	void LevelEditor::SetGrid()
 	{
+		grid.FreeGrid();
 		float scale = tileMap.GetTileScale();
 		AEVec2 dimensions = { scale * tileMap.GetMapWidth(), scale * tileMap.GetMapHeight() };
 		grid.CreateGrid(scale, dimensions, { scale / 2, -dimensions.y + scale / 2 });

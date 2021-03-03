@@ -22,7 +22,7 @@ namespace StarBangBang
 		void Load(const std::string& path);
 		void Load(const std::string&& directoryPath);
 
-		TileSprite GetTileSprite(TileType);
+		const TileSprite& GetTileSprite(TileType);
 	private:
 		std::map<TileType, TileSprite> set;
 	};
