@@ -145,7 +145,7 @@ namespace StarBangBang
 			float x_offset = (scale * mapWidth)  / 2;
 			float y_offset = (scale * mapHeight) / 2;
 
-			int y {0};
+			int y { mapHeight - 1 };
 
 			while (!is.eof())
 			{
@@ -169,10 +169,12 @@ namespace StarBangBang
 							map.insert({ {x++, y}, tile });
 
 						}
+						else
+							++x;
 
 					}
 				}
-				y++;
+				--y;
 
 			}
 			is.close();
