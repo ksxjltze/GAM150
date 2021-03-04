@@ -39,6 +39,7 @@ void StarBangBang::Level_Demo::Init()
 
 	GameObject* worldOriginMarker = objectManager.NewGameObject();
 	player = objectManager.NewGameObject();
+	
 	movementController = objectManager.NewGameObject();
 
 	objectManager.AddImage(worldOriginMarker, planetImage);
@@ -46,7 +47,7 @@ void StarBangBang::Level_Demo::Init()
 
 	guardManager = objectManager.NewGameObject();
 	objectManager.AddComponent<GuardManager>(guardManager);
-	guardManager->GetComponent<GuardManager>()->Init(&objectManager, &guardImage);
+	guardManager->GetComponent<GuardManager>()->Init(&objectManager, &guardImage, player, player2);
 
 	//Creates a clone of the player gameObject and changes the sprite texture.
 	player2 = objectManager.CloneGameObject(player);
@@ -54,7 +55,7 @@ void StarBangBang::Level_Demo::Init()
 
 	testInteractable = objectManager.CloneGameObject(player2);
 
-	player->SetPos({ 200, 200 });
+	player->SetPos({ 250, 750 }); //200, 200
 	player2->SetPos({ -150, 200 });
 	testInteractable->SetPos({ 50, 50 });
 
@@ -72,7 +73,7 @@ void StarBangBang::Level_Demo::Init()
 
 	//Testing Tags
 	tagManager.AddTag(*player, "Test");
-	tagManager.GetGameObjectByTag("Test").transform.scale = { 2, 2 };
+	tagManager.GetGameObjectByTag("Test").transform.scale = { 0.5, 0.5 };
 
 	//Scale test
 	worldOriginMarker->transform.scale = { 0.5, 0.5 };
