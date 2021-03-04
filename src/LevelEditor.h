@@ -49,9 +49,5 @@ namespace StarBangBang
 		Grid grid;
 
 		GameObject* camera{ nullptr };
-
-		//TileSprite_Old selectedTile;
-		//std::map<int, TileSprite_Old> palette;
-		//std::vector<std::vector<Tile_Old>> tileObjects;
 	};
 }

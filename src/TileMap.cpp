@@ -3,8 +3,6 @@
 #include <fstream>
 #include "GraphicsManager.h"
 
-#include "PrimaryMovementController.h"
-
 namespace StarBangBang
 {
 	TileMap::TileMap(ObjectManager& objM, GraphicsManager& gfxM) : scale{ 1.0f }, mapWidth{ 0 }, mapHeight{ 0 }, objMgr{ objM }, gfxMgr{ gfxM }
@@ -40,6 +38,51 @@ namespace StarBangBang
 				map.insert({ index, tile });
 			}
 		}
+	}
+
+	bool StarBangBang::TileMap::ValidateFile(std::ifstream& is, std::string& widthStr, std::string& heightStr, std::string& sizeStr)
+	{
+		is >> widthStr;
+
+		if (widthStr.find(STRING_TAGS::TILEMAP_WIDTH_TAG) == widthStr.npos)
+		{
+			fprintf(stderr, "TileMap: Error Reading Width!\n");
+			return false;
+		}
+
+		is >> widthStr;
+
+		//Height
+		is >> heightStr;
+
+		if (heightStr.find(STRING_TAGS::TILEMAP_HEIGHT_TAG) == heightStr.npos)
+		{
+			fprintf(stderr, "TileMap: Error Reading Height!\n");
+			return false;
+		}
+
+		is >> heightStr;
+
+		//Size
+		std::string temp;
+		is >> sizeStr;
+		is >> temp;
+
+		sizeStr += ' ' + temp;
+
+		if (sizeStr.find(STRING_TAGS::TILEMAP_SIZE_TAG) == sizeStr.npos)
+		{
+			fprintf(stderr, "TileMap: Error Reading Tile Size!\n");
+			return false;
+		}
+
+		is >> sizeStr;
+
+		widthStr = widthStr.substr(widthStr.find_first_not_of(STRING_TAGS::TILEMAP_WIDTH_TAG + ' '));
+		heightStr = heightStr.substr(heightStr.find_first_not_of(STRING_TAGS::TILEMAP_HEIGHT_TAG + ' '));
+		sizeStr = sizeStr.substr(heightStr.find_first_not_of(STRING_TAGS::TILEMAP_SIZE_TAG + ' '));
+
+		return true;
 	}
 
 	void TileMap::Save(std::string path)
@@ -101,45 +144,8 @@ namespace StarBangBang
 			std::string heightStr;
 			std::string sizeStr;
 
-			is >> widthStr;
-
-			if(widthStr.find(STRING_TAGS::TILEMAP_WIDTH_TAG) == widthStr.npos)
-			{
-				fprintf(stderr, "TileMap: Error Reading Width!\n");
+			if (!ValidateFile(is, widthStr, heightStr, sizeStr))
 				return false;
-			}
-
-			is >> widthStr;
-
-			//Height
-			is >> heightStr;
-
-			if (heightStr.find(STRING_TAGS::TILEMAP_HEIGHT_TAG) == heightStr.npos)
-			{
-				fprintf(stderr, "TileMap: Error Reading Height!\n");
-				return false;
-			}
-
-			is >> heightStr;
-
-			//Size
-			std::string temp;
-			is >> sizeStr;
-			is >> temp;
-
-			sizeStr += ' ' + temp;
-
-			if (sizeStr.find(STRING_TAGS::TILEMAP_SIZE_TAG) == sizeStr.npos)
-			{
-				fprintf(stderr, "TileMap: Error Reading Tile Size!\n");
-				return false;
-			}
-
-			is >> sizeStr;
-
-			widthStr = widthStr.substr(widthStr.find_first_not_of(STRING_TAGS::TILEMAP_WIDTH_TAG + ' '));
-			heightStr = heightStr.substr(heightStr.find_first_not_of(STRING_TAGS::TILEMAP_HEIGHT_TAG + ' '));
-			sizeStr = sizeStr.substr(heightStr.find_first_not_of(STRING_TAGS::TILEMAP_SIZE_TAG + ' '));
 
 			mapWidth = atoi(widthStr.c_str());
 			mapHeight = atoi(heightStr.c_str());

@@ -17,11 +17,14 @@ namespace StarBangBang
 		TileMap(ObjectManager&, GraphicsManager&);
 
 		void Init();
+
 		void Generate(int width, int height, float tileSize);
+		bool ValidateFile(std::ifstream& is, std::string& widthStr, std::string& heightStr, std::string& sizeStr);
 		void Save(std::string path);
 		bool Load(std::string path);
 
 		float GetTileScale();
+
 
 		/// <summary>
 		/// Calculates the offset for the translation of the tile map's origin.
