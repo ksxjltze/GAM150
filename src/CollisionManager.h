@@ -7,6 +7,7 @@ namespace StarBangBang
 	class Color;
 
 	const float bounciness = 0.1f;
+	
 	class PartitionGrid;
 
 
@@ -33,7 +34,7 @@ namespace StarBangBang
 
 	namespace CollisionManager
 	{
-
+	
 		void AddToColliders(BoxCollider);
 		void ResolverUpdate();
 		void AddToResolveQueue(CollisionPair);
@@ -48,12 +49,15 @@ namespace StarBangBang
 
 		void DebugCollider(CircleCollider c);
 
+
+		bool ContainsPoint(const BoxCollider& box,AEVec2 pt);
+
+
 		template<class T>
-		void Resolve(T& obj1, T& obj2, const CollisionData& data)
+		void Resolve(T& obj1, T& obj2, const CollisionData& data,f32 dt)
 		{
 			if (obj1.isTrigger || obj2.isTrigger)
 				return;
-
 			AEVec2 resolveForce;
 			AEVec2 normal = data.col_normal;
 
@@ -63,16 +67,19 @@ namespace StarBangBang
 
 			//movement force
 			AEVec2Scale(&resolveForce, &normal, scale);
-			
 			//push obj1
 			if (!obj1.isStatic)
+			{
 				obj1.Translate(resolveForce.x, resolveForce.y);
-							
+			}					
 			//invert direction
 			resolveForce = AEVec2{ resolveForce.x * -1.0f,resolveForce.y * -1.0f };
 			//push obj2
 			if (!obj2.isStatic)
+			{
 				obj2.Translate(resolveForce.x, resolveForce.y);
+				
+			}
 	
 
 		}

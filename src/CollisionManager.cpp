@@ -17,12 +17,13 @@ CollisionPair::CollisionPair(BoxCollider& A, BoxCollider& B, CollisionData data)
 }
 namespace
 {
+	
 	PartitionGrid p_grid;
 	std::queue<CollisionPair> resolveQueue;
 	//all colliders created
 	std::vector<BoxCollider> collider_list;
+	
 }
-
 
 
 void CalculateCollisionData(const BoxCollider& b1, const BoxCollider& b2, CollisionData& col)
@@ -52,6 +53,16 @@ void CalculateCollisionData(const BoxCollider& b1, const BoxCollider& b2, Collis
 
 	}
 
+
+}
+
+bool CollisionManager::ContainsPoint(const BoxCollider& box, AEVec2 pt)
+{
+	if (pt.x < box.Min().x || pt.y < box.Min().x)
+		return false;
+	if (pt.x > box.Max().x || pt.y > box.Max().y)
+		return false;
+	return true;
 
 }
 
@@ -124,7 +135,7 @@ void CollisionManager::AddToColliders(BoxCollider c)
 		{
 			AEVec2 v{ c.Min().x + x * p_grid.GetCellSize() , c.Min().y + y * p_grid.GetCellSize() };
 
-			if (collider_list[index].ContainsPoint(v))
+			if (ContainsPoint(collider_list[index],v))
 			{
 				int cellIndex = p_grid.GetHashCellIndex(v);
 				Cell& cell = p_grid.GetCell(cellIndex);
@@ -140,10 +151,7 @@ void CollisionManager::AddToColliders(BoxCollider c)
 
 
 }
-void Debug_PartitionGrid()
-{
 
-}
 //wip
 void CollisionManager::ResolverUpdate()
 {
@@ -174,7 +182,7 @@ void CollisionManager::ResolverUpdate()
 		for (size_t i = 0; i < resolveQueue.size(); i++)
 		{
 			CollisionPair& pair = resolveQueue.front();
-			CollisionManager::Resolve(pair.A, pair.B, pair.data);
+			CollisionManager::Resolve(pair.A, pair.B, pair.data, (f32)AEFrameRateControllerGetFrameTime());
 			resolveQueue.pop();
 		}
 	}
@@ -203,9 +211,6 @@ void CollisionManager::ResolverUpdate()
 
 		DebugCollider(col, Black());
 	}
-
-	Debug_PartitionGrid();
-
 
 
 }
@@ -414,5 +419,6 @@ void CollisionManager::DebugCollider(CircleCollider c)
 	}
 
 }
+
 
 

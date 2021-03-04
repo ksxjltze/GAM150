@@ -15,6 +15,8 @@ void BoxCollider::Translate(float x , float y)
 {
 	center.x += x;
 	center.y += y;
+	//force.x = x;
+	//force.y = y;
 	CollisionManager::RecalculateColliderCells(*this);
 }
 
@@ -77,14 +79,7 @@ BoxCollider BoxCollider::Union(const BoxCollider& b1)
 	return BoxCollider(newMin,newMax);
 }
 
-bool BoxCollider::ContainsPoint(AEVec2 pt)
-{
-	if (pt.x < min.x || pt.y < min.x)
-		return false;
-	if (pt.x > max.x || pt.y > max.y)
-		return false;
-	return true;
-}
+
 
 CircleCollider::CircleCollider(AEVec2 _center, float _rad ) : Collider()
 {

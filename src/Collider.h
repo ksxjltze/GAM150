@@ -5,6 +5,7 @@
 namespace StarBangBang
 {
 
+
 	class Collider : public Component<Collider>
 	{
 
@@ -39,14 +40,13 @@ namespace StarBangBang
 	};
 
 	//AABB only
-	class BoxCollider : public Collider
+	class BoxCollider : public Collider 
 	{
 		private:
 			AEVec2 min;
 			AEVec2 max;
 			AEVec2 extend;	//half of width and height 
 			AEVec2 center;
-			AEVec2 force;
 			//indexes to cells they occupy
 			std::vector<int> cell_indexes;
 		public:
@@ -88,8 +88,6 @@ namespace StarBangBang
 
 			BoxCollider Union(const BoxCollider&);
 
-			bool ContainsPoint(AEVec2 pt);
-			
 			const std::vector<int>& GetCellIndexes() const;
 
 			BoxCollider( AEVec2 _center,bool _isStatic = true ,float width = 1.0f, float height = 1.0f);
