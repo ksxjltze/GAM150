@@ -24,7 +24,7 @@ namespace StarBangBang
 	public:
 		bool occupied = false;
 		A_Node* parent = nullptr;	 //used to trace back node path
-		int hcost = 0;	 //cost from current to end node
+		int hcost = 0;	 //estimate cost from current to end node 
 		int gcost = 0;	 //cost to start node to end node
 		constexpr int GetfCost()  const { return hcost + gcost; }
 

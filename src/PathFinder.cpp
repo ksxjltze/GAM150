@@ -2,7 +2,6 @@
 #include "PathFinder.h"
 #include <unordered_set>
 #include <algorithm>
-#include "Utils.h"
 #include "BasicMeshShape.h"
 #include "Heap.h"
 #include <iostream>
@@ -26,10 +25,6 @@ void PathFinder::Free()
 
 void PathFinder::GridDraw()
 {
-	AEVec2 mousePos = GetMouseWorldPos();
-	A_Node* n = worldGrid.GetNodeFromPosition(mousePos);
-	if (n)
-		StarBangBang::DrawCircle(10.0f, n->nodePos);
 	worldGrid.DrawGrid();
 }
 
@@ -53,21 +48,36 @@ int NodeDistance(const A_Node* lhs, const A_Node* rhs)
 }
 void TracePath(A_Node* start, A_Node* end , std::vector<A_Node*>& p)
 {
-	
 	A_Node* currNode = end;
+	
 	while (currNode != start)
-	{
+	{	
 		p.push_back(currNode);
 		currNode = currNode->parent;
 	}
 	p.push_back(start);
+
+	////simpify path to contain turning points
+	//for (int i = 1 ; i < temp.size() ; ++i)
+	//{
+	//	newDir.x = temp[i]->index_x;
+	//	newDir.y = temp[i]->index_y;
+
+	//	if (newDir.x != prevDir.x && newDir.y != prevDir.y)
+	//	{
+	//		p.push_back(temp[i]->nodePos);
+	//	}
+
+	//	prevDir = newDir;
+	//}
+
 	std::reverse(p.begin(), p.end());
 
 }
 std::vector<A_Node*> PathFinder::SearchForPath(AEVec2 start, AEVec2 target)
 {
 	std::vector<A_Node*> pathing;
-	pathing.reserve(100);
+	pathing.reserve(50);
 
 	A_Node* startNode = worldGrid.GetNodeFromPosition(start);
 	A_Node* endNode = worldGrid.GetNodeFromPosition(target);
@@ -92,7 +102,7 @@ std::vector<A_Node*> PathFinder::SearchForPath(AEVec2 start, AEVec2 target)
 	{
 		A_Node* currNode = openList[0];
 		size_t i = 1;
-		for (i ; i < openList.size(); i++)
+		for (i ; i < openList.size(); ++i)
 		{
 			//if the total cost is lesser 
 			//OR the total cost is equal but the cost to from curr the target node is lesser

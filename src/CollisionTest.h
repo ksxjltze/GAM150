@@ -16,7 +16,6 @@ namespace StarBangBang
 	
 	AEVec2 startPos {-128,752};
 	AEVec2 endPos{-514,840};
-	std::vector<A_Node*> path;
 	void PathFinderTest()
 	{
 		//set occupied nodes
@@ -26,12 +25,6 @@ namespace StarBangBang
 			n->occupied = true;
 		}
 			
-		//set end pos and start pathfinding
-		if (AEInputCheckTriggered(VK_LBUTTON))
-		{
-			endPos = GetMouseWorldPos();
-			path = PathFinder::SearchForPath(startPos, endPos);
-		}
 		//place static collider (they cannot move)
 		if (AEInputCheckTriggered(AEVK_Q))
 		{
@@ -46,13 +39,7 @@ namespace StarBangBang
 		if (AEInputCheckTriggered(AEVK_1))
 			PRINT("(%f,%f)\n", GetMouseWorldPos().x, GetMouseWorldPos().y);
 		
-		if (path.empty())
-			return;
-
-		for (const A_Node* n : path)
-		{
-			DrawCircle(10.0f, n->nodePos);
-		}
+	
 	
 	}
 	//draw can cause lag with alot of nodes

@@ -213,9 +213,6 @@
     <ClCompile Include="src\Serialization.cpp">
       <Filter>Source Files\Engine</Filter>
     </ClCompile>
-    <ClCompile Include="src\AABBTree.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\TileMap.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -387,9 +384,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\ColliderAABB.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\AABBTree.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\CaptainStealth.h">

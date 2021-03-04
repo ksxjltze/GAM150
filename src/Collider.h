@@ -46,6 +46,7 @@ namespace StarBangBang
 			AEVec2 max;
 			AEVec2 extend;	//half of width and height 
 			AEVec2 center;
+			AEVec2 force;
 			//indexes to cells they occupy
 			std::vector<int> cell_indexes;
 		public:
@@ -88,14 +89,6 @@ namespace StarBangBang
 			BoxCollider Union(const BoxCollider&);
 
 			bool ContainsPoint(AEVec2 pt);
-
-			void SetCenter(float x, float y);
-
-			void Translate(float x, float y);
-
-			void ClearCellList();
-			unsigned int GetCellListSize() const;
-			void AddToCellList(int);
 			
 			const std::vector<int>& GetCellIndexes() const;
 
@@ -103,5 +96,14 @@ namespace StarBangBang
 			BoxCollider(AEVec2 min, AEVec2 max , bool isStatic = true);
 			BoxCollider(const BoxCollider& rhs) = default;
 			BoxCollider& operator=(const BoxCollider& rhs) = default;
+
+
+			//parition cell functions
+			void SetCenter(float x, float y);
+			void Translate(float x, float y);
+			void ClearCellList();
+			unsigned int GetCellListSize() const;
+			void AddToCellList(int);
+ 
 	};
 }

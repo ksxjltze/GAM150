@@ -8,7 +8,8 @@ namespace StarBangBang
 	{
 		void PathFinderInit();
 		void Free();
-		std::vector<A_Node*>  SearchForPath(AEVec2 start, AEVec2 target);
+		//std::vector<AEVec2> SearchForPath(AEVec2 start, AEVec2 target);
+		std::vector<A_Node*> SearchForPath(AEVec2 start, AEVec2 target);
 		void GridDraw();
 		Grid& GetWorldGrid();
 	}
