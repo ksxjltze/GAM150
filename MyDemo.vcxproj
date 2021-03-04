@@ -171,7 +171,6 @@
     <ClInclude Include="src\Player.h" />
     <ClInclude Include="src\PrimaryMovementController.h" />
     <ClInclude Include="src\Sample_Scene.h" />
-    <ClInclude Include="src\Scenes.h" />
     <ClInclude Include="src\ScriptComponent.h" />
     <ClInclude Include="src\SecondaryMovementController.h" />
     <ClInclude Include="src\Serialization.h" />
