@@ -7,48 +7,56 @@ using namespace StarBangBang;
 GuardVision::GuardVision(GameObject* gameObject) 
 	: Script(gameObject)
 	, detected_player(false)
-	, fieldOfView(70.f)
+	, fieldOfView(90.f)
+	, viewDist(250.f)
+	, player(nullptr)
+	, client(nullptr)
 {
-	player = nullptr;
-	client = nullptr;
 }
 
 void GuardVision::Update()
 {
-	// update guard's vision stuff here
-	AEVec2 defaultForward { 0, 1 };
+	// only update if player or client in same partition grid as guard
+	// ...
+
+	AEVec2 defaultForward { 0, 1 }; // up
 	AEVec2 forwardVec, toPlayerVec, toClientVec;
 
-	// calculate forward vector of guard
-	//AEVec2Scale(&forwardVec, &defaultForward, gameObject->transform.rotation);
-	AEVec2Normalize(&forwardVec, &forwardVec);
+	// calculate forward vector of guard after rotation
+	// ...
 
 	// calculate vector from guard to player
-	AEVec2Sub(&toPlayerVec, &gameObject->GetPos(), &player->GetPos());
+	AEVec2Sub(&toPlayerVec, &player->GetPos(), &gameObject->GetPos());
 	AEVec2Normalize(&toPlayerVec, &toPlayerVec);
+	
+	float dpResult = AEVec2DotProduct(&defaultForward, &toPlayerVec);
+	if (dpResult <= 0.f) // don't continue if target is behind guard
+	{
+		//return;
+	}
 
-	//PRINT("player pos: %f, %f\n", player->GetPos().x, player->GetPos().y);
-	//PRINT("vec: %f, %f\n", toPlayerVec.x, toPlayerVec.y);
-	float angle = acos(AEVec2DotProduct(&forwardVec, &toPlayerVec));
-	angle = angle * 180 / PI;
-	PRINT("angle: %f\n", angle);
+	float angle = AEACos(dpResult);
+	angle = AERadToDeg(angle);
 
 	// temp cone vision
-	DrawLine(300.f, gameObject->GetPos(), fieldOfView * 0.5f);
-	DrawLine(300.f, gameObject->GetPos(), -fieldOfView * 0.5f);
+	DrawLine(viewDist + 50.f, gameObject->GetPos(), fieldOfView * 0.5f);
+	DrawLine(viewDist + 50.f, gameObject->GetPos(), -fieldOfView * 0.5f);
 
-	if (angle < (fieldOfView * 0.5f))
+	if (AEVec2SquareDistance(&player->GetPos(), &gameObject->GetPos()) <= viewDist * viewDist)
 	{
-		// raycast to check if vision is colliding with environment first
-		// ...
-
-		float viewDist = 250.f;
-		//if (AEVec2SquareDistance(&player->GetPos(), &gameObject->GetPos()) <= viewDist * viewDist)
+		if (angle < (fieldOfView * 0.5f))
 		{
+			// check if vision is colliding with environment first
+			// ...
+
 			PRINT("%s\n", "DETECTED PLAYER");
 			detected_player = true;
 		}
+		else
+			PRINT("WHERE PLAYER\n");
 	}
+	else
+		PRINT("WHERE PLAYER\n");
 
 	if (detected_player)
 	{
