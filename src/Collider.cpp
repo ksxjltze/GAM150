@@ -9,13 +9,13 @@ void BoxCollider::SetCenter(float x, float y)
 {
 	center.x = x;
 	center.y = y;
-	//CollisionManager::RecalculateColliderCells(this);
+	CollisionManager::RecalculateColliderCells(*this);
 }
 void BoxCollider::Translate(float x , float y)
 {
 	center.x += x;
 	center.y += y;
-	//CollisionManager::RecalculateColliderCells(this);
+	CollisionManager::RecalculateColliderCells(*this);
 }
 
 void BoxCollider::ClearCellList()
@@ -28,18 +28,18 @@ unsigned int StarBangBang::BoxCollider::GetCellListSize() const
 	return (unsigned int)cell_indexes.size();
 }
 
-void BoxCollider::AddToCellList(unsigned int x , unsigned int y)
+void BoxCollider::AddToCellList(int index)
 {
-	for (const CellIndexes& c : cell_indexes)
+	for (const int v : cell_indexes)
 	{
-		if (c.x == x && c.y == y)
+		if (v == index)
 			return;
 	}
-	cell_indexes.push_back(CellIndexes{ x,y });
+	cell_indexes.push_back(index);
 	
 }
 
-const std::vector<CellIndexes>& BoxCollider::GetCellIndexes() const
+const std::vector<int>& BoxCollider::GetCellIndexes() const
 {
 	return cell_indexes;
 }
@@ -75,6 +75,15 @@ BoxCollider BoxCollider::Union(const BoxCollider& b1)
 	newMax.y = max(Max().y, b1.Max().y);
 
 	return BoxCollider(newMin,newMax);
+}
+
+bool BoxCollider::ContainsPoint(AEVec2 pt)
+{
+	if (pt.x < min.x || pt.y < min.x)
+		return false;
+	if (pt.x > max.x || pt.y > max.y)
+		return false;
+	return true;
 }
 
 CircleCollider::CircleCollider(AEVec2 _center, float _rad ) : Collider()

@@ -4,12 +4,6 @@
 
 namespace StarBangBang
 {
-	
-	struct CellIndexes
-	{
-		unsigned int x = 0;
-		unsigned int y= 0;
-	};
 
 	class Collider : public Component<Collider>
 	{
@@ -53,7 +47,7 @@ namespace StarBangBang
 			AEVec2 extend;	//half of width and height 
 			AEVec2 center;
 			//indexes to cells they occupy
-			std::vector<CellIndexes> cell_indexes;
+			std::vector<int> cell_indexes;
 		public:
 			bool hasBool;
 			inline AEVec2 GetExtend() const
@@ -93,15 +87,17 @@ namespace StarBangBang
 
 			BoxCollider Union(const BoxCollider&);
 
+			bool ContainsPoint(AEVec2 pt);
+
 			void SetCenter(float x, float y);
 
 			void Translate(float x, float y);
 
 			void ClearCellList();
 			unsigned int GetCellListSize() const;
-			void AddToCellList(unsigned int,unsigned int);
+			void AddToCellList(int);
 			
-			const std::vector<CellIndexes>& GetCellIndexes() const;
+			const std::vector<int>& GetCellIndexes() const;
 
 			BoxCollider( AEVec2 _center,bool _isStatic = true ,float width = 1.0f, float height = 1.0f);
 			BoxCollider(AEVec2 min, AEVec2 max , bool isStatic = true);

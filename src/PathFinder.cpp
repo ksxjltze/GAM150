@@ -4,6 +4,7 @@
 #include <algorithm>
 #include "Utils.h"
 #include "BasicMeshShape.h"
+#include "Heap.h"
 #include <iostream>
 
 using namespace StarBangBang;
@@ -71,6 +72,7 @@ std::vector<A_Node*> PathFinder::SearchForPath(AEVec2 start, AEVec2 target)
 	A_Node* startNode = worldGrid.GetNodeFromPosition(start);
 	A_Node* endNode = worldGrid.GetNodeFromPosition(target);
 	std::vector<A_Node*> openList;
+	//Heap openList = Heap(worldGrid.GetGridSizeX() * worldGrid.GetGridSizeY());
 	openList.reserve(30);
 	std::unordered_set<A_Node*> closeList;
 	closeList.reserve(30);
@@ -102,6 +104,9 @@ std::vector<A_Node*> PathFinder::SearchForPath(AEVec2 start, AEVec2 target)
 			
 		}
 		openList.erase(std::remove(openList.begin(), openList.end(), currNode), openList.end());
+
+		//A_Node* currNode = openList.RemoveFirst();
+
 		//scanned nodes
 		closeList.insert(currNode);
 
@@ -135,6 +140,22 @@ std::vector<A_Node*> PathFinder::SearchForPath(AEVec2 start, AEVec2 target)
 						openList.push_back(neighbour);
 				}
 			}
+
+			//if (!(neighbour->occupied) && u_iter == closeList.end())
+			//{
+			//	int movementCost = currNode->gcost + NodeDistance(currNode, neighbour);
+
+			//	//movement from neighbour / is not in openlist
+			//	if (movementCost < neighbour->gcost ||  !openList.Contains(neighbour) ) {
+			//		neighbour->gcost = movementCost;
+			//		neighbour->hcost = NodeDistance(neighbour, endNode);
+			//		neighbour->parent = currNode;
+
+			//		//add to openlist if openlist doesnt contain neighbour
+			//		if (!openList.Contains(neighbour))
+			//			openList.Add(neighbour);
+			//	}
+			//}
 		}
 	}
 	return pathing;

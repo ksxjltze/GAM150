@@ -42,7 +42,7 @@ namespace StarBangBang
 		bool Dynamic_AABB(const BoxCollider& A, const AEVec2& vel1, const BoxCollider& B, const AEVec2& vel2, CollisionData& data);
 		bool CircleVsCircle(CircleCollider c1, CircleCollider c2, CollisionData& col);
 
-		void RecalculateColliderCells(BoxCollider*);
+		void RecalculateColliderCells(BoxCollider&);
 
 		void DebugCollider(BoxCollider b, Color c );
 
