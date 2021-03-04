@@ -38,19 +38,16 @@ namespace StarBangBang
 		void InsertTile(A_Node* n);
 		void RemoveTile(A_Node* n);
 		void SaveLevel(const std::string& path);
-		void LoadLevel(const std::string& path);
+		bool LoadLevel(const std::string& path);
 		void CreateLevel(int width, int height, float tileSize);
 		void SetGrid();
 		
 		Sprite boi;
 
 		TileMap tileMap;
+		TileType selectedType;
 		Grid grid;
 
 		GameObject* camera{ nullptr };
-
-		//TileSprite_Old selectedTile;
-		//std::map<int, TileSprite_Old> palette;
-		//std::vector<std::vector<Tile_Old>> tileObjects;
 	};
 }

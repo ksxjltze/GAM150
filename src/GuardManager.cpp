@@ -10,7 +10,7 @@ GuardManager::GuardManager(GameObject* gameObject)
 
 }
 
-void GuardManager::Init(ObjectManager* objManager, Sprite* sprite)
+void GuardManager::Init(ObjectManager* objManager, Sprite* sprite, GameObject* player, GameObject* client)
 {
 	for (size_t i = 0; i < NUM_GUARDS; i++)
 	{
@@ -21,6 +21,7 @@ void GuardManager::Init(ObjectManager* objManager, Sprite* sprite)
 		objManager->AddComponent<Guard>(guards[i]);
 		objManager->AddComponent<GuardMovement>(guards[i]);
 		objManager->AddComponent<GuardVision>(guards[i]);
+		guards[i]->GetComponent<GuardVision>()->SetPlayerAndClient(player, client);
 	}
 }
 

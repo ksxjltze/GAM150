@@ -44,6 +44,13 @@ StarBangBang::GameObject* StarBangBang::ObjectManager::NewGameObject()
 	return gameObject;
 }
 
+StarBangBang::GameObject* StarBangBang::ObjectManager::NewGameObject(GameObject* parent)
+{
+	GameObject* gameObject = NewGameObject();
+	gameObject->parent = parent;
+	return gameObject;
+}
+
 StarBangBang::GameObject* StarBangBang::ObjectManager::NewGameObject(float width, float height)
 {
 	GameObject* gameObject = new GameObject();

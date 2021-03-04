@@ -25,8 +25,27 @@ namespace StarBangBang
 		UNREFERENCED_PARAMETER(dirPath);
 	}
 
-	TileSprite TileSet::GetTileSprite(TileType t)
+	const TileSprite& TileSet::GetTileSprite(TileType t)
 	{
 		return set.at(t);
+	}
+
+	TileType& operator++(TileType& tileType)
+	{
+		TileType type = TileType(static_cast<int>(tileType) + 1);
+		if (type > TileType::END)
+		{
+			type = TileType(static_cast<int>(TileType::NONE) + 1);
+		}
+
+		tileType = type;
+		return tileType;
+	}
+
+	TileType operator++(TileType& tileType, int)
+	{
+		TileType temp = tileType;
+		++tileType;
+		return temp;
 	}
 }

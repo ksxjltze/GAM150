@@ -17,7 +17,7 @@ namespace StarBangBang
 		void Start() {};
 		void Update();
 
-		void Init(ObjectManager* objManager, Sprite* sprite);
+		void Init(ObjectManager* objManager, Sprite* sprite, GameObject* player, GameObject* client);
 
 	private:
 		int NUM_GUARDS = 1; // to be read from file
