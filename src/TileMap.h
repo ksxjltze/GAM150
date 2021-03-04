@@ -23,6 +23,15 @@ namespace StarBangBang
 
 		float GetTileScale();
 
+		/// <summary>
+		/// Calculates the offset for the translation of the tile map's origin.
+		/// Assumes calculations from centre of tile map.
+		/// </summary>
+		/// <param name="pos">Position to offset to</param>
+		/// <returns>Offset Vector</returns>
+		AEVec2 GetCentreOffset(AEVec2 pos = { 0, 0 });
+		void SetPosition(AEVec2 pos);
+
 		int GetMapWidth();
 		int GetMapHeight();
 
@@ -32,6 +41,7 @@ namespace StarBangBang
 		Tile CreateNewTile(AEVec2 pos, TileSprite tileSprite);
 
 	private:
+		GameObject* base{ nullptr };
 		float scale;
 		int mapWidth, mapHeight;
 

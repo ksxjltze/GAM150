@@ -41,6 +41,7 @@ namespace StarBangBang
 		tileType = type;
 		return tileType;
 	}
+
 	TileType operator++(TileType& tileType, int)
 	{
 		TileType temp = tileType;

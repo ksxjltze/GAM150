@@ -22,8 +22,11 @@ namespace StarBangBang
 		void AddComponent(GameObject* gameObject, _Component* component);
 		StarBangBang::ImageComponent* AddImage(GameObject* gameObject, Sprite sprite);
 		void AddChildGameObject(GameObject* child, GameObject* parent);
+
 		GameObject* NewGameObject();
+		GameObject* NewGameObject(GameObject* parent);
 		GameObject* NewGameObject(float width, float height);
+
 		GameObject* CloneGameObject(GameObject* gameObject);
 		void DestroyGameObject(GameObject* gameObject);
 		void SaveGameObject(GameObject& gameObject); //Serialize

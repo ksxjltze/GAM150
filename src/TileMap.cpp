@@ -3,6 +3,8 @@
 #include <fstream>
 #include "GraphicsManager.h"
 
+#include "PrimaryMovementController.h"
+
 namespace StarBangBang
 {
 	TileMap::TileMap(ObjectManager& objM, GraphicsManager& gfxM) : scale{ 1.0f }, mapWidth{ 0 }, mapHeight{ 0 }, objMgr{ objM }, gfxMgr{ gfxM }
@@ -13,6 +15,7 @@ namespace StarBangBang
 	void TileMap::Init()
 	{
 		tileSet.Load(gfxMgr);
+		base = objMgr.NewGameObject();
 	}
 
 	void TileMap::Generate(int width, int height, float tileSize)
@@ -20,8 +23,7 @@ namespace StarBangBang
 		//Default sprite
 		TileSprite tileSprite = tileSet.GetTileSprite(TileType::STONE);
 
-		float x_offset = (tileSize * width) / 2;
-		float y_offset = (tileSize * height) / 2;
+		AEVec2 offset = GetCentreOffset();
 
 		mapWidth = width;
 		mapHeight = height;
@@ -32,7 +34,7 @@ namespace StarBangBang
 			for (int x = 0; x < width; x++)
 			{
 				std::pair<int, int> index = { x, y};
-				AEVec2 pos = { x * scale - x_offset, y * scale - y_offset };
+				AEVec2 pos = { x * scale - offset.x, y * scale - offset.y };
 
 				Tile tile = CreateNewTile(pos, tileSprite);
 				map.insert({ index, tile });
@@ -144,8 +146,7 @@ namespace StarBangBang
 			scale = static_cast<float>(atof(sizeStr.c_str()));
 
 			//Centre TileMap
-			float x_offset = (scale * mapWidth)  / 2;
-			float y_offset = (scale * mapHeight) / 2;
+			AEVec2 offset = GetCentreOffset();
 
 			int y { mapHeight - 1 };
 
@@ -166,7 +167,7 @@ namespace StarBangBang
 						{
 							TileSprite sprite = tileSet.GetTileSprite(type);
 
-							AEVec2 pos = { x * scale - x_offset, y * scale - y_offset};
+							AEVec2 pos = { x * scale - offset.x, y * scale - offset.y};
 							Tile tile = CreateNewTile(pos, sprite);
 							map.insert({ {x++, y}, tile });
 
@@ -192,6 +193,25 @@ namespace StarBangBang
 	float TileMap::GetTileScale()
 	{
 		return scale;
+	}
+
+	AEVec2 TileMap::GetCentreOffset(AEVec2 pos)
+	{
+		float x_offset{ 0 };
+		float y_offset{ 0 };
+			
+		x_offset = (scale * mapWidth) / 2 + pos.x;
+		y_offset = (scale * mapHeight) / 2 + pos.y;
+
+		return { x_offset, y_offset };
+	}
+
+	void TileMap::SetPosition(AEVec2 pos)
+	{
+		if (base)
+		{
+			base->SetPos(pos);
+		}
 	}
 
 	int TileMap::GetMapWidth()
@@ -238,7 +258,7 @@ namespace StarBangBang
 	
 	Tile TileMap::CreateNewTile(AEVec2 pos, TileSprite tileSprite)
 	{
-		GameObject* tileObj = objMgr.NewGameObject();
+		GameObject* tileObj = objMgr.NewGameObject(base);
 		tileObj->transform.scale = { scale / GRAPHICS::MESH_WIDTH, scale / GRAPHICS::MESH_HEIGHT };
 		ImageComponent* spriteObj = objMgr.AddImage(tileObj, tileSprite.sprite);
 

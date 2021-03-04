@@ -15,8 +15,8 @@ namespace StarBangBang
 
 	namespace TILEMAP
 	{
-		static const float DEFAULT_WIDTH = 50.0f;
-		static const float DEFAULT_HEIGHT = 50.0f;
+		static const int DEFAULT_WIDTH = 50;
+		static const int DEFAULT_HEIGHT = 50;
 		static const float DEFAULT_TILE_SIZE = 50.0f;
 	}
 
