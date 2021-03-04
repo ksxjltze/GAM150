@@ -54,7 +54,7 @@ namespace StarBangBang
 
 
 		template<class T>
-		void Resolve(T& obj1, T& obj2, const CollisionData& data,f32 dt)
+		void Resolve(T& obj1, T& obj2, const CollisionData& data)
 		{
 			if (obj1.isTrigger || obj2.isTrigger)
 				return;

@@ -21,12 +21,13 @@ void GuardVision::Update()
 
 	AEVec2 defaultForward { 0, 1 }; // up
 	AEVec2 forwardVec, toPlayerVec, toClientVec;
-
+	AEVec2 p_pos = player->GetPos();
+	AEVec2 go_pos = gameObject->GetPos();
 	// calculate forward vector of guard after rotation
 	// ...
 
 	// calculate vector from guard to player
-	AEVec2Sub(&toPlayerVec, &player->GetPos(), &gameObject->GetPos());
+	AEVec2Sub(&toPlayerVec, &p_pos, &go_pos);
 	AEVec2Normalize(&toPlayerVec, &toPlayerVec);
 	
 	float dpResult = AEVec2DotProduct(&defaultForward, &toPlayerVec);
@@ -41,8 +42,8 @@ void GuardVision::Update()
 	// temp cone vision
 	DrawLine(viewDist + 50.f, gameObject->GetPos(), fieldOfView * 0.5f);
 	DrawLine(viewDist + 50.f, gameObject->GetPos(), -fieldOfView * 0.5f);
-
-	if (AEVec2SquareDistance(&player->GetPos(), &gameObject->GetPos()) <= viewDist * viewDist)
+	
+	if (AEVec2SquareDistance(&p_pos, &go_pos) <= viewDist * viewDist)
 	{
 		if (angle < (fieldOfView * 0.5f))
 		{

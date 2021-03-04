@@ -4,8 +4,8 @@
 
 static const float x_scale = 5.0f;
 static const float y_scale = 5.0f;
-static const float WinWidth = AEGetWindowWidth();
-static const float WinHeight = AEGetWindowHeight();
+static const float WinWidth = (float)AEGetWindowWidth();
+static const float WinHeight = (float)AEGetWindowHeight();
 
 
 StarBangBang::Main_Menu::Main_Menu(int id, GameStateManager& manager) : Scene(id, manager)

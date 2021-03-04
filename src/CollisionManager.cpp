@@ -182,7 +182,7 @@ void CollisionManager::ResolverUpdate()
 		for (size_t i = 0; i < resolveQueue.size(); i++)
 		{
 			CollisionPair& pair = resolveQueue.front();
-			CollisionManager::Resolve(pair.A, pair.B, pair.data, (f32)AEFrameRateControllerGetFrameTime());
+			CollisionManager::Resolve(pair.A, pair.B, pair.data);
 			resolveQueue.pop();
 		}
 	}
