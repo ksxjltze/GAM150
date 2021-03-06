@@ -230,7 +230,7 @@ void CollisionManager::ResolverUpdate()
 		DebugCollider(col, Black());
 	}
 
-	DrawParition();
+	//DrawParition();
 }
 //wip
 void CollisionManager::AddToResolveQueue(CollisionPair pair)
