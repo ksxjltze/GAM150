@@ -2,8 +2,8 @@
 #include "PathFinder.h"
 #include <unordered_set>
 #include <algorithm>
+#include "Utils.h"
 #include "BasicMeshShape.h"
-#include "Heap.h"
 #include <iostream>
 
 using namespace StarBangBang;
@@ -15,7 +15,7 @@ Grid worldGrid;
 
 void PathFinder::PathFinderInit()
 {
-	worldGrid.CreateGrid(100.0f, 50,50 , AEVec2{ 0,0 });
+	worldGrid.CreateGrid(64,50,50, AEVec2{ 0,0 });
 }
 
 void PathFinder::Free()
@@ -25,6 +25,10 @@ void PathFinder::Free()
 
 void PathFinder::GridDraw()
 {
+	AEVec2 mousePos = GetMouseWorldPos();
+	A_Node* n = worldGrid.GetNodeFromPosition(mousePos);
+	if (n)
+		StarBangBang::DrawCircle(10.0f, n->nodePos);
 	worldGrid.DrawGrid();
 }
 
@@ -48,14 +52,15 @@ int NodeDistance(const A_Node* lhs, const A_Node* rhs)
 }
 void TracePath(A_Node* start, A_Node* end , std::vector<A_Node*>& p)
 {
-	A_Node* currNode = end;
 	
+	A_Node* currNode = end;
 	while (currNode != start)
-	{	
+	{
 		p.push_back(currNode);
 		currNode = currNode->parent;
 	}
 	p.push_back(start);
+	std::reverse(p.begin(), p.end());
 
 	////simpify path to contain turning points
 	//for (int i = 1 ; i < temp.size() ; ++i)
@@ -71,18 +76,15 @@ void TracePath(A_Node* start, A_Node* end , std::vector<A_Node*>& p)
 	//	prevDir = newDir;
 	//}
 
-	std::reverse(p.begin(), p.end());
-
 }
 std::vector<A_Node*> PathFinder::SearchForPath(AEVec2 start, AEVec2 target)
 {
 	std::vector<A_Node*> pathing;
-	pathing.reserve(50);
+	pathing.reserve(100);
 
 	A_Node* startNode = worldGrid.GetNodeFromPosition(start);
 	A_Node* endNode = worldGrid.GetNodeFromPosition(target);
 	std::vector<A_Node*> openList;
-	//Heap openList = Heap(worldGrid.GetGridSizeX() * worldGrid.GetGridSizeY());
 	openList.reserve(30);
 	std::unordered_set<A_Node*> closeList;
 	closeList.reserve(30);
@@ -102,7 +104,7 @@ std::vector<A_Node*> PathFinder::SearchForPath(AEVec2 start, AEVec2 target)
 	{
 		A_Node* currNode = openList[0];
 		size_t i = 1;
-		for (i ; i < openList.size(); ++i)
+		for (i ; i < openList.size(); i++)
 		{
 			//if the total cost is lesser 
 			//OR the total cost is equal but the cost to from curr the target node is lesser
@@ -114,9 +116,6 @@ std::vector<A_Node*> PathFinder::SearchForPath(AEVec2 start, AEVec2 target)
 			
 		}
 		openList.erase(std::remove(openList.begin(), openList.end(), currNode), openList.end());
-
-		//A_Node* currNode = openList.RemoveFirst();
-
 		//scanned nodes
 		closeList.insert(currNode);
 
@@ -150,22 +149,6 @@ std::vector<A_Node*> PathFinder::SearchForPath(AEVec2 start, AEVec2 target)
 						openList.push_back(neighbour);
 				}
 			}
-
-			//if (!(neighbour->occupied) && u_iter == closeList.end())
-			//{
-			//	int movementCost = currNode->gcost + NodeDistance(currNode, neighbour);
-
-			//	//movement from neighbour / is not in openlist
-			//	if (movementCost < neighbour->gcost ||  !openList.Contains(neighbour) ) {
-			//		neighbour->gcost = movementCost;
-			//		neighbour->hcost = NodeDistance(neighbour, endNode);
-			//		neighbour->parent = currNode;
-
-			//		//add to openlist if openlist doesnt contain neighbour
-			//		if (!openList.Contains(neighbour))
-			//			openList.Add(neighbour);
-			//	}
-			//}
 		}
 	}
 	return pathing;
