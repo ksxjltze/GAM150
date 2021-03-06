@@ -1,6 +1,7 @@
 #include "GuardVision.h"
 #include "Guard.h"
 #include "BasicMeshShape.h"
+#include "Utils.h"
 
 using namespace StarBangBang;
 
@@ -21,26 +22,33 @@ void GuardVision::Update()
 
 	AEVec2 defaultForward { 0, 1 }; // up
 	AEVec2 forwardVec, toPlayerVec, toClientVec;
+	
+	// rotate guard's vision
+	AEVec2 targetPos{ 0, 0 };
+	targetPos = gameObject->GetComponent<GuardMovement>()->GetNextPos();
+	AEVec2Sub(&targetDir, &targetPos, &gameObject->GetPos());
+	AEVec2Normalize(&targetDir, &targetDir);
 
-	// calculate forward vector of guard after rotation
-	// ...
+	float visionRot = AERadToDeg(AEACos(AEVec2DotProduct(&defaultForward, &targetDir)));
+	if (targetPos.x > gameObject->GetPos().x)
+		visionRot *= -1;
+
+	//PRINT("%f\n", visionRot);
+
+	// temp cone vision
+	DrawLine(viewDist + 50.f, gameObject->GetPos(), (fieldOfView * 0.5f) + visionRot);
+	DrawLine(viewDist + 50.f, gameObject->GetPos(), (-fieldOfView * 0.5f) + visionRot);
 
 	// calculate vector from guard to player
 	AEVec2Sub(&toPlayerVec, &player->GetPos(), &gameObject->GetPos());
 	AEVec2Normalize(&toPlayerVec, &toPlayerVec);
-	
-	float dpResult = AEVec2DotProduct(&defaultForward, &toPlayerVec);
-	if (dpResult <= 0.f) // don't continue if target is behind guard
-	{
-		//return;
-	}
+
+	float dpResult = AEVec2DotProduct(&targetDir, &toPlayerVec);
+	if (dpResult < 0.f) // don't continue if target is behind guard
+		return;
 
 	float angle = AEACos(dpResult);
 	angle = AERadToDeg(angle);
-
-	// temp cone vision
-	DrawLine(viewDist + 50.f, gameObject->GetPos(), fieldOfView * 0.5f);
-	DrawLine(viewDist + 50.f, gameObject->GetPos(), -fieldOfView * 0.5f);
 
 	if (AEVec2SquareDistance(&player->GetPos(), &gameObject->GetPos()) <= viewDist * viewDist)
 	{
@@ -49,14 +57,14 @@ void GuardVision::Update()
 			// check if vision is colliding with environment first
 			// ...
 
-			PRINT("%s\n", "DETECTED PLAYER");
+			//PRINT("%s\n", "DETECTED PLAYER");
 			detected_player = true;
 		}
-		else
-			PRINT("WHERE PLAYER\n");
+		//else
+			//PRINT("WHERE PLAYER\n");
 	}
-	else
-		PRINT("WHERE PLAYER\n");
+	//else
+		//PRINT("WHERE PLAYER\n");
 
 	if (detected_player)
 	{

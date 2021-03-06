@@ -52,7 +52,6 @@ void GuardMovement::Distracted()
 		if (foundPath) // changing path midway into moving along the path
 		{
 			nodeIndex = 0;
-			//timer = 0.f;
 		}
 
 		distraction_position = GetMouseWorldPos();
@@ -67,9 +66,11 @@ void GuardMovement::Distracted()
 			DrawCircle(10.0f, n->nodePos);
 		}
 
-		// go to interactable object
 		if (nodeIndex < path.size())
 		{
+			nextPos = path[nodeIndex]->nodePos;
+			//PRINT("target: %f, %f\n", nextPos.x, nextPos.y);
+				
 			float timer = 0.f;
 			if (MoveTo(path[nodeIndex]->nodePos))
 			{

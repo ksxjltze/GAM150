@@ -19,6 +19,8 @@ namespace StarBangBang
 		void Patrol();
 		void Distracted();
 
+		inline const AEVec2& GetNextPos() const { return nextPos; }
+
 	private:
 		bool MoveTo(AEVec2 pos);
 		bool ReachedPos(AEVec2 pos);
@@ -26,6 +28,8 @@ namespace StarBangBang
 
 		bool foundPath;
 		unsigned int nodeIndex;
+
+		AEVec2 nextPos;
 
 		// Waypoints specific to this guard
 		std::vector<AEVec2> waypoints;

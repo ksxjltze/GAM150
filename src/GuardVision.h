@@ -19,6 +19,8 @@ namespace StarBangBang
 		bool detected_player;
 		float fieldOfView;
 		float viewDist;
+		AEVec2 targetDir{ 0, 1 };
+
 		GameObject* player;
 		GameObject* client;
 	};
