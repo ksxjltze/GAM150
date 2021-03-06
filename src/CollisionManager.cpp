@@ -18,7 +18,7 @@ CollisionPair::CollisionPair(BoxCollider& A, BoxCollider& B, CollisionData data)
 namespace
 {
 	
-	PartitionGrid p_grid;
+	PartitionGrid p_grid ;
 	std::queue<CollisionPair> resolveQueue;
 	//all colliders created
 	std::vector<BoxCollider> collider_list;
@@ -69,21 +69,26 @@ bool CollisionManager::ContainsPoint(const BoxCollider& box, AEVec2 pt)
 void FetchAllColliderCells(const BoxCollider& c, std::vector<Cell*>& list)
 {
 
-	Cell& maxCell = p_grid.GetCell(p_grid.GetHashCellIndex(c.Max()));
-	Cell& minCell = p_grid.GetCell(p_grid.GetHashCellIndex(c.Min()));
+	Cell& maxCell = p_grid.grid[p_grid.GetHashCellIndex(c.Max())];
+	Cell& minCell = p_grid.grid[p_grid.GetHashCellIndex(c.Min())];
 	AEVec2 dimension{ c.GetWidth(),c.GetHeight() };
-	int x_limit = (int)ceil(dimension.x / p_grid.GetCellSize());
-	int y_limit = (int)ceil(dimension.y / p_grid.GetCellSize());
+	int x_limit = (int)ceil(dimension.x / p_grid.GetCellSize()) ;
+	int y_limit = (int)ceil(dimension.y / p_grid.GetCellSize()) ;
 
-	for (int y = 0; y <= y_limit; y++)
+	for (int y = -1; y < y_limit; y++)
 	{
-		for (int x = 0; x <= x_limit; x++)
+		for (int x = -1; x < x_limit; x++)
 		{
 			AEVec2 v{ c.Min().x + x * p_grid.GetCellSize() , c.Min().y + y * p_grid.GetCellSize() };
+
+			
 			int cellIndex = p_grid.GetHashCellIndex(v);
-			Cell& cell = p_grid.GetCell(cellIndex);
+			Cell& cell = p_grid.grid[cellIndex];
 			cell.cellIndex = cellIndex;
 			list.push_back(&cell);
+			
+
+			
 
 		}
 	}
@@ -96,7 +101,7 @@ void CollisionManager::RecalculateColliderCells(BoxCollider& col)
 	{
 		for (const int index : col.GetCellIndexes())
 		{
-			Cell& c = p_grid.GetCell(index);
+			Cell& c = p_grid.grid[index];
 			c.cell_colliders.erase(&col);
 		}
 		//clear all cell data from collider
@@ -123,38 +128,56 @@ void CollisionManager::AddToColliders(BoxCollider c)
 	collider_list.push_back(c);
 	unsigned int index = (unsigned int)collider_list.size() - 1;
 
-	Cell& maxCell = p_grid.GetCell(p_grid.GetHashCellIndex(c.Max()));
-	Cell& minCell = p_grid.GetCell(p_grid.GetHashCellIndex(c.Min()));
+	Cell& maxCell = p_grid.grid[p_grid.GetHashCellIndex(c.Max())];
+	Cell& minCell = p_grid.grid[p_grid.GetHashCellIndex(c.Min())];
 	AEVec2 dimension{ c.GetWidth(),c.GetHeight() };
 	int x_limit = (int)ceil(dimension.x / p_grid.GetCellSize());
-	int y_limit = (int)ceil(dimension.y / p_grid.GetCellSize());
+	int y_limit = (int)ceil(dimension.y / p_grid.GetCellSize()) ;
 
-	for (int y = 0; y < y_limit; y++)
+	for (int y = 0; y < y_limit ; y++)
 	{
-		for (int x = 0; x < x_limit; x++)
+		for (int x = 0 ; x < x_limit ; x++)
 		{
 			AEVec2 v{ c.Min().x + x * p_grid.GetCellSize() , c.Min().y + y * p_grid.GetCellSize() };
 
-			if (ContainsPoint(collider_list[index],v))
-			{
-				int cellIndex = p_grid.GetHashCellIndex(v);
-				Cell& cell = p_grid.GetCell(cellIndex);
-				cell.cellIndex = cellIndex;
-				collider_list[index].AddToCellList(cellIndex);
-				cell.cell_colliders.insert(&collider_list[index]);
-			}
+			
+			int cellIndex = p_grid.GetHashCellIndex(v);
+			Cell& cell = p_grid.grid[cellIndex];
+			cell.cellIndex = cellIndex;
+			collider_list[index].AddToCellList(cellIndex);
+			cell.cell_colliders.insert(&collider_list[index]);
+			
 			
 		}
 	}
 
 
 
-
 }
-
+void DrawParition()
+{
+	for (int y = 0; y < 32; ++y)
+	{
+		for (int x = 0; x < 32; ++x)
+		{
+			AEVec2 pos{ x * p_grid.GetCellSize(),y * p_grid.GetCellSize() };
+			DrawBoxWired(AEVec2{ p_grid.GetCellSize(),p_grid.GetCellSize() }, pos);
+		}
+	}
+}
 //wip
 void CollisionManager::ResolverUpdate()
 {
+
+	if (!resolveQueue.empty())
+	{
+		for (size_t i = 0; i < resolveQueue.size(); i++)
+		{
+			CollisionPair& pair = resolveQueue.front();
+			CollisionManager::Resolve(pair.A, pair.B, pair.data);
+			resolveQueue.pop();
+		}
+	}
 
 	//non-partition 
 	/*for (BoxCollider& col : collider_list)
@@ -173,46 +196,41 @@ void CollisionManager::ResolverUpdate()
 
 		}
 		DebugCollider(col, Black());
-	}
+	}*/
 
-	Debug_PartitionGrid();*/
 
-	if (!resolveQueue.empty())
-	{
-		for (size_t i = 0; i < resolveQueue.size(); i++)
-		{
-			CollisionPair& pair = resolveQueue.front();
-			CollisionManager::Resolve(pair.A, pair.B, pair.data);
-			resolveQueue.pop();
-		}
-	}
 	//paritition (still have some bugs)
 	for (BoxCollider& col : collider_list)
 	{
-
-		for (const int index : col.GetCellIndexes())
+		
+		if (col.GetCellListSize() > 0)
 		{
-			Cell& c = p_grid.GetCell(index);
-
-			for (BoxCollider* box : c.cell_colliders)
+			for (const int index : col.GetCellIndexes())
 			{
-				if (box == &col)
-					continue;
-				CollisionData data;
-				if (Dynamic_AABB(col, AEVec2{ 0,0 }, *box, AEVec2{ 0,0 }, data))
+				Cell& c = p_grid.grid[index];
+
+				for (BoxCollider* box : c.cell_colliders)
 				{
-					CollisionPair p{ col,*box, data };
-					AddToResolveQueue(p);
+					if (box == &col)
+						continue;
+					CollisionData data;
+					if (Dynamic_AABB(col, AEVec2{ 0,0 }, *box, AEVec2{ 0,0 }, data))
+					{
+						CollisionPair p{ col,*box, data };
+						AddToResolveQueue(p);
 
+					}
 				}
-			}
 
+			}
 		}
+
+		
 
 		DebugCollider(col, Black());
 	}
 
-
+	DrawParition();
 }
 //wip
 void CollisionManager::AddToResolveQueue(CollisionPair pair)

@@ -34,8 +34,8 @@ void StarBangBang::Level_Demo::Load()
 //Initialization of game objects, components and scripts.
 void StarBangBang::Level_Demo::Init()
 {
-	tilemap.Init();
-	tilemap.Load(RESOURCES::LEVEL_TEST_PATH);
+	//tilemap.Init();
+	//tilemap.Load(RESOURCES::LEVEL_TEST_PATH);
 
 	GameObject* worldOriginMarker = objectManager.NewGameObject();
 	player = objectManager.NewGameObject();

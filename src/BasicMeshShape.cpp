@@ -74,11 +74,11 @@ void StarBangBang::InitBasicMesh()
 		float x = static_cast<float>(sin(radian));
 		float y = static_cast<float>(cos(radian));
 		
-		AEGfxVertexAdd(x,y, 0xFF00FF00,0.0f,0.0f);
+		AEGfxVertexAdd(x,y, 0xFFFFFFFF,0.0f,0.0f);
 		
 
 	}
-	AEGfxVertexAdd(0.0f, 1.0f, 0xFF00FF00, 0.0f, 0.0f);
+	AEGfxVertexAdd(0.0f, 1.0f, 0xFFFFFFFF, 0.0f, 0.0f);
 	unitcircleMesh = AEGfxMeshEnd();
 	AE_ASSERT_MESG(unitcircleMesh, "Failed to create wired circle\n");
 
@@ -126,7 +126,7 @@ void StarBangBang::DrawBox(AEVec2 size, AEVec2 pos, Color color)
 }
 
 
-void StarBangBang::DrawCircle(float radius, AEVec2 pos)
+void StarBangBang::DrawCircle(float radius, AEVec2 pos,Color color)
 {
 	AEMtx33 scale = AEMtx33();
 	AEMtx33 result = AEMtx33();
@@ -138,7 +138,7 @@ void StarBangBang::DrawCircle(float radius, AEVec2 pos)
 	AEMtx33TransApply(&result, &scale, pos.x, pos.y);
 	AEMtx33ScaleApply(&result, &result, zoom, zoom);
 	AEGfxSetTransform(result.m);
-
+	AEGfxSetTintColor(color.R(), color.G(), color.B(), color.A());
 	AEGfxMeshDraw(unitcircleMesh, AEGfxMeshDrawMode::AE_GFX_MDM_LINES_STRIP);
 }
 

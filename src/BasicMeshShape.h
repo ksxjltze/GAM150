@@ -42,7 +42,7 @@ namespace StarBangBang
 
 	void DrawBox(AEVec2 size, AEVec2 pos , Color color = White());
 
-	void DrawCircle(float radius, AEVec2 pos);
+	void DrawCircle(float radius, AEVec2 pos, Color color = White());
 
 	void DrawLine(float length, AEVec2 pos, float angle, Color color = White());
 

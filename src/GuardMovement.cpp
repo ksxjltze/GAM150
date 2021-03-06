@@ -64,7 +64,7 @@ void GuardMovement::Distracted()
 	{
 		for (const A_Node* n : path)
 		{
-			DrawCircle(10.0f, n->nodePos);
+			DrawCircle(20.0f, n->nodePos);
 		}
 
 		// go to interactable object

@@ -47,14 +47,16 @@ namespace StarBangBang
 	private:
 		float cellSize;
 		int buckets;
-		Cell* grid = nullptr;
+		
 		
 	public:
+		Cell* grid = nullptr;
 		PartitionGrid(float cellSize = 100.0f, int buckets = 1024);
 		//create grid object
 		int GetHashCellIndex(AEVec2 pos);
 		inline float GetCellSize() const { return cellSize; }
-		Cell& GetCell(int index);
+		//Cell& GetCell(int index);
+		inline int GetBucketSize() const { return buckets; }
 		~PartitionGrid();
 		
 	};
@@ -84,7 +86,7 @@ namespace StarBangBang
 		void DrawGrid();
 		void FreeGrid(void);
 		//create grid object
-		void CreateGrid(float _nodeSize, AEVec2 gridSize, AEVec2 _offset = AEVec2{ 0,0 });
+		void CreateGrid(float _nodeSize, int sizeX, int sizeY, AEVec2 _offset);
 		
 		std::vector<A_Node*> GetNodeNeighbours(const A_Node* node);
 
@@ -93,7 +95,7 @@ namespace StarBangBang
 		A_Node* GetNode(int x, int y) const;
 		Grid() = default;
 		
-		Grid(float _nodeSize, AEVec2 gridSize, AEVec2 _offset = AEVec2{ 0,0 });
+		Grid(float _nodeSize, int sizeX, int sizeY, AEVec2 _offset = AEVec2{0.0f,0.0f});
 
 		
 

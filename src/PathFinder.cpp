@@ -15,7 +15,7 @@ Grid worldGrid;
 
 void PathFinder::PathFinderInit()
 {
-	worldGrid.CreateGrid(30.0f, AEVec2{(f32)1000,(f32)1000 }, AEVec2{ 0,0 });
+	worldGrid.CreateGrid(100.0f, 50,50 , AEVec2{ 0,0 });
 }
 
 void PathFinder::Free()

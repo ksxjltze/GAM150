@@ -50,14 +50,14 @@ void GuardVision::Update()
 			// check if vision is colliding with environment first
 			// ...
 
-			PRINT("%s\n", "DETECTED PLAYER");
+			//PRINT("%s\n", "DETECTED PLAYER");
 			detected_player = true;
 		}
-		else
-			PRINT("WHERE PLAYER\n");
+		//else
+			//PRINT("WHERE PLAYER\n");
 	}
-	else
-		PRINT("WHERE PLAYER\n");
+	//else
+		//PRINT("WHERE PLAYER\n");
 
 	if (detected_player)
 	{

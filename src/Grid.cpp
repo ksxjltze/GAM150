@@ -21,24 +21,23 @@ using namespace StarBangBang;
 
 	int PartitionGrid::GetHashCellIndex(AEVec2 pos)
 	{
-		static int count = 0;
-		count++;
-		int x = static_cast<int>(pos.x / cellSize);
-		int y = static_cast<int>(pos.y / cellSize);
-		const int multi_x =  0x8da6b343;
-		const int multi_y =  0xd8163841;
-		int hashIndex = static_cast<int>((x * multi_x + y * multi_y)) % buckets;
+		//static int counter = 0;
+		int x = static_cast<int>((pos.x / cellSize));
+		int y = static_cast<int>((pos.y / cellSize));
+
+		//++counter;
+		const int multi_x = 0x8da6b343;
+		const int multi_y = 0xd8163841;
+		int hashIndex = (x * multi_x + y * multi_y) % buckets;
+
 
 		if (hashIndex < 0)
 			hashIndex += buckets;
-		//PRINT("Count: %5d\n", count);
-		//PRINT("hash: %6d\n",hashIndex);
-		return hashIndex;
-	}
 
-	Cell& PartitionGrid::GetCell(int index)
-	{
-		return grid[index];
+		//PRINT("hash:%d\n", hashIndex);
+		//PRINT("%d------------------\n", counter);
+
+		return hashIndex;
 	}
 
 	
@@ -76,12 +75,11 @@ using namespace StarBangBang;
 
 
 	
-	Grid::Grid(float _nodeSize, AEVec2 gridSize, AEVec2 _offset)
+	Grid::Grid(float _nodeSize, int sizeX, int sizeY, AEVec2 _offset)
 	{
-		std::cout << "Init \n";
 		this->nodeSize = _nodeSize;
 		this->offset = _offset;
-		CreateGrid(_nodeSize, gridSize, AEVec2{ 0,0 });
+		CreateGrid(_nodeSize, sizeX , sizeY, AEVec2{ 0,0 });
 	}
 
 	void Grid::CheckOccupiedGrid()
@@ -89,17 +87,18 @@ using namespace StarBangBang;
 
 	}
 
-	void Grid::CreateGrid(float _nodeSize, AEVec2 gridSize, AEVec2 _offset)
+	void Grid::CreateGrid(float _nodeSize, int sizeX , int sizeY, AEVec2 _offset)
 	{
 
 		nodeSize = _nodeSize;
 		offset = _offset;
 
-		if (gridSize.x <= 0 || gridSize.y <= 0)
+		if (sizeX <= 0 || sizeY <= 0)
 			std::cout << "Error : Grid size cannot be 0 \n";
-		size_x = static_cast<int>(ceil(gridSize.x / nodeSize));
-		size_y = static_cast<int>(ceil(gridSize.y / nodeSize));
-
+		//size_x = static_cast<int>(ceil(gridSize.x / nodeSize));
+		//size_y = static_cast<int>(ceil(gridSize.y / nodeSize));
+		size_x = sizeX;
+		size_y = sizeY;
 		try
 		{
 			grid = new A_Node * [size_y];
@@ -119,8 +118,7 @@ using namespace StarBangBang;
 		AEVec2 extend = GetGridExtend();
 		float half_node = nodeSize * 0.5f;
 
-		//top right node
-		AEVec2 startNode = AEVec2{ offset.x - extend.x - half_node  , offset.y + extend.y - half_node };
+		AEVec2 btmNode = AEVec2{ offset.x - extend.x + half_node  , offset.y - extend.y - half_node };
 		for (int y = 0; y < size_y; y++)
 		{
 			for (int x = 0; x < size_x; x++)
@@ -128,13 +126,12 @@ using namespace StarBangBang;
 				//calculate position
 				grid[y][x].index_x = x;
 				grid[y][x].index_y = y;
-				grid[y][x].nodePos = AEVec2{ startNode.x + x * nodeSize , startNode.y + nodeSize * y };
+				grid[y][x].nodePos = AEVec2{ btmNode.x + x * nodeSize , btmNode.y + nodeSize * y };
 				//check if occupied
 
 			}
 
 		}
-		
 	}
 
 	std::vector<A_Node*> Grid::GetNodeNeighbours(const A_Node* node)
@@ -165,10 +162,11 @@ using namespace StarBangBang;
 
 		AEVec2 gridExtend = GetGridExtend();
 		result.x += gridExtend.x;
-		result.y -= gridExtend.y;
+		result.y += gridExtend.y;
+		float half_node = nodeSize * 0.5f;
 
-		int  x = static_cast<int>(ceil(result.x / nodeSize));
-		int  y = static_cast<int>(ceil(result.y / nodeSize));
+		int  x = static_cast<int>(round((result.x - half_node)/ nodeSize));
+		int  y = static_cast<int>(round((result.y + half_node) / nodeSize));
 
 		if (x >= 0 && x < size_x && y >= 0 && y < size_y)
 		{

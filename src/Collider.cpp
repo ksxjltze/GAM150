@@ -15,8 +15,6 @@ void BoxCollider::Translate(float x , float y)
 {
 	center.x += x;
 	center.y += y;
-	//force.x = x;
-	//force.y = y;
 	CollisionManager::RecalculateColliderCells(*this);
 }
 
