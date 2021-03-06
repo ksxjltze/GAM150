@@ -302,8 +302,10 @@ void CollisionManager::ResolverUpdate()
 		}
 
 		
-
-		DebugCollider(col, Black());
+		if(col.isStatic)
+			DebugCollider(col, Black());
+		else
+			DebugCollider(col, Red());
 	}
 
 	//DrawParition();
