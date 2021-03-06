@@ -190,6 +190,7 @@
     <Image Include="Resources\Characters\Prisoner_SpriteSheet.png" />
     <Image Include="Resources\Characters\SecurityGuard_SpriteSheet.png" />
     <Image Include="Resources\grass.png" />
+    <Image Include="Resources\MainMenu\MainMenuButtons_SpriteSheet..png" />
     <Image Include="Resources\PlanetTexture.png" />
     <Image Include="Resources\YellowTexture.png" />
   </ItemGroup>

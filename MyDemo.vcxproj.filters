@@ -94,6 +94,9 @@
     <Filter Include="Resource Files\Characters">
       <UniqueIdentifier>{c100147f-19f0-4135-bce9-259ca61c5c3f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Resource Files\MainMenu">
+      <UniqueIdentifier>{11ff77f7-f623-4eec-82b1-0b6bb43bf60b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Main.cpp">
@@ -429,6 +432,9 @@
     </Image>
     <Image Include="Resources\Characters\SecurityGuard_SpriteSheet.png">
       <Filter>Resource Files\Characters</Filter>
+    </Image>
+    <Image Include="Resources\MainMenu\MainMenuButtons_SpriteSheet..png">
+      <Filter>Resource Files\MainMenu</Filter>
     </Image>
   </ItemGroup>
   <ItemGroup>
