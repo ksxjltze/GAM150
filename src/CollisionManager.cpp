@@ -69,15 +69,15 @@ bool CollisionManager::ContainsPoint(const BoxCollider& box, AEVec2 pt)
 void FetchAllColliderCells(const BoxCollider& c, std::vector<Cell*>& list)
 {
 
-	Cell& maxCell = p_grid.grid[p_grid.GetHashCellIndex(c.Max())];
+	/*Cell& maxCell = p_grid.grid[p_grid.GetHashCellIndex(c.Max())];
 	Cell& minCell = p_grid.grid[p_grid.GetHashCellIndex(c.Min())];
 	AEVec2 dimension{ c.GetWidth(),c.GetHeight() };
 	int x_limit = (int)ceil(dimension.x / p_grid.GetCellSize()) ;
 	int y_limit = (int)ceil(dimension.y / p_grid.GetCellSize()) ;
 
-	for (int y = -1; y < y_limit; y++)
+	for (int y = -1; y < y_limit; ++y)
 	{
-		for (int x = -1; x < x_limit; x++)
+		for (int x = -1; x < x_limit; ++x)
 		{
 			AEVec2 v{ c.Min().x + x * p_grid.GetCellSize() , c.Min().y + y * p_grid.GetCellSize() };
 
@@ -91,6 +91,42 @@ void FetchAllColliderCells(const BoxCollider& c, std::vector<Cell*>& list)
 			
 
 		}
+	}*/
+	
+	std::vector<AEVec2> points;
+	points.reserve(8);
+	AEVec2 max = c.Max();
+	AEVec2 min = c.Min();
+
+	AEVec2 topR{ min.x, max.y };
+	AEVec2 btmL{ max.x,min.y };
+	AEVec2 v = min;
+	//calcuate all in between points 
+	for (int y = 0; ; ++y)
+	{
+		if (v.x > max.x || v.y > max.y)
+			break;
+		for (int x = 0; ; ++x)
+		{
+			v = AEVec2{ c.Min().x + x * p_grid.GetCellSize() , c.Min().y + y * p_grid.GetCellSize() };
+
+			if (v.x > max.x || v.y > max.y)
+				break;
+
+			points.push_back(v);
+
+		}
+	}
+	points.push_back(max);
+	points.push_back(topR);
+	points.push_back(btmL);
+
+	for (size_t i = 0; i < points.size(); ++i)
+	{
+		int cellIndex = p_grid.GetHashCellIndex(points[i]);
+		Cell& cell = p_grid.grid[cellIndex];
+		cell.cellIndex = cellIndex;
+		list.push_back(&cell);
 	}
 
 }
@@ -128,15 +164,55 @@ void CollisionManager::AddToColliders(BoxCollider c)
 	collider_list.push_back(c);
 	unsigned int index = (unsigned int)collider_list.size() - 1;
 
+	std::vector<AEVec2> points;
+	points.reserve(8);
+	AEVec2 max = c.Max();
+	AEVec2 min = c.Min();
+
+	AEVec2 topR{min.x, max.y};
+	AEVec2 btmL{max.x,min.y};
+	AEVec2 v = min;
+	//calcuate all the in between points 
+	for (int y = 0; ; ++y)
+	{
+		if (v.x > max.x || v.y > max.y)
+			break;
+		for (int x = 0; ; ++x)
+		{
+			 v = AEVec2{ c.Min().x + x * p_grid.GetCellSize() , c.Min().y + y * p_grid.GetCellSize() };
+
+			if (v.x > max.x || v.y > max.y)
+				break;
+
+			points.push_back(v);
+
+		}
+	}
+	points.push_back(max);
+	points.push_back(topR);
+	points.push_back(btmL);
+
+	for (size_t i = 0; i < points.size(); ++i)
+	{
+		int cellIndex = p_grid.GetHashCellIndex(points[i]);
+		Cell& cell = p_grid.grid[cellIndex];
+		cell.cellIndex = cellIndex;
+		collider_list[index].AddToCellList(cellIndex);
+		cell.cell_colliders.insert(&collider_list[index]);
+	}
+
+
+	/*
 	Cell& maxCell = p_grid.grid[p_grid.GetHashCellIndex(c.Max())];
 	Cell& minCell = p_grid.grid[p_grid.GetHashCellIndex(c.Min())];
 	AEVec2 dimension{ c.GetWidth(),c.GetHeight() };
+	
 	int x_limit = (int)ceil(dimension.x / p_grid.GetCellSize());
 	int y_limit = (int)ceil(dimension.y / p_grid.GetCellSize()) ;
 
-	for (int y = 0; y < y_limit ; y++)
+	for (int y = 0; y < y_limit ; ++y)
 	{
-		for (int x = 0 ; x < x_limit ; x++)
+		for (int x = 0 ; x < x_limit ; ++x)
 		{
 			AEVec2 v{ c.Min().x + x * p_grid.GetCellSize() , c.Min().y + y * p_grid.GetCellSize() };
 
@@ -149,7 +225,7 @@ void CollisionManager::AddToColliders(BoxCollider c)
 			
 			
 		}
-	}
+	}*/
 
 
 
@@ -171,7 +247,7 @@ void CollisionManager::ResolverUpdate()
 
 	if (!resolveQueue.empty())
 	{
-		for (size_t i = 0; i < resolveQueue.size(); i++)
+		for (size_t i = 0; i < resolveQueue.size(); ++i)
 		{
 			CollisionPair& pair = resolveQueue.front();
 			CollisionManager::Resolve(pair.A, pair.B, pair.data);

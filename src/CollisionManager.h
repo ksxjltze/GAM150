@@ -6,7 +6,7 @@ namespace StarBangBang
 	
 	class Color;
 
-	const float bounciness = 0.1f;
+	const float bounciness = 0.2f;
 	
 	class PartitionGrid;
 
