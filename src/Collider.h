@@ -40,7 +40,6 @@ namespace StarBangBang
 			void Update();
 			void SetCenter(float x, float y);
 			void Translate(float x, float y);
-			void Update();
 	};
 
 	//AABB only
@@ -95,6 +94,7 @@ namespace StarBangBang
 			BoxCollider( GameObject* gameObject);
 			BoxCollider( AEVec2 _center,bool _isStatic = true ,float width = 1.0f, float height = 1.0f);
 			BoxCollider(AEVec2 min, AEVec2 max , bool isStatic = true);
+
 			BoxCollider(const BoxCollider& rhs) = default;
 			BoxCollider& operator=(const BoxCollider& rhs) = default;
 
@@ -104,7 +104,6 @@ namespace StarBangBang
 			void Translate(float x, float y);
 			void ClearCellList();
 			unsigned int GetCellListSize() const;
-			void Update();
 			void AddToCellList(int);
  
 	};

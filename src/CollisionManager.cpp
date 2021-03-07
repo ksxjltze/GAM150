@@ -324,7 +324,7 @@ void CollisionManager::ResolverUpdate()
 	//paritition (still have some bugs)
 	for (BoxCollider& col : collider_list)
 	{
-		
+
 		if (col.GetCellListSize() > 0)
 		{
 			for (const int index : col.GetCellIndexes())
@@ -349,11 +349,11 @@ void CollisionManager::ResolverUpdate()
 			}
 		}
 
-		
-		if(col.isStatic)
+		if (col.isStatic)
 			DebugCollider(col, Black());
 		else
 			DebugCollider(col, Red());
+	
 	}
 
 	if (!resolveQueue.empty())
