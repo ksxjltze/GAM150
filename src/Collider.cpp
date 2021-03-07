@@ -112,3 +112,24 @@ void CircleCollider::Translate(float x, float y)
 	center.x += x;
 	center.y += y;
 }
+
+void StarBangBang::BoxCollider::Update()
+{
+	if (gameObject)
+	{
+		////printf("%f, %f\n", gameObject->transform.position.x, gameObject->transform.position.y);
+		//AEVec2 pos = gameObject->GetPos();
+		//SetCenter(pos.x, pos.y);
+		//printf("%f, %f\n", center.x, center.y);
+	}
+}
+
+void StarBangBang::CircleCollider::Update()
+{
+	//if (gameObject)
+	//{
+	//	AEVec2 pos = gameObject->GetPos();
+	//	SetCenter(pos.x, pos.y);
+	//}
+}
+
