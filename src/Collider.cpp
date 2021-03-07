@@ -43,6 +43,22 @@ const std::vector<int>& BoxCollider::GetCellIndexes() const
 {
 	return cell_indexes;
 }
+
+BoxCollider::BoxCollider(GameObject* gameObject) : Collider(gameObject)
+{
+	float width = gameObject->transform.scale.x * GRAPHICS::MESH_WIDTH;
+	float height = gameObject->transform.scale.y * GRAPHICS::MESH_HEIGHT;
+	AEVec2 _center = gameObject->transform.position;
+
+	extend = AEVec2{ width * 0.5f,height * 0.5f };
+	min = AEVec2{ _center.x - extend.x , _center.y - extend.y };
+	max = AEVec2{ _center.x + extend.x , _center.y + extend.y };
+
+	center = _center;
+
+	//CollisionManager::AddToColliders(*this);
+}
+
 BoxCollider::BoxCollider(AEVec2 min, AEVec2 max,bool isStatic) 
 {
 	this->min = min;
@@ -52,7 +68,7 @@ BoxCollider::BoxCollider(AEVec2 min, AEVec2 max,bool isStatic)
 	float height = max.y - min.y;
 	extend = AEVec2{ width * 0.5f,height * 0.5f };
 	center = AEVec2{min.x + extend.x, min.y + extend.y};
-	CollisionManager::AddToColliders(*this);
+	//CollisionManager::AddToColliders(*this);
 }
 
 BoxCollider::BoxCollider(AEVec2 _center, bool _isStatic , float width, float height) : Collider()
@@ -62,22 +78,9 @@ BoxCollider::BoxCollider(AEVec2 _center, bool _isStatic , float width, float hei
 	max = AEVec2{ _center.x + extend.x , _center.y + extend.y };
 	isStatic = _isStatic;
 	center = _center;
-	CollisionManager::AddToColliders(*this);
+	//CollisionManager::AddToColliders(*this);
 	
 }
-BoxCollider BoxCollider::Union(const BoxCollider& b1)
-{
-
-	AEVec2 newMin, newMax;
-	newMin.x = min(Min().x, b1.Min().x);
-	newMin.y = min(Min().y, b1.Min().y);
-	newMax.x = max(Max().x, b1.Max().x);
-	newMax.y = max(Max().y, b1.Max().y);
-
-	return BoxCollider(newMin,newMax);
-}
-
-
 
 CircleCollider::CircleCollider(AEVec2 _center, float _rad ) : Collider()
 {
@@ -96,3 +99,43 @@ void CircleCollider::Translate(float x, float y)
 	center.x += x;
 	center.y += y;
 }
+
+void StarBangBang::BoxCollider::Update()
+{
+	if (gameObject)
+	{
+		//printf("%f, %f\n", gameObject->transform.position.x, gameObject->transform.position.y);
+		//printf("%f, %f\n", center.x, center.y);
+
+		float dt = static_cast<float>(AEFrameRateControllerGetFrameTime());
+		float speed = PLAYER::PLAYER_SPEED * dt;
+		if (AEInputCheckCurr(AEVK_W))
+		{
+			Translate(0, speed);
+		}
+		if (AEInputCheckCurr(AEVK_A))
+		{
+			Translate(-speed, 0);
+		}
+		if (AEInputCheckCurr(AEVK_S))
+		{
+			Translate(0, -speed);
+		}
+		if (AEInputCheckCurr(AEVK_D))
+		{
+			Translate(speed, 0);
+		}
+
+		gameObject->SetPos({ center.x, center.y });
+	}
+}
+
+void StarBangBang::CircleCollider::Update()
+{
+	//if (gameObject)
+	//{
+	//	AEVec2 pos = gameObject->GetPos();
+	//	SetCenter(pos.x, pos.y);
+	//}
+}
+

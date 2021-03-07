@@ -115,6 +115,10 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 		AEInputUpdate();
 
 
+		StarBangBang::TestGrid();
+		CollisionManager::ResolverUpdate();
+		StarBangBang::PathFinderTest();
+
 		// Update State
 		gameStateManager.Update();
 		audioEngine.Update();
@@ -122,12 +126,6 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 		//FPS
 		AEVec2 camPos;
 		AEGfxGetCamPosition(&camPos.x, &camPos.y);
-
-
-		StarBangBang::TestGrid();
-		CollisionManager::ResolverUpdate();
-		StarBangBang::PathFinderTest();
-
 
 		char strBuffer[100];
 		memset(strBuffer, 0, 100 * sizeof(char));

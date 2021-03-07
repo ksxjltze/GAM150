@@ -50,6 +50,8 @@ namespace StarBangBang
 		void DebugCollider(CircleCollider c);
 
 
+		BoxCollider* CreateBoxColliderInstance(GameObject* gameObject,bool is_static = true);
+
 		bool ContainsPoint(const BoxCollider& box,AEVec2 pt);
 
 
@@ -87,3 +89,4 @@ namespace StarBangBang
 	}
 	
 }
+
