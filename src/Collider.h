@@ -4,12 +4,7 @@
 
 namespace StarBangBang
 {
-	
-	struct CellIndexes
-	{
-		unsigned int x = 0;
-		unsigned int y= 0;
-	};
+
 
 	class Collider : public Component<Collider>
 	{
@@ -45,7 +40,7 @@ namespace StarBangBang
 	};
 
 	//AABB only
-	class BoxCollider : public Collider
+	class BoxCollider : public Collider 
 	{
 		private:
 			AEVec2 min;
@@ -53,8 +48,9 @@ namespace StarBangBang
 			AEVec2 extend;	//half of width and height 
 			AEVec2 center;
 			//indexes to cells they occupy
-			std::vector<CellIndexes> cell_indexes;
+			std::vector<int> cell_indexes;
 		public:
+			bool hasBool;
 			inline AEVec2 GetExtend() const
 			{
 				return extend;
@@ -92,17 +88,20 @@ namespace StarBangBang
 
 			BoxCollider Union(const BoxCollider&);
 
-			void SetCenter(float x, float y);
+			const std::vector<int>& GetCellIndexes() const;
 
-			void Translate(float x, float y);
-
-			void ClearCellList();
-			void AddToCellList(unsigned int,unsigned int);
-			
-			const std::vector<CellIndexes>& GetCellIndexes() const;
-
-			BoxCollider( AEVec2 _center,bool _isStatic = false ,float width = 1.0f, float height = 1.0f);
+			BoxCollider( AEVec2 _center,bool _isStatic = true ,float width = 1.0f, float height = 1.0f);
 			BoxCollider(AEVec2 min, AEVec2 max , bool isStatic = true);
-			BoxCollider(const BoxCollider& b) = default;
+			BoxCollider(const BoxCollider& rhs) = default;
+			BoxCollider& operator=(const BoxCollider& rhs) = default;
+
+
+			//parition cell functions
+			void SetCenter(float x, float y);
+			void Translate(float x, float y);
+			void ClearCellList();
+			unsigned int GetCellListSize() const;
+			void AddToCellList(int);
+ 
 	};
 }

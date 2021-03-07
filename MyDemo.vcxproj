@@ -89,7 +89,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="src\AABBTree.cpp" />
     <ClCompile Include="src\BasicMeshShape.cpp" />
     <ClCompile Include="src\AudioEngine.cpp" />
     <ClCompile Include="src\CameraComponent.cpp" />
@@ -107,6 +106,7 @@
     <ClCompile Include="src\GuardManager.cpp" />
     <ClCompile Include="src\GuardMovement.cpp" />
     <ClCompile Include="src\GuardVision.cpp" />
+    <ClCompile Include="src\Heap.cpp" />
     <ClCompile Include="src\ImageComponent.cpp" />
     <ClCompile Include="src\LevelEditor.cpp" />
     <ClCompile Include="src\InteractableComponent.cpp" />
@@ -132,7 +132,6 @@
     <ClCompile Include="src\Utils.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\AABBTree.h" />
     <ClInclude Include="src\BasicMeshShape.h" />
     <ClInclude Include="src\AudioEngine.h" />
     <ClInclude Include="src\CameraComponent.h" />
@@ -154,6 +153,7 @@
     <ClInclude Include="src\GuardManager.h" />
     <ClInclude Include="src\GuardMovement.h" />
     <ClInclude Include="src\GuardVision.h" />
+    <ClInclude Include="src\Heap.h" />
     <ClInclude Include="src\ImageComponent.h" />
     <ClInclude Include="src\ISerializable.h" />
     <ClInclude Include="src\LevelEditor.h" />
@@ -186,7 +186,11 @@
   </ItemGroup>
   <ItemGroup>
     <Image Include="Resources\boi.png" />
+    <Image Include="Resources\Characters\CaptainStealth_SpriteSheet.png" />
+    <Image Include="Resources\Characters\Prisoner_SpriteSheet.png" />
+    <Image Include="Resources\Characters\SecurityGuard_SpriteSheet.png" />
     <Image Include="Resources\grass.png" />
+    <Image Include="Resources\MainMenu\MainMenuButtons_SpriteSheet..png" />
     <Image Include="Resources\PlanetTexture.png" />
     <Image Include="Resources\YellowTexture.png" />
   </ItemGroup>

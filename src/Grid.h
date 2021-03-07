@@ -1,7 +1,7 @@
 #pragma once
 #include "../Extern/AlphaEngine_V3.08/include/AEEngine.h"
 #include <unordered_set>
-
+#include "Heap.h"
 
 namespace StarBangBang
 {
@@ -14,69 +14,51 @@ namespace StarBangBang
 			
 		public:
 			AEVec2 nodePos = AEVec2{0,0};
-			//bool occupied = false;	
 			int index_x = 0; //the x index of the node inside the grid array
 			int index_y = 0; //the y index of the node inside the grid array
-			//Node* parent = nullptr;	 //used to trace back node path
-			//int hcost = 0;	 //cost from current to end node
-			//int gcost = 0;	 //cost to start node to end node
-			//constexpr int GetfCost()  const  {return hcost + gcost;}
-
 			
 	};
 	//A* star node
-	class A_Node : public Node
+	class A_Node : public Node , public Interface
 	{
 	public:
 		bool occupied = false;
 		A_Node* parent = nullptr;	 //used to trace back node path
-		int hcost = 0;	 //cost from current to end node
+		int hcost = 0;	 //estimate cost from current to end node 
 		int gcost = 0;	 //cost to start node to end node
 		constexpr int GetfCost()  const { return hcost + gcost; }
+
+		virtual int GetHeapIndex() const;
+		virtual void SetHeapIndex(int);
 	};
-	//partition node
-	class Cell : public Node
+	//partition cell
+	class Cell
 	{
 	public:
 		//all the colliders in this cell
 		std::unordered_set<BoxCollider*> cell_colliders;
-
+		//index of the cell in the paritition grid
+		int cellIndex;
+	
 	};
 	
 	class PartitionGrid
 	{
 	private:
-		Cell** grid = nullptr;
-		float nodeSize;
-		AEVec2 offset ;	// grid offset from center (ie to place it in other position)
-		int size_x ; // number of nodes in a row
-		int size_y ; // number of nodes in a column
-	public:
-		constexpr AEVec2 GetGridExtend() const
-		{
-			return AEVec2{ nodeSize * size_x * 0.5f, nodeSize * size_y * 0.5f };
-		}
-		constexpr AEVec2 GetGridOffset() const { return offset; }
-
-		constexpr int GetGridSizeX() const { return size_x; }
-		constexpr int GetGridSizeY() const { return size_y; }
-
-		void DrawGrid();
-		void FreeGrid(void);
-		//create grid object
-		void CreateGrid(float _nodeSize, AEVec2 gridSize, AEVec2 _offset = AEVec2{ 0,0 });
+		float cellSize;
+		int buckets;
 		
-		std::vector<Cell*> GetNodeNeighbours(const Cell* node);
-
-		Cell* GetNodeFromPosition(AEVec2 pos);
-		float GetNodeSize() { return nodeSize; }
-		Cell* GetNode(int x, int y) const;
-
-		PartitionGrid();
-
-
+		
+	public:
+		Cell* grid = nullptr;
+		PartitionGrid(float cellSize = 100.0f, int buckets = 1024);
+		//create grid object
+		int GetHashCellIndex(AEVec2 pos);
+		inline float GetCellSize() const { return cellSize; }
+		//Cell& GetCell(int index);
+		inline int GetBucketSize() const { return buckets; }
 		~PartitionGrid();
-
+		
 	};
 
 	class Grid
@@ -104,7 +86,7 @@ namespace StarBangBang
 		void DrawGrid();
 		void FreeGrid(void);
 		//create grid object
-		void CreateGrid(float _nodeSize, AEVec2 gridSize, AEVec2 _offset = AEVec2{ 0,0 });
+		void CreateGrid(float _nodeSize, int sizeX, int sizeY, AEVec2 _offset);
 		
 		std::vector<A_Node*> GetNodeNeighbours(const A_Node* node);
 
@@ -113,7 +95,7 @@ namespace StarBangBang
 		A_Node* GetNode(int x, int y) const;
 		Grid() = default;
 		
-		Grid(float _nodeSize, AEVec2 gridSize, AEVec2 _offset = AEVec2{ 0,0 });
+		Grid(float _nodeSize, int sizeX, int sizeY, AEVec2 _offset = AEVec2{0.0f,0.0f});
 
 		
 

@@ -15,7 +15,7 @@ Grid worldGrid;
 
 void PathFinder::PathFinderInit()
 {
-	worldGrid.CreateGrid(30.0f, AEVec2{(f32)1000,(f32)1000 }, AEVec2{ 0,0 });
+	worldGrid.CreateGrid(64,50,50, AEVec2{ 0,0 });
 }
 
 void PathFinder::Free()
@@ -61,6 +61,20 @@ void TracePath(A_Node* start, A_Node* end , std::vector<A_Node*>& p)
 	}
 	p.push_back(start);
 	std::reverse(p.begin(), p.end());
+
+	////simpify path to contain turning points
+	//for (int i = 1 ; i < temp.size() ; ++i)
+	//{
+	//	newDir.x = temp[i]->index_x;
+	//	newDir.y = temp[i]->index_y;
+
+	//	if (newDir.x != prevDir.x && newDir.y != prevDir.y)
+	//	{
+	//		p.push_back(temp[i]->nodePos);
+	//	}
+
+	//	prevDir = newDir;
+	//}
 
 }
 std::vector<A_Node*> PathFinder::SearchForPath(AEVec2 start, AEVec2 target)

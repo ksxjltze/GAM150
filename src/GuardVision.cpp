@@ -39,8 +39,11 @@ void GuardVision::Update()
 	DrawLine(viewDist + 50.f, gameObject->GetPos(), (fieldOfView * 0.5f) + visionRot);
 	DrawLine(viewDist + 50.f, gameObject->GetPos(), (-fieldOfView * 0.5f) + visionRot);
 
+	AEVec2 p_pos = player->GetPos();
+	AEVec2 go_pos = gameObject->GetPos();
+
 	// calculate vector from guard to player
-	AEVec2Sub(&toPlayerVec, &player->GetPos(), &gameObject->GetPos());
+	AEVec2Sub(&toPlayerVec, &p_pos, &go_pos);
 	AEVec2Normalize(&toPlayerVec, &toPlayerVec);
 
 	float dpResult = AEVec2DotProduct(&targetDir, &toPlayerVec);
@@ -50,21 +53,21 @@ void GuardVision::Update()
 	float angle = AEACos(dpResult);
 	angle = AERadToDeg(angle);
 
-	if (AEVec2SquareDistance(&player->GetPos(), &gameObject->GetPos()) <= viewDist * viewDist)
+	if (AEVec2SquareDistance(&p_pos, &go_pos) <= viewDist * viewDist)
 	{
 		if (angle < (fieldOfView * 0.5f))
 		{
 			// check if vision is colliding with environment first
 			// ...
 
-			//PRINT("%s\n", "DETECTED PLAYER");
+			PRINT("%s\n", "DETECTED PLAYER");
 			detected_player = true;
 		}
-		//else
-			//PRINT("WHERE PLAYER\n");
+		else
+			PRINT("WHERE PLAYER\n");
 	}
-	//else
-		//PRINT("WHERE PLAYER\n");
+	else
+		PRINT("WHERE PLAYER\n");
 
 	if (detected_player)
 	{
