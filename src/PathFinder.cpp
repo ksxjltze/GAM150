@@ -48,6 +48,7 @@ int NodeDistance(const A_Node* lhs, const A_Node* rhs)
 	}
 	
 	return distX * diagonal_Cost + (distY - distX) * straight_Cost;
+
 	
 }
 void TracePath(A_Node* start, A_Node* end , std::vector<A_Node*>& p)
@@ -126,7 +127,7 @@ std::vector<A_Node*> PathFinder::SearchForPath(AEVec2 start, AEVec2 target)
 		}
 			
 
-		for (A_Node* neighbour : worldGrid.GetNodeNeighbours(currNode))
+		for (A_Node* neighbour : worldGrid.Get4_NodeNeighbours(currNode))
 		{
 			std::unordered_set<A_Node*>::const_iterator u_iter = closeList.find(neighbour);
 			

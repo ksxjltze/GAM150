@@ -192,6 +192,8 @@ void CollisionManager::AddToColliders(BoxCollider c)
 	points.push_back(topR);
 	points.push_back(btmL);
 
+	//PRINT("size:%zu \n" ,points.size());
+
 	for (size_t i = 0; i < points.size(); ++i)
 	{
 		int cellIndex = p_grid.GetHashCellIndex(points[i]);
@@ -199,6 +201,8 @@ void CollisionManager::AddToColliders(BoxCollider c)
 		cell.cellIndex = cellIndex;
 		collider_list[index].AddToCellList(cellIndex);
 		cell.cell_colliders.insert(&collider_list[index]);
+
+		//PRINT("hash:%d \n", cellIndex);
 	}
 
 
