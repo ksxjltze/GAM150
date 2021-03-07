@@ -44,7 +44,7 @@ const std::vector<int>& BoxCollider::GetCellIndexes() const
 	return cell_indexes;
 }
 
-BoxCollider::BoxCollider(GameObject* gameObject) : Collider(gameObject)
+StarBangBang::BoxCollider::BoxCollider(GameObject* gameObject) : Collider(gameObject)
 {
 	float width = gameObject->transform.scale.x * GRAPHICS::MESH_WIDTH;
 	float height = gameObject->transform.scale.y * GRAPHICS::MESH_HEIGHT;
@@ -55,7 +55,6 @@ BoxCollider::BoxCollider(GameObject* gameObject) : Collider(gameObject)
 	max = AEVec2{ _center.x + extend.x , _center.y + extend.y };
 
 	center = _center;
-
 	//CollisionManager::AddToColliders(*this);
 }
 
@@ -81,6 +80,8 @@ BoxCollider::BoxCollider(AEVec2 _center, bool _isStatic , float width, float hei
 	//CollisionManager::AddToColliders(*this);
 	
 }
+
+
 
 CircleCollider::CircleCollider(AEVec2 _center, float _rad ) : Collider()
 {

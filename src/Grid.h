@@ -88,7 +88,9 @@ namespace StarBangBang
 		//create grid object
 		void CreateGrid(float _nodeSize, int sizeX, int sizeY, AEVec2 _offset);
 		
-		std::vector<A_Node*> GetNodeNeighbours(const A_Node* node);
+		std::vector<A_Node*> Get8_NodeNeighbours(const A_Node* node);
+		std::vector<A_Node*> Get4_NodeNeighbours(const A_Node* node);
+
 
 		A_Node* GetNodeFromPosition(AEVec2 pos) ;
 		float GetNodeSize() { return nodeSize; }
