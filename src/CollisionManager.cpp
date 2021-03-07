@@ -329,6 +329,8 @@ void CollisionManager::ResolverUpdate()
 		{
 			for (const int index : col.GetCellIndexes())
 			{
+				assert(index >= p_grid.GetBucketSize());
+
 				Cell& c = p_grid.grid[index];
 
 				for (BoxCollider* box : c.cell_colliders)
