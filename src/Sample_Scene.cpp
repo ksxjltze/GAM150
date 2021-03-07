@@ -1,5 +1,5 @@
 #include "Sample_Scene.h"
-#include "Collider.h"
+#include "CollisionManager.h"
 
 StarBangBang::Sample_Scene::Sample_Scene(int id, GameStateManager& manager) : Scene(id, manager), gameObject{nullptr}
 {
@@ -15,7 +15,9 @@ void StarBangBang::Sample_Scene::Init()
 {
 	gameObject = objectManager.NewGameObject();
 	objectManager.AddImage(gameObject, image);
-	objectManager.AddComponent<BoxCollider>(gameObject);
+	Collider* collider = CollisionManager::CreateBoxColliderInstance(gameObject);
+	objectManager.AddComponent(gameObject, collider);
+
 	//objectManager.AddComponent<PrimaryMovementController>(gameObject);
 }
 

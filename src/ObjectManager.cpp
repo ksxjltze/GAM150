@@ -221,3 +221,12 @@ void StarBangBang::ObjectManager::Update()
 			component->Update();
 	}
 }
+
+void StarBangBang::ObjectManager::LateUpdate()
+{
+	for (_Component* component : componentList)
+	{
+		if (component->active)
+			component->LateUpdate();
+	}
+}

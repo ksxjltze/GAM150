@@ -105,6 +105,7 @@ void StarBangBang::BoxCollider::Update()
 {
 	if (gameObject)
 	{
+		//center = gameObject->transform.position;
 		//printf("%f, %f\n", gameObject->transform.position.x, gameObject->transform.position.y);
 		//printf("%f, %f\n", center.x, center.y);
 
@@ -127,8 +128,13 @@ void StarBangBang::BoxCollider::Update()
 			Translate(speed, 0);
 		}
 
-		gameObject->SetPos({ center.x, center.y });
+
 	}
+}
+
+void StarBangBang::BoxCollider::LateUpdate()
+{
+	gameObject->SetPos({ center.x, center.y });
 }
 
 void StarBangBang::CircleCollider::Update()

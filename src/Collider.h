@@ -99,6 +99,7 @@ namespace StarBangBang
 			BoxCollider& operator=(const BoxCollider& rhs) = default;
 
 			void Update();
+			void LateUpdate();
 			//parition cell functions
 			void SetCenter(float x, float y);
 			void Translate(float x, float y);

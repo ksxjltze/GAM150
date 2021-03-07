@@ -8,7 +8,7 @@ StarBangBang::CameraComponent::CameraComponent(GameObject* gameObject) : Compone
 	scaleFactor = GRAPHICS::CAMERA_SCALE_FACTOR;
 }
 
-void StarBangBang::CameraComponent::Update()
+void StarBangBang::CameraComponent::LateUpdate()
 {
 	float dt = static_cast<float>(AEFrameRateControllerGetFrameTime());
 	if (AEInputCheckCurr(AEVK_MINUS))

@@ -37,6 +37,7 @@ namespace StarBangBang
 		void Init();
 		void Draw();
 		void Update();
+		void LateUpdate();
 	private:
 		friend class Scene;
 		std::vector<GameObject*> gameObjectList;
