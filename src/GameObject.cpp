@@ -1,20 +1,21 @@
 #include "GameObject.h"
+#include "constants.h"
 
 StarBangBang::GameObject::GameObject()
 {
 	active = true;
-	transform.scale = { 1, 1 };
+	transform.scale = { CONSTANTS::DEFAULT_OBJECT_SCALE,  CONSTANTS::DEFAULT_OBJECT_SCALE };
 	transform.rotation = 0;
 	transform.position = { 0, 0 };
 }
 
-StarBangBang::GameObject::GameObject(const GameObject& prefab)
+StarBangBang::GameObject::GameObject(const GameObject& obj)
 {
-	transform = prefab.transform;
-	parent = prefab.parent;
-	width = prefab.width;
-	height = prefab.height;
-	active = prefab.active;
+	transform = obj.transform;
+	parent = obj.parent;
+	width = obj.width;
+	height = obj.height;
+	active = obj.active;
 }
 
 AEVec2 StarBangBang::GameObject::GetPos()
