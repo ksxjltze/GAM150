@@ -30,18 +30,20 @@ namespace StarBangBang
 
 			//BoxCollider b = BoxCollider(GetMouseWorldPos(), true ,100.0f, 150.0f);
 			
-			go1.SetPos(GetMouseWorldPos());
+			/*go1.SetPos(GetMouseWorldPos());
 			go1.transform.scale.x = 100.0f;
 			go1.transform.scale.y = 150.0f;
 			BoxCollider* b = CollisionManager::CreateBoxColliderInstance(&go1);
+			BoxCollider b = BoxCollider(GetMouseWorldPos(), true , 50.0f, 50.0f);*/
+		
 		}
 		//place dynamic collider
 		if (AEInputCheckTriggered(AEVK_E))
 		{
-			go2.SetPos(GetMouseWorldPos());
+			/*go2.SetPos(GetMouseWorldPos());
 			go2.transform.scale.x = 100.0f;
 			go2.transform.scale.y = 150.0f;
-			BoxCollider* b = CollisionManager::CreateBoxColliderInstance(&go2);
+			BoxCollider* b = CollisionManager::CreateBoxColliderInstance(&go2);*/
 		}
 		if (AEInputCheckTriggered(AEVK_1))
 			PRINT("(%f,%f)\n", GetMouseWorldPos().x, GetMouseWorldPos().y);
