@@ -25,7 +25,7 @@ namespace StarBangBang
 		//place static collider (they cannot move)
 		if (AEInputCheckTriggered(AEVK_Q))
 		{
-			BoxCollider b = BoxCollider(GetMouseWorldPos(), true ,100.0f, 150.0f);
+			BoxCollider b = BoxCollider(GetMouseWorldPos(), true , 50.0f, 50.0f);
 		
 		}
 		//place dynamic collider

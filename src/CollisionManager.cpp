@@ -137,8 +137,12 @@ void CollisionManager::RecalculateColliderCells(BoxCollider& col)
 	{
 		for (const int index : col.GetCellIndexes())
 		{
-			Cell& c = p_grid.grid[index];
-			c.cell_colliders.erase(&col);
+			if (index < p_grid.GetBucketSize())
+			{
+				Cell& c = p_grid.grid[index];
+				c.cell_colliders.erase(&col);
+			}
+			
 		}
 		//clear all cell data from collider
 		col.ClearCellList();

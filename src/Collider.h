@@ -104,7 +104,7 @@ namespace StarBangBang
 			void SetCenter(float x, float y);
 			void Translate(float x, float y);
 			void ClearCellList();
-			unsigned int GetCellListSize() const;
+			size_t GetCellListSize() const;
 			void AddToCellList(int);
  
 	};

@@ -23,9 +23,9 @@ void BoxCollider::ClearCellList()
 	cell_indexes.clear();
 }
 
-unsigned int StarBangBang::BoxCollider::GetCellListSize() const
+size_t StarBangBang::BoxCollider::GetCellListSize() const
 {
-	return (unsigned int)cell_indexes.size();
+	return cell_indexes.size();
 }
 
 void BoxCollider::AddToCellList(int index)
