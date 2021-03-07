@@ -3,8 +3,9 @@
 #include <typeinfo>
 #include <fstream>
 
-void StarBangBang::ObjectManager::AddComponent(GameObject* gameObject, _Component* component)
+void StarBangBang::ObjectManager::AddComponent(GameObject* gameObject, _Component* component, bool allocated)
 {
+	component->allocated = allocated;
 	componentList.push_back(component);
 	gameObject->AddComponent(component);
 }
@@ -188,7 +189,8 @@ void StarBangBang::ObjectManager::FreeComponents()
 {
 	for (_Component* component : componentList)
 	{
-		delete component;
+		if (component->allocated)
+			delete component;
 	}
 
 	//componentList.clear();

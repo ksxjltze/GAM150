@@ -19,7 +19,7 @@ namespace StarBangBang
 			AddComponent(gameObject, component);
 		}
 
-		void AddComponent(GameObject* gameObject, _Component* component);
+		void AddComponent(GameObject* gameObject, _Component* component, bool allocated = true);
 		StarBangBang::ImageComponent* AddImage(GameObject* gameObject, Sprite sprite);
 		void AddChildGameObject(GameObject* child, GameObject* parent);
 
