@@ -46,8 +46,8 @@ const std::vector<int>& BoxCollider::GetCellIndexes() const
 
 StarBangBang::BoxCollider::BoxCollider(GameObject* gameObject) : Collider(gameObject)
 {
-	float width = gameObject->transform.scale.x;
-	float height = gameObject->transform.scale.y;
+	float width = gameObject->transform.scale.x * GRAPHICS::MESH_WIDTH;
+	float height = gameObject->transform.scale.y * GRAPHICS::MESH_HEIGHT;
 	AEVec2 _center = gameObject->transform.position;
 
 	extend = AEVec2{ width * 0.5f,height * 0.5f };
@@ -117,9 +117,9 @@ void StarBangBang::BoxCollider::Update()
 {
 	if (gameObject)
 	{
-		////printf("%f, %f\n", gameObject->transform.position.x, gameObject->transform.position.y);
-		//AEVec2 pos = gameObject->GetPos();
-		//SetCenter(pos.x, pos.y);
+		//printf("%f, %f\n", gameObject->transform.position.x, gameObject->transform.position.y);
+		AEVec2 pos = gameObject->GetPos();
+		SetCenter(pos.x, pos.y);
 		//printf("%f, %f\n", center.x, center.y);
 	}
 }
