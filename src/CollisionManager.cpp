@@ -124,6 +124,8 @@ void FetchAllColliderCells(const BoxCollider& c, std::vector<Cell*>& list)
 	for (size_t i = 0; i < points.size(); ++i)
 	{
 		int cellIndex = p_grid.GetHashCellIndex(points[i]);
+
+		assert(cellIndex < p_grid.GetBucketSize());
 		Cell& cell = p_grid.grid[cellIndex];
 		cell.cellIndex = cellIndex;
 		list.push_back(&cell);
@@ -137,11 +139,11 @@ void CollisionManager::RecalculateColliderCells(BoxCollider& col)
 	{
 		for (const int index : col.GetCellIndexes())
 		{
-			if (index < p_grid.GetBucketSize())
-			{
-				Cell& c = p_grid.grid[index];
-				c.cell_colliders.erase(&col);
-			}
+			assert(index < p_grid.GetBucketSize());
+			//PRINT("R_Index: %d\n", index);
+			Cell& c = p_grid.grid[index];
+			c.cell_colliders.erase(&col);
+			
 			
 		}
 		//clear all cell data from collider
@@ -160,7 +162,7 @@ void CollisionManager::RecalculateColliderCells(BoxCollider& col)
 		col.AddToCellList(cell_ref->cellIndex);
 
 	}
-
+	
 
 }
 void CollisionManager::AddToColliders(BoxCollider c)
@@ -291,6 +293,9 @@ void CollisionManager::ResolverUpdate()
 		{
 			for (const int index : col.GetCellIndexes())
 			{
+				//PRINT("C_Index: %d\n", index);
+				assert(index < p_grid.GetBucketSize());
+
 				Cell& c = p_grid.grid[index];
 
 				for (BoxCollider* box : c.cell_colliders)
