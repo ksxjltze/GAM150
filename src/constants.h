@@ -13,6 +13,11 @@ namespace StarBangBang
 
 	}
 
+	namespace CONSTANTS
+	{
+		static const float DEFAULT_OBJECT_SCALE = 1.0f;
+	}
+
 	namespace TILEMAP
 	{
 		static const int DEFAULT_WIDTH = 50;

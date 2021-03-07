@@ -133,8 +133,43 @@ using namespace StarBangBang;
 
 		}
 	}
+	std::vector<A_Node*> Grid::Get4_NodeNeighbours(const A_Node* node)
+	{
+		std::vector<A_Node*> n;
+		n.reserve(4);
+		int top_x = node->index_x ;
+		int top_y = node->index_y + 1;
 
-	std::vector<A_Node*> Grid::GetNodeNeighbours(const A_Node* node)
+		int right_x = node->index_x + 1;
+		int right_y = node->index_y ;
+
+		int left_x = node->index_x - 1;
+		int left_y = node->index_y ;
+
+		int btm_x = node->index_x;
+		int btm_y = node->index_y -1;
+	
+		if (top_x >= 0 && top_x < size_x && top_y >= 0 && top_y < size_y)
+		{
+			n.push_back(grid[top_y] + top_x);
+		}
+		if (right_x >= 0 && right_x < size_x && right_y >= 0 && right_y < size_y)
+		{
+			n.push_back(grid[right_y] + right_x);
+		}
+		if (left_x >= 0 && left_x < size_x && left_y >= 0 && left_y < size_y)
+		{
+			n.push_back(grid[left_y] + left_x);
+		}
+		if (btm_x >= 0 && btm_x < size_x && btm_y >= 0 && btm_y < size_y)
+		{
+			n.push_back(grid[btm_y] + btm_x);
+		}
+		
+		
+		return n;
+	}
+	std::vector<A_Node*> Grid::Get8_NodeNeighbours(const A_Node* node)
 	{
 		std::vector<A_Node*> n;
 		n.reserve(8);
