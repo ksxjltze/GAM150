@@ -114,7 +114,6 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 		// Handling Input
 		AEInputUpdate();
 
-
 		StarBangBang::TestGrid();
 		CollisionManager::ResolverUpdate();
 		StarBangBang::PathFinderTest();
