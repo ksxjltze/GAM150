@@ -118,9 +118,28 @@ void StarBangBang::BoxCollider::Update()
 	if (gameObject)
 	{
 		//printf("%f, %f\n", gameObject->transform.position.x, gameObject->transform.position.y);
-		AEVec2 pos = gameObject->GetPos();
-		SetCenter(pos.x, pos.y);
 		//printf("%f, %f\n", center.x, center.y);
+
+		float dt = static_cast<float>(AEFrameRateControllerGetFrameTime());
+		float speed = PLAYER::PLAYER_SPEED * dt;
+		if (AEInputCheckCurr(AEVK_W))
+		{
+			Translate(0, speed);
+		}
+		if (AEInputCheckCurr(AEVK_A))
+		{
+			Translate(-speed, 0);
+		}
+		if (AEInputCheckCurr(AEVK_S))
+		{
+			Translate(0, -speed);
+		}
+		if (AEInputCheckCurr(AEVK_D))
+		{
+			Translate(speed, 0);
+		}
+
+		gameObject->SetPos({ center.x, center.y });
 	}
 }
 
