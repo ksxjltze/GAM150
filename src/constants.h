@@ -6,11 +6,16 @@ namespace StarBangBang
 	enum SCENE {DEMO, EDITOR, SAMPLE, GAME, MAINMENU};
 	namespace GRAPHICS
 	{
-		static const int MESH_WIDTH = 100, MESH_HEIGHT = 100;
+		static const int MESH_WIDTH = 1, MESH_HEIGHT = 1;
 		static const float CAMERA_SCALE_FACTOR = 0.2f;
 		static const float CAMERA_SCALE_MIN = 0.0f;
 		static const float CAMERA_SCALE_MAX = 3.0f;
 
+	}
+
+	namespace CONSTANTS
+	{
+		static const float DEFAULT_OBJECT_SCALE = 100.0f;
 	}
 
 	namespace TILEMAP
