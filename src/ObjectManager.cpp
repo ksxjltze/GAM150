@@ -208,7 +208,7 @@ void StarBangBang::ObjectManager::Draw()
 {
 	for (_Component* component : componentList)
 	{
-		if (!component->allocated)
+		if (component->allocated == false)
 			continue;
 
 		if (typeid(*component).name() == typeid(ImageComponent).name() && component->active)

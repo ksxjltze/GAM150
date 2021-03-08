@@ -306,7 +306,7 @@ void CollisionManager::ResolverUpdate()
 {
 
 	//non-partition 
-	/*for (BoxCollider& col : collider_list)
+	for (BoxCollider& col : collider_list)
 	{
 		for (BoxCollider& col2 : collider_list)
 		{
@@ -325,45 +325,45 @@ void CollisionManager::ResolverUpdate()
 			DebugCollider(col, Black());
 		else
 			DebugCollider(col, Red());
-	}*/
+	}
 
 	//paritition (still have some bugs)
-	for (BoxCollider& col : collider_list)
-	{
-		//printf("%zu\n", collider_list.size());
-		if (col.GetCellListSize() > 0)
-		{
-			for (const int index : col.GetCellIndexes())
-			{
-				//PRINT("C_Index: %d\n", index);
-				assert(index < p_grid.GetBucketSize());
+	//for (BoxCollider& col : collider_list)
+	//{
+	//	//printf("%zu\n", collider_list.size());
+	//	if (col.GetCellListSize() > 0)
+	//	{
+	//		for (const int index : col.GetCellIndexes())
+	//		{
+	//			//PRINT("C_Index: %d\n", index);
+	//			assert(index < p_grid.GetBucketSize());
 
-				Cell& c = p_grid.grid[index];
+	//			Cell& c = p_grid.grid[index];
 
-				for (BoxCollider* box : c.cell_colliders)
-				{
-					if (box == &col)
-						continue;
-						
-					CollisionData data;
-					if (Dynamic_AABB(col, AEVec2{ 0,0 }, *box, AEVec2{ 0,0 }, data))
-					{
-						//PRINT("COLLIDER\n");
-						CollisionPair p{ col,*box, data };
-						AddToResolveQueue(p);
+	//			for (BoxCollider* box : c.cell_colliders)
+	//			{
+	//				if (box == &col)
+	//					continue;
+	//					
+	//				CollisionData data;
+	//				if (Dynamic_AABB(col, AEVec2{ 0,0 }, *box, AEVec2{ 0,0 }, data))
+	//				{
+	//					//PRINT("COLLIDER\n");
+	//					CollisionPair p{ col,*box, data };
+	//					AddToResolveQueue(p);
 
-					}
-				}
+	//				}
+	//			}
 
-			}
-		}
+	//		}
+	//	}
 
-		if (col.isStatic)
-			DebugCollider(col, Black());
-		else
-			DebugCollider(col, Red());
-	
-	}
+	//	if (col.isStatic)
+	//		DebugCollider(col, Black());
+	//	else
+	//		DebugCollider(col, Red());
+	//
+	//}
 
 	if (!resolveQueue.empty())
 	{

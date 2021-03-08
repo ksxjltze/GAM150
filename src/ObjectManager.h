@@ -23,6 +23,7 @@ namespace StarBangBang
 		Collider& AddCollider(GameObject* gameObject, bool isStatic)
 		{
 			Collider* collider = CollisionManager::CreateBoxColliderInstance(gameObject, isStatic);
+			assert(collider);
 			AddComponent(gameObject, collider, false);
 			return *collider;
 		}
