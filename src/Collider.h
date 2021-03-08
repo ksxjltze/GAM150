@@ -49,7 +49,7 @@ namespace StarBangBang
 			AEVec2 min;
 			AEVec2 max;
 			AEVec2 extend;	//half of width and height 
-			AEVec2 center;
+			AEVec2& center;
 			//indexes to cells they occupy
 			std::vector<int> cell_indexes;
 		public:
@@ -99,6 +99,7 @@ namespace StarBangBang
 			BoxCollider& operator=(const BoxCollider& rhs) = default;
 
 			void Update();
+			void LateUpdate();
 			//parition cell functions
 			void SetCenter(float x, float y);
 			void Translate(float x, float y);

@@ -16,6 +16,7 @@ namespace StarBangBang
 		void Unload();
 	private:
 		Sprite image;
+		Sprite image2;
 		GameObject* gameObject;
 	};
 }

@@ -12,8 +12,6 @@ namespace StarBangBang
 		StarBangBang::FreeUnitMeshes();
 		//PathFinder::Free();
 	}
-	GameObject go1 = GameObject();
-	GameObject go2 = GameObject();
 	void PathFinderTest()
 	{
 		//set occupied nodes

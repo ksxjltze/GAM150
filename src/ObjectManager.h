@@ -2,7 +2,7 @@
 #include "GraphicsManager.h"
 #include "GameObject.h"
 #include "ImageComponent.h"
-#include "DragComponent.h"
+#include "CollisionManager.h"
 #include "Sprite.h"
 #include <vector>
 #include <typeinfo>
@@ -13,13 +13,22 @@ namespace StarBangBang
 	{
 	public:
 		template <class T>
-		inline void AddComponent(GameObject* gameObject)
+		T& AddComponent(GameObject* gameObject)
 		{
 			T* component = new T(gameObject);
 			AddComponent(gameObject, component);
+			return *component;
 		}
 
-		void AddComponent(GameObject* gameObject, _Component* component);
+		Collider& AddCollider(GameObject* gameObject, bool isStatic)
+		{
+			Collider* collider = CollisionManager::CreateBoxColliderInstance(gameObject, isStatic);
+			assert(collider);
+			AddComponent(gameObject, collider, false);
+			return *collider;
+		}
+
+		void AddComponent(GameObject* gameObject, _Component* component, bool allocated = true);
 		StarBangBang::ImageComponent* AddImage(GameObject* gameObject, Sprite sprite);
 		void AddChildGameObject(GameObject* child, GameObject* parent);
 
@@ -37,6 +46,7 @@ namespace StarBangBang
 		void Init();
 		void Draw();
 		void Update();
+		void LateUpdate();
 	private:
 		friend class Scene;
 		std::vector<GameObject*> gameObjectList;

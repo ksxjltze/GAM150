@@ -7,7 +7,7 @@ namespace StarBangBang
 	{
 	public:
 		CameraComponent(GameObject* gameObject);
-		void Update();
+		void LateUpdate();
 		AEVec2 position;
 		float scale;
 		float scaleFactor;

@@ -1,5 +1,6 @@
 #include "Sample_Scene.h"
-#include "Collider.h"
+#include "CollisionManager.h"
+#include "MovementManager.h"
 
 StarBangBang::Sample_Scene::Sample_Scene(int id, GameStateManager& manager) : Scene(id, manager), gameObject{nullptr}
 {
@@ -9,14 +10,45 @@ StarBangBang::Sample_Scene::Sample_Scene(int id, GameStateManager& manager) : Sc
 void StarBangBang::Sample_Scene::Load()
 {
 	image = graphicsManager.CreateSprite("../Resources/PlanetTexture.png");
+	image2 = graphicsManager.CreateSprite("../Resources/boi.png");
 }
 
 void StarBangBang::Sample_Scene::Init()
 {
 	gameObject = objectManager.NewGameObject();
-	objectManager.AddImage(gameObject, image);
-	objectManager.AddComponent<BoxCollider>(gameObject);
+
+	objectManager.AddImage(gameObject, image2);
+	objectManager.AddCollider(gameObject, false);
+
+	for (int i = 0; i < 8; i++)
+	{
+		GameObject* obj = objectManager.NewGameObject();
+
+		double rads = (2 * (double)PI / 8) * i;
+		AEVec2& pos = obj->transform.position;
+
+		pos.x = cos(rads) * 200;
+		pos.y = sin(rads) * 200;
+
+		objectManager.AddImage(obj, image);
+		objectManager.AddCollider(obj, true);
+		
+	}
+
+
+
+
+	//Collider* collider = CollisionManager::CreateBoxColliderInstance(gameObject);
+	//objectManager.AddComponent(gameObject, collider, false);
+
+	//MovementManager moveMgr = objectManager.AddComponent<MovementManager>(gameObject);
 	//objectManager.AddComponent<PrimaryMovementController>(gameObject);
+	//objectManager.AddComponent<PrimaryMovementController>(collisionTestObj);
+
+	//moveMgr.AddController(gameObject);
+	//moveMgr.AddController(collisionTestObj);
+
+
 }
 
 void StarBangBang::Sample_Scene::Update()
