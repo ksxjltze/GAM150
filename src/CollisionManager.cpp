@@ -330,7 +330,7 @@ void CollisionManager::ResolverUpdate()
 	//paritition (still have some bugs)
 	for (BoxCollider& col : collider_list)
 	{
-
+		//printf("%zu\n", collider_list.size());
 		if (col.GetCellListSize() > 0)
 		{
 			for (const int index : col.GetCellIndexes())
