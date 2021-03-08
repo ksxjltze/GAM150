@@ -12,6 +12,7 @@ GuardMovement::GuardMovement(GameObject* gameObject)
 	: Script(gameObject)
 	, nodeIndex(0)
 	, foundPath(false)
+	, isMoving(false)
 {
 	SetWaypoints();
 	//std::cout << waypoints.size() << "\n";
@@ -68,6 +69,7 @@ void GuardMovement::Distracted()
 
 		if (nodeIndex < path.size())
 		{
+			isMoving = true;
 			nextPos = path[nodeIndex]->nodePos;
 			//PRINT("target: %f, %f\n", nextPos.x, nextPos.y);
 				
@@ -90,6 +92,7 @@ void GuardMovement::Distracted()
 			path.clear();
 			nodeIndex = 0;
 			foundPath = false;
+			isMoving = false;
 		}
 	}
 }

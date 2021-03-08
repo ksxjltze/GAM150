@@ -1,5 +1,6 @@
 #include "GuardVision.h"
 #include "Guard.h"
+#include"GuardMovement.h"
 #include "BasicMeshShape.h"
 #include "Utils.h"
 
@@ -12,35 +13,46 @@ GuardVision::GuardVision(GameObject* gameObject)
 	, viewDist(250.f)
 	, player(nullptr)
 	, client(nullptr)
+	, movement(nullptr)
+	, defaultForward({ 0, 1 })
 {
+}
+
+void GuardVision::Start()
+{
+	movement = gameObject->GetComponent<GuardMovement>();
 }
 
 void GuardVision::Update()
 {
 	// only update if player or client in same partition grid as guard
 	// ...
-
-	AEVec2 defaultForward { 0, 1 }; // up
-	AEVec2 forwardVec, toPlayerVec, toClientVec;
+	// 
 	
-	// rotate guard's vision
-	AEVec2 targetPos{ 0, 0 };
-	targetPos = gameObject->GetComponent<GuardMovement>()->GetNextPos();
-	AEVec2Sub(&targetDir, &targetPos, &gameObject->GetPos());
-	AEVec2Normalize(&targetDir, &targetDir);
+	AEVec2 forwardVec, toPlayerVec, toClientVec;
+	AEVec2 go_pos = gameObject->GetPos();
 
-	float visionRot = AERadToDeg(AEACos(AEVec2DotProduct(&defaultForward, &targetDir)));
-	if (targetPos.x > gameObject->GetPos().x)
-		visionRot *= -1;
+	if (movement->IsMoving())
+	{
+		// rotate guard's vision
+		AEVec2 targetPos = gameObject->GetComponent<GuardMovement>()->GetNextPos();
+		AEVec2Sub(&targetDir, &targetPos, &go_pos);
+		AEVec2Normalize(&targetDir, &targetDir);
+
+		visionRot = AERadToDeg(AEACos(AEVec2DotProduct(&defaultForward, &targetDir)));
+		if (targetPos.x > gameObject->GetPos().x)
+			visionRot *= -1;
+	}
+	else
+	{
+		visionRot = 0.f;
+	}
+
+	DrawVision();
 
 	//PRINT("%f\n", visionRot);
 
-	// temp cone vision
-	DrawLine(viewDist + 50.f, gameObject->GetPos(), (fieldOfView * 0.5f) + visionRot);
-	DrawLine(viewDist + 50.f, gameObject->GetPos(), (-fieldOfView * 0.5f) + visionRot);
-
 	AEVec2 p_pos = player->GetPos();
-	AEVec2 go_pos = gameObject->GetPos();
 
 	// calculate vector from guard to player
 	AEVec2Sub(&toPlayerVec, &p_pos, &go_pos);
@@ -60,17 +72,23 @@ void GuardVision::Update()
 			// check if vision is colliding with environment first
 			// ...
 
-			PRINT("%s\n", "DETECTED PLAYER");
+			//PRINT("%s\n", "DETECTED PLAYER");
 			detected_player = true;
 		}
-		else
-			PRINT("WHERE PLAYER\n");
+		//else
+			//PRINT("WHERE PLAYER\n");
 	}
-	else
-		PRINT("WHERE PLAYER\n");
+	//else
+		//PRINT("WHERE PLAYER\n");
 
 	if (detected_player)
 	{
 		// notify event manager: game over
 	}
+}
+
+void GuardVision::DrawVision()
+{
+	DrawLine(viewDist + 50.f, gameObject->GetPos(), (fieldOfView * 0.5f) + visionRot);
+	DrawLine(viewDist + 50.f, gameObject->GetPos(), (-fieldOfView * 0.5f) + visionRot);
 }
