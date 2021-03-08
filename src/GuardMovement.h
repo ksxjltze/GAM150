@@ -19,13 +19,19 @@ namespace StarBangBang
 		void Patrol();
 		void Distracted();
 
+		inline const AEVec2& GetNextPos() const { return nextPos; }
+		inline bool IsMoving() const { return isMoving; }
+
 	private:
 		bool MoveTo(AEVec2 pos);
 		bool ReachedPos(AEVec2 pos);
 		void SetWaypoints();
 
+		bool isMoving;
 		bool foundPath;
 		unsigned int nodeIndex;
+
+		AEVec2 nextPos;
 
 		// Waypoints specific to this guard
 		std::vector<AEVec2> waypoints;

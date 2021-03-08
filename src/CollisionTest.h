@@ -12,8 +12,6 @@ namespace StarBangBang
 		StarBangBang::FreeUnitMeshes();
 		//PathFinder::Free();
 	}
-	GameObject go1 = GameObject();
-	GameObject go2 = GameObject();
 	void PathFinderTest()
 	{
 		//set occupied nodes
@@ -27,21 +25,13 @@ namespace StarBangBang
 		//place static collider (they cannot move)
 		if (AEInputCheckTriggered(AEVK_Q))
 		{
-
-			//BoxCollider b = BoxCollider(GetMouseWorldPos(), true ,100.0f, 150.0f);
-			
-			go1.SetPos(GetMouseWorldPos());
-			go1.transform.scale.x = 100.0f;
-			go1.transform.scale.y = 150.0f;
-			BoxCollider* b = CollisionManager::CreateBoxColliderInstance(&go1);
+			BoxCollider b = BoxCollider(GetMouseWorldPos(), true , 50.0f, 50.0f);
+		
 		}
 		//place dynamic collider
 		if (AEInputCheckTriggered(AEVK_E))
 		{
-			go2.SetPos(GetMouseWorldPos());
-			go2.transform.scale.x = 100.0f;
-			go2.transform.scale.y = 150.0f;
-			BoxCollider* b = CollisionManager::CreateBoxColliderInstance(&go2);
+			BoxCollider b = BoxCollider(GetMouseWorldPos(), false, 50.0f, 50.0f);
 		}
 		if (AEInputCheckTriggered(AEVK_1))
 			PRINT("(%f,%f)\n", GetMouseWorldPos().x, GetMouseWorldPos().y);

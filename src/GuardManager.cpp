@@ -15,7 +15,7 @@ void GuardManager::Init(ObjectManager* objManager, Sprite* sprite, GameObject* p
 	for (size_t i = 0; i < NUM_GUARDS; i++)
 	{
 		guards.push_back(objManager->NewGameObject());
-		guards[i]->SetPos({ 0, 0 });
+		guards[i]->SetPos({ 250, 650 });
 		guards[i]->transform.scale = {0.25f, 0.25f};
 		objManager->AddImage(guards[i], *sprite);
 		objManager->AddComponent<Guard>(guards[i]);
@@ -33,16 +33,16 @@ void GuardManager::Update()
 
 GameObject* GuardManager::GetNearestGuard(AEVec2& _pos)
 {
-	float min_dist = 0.f;
-	GameObject* nearestGuard = nullptr;
+	float minDist = AEVec2SquareDistance(&_pos, &guards[0]->transform.position);
+	GameObject* nearestGuard = guards[0];
 
-	for (size_t i = 0; i < NUM_GUARDS; i++)
+	for (size_t i = 1; i < NUM_GUARDS; i++)
 	{
 		float dist = AEVec2SquareDistance(&_pos, &guards[i]->transform.position);
 
-		if (min_dist == 0.f || dist < min_dist)
+		if (dist < minDist)
 		{
-			min_dist = dist;
+			minDist = dist;
 			nearestGuard = guards[i];
 		}
 	}
