@@ -310,7 +310,7 @@ void CollisionManager::ResolverUpdate()
 	{
 		for (BoxCollider& col2 : collider_list)
 		{
-			if (&col == &col2)
+			if (col.isStatic && col2.isStatic  || &col == &col2  )
 				continue;
 			CollisionData data;
 			if (Dynamic_AABB(col, AEVec2{ 0,0 }, col2, AEVec2{ 0,0 }, data))
@@ -342,7 +342,7 @@ void CollisionManager::ResolverUpdate()
 
 	//			for (BoxCollider* box : c.cell_colliders)
 	//			{
-	//				if (box == &col)
+	//				if ( box->isStatic && col.isStatic  || box == &col)
 	//					continue;
 	//					
 	//				CollisionData data;

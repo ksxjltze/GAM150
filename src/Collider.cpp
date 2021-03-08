@@ -44,7 +44,7 @@ const std::vector<int>& BoxCollider::GetCellIndexes() const
 	return cell_indexes;
 }
 
-StarBangBang::BoxCollider::BoxCollider(GameObject* gameObject) : Collider(gameObject), center{ gameObject->transform.position }
+StarBangBang::BoxCollider::BoxCollider(GameObject* gameObject) : Collider(gameObject)
 {
 	float width = gameObject->transform.scale.x * GRAPHICS::MESH_WIDTH;
 	float height = gameObject->transform.scale.y * GRAPHICS::MESH_HEIGHT;
@@ -103,19 +103,12 @@ void CircleCollider::Translate(float x, float y)
 
 void StarBangBang::BoxCollider::Update()
 {
-	if (gameObject)
-	{
-		//center = gameObject->transform.position;
-		//printf("%f, %f\n", gameObject->transform.position.x, gameObject->transform.position.y);
-		//printf("%f, %f\n", center.x, center.y)
 
-	}
 }
 
 void StarBangBang::BoxCollider::LateUpdate()
 {
 
-	//gameObject->SetPos({ center.x, center.y });
 }
 
 void StarBangBang::CircleCollider::Update()

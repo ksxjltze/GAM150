@@ -122,6 +122,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 		// Update State
 		gameStateManager.Update();
 		audioEngine.Update();
+
 		
 		//FPS
 		AEVec2 camPos;
