@@ -20,13 +20,7 @@ namespace StarBangBang
 			return *component;
 		}
 
-		Collider& AddCollider(GameObject* gameObject, bool isStatic)
-		{
-			Collider* collider = CollisionManager::CreateBoxColliderInstance(gameObject, isStatic);
-			assert(collider);
-			AddComponent(gameObject, collider, false);
-			return *collider;
-		}
+		BoxCollider& AddCollider(GameObject* gameObject, bool isStatic);
 
 		void AddComponent(GameObject* gameObject, _Component* component, bool allocated = true);
 		StarBangBang::ImageComponent* AddImage(GameObject* gameObject, Sprite sprite);

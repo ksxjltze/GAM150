@@ -49,7 +49,7 @@ namespace StarBangBang
 			AEVec2 min;
 			AEVec2 max;
 			AEVec2 extend;	//half of width and height 
-			AEVec2& center;
+			AEVec2& center { gameObject->transform.position };
 			//indexes to cells they occupy
 			std::vector<int> cell_indexes;
 		public:
