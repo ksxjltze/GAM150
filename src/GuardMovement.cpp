@@ -12,6 +12,7 @@ GuardMovement::GuardMovement(GameObject* gameObject)
 	: Script(gameObject)
 	, nodeIndex(0)
 	, foundPath(false)
+	, isMoving(false)
 {
 	SetWaypoints();
 	//std::cout << waypoints.size() << "\n";
@@ -52,7 +53,6 @@ void GuardMovement::Distracted()
 		if (foundPath) // changing path midway into moving along the path
 		{
 			nodeIndex = 0;
-			//timer = 0.f;
 		}
 
 		distraction_position = GetMouseWorldPos();
@@ -67,9 +67,12 @@ void GuardMovement::Distracted()
 			DrawCircle(20.0f, n->nodePos);
 		}
 
-		// go to interactable object
 		if (nodeIndex < path.size())
 		{
+			isMoving = true;
+			nextPos = path[nodeIndex]->nodePos;
+			//PRINT("target: %f, %f\n", nextPos.x, nextPos.y);
+				
 			float timer = 0.f;
 			if (MoveTo(path[nodeIndex]->nodePos))
 			{
@@ -89,6 +92,7 @@ void GuardMovement::Distracted()
 			path.clear();
 			nodeIndex = 0;
 			foundPath = false;
+			isMoving = false;
 		}
 	}
 }
