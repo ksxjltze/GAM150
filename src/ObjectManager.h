@@ -20,6 +20,14 @@ namespace StarBangBang
 			return *component;
 		}
 
+		template <class T, class U>
+		T& AddComponent(GameObject* gameObject)
+		{
+			T* component = new T<U>(gameObject);
+			AddComponent(gameObject, component);
+			return *component;
+		}
+
 		BoxCollider& AddCollider(GameObject* gameObject, bool isStatic);
 
 		void AddComponent(GameObject* gameObject, _Component* component, bool allocated = true);

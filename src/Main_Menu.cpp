@@ -40,7 +40,7 @@ namespace StarBangBang
 		playbutton_obj->transform.position = { (float)AEGetWindowWidth() / -8, (float)AEGetWindowHeight() / 8 };
 
 		auto d = []() {printf("MAIN MENU: TEST\n"); };
-		objectManager.AddComponent<Click>(playbutton_obj, d);
+		objectManager.AddComponent<Click<Main_Menu>>(playbutton_obj).setCallback(*this, &Main_Menu::LoadLevelTest);
 
 		//settings button
 		settingsbutton_obj = objectManager.NewGameObject();
@@ -97,6 +97,12 @@ namespace StarBangBang
 	{
 		Scene::Unload();
 	}
+
+	void Main_Menu::LoadLevelTest()
+	{
+		gameStateManager.SetNextGameState(SCENE::SAMPLE);
+	}
+
 }
 
 

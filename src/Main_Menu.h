@@ -17,6 +17,9 @@ namespace StarBangBang
 		void Draw();
 		void Free();
 		void Unload();
+
+		void LoadLevelTest();
+
 	private:
 		Sprite playbutton1;
 		Sprite settingsbutton1;

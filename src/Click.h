@@ -1,20 +1,45 @@
 #pragma once
 #include "ScriptComponent.h"
 #include "IClickable.h"
+#include "Utils.h"
 
 namespace StarBangBang
 {
+	template <typename ClassType>
 	class Click : public Script, public IClickable
 	{
 	public:
-		Click(GameObject* obj, void (*fptr)(void));
+		Click(GameObject* obj, void (*fptr)(void)) : Script(obj), callback{ fptr } {}
+		Click(GameObject* obj) : Script(obj) {}
+		//Click(GameObject* obj, void (ClassType::* fptr)(void)) : Component(obj), callbackClass{ fptr } {}
 
-		void Start();
-		void Update();
+		void Start() { printf("TESTT\n"); }
+		void Update()
+		{
+			if (AEInputCheckTriggered(AEVK_LBUTTON))
+			{
+				Transform& transform = gameObject->transform;
+				if (PointRectTest(GetMouseWorldPos(), transform.position, transform.scale.x * GRAPHICS::MESH_WIDTH, transform.scale.y * GRAPHICS::MESH_HEIGHT))
+				{
+					onClick();
+				}
+		
+			}
+			
+		}
 
-		void setCallback(void (*fptr)(void));
-		virtual void onClick();
+		void setCallback(void (*fptr)(void)) { callback = fptr; }
+		void setCallback(ClassType& inst, void (ClassType::* fptr)(void)) { test.push_back({ inst, fptr }); }
+
+		virtual void onClick()
+		{
+			//printf("%s\n", typeid(test.front().first).name()); 
+			//test.front().first.LoadLevelTest();
+			((test.front().first).*(test.front().second))();
+		}
+
 	private:
 		void (*callback)(void);
+		std::vector<std::pair<ClassType&, void (ClassType::*)(void)>> test;
 	};
 }
