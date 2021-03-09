@@ -143,6 +143,7 @@ void StarBangBang::DrawCircle(float radius, AEVec2 pos,Color color)
 
 	AEMtx33TransApply(&result, &scale, pos.x, pos.y);
 	AEMtx33ScaleApply(&result, &result, zoom, zoom);
+	GRAPHICS::ScaleFullscreen(result);
 	AEGfxSetTransform(result.m);
 	AEGfxSetTintColor(color.R(), color.G(), color.B(), color.A());
 	AEGfxMeshDraw(unitcircleMesh, AEGfxMeshDrawMode::AE_GFX_MDM_LINES_STRIP);
@@ -163,6 +164,7 @@ void StarBangBang::DrawLine(float length, AEVec2 pos, float angle, Color color)
 
 	AEMtx33TransApply(&result, &result, pos.x, pos.y); 
 	AEMtx33ScaleApply(&result, &result, zoom, zoom);
+	GRAPHICS::ScaleFullscreen(result);
 	AEGfxSetTransform(result.m);
 	AEGfxSetTintColor(color.R(), color.G(), color.B(), color.A());
 

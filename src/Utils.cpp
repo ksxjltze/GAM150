@@ -17,6 +17,8 @@ namespace StarBangBang
 
 		AEMtx33Trans(&mtx, -AEGetWindowWidth() / 2 + CameraPos.x, AEGetWindowHeight() / 2 + CameraPos.y);
 		AEMtx33ScaleApply(&mtx, &mtx, 1 / zoom, 1 / zoom);
+		GRAPHICS::InverseScaleFullscreen(mtx);
+
 		AEMtx33MultVec(&pos, &mtx, &pos);
 
 		return pos;

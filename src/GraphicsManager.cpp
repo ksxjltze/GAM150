@@ -6,6 +6,7 @@ namespace StarBangBang
 	namespace GRAPHICS
 	{
 		static bool isFullscreen = false;
+		static bool enableRescale = true;
 		//static AEVec2 screenScaleRatio;
 		static AEVec2 screenScaleRatio = { RESOLUTION_X / TARGET_WINDOW_WIDTH, RESOLUTION_Y / TARGET_WINDOW_HEIGHT };
 	}
@@ -125,9 +126,18 @@ namespace StarBangBang
 
 	void GRAPHICS::ScaleFullscreen(AEMtx33& mtx)
 	{
-		if (isFullscreen)
+		if (enableRescale && isFullscreen)
 		{
 			AEMtx33ScaleApply(&mtx, &mtx, 1 / screenScaleRatio.x, 1 / screenScaleRatio.y);
+			//AEMtx33ScaleApply(&mtx, &mtx, 1 / 2.4f, 1 / 1.8f);
+		}
+	}
+
+	void GRAPHICS::InverseScaleFullscreen(AEMtx33& mtx)
+	{
+		if (enableRescale && isFullscreen)
+		{
+			AEMtx33ScaleApply(&mtx, &mtx, screenScaleRatio.x, screenScaleRatio.y);
 			//AEMtx33ScaleApply(&mtx, &mtx, 1 / 2.4f, 1 / 1.8f);
 		}
 	}
@@ -178,7 +188,7 @@ namespace StarBangBang
 		AEGfxMeshDraw(mesh, AE_GFX_MDM_TRIANGLES);
 	}
 
-	void StarBangBang::GRAPHICS::SetAspectRatio(float x, float y)
+	void StarBangBang::GRAPHICS::SetScreenScaleRatio(float x, float y)
 	{
 		screenScaleRatio.x = x;
 		screenScaleRatio.y = y;

@@ -11,13 +11,14 @@ namespace StarBangBang
 		static float zoom = 1;
 
 		void DrawImage(AEGfxVertexList* mesh, AEGfxTexture* texture, AEVec2 pos, AEVec2 scale, float rotation);
-		void SetAspectRatio(float x, float y);
+		void SetScreenScaleRatio(float x, float y);
 		void SetZoom(float scale);
 
 		AEVec2 GetScreenScale();
 		float GetZoom();
 
 		void ScaleFullscreen(AEMtx33& mtx);
+		void InverseScaleFullscreen(AEMtx33& mtx);
 		void ToggleFullscreen();
 
 	}
