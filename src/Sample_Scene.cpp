@@ -23,7 +23,8 @@ void StarBangBang::Sample_Scene::Init()
 {
 	gameObject = objectManager.NewGameObject();
 
-	objectManager.AddImage(gameObject, image2);
+	//objectManager.AddImage(gameObject, image2);
+	objectManager.AddComponent<ImageComponent>(gameObject, image2);
 	objectManager.AddCollider(gameObject, false);
 	//objectManager.AddComponent<Click>(gameObject).setCallback(Testt);
 

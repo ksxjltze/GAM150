@@ -12,10 +12,10 @@ namespace StarBangBang
 	class ObjectManager
 	{
 	public:
-		template <class T>
-		T& AddComponent(GameObject* gameObject)
+		template <class T, class ...Args>
+		T& AddComponent(GameObject* gameObject, Args... args)
 		{
-			T* component = new T(gameObject);
+			T* component = new T(gameObject, args...);
 			AddComponent(gameObject, component);
 			return *component;
 		}
