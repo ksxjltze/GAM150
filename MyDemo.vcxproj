@@ -93,9 +93,11 @@
     <ClCompile Include="src\AudioEngine.cpp" />
     <ClCompile Include="src\CameraComponent.cpp" />
     <ClCompile Include="src\CaptainStealth.cpp" />
+    <ClCompile Include="src\Click.cpp" />
     <ClCompile Include="src\Collider.cpp" />
     <ClCompile Include="src\CollisionManager.cpp" />
     <ClCompile Include="src\constants.cpp" />
+    <ClCompile Include="src\Detector.cpp" />
     <ClCompile Include="src\DragComponent.cpp" />
     <ClCompile Include="src\EventTest.cpp" />
     <ClCompile Include="src\GameObject.cpp" />
@@ -136,6 +138,7 @@
     <ClInclude Include="src\AudioEngine.h" />
     <ClInclude Include="src\CameraComponent.h" />
     <ClInclude Include="src\CaptainStealth.h" />
+    <ClInclude Include="src\Click.h" />
     <ClInclude Include="src\Collider.h" />
     <ClInclude Include="src\ColliderAABB.h" />
     <ClInclude Include="src\CollisionManager.h" />
@@ -143,6 +146,7 @@
     <ClInclude Include="src\Component.h" />
     <ClInclude Include="src\ComponentCRTP.h" />
     <ClInclude Include="src\constants.h" />
+    <ClInclude Include="src\Detector.h" />
     <ClInclude Include="src\DragComponent.h" />
     <ClInclude Include="src\Event.h" />
     <ClInclude Include="src\EventTest.h" />
@@ -154,6 +158,7 @@
     <ClInclude Include="src\GuardMovement.h" />
     <ClInclude Include="src\GuardVision.h" />
     <ClInclude Include="src\Heap.h" />
+    <ClInclude Include="src\IClickable.h" />
     <ClInclude Include="src\ImageComponent.h" />
     <ClInclude Include="src\ISerializable.h" />
     <ClInclude Include="src\LevelEditor.h" />

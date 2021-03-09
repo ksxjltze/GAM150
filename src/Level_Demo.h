@@ -25,6 +25,7 @@ namespace StarBangBang
 		Sprite player2Image;
 		Sprite planetImage;
 		Sprite guardImage;
+		Sprite securityCamImage;
 
 		GameObject* movementController;
 		GameObject* player;
@@ -32,6 +33,7 @@ namespace StarBangBang
 
 		GameObject* testInteractable;
 		GameObject* guardManager;
+		GameObject* testSecurityCam;
 
 		std::vector<GameObject*> testObjects;
 

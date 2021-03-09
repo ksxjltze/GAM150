@@ -1,6 +1,7 @@
 #include "GuardManager.h"
 #include "ObjectManager.h"
 #include "Guard.h"
+#include "Detector.h"
 
 using namespace StarBangBang;
 
@@ -20,8 +21,8 @@ void GuardManager::Init(ObjectManager* objManager, Sprite* sprite, GameObject* p
 		objManager->AddImage(guards[i], *sprite);
 		objManager->AddComponent<Guard>(guards[i]);
 		objManager->AddComponent<GuardMovement>(guards[i]);
-		objManager->AddComponent<GuardVision>(guards[i]);
-		guards[i]->GetComponent<GuardVision>()->SetPlayerAndClient(player, client);
+		objManager->AddComponent<GuardVision>(guards[i]).SetPlayerAndClient(player, client);;
+		objManager->AddComponent<Detector>(guards[i]);
 	}
 }
 

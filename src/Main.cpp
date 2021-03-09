@@ -75,7 +75,11 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 
 	// Set Initial State
 
+<<<<<<< HEAD
 	gameStateManager.SetInitialState(sceneEditor);
+=======
+	gameStateManager.SetInitialState(sampleScene);
+>>>>>>> 2bad2adb939bc27c5549e391a34a4426b0919b9c
 
 	//// Using custom window procedure
 	AESysInit(hInstance, nCmdShow, 800, 600, 1, 60, true, NULL);
