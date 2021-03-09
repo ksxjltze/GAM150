@@ -48,8 +48,7 @@ void StarBangBang::Level_Demo::Init()
 	objectManager.AddImage(player, playerImage);
 
 	guardManager = objectManager.NewGameObject();
-	objectManager.AddComponent<GuardManager>(guardManager);
-	guardManager->GetComponent<GuardManager>()->Init(&objectManager, &guardImage, player, player2);
+	objectManager.AddComponent<GuardManager>(guardManager).Init(&objectManager, &guardImage, player, player2);
 
 	testSecurityCam = objectManager.NewGameObject();
 	objectManager.AddImage(testSecurityCam, securityCamImage);
