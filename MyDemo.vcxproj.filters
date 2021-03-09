@@ -243,9 +243,6 @@
     <ClCompile Include="src\Detector.cpp">
       <Filter>Source Files\Scripts\Guard</Filter>
     </ClCompile>
-    <ClCompile Include="src\Click.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\ImageComponent.h">

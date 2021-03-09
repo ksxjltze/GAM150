@@ -11,10 +11,6 @@ namespace StarBangBang
 	public:
 		Click(GameObject* obj) : Script(obj) {}
 		Click(GameObject* obj, void (*fptr)(void)) : Script(obj), callback{ fptr } {}
-		Click(GameObject* obj, ClassType& inst, void (ClassType::* fptr)(void)) : Script(obj)
-		{
-			callbackList.push_back({ inst, fptr });
-		}
 
 		void Start() { printf("TESTT\n"); }
 		void Update()
