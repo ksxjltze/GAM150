@@ -245,6 +245,7 @@
     <Image Include="Resources\MainMenu\Credit2.png" />
     <Image Include="Resources\MainMenu\Exit1.png" />
     <Image Include="Resources\MainMenu\Exit2.png" />
+    <Image Include="Resources\MainMenu\Logo.png" />
     <Image Include="Resources\MainMenu\Play1.png" />
     <Image Include="Resources\MainMenu\Play2.png" />
     <Image Include="Resources\MainMenu\Setting1.png" />

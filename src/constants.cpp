@@ -35,6 +35,7 @@ namespace StarBangBang
 		const std::string&& CREDIT2_BUTTON_PATH			= MAINMENU_PATH + "Credit2.png";
 		const std::string&& EXIT1_BUTTON_PATH			= MAINMENU_PATH + "Exit1.png";
 		const std::string&& EXIT2_BUTTON_PATH			= MAINMENU_PATH + "Exit2.png";
+		const std::string&& LOGO_PATH					= MAINMENU_PATH + "Logo.png";
 
 		//Character sprites
 		const std::string&& CAPTAINSTEALTH_F1_PATH			= CHARACTERS_PATH + "CaptainStealthForward1.png";

@@ -12,6 +12,7 @@ namespace StarBangBang
 {
 	StarBangBang::Main_Menu::Main_Menu(int id, GameStateManager& manager) : Scene(id, manager)
 	{
+		logo_obj = nullptr;
 		playbutton_obj = nullptr;
 		settingsbutton_obj = nullptr;
 		creditsbutton_obj = nullptr;
@@ -21,6 +22,8 @@ namespace StarBangBang
 	void StarBangBang::Main_Menu::Load()
 	{
 		//load button images
+		logo = graphicsManager.CreateSprite(RESOURCES::LOGO_PATH,256,64);
+
 		playbutton1 = graphicsManager.CreateSprite(RESOURCES::PLAY1_BUTTON_PATH);
 		settingsbutton1 = graphicsManager.CreateSprite(RESOURCES::SETTING1_BUTTON_PATH);
 		creditsbutton1 = graphicsManager.CreateSprite(RESOURCES::CREDIT1_BUTTON_PATH);
@@ -34,53 +37,45 @@ namespace StarBangBang
 
 	void StarBangBang::Main_Menu::Init()
 	{
+		//logo 
+		logo_obj = objectManager.NewGameObject();
+		objectManager.AddImage(logo_obj, logo);
+		logo_obj->transform.position = { 0, (float)AEGetWindowHeight() / 3 };
+		logo_obj->transform.scale = { 1.5,1.5};
+
+
 		//start game button
 		playbutton_obj = objectManager.NewGameObject();
 		objectManager.AddImage(playbutton_obj, playbutton1);
 		playbutton_obj->transform.position = { (float)AEGetWindowWidth() / -8, (float)AEGetWindowHeight() / 8 };
+		playbutton_obj->transform.scale = { 1.5, 1.5 };
 
 		auto d = []() {printf("MAIN MENU: TEST\n"); };
 		objectManager.AddComponent<Click<Main_Menu>>(playbutton_obj).setCallback(*this, &Main_Menu::LoadLevelTest);
+		
 
 		//settings button
 		settingsbutton_obj = objectManager.NewGameObject();
 		objectManager.AddImage(settingsbutton_obj, settingsbutton1);
 		settingsbutton_obj->transform.position = { (float)AEGetWindowWidth() / 8, (float)AEGetWindowHeight() / 8 };
+		settingsbutton_obj->transform.scale = { 1.5, 1.5 };
 
 		//credits button
 		creditsbutton_obj = objectManager.NewGameObject();
 		objectManager.AddImage(creditsbutton_obj, creditsbutton1);
 		creditsbutton_obj->transform.position = { (float)AEGetWindowWidth() / -8, (float)AEGetWindowHeight() / -8 };
+		creditsbutton_obj->transform.scale = { 1.5, 1.5 };
 
 		//exit game button
 		exitbutton_obj = objectManager.NewGameObject();
 		objectManager.AddImage(exitbutton_obj, exitbutton1);
 		exitbutton_obj->transform.position = { (float)AEGetWindowWidth() / 8, (float)AEGetWindowHeight() / -8, };
+		exitbutton_obj->transform.scale = { 1.5,1.5 };
 	}
 
 	void StarBangBang::Main_Menu::Update()
 	{
 		Scene::Update();
-
-		if (tf == false)
-		{
-			objectManager.AddImage(settingsbutton_obj, settingsbutton1);
-		}
-		else
-		{
-			objectManager.AddImage(settingsbutton_obj, settingsbutton2);
-		}
-
-
-		if (AEInputCheckTriggered(VK_SPACE))
-		{
-			tf = true;
-		}
-
-		if (AEInputCheckTriggered(VK_F1))
-		{
-			tf = false;
-		}
 	}
 
 	void StarBangBang::Main_Menu::Draw()

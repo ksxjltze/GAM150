@@ -21,6 +21,8 @@ namespace StarBangBang
 		void LoadLevelTest();
 
 	private:
+
+		Sprite logo;
 		Sprite playbutton1;
 		Sprite settingsbutton1;
 		Sprite creditsbutton1;
@@ -31,6 +33,7 @@ namespace StarBangBang
 		Sprite creditsbutton2;
 		Sprite exitbutton2;
 
+		GameObject* logo_obj;
 		GameObject* playbutton_obj;
 		GameObject* settingsbutton_obj;
 		GameObject* creditsbutton_obj;

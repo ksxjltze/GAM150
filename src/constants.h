@@ -68,6 +68,7 @@ namespace StarBangBang
 		extern const std::string&& CREDIT2_BUTTON_PATH;
 		extern const std::string&& EXIT1_BUTTON_PATH;
 		extern const std::string&& EXIT2_BUTTON_PATH;
+		extern const std::string&& LOGO_PATH;
 
 		//Character sprites
 		extern const std::string&& CAPTAINSTEALTH_F1_PATH;

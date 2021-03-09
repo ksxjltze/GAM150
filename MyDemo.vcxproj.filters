@@ -243,9 +243,6 @@
     <ClCompile Include="src\Detector.cpp">
       <Filter>Source Files\Scripts\Guard</Filter>
     </ClCompile>
-    <ClCompile Include="src\Click.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\Map.cpp">
       <Filter>Source Files\Scripts</Filter>
     </ClCompile>
@@ -614,6 +611,9 @@
       <Filter>Resource Files\MainMenu</Filter>
     </Image>
     <Image Include="Resources\MainMenu\Setting2.png">
+      <Filter>Resource Files\MainMenu</Filter>
+    </Image>
+    <Image Include="Resources\MainMenu\Logo.png">
       <Filter>Resource Files\MainMenu</Filter>
     </Image>
   </ItemGroup>
