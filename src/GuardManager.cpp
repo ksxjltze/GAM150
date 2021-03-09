@@ -1,5 +1,6 @@
 #include "GuardManager.h"
 #include "ObjectManager.h"
+#include "Sprite.h"
 #include "Guard.h"
 #include "Detector.h"
 
