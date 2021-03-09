@@ -3,6 +3,7 @@
 
 #include "InteractableComponent.h"
 #include "Guard.h"
+#include "Detector.h"
 
 #include "MovementManager.h"
 
@@ -29,6 +30,7 @@ void StarBangBang::Level_Demo::Load()
 	player2Image = graphicsManager.CreateSprite("../Resources/boi2.png");
 	planetImage = graphicsManager.CreateSprite("../Resources/PlanetTexture.png");
 	guardImage = graphicsManager.CreateSprite("../Resources/guard.png");
+	securityCamImage = graphicsManager.CreateSprite("../Resources/guard.png");
 }
 
 //Initialization of game objects, components and scripts.
@@ -46,8 +48,13 @@ void StarBangBang::Level_Demo::Init()
 	objectManager.AddImage(player, playerImage);
 
 	guardManager = objectManager.NewGameObject();
-	objectManager.AddComponent<GuardManager>(guardManager);
-	guardManager->GetComponent<GuardManager>()->Init(&objectManager, &guardImage, player, player2);
+	objectManager.AddComponent<GuardManager>(guardManager).Init(&objectManager, &guardImage, player, player2);
+
+	testSecurityCam = objectManager.NewGameObject();
+	objectManager.AddImage(testSecurityCam, securityCamImage);
+	objectManager.AddComponent<Detector>(testSecurityCam);
+	testSecurityCam->GetComponent<Detector>()->Init(90.f, 250.f, true, player);
+	testSecurityCam->SetPos({ 100, 750 });
 
 	//Creates a clone of the player gameObject and changes the sprite texture.
 	player2 = objectManager.CloneGameObject(player);

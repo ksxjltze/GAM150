@@ -21,6 +21,7 @@ namespace StarBangBang
 
 		inline const AEVec2& GetNextPos() const { return nextPos; }
 		inline bool IsMoving() const { return isMoving; }
+		bool IsChangingDir();
 
 	private:
 		bool MoveTo(AEVec2 pos);

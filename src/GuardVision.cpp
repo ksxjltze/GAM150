@@ -6,7 +6,7 @@
 
 using namespace StarBangBang;
 
-GuardVision::GuardVision(GameObject* gameObject) 
+GuardVision::GuardVision(GameObject* gameObject)
 	: Script(gameObject)
 	, detected_player(false)
 	, fieldOfView(90.f)
@@ -14,13 +14,15 @@ GuardVision::GuardVision(GameObject* gameObject)
 	, player(nullptr)
 	, client(nullptr)
 	, movement(nullptr)
-	, defaultForward({ 0, 1 })
+	, detector(nullptr)
 {
 }
 
 void GuardVision::Start()
 {
 	movement = gameObject->GetComponent<GuardMovement>();
+	detector = gameObject->GetComponent<Detector>();
+	detector->Init(fieldOfView, viewDist, false, player);
 }
 
 void GuardVision::Update()
@@ -28,67 +30,31 @@ void GuardVision::Update()
 	// only update if player or client in same partition grid as guard
 	// ...
 	// 
-	
-	AEVec2 forwardVec, toPlayerVec, toClientVec;
-	AEVec2 go_pos = gameObject->GetPos();
+	// only update rotation if moving
 
 	if (movement->IsMoving())
 	{
-		// rotate guard's vision
-		AEVec2 targetPos = gameObject->GetComponent<GuardMovement>()->GetNextPos();
-		AEVec2Sub(&targetDir, &targetPos, &go_pos);
+		AEVec2 targetDir, targetPos, goPos;
+		AEVec2 defaultForward = { 0, 1 };
+		AEVec2 defaultLeft = { -1, 0 };
+		targetPos = gameObject->GetComponent<GuardMovement>()->GetNextPos();
+		goPos = gameObject->GetPos();
+
+		AEVec2Sub(&targetDir, &targetPos, &goPos);
 		AEVec2Normalize(&targetDir, &targetDir);
 
-		visionRot = AERadToDeg(AEACos(AEVec2DotProduct(&defaultForward, &targetDir)));
-		if (targetPos.x > gameObject->GetPos().x)
-			visionRot *= -1;
+		float dpResult = AEVec2DotProduct(&defaultForward, &targetDir);
+		float rotationAngle = AERadToDeg(AEACos(dpResult));
+
+		float dp = AEVec2DotProduct(&defaultLeft, &targetDir);
+		if (dp <= 0.f)
+			rotationAngle *= -1;
+
+		detector->SetFacingDir(targetDir);
+		detector->Rotate(rotationAngle);
 	}
 	else
 	{
-		visionRot = 0.f;
+		detector->Rotate(0.f);
 	}
-
-	DrawVision();
-
-	//PRINT("%f\n", visionRot);
-
-	AEVec2 p_pos = player->GetPos();
-
-	// calculate vector from guard to player
-	AEVec2Sub(&toPlayerVec, &p_pos, &go_pos);
-	AEVec2Normalize(&toPlayerVec, &toPlayerVec);
-
-	float dpResult = AEVec2DotProduct(&targetDir, &toPlayerVec);
-	if (dpResult < 0.f) // don't continue if target is behind guard
-		return;
-
-	float angle = AEACos(dpResult);
-	angle = AERadToDeg(angle);
-
-	if (AEVec2SquareDistance(&p_pos, &go_pos) <= viewDist * viewDist)
-	{
-		if (angle < (fieldOfView * 0.5f))
-		{
-			// check if vision is colliding with environment first
-			// ...
-
-			//PRINT("%s\n", "DETECTED PLAYER");
-			detected_player = true;
-		}
-		//else
-			//PRINT("WHERE PLAYER\n");
-	}
-	//else
-		//PRINT("WHERE PLAYER\n");
-
-	if (detected_player)
-	{
-		// notify event manager: game over
-	}
-}
-
-void GuardVision::DrawVision()
-{
-	DrawLine(viewDist + 50.f, gameObject->GetPos(), (fieldOfView * 0.5f) + visionRot);
-	DrawLine(viewDist + 50.f, gameObject->GetPos(), (-fieldOfView * 0.5f) + visionRot);
 }
