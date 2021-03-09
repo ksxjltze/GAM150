@@ -1,5 +1,8 @@
 #pragma once
+#pragma warning(push)
+#pragma warning(disable : 26812)
 #include "fmod.hpp"
+#pragma warning(pop)
 
 namespace StarBangBang
 {
