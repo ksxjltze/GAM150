@@ -69,16 +69,20 @@ namespace StarBangBang
 
 		//Insert/Replace/Remove Tile.
 		AEVec2 mousePos = GetMouseWorldPos();
-		if (AEInputCheckTriggered(AEVK_LBUTTON))
+		if (AEInputCheckCurr(AEVK_LBUTTON))
 		{
 			A_Node* n = grid.GetNodeFromPosition(mousePos);
 			if (n)
 			{
 				InsertTile(n);
+				for (auto node : grid.Get4_NodeNeighbours(n))
+				{
+					InsertTile(node);
+				}
 			}
 		}
 
-		if (AEInputCheckTriggered(AEVK_RBUTTON))
+		if (AEInputCheckCurr(AEVK_RBUTTON))
 		{
 			A_Node* n = grid.GetNodeFromPosition(mousePos);
 			if (n)
