@@ -343,6 +343,8 @@ void CollisionManager::ResolverUpdate()
 
 	//			for (BoxCollider* box : c.cell_colliders)
 	//			{
+	//				assert(box);
+
 	//				if ( box->isStatic && col.isStatic  || box == &col)
 	//					continue;
 	//					
@@ -358,7 +360,6 @@ void CollisionManager::ResolverUpdate()
 
 	//		}
 	//	}
-
 	//	if (col.isStatic)
 	//		DebugCollider(col, Black());
 	//	else

@@ -70,7 +70,8 @@ namespace StarBangBang
 			//movement force
 			AEVec2Scale(&resolveForce, &normal, scale);
 
-			printf("%f, %f\n", resolveForce.x, resolveForce.y);
+			PRINT("Norm:\n (%0.3f,%0.3f)\n", normal.x, normal.y);
+
 
 			//push obj1
 			if (!obj1.isStatic)

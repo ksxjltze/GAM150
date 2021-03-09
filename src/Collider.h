@@ -37,7 +37,7 @@ namespace StarBangBang
 				return center;
 			}
 			CircleCollider( AEVec2 _center, float _rad = 1.0f);
-			void Update();
+			//void Update();
 			void SetCenter(float x, float y);
 			void Translate(float x, float y);
 	};
@@ -92,14 +92,12 @@ namespace StarBangBang
 			const std::vector<int>& GetCellIndexes() const;
 
 			BoxCollider( GameObject* gameObject);
-			BoxCollider( AEVec2 _center,bool _isStatic = true ,float width = 1.0f, float height = 1.0f);
-			BoxCollider(AEVec2 min, AEVec2 max , bool isStatic = true);
 
 			BoxCollider(const BoxCollider& rhs) = default;
 			BoxCollider& operator=(const BoxCollider& rhs) = default;
 
-			void Update();
-			void LateUpdate();
+			//void Update();
+			//void LateUpdate();
 			//parition cell functions
 			void SetCenter(float x, float y);
 			void Translate(float x, float y);
