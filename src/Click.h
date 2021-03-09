@@ -9,9 +9,12 @@ namespace StarBangBang
 	class Click : public Script, public IClickable
 	{
 	public:
-		Click(GameObject* obj, void (*fptr)(void)) : Script(obj), callback{ fptr } {}
 		Click(GameObject* obj) : Script(obj) {}
-		//Click(GameObject* obj, void (ClassType::* fptr)(void)) : Component(obj), callbackClass{ fptr } {}
+		Click(GameObject* obj, void (*fptr)(void)) : Script(obj), callback{ fptr } {}
+		Click(GameObject* obj, ClassType& inst, void (ClassType::* fptr)(void)) : Script(obj)
+		{
+			callbackList.push_back({ inst, fptr });
+		}
 
 		void Start() { printf("TESTT\n"); }
 		void Update()
@@ -29,17 +32,21 @@ namespace StarBangBang
 		}
 
 		void setCallback(void (*fptr)(void)) { callback = fptr; }
-		void setCallback(ClassType& inst, void (ClassType::* fptr)(void)) { test.push_back({ inst, fptr }); }
+		void setCallback(ClassType& inst, void (ClassType::* fptr)(void)) { callbackList.push_back({ inst, fptr }); }
 
 		virtual void onClick()
 		{
-			//printf("%s\n", typeid(test.front().first).name()); 
-			//test.front().first.LoadLevelTest();
-			((test.front().first).*(test.front().second))();
+			if (callback)
+				callback();
+
+			for (auto cb : callbackList)
+			{
+				(cb.first.*(cb.second))();
+			}
 		}
 
 	private:
-		void (*callback)(void);
-		std::vector<std::pair<ClassType&, void (ClassType::*)(void)>> test;
+		void (*callback)(void) { nullptr };
+		std::vector<std::pair<ClassType&, void (ClassType::*)(void)>> callbackList;
 	};
 }
