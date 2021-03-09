@@ -11,6 +11,10 @@ namespace StarBangBang
 		static const float CAMERA_SCALE_MIN = 0.0f;
 		static const float CAMERA_SCALE_MAX = 3.0f;
 
+		static const float RESOLUTION_X = 1920.0f;
+		static const float RESOLUTION_Y = 1080.0f;
+		static const float TARGET_WINDOW_WIDTH = 800.0f;
+		static const float TARGET_WINDOW_HEIGHT = 600.0f;
 	}
 
 	namespace CONSTANTS

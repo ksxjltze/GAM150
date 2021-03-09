@@ -85,7 +85,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 	PathFinder::PathFinderInit();
 	//Full screen
 	//AESysInit(hInstance, nCmdShow, 1920, 1080, 1, 60, true, NULL);
-	//AEToogleFullScreen(true);
+	AEToogleFullScreen(false);
 
 	// Changing the window title
 	AESysSetWindowTitle("Captain Stealth");

@@ -9,9 +9,13 @@ namespace StarBangBang
 	namespace GRAPHICS
 	{
 		static float zoom = 1;
+
 		void DrawImage(AEGfxVertexList* mesh, AEGfxTexture* texture, AEVec2 pos, AEVec2 scale, float rotation);
+		void SetAspectRatio(float x, float y);
 		void SetZoom(float scale);
 		float GetZoom();
+		void ToggleFullscreen();
+
 	}
 
 	class GraphicsManager

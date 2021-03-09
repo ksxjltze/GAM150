@@ -67,6 +67,11 @@ namespace StarBangBang
 			LoadLevel(RESOURCES::LEVEL_TEST_PATH);
 		}
 
+		if (AEInputCheckTriggered(AEVK_SPACE))
+		{
+			GRAPHICS::ToggleFullscreen();
+		}
+
 		//Insert/Replace/Remove Tile.
 		AEVec2 mousePos = GetMouseWorldPos();
 		if (AEInputCheckCurr(AEVK_LBUTTON))
