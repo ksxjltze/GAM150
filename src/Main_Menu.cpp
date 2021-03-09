@@ -35,6 +35,7 @@ namespace StarBangBang
 		startbutton_obj->transform.scale = { x_scale,y_scale };
 		startbutton_obj->transform.position = { 100,100 };
 
+		//auto ld = [=]() {gameStateManager.SetNextGameState(SCENE::DEMO); };
 		auto d = []() {printf("MAIN MENU: TEST\n"); };
 		objectManager.AddComponent<Click>(startbutton_obj).setCallback(d);
 
@@ -52,6 +53,7 @@ namespace StarBangBang
 		exitbutton_obj = objectManager.NewGameObject();
 		objectManager.AddImage(exitbutton_obj, exitgame_button);
 		//exitbutton_obj->transform.scale = { x_scale,y_scale };
+		objectManager.Init();
 	}
 
 	void StarBangBang::Main_Menu::Update()

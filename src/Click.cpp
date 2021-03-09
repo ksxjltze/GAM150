@@ -8,7 +8,7 @@ StarBangBang::Click::Click(GameObject* obj) : Script(obj), callback{ nullptr }
 
 void StarBangBang::Click::Start()
 {
-
+	PRINT("CLICK: START\n");
 }
 
 void StarBangBang::Click::Update()

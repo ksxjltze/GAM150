@@ -103,7 +103,7 @@ void CircleCollider::Translate(float x, float y)
 
 void StarBangBang::BoxCollider::Update()
 {
-
+	PRINT("TEST");
 }
 
 void StarBangBang::BoxCollider::LateUpdate()

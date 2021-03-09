@@ -15,7 +15,8 @@ namespace StarBangBang
 		bool isStatic = false;
 		AEVec2 offset = { 0,0 };
 
-		virtual void Update() {};
+		//virtual void Start() {};
+		//virtual void Update() {};
 
 		Collider(GameObject* gameObject) :Component(gameObject) { isTrigger = false, isStatic = false, offset = AEVec2{ 0,0 }; };
 		Collider() :Component(gameObject) { isTrigger = false, isStatic = false, offset = AEVec2{ 0,0 }; gameObject = nullptr; };
@@ -92,8 +93,8 @@ namespace StarBangBang
 			const std::vector<int>& GetCellIndexes() const;
 
 			BoxCollider( GameObject* gameObject);
-			BoxCollider( AEVec2 _center,bool _isStatic = true ,float width = 1.0f, float height = 1.0f);
-			BoxCollider(AEVec2 min, AEVec2 max , bool isStatic = true);
+			//BoxCollider( AEVec2 _center,bool _isStatic = true ,float width = 1.0f, float height = 1.0f);
+			//BoxCollider(AEVec2 min, AEVec2 max , bool isStatic = true);
 
 			BoxCollider(const BoxCollider& rhs) = default;
 			BoxCollider& operator=(const BoxCollider& rhs) = default;
