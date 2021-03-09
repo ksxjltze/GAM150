@@ -3,6 +3,11 @@
 #include "MovementManager.h"
 #include "Click.h"
 
+void Testt()
+{
+	PRINT("TESTES\n");
+}
+
 StarBangBang::Sample_Scene::Sample_Scene(int id, GameStateManager& manager) : Scene(id, manager), gameObject{nullptr}
 {
 	
@@ -20,7 +25,7 @@ void StarBangBang::Sample_Scene::Init()
 
 	objectManager.AddImage(gameObject, image2);
 	objectManager.AddCollider(gameObject, false);
-	objectManager.AddComponent<Click>(gameObject);
+	objectManager.AddComponent<Click>(gameObject).setCallback(Testt);
 
 	for (int i = 0; i < 8; i++)
 	{

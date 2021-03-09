@@ -8,8 +8,13 @@ namespace StarBangBang
 	{
 	public:
 		Click(GameObject* obj);
+
 		void Start();
 		void Update();
+
+		void setCallback(void (*fptr)(void));
 		virtual void onClick();
+	private:
+		void (*callback)(void);
 	};
 }
