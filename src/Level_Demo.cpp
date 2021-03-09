@@ -3,7 +3,9 @@
 
 #include "InteractableComponent.h"
 #include "Guard.h"
+#include "GuardManager.h"
 #include "Detector.h"
+#include "Map.h"
 
 #include "MovementManager.h"
 
@@ -31,13 +33,14 @@ void StarBangBang::Level_Demo::Load()
 	planetImage = graphicsManager.CreateSprite("../Resources/PlanetTexture.png");
 	guardImage = graphicsManager.CreateSprite("../Resources/guard.png");
 	securityCamImage = graphicsManager.CreateSprite("../Resources/guard.png");
+	mapImage = graphicsManager.CreateSprite("../Resources/map.png");
 }
 
 //Initialization of game objects, components and scripts.
 void StarBangBang::Level_Demo::Init()
 {
-	//tilemap.Init();
-	//tilemap.Load(RESOURCES::LEVEL_TEST_PATH);
+	tilemap.Init();
+	tilemap.Load(RESOURCES::LEVEL_TEST_PATH);
 
 	GameObject* worldOriginMarker = objectManager.NewGameObject();
 	player = objectManager.NewGameObject();
@@ -55,6 +58,11 @@ void StarBangBang::Level_Demo::Init()
 	objectManager.AddComponent<Detector>(testSecurityCam);
 	testSecurityCam->GetComponent<Detector>()->Init(90.f, 250.f, true, player);
 	testSecurityCam->SetPos({ 100, 750 });
+
+	map = objectManager.NewGameObject();
+	objectManager.AddImage(map, mapImage);
+	map->transform.scale = { 5.f, 5.f };
+	objectManager.AddComponent<Map>(map).Init(tilemap.GetMapWidth(), tilemap.GetMapHeight(), player, &objectManager, &playerImage);
 
 	//Creates a clone of the player gameObject and changes the sprite texture.
 	player2 = objectManager.CloneGameObject(player);
@@ -102,6 +110,14 @@ void StarBangBang::Level_Demo::Update()
 	if (AEInputCheckTriggered(VK_SPACE))
 	{
 		gameStateManager.SetNextGameState(SCENE::EDITOR);
+	}
+
+	if (AEInputCheckTriggered(AEVK_M))
+	{
+		map->active = !map->active;
+
+		// send message to player so he can't move
+		// ...
 	}
 }
 
