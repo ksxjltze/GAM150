@@ -26,7 +26,6 @@ namespace StarBangBang
 					break;
 				}
 			}
-			assert(result != nullptr);
 			return static_cast<T*>(result);
 
 		}
@@ -38,8 +37,6 @@ namespace StarBangBang
 
 		Transform transform;
 		GameObject* parent = nullptr;
-
-		float width = 0, height = 0;
 		bool active = true;
 
 		AEVec2 GetPos();

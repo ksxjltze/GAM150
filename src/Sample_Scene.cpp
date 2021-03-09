@@ -25,7 +25,13 @@ void StarBangBang::Sample_Scene::Init()
 
 	objectManager.AddImage(gameObject, image2);
 	objectManager.AddCollider(gameObject, false);
-	objectManager.AddComponent<Click>(gameObject).setCallback(Testt);
+	//objectManager.AddComponent<Click>(gameObject).setCallback(Testt);
+
+	Click* click = gameObject->GetComponent<Click>();
+	if (!click)
+	{
+		PRINT("CLICK NO");
+	}
 
 	for (int i = 0; i < 8; i++)
 	{

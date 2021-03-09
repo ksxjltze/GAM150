@@ -19,7 +19,7 @@ void StarBangBang::DragComponent::Update()
 	AEVec2 pos = gameObject->GetPos();
 
 	//Should probably change
-	float width = gameObject->width, height = gameObject->height;
+	float width = gameObject->transform.scale.x, height = gameObject->transform.scale.y;
 
 	if (AEInputCheckTriggered(AEVK_LBUTTON))
 	{

@@ -62,15 +62,6 @@ StarBangBang::GameObject* StarBangBang::ObjectManager::NewGameObject(GameObject*
 	return gameObject;
 }
 
-StarBangBang::GameObject* StarBangBang::ObjectManager::NewGameObject(float width, float height)
-{
-	GameObject* gameObject = new GameObject();
-	gameObject->width = width;
-	gameObject->height = height;
-	gameObjectList.push_back(gameObject);
-	return gameObject;
-}
-
 StarBangBang::GameObject* StarBangBang::ObjectManager::CloneGameObject(GameObject* gameObject)
 {
 	if (gameObject)

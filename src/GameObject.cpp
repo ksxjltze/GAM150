@@ -13,8 +13,6 @@ StarBangBang::GameObject::GameObject(const GameObject& obj)
 {
 	transform = obj.transform;
 	parent = obj.parent;
-	width = obj.width;
-	height = obj.height;
 	active = obj.active;
 }
 

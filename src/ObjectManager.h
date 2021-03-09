@@ -28,7 +28,6 @@ namespace StarBangBang
 
 		GameObject* NewGameObject();
 		GameObject* NewGameObject(GameObject* parent);
-		GameObject* NewGameObject(float width, float height);
 
 		GameObject* CloneGameObject(GameObject* gameObject);
 		void DestroyGameObject(GameObject* gameObject);
