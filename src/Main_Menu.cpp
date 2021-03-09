@@ -40,7 +40,8 @@ namespace StarBangBang
 		playbutton_obj->transform.position = { (float)AEGetWindowWidth() / -8, (float)AEGetWindowHeight() / 8 };
 
 		auto d = []() {printf("MAIN MENU: TEST\n"); };
-		objectManager.AddComponent<Click>(playbutton_obj).setCallback(d);
+		objectManager.AddComponent<Click>(playbutton_obj, d);
+
 		//settings button
 		settingsbutton_obj = objectManager.NewGameObject();
 		objectManager.AddImage(settingsbutton_obj, settingsbutton1);

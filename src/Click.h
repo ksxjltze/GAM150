@@ -7,7 +7,7 @@ namespace StarBangBang
 	class Click : public Script, public IClickable
 	{
 	public:
-		Click(GameObject* obj);
+		Click(GameObject* obj, void (*fptr)(void));
 
 		void Start();
 		void Update();

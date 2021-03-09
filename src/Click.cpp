@@ -1,7 +1,7 @@
 #include "Click.h"
 #include "Utils.h"
 
-StarBangBang::Click::Click(GameObject* obj) : Script(obj), callback{ nullptr }
+StarBangBang::Click::Click(GameObject* obj, void (*fptr)(void)) : Script(obj), callback{ fptr }
 {
 
 }
