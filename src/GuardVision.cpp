@@ -29,15 +29,13 @@ void GuardVision::Update()
 {
 	// only update if player or client in same partition grid as guard
 	// ...
-	// 
-	// only update rotation if moving
 
 	if (movement->IsMoving())
 	{
 		AEVec2 targetDir, targetPos, goPos;
 		AEVec2 defaultForward = { 0, 1 };
 		AEVec2 defaultLeft = { -1, 0 };
-		targetPos = gameObject->GetComponent<GuardMovement>()->GetNextPos();
+		targetPos = movement->GetNextPos();
 		goPos = gameObject->GetPos();
 
 		AEVec2Sub(&targetDir, &targetPos, &goPos);

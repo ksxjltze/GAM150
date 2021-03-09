@@ -212,10 +212,12 @@ void StarBangBang::ObjectManager::Draw()
 		if (component->allocated == false)
 			continue;
 
-		if (typeid(*component).name() == typeid(ImageComponent).name() && component->active)
+		/*if (typeid(*component).name() == typeid(ImageComponent).name() && component->active)
 		{
 			static_cast<ImageComponent*>(component)->Draw();
-		}
+		}*/
+
+		component->Draw();
 	}
 }
 

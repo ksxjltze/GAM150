@@ -12,6 +12,7 @@ namespace StarBangBang
 
 		virtual void Start() {};
 		virtual void Update() {};
+		virtual void Draw() {};
 
 	private:
 		friend class ScriptManager;
