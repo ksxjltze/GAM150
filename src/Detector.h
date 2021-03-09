@@ -10,6 +10,7 @@ namespace StarBangBang
 
 		void Start() {}
 		void Update();
+		void Draw();
 
 		void Init(float fov, float dist, bool fixedPos, GameObject* target);
 		void Rotate(float angle);

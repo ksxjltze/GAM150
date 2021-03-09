@@ -70,8 +70,8 @@ void GuardMovement::Distracted()
 		if (nodeIndex < path.size())
 		{
 			isMoving = true;
-			if (nodeIndex + 1 < path.size())
-				nextPos = path[nodeIndex + 1]->nodePos;
+			//if (nodeIndex + 1 < path.size())
+			nextPos = path[nodeIndex]->nodePos;
 			
 			//PRINT("target: %f, %f\n", nextPos.x, nextPos.y);
 				

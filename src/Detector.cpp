@@ -38,6 +38,10 @@ void Detector::Update()
 	}
 
 	CheckForTargets();
+}
+
+void Detector::Draw()
+{
 	DrawVision(gameObject->GetPos());
 }
 

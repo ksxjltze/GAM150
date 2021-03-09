@@ -29,8 +29,6 @@ void GuardVision::Update()
 {
 	// only update if player or client in same partition grid as guard
 	// ...
-	// 
-	// only update rotation if moving
 
 	if (movement->IsMoving())
 	{
