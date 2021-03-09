@@ -96,6 +96,7 @@
     <ClCompile Include="src\Collider.cpp" />
     <ClCompile Include="src\CollisionManager.cpp" />
     <ClCompile Include="src\constants.cpp" />
+    <ClCompile Include="src\Detector.cpp" />
     <ClCompile Include="src\DragComponent.cpp" />
     <ClCompile Include="src\EventTest.cpp" />
     <ClCompile Include="src\GameObject.cpp" />
@@ -143,6 +144,7 @@
     <ClInclude Include="src\Component.h" />
     <ClInclude Include="src\ComponentCRTP.h" />
     <ClInclude Include="src\constants.h" />
+    <ClInclude Include="src\Detector.h" />
     <ClInclude Include="src\DragComponent.h" />
     <ClInclude Include="src\Event.h" />
     <ClInclude Include="src\EventTest.h" />

@@ -70,12 +70,15 @@ void GuardMovement::Distracted()
 		if (nodeIndex < path.size())
 		{
 			isMoving = true;
+			//if (nodeIndex + 1 < path.size())
 			nextPos = path[nodeIndex]->nodePos;
+			
 			//PRINT("target: %f, %f\n", nextPos.x, nextPos.y);
 				
 			float timer = 0.f;
 			if (MoveTo(path[nodeIndex]->nodePos))
 			{
+				//PRINT("NODE INDEX: %d\n", nodeIndex);
 				timer += AEFrameRateControllerGetFrameTime();
 				if (timer >= 0.01f)
 				{
@@ -136,4 +139,33 @@ void GuardMovement::SetWaypoints()
 
 	// Set waypoints specfic to this guard
 	// ...
+}
+
+bool GuardMovement::IsChangingDir()
+{
+	AEVec2 currNode, prevNode;
+	
+	prevNode = path[nodeIndex]->nodePos;
+
+	if (nodeIndex + 1 < path.size())
+		currNode = path[nodeIndex + 1]->nodePos;
+	else
+		currNode = prevNode;
+
+	AEVec2Normalize(&currNode, &currNode);
+	AEVec2Normalize(&prevNode, &prevNode);
+	float dpResult = AEVec2DotProduct(&currNode, &prevNode);
+
+	return (dpResult < 0.f);
+
+	/*if ((int)currNode.x == (int)prevNode.x)
+		if ((int)currNode.y != (int)prevNode.y)
+			return true;
+
+	if ((int)currNode.y == (int)prevNode.y)
+		if ((int)currNode.x != (int)prevNode.x)
+			return true;
+
+	return false;*/
+	//return (currNode.x != prevNode.x || currNode.y != prevNode.y);
 }

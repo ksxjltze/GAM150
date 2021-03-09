@@ -1,5 +1,6 @@
 #pragma once
 #include "ScriptComponent.h"
+#include "Detector.h"
 
 namespace StarBangBang
 {
@@ -23,14 +24,11 @@ namespace StarBangBang
 		float viewDist;
 		float visionRot = 0.f;
 
-		AEVec2 defaultForward;
-		AEVec2 targetDir{ 0, 1 };
-
 		GameObject* player;
 		GameObject* client;
 
 		GuardMovement* movement;
 
-		void DrawVision();
+		Detector* detector;
 	};
 }
