@@ -15,7 +15,11 @@ namespace StarBangBang
 		inline int getID() { return id; }
 		virtual void Load() = 0;
 		virtual void Init() = 0;
-		virtual void Update() { objectManager.Update();}
+		virtual void Update() 
+		{ 
+			objectManager.Update(); 
+			objectManager.LateUpdate(); 
+		}
 		virtual void Draw() { objectManager.Draw(); }
 		virtual void Free() { memoryManager.Free(); }
 		virtual void Unload() { memoryManager.Unload(); }

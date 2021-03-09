@@ -22,9 +22,59 @@ namespace
 	std::queue<CollisionPair> resolveQueue;
 	//all colliders created
 	std::vector<BoxCollider> collider_list;
-	
+
 }
 
+
+BoxCollider* CollisionManager::CreateBoxColliderInstance(GameObject* gameObject , bool is_static)
+{
+	BoxCollider c = BoxCollider(gameObject);
+	c.isStatic = is_static;
+	collider_list.push_back(c);
+	unsigned int index = (unsigned int)collider_list.size() - 1;
+
+	std::vector<AEVec2> points;
+	points.reserve(8);
+	AEVec2 max = c.Max();
+	AEVec2 min = c.Min();
+
+	AEVec2 topR{ min.x, max.y };
+	AEVec2 btmL{ max.x,min.y };
+	AEVec2 v = min;
+	//calcuate all the in between points 
+	for (int y = 0; ; ++y)
+	{
+		if (v.x > max.x || v.y > max.y)
+			break;
+		for (int x = 0; ; ++x)
+		{
+			v = AEVec2{ c.Min().x + x * p_grid.GetCellSize() , c.Min().y + y * p_grid.GetCellSize() };
+
+			if (v.x > max.x || v.y > max.y)
+				break;
+
+			points.push_back(v);
+
+		}
+	}
+	points.push_back(max);
+	points.push_back(topR);
+	points.push_back(btmL);
+
+	//PRINT("size:%zu \n" ,points.size());
+
+	for (size_t i = 0; i < points.size(); ++i)
+	{
+		int cellIndex = p_grid.GetHashCellIndex(points[i]);
+		Cell& cell = p_grid.grid[cellIndex];
+		cell.cellIndex = cellIndex;
+		collider_list[index].AddToCellList(cellIndex);
+		cell.cell_colliders.insert(&collider_list[index]);
+
+		//PRINT("hash:%d \n", cellIndex);
+	}
+	return &collider_list[index];
+}
 
 void CalculateCollisionData(const BoxCollider& b1, const BoxCollider& b2, CollisionData& col)
 {
@@ -255,22 +305,12 @@ void DrawParition()
 void CollisionManager::ResolverUpdate()
 {
 
-	if (!resolveQueue.empty())
-	{
-		for (size_t i = 0; i < resolveQueue.size(); ++i)
-		{
-			CollisionPair& pair = resolveQueue.front();
-			CollisionManager::Resolve(pair.A, pair.B, pair.data);
-			resolveQueue.pop();
-		}
-	}
-
 	//non-partition 
-	/*for (BoxCollider& col : collider_list)
+	for (BoxCollider& col : collider_list)
 	{
 		for (BoxCollider& col2 : collider_list)
 		{
-			if (&col == &col2)
+			if (col.isStatic && col2.isStatic  || &col == &col2  )
 				continue;
 			CollisionData data;
 			if (Dynamic_AABB(col, AEVec2{ 0,0 }, col2, AEVec2{ 0,0 }, data))
@@ -281,46 +321,59 @@ void CollisionManager::ResolverUpdate()
 			}
 
 		}
-		DebugCollider(col, Black());
-	}*/
-
-
-	//paritition (still have some bugs)
-	for (BoxCollider& col : collider_list)
-	{
-		
-		if (col.GetCellListSize() > 0)
-		{
-			for (const int index : col.GetCellIndexes())
-			{
-				//PRINT("C_Index: %d\n", index);
-				assert(index < p_grid.GetBucketSize());
-
-				Cell& c = p_grid.grid[index];
-
-				for (BoxCollider* box : c.cell_colliders)
-				{
-					if (box == &col)
-						continue;
-					CollisionData data;
-					if (Dynamic_AABB(col, AEVec2{ 0,0 }, *box, AEVec2{ 0,0 }, data))
-					{
-						CollisionPair p{ col,*box, data };
-						AddToResolveQueue(p);
-
-					}
-				}
-
-			}
-		}
-
-		
-		if(col.isStatic)
+		if (col.isStatic)
 			DebugCollider(col, Black());
 		else
 			DebugCollider(col, Red());
 	}
 
+	//paritition (still have some bugs)
+	//for (BoxCollider& col : collider_list)
+	//{
+	//	//printf("%zu\n", collider_list.size());
+	//	if (col.GetCellListSize() > 0)
+	//	{
+	//		for (const int index : col.GetCellIndexes())
+	//		{
+	//			//PRINT("C_Index: %d\n", index);
+	//			assert(index < p_grid.GetBucketSize());
+
+	//			Cell& c = p_grid.grid[index];
+
+	//			for (BoxCollider* box : c.cell_colliders)
+	//			{
+	//				if ( box->isStatic && col.isStatic  || box == &col)
+	//					continue;
+	//					
+	//				CollisionData data;
+	//				if (Dynamic_AABB(col, AEVec2{ 0,0 }, *box, AEVec2{ 0,0 }, data))
+	//				{
+	//					//PRINT("COLLIDER\n");
+	//					CollisionPair p{ col,*box, data };
+	//					AddToResolveQueue(p);
+
+	//				}
+	//			}
+
+	//		}
+	//	}
+
+	//	if (col.isStatic)
+	//		DebugCollider(col, Black());
+	//	else
+	//		DebugCollider(col, Red());
+	//
+	//}
+
+	if (!resolveQueue.empty())
+	{
+		for (size_t i = 0; i < resolveQueue.size(); ++i)
+		{
+			CollisionPair& pair = resolveQueue.front();
+			CollisionManager::Resolve(pair.A, pair.B, pair.data);
+			resolveQueue.pop();
+		}
+	}
 	//DrawParition();
 }
 //wip

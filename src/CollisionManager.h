@@ -50,6 +50,8 @@ namespace StarBangBang
 		void DebugCollider(CircleCollider c);
 
 
+		BoxCollider* CreateBoxColliderInstance(GameObject* gameObject,bool is_static = true);
+
 		bool ContainsPoint(const BoxCollider& box,AEVec2 pt);
 
 
@@ -67,6 +69,9 @@ namespace StarBangBang
 
 			//movement force
 			AEVec2Scale(&resolveForce, &normal, scale);
+
+			printf("%f, %f\n", resolveForce.x, resolveForce.y);
+
 			//push obj1
 			if (!obj1.isStatic)
 			{
@@ -87,3 +92,4 @@ namespace StarBangBang
 	}
 	
 }
+

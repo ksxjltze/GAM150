@@ -25,13 +25,13 @@ namespace StarBangBang
 		//place static collider (they cannot move)
 		if (AEInputCheckTriggered(AEVK_Q))
 		{
-			BoxCollider b = BoxCollider(GetMouseWorldPos(), true , 50.0f, 50.0f);
+			//BoxCollider b = BoxCollider(GetMouseWorldPos(), true , 50.0f, 50.0f);
 		
 		}
 		//place dynamic collider
 		if (AEInputCheckTriggered(AEVK_E))
 		{
-			BoxCollider b = BoxCollider(GetMouseWorldPos(), false, 50.0f, 50.0f);
+			//BoxCollider b = BoxCollider(GetMouseWorldPos(), false, 50.0f, 50.0f);
 		}
 		if (AEInputCheckTriggered(AEVK_1))
 			PRINT("(%f,%f)\n", GetMouseWorldPos().x, GetMouseWorldPos().y);

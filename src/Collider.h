@@ -49,11 +49,10 @@ namespace StarBangBang
 			AEVec2 min;
 			AEVec2 max;
 			AEVec2 extend;	//half of width and height 
-			AEVec2 center;
+			AEVec2& center { gameObject->transform.position };
 			//indexes to cells they occupy
 			std::vector<int> cell_indexes;
 		public:
-			bool hasBool;
 			inline AEVec2 GetExtend() const
 			{
 				return extend;
@@ -89,17 +88,18 @@ namespace StarBangBang
 				return extend.x * 2.0f;
 			}
 
-			BoxCollider Union(const BoxCollider&);
 
 			const std::vector<int>& GetCellIndexes() const;
 
 			BoxCollider( GameObject* gameObject);
 			BoxCollider( AEVec2 _center,bool _isStatic = true ,float width = 1.0f, float height = 1.0f);
 			BoxCollider(AEVec2 min, AEVec2 max , bool isStatic = true);
+
 			BoxCollider(const BoxCollider& rhs) = default;
 			BoxCollider& operator=(const BoxCollider& rhs) = default;
 
 			void Update();
+			void LateUpdate();
 			//parition cell functions
 			void SetCenter(float x, float y);
 			void Translate(float x, float y);

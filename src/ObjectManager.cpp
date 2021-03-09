@@ -3,8 +3,19 @@
 #include <typeinfo>
 #include <fstream>
 
-void StarBangBang::ObjectManager::AddComponent(GameObject* gameObject, _Component* component)
+StarBangBang::BoxCollider& StarBangBang::ObjectManager::AddCollider(GameObject* gameObject, bool isStatic)
 {
+	{
+		BoxCollider* collider = CollisionManager::CreateBoxColliderInstance(gameObject, isStatic);
+		assert(collider);
+		gameObject->AddComponent(collider);
+		return *collider;
+	}
+}
+
+void StarBangBang::ObjectManager::AddComponent(GameObject* gameObject, _Component* component, bool allocated)
+{
+	component->allocated = allocated;
 	componentList.push_back(component);
 	gameObject->AddComponent(component);
 }
@@ -188,7 +199,8 @@ void StarBangBang::ObjectManager::FreeComponents()
 {
 	for (_Component* component : componentList)
 	{
-		delete component;
+		if (component->allocated)
+			delete component;
 	}
 
 	//componentList.clear();
@@ -206,6 +218,9 @@ void StarBangBang::ObjectManager::Draw()
 {
 	for (_Component* component : componentList)
 	{
+		if (component->allocated == false)
+			continue;
+
 		if (typeid(*component).name() == typeid(ImageComponent).name() && component->active)
 		{
 			static_cast<ImageComponent*>(component)->Draw();
@@ -219,5 +234,14 @@ void StarBangBang::ObjectManager::Update()
 	{
 		if (component->active)
 			component->Update();
+	}
+}
+
+void StarBangBang::ObjectManager::LateUpdate()
+{
+	for (_Component* component : componentList)
+	{
+		if (component->active)
+			component->LateUpdate();
 	}
 }

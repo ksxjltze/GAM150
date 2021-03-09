@@ -54,44 +54,32 @@ StarBangBang::BoxCollider::BoxCollider(GameObject* gameObject) : Collider(gameOb
 	min = AEVec2{ _center.x - extend.x , _center.y - extend.y };
 	max = AEVec2{ _center.x + extend.x , _center.y + extend.y };
 
-	center = _center;
-	CollisionManager::AddToColliders(*this);
+	//center = _center;
+	//CollisionManager::AddToColliders(*this);
 }
 
-BoxCollider::BoxCollider(AEVec2 min, AEVec2 max,bool isStatic) 
-{
-	this->min = min;
-	this->max = max;
-	this->isStatic = isStatic;
-	float width = max.x - min.x;
-	float height = max.y - min.y;
-	extend = AEVec2{ width * 0.5f,height * 0.5f };
-	center = AEVec2{min.x + extend.x, min.y + extend.y};
-	CollisionManager::AddToColliders(*this);
-}
-
-BoxCollider::BoxCollider(AEVec2 _center, bool _isStatic , float width, float height) : Collider()
-{
-	extend = AEVec2{ width * 0.5f,height * 0.5f};
-	min = AEVec2{_center.x - extend.x , _center.y - extend.y} ;
-	max = AEVec2{ _center.x + extend.x , _center.y + extend.y };
-	isStatic = _isStatic;
-	center = _center;
-	CollisionManager::AddToColliders(*this);
-	
-}
-
-BoxCollider BoxCollider::Union(const BoxCollider& b1)
-{
-
-	AEVec2 newMin, newMax;
-	newMin.x = min(Min().x, b1.Min().x);
-	newMin.y = min(Min().y, b1.Min().y);
-	newMax.x = max(Max().x, b1.Max().x);
-	newMax.y = max(Max().y, b1.Max().y);
-
-	return BoxCollider(newMin,newMax);
-}
+//BoxCollider::BoxCollider(AEVec2 min, AEVec2 max,bool isStatic) 
+//{
+//	this->min = min;
+//	this->max = max;
+//	this->isStatic = isStatic;
+//	float width = max.x - min.x;
+//	float height = max.y - min.y;
+//	extend = AEVec2{ width * 0.5f,height * 0.5f };
+//	center = AEVec2{min.x + extend.x, min.y + extend.y};
+//	//CollisionManager::AddToColliders(*this);
+//}
+//
+//BoxCollider::BoxCollider(AEVec2 _center, bool _isStatic , float width, float height) : Collider()
+//{
+//	extend = AEVec2{ width * 0.5f,height * 0.5f};
+//	min = AEVec2{_center.x - extend.x , _center.y - extend.y} ;
+//	max = AEVec2{ _center.x + extend.x , _center.y + extend.y };
+//	isStatic = _isStatic;
+//	center = _center;
+//	//CollisionManager::AddToColliders(*this);
+//	
+//}
 
 
 
@@ -115,32 +103,12 @@ void CircleCollider::Translate(float x, float y)
 
 void StarBangBang::BoxCollider::Update()
 {
-	if (gameObject)
-	{
-		//printf("%f, %f\n", gameObject->transform.position.x, gameObject->transform.position.y);
-		//printf("%f, %f\n", center.x, center.y);
 
-		float dt = static_cast<float>(AEFrameRateControllerGetFrameTime());
-		float speed = PLAYER::PLAYER_SPEED * dt;
-		if (AEInputCheckCurr(AEVK_W))
-		{
-			Translate(0, speed);
-		}
-		if (AEInputCheckCurr(AEVK_A))
-		{
-			Translate(-speed, 0);
-		}
-		if (AEInputCheckCurr(AEVK_S))
-		{
-			Translate(0, -speed);
-		}
-		if (AEInputCheckCurr(AEVK_D))
-		{
-			Translate(speed, 0);
-		}
+}
 
-		gameObject->SetPos({ center.x, center.y });
-	}
+void StarBangBang::BoxCollider::LateUpdate()
+{
+
 }
 
 void StarBangBang::CircleCollider::Update()
