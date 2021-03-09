@@ -139,7 +139,8 @@ namespace StarBangBang
 		grid.FreeGrid();
 		float scale = tileMap.GetTileScale();
 		AEVec2 dimensions = { scale * tileMap.GetMapWidth(), scale * tileMap.GetMapHeight() };
-		grid.CreateGrid(scale, tileMap.GetMapWidth(), tileMap.GetMapHeight(),{ scale / 2, -dimensions.y + scale / 2 });
+		//grid.CreateGrid(scale, tileMap.GetMapWidth(), tileMap.GetMapHeight(),{ scale / 2, -dimensions.y + scale / 2 });
+		grid.CreateGrid(scale, tileMap.GetMapWidth(), tileMap.GetMapHeight(),{ -scale / 2, scale / 2 });
 	}
 
 }
