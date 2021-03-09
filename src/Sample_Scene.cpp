@@ -1,6 +1,7 @@
 #include "Sample_Scene.h"
 #include "CollisionManager.h"
 #include "MovementManager.h"
+#include "Click.h"
 
 StarBangBang::Sample_Scene::Sample_Scene(int id, GameStateManager& manager) : Scene(id, manager), gameObject{nullptr}
 {
@@ -19,6 +20,7 @@ void StarBangBang::Sample_Scene::Init()
 
 	objectManager.AddImage(gameObject, image2);
 	objectManager.AddCollider(gameObject, false);
+	objectManager.AddComponent<Click>(gameObject);
 
 	for (int i = 0; i < 8; i++)
 	{
