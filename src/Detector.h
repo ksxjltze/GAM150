@@ -14,7 +14,6 @@ namespace StarBangBang
 
 		void Init(float fov, float dist, bool fixedPos, GameObject* target);
 		void Rotate(float angle);
-		void DrawVision(const AEVec2& pos);
 
 		inline void SetAngle(float angle) { rotationAngle = angle; }
 		inline void SetFacingDir(const AEVec2& dir) { targetDir = dir; }

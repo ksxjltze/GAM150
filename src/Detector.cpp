@@ -42,7 +42,8 @@ void Detector::Update()
 
 void Detector::Draw()
 {
-	DrawVision(gameObject->GetPos());
+	DrawLine(viewDist + 50.f, gameObject->GetPos(), (fieldOfView * 0.5f) + rotationAngle);
+	DrawLine(viewDist + 50.f, gameObject->GetPos(), (-fieldOfView * 0.5f) + rotationAngle);
 }
 
 void Detector::Rotate(float angle)
@@ -53,12 +54,6 @@ void Detector::Rotate(float angle)
 	{
 		AEVec2FromAngle(&targetDir, AEDegToRad(90.f + rotationAngle));
 	}
-}
-
-void Detector::DrawVision(const AEVec2& pos)
-{
-	DrawLine(viewDist + 50.f, pos, (fieldOfView * 0.5f) + rotationAngle);
-	DrawLine(viewDist + 50.f, pos, (-fieldOfView * 0.5f) + rotationAngle);
 }
 
 void Detector::CheckForTargets()
