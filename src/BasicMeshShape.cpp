@@ -102,6 +102,9 @@ void StarBangBang::DrawBoxWired(AEVec2 size,AEVec2 pos , Color color)
 	AEMtx33Scale(&scale,size.x, size.y);
 	AEMtx33TransApply(&result,&scale,pos.x,pos.y);
 	AEMtx33ScaleApply(&result, &result, zoom, zoom);
+
+	GRAPHICS::ScaleFullscreen(result);
+
 	AEGfxSetTransform(result.m);
 
 	AEGfxSetTintColor(color.R(), color.G(), color.B(), color.A());
@@ -119,6 +122,9 @@ void StarBangBang::DrawBox(AEVec2 size, AEVec2 pos, Color color)
 	AEMtx33Scale(&scale, size.x, size.y);
 	AEMtx33TransApply(&result, &scale, pos.x, pos.y);
 	AEMtx33ScaleApply(&result, &result, zoom, zoom);
+
+	GRAPHICS::ScaleFullscreen(result);
+
 	AEGfxSetTransform(result.m);
 	AEGfxSetTintColor(color.R(), color.G(), color.B(), color.A());
 

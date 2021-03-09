@@ -6,8 +6,8 @@ namespace StarBangBang
 	namespace GRAPHICS
 	{
 		static bool isFullscreen = false;
-		//static AEVec2 aspectRatio;
-		static AEVec2 aspectRatio = { RESOLUTION_X / TARGET_WINDOW_WIDTH, RESOLUTION_Y / TARGET_WINDOW_HEIGHT };
+		//static AEVec2 screenScaleRatio;
+		static AEVec2 screenScaleRatio = { RESOLUTION_X / TARGET_WINDOW_WIDTH, RESOLUTION_Y / TARGET_WINDOW_HEIGHT };
 	}
 
 	AEGfxTexture* StarBangBang::GraphicsManager::LoadTexture(const char* filePath)
@@ -113,9 +113,23 @@ namespace StarBangBang
 		zoom = scale;
 	}
 
+	AEVec2 GRAPHICS::GetScreenScale()
+	{
+		return screenScaleRatio;
+	}
+
 	float StarBangBang::GRAPHICS::GetZoom()
 	{
 		return zoom;
+	}
+
+	void GRAPHICS::ScaleFullscreen(AEMtx33& mtx)
+	{
+		if (isFullscreen)
+		{
+			AEMtx33ScaleApply(&mtx, &mtx, 1 / screenScaleRatio.x, 1 / screenScaleRatio.y);
+			//AEMtx33ScaleApply(&mtx, &mtx, 1 / 2.4f, 1 / 1.8f);
+		}
 	}
 
 	void StarBangBang::GRAPHICS::ToggleFullscreen()
@@ -153,10 +167,7 @@ namespace StarBangBang
 		AEMtx33ScaleApply(&transformMtx, &transformMtx, zoom, zoom);
 
 		// Fullscreen scale
-		if (isFullscreen)
-		{
-			AEMtx33ScaleApply(&transformMtx, &transformMtx, 1 / 2.4f, 1 / 1.8f);
-		}
+		ScaleFullscreen(transformMtx);
 
 		AEGfxSetTransform(transformMtx.m);
 
@@ -169,8 +180,8 @@ namespace StarBangBang
 
 	void StarBangBang::GRAPHICS::SetAspectRatio(float x, float y)
 	{
-		aspectRatio.x = x;
-		aspectRatio.y = y;
+		screenScaleRatio.x = x;
+		screenScaleRatio.y = y;
 	}
 }
 
