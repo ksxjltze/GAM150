@@ -8,7 +8,7 @@ namespace StarBangBang
 		static bool isFullscreen = false;
 		static bool enableRescale = true;
 		//static AEVec2 screenScaleRatio;
-		static AEVec2 screenScaleRatio = { RESOLUTION_X / TARGET_WINDOW_WIDTH, RESOLUTION_Y / TARGET_WINDOW_HEIGHT };
+		static AEVec2 screenScaleRatio = {  TARGET_WINDOW_WIDTH / RESOLUTION_X, TARGET_WINDOW_HEIGHT / RESOLUTION_Y };
 	}
 
 	AEGfxTexture* StarBangBang::GraphicsManager::LoadTexture(const char* filePath)
@@ -128,7 +128,7 @@ namespace StarBangBang
 	{
 		if (enableRescale && isFullscreen)
 		{
-			AEMtx33ScaleApply(&mtx, &mtx, 1 / screenScaleRatio.x, 1 / screenScaleRatio.y);
+			AEMtx33ScaleApply(&mtx, &mtx, screenScaleRatio.x, screenScaleRatio.y);
 			//AEMtx33ScaleApply(&mtx, &mtx, 1 / 2.4f, 1 / 1.8f);
 		}
 	}
@@ -137,7 +137,7 @@ namespace StarBangBang
 	{
 		if (enableRescale && isFullscreen)
 		{
-			AEMtx33ScaleApply(&mtx, &mtx, screenScaleRatio.x, screenScaleRatio.y);
+			AEMtx33ScaleApply(&mtx, &mtx, 1 / screenScaleRatio.x, 1 / screenScaleRatio.y);
 			//AEMtx33ScaleApply(&mtx, &mtx, 1 / 2.4f, 1 / 1.8f);
 		}
 	}
