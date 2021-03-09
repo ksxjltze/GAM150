@@ -1,12 +1,11 @@
 #pragma once
 #include "Collider.h"
-#include <queue>
 namespace StarBangBang
 {
 	
 	class Color;
 
-	const float bounciness = 0.2f;
+	const float bounciness = 0.1f;
 	
 	class PartitionGrid;
 
@@ -28,6 +27,11 @@ namespace StarBangBang
 		BoxCollider& B;
 		CollisionData data;
 		CollisionPair(BoxCollider& A, BoxCollider& B, CollisionData data);
+		bool operator<(const CollisionPair& rhs) const
+		{
+			return A.Max().x < rhs.A.Max().x;
+		}
+	
 	};
 
 
@@ -60,32 +64,48 @@ namespace StarBangBang
 		{
 			if (obj1.isTrigger || obj2.isTrigger)
 				return;
-			AEVec2 resolveForce;
+			//AEVec2 resolveForce;
 			AEVec2 normal = data.col_normal;
+			AEVec2 relVel = AEVec2{ obj2.rb->velocity.x - obj1.rb->velocity.x 
+									,obj2.rb->velocity.y - obj1.rb->velocity.y };
+			//AEVec2Normalize(&relVel, &relVel);
+		
+			float dotVelScale = AEVec2DotProduct(&relVel, &normal);
 
-			float scale = !obj1.isStatic && !obj2.isStatic ?
-				(1.0f + bounciness) + data.pen_depth * 0.5f
-				: (1.0f + bounciness) + data.pen_depth;
+			if (dotVelScale > 0)
+				return;
 
-			//movement force
-			AEVec2Scale(&resolveForce, &normal, scale);
+			float scale = -(1 + bounciness) * dotVelScale;
+			float total = obj1.rb->inv_mass() + obj2.rb->inv_mass();
 
-			PRINT("Norm:\n (%0.3f,%0.3f)\n", normal.x, normal.y);
+			// Apply impulse
+			AEVec2 impulse{ normal.x * scale , normal.y * scale};
+			obj1.rb->AddVelocity(impulse, -obj1.rb->mass/total);
+			obj2.rb->AddVelocity(impulse, obj2.rb->mass/total);
 
+			//float scale = !obj1.isStatic && !obj2.isStatic ?
+			//	(1.0f + bounciness) + data.pen_depth * 0.5f
+			//	: (1.0f + bounciness) + data.pen_depth;
 
-			//push obj1
-			if (!obj1.isStatic)
-			{
-				obj1.Translate(resolveForce.x, resolveForce.y);
-			}					
-			//invert direction
-			resolveForce = AEVec2{ resolveForce.x * -1.0f,resolveForce.y * -1.0f };
-			//push obj2
-			if (!obj2.isStatic)
-			{
-				obj2.Translate(resolveForce.x, resolveForce.y);
-				
-			}
+			////movement force
+			//AEVec2Scale(&resolveForce, &normal, scale);
+			//
+			//if(AEInputCheckCurr(AEVK_0))
+			//PRINT("Norm:\n (%.3f,.3f)\n", normal.x, normal.y);
+
+			////push obj1
+			//if (!obj1.isStatic)
+			//{
+			//	obj1.Translate(resolveForce.x, resolveForce.y);
+			//}					
+			////invert direction
+			//resolveForce = AEVec2{ resolveForce.x * -1.0f,resolveForce.y * -1.0f };
+			////push obj2
+			//if (!obj2.isStatic)
+			//{
+			//	obj2.Translate(resolveForce.x, resolveForce.y);
+			//	
+			//}
 	
 
 		}

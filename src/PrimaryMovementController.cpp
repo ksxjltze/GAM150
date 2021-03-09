@@ -1,5 +1,8 @@
 #include "PrimaryMovementController.h"
+#include "Physics.h"
 
+StarBangBang::RigidBody* rb;
+AEVec2 movement = AEVec2{0,0};
 StarBangBang::PrimaryMovementController::PrimaryMovementController(GameObject* gameObject) : Script(gameObject)
 {
 
@@ -7,27 +10,39 @@ StarBangBang::PrimaryMovementController::PrimaryMovementController(GameObject* g
 
 void StarBangBang::PrimaryMovementController::Start()
 {
-
+	PRINT("Called\n");
+	rb = gameObject->GetComponent<RigidBody>();
+	if (rb)
+	{
+		PRINT("rb\n");
+	}
 }
 
 void StarBangBang::PrimaryMovementController::Update()
 {
 	float dt = static_cast<float>(AEFrameRateControllerGetFrameTime());
-	float speed = PLAYER::PLAYER_SPEED * dt;
+	float speed = 20;
 	if (AEInputCheckCurr(AEVK_W))
 	{
-		gameObject->transform.position.y += speed;
+		movement.y = speed;
+	
+		//gameObject->transform.position.y += speed;
 	}
 	if (AEInputCheckCurr(AEVK_A))
 	{
-		gameObject->transform.position.x -= speed;
+		movement.x = -speed;
+		//gameObject->transform.position.x -= speed;
 	}
 	if (AEInputCheckCurr(AEVK_S))
 	{
-		gameObject->transform.position.y -= speed;
+		movement.y = -speed;
+		//gameObject->transform.position.y -= speed;
 	}
 	if (AEInputCheckCurr(AEVK_D))
 	{
-		gameObject->transform.position.x += speed;
+		movement.x = speed;
+		//gameObject->transform.position.x += speed;
 	}
+
+	rb->AddVelocity(movement, 1.0f);
 }

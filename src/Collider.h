@@ -1,6 +1,7 @@
 #pragma once
 #include "GameObject.h"
 #include "ComponentCRTP.h"
+#include "Physics.h"
 
 namespace StarBangBang
 {
@@ -15,6 +16,7 @@ namespace StarBangBang
 		bool isStatic = false;
 		AEVec2 offset = { 0,0 };
 
+		virtual void Start() {};
 		virtual void Update() {};
 
 		Collider(GameObject* gameObject) :Component(gameObject) { isTrigger = false, isStatic = false, offset = AEVec2{ 0,0 }; };
@@ -53,6 +55,11 @@ namespace StarBangBang
 			//indexes to cells they occupy
 			std::vector<int> cell_indexes;
 		public:
+			RigidBody* rb;
+
+
+			void Start();
+
 			inline AEVec2 GetExtend() const
 			{
 				return extend;
@@ -91,7 +98,7 @@ namespace StarBangBang
 
 			const std::vector<int>& GetCellIndexes() const;
 
-			BoxCollider( GameObject* gameObject);
+			BoxCollider( GameObject* gameObject) ;
 
 			BoxCollider(const BoxCollider& rhs) = default;
 			BoxCollider& operator=(const BoxCollider& rhs) = default;

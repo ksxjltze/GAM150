@@ -182,6 +182,7 @@
     <ClInclude Include="src\TileMap.h" />
     <ClInclude Include="src\TileSet.h" />
     <ClInclude Include="src\Transform.h" />
+    <ClInclude Include="src\UniqueQueue.h" />
     <ClInclude Include="src\Utils.h" />
   </ItemGroup>
   <ItemGroup>

@@ -14,7 +14,6 @@ namespace StarBangBang
 		virtual void LateUpdate() {};
 		GameObject* gameObject { nullptr };
 		virtual ~_Component() {}
-		bool allocated{ true };
 		bool active { true };
 
 	};

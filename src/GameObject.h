@@ -20,13 +20,14 @@ namespace StarBangBang
 			_Component* result = nullptr;
 			for (_Component* component : componentList)
 			{
+
 				if (typeid(T).name() == typeid(*component).name())
 				{
 					result = component;
 					break;
 				}
 			}
-			assert(result != nullptr);
+			//assert(result != nullptr);
 			return static_cast<T*>(result);
 
 		}

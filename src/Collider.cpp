@@ -1,6 +1,6 @@
 #include "Collider.h"
 #include "CollisionManager.h"
-
+#include "Physics.h"
 using namespace StarBangBang;
 
 
@@ -39,6 +39,12 @@ void BoxCollider::AddToCellList(int index)
 	
 }
 
+void StarBangBang::BoxCollider::Start()
+{
+	rb = gameObject->GetComponent<RigidBody>();
+
+}
+
 const std::vector<int>& BoxCollider::GetCellIndexes() const
 {
 	return cell_indexes;
@@ -54,8 +60,8 @@ StarBangBang::BoxCollider::BoxCollider(GameObject* gameObject) : Collider(gameOb
 	min = AEVec2{ _center.x - extend.x , _center.y - extend.y };
 	max = AEVec2{ _center.x + extend.x , _center.y + extend.y };
 
-	//center = _center;
-	//CollisionManager::AddToColliders(*this);
+	rb = gameObject->GetComponent<RigidBody>();
+
 }
 
 
