@@ -2,12 +2,12 @@
 #include "ScriptComponent.h"
 #include "ObjectManager.h"
 #include "Guard.h"
+#include "Sprite.h"
 #include <vector>
 
 namespace StarBangBang
 {
 	class ObjectManager;
-	class Sprite;
 
 	class GuardManager : public Script
 	{
