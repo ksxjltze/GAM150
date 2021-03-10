@@ -28,6 +28,10 @@ void StarBangBang::MovementManager::Update()
 
 		SetActiveController(id);
 	}
+	else if (AEInputCheckTriggered(AEVK_SPACE))
+	{
+		SetActiveController(0);
+	}
 
 	//if (AEInputCheckTriggered(AEVK_1))
 	//{

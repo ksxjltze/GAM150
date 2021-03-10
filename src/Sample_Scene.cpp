@@ -2,6 +2,7 @@
 #include "CollisionManager.h"
 #include "MovementManager.h"
 #include "Click.h"
+#include "CameraComponent.h"
 
 void Testt()
 {
@@ -29,6 +30,7 @@ void StarBangBang::Sample_Scene::Init()
 	objectManager.AddCollider(gameObject, false);
 	//objectManager.AddComponent<Click>(gameObject).setCallback(Testt);
 	objectManager.AddComponent<PrimaryMovementController>(gameObject);
+	objectManager.AddComponent<CameraComponent>(gameObject);
 
 	moveMgr.AddController(gameObject);
 
@@ -39,8 +41,8 @@ void StarBangBang::Sample_Scene::Init()
 		double rads = (2 * (double)PI / 8) * i;
 		AEVec2& pos = obj->transform.position;
 
-		pos.x = static_cast<float>(cos(rads) * 200);
-		pos.y = static_cast<float>(sin(rads) * 200);
+		pos.x = static_cast<float>(cos(rads) * 400);
+		pos.y = static_cast<float>(sin(rads) * 400);
 
 		objectManager.AddImage(obj, image);
 		//objectManager.AddCollider(obj, true);
