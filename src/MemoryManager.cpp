@@ -19,7 +19,6 @@ void StarBangBang::MemoryManager::Load()
 
 void StarBangBang::MemoryManager::Free()
 {
-    assert(objectManager);
     if (objectManager)
     {
         objectManager->FreeComponents();
@@ -30,7 +29,6 @@ void StarBangBang::MemoryManager::Free()
 
 void StarBangBang::MemoryManager::Unload()
 {
-    assert(graphicsManager);
     if (graphicsManager)
     {
         graphicsManager->UnloadTextures();

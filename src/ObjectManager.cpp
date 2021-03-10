@@ -183,18 +183,18 @@ void StarBangBang::ObjectManager::FreeObjects()
 			delete obj;
 		}
 	}
-	componentList.clear();
+	gameObjectList.clear();
 }
 
 void StarBangBang::ObjectManager::FreeComponents()
 {
 	for (_Component* component : componentList)
 	{
-		if (component->allocated)
+		//if (component->allocated)
 			delete component;
 	}
 
-	gameObjectList.clear();
+	componentList.clear();
 }
 
 void StarBangBang::ObjectManager::Init()

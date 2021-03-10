@@ -17,7 +17,7 @@ namespace StarBangBang
 	{
 		if (currentState)
 		{
-			ExitGame();
+			Unload();
 		}
 
 		for (Scene* scene : gameStateList)
@@ -137,6 +137,12 @@ namespace StarBangBang
 		{
 			std::cout << "ERROR: State not found." << std::endl;
 		}
+	}
+
+	void GameStateManager::Unload()
+	{
+		currentState->Free();
+		currentState->Unload();
 	}
 
 	void GameStateManager::ExitGame()

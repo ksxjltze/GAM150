@@ -37,6 +37,7 @@ namespace StarBangBang
 		void ResetGameState();
 		void ReloadGameState();
 		void Update();
+		void Unload();
 		void ExitGame();
 		bool GetStatus();
 	private:

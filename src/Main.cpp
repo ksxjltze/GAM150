@@ -33,7 +33,6 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 
 	///////////////////////
 	// Variable declaration
-
 	using namespace StarBangBang;
 	int gGameRunning = 1;
 	s8 fontId = -1;
@@ -156,7 +155,6 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 	//Audio Engine (temp implementation)
 	audioEngine.ReleaseSound(sound);
 	audioEngine.Exit();
-
 
 	//free font
 	AEGfxDestroyFont(fontId);

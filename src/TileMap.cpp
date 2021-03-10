@@ -204,7 +204,7 @@ namespace StarBangBang
 
 	void TileMap::Unload()
 	{
-		Clear();
+		map.clear();
 		tileSet.Clear();
 		base = nullptr;
 	}
