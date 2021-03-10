@@ -42,6 +42,7 @@ namespace StarBangBang
 		void Erase(int x, int y);
 
 		Tile CreateNewTile(AEVec2 pos, TileSprite tileSprite);
+		Tile CreateNewTile(Tile tile, AEVec2 pos, TileSprite tileSprite);
 
 	private:
 		GameObject* base{ nullptr };

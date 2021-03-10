@@ -40,3 +40,8 @@ void StarBangBang::GameObject::SetPos(AEVec2 newPos)
 			transform.position = newPos;
 	}
 }
+
+void StarBangBang::GameObject::SetActive(bool status)
+{
+	active = status;
+}

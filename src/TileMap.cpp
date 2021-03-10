@@ -129,19 +129,15 @@ namespace StarBangBang
 		if (is.is_open())
 		{
 			//Clear map
-			if (!map.empty())
-			{
-				using coords = std::pair<int, int>;
-				for (const std::pair<coords, Tile>& tile : map)
-				{
-					tile.second.spriteObject->gameObject->active = false;
-					//GameObject* obj = tile.second.spriteObject->gameObject;
-					//objMgr.DestroyGameObject(obj);
-				}
-				//objMgr.FreeComponents();
-				//objMgr.FreeObjects();
-				map.clear();
-			}
+			//if (!map.empty())
+			//{
+			//	using coords = std::pair<int, int>;
+			//	for (const std::pair<coords, Tile>& tile : map)
+			//	{
+			//		tile.second.spriteObject->gameObject->SetActive(false);
+			//	}
+			//	map.clear();
+			//}
 
 			std::string widthStr;
 			std::string heightStr;
@@ -175,8 +171,19 @@ namespace StarBangBang
 						if (type != TileType::NONE)
 						{
 							TileSprite sprite = tileSet.GetTileSprite(type);
-
 							AEVec2 pos = { x * scale - offset.x, y * scale - offset.y};
+
+							if (!map.empty())
+							{
+								if (map.find({ x, y }) != map.end())
+								{
+									Tile tile = map.at({ x, y });
+									tile = CreateNewTile(tile, pos, sprite);
+									map.insert({ {x++, y}, tile });
+									continue;
+								}
+							}
+
 							Tile tile = CreateNewTile(pos, sprite);
 							map.insert({ {x++, y}, tile });
 
@@ -273,6 +280,16 @@ namespace StarBangBang
 
 		tileObj->SetPos(pos);
 		Tile tile = { spriteObj };
+		tile.type = tileSprite.type;
+
+		return tile;
+	}
+
+	//Reuse existing tile
+	Tile TileMap::CreateNewTile(Tile tile, AEVec2 pos, TileSprite tileSprite)
+	{
+		tile.spriteObject->SetSprite(tileSprite.sprite);
+		tile.spriteObject->gameObject->SetPos(pos);
 		tile.type = tileSprite.type;
 
 		return tile;

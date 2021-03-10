@@ -10,6 +10,10 @@ namespace StarBangBang
 	class GameObject
 	{
 	public:
+		Transform transform;
+		GameObject* parent = nullptr;
+		bool active = true;
+
 		GameObject();
 		GameObject(const GameObject& prefab);
 		GameObject operator=(const GameObject& prefab) { return GameObject(prefab); };
@@ -35,12 +39,10 @@ namespace StarBangBang
 			return componentList;
 		}
 
-		Transform transform;
-		GameObject* parent = nullptr;
-		bool active = true;
 
 		AEVec2 GetPos();
 		void SetPos(AEVec2 newPos);
+		void SetActive(bool);
 
 	private:
 		friend class ObjectManager;
