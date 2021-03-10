@@ -5,7 +5,7 @@
 using namespace StarBangBang;
 
 Map::Map(GameObject* gameObject)
-	: Script(gameObject)
+	: Script(gameObject), height{ 0 }, player{ nullptr }, testIndicator{ nullptr }, width{ 0 }
 {
 }
 
@@ -37,6 +37,7 @@ void Map::Update()
 
 AEVec2 Map::GlobalToLocalCoord(AEVec2 pos)
 {
+	UNREFERENCED_PARAMETER(pos);
 	AEVec2 offset = player->GetPos();
 	AEVec2 result{ 0, 0 };
 
