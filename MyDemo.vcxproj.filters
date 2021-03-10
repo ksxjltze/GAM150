@@ -100,6 +100,9 @@
     <Filter Include="Resource Files\FloorTiles">
       <UniqueIdentifier>{4321ed84-be09-4b2b-8b99-456c8aa47e3d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Scripts\Movement">
+      <UniqueIdentifier>{4371f478-15d4-4b68-a5b7-45c0e2a2a7f3}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Main.cpp">
@@ -121,12 +124,6 @@
       <Filter>Source Files\Engine</Filter>
     </ClCompile>
     <ClCompile Include="src\Player.cpp">
-      <Filter>Source Files\Scripts</Filter>
-    </ClCompile>
-    <ClCompile Include="src\PrimaryMovementController.cpp">
-      <Filter>Source Files\Scripts</Filter>
-    </ClCompile>
-    <ClCompile Include="src\SecondaryMovementController.cpp">
       <Filter>Source Files\Scripts</Filter>
     </ClCompile>
     <ClCompile Include="src\CameraComponent.cpp">
@@ -169,9 +166,6 @@
       <Filter>Source Files\Engine\Audio</Filter>
     </ClCompile>
     <ClCompile Include="src\InteractableComponent.cpp">
-      <Filter>Source Files\Scripts</Filter>
-    </ClCompile>
-    <ClCompile Include="src\MovementManager.cpp">
       <Filter>Source Files\Scripts</Filter>
     </ClCompile>
     <ClCompile Include="src\Sample_Scene.cpp">
@@ -245,6 +239,15 @@
     </ClCompile>
     <ClCompile Include="src\Map.cpp">
       <Filter>Source Files\Scripts</Filter>
+    </ClCompile>
+    <ClCompile Include="src\PrimaryMovementController.cpp">
+      <Filter>Source Files\Scripts\Movement</Filter>
+    </ClCompile>
+    <ClCompile Include="src\SecondaryMovementController.cpp">
+      <Filter>Source Files\Scripts\Movement</Filter>
+    </ClCompile>
+    <ClCompile Include="src\MovementManager.cpp">
+      <Filter>Source Files\Scripts\Movement</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

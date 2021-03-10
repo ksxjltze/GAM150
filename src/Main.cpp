@@ -62,11 +62,11 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 	// Add Game States/Scenes
 	std::vector<Scene*> sceneList;
 
-	Scene* sceneDemo = gameStateManager.AddGameState<Level_Demo>(SCENE::DEMO);
-	Scene* sceneEditor = gameStateManager.AddGameState<LevelEditor>(SCENE::EDITOR);
-	Scene* sampleScene = gameStateManager.AddGameState<Sample_Scene>(SCENE::SAMPLE);
-	Scene* gameScene = gameStateManager.AddGameState<CaptainStealth>(SCENE::GAME);
-	Scene* mainMenuScene = gameStateManager.AddGameState<Main_Menu>(SCENE::MAINMENU);
+	Scene* sceneDemo		= gameStateManager.AddGameState<Level_Demo>(SCENE::DEMO);
+	Scene* sceneEditor		= gameStateManager.AddGameState<LevelEditor>(SCENE::EDITOR);
+	Scene* sampleScene		= gameStateManager.AddGameState<Sample_Scene>(SCENE::SAMPLE);
+	Scene* gameScene		= gameStateManager.AddGameState<CaptainStealth>(SCENE::GAME);
+	Scene* mainMenuScene	= gameStateManager.AddGameState<Main_Menu>(SCENE::MAINMENU);
 
 	sceneList.push_back(sceneDemo);
 	sceneList.push_back(sceneEditor);
@@ -76,7 +76,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 
 	// Set Initial State
 
-	gameStateManager.SetInitialState(sceneDemo);
+	gameStateManager.SetInitialState(sampleScene);
 
 	//// Using custom window procedure
 	AESysInit(hInstance, nCmdShow, 800, 600, 1, 60, true, NULL);
