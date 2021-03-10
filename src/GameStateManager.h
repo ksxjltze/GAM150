@@ -38,7 +38,9 @@ namespace StarBangBang
 		void ReloadGameState();
 		void Update();
 		void ExitGame();
+		bool GetStatus();
 	private:
+		bool isRunning;
 		bool stateChanged;
 		Scene* prevState;
 		Scene* currentState;

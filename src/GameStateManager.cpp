@@ -5,7 +5,7 @@
 
 namespace StarBangBang
 {
-	GameStateManager::GameStateManager()
+	GameStateManager::GameStateManager() : isRunning{ false }
 	{
 		currentState = nullptr;
 		prevState = nullptr;
@@ -51,6 +51,7 @@ namespace StarBangBang
 	{
 		currentState = state;
 		stateChanged = true;
+		isRunning = true;
 	}
 
 	void GameStateManager::SetInitialState(int id)
@@ -60,6 +61,7 @@ namespace StarBangBang
 		{
 			currentState = scene;
 			stateChanged = true;
+			isRunning = true;
 		}
 	}
 
@@ -102,6 +104,15 @@ namespace StarBangBang
 	{
 		if (currentState)
 		{
+			if (!isRunning)
+			{
+				currentState->Free();
+				currentState->Unload();
+				currentState = nullptr;
+				nextState = nullptr;
+				return;
+			}
+
 			if (stateChanged)
 			{
 				if (nextState != nullptr)
@@ -130,12 +141,12 @@ namespace StarBangBang
 
 	void GameStateManager::ExitGame()
 	{
-		currentState->Free();
-		////free all unit meshes built
-		//FreeUnitMeshes();
-		currentState->Unload();
-		currentState = nullptr;
-		nextState = nullptr;
+		isRunning = false;
+	}
+
+	bool GameStateManager::GetStatus()
+	{
+		return isRunning;
 	}
 
 }

@@ -79,7 +79,11 @@ namespace StarBangBang
 		Scene::Update();
 		if (AEInputCheckTriggered(AEVK_SPACE))
 		{
-			gameStateManager.SetNextGameState(SceneID::SAMPLE);
+			gameStateManager.SetNextGameState();
+		}
+		else if (AEInputCheckTriggered(AEVK_ESCAPE))
+		{
+			gameStateManager.ExitGame();
 		}
 	}
 

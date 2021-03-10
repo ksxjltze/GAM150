@@ -74,8 +74,7 @@ void StarBangBang::Sample_Scene::Update()
 {
 	if (AEInputCheckTriggered(AEVK_SPACE))
 	{
-		gameStateManager.SetNextGameState(SceneID::MAIN_MENU);
-		//gameStateManager.SetNextGameState(SceneID::DEMO);
+		gameStateManager.SetNextGameState(SceneID::DEMO);
 	}
 	Scene::Update();
 }

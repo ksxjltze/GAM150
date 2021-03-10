@@ -73,7 +73,7 @@ namespace StarBangBang
 				LoadLevel(filepath);
 		}
 
-		if (AEInputCheckTriggered(AEVK_ESCAPE))
+		if (AEInputCheckTriggered(AEVK_SPACE))
 		{
 			gameStateManager.SetNextGameState(SceneID::MAIN_MENU);
 		}
@@ -117,6 +117,7 @@ namespace StarBangBang
 
 	void LevelEditor::Unload()
 	{
+		tileMap.Unload();
 		Scene::Unload();
 	}
 

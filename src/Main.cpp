@@ -147,7 +147,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 		AESysFrameEnd();
 
 		// check if forcing the application to quit
-		if (!AESysDoesWindowExist())
+		if (!gameStateManager.GetStatus() || !AESysDoesWindowExist())
 			gGameRunning = 0;
 	}
 

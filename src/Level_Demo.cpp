@@ -134,5 +134,6 @@ void StarBangBang::Level_Demo::Free()
 
 void StarBangBang::Level_Demo::Unload()
 {
+	tilemap.Unload();
 	Scene::Unload();
 }
