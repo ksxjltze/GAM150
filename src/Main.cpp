@@ -113,9 +113,10 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 		AEInputUpdate();
 
 
-		if (AEInputCheckCurr(AEVK_LALT) && AEInputCheckTriggered(AEVK_RETURN))
+		if (AEInputCheckCurr(AEVK_LALT))
 		{
-			GRAPHICS::ToggleFullscreen();
+			if (AEInputCheckTriggered(AEVK_RETURN))
+				GRAPHICS::ToggleFullscreen();
 		}
 
 		StarBangBang::TestGrid();
