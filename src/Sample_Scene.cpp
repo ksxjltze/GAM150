@@ -41,11 +41,11 @@ void StarBangBang::Sample_Scene::Init()
 		double rads = (2 * (double)PI / 8) * i;
 		AEVec2& pos = obj->transform.position;
 
-		pos.x = static_cast<float>(cos(rads) * 400);
-		pos.y = static_cast<float>(sin(rads) * 400);
+		pos.x = static_cast<float>(cos(rads) * 300);
+		pos.y = static_cast<float>(sin(rads) * 300);
 
 		objectManager.AddImage(obj, image);
-		//objectManager.AddCollider(obj, true);
+		objectManager.AddCollider(obj, true);
 		objectManager.AddComponent<PrimaryMovementController>(obj);
 
 		moveMgr.AddController(obj);
