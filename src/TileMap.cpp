@@ -129,15 +129,15 @@ namespace StarBangBang
 		if (is.is_open())
 		{
 			//Clear map
-			//if (!map.empty())
-			//{
-			//	using coords = std::pair<int, int>;
-			//	for (const std::pair<coords, Tile>& tile : map)
-			//	{
-			//		tile.second.spriteObject->gameObject->SetActive(false);
-			//	}
-			//	map.clear();
-			//}
+			if (!map.empty())
+			{
+				using coords = std::pair<int, int>;
+				for (const std::pair<coords, Tile>& tile : map)
+				{
+					tile.second.spriteObject->gameObject->SetActive(false);
+				}
+				map.clear();
+			}
 
 			std::string widthStr;
 			std::string heightStr;
@@ -288,9 +288,11 @@ namespace StarBangBang
 	//Reuse existing tile
 	Tile TileMap::CreateNewTile(Tile tile, AEVec2 pos, TileSprite tileSprite)
 	{
+		GameObject* obj = tile.spriteObject->gameObject;
 		tile.spriteObject->SetSprite(tileSprite.sprite);
-		tile.spriteObject->gameObject->SetPos(pos);
 		tile.type = tileSprite.type;
+		obj->SetPos(pos);
+		obj->SetActive(true);
 
 		return tile;
 	}
