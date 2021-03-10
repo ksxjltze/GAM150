@@ -52,7 +52,7 @@ namespace StarBangBang
 		playbutton_obj->transform.position = { (float)AEGetWindowWidth() / -8, (float)AEGetWindowHeight() / 8 };
 		playbutton_obj->transform.scale = { 1.5, 1.5 };
 
-		auto d = []() {printf("MAIN MENU: TEST\n"); };
+		//auto d = []() {printf("MAIN MENU: TEST\n"); };
 		objectManager.AddComponent<Click<Main_Menu>>(playbutton_obj).setCallback(*this, &Main_Menu::LoadLevelTest);
 		
 
@@ -73,6 +73,8 @@ namespace StarBangBang
 		objectManager.AddImage(exitbutton_obj, exitbutton1);
 		exitbutton_obj->transform.position = { (float)AEGetWindowWidth() / 8, (float)AEGetWindowHeight() / -8, };
 		exitbutton_obj->transform.scale = { 1.5,1.5 };
+
+		objectManager.AddComponent<Click<Main_Menu>>(exitbutton_obj).setCallback(*this, &Main_Menu::ExitGame);
 	}
 
 	void StarBangBang::Main_Menu::Update()
@@ -108,6 +110,11 @@ namespace StarBangBang
 	void Main_Menu::LoadLevelTest()
 	{
 		gameStateManager.SetNextGameState();
+	}
+
+	void Main_Menu::ExitGame()
+	{
+		gameStateManager.ExitGame();
 	}
 
 }

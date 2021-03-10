@@ -20,6 +20,7 @@ namespace StarBangBang
 		void Unload();
 
 		void LoadLevelTest();
+		void ExitGame();
 
 	private:
 		TileMap tilemap;
