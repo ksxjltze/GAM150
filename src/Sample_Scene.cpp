@@ -34,7 +34,7 @@ void StarBangBang::Sample_Scene::Init()
 
 	moveMgr.AddController(gameObject);
 
-	int nObjects = 4;
+	int nObjects = 8;
 	for (int i = 0; i < nObjects; i++)
 	{
 		GameObject* obj = objectManager.NewGameObject();
