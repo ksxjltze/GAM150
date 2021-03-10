@@ -62,15 +62,6 @@ StarBangBang::GameObject* StarBangBang::ObjectManager::NewGameObject(GameObject*
 	return gameObject;
 }
 
-StarBangBang::GameObject* StarBangBang::ObjectManager::NewGameObject(float width, float height)
-{
-	GameObject* gameObject = new GameObject();
-	gameObject->width = width;
-	gameObject->height = height;
-	gameObjectList.push_back(gameObject);
-	return gameObject;
-}
-
 StarBangBang::GameObject* StarBangBang::ObjectManager::CloneGameObject(GameObject* gameObject)
 {
 	if (gameObject)
@@ -192,7 +183,7 @@ void StarBangBang::ObjectManager::FreeObjects()
 			delete obj;
 		}
 	}
-	//gameObjectList.clear();
+	gameObjectList.clear();
 }
 
 void StarBangBang::ObjectManager::FreeComponents()
@@ -202,7 +193,7 @@ void StarBangBang::ObjectManager::FreeComponents()
 		delete component;
 	}
 
-	//componentList.clear();
+	componentList.clear();
 }
 
 void StarBangBang::ObjectManager::Init()
@@ -217,10 +208,12 @@ void StarBangBang::ObjectManager::Draw()
 {
 	for (_Component* component : componentList)
 	{
-		if (typeid(*component).name() == typeid(ImageComponent).name() && component->active)
+		/*if (typeid(*component).name() == typeid(ImageComponent).name() && component->active)
 		{
 			static_cast<ImageComponent*>(component)->Draw();
-		}
+		}*/
+
+		component->Draw();
 	}
 }
 

@@ -13,8 +13,6 @@ StarBangBang::GameObject::GameObject(const GameObject& obj)
 {
 	transform = obj.transform;
 	parent = obj.parent;
-	width = obj.width;
-	height = obj.height;
 	active = obj.active;
 }
 
@@ -41,4 +39,9 @@ void StarBangBang::GameObject::SetPos(AEVec2 newPos)
 		else
 			transform.position = newPos;
 	}
+}
+
+void StarBangBang::GameObject::SetActive(bool status)
+{
+	active = status;
 }

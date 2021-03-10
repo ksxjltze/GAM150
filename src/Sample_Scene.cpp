@@ -1,8 +1,14 @@
 #include "Sample_Scene.h"
 #include "CollisionManager.h"
 #include "MovementManager.h"
-#include "Physics.h"
+#include "Click.h"
 #include "CameraComponent.h"
+
+void Testt()
+{
+	PRINT("TESTES\n");
+}
+
 StarBangBang::Sample_Scene::Sample_Scene(int id, GameStateManager& manager) : Scene(id, manager), gameObject{nullptr}
 {
 	
@@ -18,45 +24,39 @@ void StarBangBang::Sample_Scene::Init()
 {
 	gameObject = objectManager.NewGameObject();
 
-	objectManager.AddImage(gameObject, image2);
+	//objectManager.AddImage(gameObject, image2);
+	objectManager.AddComponent<ImageComponent>(gameObject, image2);
+	MovementManager& moveMgr = objectManager.AddComponent<MovementManager>(gameObject);
 	objectManager.AddCollider(gameObject, false);
+	//objectManager.AddComponent<Click>(gameObject).setCallback(Testt);
+	objectManager.AddComponent<PrimaryMovementController>(gameObject);
+	objectManager.AddComponent<CameraComponent>(gameObject);
 
-	for (int i = 0; i < 8; i++)
+	moveMgr.AddController(gameObject);
+
+	int nObjects = 4;
+	for (int i = 0; i < nObjects; i++)
 	{
 		GameObject* obj = objectManager.NewGameObject();
 
-		double rads = (2 * (double)PI / 8) * i;
-	
+		double rads = (2 * (double)PI / nObjects) * i;
 		AEVec2& pos = obj->transform.position;
 
-		if (i == 0 )
-		{
-			pos.x = 100.0f;
-			pos.y = 0;
-		}
-		else if (i ==1)
-		{
-			pos.x = 200.0f;
-			pos.y = 0;
-		}
-		else
-		{
-			pos.x = cos(rads) * 200;
-			pos.y = sin(rads) * 200;
-
-		}
-		
+		pos.x = static_cast<float>(cos(rads) * 300);
+		pos.y = static_cast<float>(sin(rads) * 300);
 
 		objectManager.AddComponent<RigidBody>(obj);
 		objectManager.AddImage(obj, image);
-		objectManager.AddCollider(obj, false);
-		
-		
+		objectManager.AddCollider(obj, true);
+		objectManager.AddComponent<PrimaryMovementController>(obj);
+
+		moveMgr.AddController(obj);
+
 	}
 
-	objectManager.AddComponent<RigidBody>(gameObject);
-	objectManager.AddComponent<CameraComponent>(gameObject);
-	objectManager.AddComponent<PrimaryMovementController>(gameObject);
+	objectManager.Init();
+
+
 
 
 	//Collider* collider = CollisionManager::CreateBoxColliderInstance(gameObject);
@@ -73,6 +73,10 @@ void StarBangBang::Sample_Scene::Init()
 
 void StarBangBang::Sample_Scene::Update()
 {
+	if (AEInputCheckTriggered(AEVK_SPACE))
+	{
+		gameStateManager.SetNextGameState(SceneID::DEMO);
+	}
 	Scene::Update();
 }
 

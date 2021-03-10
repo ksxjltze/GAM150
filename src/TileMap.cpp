@@ -5,27 +5,33 @@
 
 namespace StarBangBang
 {
-	TileMap::TileMap(ObjectManager& objM, GraphicsManager& gfxM) : scale{ 1.0f }, mapWidth{ 0 }, mapHeight{ 0 }, objMgr{ objM }, gfxMgr{ gfxM }
+	TileMap::TileMap(ObjectManager& objM, GraphicsManager& gfxM) : scale{ 1.0f }, mapWidth{ 0 }, mapHeight{ 0 }, objMgr{ objM }, gfxMgr{ gfxM }, base{ nullptr }
 	{
 		
 	}
 
 	void TileMap::Init()
 	{
-		tileSet.Load(gfxMgr);
-		base = objMgr.NewGameObject();
+		if (!base)
+		{
+			tileSet.Load(gfxMgr);
+			base = objMgr.NewGameObject();
+		}
 	}
 
 	void TileMap::Generate(int width, int height, float tileSize)
 	{
 		//Default sprite
 		TileSprite tileSprite = tileSet.GetTileSprite(TileType::STONE);
-
-		AEVec2 offset = GetCentreOffset();
+		//TileSprite tileSprite = tileSet.GetTileSprite(TileType::BRICK_RED);
 
 		mapWidth = width;
 		mapHeight = height;
 		scale = tileSize;
+
+		AEVec2 offset = GetCentreOffset();
+		//AEVec2 offset = { 0, 0 };
+
 
 		for (int y = 0; y < height; y++)
 		{
@@ -123,22 +129,13 @@ namespace StarBangBang
 
 	bool StarBangBang::TileMap::Load(std::string path)
 	{
+		Init();
 		std::ifstream is;
 		is.open(path);
 
 		if (is.is_open())
 		{
-			//Clear map
-			if (!map.empty())
-			{
-				using coords = std::pair<int, int>;
-				for (const std::pair<coords, Tile>& tile : map)
-				{
-					GameObject* obj = tile.second.spriteObject->gameObject;
-					objMgr.DestroyGameObject(obj);
-				}
-				map.clear();
-			}
+			Clear();
 
 			std::string widthStr;
 			std::string heightStr;
@@ -171,12 +168,7 @@ namespace StarBangBang
 
 						if (type != TileType::NONE)
 						{
-							TileSprite sprite = tileSet.GetTileSprite(type);
-
-							AEVec2 pos = { x * scale - offset.x, y * scale - offset.y};
-							Tile tile = CreateNewTile(pos, sprite);
-							map.insert({ {x++, y}, tile });
-
+							Insert(x++, y, type);
 						}
 						else
 							++x;
@@ -194,6 +186,27 @@ namespace StarBangBang
 			fprintf(stderr, "TileMap: ERROR OPENING FILE\n");
 			return false;
 		}
+	}
+
+	void TileMap::Clear()
+	{
+		//Clear map
+		if (!map.empty())
+		{
+			using coords = std::pair<int, int>;
+			for (const std::pair<coords, Tile>& tile : map)
+			{
+				tile.second.spriteObject->gameObject->SetActive(false);
+			}
+			map.clear();
+		}
+	}
+
+	void TileMap::Unload()
+	{
+		map.clear();
+		tileSet.Clear();
+		base = nullptr;
 	}
 
 	float TileMap::GetTileScale()
@@ -232,23 +245,54 @@ namespace StarBangBang
 
 	void TileMap::Insert(int x, int y, TileType type)
 	{
-		if (map.find({ x,y }) != map.end())
+		//if (map.find({ x,y }) != map.end())
+		//{
+		//	objMgr.DestroyGameObject(map.at({ x, y }).spriteObject->gameObject);
+		//	Erase(x, y);
+		//}
+
+		//float x_offset = (scale * mapWidth) / 2;
+		//float y_offset = (scale * mapHeight) / 2;
+
+		//TileSprite sprite = tileSet.GetTileSprite(type);
+		//AEVec2 position = { x * scale - x_offset, y * scale - y_offset };
+
+		//Tile tile = CreateNewTile(position, sprite);
+
+		//std::pair<int, int> pos = { x, y };
+		//map.insert({ pos, tile });
+
+		AEVec2 offset = GetCentreOffset();
+		AEVec2 pos = { x * scale - offset.x, y * scale - offset.y };
+		TileSprite sprite = tileSet.GetTileSprite(type);
+
+		if (map.find({ x, y }) != map.end())
 		{
-			objMgr.DestroyGameObject(map.at({ x, y }).spriteObject->gameObject);
-			Erase(x, y);
+			Tile tile = map.at({ x, y });
+			tile = ReplaceTile(tile, pos, sprite);
+			map.erase({ x, y });
+			map.insert({ {x++, y}, tile });
+		}
+		else
+		{
+			Tile tile = CreateNewTile(pos, sprite);
+			map.insert({ {x++, y}, tile });
 		}
 
-		float x_offset = (scale * mapWidth) / 2;
-		float y_offset = (scale * mapHeight) / 2;
+	}
 
+	void TileMap::Replace(int x, int y, TileType type)
+	{
 		TileSprite sprite = tileSet.GetTileSprite(type);
-		AEVec2 position = { x * scale - x_offset, y * scale - y_offset };
+		AEVec2 offset = GetCentreOffset();
+		AEVec2 pos = { x * scale - offset.x, y * scale - offset.y };
 
-		Tile tile = CreateNewTile(position, sprite);
-
-		std::pair<int, int> pos = { x, y };
-		map.insert({ pos, tile });
-
+		if (map.find({ x, y }) != map.end())
+		{
+			Tile tile = map.at({ x, y });
+			tile = ReplaceTile(tile, pos, sprite);
+			map.insert({ {x, y}, tile });
+		}
 	}
 
 	void TileMap::Erase(int x, int y)
@@ -271,6 +315,18 @@ namespace StarBangBang
 		tileObj->SetPos(pos);
 		Tile tile = { spriteObj };
 		tile.type = tileSprite.type;
+
+		return tile;
+	}
+
+	//Reuse existing tile
+	Tile TileMap::ReplaceTile(Tile tile, AEVec2 pos, TileSprite tileSprite)
+	{
+		GameObject* obj = tile.spriteObject->gameObject;
+		tile.spriteObject->SetSprite(tileSprite.sprite);
+		tile.type = tileSprite.type;
+		obj->SetPos(pos);
+		obj->SetActive(true);
 
 		return tile;
 	}

@@ -10,15 +10,10 @@
 
 #include "GameStateManager.h"
 #include "constants.h"
+#include "SceneList.h"
 
 #include "BasicMeshShape.h"
 #include "CollisionTest.h"
-
-#include "Level_Demo.h"
-#include "Sample_Scene.h"
-#include "LevelEditor.h"
-#include "CaptainStealth.h"
-#include "Main_Menu.h"
 
 // ---------------------------------------------------------------------------
 // main
@@ -38,7 +33,6 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 
 	///////////////////////
 	// Variable declaration
-
 	using namespace StarBangBang;
 	int gGameRunning = 1;
 	s8 fontId = -1;
@@ -60,30 +54,34 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 	// Initialization
 
 	// Add Game States/Scenes
+	std::vector<Scene*> sceneList;
 
-	Scene* sceneDemo = gameStateManager.AddGameState<Level_Demo>(SCENE::DEMO);
-	Scene* sceneEditor = gameStateManager.AddGameState<LevelEditor>(SCENE::EDITOR);
-	Scene* sampleScene = gameStateManager.AddGameState<Sample_Scene>(SCENE::SAMPLE);
-	Scene* gameScene = gameStateManager.AddGameState<CaptainStealth>(SCENE::GAME);
-	Scene* mainMenuScene = gameStateManager.AddGameState<Main_Menu>(SCENE::MAINMENU);
+	Scene* sceneDemo		= gameStateManager.AddGameState<Level_Demo>(SceneID::DEMO);
+	Scene* sceneEditor		= gameStateManager.AddGameState<LevelEditor>(SceneID::EDITOR);
+	Scene* sampleScene		= gameStateManager.AddGameState<Sample_Scene>(SceneID::SAMPLE);
+	Scene* gameScene		= gameStateManager.AddGameState<CaptainStealth>(SceneID::GAME);
+	Scene* mainMenuScene	= gameStateManager.AddGameState<Main_Menu>(SceneID::MAIN_MENU);
+	Scene* engineProof		= gameStateManager.AddGameState<EngineProof>();
 
-	UNREFERENCED_PARAMETER(sceneEditor);
-	UNREFERENCED_PARAMETER(sceneDemo);
-	UNREFERENCED_PARAMETER(sampleScene);
-	UNREFERENCED_PARAMETER(gameScene);
+	sceneList.push_back(sceneDemo);
+	sceneList.push_back(sceneEditor);
+	sceneList.push_back(sampleScene);
+	sceneList.push_back(gameScene);
+	sceneList.push_back(mainMenuScene);
+	sceneList.push_back(engineProof);
 
 	// Set Initial State
 
-	gameStateManager.SetInitialState(sampleScene);
+	gameStateManager.SetInitialState(mainMenuScene);
 
 	//// Using custom window procedure
-	AESysInit(hInstance, nCmdShow, 800, 600, 1, 60, true, NULL);
+	AESysInit(hInstance, nCmdShow, GRAPHICS::TARGET_WINDOW_WIDTH, GRAPHICS::TARGET_WINDOW_HEIGHT, 1, 60, true, NULL);
 	StarBangBang::InitBasicMesh();
 	
 	PathFinder::PathFinderInit();
 	//Full screen
 	//AESysInit(hInstance, nCmdShow, 1920, 1080, 1, 60, true, NULL);
-	//AEToogleFullScreen(true);
+	AEToogleFullScreen(false);
 
 	// Changing the window title
 	AESysSetWindowTitle("Captain Stealth");
@@ -113,6 +111,15 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 
 		// Handling Input
 		AEInputUpdate();
+
+
+		if (AEInputCheckCurr(AEVK_LALT))
+		{
+			if (AEInputCheckTriggered(AEVK_RETURN))
+				GRAPHICS::ToggleFullscreen();
+		}
+
+		StarBangBang::TestGrid();
 		CollisionManager::ResolverUpdate();
 
 		// Update State
@@ -143,7 +150,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 		AESysFrameEnd();
 
 		// check if forcing the application to quit
-		if (AEInputCheckTriggered(AEVK_ESCAPE) || 0 == AESysDoesWindowExist())
+		if (!gameStateManager.GetStatus() || !AESysDoesWindowExist())
 			gGameRunning = 0;
 	}
 
@@ -152,7 +159,6 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 	//Audio Engine (temp implementation)
 	audioEngine.ReleaseSound(sound);
 	audioEngine.Exit();
-
 
 	//free font
 	AEGfxDestroyFont(fontId);

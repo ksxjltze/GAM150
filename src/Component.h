@@ -11,6 +11,7 @@ namespace StarBangBang
 		virtual _Component* Clone(GameObject* obj, _Component*) const { return new _Component(obj); }
 		virtual void Start() {};
 		virtual void Update() {};
+		virtual void Draw() {};
 		virtual void LateUpdate() {};
 		GameObject* gameObject { nullptr };
 		virtual ~_Component() {}

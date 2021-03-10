@@ -22,6 +22,8 @@ namespace StarBangBang
 		bool ValidateFile(std::ifstream& is, std::string& widthStr, std::string& heightStr, std::string& sizeStr);
 		void Save(std::string path);
 		bool Load(std::string path);
+		void Clear();
+		void Unload();
 
 		float GetTileScale();
 
@@ -39,12 +41,14 @@ namespace StarBangBang
 		int GetMapHeight();
 
 		void Insert(int x, int y, TileType type);
+		void Replace(int x, int y, TileType type);
 		void Erase(int x, int y);
 
 		Tile CreateNewTile(AEVec2 pos, TileSprite tileSprite);
+		Tile ReplaceTile(Tile tile, AEVec2 pos, TileSprite tileSprite);
 
 	private:
-		GameObject* base{ nullptr };
+		GameObject* base;
 		float scale;
 		int mapWidth, mapHeight;
 

@@ -6,7 +6,14 @@ namespace StarBangBang
 {
 	enum class TileType
 	{
-		NONE = 0, GRASS, STONE, END = STONE
+		NONE = 0, 
+		GRASS, 
+		STONE, 
+		BRICK_BLACK, 
+		BRICK_RED, 
+		FLOOR_PRISON, 
+		FLOOR_OFFICE, 
+		END
 	};
 
 	struct TileSprite
@@ -19,8 +26,8 @@ namespace StarBangBang
 	{
 	public:
 		void Load(GraphicsManager&);
-		void Load(const std::string& path);
-		void Load(const std::string&& directoryPath);
+		void LoadTileSprite(GraphicsManager&, TileType type, const std::string& path);
+		void Clear();
 
 		const TileSprite& GetTileSprite(TileType);
 	private:

@@ -29,16 +29,17 @@ namespace StarBangBang
 
 	void LevelEditor::Load()
 	{
-		tileMap.Init();
+		GRAPHICS::SetBackgroundColor(Blue());
 	}
 
 	void LevelEditor::Init()
 	{
+		filepath = RESOURCES::LEVEL_TEST_PATH;
+
 		//TODO: Optimize tile drawing (Low FPS on 100 x 100 tile map)
-		if (!LoadLevel(RESOURCES::LEVEL_TEST_PATH))
+		if (!LoadLevel(filepath))
 		{
 			CreateLevel(TILEMAP::DEFAULT_WIDTH, TILEMAP::DEFAULT_WIDTH, TILEMAP::DEFAULT_TILE_SIZE);
-			//CreateLevel(200, 200, TILEMAP::DEFAULT_TILE_SIZE);
 		}
 
 		//Camera Object
@@ -59,26 +60,40 @@ namespace StarBangBang
 
 		if (AEInputCheckTriggered(AEVK_RETURN))
 		{
-			SaveLevel(RESOURCES::LEVEL_TEST_PATH);
+			SaveLevel(filepath);
 		}
 
 		if (AEInputCheckTriggered(AEVK_R))
 		{
-			LoadLevel(RESOURCES::LEVEL_TEST_PATH);
+			if (AEInputCheckCurr(AEVK_LSHIFT))
+			{
+				CreateLevel(TILEMAP::DEFAULT_WIDTH, TILEMAP::DEFAULT_WIDTH, TILEMAP::DEFAULT_TILE_SIZE);
+			}
+			else
+				LoadLevel(filepath);
+		}
+
+		if (AEInputCheckTriggered(AEVK_SPACE))
+		{
+			gameStateManager.SetNextGameState(SceneID::MAIN_MENU);
 		}
 
 		//Insert/Replace/Remove Tile.
 		AEVec2 mousePos = GetMouseWorldPos();
-		if (AEInputCheckTriggered(AEVK_LBUTTON))
+		if (AEInputCheckCurr(AEVK_LBUTTON))
 		{
 			A_Node* n = grid.GetNodeFromPosition(mousePos);
 			if (n)
 			{
 				InsertTile(n);
+				for (auto node : grid.Get4_NodeNeighbours(n))
+				{
+					InsertTile(node);
+				}
 			}
 		}
 
-		if (AEInputCheckTriggered(AEVK_RBUTTON))
+		if (AEInputCheckCurr(AEVK_RBUTTON))
 		{
 			A_Node* n = grid.GetNodeFromPosition(mousePos);
 			if (n)
@@ -92,7 +107,7 @@ namespace StarBangBang
 	{
 		Scene::Draw();
 		HighLightGridNode(grid);
-		grid.DrawGrid();
+		grid.DrawGrid(Black());
 	}
 
 	void LevelEditor::Free()
@@ -102,6 +117,7 @@ namespace StarBangBang
 
 	void LevelEditor::Unload()
 	{
+		tileMap.Unload();
 		Scene::Unload();
 	}
 
@@ -139,7 +155,8 @@ namespace StarBangBang
 		grid.FreeGrid();
 		float scale = tileMap.GetTileScale();
 		AEVec2 dimensions = { scale * tileMap.GetMapWidth(), scale * tileMap.GetMapHeight() };
-		grid.CreateGrid(scale, tileMap.GetMapWidth(), tileMap.GetMapHeight(),{ scale / 2, -dimensions.y + scale / 2 });
+		//grid.CreateGrid(scale, tileMap.GetMapWidth(), tileMap.GetMapHeight(),{ scale / 2, -dimensions.y + scale / 2 });
+		grid.CreateGrid(scale, tileMap.GetMapWidth(), tileMap.GetMapHeight(),{ -scale / 2, scale / 2 });
 	}
 
 }

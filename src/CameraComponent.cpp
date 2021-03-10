@@ -28,6 +28,10 @@ void StarBangBang::CameraComponent::LateUpdate()
 	AEVec2Scale(&position, &position, scale);
 	GRAPHICS::SetZoom(scale);
 
+	AEVec2 screenScale = GRAPHICS::GetScreenScale();
+	position.x *= screenScale.x;
+	position.y *= screenScale.y;
+
 
 	//temp
 	AEGfxSetCamPosition(position.x, position.y);

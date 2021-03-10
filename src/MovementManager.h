@@ -11,8 +11,8 @@ namespace StarBangBang
 		void AddController(GameObject* obj);
 		void Start();
 		void Update();
-	private:
 		void SetActiveController(int id);
+	private:
 		std::vector<PrimaryMovementController*> controllers;
 	};
 }

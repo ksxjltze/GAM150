@@ -6,23 +6,23 @@ namespace StarBangBang
 	//TEST
 	void TileSet::Load(GraphicsManager& gfxMgr)
 	{
-		Sprite grassSprite = gfxMgr.CreateSprite(RESOURCES::PROTOTYPE_SPRITE_GRASS_PATH);
-		Sprite stoneSprite = gfxMgr.CreateSprite(RESOURCES::PROTOTYPE_SPRITE_STONE_PATH);
-
-		set.insert({ TileType::GRASS, { grassSprite, TileType::GRASS } });
-		set.insert({ TileType::STONE, { stoneSprite, TileType::STONE } });
+		LoadTileSprite(gfxMgr,	TileType::GRASS,			RESOURCES::PROTOTYPE_SPRITE_GRASS_PATH);
+		LoadTileSprite(gfxMgr,	TileType::STONE,			RESOURCES::PROTOTYPE_SPRITE_STONE_PATH);
+		LoadTileSprite(gfxMgr,	TileType::BRICK_BLACK,		RESOURCES::BLACKBRICK_PATH);
+		LoadTileSprite(gfxMgr,	TileType::BRICK_RED,		RESOURCES::REDBRICK_PATH);
+		LoadTileSprite(gfxMgr,	TileType::FLOOR_OFFICE,		RESOURCES::OFFICEFLOOR_PATH);
+		LoadTileSprite(gfxMgr,	TileType::FLOOR_PRISON,		RESOURCES::PRISONFLOOR_PATH);
 	}
 
-	//Load from path
-	void StarBangBang::TileSet::Load(const std::string& path)
+	void TileSet::LoadTileSprite(GraphicsManager& gfxMgr, TileType type, const std::string& path)
 	{
-		UNREFERENCED_PARAMETER(path);
+		Sprite sprite = gfxMgr.CreateSprite(path);
+		set.insert({ type, { sprite, type } });
 	}
 
-	//Load from directory
-	void StarBangBang::TileSet::Load(const std::string&& dirPath)
+	void TileSet::Clear()
 	{
-		UNREFERENCED_PARAMETER(dirPath);
+		set.clear();
 	}
 
 	const TileSprite& TileSet::GetTileSprite(TileType t)
@@ -33,7 +33,7 @@ namespace StarBangBang
 	TileType& operator++(TileType& tileType)
 	{
 		TileType type = TileType(static_cast<int>(tileType) + 1);
-		if (type > TileType::END)
+		if (type >= TileType::END)
 		{
 			type = TileType(static_cast<int>(TileType::NONE) + 1);
 		}

@@ -2,12 +2,13 @@
 #include "../Extern/AlphaEngine_V3.08/include/AEEngine.h"
 #include <unordered_set>
 #include "Heap.h"
+#include "Color.h"
 
 namespace StarBangBang
 {
 	
 	class BoxCollider;
-	
+
 	//basic node
 	class Node
 	{
@@ -83,7 +84,7 @@ namespace StarBangBang
 		constexpr float GetNodeSize() const { return nodeSize; }
 
 
-		void DrawGrid();
+		void DrawGrid(Color color = Green());
 		void FreeGrid(void);
 		//create grid object
 		void CreateGrid(float _nodeSize, int sizeX, int sizeY, AEVec2 _offset);

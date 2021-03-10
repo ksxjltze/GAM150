@@ -8,5 +8,5 @@ namespace StarBangBang
 	//TODO make a better manager thing
 	AEVec2 GetMouseWorldPos();
 	bool CompareGameObject(GameObject* A, GameObject* B);
-
+	bool PointRectTest(AEVec2 pointPos, AEVec2 rectCenter, float width, float height);
 }

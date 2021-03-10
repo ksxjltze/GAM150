@@ -4,6 +4,7 @@
 #include "GraphicsManager.h"
 #include "MemoryManager.h"
 #include "GameStateManager.h"
+#include "TileMap.h"
 
 namespace StarBangBang
 {
@@ -17,14 +18,28 @@ namespace StarBangBang
 		void Draw();
 		void Free();
 		void Unload();
+
+		void LoadLevelTest();
+
 	private:
-		Sprite startgame_button;
-		Sprite settings_button;
-		Sprite credits_button;
-		Sprite exitgame_button;
-		GameObject* startbutton_obj;
+		TileMap tilemap;
+		Sprite logo;
+		Sprite playbutton1;
+		Sprite settingsbutton1;
+		Sprite creditsbutton1;
+		Sprite exitbutton1;
+
+		Sprite playbutton2;
+		Sprite settingsbutton2;
+		Sprite creditsbutton2;
+		Sprite exitbutton2;
+
+		GameObject* logo_obj;
+		GameObject* playbutton_obj;
 		GameObject* settingsbutton_obj;
 		GameObject* creditsbutton_obj;
 		GameObject* exitbutton_obj;
+
+		boolean tf;
 	};
 }

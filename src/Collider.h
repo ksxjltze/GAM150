@@ -98,7 +98,9 @@ namespace StarBangBang
 
 			const std::vector<int>& GetCellIndexes() const;
 
-			BoxCollider( GameObject* gameObject) ;
+			BoxCollider( GameObject* gameObject);
+			//BoxCollider( AEVec2 _center,bool _isStatic = true ,float width = 1.0f, float height = 1.0f);
+			//BoxCollider(AEVec2 min, AEVec2 max , bool isStatic = true);
 
 			BoxCollider(const BoxCollider& rhs) = default;
 			BoxCollider& operator=(const BoxCollider& rhs) = default;

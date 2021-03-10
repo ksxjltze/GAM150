@@ -3,115 +3,156 @@
 #include "State.h"
 #include <iostream>
 
-StarBangBang::GameStateManager::GameStateManager()
+namespace StarBangBang
 {
-	currentState = nullptr;
-	prevState = nullptr;
-	nextState = nullptr;
-	stateChanged = false;
-}
-
-StarBangBang::GameStateManager::~GameStateManager()
-{
-	if (currentState)
+	GameStateManager::GameStateManager() : isRunning{ false }
 	{
-		ExitGame();
+		currentState = nullptr;
+		prevState = nullptr;
+		nextState = nullptr;
+		stateChanged = false;
 	}
 
-	for (Scene* scene : gameStateList)
+	GameStateManager::~GameStateManager()
 	{
-		delete scene;
-	}
-}
-
-void StarBangBang::GameStateManager::AddGameState(Scene* state)
-{
-	if (state)
-		gameStateList.push_back(state);
-}
-
-void StarBangBang::GameStateManager::SetInitialState(Scene* state)
-{
-	currentState = state;
-	stateChanged = true;
-}
-
-void StarBangBang::GameStateManager::SetNextGameState(Scene* state)
-{
-	nextState = state;
-	stateChanged = true;
-}
-
-void StarBangBang::GameStateManager::SetNextGameState(int id)
-{
-	bool found = false;
-	for (Scene* state : gameStateList)
-	{
-		if (state->getID() == id)
+		if (currentState)
 		{
-			found = true;
-			nextState = state;
-			break;
+			Unload();
+		}
+
+		for (Scene* scene : gameStateList)
+		{
+			delete scene;
 		}
 	}
 
-	if (found)
+	void GameStateManager::AddGameState(Scene* state)
 	{
-		stateChanged = true;
-		return;
+		if (state)
+			gameStateList.push_back(state);
 	}
-	else
-		std::cout << "Specified State does not exist!" << std::endl;
-}
 
-void StarBangBang::GameStateManager::ResetGameState()
-{
-	currentState->Free();
-	currentState->Init();
-}
-
-void StarBangBang::GameStateManager::ReloadGameState()
-{
-	currentState->Unload();
-	currentState->Free();
-	currentState->Load();
-	currentState->Init();
-}
-
-void StarBangBang::GameStateManager::Update()
-{
-	if (currentState)
+	Scene* GameStateManager::GetGameState(int id)
 	{
-		if (stateChanged)
+		for (Scene* state : gameStateList)
 		{
-			if (nextState != nullptr)
+			if (state->getID() == id)
+			{
+				return state;
+			}
+		}
+
+		std::cout << "Specified State does not exist!" << std::endl;
+		return nullptr;
+	}
+
+
+	void GameStateManager::SetInitialState(Scene* state)
+	{
+		currentState = state;
+		stateChanged = true;
+		isRunning = true;
+	}
+
+	void GameStateManager::SetInitialState(int id)
+	{
+		Scene* scene = GetGameState(id);
+		if (scene)
+		{
+			currentState = scene;
+			stateChanged = true;
+			isRunning = true;
+		}
+	}
+
+	void GameStateManager::SetNextGameState(Scene* state)
+	{
+		nextState = state;
+		stateChanged = true;
+	}
+
+	void GameStateManager::SetNextGameState(int id)
+	{
+		Scene* scene = GetGameState(id);
+		if (scene)
+		{
+			nextState = scene;
+			stateChanged = true;
+		}
+	}
+
+	void GameStateManager::SetNextGameState()
+	{
+		SetNextGameState(currentState->id + 1);
+	}
+
+	void GameStateManager::ResetGameState()
+	{
+		currentState->Free();
+		currentState->Init();
+	}
+
+	void GameStateManager::ReloadGameState()
+	{
+		currentState->Unload();
+		currentState->Free();
+		currentState->Load();
+		currentState->Init();
+	}
+
+	void GameStateManager::Update()
+	{
+		if (currentState)
+		{
+			if (!isRunning)
 			{
 				currentState->Free();
 				currentState->Unload();
-				prevState = currentState;
-				currentState = nextState;
+				currentState = nullptr;
+				nextState = nullptr;
+				return;
 			}
-			currentState->Load();
-			currentState->Init();
-			stateChanged = false;
+
+			if (stateChanged)
+			{
+				if (nextState != nullptr)
+				{
+					currentState->Free();
+					currentState->Unload();
+					prevState = currentState;
+					currentState = nextState;
+				}
+
+				AEGfxSetCamPosition(0, 0);
+				currentState->Load();
+				currentState->Init();
+				stateChanged = false;
+
+			}
+			currentState->Update();
+			currentState->Draw();
 
 		}
-		currentState->Update();
-		currentState->Draw();
-
+		else
+		{
+			std::cout << "ERROR: State not found." << std::endl;
+		}
 	}
-	else
+
+	void GameStateManager::Unload()
 	{
-		std::cout << "ERROR: State not found." << std::endl;
+		currentState->Free();
+		currentState->Unload();
 	}
-}
 
-void StarBangBang::GameStateManager::ExitGame()
-{
-	currentState->Free();
-	////free all unit meshes built
-	//StarBangBang::FreeUnitMeshes();
-	currentState->Unload();
-	currentState = nullptr;
-	nextState = nullptr;
+	void GameStateManager::ExitGame()
+	{
+		isRunning = false;
+	}
+
+	bool GameStateManager::GetStatus()
+	{
+		return isRunning;
+	}
+
 }

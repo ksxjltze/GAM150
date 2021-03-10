@@ -12,10 +12,18 @@ namespace StarBangBang
 	class ObjectManager
 	{
 	public:
-		template <class T>
+		template <class T, class ...Args>
+		T& AddComponent(GameObject* gameObject, Args... args)
+		{
+			T* component = new T(gameObject, args...);
+			AddComponent(gameObject, component);
+			return *component;
+		}
+
+		template <class T, class U>
 		T& AddComponent(GameObject* gameObject)
 		{
-			T* component = new T(gameObject);
+			T* component = new T<U>(gameObject);
 			AddComponent(gameObject, component);
 			return *component;
 		}
@@ -28,7 +36,6 @@ namespace StarBangBang
 
 		GameObject* NewGameObject();
 		GameObject* NewGameObject(GameObject* parent);
-		GameObject* NewGameObject(float width, float height);
 
 		GameObject* CloneGameObject(GameObject* gameObject);
 		void DestroyGameObject(GameObject* gameObject);

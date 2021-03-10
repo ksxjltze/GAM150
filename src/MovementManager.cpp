@@ -18,23 +18,42 @@ void StarBangBang::MovementManager::Start()
 
 void StarBangBang::MovementManager::Update()
 {
-	if (AEInputCheckTriggered(AEVK_1))
+	if (AEInputCheckTriggered(AEVK_TAB))
 	{
-		std::cout << "Activating controller 1." << std::endl;
+		static int id = 0;
+		if (++id >= controllers.size())
+		{
+			id = 0;
+		}
+
+		SetActiveController(id);
+	}
+	else if (AEInputCheckTriggered(AEVK_SPACE))
+	{
 		SetActiveController(0);
 	}
-	else if (AEInputCheckTriggered(AEVK_2))
-	{
-		std::cout << "Activating controller 2." << std::endl;
-		SetActiveController(1);
-	}
+
+	//if (AEInputCheckTriggered(AEVK_1))
+	//{
+	//	std::cout << "Activating controller 1." << std::endl;
+	//	SetActiveController(0);
+	//}
+	//else if (AEInputCheckTriggered(AEVK_2))
+	//{
+	//	std::cout << "Activating controller 2." << std::endl;
+	//	SetActiveController(1);
+	//}
 }
 
 void StarBangBang::MovementManager::SetActiveController(int id)
 {
+	if (controllers.size() == 0)
+		return;
+
 	for (PrimaryMovementController* controller : controllers)
 	{
 		controller->SetActive(false);
 	}
+
 	controllers.at(id)->SetActive(true);
 }
