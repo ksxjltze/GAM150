@@ -10,32 +10,6 @@ static AEGfxVertexList* unitcircleMesh;
 static AEGfxVertexList* lineMesh;
 //static AEGfxVertexList* unitboxMesh;
 
-
-const Color StarBangBang::Red()
-{
-	return Color(1.0f, 0.0f, 0.0f, 1.0f);
-}
-const Color StarBangBang::Blue()
-{
-	return Color(0.0f, 0.0f, 1.0f, 1.0f);
-}
-const Color StarBangBang::White()
-{
-	return Color(1.0f, 1.0f, 1.0f, 1.0f);
-}
-const Color StarBangBang::Green()
-{
-	return Color(0.0f, 1.0f, 0.0f, 1.0f);
-}
-const Color StarBangBang::Black()
-{
-	return Color(0.0f, 0.0f, 0.0f, 1.0f);
-}
-const Color StarBangBang::Cyan()
-{
-	return Color(0.0f, 1.0f, 1.0f, 1.0f);
-}
-
 void StarBangBang::InitBasicMesh()
 {
 	//build unit box wired mesh

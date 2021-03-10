@@ -30,7 +30,7 @@ void Detector::Update()
 	if (isFixedPos) // this detector is a security cam
 	{
 		// security cam behaviour (TEMP)
-		rotationAngle += AEFrameRateControllerGetFrameTime() * 50.f;
+		rotationAngle += static_cast<float>(g_dt) * 50.f;
 		if (rotationAngle > 360.f)
 			rotationAngle = 0.f;
 		
@@ -86,8 +86,8 @@ void Detector::CheckForTargets()
 			detected = true;
 
 			//TEMP
-			gameObject->transform.scale.x += 0.5f * g_dt;
-			gameObject->transform.scale.y += 0.5f * g_dt;
+			gameObject->transform.scale.x += 0.5f * static_cast<float>(g_dt);
+			gameObject->transform.scale.y += 0.5f * static_cast<float>(g_dt);
 		}
 		//else
 			//PRINT("WHERE PLAYER\n");

@@ -31,5 +31,9 @@ namespace StarBangBang
 	const Color Green();
 	const Color Black();
 	const Color Cyan();
+	const Color Purple();
+	const Color Gray();
+	const Color LightGreen();
+	const Color SkyBlue();
 
 }

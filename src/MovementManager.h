@@ -1,6 +1,6 @@
 #pragma once
 #include "ScriptComponent.h"
-#include "PrimaryMovementController.h"
+#include "Movement.h"
 
 namespace StarBangBang
 {
@@ -13,6 +13,6 @@ namespace StarBangBang
 		void Update();
 		void SetActiveController(int id);
 	private:
-		std::vector<PrimaryMovementController*> controllers;
+		std::vector<Movement*> controllers;
 	};
 }
