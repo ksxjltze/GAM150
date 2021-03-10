@@ -78,7 +78,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 
 	// Set Initial State
 
-	gameStateManager.SetInitialState(sampleScene);
+	gameStateManager.SetInitialState(mainMenuScene);
 
 	//// Using custom window procedure
 	AESysInit(hInstance, nCmdShow, GRAPHICS::TARGET_WINDOW_WIDTH, GRAPHICS::TARGET_WINDOW_HEIGHT, 1, 60, true, NULL);
@@ -127,14 +127,12 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 		}
 
 		StarBangBang::TestGrid();
-		
 
 		// Update State
 		gameStateManager.Update();
 		audioEngine.Update();
 
 		CollisionManager::ResolverUpdate();
-		StarBangBang::TestGrid();
 		
 		StarBangBang::PathFinderTest();
 		
