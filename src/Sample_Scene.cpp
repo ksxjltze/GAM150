@@ -49,7 +49,7 @@ void StarBangBang::Sample_Scene::Init()
 
 		objectManager.AddComponent<RigidBody>(obj);
 		objectManager.AddImage(obj, image);
-		objectManager.AddCollider(obj, true);
+		objectManager.AddCollider(obj, false);
 		
 		
 	}
