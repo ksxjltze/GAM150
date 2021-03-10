@@ -12,6 +12,7 @@ namespace StarBangBang
 {
 	StarBangBang::Main_Menu::Main_Menu(int id, GameStateManager& manager) : Scene(id, manager), tilemap{ objectManager, graphicsManager }
 	{
+		tf = false;
 		logo_obj = nullptr;
 		playbutton_obj = nullptr;
 		settingsbutton_obj = nullptr;
@@ -85,6 +86,7 @@ namespace StarBangBang
 		{
 			gameStateManager.ExitGame();
 		}
+
 	}
 
 	void StarBangBang::Main_Menu::Draw()

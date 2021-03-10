@@ -116,7 +116,10 @@ namespace StarBangBang
 
 	AEVec2 GRAPHICS::GetScreenScale()
 	{
-		return screenScaleRatio;
+		if (isFullscreen)
+			return screenScaleRatio;
+		else
+			return { 1, 1 };
 	}
 
 	float StarBangBang::GRAPHICS::GetZoom()

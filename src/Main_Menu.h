@@ -40,6 +40,6 @@ namespace StarBangBang
 		GameObject* creditsbutton_obj;
 		GameObject* exitbutton_obj;
 
-		boolean tf;
+		bool tf;
 	};
 }
