@@ -118,6 +118,7 @@
     <ClCompile Include="src\Main_Menu.cpp" />
     <ClCompile Include="src\Map.cpp" />
     <ClCompile Include="src\MemoryManager.cpp" />
+    <ClCompile Include="src\Movement.cpp" />
     <ClCompile Include="src\MovementManager.cpp" />
     <ClCompile Include="src\ObjectManager.cpp" />
     <ClCompile Include="src\PathFinder.cpp" />
@@ -172,6 +173,7 @@
     <ClInclude Include="src\Main_Menu.h" />
     <ClInclude Include="src\Map.h" />
     <ClInclude Include="src\MemoryManager.h" />
+    <ClInclude Include="src\Movement.h" />
     <ClInclude Include="src\MovementManager.h" />
     <ClInclude Include="src\Grid.h" />
     <ClInclude Include="src\ObjectManager.h" />

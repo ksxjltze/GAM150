@@ -3,7 +3,7 @@
 
 void StarBangBang::MovementManager::AddController(GameObject* obj)
 {
-	PrimaryMovementController* controller = obj->GetComponent<PrimaryMovementController>();
+	Movement* controller = obj->GetComponent<Movement>();
 	if (controller != nullptr)
 	{
 		controllers.push_back(controller);
@@ -50,7 +50,7 @@ void StarBangBang::MovementManager::SetActiveController(int id)
 	if (controllers.size() == 0)
 		return;
 
-	for (PrimaryMovementController* controller : controllers)
+	for (Movement* controller : controllers)
 	{
 		controller->SetActive(false);
 	}

@@ -77,8 +77,8 @@ void StarBangBang::Level_Demo::Init()
 	objectManager.AddComponent<CameraComponent>(player);
 	objectManager.AddComponent<InteractableComponent>(testInteractable);
 
-	objectManager.AddComponent<PrimaryMovementController>(player);
-	objectManager.AddComponent<PrimaryMovementController>(player2);
+	objectManager.AddComponent<Movement>(player);
+	objectManager.AddComponent<Movement>(player2);
 	objectManager.AddComponent<MovementManager>(movementController);
 	objectManager.AddComponent<SecondaryMovementController>(testInteractable);
 
