@@ -20,6 +20,11 @@ namespace StarBangBang
 		set.insert({ type, { sprite, type } });
 	}
 
+	void TileSet::Clear()
+	{
+		set.clear();
+	}
+
 	const TileSprite& TileSet::GetTileSprite(TileType t)
 	{
 		return set.at(t);

@@ -111,6 +111,8 @@ namespace StarBangBang
 					prevState = currentState;
 					currentState = nextState;
 				}
+
+				AEGfxSetCamPosition(0, 0);
 				currentState->Load();
 				currentState->Init();
 				stateChanged = false;

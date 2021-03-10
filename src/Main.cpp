@@ -73,7 +73,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 
 	// Set Initial State
 
-	gameStateManager.SetInitialState(SceneID::MAIN_MENU);
+	gameStateManager.SetInitialState(mainMenuScene);
 
 	//// Using custom window procedure
 	AESysInit(hInstance, nCmdShow, 800, 600, 1, 60, true, NULL);
@@ -147,7 +147,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 		AESysFrameEnd();
 
 		// check if forcing the application to quit
-		if (AEInputCheckTriggered(AEVK_ESCAPE) || 0 == AESysDoesWindowExist())
+		if (!AESysDoesWindowExist())
 			gGameRunning = 0;
 	}
 

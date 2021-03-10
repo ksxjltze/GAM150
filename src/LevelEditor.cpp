@@ -29,19 +29,17 @@ namespace StarBangBang
 
 	void LevelEditor::Load()
 	{
-		tileMap.Init();
+		GRAPHICS::SetBackgroundColor(Blue());
 	}
 
 	void LevelEditor::Init()
 	{
-		//path = RESOURCES::LEVEL_TEST_PATH;
-		path = RESOURCES::LEVEL_MAIN_MENU_TEST_PATH;
+		filepath = RESOURCES::LEVEL_TEST_PATH;
+
 		//TODO: Optimize tile drawing (Low FPS on 100 x 100 tile map)
-		if (!LoadLevel(path))
+		if (!LoadLevel(filepath))
 		{
-			//CreateLevel(TILEMAP::DEFAULT_WIDTH, TILEMAP::DEFAULT_WIDTH, TILEMAP::DEFAULT_TILE_SIZE);
-			CreateLevel(20, 20, TILEMAP::DEFAULT_TILE_SIZE);
-			//CreateLevel(200, 200, TILEMAP::DEFAULT_TILE_SIZE);
+			CreateLevel(TILEMAP::DEFAULT_WIDTH, TILEMAP::DEFAULT_WIDTH, TILEMAP::DEFAULT_TILE_SIZE);
 		}
 
 		//Camera Object
@@ -62,12 +60,22 @@ namespace StarBangBang
 
 		if (AEInputCheckTriggered(AEVK_RETURN))
 		{
-			SaveLevel(path);
+			SaveLevel(filepath);
 		}
 
 		if (AEInputCheckTriggered(AEVK_R))
 		{
-			LoadLevel(path);
+			if (AEInputCheckCurr(AEVK_LSHIFT))
+			{
+				CreateLevel(TILEMAP::DEFAULT_WIDTH, TILEMAP::DEFAULT_WIDTH, TILEMAP::DEFAULT_TILE_SIZE);
+			}
+			else
+				LoadLevel(filepath);
+		}
+
+		if (AEInputCheckTriggered(AEVK_ESCAPE))
+		{
+			gameStateManager.SetNextGameState(SceneID::MAIN_MENU);
 		}
 
 		//Insert/Replace/Remove Tile.

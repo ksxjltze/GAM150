@@ -27,6 +27,7 @@ namespace StarBangBang
 	public:
 		void Load(GraphicsManager&);
 		void LoadTileSprite(GraphicsManager&, TileType type, const std::string& path);
+		void Clear();
 
 		const TileSprite& GetTileSprite(TileType);
 	private:

@@ -77,6 +77,10 @@ namespace StarBangBang
 	void StarBangBang::Main_Menu::Update()
 	{
 		Scene::Update();
+		if (AEInputCheckTriggered(AEVK_SPACE))
+		{
+			gameStateManager.SetNextGameState(SceneID::SAMPLE);
+		}
 	}
 
 	void StarBangBang::Main_Menu::Draw()
@@ -87,6 +91,7 @@ namespace StarBangBang
 	void StarBangBang::Main_Menu::Free()
 	{
 		Scene::Free();
+		tilemap.Unload();
 	}
 
 	void StarBangBang::Main_Menu::Unload()
