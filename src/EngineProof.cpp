@@ -28,7 +28,7 @@ namespace StarBangBang
 		{
 			SpawnObject();
 		}
-		if (AEInputCheckTriggered(AEVK_RETURN))
+		if (AEInputCheckTriggered(AEVK_SPACE))
 		{
 			gameStateManager.SetNextGameState(SceneID::SAMPLE);
 		}
