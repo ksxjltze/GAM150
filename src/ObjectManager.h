@@ -30,7 +30,7 @@ namespace StarBangBang
 
 		BoxCollider& AddCollider(GameObject* gameObject, bool isStatic);
 
-		void AddComponent(GameObject* gameObject, _Component* component, bool allocated = true);
+		void AddComponent(GameObject* gameObject, _Component* component);
 		StarBangBang::ImageComponent* AddImage(GameObject* gameObject, Sprite sprite);
 		void AddChildGameObject(GameObject* child, GameObject* parent);
 

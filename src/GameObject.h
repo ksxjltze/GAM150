@@ -24,6 +24,7 @@ namespace StarBangBang
 			_Component* result = nullptr;
 			for (_Component* component : componentList)
 			{
+
 				if (typeid(T).name() == typeid(*component).name())
 				{
 					result = component;
