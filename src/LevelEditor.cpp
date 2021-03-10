@@ -3,7 +3,7 @@
 #include "Utils.h"
 #include <iostream>
 #include <fstream>
-#include "PrimaryMovementController.h"
+#include "Movement.h"
 #include "Serialization.h"
 
 namespace StarBangBang
@@ -45,7 +45,7 @@ namespace StarBangBang
 		//Camera Object
 		camera = objectManager.NewGameObject();
 		objectManager.AddComponent<CameraComponent>(camera);
-		objectManager.AddComponent<PrimaryMovementController>(camera);
+		objectManager.AddComponent<Movement>(camera);
 
 	}
 
