@@ -219,7 +219,7 @@ using namespace StarBangBang;
 			return nullptr;
 	}
 
-	void Grid::DrawGrid()
+	void Grid::DrawGrid(Color color)
 	{
 
 		for (size_t y = 0; y < size_y; y++)
@@ -231,7 +231,7 @@ using namespace StarBangBang;
 					StarBangBang::DrawBox(AEVec2{ nodeSize,nodeSize }, grid[y][x].nodePos, Red());
 				}
 				else
-					StarBangBang::DrawBoxWired(AEVec2{ nodeSize,nodeSize }, grid[y][x].nodePos, Green());
+					StarBangBang::DrawBoxWired(AEVec2{ nodeSize,nodeSize }, grid[y][x].nodePos, color);
 			}
 		}
 	}

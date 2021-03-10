@@ -101,7 +101,7 @@ namespace StarBangBang
 	{
 		Scene::Draw();
 		HighLightGridNode(grid);
-		grid.DrawGrid();
+		grid.DrawGrid(Black());
 	}
 
 	void LevelEditor::Free()

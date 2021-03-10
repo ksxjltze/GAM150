@@ -17,7 +17,7 @@ const Color StarBangBang::Red()
 }
 const Color StarBangBang::Blue()
 {
-	return Color(1.0f, 1.0f, 1.0f, 1.0f);
+	return Color(0.0f, 0.0f, 1.0f, 1.0f);
 }
 const Color StarBangBang::White()
 {

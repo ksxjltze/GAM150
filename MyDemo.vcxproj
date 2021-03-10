@@ -143,6 +143,7 @@
     <ClInclude Include="src\ColliderAABB.h" />
     <ClInclude Include="src\CollisionManager.h" />
     <ClInclude Include="src\CollisionTest.h" />
+    <ClInclude Include="src\Color.h" />
     <ClInclude Include="src\Component.h" />
     <ClInclude Include="src\ComponentCRTP.h" />
     <ClInclude Include="src\constants.h" />
