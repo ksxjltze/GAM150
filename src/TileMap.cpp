@@ -12,20 +12,26 @@ namespace StarBangBang
 
 	void TileMap::Init()
 	{
-		tileSet.Load(gfxMgr);
-		base = objMgr.NewGameObject();
+		if (!base)
+		{
+			tileSet.Load(gfxMgr);
+			base = objMgr.NewGameObject();
+		}
 	}
 
 	void TileMap::Generate(int width, int height, float tileSize)
 	{
 		//Default sprite
 		TileSprite tileSprite = tileSet.GetTileSprite(TileType::STONE);
-
-		AEVec2 offset = GetCentreOffset();
+		//TileSprite tileSprite = tileSet.GetTileSprite(TileType::BRICK_RED);
 
 		mapWidth = width;
 		mapHeight = height;
 		scale = tileSize;
+
+		AEVec2 offset = GetCentreOffset();
+		//AEVec2 offset = { 0, 0 };
+
 
 		for (int y = 0; y < height; y++)
 		{
@@ -123,6 +129,7 @@ namespace StarBangBang
 
 	bool StarBangBang::TileMap::Load(std::string path)
 	{
+		Init();
 		std::ifstream is;
 		is.open(path);
 

@@ -43,6 +43,7 @@ namespace StarBangBang
 		void SetGrid();
 		
 		Sprite boi;
+		std::string path;
 
 		TileMap tileMap;
 		TileType selectedType;

@@ -8,8 +8,8 @@ namespace StarBangBang
 	{
 		LoadTileSprite(gfxMgr,	TileType::GRASS,			RESOURCES::PROTOTYPE_SPRITE_GRASS_PATH);
 		LoadTileSprite(gfxMgr,	TileType::STONE,			RESOURCES::PROTOTYPE_SPRITE_STONE_PATH);
-		LoadTileSprite(gfxMgr,	TileType::BRICK_BLACK,		RESOURCES::REDBRICK_PATH);
-		LoadTileSprite(gfxMgr,	TileType::BRICK_RED,		RESOURCES::BLACKBRICK_PATH);
+		LoadTileSprite(gfxMgr,	TileType::BRICK_BLACK,		RESOURCES::BLACKBRICK_PATH);
+		LoadTileSprite(gfxMgr,	TileType::BRICK_RED,		RESOURCES::REDBRICK_PATH);
 		LoadTileSprite(gfxMgr,	TileType::FLOOR_OFFICE,		RESOURCES::OFFICEFLOOR_PATH);
 		LoadTileSprite(gfxMgr,	TileType::FLOOR_PRISON,		RESOURCES::PRISONFLOOR_PATH);
 	}

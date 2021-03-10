@@ -4,6 +4,7 @@
 #include "GraphicsManager.h"
 #include "MemoryManager.h"
 #include "GameStateManager.h"
+#include "TileMap.h"
 
 namespace StarBangBang
 {
@@ -21,7 +22,7 @@ namespace StarBangBang
 		void LoadLevelTest();
 
 	private:
-
+		TileMap tilemap;
 		Sprite logo;
 		Sprite playbutton1;
 		Sprite settingsbutton1;

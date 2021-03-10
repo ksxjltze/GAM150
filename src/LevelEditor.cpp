@@ -34,10 +34,13 @@ namespace StarBangBang
 
 	void LevelEditor::Init()
 	{
+		//path = RESOURCES::LEVEL_TEST_PATH;
+		path = RESOURCES::LEVEL_MAIN_MENU_TEST_PATH;
 		//TODO: Optimize tile drawing (Low FPS on 100 x 100 tile map)
-		if (!LoadLevel(RESOURCES::LEVEL_TEST_PATH))
+		if (!LoadLevel(path))
 		{
-			CreateLevel(TILEMAP::DEFAULT_WIDTH, TILEMAP::DEFAULT_WIDTH, TILEMAP::DEFAULT_TILE_SIZE);
+			//CreateLevel(TILEMAP::DEFAULT_WIDTH, TILEMAP::DEFAULT_WIDTH, TILEMAP::DEFAULT_TILE_SIZE);
+			CreateLevel(20, 20, TILEMAP::DEFAULT_TILE_SIZE);
 			//CreateLevel(200, 200, TILEMAP::DEFAULT_TILE_SIZE);
 		}
 
@@ -59,17 +62,12 @@ namespace StarBangBang
 
 		if (AEInputCheckTriggered(AEVK_RETURN))
 		{
-			SaveLevel(RESOURCES::LEVEL_TEST_PATH);
+			SaveLevel(path);
 		}
 
 		if (AEInputCheckTriggered(AEVK_R))
 		{
-			LoadLevel(RESOURCES::LEVEL_TEST_PATH);
-		}
-
-		if (AEInputCheckTriggered(AEVK_SPACE))
-		{
-			GRAPHICS::ToggleFullscreen();
+			LoadLevel(path);
 		}
 
 		//Insert/Replace/Remove Tile.

@@ -10,7 +10,7 @@ static const float WinHeight = (float)AEGetWindowHeight();
 
 namespace StarBangBang
 {
-	StarBangBang::Main_Menu::Main_Menu(int id, GameStateManager& manager) : Scene(id, manager)
+	StarBangBang::Main_Menu::Main_Menu(int id, GameStateManager& manager) : Scene(id, manager), tilemap{ objectManager, graphicsManager }
 	{
 		logo_obj = nullptr;
 		playbutton_obj = nullptr;
@@ -21,6 +21,7 @@ namespace StarBangBang
 
 	void StarBangBang::Main_Menu::Load()
 	{
+		tilemap.Load(RESOURCES::LEVEL_MAIN_MENU_TEST_PATH);
 		//load button images
 		logo = graphicsManager.CreateSprite(RESOURCES::LOGO_PATH,256,64);
 
