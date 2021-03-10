@@ -75,7 +75,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 	gameStateManager.SetInitialState(mainMenuScene);
 
 	//// Using custom window procedure
-	AESysInit(hInstance, nCmdShow, 800, 600, 1, 60, true, NULL);
+	AESysInit(hInstance, nCmdShow, GRAPHICS::TARGET_WINDOW_WIDTH, GRAPHICS::TARGET_WINDOW_HEIGHT, 1, 60, true, NULL);
 	StarBangBang::InitBasicMesh();
 	
 	PathFinder::PathFinderInit();
