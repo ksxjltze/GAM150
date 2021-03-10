@@ -20,6 +20,7 @@ namespace StarBangBang
 		void Unload();
 
 		void LoadLevelTest();
+		void ExitGame();
 
 	private:
 		TileMap tilemap;
@@ -40,6 +41,6 @@ namespace StarBangBang
 		GameObject* creditsbutton_obj;
 		GameObject* exitbutton_obj;
 
-		boolean tf;
+		bool tf;
 	};
 }

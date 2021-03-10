@@ -123,7 +123,7 @@ namespace StarBangBang
 					currentState = nextState;
 				}
 
-				AEGfxSetCamPosition(0, 0);
+				GRAPHICS::ResetCamera();
 				currentState->Load();
 				currentState->Init();
 				stateChanged = false;

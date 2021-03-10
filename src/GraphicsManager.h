@@ -15,6 +15,7 @@ namespace StarBangBang
 		void SetBackgroundColor(Color c);
 		void SetScreenScaleRatio(float x, float y);
 		void SetZoom(float scale);
+		void ResetCamera();
 
 		AEVec2 GetScreenScale();
 		float GetZoom();

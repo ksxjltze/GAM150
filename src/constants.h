@@ -58,6 +58,7 @@ namespace StarBangBang
 								 
 		extern const std::string&& LEVEL_TEST_PATH;
 		extern const std::string&& LEVEL_MAIN_MENU_TEST_PATH;
+		extern const std::string&& LEVEL_MAIN_MENU_TEST2_PATH;
 
 
 		//main menu buttons sprites

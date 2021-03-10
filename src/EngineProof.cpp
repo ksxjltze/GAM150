@@ -1,6 +1,8 @@
 #include "EngineProof.h"
 #include "CameraComponent.h"
 #include "constants.h"
+#include "globals.h"
+#include "SecondaryMovementController.h"
 
 namespace StarBangBang
 {
@@ -24,15 +26,24 @@ namespace StarBangBang
 
 	void StarBangBang::EngineProof::Update()
 	{
-		if (AEInputCheckTriggered(AEVK_S))
+		if (AEInputCheckCurr(AEVK_S))
 		{
 			SpawnObject();
 		}
+
 		if (AEInputCheckTriggered(AEVK_SPACE))
 		{
 			gameStateManager.SetNextGameState(SceneID::SAMPLE);
 		}
 		Scene::Update();
+		
+		static float spawnTimer = 0;
+		if ((spawnTimer -= g_dt) <= 0)
+		{
+			spawnTimer = 0.5f;
+			SpawnObject();
+		}
+
 	}
 
 	void StarBangBang::EngineProof::Draw()
@@ -58,6 +69,8 @@ namespace StarBangBang
 		obj->transform.position = 
 		{ AEGetWindowWidth()  * AERandFloat() - AEGetWindowWidth() / 2,
 		   AEGetWindowHeight() * AERandFloat() - AEGetWindowHeight() / 2 };
+
+		objectManager.AddComponent<SecondaryMovementController>(obj).Start();
 	}
 
 }

@@ -14,6 +14,12 @@
 
 #include "BasicMeshShape.h"
 #include "CollisionTest.h"
+#include "globals.h"
+
+namespace StarBangBang
+{
+	double g_dt = 0;
+}
 
 // ---------------------------------------------------------------------------
 // main
@@ -108,6 +114,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 	{
 		// Informing the system about the loop's start
 		AESysFrameStart();
+		g_dt = AEFrameRateControllerGetFrameTime();
 
 		// Handling Input
 		AEInputUpdate();
