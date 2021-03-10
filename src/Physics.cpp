@@ -31,6 +31,11 @@ float RigidBody::inv_mass() const
 void RigidBody::SetMass(float m)
 {
 	mass = m;
+	if(m <= 0)
+	{
+		inverse_mass = 0.0f;
+		return;
+	}
 	inverse_mass = 1.0f / m;
 }
 

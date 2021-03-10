@@ -281,10 +281,10 @@ void CollisionManager::ResolverUpdate()
 	for (BoxCollider* col : collider_list)
 	{
 		assert(col);
-		if (col->isStatic)
-			DebugCollider(*col, Black());
-		else
+		if (col->rb->isKinematic())
 			DebugCollider(*col, Red());
+		else
+			DebugCollider(*col, Black());
 	}
 
 	/*if (!resolveQueue.empty())
@@ -343,9 +343,6 @@ void CollisionManager::ResolverUpdate()
 				}
 
 			}
-
-
-
 
 		}
 
