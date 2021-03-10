@@ -8,7 +8,7 @@ using namespace StarBangBang;
 
 const unsigned int sides = 30;
 
-const float EPILSION = 0.0001;
+const float EPILSION = 0.0001f;
 
 
 

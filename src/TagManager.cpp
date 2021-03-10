@@ -8,13 +8,15 @@ void StarBangBang::TagManager::AddTag(GameObject& obj, std::string tag)
 
 StarBangBang::GameObject& StarBangBang::TagManager::GetGameObjectByTag(std::string tag)
 {
-	try
-	{
-		return tagList.at(tag);
-	}
-	catch(const std::out_of_range& err)
-	{
-		std::cout << "Unable to find Tag " << tag << std::endl;
-		std::cout << "Out of range error: " << err.what() << std::endl;
-	}
+	//try
+	//{
+	//	return tagList.at(tag);
+	//}
+	//catch(const std::out_of_range& err)
+	//{
+	//	std::cout << "Unable to find Tag " << tag << std::endl;
+	//	std::cout << "Out of range error: " << err.what() << std::endl;
+	//}
+
+	return tagList.at(tag);
 }
