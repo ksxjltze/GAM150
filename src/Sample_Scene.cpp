@@ -22,6 +22,7 @@ void StarBangBang::Sample_Scene::Load()
 
 void StarBangBang::Sample_Scene::Init()
 {
+	GRAPHICS::SetBackgroundColor(SkyBlue());
 	gameObject = objectManager.NewGameObject();
 
 	//objectManager.AddImage(gameObject, image2);

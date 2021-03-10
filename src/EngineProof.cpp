@@ -19,7 +19,7 @@ namespace StarBangBang
 
 	void StarBangBang::EngineProof::Init()
 	{
-		GRAPHICS::SetBackgroundColor(Black());
+		GRAPHICS::SetBackgroundColor(LightGreen());
 		GameObject* camera = objectManager.NewGameObject();
 		objectManager.AddComponent<CameraComponent>(camera);
 	}
@@ -38,7 +38,7 @@ namespace StarBangBang
 		Scene::Update();
 		
 		static float spawnTimer = 0;
-		if ((spawnTimer -= g_dt) <= 0)
+		if ((spawnTimer -= static_cast<float>(g_dt)) <= 0)
 		{
 			spawnTimer = 0.5f;
 			SpawnObject();
