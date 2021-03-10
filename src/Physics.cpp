@@ -72,14 +72,15 @@ void RigidBody::AddForce(AEVec2 force, float scale)
 	if (mass <= 0.0f)
 		return;
 
-
-	acceleration = AEVec2{ force.x * inverse_mass * scale,force.y * inverse_mass * scale};
-	
+	acceleration = AEVec2{ force.x * inverse_mass * scale,force.y * inverse_mass * scale};	
 
 }
-//add instant velocity via impulse
+//add instant velocity via calculated impulse 
 void RigidBody::AddVelocity(AEVec2 impulse, float scale)
 {
+	if (mass <= 0)
+		return;
+
 	impulse.x *=  scale;
 	impulse.y *=  scale;
 	
