@@ -18,7 +18,7 @@
 
 namespace StarBangBang
 {
-	double g_dt = 0;
+	float g_dt = 0;
 }
 
 // ---------------------------------------------------------------------------
@@ -81,7 +81,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 	gameStateManager.SetInitialState(mainMenuScene);
 
 	//// Using custom window procedure
-	AESysInit(hInstance, nCmdShow, GRAPHICS::TARGET_WINDOW_WIDTH, GRAPHICS::TARGET_WINDOW_HEIGHT, 1, 60, true, NULL);
+	AESysInit(hInstance, nCmdShow, (s32)GRAPHICS::TARGET_WINDOW_WIDTH, (s32)GRAPHICS::TARGET_WINDOW_HEIGHT, 1, 60, true, NULL);
 	StarBangBang::InitBasicMesh();
 	
 	PathFinder::PathFinderInit();
@@ -114,7 +114,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 	{
 		// Informing the system about the loop's start
 		AESysFrameStart();
-		g_dt = AEFrameRateControllerGetFrameTime();
+		g_dt = static_cast<float>(AEFrameRateControllerGetFrameTime());
 
 		// Handling Input
 		AEInputUpdate();

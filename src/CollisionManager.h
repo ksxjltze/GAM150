@@ -38,7 +38,7 @@ namespace StarBangBang
 
 	namespace CollisionManager
 	{
-		
+		void Free();
 		void AddToColliders(BoxCollider);
 		void ResolverUpdate();
 		void AddToResolveQueue(CollisionPair);

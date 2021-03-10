@@ -19,6 +19,8 @@ StarBangBang::Level_Demo::Level_Demo(int id, GameStateManager& manager) : Scene(
 {
 	player = nullptr;
 	player2 = nullptr;
+	map = nullptr;
+	testSecurityCam = nullptr;
 
 	movementController = nullptr;
 

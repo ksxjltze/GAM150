@@ -22,7 +22,7 @@ namespace StarBangBang
 			objectManager.LateUpdate(); 
 		}
 		virtual void Draw() { objectManager.Draw(); }
-		virtual void Free() { memoryManager.Free(); }
+		virtual void Free() { memoryManager.Free(); CollisionManager::Free(); }
 		virtual void Unload() { memoryManager.Unload(); }
 
 	protected:

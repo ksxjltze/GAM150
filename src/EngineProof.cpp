@@ -33,8 +33,7 @@ namespace StarBangBang
 
 		if (AEInputCheckTriggered(AEVK_SPACE))
 		{
-			gameStateManager.SetNextGameState(SceneID::DEMO);
-			//gameStateManager.SetNextGameState(SceneID::SAMPLE);
+			gameStateManager.SetNextGameState(SceneID::SAMPLE);
 		}
 		Scene::Update();
 		

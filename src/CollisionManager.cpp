@@ -274,6 +274,11 @@ void ResolvePenetration(const CollisionPair& pair)
 	//CollisionManager::RecalculateColliderCells(pair.B);
 }
 
+void StarBangBang::CollisionManager::Free()
+{
+	collider_list.clear();
+}
+
 //wip
 void CollisionManager::ResolverUpdate()
 {
