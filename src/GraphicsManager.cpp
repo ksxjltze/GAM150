@@ -114,6 +114,12 @@ namespace StarBangBang
 		zoom = scale;
 	}
 
+	void GRAPHICS::ResetCamera()
+	{
+		SetZoom(1.0f);
+		AEGfxSetCamPosition(0, 0);
+	}
+
 	AEVec2 GRAPHICS::GetScreenScale()
 	{
 		if (isFullscreen)
