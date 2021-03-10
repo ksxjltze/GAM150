@@ -10,15 +10,10 @@
 
 #include "GameStateManager.h"
 #include "constants.h"
+#include "SceneList.h"
 
 #include "BasicMeshShape.h"
 #include "CollisionTest.h"
-
-#include "Level_Demo.h"
-#include "Sample_Scene.h"
-#include "LevelEditor.h"
-#include "CaptainStealth.h"
-#include "Main_Menu.h"
 
 // ---------------------------------------------------------------------------
 // main
@@ -67,16 +62,18 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 	Scene* sampleScene		= gameStateManager.AddGameState<Sample_Scene>(SCENE::SAMPLE);
 	Scene* gameScene		= gameStateManager.AddGameState<CaptainStealth>(SCENE::GAME);
 	Scene* mainMenuScene	= gameStateManager.AddGameState<Main_Menu>(SCENE::MAINMENU);
+	Scene* engineProof		= gameStateManager.AddGameState<EngineProof>();
 
 	sceneList.push_back(sceneDemo);
 	sceneList.push_back(sceneEditor);
 	sceneList.push_back(sampleScene);
 	sceneList.push_back(gameScene);
 	sceneList.push_back(mainMenuScene);
+	sceneList.push_back(engineProof);
 
 	// Set Initial State
 
-	gameStateManager.SetInitialState(sceneEditor);
+	gameStateManager.SetInitialState(engineProof);
 
 	//// Using custom window procedure
 	AESysInit(hInstance, nCmdShow, 800, 600, 1, 60, true, NULL);

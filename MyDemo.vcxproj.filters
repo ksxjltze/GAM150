@@ -249,6 +249,9 @@
     <ClCompile Include="src\MovementManager.cpp">
       <Filter>Source Files\Scripts\Movement</Filter>
     </ClCompile>
+    <ClCompile Include="src\EngineProof.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\ImageComponent.h">
@@ -435,6 +438,12 @@
       <Filter>Header Files\Scripts</Filter>
     </ClInclude>
     <ClInclude Include="src\Color.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\EngineProof.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\SceneList.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

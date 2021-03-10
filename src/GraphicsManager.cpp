@@ -188,6 +188,11 @@ namespace StarBangBang
 		AEGfxMeshDraw(mesh, AE_GFX_MDM_TRIANGLES);
 	}
 
+	void GRAPHICS::SetBackgroundColor(Color c)
+	{
+		AEGfxSetBackgroundColor(c.R(), c.G(), c.B());
+	}
+
 	void StarBangBang::GRAPHICS::SetScreenScaleRatio(float x, float y)
 	{
 		screenScaleRatio.x = x;

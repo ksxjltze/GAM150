@@ -1,5 +1,6 @@
 #pragma once
 #include "Sprite.h"
+#include "Color.h"
 #include <AEEngine.h>
 #include <vector>
 #include <string>
@@ -11,6 +12,7 @@ namespace StarBangBang
 		static float zoom = 1;
 
 		void DrawImage(AEGfxVertexList* mesh, AEGfxTexture* texture, AEVec2 pos, AEVec2 scale, float rotation);
+		void SetBackgroundColor(Color c);
 		void SetScreenScaleRatio(float x, float y);
 		void SetZoom(float scale);
 

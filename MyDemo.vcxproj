@@ -98,6 +98,7 @@
     <ClCompile Include="src\constants.cpp" />
     <ClCompile Include="src\Detector.cpp" />
     <ClCompile Include="src\DragComponent.cpp" />
+    <ClCompile Include="src\EngineProof.cpp" />
     <ClCompile Include="src\EventTest.cpp" />
     <ClCompile Include="src\GameObject.cpp" />
     <ClCompile Include="src\GameStateManager.cpp" />
@@ -149,6 +150,7 @@
     <ClInclude Include="src\constants.h" />
     <ClInclude Include="src\Detector.h" />
     <ClInclude Include="src\DragComponent.h" />
+    <ClInclude Include="src\EngineProof.h" />
     <ClInclude Include="src\Event.h" />
     <ClInclude Include="src\EventTest.h" />
     <ClInclude Include="src\GameObject.h" />
@@ -178,6 +180,7 @@
     <ClInclude Include="src\Player.h" />
     <ClInclude Include="src\PrimaryMovementController.h" />
     <ClInclude Include="src\Sample_Scene.h" />
+    <ClInclude Include="src\SceneList.h" />
     <ClInclude Include="src\ScriptComponent.h" />
     <ClInclude Include="src\SecondaryMovementController.h" />
     <ClInclude Include="src\Serialization.h" />
