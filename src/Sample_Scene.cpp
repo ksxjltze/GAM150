@@ -56,20 +56,6 @@ void StarBangBang::Sample_Scene::Init()
 	}
 
 	objectManager.Init();
-
-
-
-
-	//Collider* collider = CollisionManager::CreateBoxColliderInstance(gameObject);
-	//objectManager.AddComponent(gameObject, collider, false);
-
-	//MovementManager moveMgr = objectManager.AddComponent<MovementManager>(gameObject);
-	//objectManager.AddComponent<PrimaryMovementController>(collisionTestObj);
-
-	//moveMgr.AddController(gameObject);
-	//moveMgr.AddController(collisionTestObj);
-
-	objectManager.Init();
 }
 
 void StarBangBang::Sample_Scene::Update()
