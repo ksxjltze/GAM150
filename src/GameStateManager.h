@@ -30,6 +30,7 @@ namespace StarBangBang
 
 		void SetInitialState(Scene* state);
 		void SetInitialState(int id);
+		Scene* GetGameState(int id);
 		void SetNextGameState(Scene* state);
 		void SetNextGameState(int id);
 		void ResetGameState();
