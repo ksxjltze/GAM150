@@ -18,30 +18,21 @@ void StarBangBang::PrimaryMovementController::Update()
 {
 	float dt = static_cast<float>(AEFrameRateControllerGetFrameTime());
 	float speed = 40 * dt ;
+	float h = 0.0f, v = 0.0f;
+
 	if (AEInputCheckCurr(AEVK_W))
-	{
-		movement.y = speed;
-
-	}
-	
-	if (AEInputCheckCurr(AEVK_A))
-	{
-		movement.x = -speed;
-
-	}
+		v = 1;
 	
 	if (AEInputCheckCurr(AEVK_S))
-	{
-		movement.y = -speed;
+		v = -1;
 
-	}
+	if (AEInputCheckCurr(AEVK_A))
+		h = -1;
 	
 	if (AEInputCheckCurr(AEVK_D))
-	{
-		movement.x = speed;
-
-	}
+		h = 1;
 	
-
+	movement.x = h * speed;
+	movement.y = v * speed;
 	rb->AddVelocity(movement, 1.0f);
 }

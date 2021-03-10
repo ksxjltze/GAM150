@@ -1,7 +1,7 @@
 #include "Physics.h"
 using namespace StarBangBang;
 
-const float EPILISON = 0.00000001f;
+const float EPILISON = 0.0000000001f;
 
 RigidBody::RigidBody(GameObject* gameObject) :Component(gameObject), acceleration{ AEVec2{ 0,0 } }, 
 inverse_mass{ 1.0f }, mass{1.0f}, drag{ 0.1f }, velocity{ AEVec2{ 0,0 } }
@@ -58,8 +58,6 @@ void StarBangBang::RigidBody::Update()
 		velocity.x = 0;
 		velocity.y = 0;
 	}
-
-	
 	
 	gameObject->transform.position.x += velocity.x ;
 	gameObject->transform.position.y += velocity.y ;
