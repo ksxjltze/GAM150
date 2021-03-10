@@ -21,6 +21,11 @@ namespace StarBangBang
 		{
 			f32 mag = velocity.x * velocity.x + velocity.y * velocity.y;
 			mag = (f32)sqrt(mag);
+			if (mag == 0 || mag == -0)
+			{
+				return velocity;
+			}
+
 			return AEVec2{ velocity.x / mag, velocity.y / mag };
 		}
 		f32 SqrVelocity() const

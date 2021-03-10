@@ -8,7 +8,7 @@ using namespace StarBangBang;
 
 const unsigned int sides = 30;
 
-
+const float EPILSION = 0.0001;
 
 
 
@@ -21,19 +21,21 @@ CollisionPair::CollisionPair(BoxCollider& A, BoxCollider& B, CollisionData data)
 }
 namespace
 {
-	
-	PartitionGrid p_grid ;
+
+	PartitionGrid p_grid;
 	unique_queue<CollisionPair> resolveQueue;
+
+	std::queue<CollisionPair> queue;
 	//all colliders created
 	std::vector<BoxCollider*> collider_list;
 
 }
 
 
-BoxCollider* CollisionManager::CreateBoxColliderInstance(GameObject* gameObject , bool is_static)
+BoxCollider* CollisionManager::CreateBoxColliderInstance(GameObject* gameObject, bool is_static)
 {
 
-	BoxCollider* c =  new BoxCollider(gameObject);
+	BoxCollider* c = new BoxCollider(gameObject);
 	c->isStatic = is_static;
 	collider_list.push_back(c);
 	unsigned int index = (unsigned int)collider_list.size() - 1;
@@ -84,7 +86,7 @@ BoxCollider* CollisionManager::CreateBoxColliderInstance(GameObject* gameObject 
 void CalculateCollisionData(const BoxCollider& b1, const BoxCollider& b2, CollisionData& col)
 {
 	AEVec2 dist = AEVec2{ b2.GetCenter().x - b1.GetCenter().x , b2.GetCenter().y - b1.GetCenter().y };
-	
+
 	float x_intersect = b1.GetExtend().x + b2.GetExtend().x - fabs(dist.x);
 	float y_intersect = b1.GetExtend().y + b2.GetExtend().y - fabs(dist.y);
 
@@ -105,7 +107,7 @@ void CalculateCollisionData(const BoxCollider& b1, const BoxCollider& b2, Collis
 		if (dist.y < 0)
 			col.col_normal = AEVec2{ 0.0f, -1.0f };
 		else
-			col.col_normal = AEVec2{ 0.0f,1.0f };
+			col.col_normal = AEVec2{ 0.0f, 1.0f };
 
 	}
 
@@ -137,18 +139,18 @@ void FetchAllColliderCells(const BoxCollider& c, std::vector<Cell*>& list)
 		{
 			AEVec2 v{ c.Min().x + x * p_grid.GetCellSize() , c.Min().y + y * p_grid.GetCellSize() };
 
-			
+
 			int cellIndex = p_grid.GetHashCellIndex(v);
 			Cell& cell = p_grid.grid[cellIndex];
 			cell.cellIndex = cellIndex;
 			list.push_back(&cell);
-			
 
-			
+
+
 
 		}
 	}*/
-	
+
 	std::vector<AEVec2> points;
 	points.reserve(8);
 	AEVec2 max = c.Max();
@@ -199,8 +201,8 @@ void CollisionManager::RecalculateColliderCells(BoxCollider& col)
 			//PRINT("R_Index: %d\n", index);
 			Cell& c = p_grid.grid[index];
 			c.cell_colliders.erase(&col);
-			
-			
+
+
 		}
 		//clear all cell data from collider
 		col.ClearCellList();
@@ -218,7 +220,7 @@ void CollisionManager::RecalculateColliderCells(BoxCollider& col)
 		col.AddToCellList(cell_ref->cellIndex);
 
 	}
-	
+
 
 }
 
@@ -233,108 +235,58 @@ void DrawParition()
 		}
 	}
 }
+void ResolveVelocity(const CollisionPair& pair)
+{
+	AEVec2 normal = pair.data.col_normal;
+	AEVec2 relVel = AEVec2{ pair.B.rb->velocity.x - pair.A.rb->velocity.x
+							, pair.B.rb->velocity.y - pair.A.rb->velocity.y };
+
+	float dotVelScale = AEVec2DotProduct(&relVel, &normal);
+
+	if (dotVelScale > 0)
+		return;
+
+	float scale = -(1 + bounciness) * dotVelScale ;
+	float total = pair.A.rb->inv_mass() + pair.B.rb->inv_mass();
+
+	if (total > 0)
+	{
+		scale /= total;
+
+		// Apply impulse
+		AEVec2 impulse{ normal.x * scale  , normal.y * scale };
+
+		pair.A.rb->AddVelocity(impulse, -pair.A.rb->inv_mass());
+		pair.B.rb->AddVelocity(impulse, pair.B.rb->inv_mass());
+	}
+}
+void ResolvePenetration(const CollisionPair& pair)
+{
+	float total = pair.A.rb->inv_mass() + pair.B.rb->inv_mass();
+
+	if (total <= 0)
+		return;
+
+	//position correction for penetration depth
+	AEVec2 corr = AEVec2{ (max(pair.data.pen_depth - 0.1f, 0.0f) / total) * 0.2f * pair.data.col_normal.x ,
+					(max(
+						pair.data.pen_depth - 0.1f, 0.0f) / total) * 0.2f * pair.data.col_normal.y };
+
+	pair.A.rb->AddVelocity(corr, -pair.A.rb->inv_mass());
+	pair.B.rb->AddVelocity(corr, pair.B.rb->inv_mass());
+}
+
+
+//wip
+void CollisionManager::AddToResolveQueue(CollisionPair pair)
+{
+	queue.push(pair);
+	//resolveQueue.push(pair);
+
+}
 //wip
 void CollisionManager::ResolverUpdate()
 {
-
-	//non-partition 
-	for (BoxCollider* col : collider_list)
-	{
-		
-	
-		for (BoxCollider* col2 : collider_list)
-		{
-			assert(col2);
-
-			if ( col == col2  )
-				continue;
-			CollisionData data;
-
-			//if both have rb use dynamic collision
-			if (col->rb && col2->rb)
-			{
-				if (col->rb->SqrVelocity() > 0 || col2->rb->SqrVelocity() > 0)
-				{
-					if (Dynamic_AABB(*col, col->rb->velocity, *col2, col2->rb->velocity, data))
-					{
-
-						CollisionPair p{ *col,*col2, data };
-						AEVec2 normal = p.data.col_normal;
-						AEVec2 relVel = AEVec2{ col2->rb->velocity.x - col->rb->velocity.x
-												,col2->rb->velocity.y - col->rb->velocity.y };
-
-						float dotVelScale = AEVec2DotProduct(&relVel, &normal);
-
-						if (dotVelScale > 0)
-							return;
-
-						float scale = -(1 + bounciness) * dotVelScale;
-						float total = col->rb->inv_mass() + col2->rb->inv_mass();
-
-						if (total > 0)
-						{
-							scale /= total;
-
-							// Apply impulse
-							AEVec2 impulse{ normal.x * scale  , normal.y * scale };
-
-							col->rb->AddVelocity(impulse, -col->rb->inv_mass());
-							col2->rb->AddVelocity(impulse, col2->rb->inv_mass());
-						}
-						
-
-					}
-				}	
-				else 
-				{
-					if (StaticAABB_Check(*col, *col2, data))
-					{
-						
-						CollisionPair p{ *col,*col2, data };
-						//PRINT("Added to resolve queue\n");
-						AEVec2 normal = p.data.col_normal;
-						AEVec2 relVel = AEVec2{ col2->rb->velocity.x - col->rb->velocity.x
-												,col2->rb->velocity.y - col->rb->velocity.y };
-
-						float dotVelScale = AEVec2DotProduct(&relVel, &normal);
-
-						if (dotVelScale > 0)
-							return;
-
-						float scale = -(1 + bounciness) * dotVelScale;
-						float total = col->rb->inv_mass() + col2->rb->inv_mass();
-
-						if (total > 0)
-						{
-							scale /= total;
-
-							// Apply impulse
-							AEVec2 impulse{ normal.x * scale  , normal.y * scale };
-
-							col->rb->AddVelocity(impulse, -col->rb->inv_mass());
-							col2->rb->AddVelocity(impulse, col2->rb->inv_mass());
-						}
-
-						
-						
-						//CollisionManager::Resolve(p.A, p.B, p.data);
-						//AddToResolveQueue(p);
-					}
-					
-				}
-				float total = col->rb->inv_mass() + col2->rb->inv_mass();
-				if (total <= 0)
-					return;
-				//position correction
-				AEVec2 corr = AEVec2{ (max(data.pen_depth - 0.1f, 0.0f) / total) * 0.2f * data.col_normal.x ,
-								(max(data.pen_depth - 0.1f, 0.0f) / total) * 0.2f * data.col_normal.y };
-				col->rb->AddVelocity(corr, -col->rb->inv_mass());
-				col2->rb->AddVelocity(corr, col2->rb->inv_mass());
-			}	
-
-		}
-		
-	}
 
 	for (BoxCollider* col : collider_list)
 	{
@@ -344,64 +296,116 @@ void CollisionManager::ResolverUpdate()
 		else
 			DebugCollider(*col, Red());
 	}
-	//paritition (still have some bugs)
-	//for (BoxCollider* col : collider_list)
-	//{
-	//	assert(col);
-	//	//printf("%zu\n", collider_list.size());
-	//	if (col->GetCellListSize() > 0)
-	//	{
-	//		for (const int index : col->GetCellIndexes())
-	//		{
-	//			//PRINT("C_Index: %d\n", index);
-	//			assert(index < p_grid.GetBucketSize());
 
-	//			Cell& c = p_grid.grid[index];
-
-	//			for (BoxCollider* box : c.cell_colliders)
-	//			{
-	//				assert(box);
-
-	//				if ( box->isStatic && col->isStatic  || box == col)
-	//					continue;
-	//					
-	//				CollisionData data;
-	//				if (Dynamic_AABB(*col, AEVec2{ 0,0 }, *box, AEVec2{ 0,0 }, data))
-	//				{
-	//					//PRINT("COLLIDER\n");
-	//					CollisionPair p{ *col,*box, data };
-	//					AddToResolveQueue(p);
-
-	//				}
-	//			}
-
-	//		}
-	//	}
-	//	if (col->isStatic)
-	//		DebugCollider(*col, Black());
-	//	else
-	//		DebugCollider(*col, Red());
-	//
-	//}
-
-	if (!resolveQueue.empty())
+	/*if (!resolveQueue.empty())
 	{
 		for (size_t i = 0; i < resolveQueue.size(); ++i)
 		{
-			const CollisionPair& pair = resolveQueue.front();
-			CollisionManager::Resolve(pair.A, pair.B, pair.data);
+			int iteration = 100;
+			const CollisionPair& p = resolveQueue.front();
+			while (iteration > 0)
+			{
+				ResolveVelocity(p);
+				ResolvePenetration(p);
+				--iteration;
+			}
 			resolveQueue.pop();
 		}
-	}
-	//DrawParition();
-}
-//wip
-void CollisionManager::AddToResolveQueue(CollisionPair pair)
-{
-	
-	resolveQueue.push(pair);
+	}*/
+	//non-partition 
+	for (BoxCollider* col : collider_list)
+	{
 
+		for (BoxCollider* col2 : collider_list)
+		{
+			assert(col2);
+
+			if (col == col2)
+				continue;
+			CollisionData data;
+
+			//if both have rb use dynamic collision
+			if (col->rb && col2->rb )
+			{
+				if (col->rb->SqrVelocity() == 0 && col2->rb->SqrVelocity() == 0 )
+				{
+					if (StaticAABB_Check(*col, *col2, data))
+					{
+						CollisionPair p{ *col,*col2, data };
+						ResolveVelocity(p);
+						ResolvePenetration(p);
+						//AddToResolveQueue(p);
+					}
+				}
+				else 
+				{
+					if (Dynamic_AABB(*col, col->rb->velocity, *col2, col2->rb->velocity, data))
+					{
+						CollisionPair p { *col,*col2, data };
+						ResolveVelocity(p);
+						ResolvePenetration(p);
+
+						//AddToResolveQueue(p);
+					
+					}
+					
+				
+				}
+
+			}
+
+
+
+
+		}
+
+	}
+
+
+#pragma region Partition
+	//paritition (still have some bugs)
+	/*for (BoxCollider* col : collider_list)
+	{
+		assert(col);
+		//printf("%zu\n", collider_list.size());
+		if (col->GetCellListSize() > 0)
+		{
+			for (const int index : col->GetCellIndexes())
+			{
+				//PRINT("C_Index: %d\n", index);
+				assert(index < p_grid.GetBucketSize());
+
+				Cell& c = p_grid.grid[index];
+
+				for (BoxCollider* box : c.cell_colliders)
+				{
+					assert(box);
+
+					if (box->isStatic && col->isStatic || box == col)
+						continue;
+
+					CollisionData data;
+					if (Dynamic_AABB(*col, AEVec2{ 0,0 }, *box, AEVec2{ 0,0 }, data))
+					{
+						//PRINT("COLLIDER\n");
+						CollisionPair p{ *col,*box, data };
+						AddToResolveQueue(p);
+
+					}
+				}
+
+			}
+		}
+		if (col->isStatic)
+			DebugCollider(*col, Black());
+		else
+			DebugCollider(*col, Red());
+
+	}*/
+#pragma endregion
 }
+
+
 //check for static aabb
 bool CollisionManager::StaticAABB_Check(const BoxCollider& A, const BoxCollider& B, CollisionData& data)
 {
@@ -436,7 +440,7 @@ bool CollisionManager::Dynamic_AABB(const BoxCollider& A, const AEVec2& vel1,
 	if (StaticAABB_Check(A, B, data))
 	{
 		return true;
-	
+
 	}
 
 	//first collision time //collision exit time

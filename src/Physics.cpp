@@ -18,22 +18,9 @@ void StarBangBang::RigidBody::Update()
 	velocity.x += acceleration.x  * dt;
 	velocity.y += acceleration.y  * dt;
 
-	f32 mag = velocity.x * velocity.x + velocity.y * velocity.y;
-	mag = (f32)sqrt(mag);
-
-	if (mag != 0)
-	{
-		float k1 = 0.01f, k2 = 0.02f;
-		float dragCo = mag * k1 + k2 * mag * mag;
-		AEVec2 nVel = GetNormalizedVelocity();
-		nVel.x *= -dragCo;
-		nVel.y *= -dragCo;
-		velocity.x += nVel.x;
-		velocity.y += nVel.y;
-
-	}
-	//velocity.x *= 1.0f - drag;
-	//velocity.y *= 1.0f - drag;
+	
+	velocity.x *= 1.0f - drag;
+	velocity.y *= 1.0f - drag;
 	gameObject->transform.position.x += velocity.x * dt;
 	gameObject->transform.position.y += velocity.y  * dt;
 	//PRINT("V:(%0.4f,%0.4f)\n", velocity.x, velocity.y);
