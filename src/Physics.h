@@ -17,6 +17,7 @@ namespace StarBangBang
 		
 
 		float inv_mass() const;
+		inline bool isKinematic() const { return mass > 0; }
 
 		void SetMass(float m);
 

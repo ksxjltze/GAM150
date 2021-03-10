@@ -143,7 +143,6 @@
     <ClInclude Include="src\CaptainStealth.h" />
     <ClInclude Include="src\Click.h" />
     <ClInclude Include="src\Collider.h" />
-    <ClInclude Include="src\ColliderAABB.h" />
     <ClInclude Include="src\CollisionManager.h" />
     <ClInclude Include="src\CollisionTest.h" />
     <ClInclude Include="src\Color.h" />

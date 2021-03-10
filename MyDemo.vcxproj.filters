@@ -407,9 +407,6 @@
     <ClInclude Include="src\Physics.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\ColliderAABB.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="src\SerializeTest.h">
       <Filter>Header Files</Filter>
     </ClInclude>

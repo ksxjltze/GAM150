@@ -33,6 +33,7 @@ void StarBangBang::Sample_Scene::Init()
 	objectManager.AddComponent<PrimaryMovementController>(gameObject);
 	objectManager.AddComponent<CameraComponent>(gameObject);
 	objectManager.AddComponent<RigidBody>(gameObject);
+	gameObject->GetComponent<RigidBody>()->SetMass(0);
 	moveMgr.AddController(gameObject);
 
 	int nObjects = 8;
