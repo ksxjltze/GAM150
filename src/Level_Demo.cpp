@@ -109,7 +109,7 @@ void StarBangBang::Level_Demo::Update()
 	Scene::Update();
 	if (AEInputCheckTriggered(VK_SPACE))
 	{
-		gameStateManager.SetNextGameState(SCENE::EDITOR);
+		gameStateManager.SetNextGameState(SceneID::EDITOR);
 	}
 
 	if (AEInputCheckTriggered(AEVK_M))

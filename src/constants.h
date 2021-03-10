@@ -3,7 +3,7 @@
 
 namespace StarBangBang
 {
-	enum SCENE {DEMO, EDITOR, SAMPLE, GAME, MAINMENU};
+	enum SceneID {DEMO, EDITOR, SAMPLE, GAME, MAIN_MENU};
 	namespace GRAPHICS
 	{
 		static const int MESH_WIDTH = 100, MESH_HEIGHT = 100;

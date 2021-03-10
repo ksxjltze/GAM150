@@ -95,7 +95,7 @@ namespace StarBangBang
 
 	void Main_Menu::LoadLevelTest()
 	{
-		gameStateManager.SetNextGameState(SCENE::SAMPLE);
+		gameStateManager.SetNextGameState(SceneID::SAMPLE);
 	}
 
 }

@@ -36,6 +36,28 @@ void StarBangBang::GameStateManager::SetInitialState(Scene* state)
 	stateChanged = true;
 }
 
+void StarBangBang::GameStateManager::SetInitialState(int id)
+{
+	bool found = false;
+	for (Scene* state : gameStateList)
+	{
+		if (state->getID() == id)
+		{
+			found = true;
+			currentState = state;
+			break;
+		}
+	}
+
+	if (found)
+	{
+		stateChanged = true;
+		return;
+	}
+	else
+		std::cout << "Specified State does not exist!" << std::endl;
+}
+
 void StarBangBang::GameStateManager::SetNextGameState(Scene* state)
 {
 	nextState = state;
