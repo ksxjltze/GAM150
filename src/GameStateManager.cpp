@@ -79,6 +79,11 @@ namespace StarBangBang
 		}
 	}
 
+	void GameStateManager::SetNextGameState()
+	{
+		SetNextGameState(currentState->id + 1);
+	}
+
 	void GameStateManager::ResetGameState()
 	{
 		currentState->Free();

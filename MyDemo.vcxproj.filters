@@ -250,7 +250,7 @@
       <Filter>Source Files\Scripts\Movement</Filter>
     </ClCompile>
     <ClCompile Include="src\EngineProof.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Scenes</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

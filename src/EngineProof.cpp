@@ -28,6 +28,10 @@ namespace StarBangBang
 		{
 			SpawnObject();
 		}
+		if (AEInputCheckTriggered(AEVK_RETURN))
+		{
+			gameStateManager.SetNextGameState(SceneID::SAMPLE);
+		}
 		Scene::Update();
 	}
 
