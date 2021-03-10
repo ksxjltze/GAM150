@@ -34,11 +34,12 @@ void StarBangBang::Sample_Scene::Init()
 
 	moveMgr.AddController(gameObject);
 
-	for (int i = 0; i < 8; i++)
+	int nObjects = 16;
+	for (int i = 0; i < nObjects; i++)
 	{
 		GameObject* obj = objectManager.NewGameObject();
 
-		double rads = (2 * (double)PI / 8) * i;
+		double rads = (2 * (double)PI / nObjects) * i;
 		AEVec2& pos = obj->transform.position;
 
 		pos.x = static_cast<float>(cos(rads) * 300);
