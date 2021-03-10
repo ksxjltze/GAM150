@@ -4,20 +4,6 @@
 using namespace StarBangBang;
 
 
-
-void BoxCollider::SetCenter(float x, float y)
-{
-	center.x = x;
-	center.y = y;
-	CollisionManager::RecalculateColliderCells(*this);
-}
-void BoxCollider::Translate(float x , float y)
-{
-	center.x += x;
-	center.y += y;
-	CollisionManager::RecalculateColliderCells(*this);
-}
-
 void BoxCollider::ClearCellList()
 {
 	cell_indexes.clear();
@@ -65,24 +51,12 @@ StarBangBang::BoxCollider::BoxCollider(GameObject* gameObject) : Collider(gameOb
 }
 
 
-
-
 CircleCollider::CircleCollider(AEVec2 _center, float _rad ) : Collider()
 {
 	center = _center;
 	radius = _rad;
 }
 
-void CircleCollider::SetCenter(float x, float y)
-{
-	center.x = x;
-	center.y = y;
-}
 
-void CircleCollider::Translate(float x, float y)
-{
-	center.x += x;
-	center.y += y;
-}
 
 

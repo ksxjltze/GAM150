@@ -23,9 +23,8 @@ namespace
 {
 
 	PartitionGrid p_grid;
-	unique_queue<CollisionPair> resolveQueue;
+	//unique_queue<CollisionPair> resolveQueue;
 
-	std::queue<CollisionPair> queue;
 	//all colliders created
 	std::vector<BoxCollider*> collider_list;
 
@@ -201,8 +200,6 @@ void CollisionManager::RecalculateColliderCells(BoxCollider& col)
 			//PRINT("R_Index: %d\n", index);
 			Cell& c = p_grid.grid[index];
 			c.cell_colliders.erase(&col);
-
-
 		}
 		//clear all cell data from collider
 		col.ClearCellList();
@@ -242,11 +239,11 @@ void ResolveVelocity(const CollisionPair& pair)
 							, pair.B.rb->velocity.y - pair.A.rb->velocity.y };
 
 	float dotVelScale = AEVec2DotProduct(&relVel, &normal);
-
+	//towards same direction curr
 	if (dotVelScale > 0)
 		return;
 
-	float scale = -(1 + bounciness) * dotVelScale ;
+	float scale = -(1 + bounciness) * dotVelScale;
 	float total = pair.A.rb->inv_mass() + pair.B.rb->inv_mass();
 
 	if (total > 0)
@@ -269,21 +266,14 @@ void ResolvePenetration(const CollisionPair& pair)
 
 	//position correction for penetration depth
 	AEVec2 corr = AEVec2{ (max(pair.data.pen_depth - 0.1f, 0.0f) / total) * 0.2f * pair.data.col_normal.x ,
-					(max(
-						pair.data.pen_depth - 0.1f, 0.0f) / total) * 0.2f * pair.data.col_normal.y };
+					(max(pair.data.pen_depth - 0.1f, 0.0f) / total) * 0.2f * pair.data.col_normal.y };
 
 	pair.A.rb->AddVelocity(corr, -pair.A.rb->inv_mass());
 	pair.B.rb->AddVelocity(corr, pair.B.rb->inv_mass());
+	//CollisionManager::RecalculateColliderCells(pair.A);
+	//CollisionManager::RecalculateColliderCells(pair.B);
 }
 
-
-//wip
-void CollisionManager::AddToResolveQueue(CollisionPair pair)
-{
-	queue.push(pair);
-	//resolveQueue.push(pair);
-
-}
 //wip
 void CollisionManager::ResolverUpdate()
 {
@@ -325,9 +315,9 @@ void CollisionManager::ResolverUpdate()
 			CollisionData data;
 
 			//if both have rb use dynamic collision
-			if (col->rb && col2->rb )
+			if (col->rb && col2->rb)
 			{
-				if (col->rb->SqrVelocity() == 0 && col2->rb->SqrVelocity() == 0 )
+				if (col->rb->SqrVelocity() == 0 && col2->rb->SqrVelocity() == 0)
 				{
 					if (StaticAABB_Check(*col, *col2, data))
 					{
@@ -337,19 +327,19 @@ void CollisionManager::ResolverUpdate()
 						//AddToResolveQueue(p);
 					}
 				}
-				else 
+				else
 				{
 					if (Dynamic_AABB(*col, col->rb->velocity, *col2, col2->rb->velocity, data))
 					{
-						CollisionPair p { *col,*col2, data };
+						CollisionPair p{ *col,*col2, data };
 						ResolveVelocity(p);
 						ResolvePenetration(p);
 
 						//AddToResolveQueue(p);
-					
+
 					}
-					
-				
+
+
 				}
 
 			}
@@ -377,29 +367,45 @@ void CollisionManager::ResolverUpdate()
 
 				Cell& c = p_grid.grid[index];
 
-				for (BoxCollider* box : c.cell_colliders)
+				for (BoxCollider* col2 : c.cell_colliders)
 				{
-					assert(box);
+					assert(col2);
 
-					if (box->isStatic && col->isStatic || box == col)
+					if (col2 == col)
 						continue;
-
 					CollisionData data;
-					if (Dynamic_AABB(*col, AEVec2{ 0,0 }, *box, AEVec2{ 0,0 }, data))
+					if (col->rb && col2->rb)
 					{
-						//PRINT("COLLIDER\n");
-						CollisionPair p{ *col,*box, data };
-						AddToResolveQueue(p);
+						if (col->rb->SqrVelocity() == 0 && col2->rb->SqrVelocity() == 0)
+						{
+							if (StaticAABB_Check(*col, *col2, data))
+							{
+								CollisionPair p{ *col,*col2, data };
+								ResolveVelocity(p);
+								ResolvePenetration(p);
+								//AddToResolveQueue(p);
+							}
+						}
+						else
+						{
+							if (Dynamic_AABB(*col, col->rb->velocity, *col2, col2->rb->velocity, data))
+							{
+								CollisionPair p{ *col,*col2, data };
+								ResolveVelocity(p);
+								ResolvePenetration(p);
+
+								//AddToResolveQueue(p);
+
+							}
+
+
+						}
 
 					}
 				}
 
 			}
 		}
-		if (col->isStatic)
-			DebugCollider(*col, Black());
-		else
-			DebugCollider(*col, Red());
 
 	}*/
 #pragma endregion

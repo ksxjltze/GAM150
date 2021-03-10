@@ -7,27 +7,26 @@ namespace StarBangBang
 	{
 	private:
 		AEVec2 acceleration;
-	
+		float inverse_mass;
+		//mass <= 0 (infinity mass)
+		float mass;
 	public:
-		//mass = 0 = infinity
-		float mass ;
+		
 		float drag;
 		AEVec2 velocity;
 		
 
 		float inv_mass() const;
-		
-		AEVec2 GetNormalizedVelocity() const
-		{
-			f32 mag = velocity.x * velocity.x + velocity.y * velocity.y;
-			mag = (f32)sqrt(mag);
-			if (mag == 0 || mag == -0)
-			{
-				return velocity;
-			}
 
-			return AEVec2{ velocity.x / mag, velocity.y / mag };
+		void SetMass(float m);
+
+		AEVec2 GetNormalizedVelocity() const;
+
+		f32 MagVelocity() const
+		{
+			return (f32)sqrt( ((double)velocity.x * (double)velocity.x + (double)velocity.y * (double)velocity.y));
 		}
+
 		f32 SqrVelocity() const
 		{
 			return velocity.x * velocity.x + velocity.y * velocity.y;

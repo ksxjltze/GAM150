@@ -40,8 +40,7 @@ namespace StarBangBang
 			}
 			CircleCollider( AEVec2 _center, float _rad = 1.0f);
 			//void Update();
-			void SetCenter(float x, float y);
-			void Translate(float x, float y);
+		
 	};
 
 	//AABB only
@@ -105,11 +104,9 @@ namespace StarBangBang
 			BoxCollider(const BoxCollider& rhs) = default;
 			BoxCollider& operator=(const BoxCollider& rhs) = default;
 
-			//void Update();
-			//void LateUpdate();
+			
 			//parition cell functions
-			void SetCenter(float x, float y);
-			void Translate(float x, float y);
+		
 			void ClearCellList();
 			size_t GetCellListSize() const;
 			void AddToCellList(int);
