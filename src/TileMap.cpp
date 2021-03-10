@@ -134,9 +134,12 @@ namespace StarBangBang
 				using coords = std::pair<int, int>;
 				for (const std::pair<coords, Tile>& tile : map)
 				{
-					GameObject* obj = tile.second.spriteObject->gameObject;
-					objMgr.DestroyGameObject(obj);
+					tile.second.spriteObject->gameObject->active = false;
+					//GameObject* obj = tile.second.spriteObject->gameObject;
+					//objMgr.DestroyGameObject(obj);
 				}
+				//objMgr.FreeComponents();
+				//objMgr.FreeObjects();
 				map.clear();
 			}
 
