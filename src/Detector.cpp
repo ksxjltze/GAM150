@@ -1,5 +1,6 @@
 #include "Detector.h"
 #include "BasicMeshShape.h"
+#include "globals.h"
 
 using namespace StarBangBang;
 
@@ -83,6 +84,10 @@ void Detector::CheckForTargets()
 
 			//PRINT("%s\n", "DETECTED PLAYER");
 			detected = true;
+
+			//TEMP
+			gameObject->transform.scale.x += 0.5f * g_dt;
+			gameObject->transform.scale.y += 0.5f * g_dt;
 		}
 		//else
 			//PRINT("WHERE PLAYER\n");
