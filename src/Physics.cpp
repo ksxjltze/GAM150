@@ -20,7 +20,8 @@ void StarBangBang::RigidBody::Update()
 	velocity.x *= 1.0f - drag;
 	velocity.y *= 1.0f - drag;
 	gameObject->transform.position.x += velocity.x * dt;
-	gameObject->transform.position.y += velocity.y * dt;
+	gameObject->transform.position.y += velocity.y  * dt;
+	//PRINT("V:(%0.4f,%0.4f)\n", velocity.x, velocity.y);
 }
 
 

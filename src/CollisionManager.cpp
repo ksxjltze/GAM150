@@ -10,6 +10,9 @@ const unsigned int sides = 30;
 
 
 
+
+
+
 CollisionData::CollisionData()
 	:pen_depth{ 0.0f }, col_normal{ 0.0f, 0.0f } {}
 
@@ -91,18 +94,18 @@ void CalculateCollisionData(const BoxCollider& b1, const BoxCollider& b2, Collis
 		col.pen_depth = y_intersect;
 		// means that b2 center on the left of b1 center 
 		if (dist.x < 0)
-			col.col_normal = AEVec2{ 1.0f,0.0f };
-		else
 			col.col_normal = AEVec2{ -1.0f,0.0f };
+		else
+			col.col_normal = AEVec2{ 1.0f,0.0f };
 	}
 	else
 	{
 		col.pen_depth = x_intersect;
 		//means b2 center is below b1 center
 		if (dist.y < 0)
-			col.col_normal = AEVec2{ 0.0f, 1.0f };
+			col.col_normal = AEVec2{ 0.0f, -1.0f };
 		else
-			col.col_normal = AEVec2{ 0.0f,-1.0f };
+			col.col_normal = AEVec2{ 0.0f,1.0f };
 
 	}
 
@@ -237,7 +240,8 @@ void CollisionManager::ResolverUpdate()
 	//non-partition 
 	for (BoxCollider* col : collider_list)
 	{
-		assert(col);
+		
+	
 		for (BoxCollider* col2 : collider_list)
 		{
 			assert(col2);
@@ -249,37 +253,97 @@ void CollisionManager::ResolverUpdate()
 			//if both have rb use dynamic collision
 			if (col->rb && col2->rb)
 			{
-				/*if (Dynamic_AABB(*col, col->rb->velocity, *col2, col2->rb->velocity, data))
+				if (col->rb->SqrVelocity() > 0 || col2->rb->SqrVelocity() > 0)
 				{
-					CollisionPair p{ *col,*col2, data };
-					PRINT("Added to resolve queue\n");
-					//CollisionManager::Resolve(p.A, p.B, p.data);
-					AddToResolveQueue(p);
-				}*/
-				if (StaticAABB_Check(*col, *col2, data))
-				{
-					CollisionPair p{ *col,*col2, data };
-					//PRINT("Added to resolve queue\n");
-					//CollisionManager::Resolve(p.A, p.B, p.data);
-					AddToResolveQueue(p);
-				}
+					if (Dynamic_AABB(*col, col->rb->velocity, *col2, col2->rb->velocity, data))
+					{
 
-			}	
-			else
-			{
-				/*if (StaticAABB_Check(*col, *col2, data))
+						CollisionPair p{ *col,*col2, data };
+						AEVec2 normal = p.data.col_normal;
+						AEVec2 relVel = AEVec2{ col2->rb->velocity.x - col->rb->velocity.x
+												,col2->rb->velocity.y - col->rb->velocity.y };
+
+						float dotVelScale = AEVec2DotProduct(&relVel, &normal);
+
+						if (dotVelScale > 0)
+							return;
+
+						float scale = -(1 + bounciness) * dotVelScale;
+						float total = col->rb->inv_mass() + col2->rb->inv_mass();
+
+						if (total > 0)
+						{
+							scale /= total;
+
+							// Apply impulse
+							AEVec2 impulse{ normal.x * scale  , normal.y * scale };
+
+							col->rb->AddVelocity(impulse, -col->rb->inv_mass());
+							col2->rb->AddVelocity(impulse, col2->rb->inv_mass());
+						}
+						
+
+					}
+				}	
+				else 
 				{
+					if (StaticAABB_Check(*col, *col2, data))
+					{
+						
+						CollisionPair p{ *col,*col2, data };
+						//PRINT("Added to resolve queue\n");
+						AEVec2 normal = p.data.col_normal;
+						AEVec2 relVel = AEVec2{ col2->rb->velocity.x - col->rb->velocity.x
+												,col2->rb->velocity.y - col->rb->velocity.y };
+
+						float dotVelScale = AEVec2DotProduct(&relVel, &normal);
+
+						if (dotVelScale > 0)
+							return;
+
+						float scale = -(1 + bounciness) * dotVelScale;
+						float total = col->rb->inv_mass() + col2->rb->inv_mass();
+
+						if (total > 0)
+						{
+							scale /= total;
+
+							// Apply impulse
+							AEVec2 impulse{ normal.x * scale  , normal.y * scale };
+
+							col->rb->AddVelocity(impulse, -col->rb->inv_mass());
+							col2->rb->AddVelocity(impulse, col2->rb->inv_mass());
+						}
+
+						
+						
+						//CollisionManager::Resolve(p.A, p.B, p.data);
+						//AddToResolveQueue(p);
+					}
 					
-				}*/
-			}
+				}
+				float total = col->rb->inv_mass() + col2->rb->inv_mass();
+				if (total <= 0)
+					return;
+				//position correction
+				AEVec2 corr = AEVec2{ (max(data.pen_depth - 0.1f, 0.0f) / total) * 0.2f * data.col_normal.x ,
+								(max(data.pen_depth - 0.1f, 0.0f) / total) * 0.2f * data.col_normal.y };
+				col->rb->AddVelocity(corr, -col->rb->inv_mass());
+				col2->rb->AddVelocity(corr, col2->rb->inv_mass());
+			}	
 
 		}
+		
+	}
+
+	for (BoxCollider* col : collider_list)
+	{
+		assert(col);
 		if (col->isStatic)
 			DebugCollider(*col, Black());
 		else
 			DebugCollider(*col, Red());
 	}
-
 	//paritition (still have some bugs)
 	//for (BoxCollider* col : collider_list)
 	//{
@@ -364,10 +428,10 @@ bool CollisionManager::Dynamic_AABB(const BoxCollider& A, const AEVec2& vel1,
 	const BoxCollider& B, const AEVec2& vel2, CollisionData& data)
 {
 
-	if (vel1.x == 0 && vel1.y == 0 && vel2.x == 0 && vel2.y == 0)
+	/*if (vel1.x == 0 && vel1.y == 0 && vel2.x == 0 && vel2.y == 0)
 	{
 		return StaticAABB_Check(A, B, data);
-	}
+	}*/
 
 	if (StaticAABB_Check(A, B, data))
 	{

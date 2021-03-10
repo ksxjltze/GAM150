@@ -20,8 +20,12 @@ namespace StarBangBang
 		AEVec2 GetNormalizedVelocity() const
 		{
 			f32 mag = velocity.x * velocity.x + velocity.y * velocity.y;
-			mag = sqrt(mag);
+			mag = (f32)sqrt(mag);
 			return AEVec2{ velocity.x / mag, velocity.y / mag };
+		}
+		f32 SqrVelocity() const
+		{
+			return velocity.x * velocity.x + velocity.y * velocity.y;
 		}
 
 		void Update();

@@ -43,6 +43,6 @@ void StarBangBang::PrimaryMovementController::Update()
 		movement.x = speed;
 		//gameObject->transform.position.x += speed;
 	}
-
+	//movement.x = speed;
 	rb->AddVelocity(movement, 1.0f);
 }
