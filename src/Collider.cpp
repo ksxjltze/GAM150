@@ -1,6 +1,6 @@
 #include "Collider.h"
 #include "CollisionManager.h"
-
+#include "Physics.h"
 using namespace StarBangBang;
 
 
@@ -39,6 +39,12 @@ void BoxCollider::AddToCellList(int index)
 	
 }
 
+void StarBangBang::BoxCollider::Start()
+{
+	rb = gameObject->GetComponent<RigidBody>();
+
+}
+
 const std::vector<int>& BoxCollider::GetCellIndexes() const
 {
 	return cell_indexes;
@@ -54,32 +60,10 @@ StarBangBang::BoxCollider::BoxCollider(GameObject* gameObject) : Collider(gameOb
 	min = AEVec2{ _center.x - extend.x , _center.y - extend.y };
 	max = AEVec2{ _center.x + extend.x , _center.y + extend.y };
 
-	//center = _center;
-	//CollisionManager::AddToColliders(*this);
+	rb = gameObject->GetComponent<RigidBody>();
+
 }
 
-//BoxCollider::BoxCollider(AEVec2 min, AEVec2 max,bool isStatic) 
-//{
-//	this->min = min;
-//	this->max = max;
-//	this->isStatic = isStatic;
-//	float width = max.x - min.x;
-//	float height = max.y - min.y;
-//	extend = AEVec2{ width * 0.5f,height * 0.5f };
-//	center = AEVec2{min.x + extend.x, min.y + extend.y};
-//	//CollisionManager::AddToColliders(*this);
-//}
-//
-//BoxCollider::BoxCollider(AEVec2 _center, bool _isStatic , float width, float height) : Collider()
-//{
-//	extend = AEVec2{ width * 0.5f,height * 0.5f};
-//	min = AEVec2{_center.x - extend.x , _center.y - extend.y} ;
-//	max = AEVec2{ _center.x + extend.x , _center.y + extend.y };
-//	isStatic = _isStatic;
-//	center = _center;
-//	//CollisionManager::AddToColliders(*this);
-//	
-//}
 
 
 
@@ -101,22 +85,5 @@ void CircleCollider::Translate(float x, float y)
 	center.y += y;
 }
 
-void StarBangBang::BoxCollider::Update()
-{
-	PRINT("TEST");
-}
 
-void StarBangBang::BoxCollider::LateUpdate()
-{
-
-}
-
-void StarBangBang::CircleCollider::Update()
-{
-	//if (gameObject)
-	//{
-	//	AEVec2 pos = gameObject->GetPos();
-	//	SetCenter(pos.x, pos.y);
-	//}
-}
 

@@ -1,6 +1,7 @@
 #pragma once
 #include "GameObject.h"
 #include "ComponentCRTP.h"
+#include "Physics.h"
 
 namespace StarBangBang
 {
@@ -15,8 +16,8 @@ namespace StarBangBang
 		bool isStatic = false;
 		AEVec2 offset = { 0,0 };
 
-		//virtual void Start() {};
-		//virtual void Update() {};
+		virtual void Start() {};
+		virtual void Update() {};
 
 		Collider(GameObject* gameObject) :Component(gameObject) { isTrigger = false, isStatic = false, offset = AEVec2{ 0,0 }; };
 		Collider() :Component(gameObject) { isTrigger = false, isStatic = false, offset = AEVec2{ 0,0 }; gameObject = nullptr; };
@@ -38,7 +39,7 @@ namespace StarBangBang
 				return center;
 			}
 			CircleCollider( AEVec2 _center, float _rad = 1.0f);
-			void Update();
+			//void Update();
 			void SetCenter(float x, float y);
 			void Translate(float x, float y);
 	};
@@ -54,6 +55,11 @@ namespace StarBangBang
 			//indexes to cells they occupy
 			std::vector<int> cell_indexes;
 		public:
+			RigidBody* rb;
+
+
+			void Start();
+
 			inline AEVec2 GetExtend() const
 			{
 				return extend;
@@ -92,15 +98,13 @@ namespace StarBangBang
 
 			const std::vector<int>& GetCellIndexes() const;
 
-			BoxCollider( GameObject* gameObject);
-			//BoxCollider( AEVec2 _center,bool _isStatic = true ,float width = 1.0f, float height = 1.0f);
-			//BoxCollider(AEVec2 min, AEVec2 max , bool isStatic = true);
+			BoxCollider( GameObject* gameObject) ;
 
 			BoxCollider(const BoxCollider& rhs) = default;
 			BoxCollider& operator=(const BoxCollider& rhs) = default;
 
-			void Update();
-			void LateUpdate();
+			//void Update();
+			//void LateUpdate();
 			//parition cell functions
 			void SetCenter(float x, float y);
 			void Translate(float x, float y);

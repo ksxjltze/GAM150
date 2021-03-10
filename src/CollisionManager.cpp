@@ -3,9 +3,13 @@
 #include "Grid.h"
 #include <cmath>
 #include <iostream>
+#include "UniqueQueue.h"
 using namespace StarBangBang;
 
 const unsigned int sides = 30;
+
+
+
 
 
 
@@ -19,24 +23,25 @@ namespace
 {
 	
 	PartitionGrid p_grid ;
-	std::queue<CollisionPair> resolveQueue;
+	unique_queue<CollisionPair> resolveQueue;
 	//all colliders created
-	std::vector<BoxCollider> collider_list;
+	std::vector<BoxCollider*> collider_list;
 
 }
 
 
 BoxCollider* CollisionManager::CreateBoxColliderInstance(GameObject* gameObject , bool is_static)
 {
-	BoxCollider c = BoxCollider(gameObject);
-	c.isStatic = is_static;
+
+	BoxCollider* c =  new BoxCollider(gameObject);
+	c->isStatic = is_static;
 	collider_list.push_back(c);
 	unsigned int index = (unsigned int)collider_list.size() - 1;
 
 	std::vector<AEVec2> points;
 	points.reserve(8);
-	AEVec2 max = c.Max();
-	AEVec2 min = c.Min();
+	AEVec2 max = c->Max();
+	AEVec2 min = c->Min();
 
 	AEVec2 topR{ min.x, max.y };
 	AEVec2 btmL{ max.x,min.y };
@@ -48,7 +53,7 @@ BoxCollider* CollisionManager::CreateBoxColliderInstance(GameObject* gameObject 
 			break;
 		for (int x = 0; ; ++x)
 		{
-			v = AEVec2{ c.Min().x + x * p_grid.GetCellSize() , c.Min().y + y * p_grid.GetCellSize() };
+			v = AEVec2{ c->Min().x + x * p_grid.GetCellSize() , c->Min().y + y * p_grid.GetCellSize() };
 
 			if (v.x > max.x || v.y > max.y)
 				break;
@@ -68,38 +73,39 @@ BoxCollider* CollisionManager::CreateBoxColliderInstance(GameObject* gameObject 
 		int cellIndex = p_grid.GetHashCellIndex(points[i]);
 		Cell& cell = p_grid.grid[cellIndex];
 		cell.cellIndex = cellIndex;
-		collider_list[index].AddToCellList(cellIndex);
-		cell.cell_colliders.insert(&collider_list[index]);
+		collider_list[index]->AddToCellList(cellIndex);
+		cell.cell_colliders.insert(collider_list[index]);
 
 		//PRINT("hash:%d \n", cellIndex);
 	}
-	return &collider_list[index];
+	return collider_list[index];
 }
 
 void CalculateCollisionData(const BoxCollider& b1, const BoxCollider& b2, CollisionData& col)
 {
 	AEVec2 dist = AEVec2{ b2.GetCenter().x - b1.GetCenter().x , b2.GetCenter().y - b1.GetCenter().y };
+	
 	float x_intersect = b1.GetExtend().x + b2.GetExtend().x - fabs(dist.x);
 	float y_intersect = b1.GetExtend().y + b2.GetExtend().y - fabs(dist.y);
 
 	//Find the min intersect distance 
 	if (x_intersect > y_intersect)
 	{
-		col.pen_depth = x_intersect;
+		col.pen_depth = y_intersect;
 		// means that b2 center on the left of b1 center 
 		if (dist.x < 0)
-			col.col_normal = AEVec2{ 1.0f,0.0f };
-		else
 			col.col_normal = AEVec2{ -1.0f,0.0f };
+		else
+			col.col_normal = AEVec2{ 1.0f,0.0f };
 	}
 	else
 	{
-		col.pen_depth = y_intersect;
+		col.pen_depth = x_intersect;
 		//means b2 center is below b1 center
 		if (dist.y < 0)
-			col.col_normal = AEVec2{ 0.0f, 1.0f };
+			col.col_normal = AEVec2{ 0.0f, -1.0f };
 		else
-			col.col_normal = AEVec2{ 0.0f,-1.0f };
+			col.col_normal = AEVec2{ 0.0f,1.0f };
 
 	}
 
@@ -215,81 +221,7 @@ void CollisionManager::RecalculateColliderCells(BoxCollider& col)
 	
 
 }
-void CollisionManager::AddToColliders(BoxCollider c)
-{
-	collider_list.push_back(c);
-	unsigned int index = (unsigned int)collider_list.size() - 1;
 
-	std::vector<AEVec2> points;
-	points.reserve(8);
-	AEVec2 max = c.Max();
-	AEVec2 min = c.Min();
-
-	AEVec2 topR{min.x, max.y};
-	AEVec2 btmL{max.x,min.y};
-	AEVec2 v = min;
-	//calcuate all the in between points 
-	for (int y = 0; ; ++y)
-	{
-		if (v.x > max.x || v.y > max.y)
-			break;
-		for (int x = 0; ; ++x)
-		{
-			 v = AEVec2{ c.Min().x + x * p_grid.GetCellSize() , c.Min().y + y * p_grid.GetCellSize() };
-
-			if (v.x > max.x || v.y > max.y)
-				break;
-
-			points.push_back(v);
-
-		}
-	}
-	points.push_back(max);
-	points.push_back(topR);
-	points.push_back(btmL);
-
-	//PRINT("size:%zu \n" ,points.size());
-
-	for (size_t i = 0; i < points.size(); ++i)
-	{
-		int cellIndex = p_grid.GetHashCellIndex(points[i]);
-		Cell& cell = p_grid.grid[cellIndex];
-		cell.cellIndex = cellIndex;
-		collider_list[index].AddToCellList(cellIndex);
-		cell.cell_colliders.insert(&collider_list[index]);
-
-		//PRINT("hash:%d \n", cellIndex);
-	}
-
-
-	/*
-	Cell& maxCell = p_grid.grid[p_grid.GetHashCellIndex(c.Max())];
-	Cell& minCell = p_grid.grid[p_grid.GetHashCellIndex(c.Min())];
-	AEVec2 dimension{ c.GetWidth(),c.GetHeight() };
-	
-	int x_limit = (int)ceil(dimension.x / p_grid.GetCellSize());
-	int y_limit = (int)ceil(dimension.y / p_grid.GetCellSize()) ;
-
-	for (int y = 0; y < y_limit ; ++y)
-	{
-		for (int x = 0 ; x < x_limit ; ++x)
-		{
-			AEVec2 v{ c.Min().x + x * p_grid.GetCellSize() , c.Min().y + y * p_grid.GetCellSize() };
-
-			
-			int cellIndex = p_grid.GetHashCellIndex(v);
-			Cell& cell = p_grid.grid[cellIndex];
-			cell.cellIndex = cellIndex;
-			collider_list[index].AddToCellList(cellIndex);
-			cell.cell_colliders.insert(&collider_list[index]);
-			
-			
-		}
-	}*/
-
-
-
-}
 void DrawParition()
 {
 	for (int y = 0; y < 32; ++y)
@@ -306,34 +238,120 @@ void CollisionManager::ResolverUpdate()
 {
 
 	//non-partition 
-	for (BoxCollider& col : collider_list)
+	for (BoxCollider* col : collider_list)
 	{
-		for (BoxCollider& col2 : collider_list)
+		
+	
+		for (BoxCollider* col2 : collider_list)
 		{
-			if (col.isStatic && col2.isStatic  || &col == &col2  )
+			assert(col2);
+
+			if ( col == col2  )
 				continue;
 			CollisionData data;
-			if (Dynamic_AABB(col, AEVec2{ 0,0 }, col2, AEVec2{ 0,0 }, data))
+
+			//if both have rb use dynamic collision
+			if (col->rb && col2->rb)
 			{
-				CollisionPair p{ col,col2, data };
-				PRINT("Added to resolve queue\n");
-				AddToResolveQueue(p);
-			}
+				if (col->rb->SqrVelocity() > 0 || col2->rb->SqrVelocity() > 0)
+				{
+					if (Dynamic_AABB(*col, col->rb->velocity, *col2, col2->rb->velocity, data))
+					{
+
+						CollisionPair p{ *col,*col2, data };
+						AEVec2 normal = p.data.col_normal;
+						AEVec2 relVel = AEVec2{ col2->rb->velocity.x - col->rb->velocity.x
+												,col2->rb->velocity.y - col->rb->velocity.y };
+
+						float dotVelScale = AEVec2DotProduct(&relVel, &normal);
+
+						if (dotVelScale > 0)
+							return;
+
+						float scale = -(1 + bounciness) * dotVelScale;
+						float total = col->rb->inv_mass() + col2->rb->inv_mass();
+
+						if (total > 0)
+						{
+							scale /= total;
+
+							// Apply impulse
+							AEVec2 impulse{ normal.x * scale  , normal.y * scale };
+
+							col->rb->AddVelocity(impulse, -col->rb->inv_mass());
+							col2->rb->AddVelocity(impulse, col2->rb->inv_mass());
+						}
+						
+
+					}
+				}	
+				else 
+				{
+					if (StaticAABB_Check(*col, *col2, data))
+					{
+						
+						CollisionPair p{ *col,*col2, data };
+						//PRINT("Added to resolve queue\n");
+						AEVec2 normal = p.data.col_normal;
+						AEVec2 relVel = AEVec2{ col2->rb->velocity.x - col->rb->velocity.x
+												,col2->rb->velocity.y - col->rb->velocity.y };
+
+						float dotVelScale = AEVec2DotProduct(&relVel, &normal);
+
+						if (dotVelScale > 0)
+							return;
+
+						float scale = -(1 + bounciness) * dotVelScale;
+						float total = col->rb->inv_mass() + col2->rb->inv_mass();
+
+						if (total > 0)
+						{
+							scale /= total;
+
+							// Apply impulse
+							AEVec2 impulse{ normal.x * scale  , normal.y * scale };
+
+							col->rb->AddVelocity(impulse, -col->rb->inv_mass());
+							col2->rb->AddVelocity(impulse, col2->rb->inv_mass());
+						}
+
+						
+						
+						//CollisionManager::Resolve(p.A, p.B, p.data);
+						//AddToResolveQueue(p);
+					}
+					
+				}
+				float total = col->rb->inv_mass() + col2->rb->inv_mass();
+				if (total <= 0)
+					return;
+				//position correction
+				AEVec2 corr = AEVec2{ (max(data.pen_depth - 0.1f, 0.0f) / total) * 0.2f * data.col_normal.x ,
+								(max(data.pen_depth - 0.1f, 0.0f) / total) * 0.2f * data.col_normal.y };
+				col->rb->AddVelocity(corr, -col->rb->inv_mass());
+				col2->rb->AddVelocity(corr, col2->rb->inv_mass());
+			}	
 
 		}
-		if (col.isStatic)
-			DebugCollider(col, Black());
-		else
-			DebugCollider(col, Red());
+		
 	}
 
+	for (BoxCollider* col : collider_list)
+	{
+		assert(col);
+		if (col->isStatic)
+			DebugCollider(*col, Black());
+		else
+			DebugCollider(*col, Red());
+	}
 	//paritition (still have some bugs)
-	//for (BoxCollider& col : collider_list)
+	//for (BoxCollider* col : collider_list)
 	//{
+	//	assert(col);
 	//	//printf("%zu\n", collider_list.size());
-	//	if (col.GetCellListSize() > 0)
+	//	if (col->GetCellListSize() > 0)
 	//	{
-	//		for (const int index : col.GetCellIndexes())
+	//		for (const int index : col->GetCellIndexes())
 	//		{
 	//			//PRINT("C_Index: %d\n", index);
 	//			assert(index < p_grid.GetBucketSize());
@@ -342,14 +360,16 @@ void CollisionManager::ResolverUpdate()
 
 	//			for (BoxCollider* box : c.cell_colliders)
 	//			{
-	//				if ( box->isStatic && col.isStatic  || box == &col)
+	//				assert(box);
+
+	//				if ( box->isStatic && col->isStatic  || box == col)
 	//					continue;
 	//					
 	//				CollisionData data;
-	//				if (Dynamic_AABB(col, AEVec2{ 0,0 }, *box, AEVec2{ 0,0 }, data))
+	//				if (Dynamic_AABB(*col, AEVec2{ 0,0 }, *box, AEVec2{ 0,0 }, data))
 	//				{
 	//					//PRINT("COLLIDER\n");
-	//					CollisionPair p{ col,*box, data };
+	//					CollisionPair p{ *col,*box, data };
 	//					AddToResolveQueue(p);
 
 	//				}
@@ -357,11 +377,10 @@ void CollisionManager::ResolverUpdate()
 
 	//		}
 	//	}
-
-	//	if (col.isStatic)
-	//		DebugCollider(col, Black());
+	//	if (col->isStatic)
+	//		DebugCollider(*col, Black());
 	//	else
-	//		DebugCollider(col, Red());
+	//		DebugCollider(*col, Red());
 	//
 	//}
 
@@ -369,7 +388,7 @@ void CollisionManager::ResolverUpdate()
 	{
 		for (size_t i = 0; i < resolveQueue.size(); ++i)
 		{
-			CollisionPair& pair = resolveQueue.front();
+			const CollisionPair& pair = resolveQueue.front();
 			CollisionManager::Resolve(pair.A, pair.B, pair.data);
 			resolveQueue.pop();
 		}
@@ -409,10 +428,10 @@ bool CollisionManager::Dynamic_AABB(const BoxCollider& A, const AEVec2& vel1,
 	const BoxCollider& B, const AEVec2& vel2, CollisionData& data)
 {
 
-	if (vel1.x == 0 && vel1.y == 0 && vel2.x == 0 && vel2.y == 0)
+	/*if (vel1.x == 0 && vel1.y == 0 && vel2.x == 0 && vel2.y == 0)
 	{
 		return StaticAABB_Check(A, B, data);
-	}
+	}*/
 
 	if (StaticAABB_Check(A, B, data))
 	{

@@ -1,18 +1,49 @@
 #include "Physics.h"
 using namespace StarBangBang;
 
-const float drag = 1.0f;
-const AEVec2 resistance = AEVec2{ 1,1 };
+RigidBody::RigidBody(GameObject* gameObject) :Component(gameObject), acceleration{ AEVec2{ 0,0 } },
+mass{ 1.0f }, drag{0.1f},
+velocity{ AEVec2{ 0,0 } } 
+{}
 
 
-RigidBody::RigidBody(float _mass, AEVec2 _velocity , AEVec2 _acceleration, AEVec2 _position ) :
-	mass{ _mass }, inv_mass{ 1 / _mass }, velocity{ _velocity }, acceleration{ _acceleration }, position{ _position }
-	{};
+float RigidBody::inv_mass() const
+{
+	return 1.0f / mass;
+}
 
-void RigidBody::RB_AddForce(AEVec2 force, float scale)
+void StarBangBang::RigidBody::Update()
+{
+	f32 dt = static_cast<f32>(AEFrameRateControllerGetFrameTime());
+	velocity.x += acceleration.x  * dt;
+	velocity.y += acceleration.y  * dt;
+
+	f32 mag = velocity.x * velocity.x + velocity.y * velocity.y;
+	mag = (f32)sqrt(mag);
+
+	if (mag != 0)
+	{
+		float k1 = 0.01f, k2 = 0.02f;
+		float dragCo = mag * k1 + k2 * mag * mag;
+		AEVec2 nVel = GetNormalizedVelocity();
+		nVel.x *= -dragCo;
+		nVel.y *= -dragCo;
+		velocity.x += nVel.x;
+		velocity.y += nVel.y;
+
+	}
+	//velocity.x *= 1.0f - drag;
+	//velocity.y *= 1.0f - drag;
+	gameObject->transform.position.x += velocity.x * dt;
+	gameObject->transform.position.y += velocity.y  * dt;
+	//PRINT("V:(%0.4f,%0.4f)\n", velocity.x, velocity.y);
+}
+
+
+void RigidBody::AddForce(AEVec2 force, float scale)
 {
 	//treat as infinity mass does not move
-	if (mass == 0)
+	if (mass <= 0)
 	{
 		return;
 	}
@@ -21,7 +52,7 @@ void RigidBody::RB_AddForce(AEVec2 force, float scale)
 	
 
 }
-void RigidBody::RB_AddVelocity(AEVec2 force, float scale)
+void RigidBody::AddVelocity(AEVec2 force, float scale)
 {
 	force.x = force.x * scale;
 	force.y = force.y * scale;
@@ -29,16 +60,4 @@ void RigidBody::RB_AddVelocity(AEVec2 force, float scale)
 	velocity.y += force.y;
 
 }
-void RigidBody::RB_Update(void)
-{
-	f32 dt = static_cast<f32>(AEFrameRateControllerGetFrameTime());
-	velocity.x += (acceleration.x + resistance.x * -drag) * dt ;
-	velocity.y += (acceleration.y + resistance.y * -drag) * dt;
 
-	
-}
-
-void StarBangBang::Physics_Update(void)
-{
-
-}

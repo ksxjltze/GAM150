@@ -8,14 +8,14 @@ StarBangBang::BoxCollider& StarBangBang::ObjectManager::AddCollider(GameObject* 
 	{
 		BoxCollider* collider = CollisionManager::CreateBoxColliderInstance(gameObject, isStatic);
 		assert(collider);
+		componentList.push_back(collider);
 		gameObject->AddComponent(collider);
 		return *collider;
 	}
 }
 
-void StarBangBang::ObjectManager::AddComponent(GameObject* gameObject, _Component* component, bool allocated)
+void StarBangBang::ObjectManager::AddComponent(GameObject* gameObject, _Component* component)
 {
-	component->allocated = allocated;
 	componentList.push_back(component);
 	gameObject->AddComponent(component);
 }
@@ -190,8 +190,7 @@ void StarBangBang::ObjectManager::FreeComponents()
 {
 	for (_Component* component : componentList)
 	{
-		if (component->allocated)
-			delete component;
+		delete component;
 	}
 
 	gameObjectList.clear();
@@ -209,13 +208,10 @@ void StarBangBang::ObjectManager::Draw()
 {
 	for (_Component* component : componentList)
 	{
-		if (component->allocated == false)
-			continue;
-
-		/*if (typeid(*component).name() == typeid(ImageComponent).name() && component->active)
+		if (typeid(*component).name() == typeid(ImageComponent).name() && component->active)
 		{
 			static_cast<ImageComponent*>(component)->Draw();
-		}*/
+		}
 
 		component->Draw();
 	}

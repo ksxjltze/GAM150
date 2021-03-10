@@ -1,6 +1,8 @@
 #include "Sample_Scene.h"
 #include "CollisionManager.h"
 #include "MovementManager.h"
+#include "Physics.h"
+#include "CameraComponent.h"
 #include "Click.h"
 #include "CameraComponent.h"
 
@@ -42,17 +44,34 @@ void StarBangBang::Sample_Scene::Init()
 		double rads = (2 * (double)PI / nObjects) * i;
 		AEVec2& pos = obj->transform.position;
 
-		pos.x = static_cast<float>(cos(rads) * 300);
-		pos.y = static_cast<float>(sin(rads) * 300);
+		if (i == 0 )
+		{
+			pos.x = 100.0f;
+			pos.y = 0;
+		}
+		else if (i ==1)
+		{
+			pos.x = 200.0f;
+			pos.y = 0;
+		}
+		else
+		{
+			pos.x = static_cast<float>(cos(rads) * 200);
+			pos.y = static_cast<float>(sin(rads) * 200);
 
+		}
+		
+
+		objectManager.AddComponent<RigidBody>(obj);
 		objectManager.AddImage(obj, image);
-		objectManager.AddCollider(obj, true);
+		objectManager.AddCollider(obj, false);
 		objectManager.AddComponent<PrimaryMovementController>(obj);
 
 		moveMgr.AddController(obj);
 
 	}
 
+	objectManager.AddComponent<RigidBody>(gameObject);
 	objectManager.Init();
 
 
@@ -67,7 +86,7 @@ void StarBangBang::Sample_Scene::Init()
 	//moveMgr.AddController(gameObject);
 	//moveMgr.AddController(collisionTestObj);
 
-
+	objectManager.Init();
 }
 
 void StarBangBang::Sample_Scene::Update()

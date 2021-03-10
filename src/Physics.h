@@ -1,26 +1,42 @@
 #pragma once
 #include "../Extern/AlphaEngine_V3.08/include/AEEngine.h"
+#include "ComponentCRTP.h"
 namespace StarBangBang
 {
-	class RigidBody
+	class RigidBody : public Component<RigidBody>
 	{
+	private:
+		AEVec2 acceleration;
+	
 	public:
 		//mass = 0 = infinity
-		float mass;
-		float inv_mass;
+		float mass ;
+		float drag;
 		AEVec2 velocity;
-		AEVec2 acceleration;
-		AEVec2 position;
+		
 
-		void RB_AddForce(AEVec2 force, float scale = 1.0f);
-		void RB_Update(void);
-		void RB_AddVelocity(AEVec2 force, float scale = 1.0f);
-		RigidBody(float _mass, AEVec2 _velocity = AEVec2{ 0,0 }, 
-				AEVec2 _acceleration = AEVec2{ 0,0 }, AEVec2 _position = AEVec2{ 0,0 });
+		float inv_mass() const;
+		
+		AEVec2 GetNormalizedVelocity() const
+		{
+			f32 mag = velocity.x * velocity.x + velocity.y * velocity.y;
+			mag = (f32)sqrt(mag);
+			return AEVec2{ velocity.x / mag, velocity.y / mag };
+		}
+		f32 SqrVelocity() const
+		{
+			return velocity.x * velocity.x + velocity.y * velocity.y;
+		}
+
+		void Update();
+
+		RigidBody(GameObject* gameObject);
+
+		void AddForce(AEVec2 force, float scale);
+
+		void AddVelocity(AEVec2 force, float scale);
 			
 	};
-
-	void Physics_Update(void);
 
 
 }
