@@ -24,7 +24,7 @@ namespace StarBangBang
 
 	void StarBangBang::EngineProof::Update()
 	{
-		if (AEInputCheckTriggered(VK_SPACE))
+		if (AEInputCheckTriggered(AEVK_S))
 		{
 			SpawnObject();
 		}

@@ -6,15 +6,15 @@ namespace StarBangBang
 	//TEST
 	void TileSet::Load(GraphicsManager& gfxMgr)
 	{
-		CreateTileSprite(gfxMgr,	TileType::GRASS,			RESOURCES::PROTOTYPE_SPRITE_GRASS_PATH);
-		CreateTileSprite(gfxMgr,	TileType::STONE,			RESOURCES::PROTOTYPE_SPRITE_STONE_PATH);
-		CreateTileSprite(gfxMgr,	TileType::BRICK_BLACK,		RESOURCES::REDBRICK_PATH);
-		CreateTileSprite(gfxMgr,	TileType::BRICK_RED,		RESOURCES::BLACKBRICK_PATH);
-		CreateTileSprite(gfxMgr,	TileType::FLOOR_OFFICE,		RESOURCES::OFFICEFLOOR_PATH);
-		CreateTileSprite(gfxMgr,	TileType::FLOOR_PRISON,		RESOURCES::PRISONFLOOR_PATH);
+		LoadTileSprite(gfxMgr,	TileType::GRASS,			RESOURCES::PROTOTYPE_SPRITE_GRASS_PATH);
+		LoadTileSprite(gfxMgr,	TileType::STONE,			RESOURCES::PROTOTYPE_SPRITE_STONE_PATH);
+		LoadTileSprite(gfxMgr,	TileType::BRICK_BLACK,		RESOURCES::REDBRICK_PATH);
+		LoadTileSprite(gfxMgr,	TileType::BRICK_RED,		RESOURCES::BLACKBRICK_PATH);
+		LoadTileSprite(gfxMgr,	TileType::FLOOR_OFFICE,		RESOURCES::OFFICEFLOOR_PATH);
+		LoadTileSprite(gfxMgr,	TileType::FLOOR_PRISON,		RESOURCES::PRISONFLOOR_PATH);
 	}
 
-	void TileSet::CreateTileSprite(GraphicsManager& gfxMgr, TileType type, const std::string& path)
+	void TileSet::LoadTileSprite(GraphicsManager& gfxMgr, TileType type, const std::string& path)
 	{
 		Sprite sprite = gfxMgr.CreateSprite(path);
 		set.insert({ type, { sprite, type } });
