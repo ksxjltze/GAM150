@@ -13,5 +13,8 @@ namespace StarBangBang
 		void Draw();
 		void Free();
 		void Unload();
+
+	private:
+		void SpawnObject();
 	};
 }

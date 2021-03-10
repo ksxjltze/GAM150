@@ -7,7 +7,7 @@
 namespace StarBangBang
 {
 	class ObjectManager;
-	class Sprite;
+	struct Sprite;
 
 	class GuardManager : public Script
 	{

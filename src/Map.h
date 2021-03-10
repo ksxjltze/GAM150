@@ -4,7 +4,7 @@
 namespace StarBangBang
 {
 	class ObjectManager;
-	class Sprite;
+	struct Sprite;
 
 	class Map : public Script
 	{
