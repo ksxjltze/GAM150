@@ -18,7 +18,7 @@ namespace StarBangBang
 
 		void Init();
 
-		void Generate(int width, int height, float tileSize);
+		void Generate(int width, int height, float tileSize, TileType type = TileType::STONE);
 		bool ValidateFile(std::ifstream& is, std::string& widthStr, std::string& heightStr, std::string& sizeStr);
 		void Save(std::string path);
 		bool Load(std::string path);

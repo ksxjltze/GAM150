@@ -2,6 +2,7 @@
 #include "BasicMeshShape.h"
 #include "State.h"
 #include <iostream>
+#include "PathFinder.h"
 
 namespace StarBangBang
 {
@@ -130,6 +131,7 @@ namespace StarBangBang
 
 			}
 			currentState->Update();
+			PathFinder::GridDraw();
 			currentState->Draw();
 
 		}

@@ -51,8 +51,8 @@ void GuardVision::Update()
 		detector->SetFacingDir(targetDir);
 		detector->Rotate(rotationAngle);
 	}
-	else
-	{
-		detector->Rotate(0.f);
-	}
+	//else
+	//{
+	//	detector->Rotate(0.f);
+	//}
 }

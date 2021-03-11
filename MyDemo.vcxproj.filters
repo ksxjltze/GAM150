@@ -100,6 +100,9 @@
     <Filter Include="Resource Files\FloorTiles">
       <UniqueIdentifier>{4321ed84-be09-4b2b-8b99-456c8aa47e3d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Resource Files\Libraries">
+      <UniqueIdentifier>{738585a8-b314-47dd-a230-7d5b1051fd5d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Main.cpp">
@@ -243,9 +246,6 @@
     <ClCompile Include="src\Map.cpp">
       <Filter>Source Files\Scripts</Filter>
     </ClCompile>
-    <ClCompile Include="src\PrimaryMovementController.cpp">
-      <Filter>Source Files\Scripts\Movement</Filter>
-    </ClCompile>
     <ClCompile Include="src\SecondaryMovementController.cpp">
       <Filter>Source Files\Scripts\Movement</Filter>
     </ClCompile>
@@ -262,6 +262,9 @@
       <Filter>Source Files\Scripts</Filter>
     </ClCompile>
     <ClCompile Include="src\Movement.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\PrimaryMovementController.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -410,9 +413,6 @@
     <ClInclude Include="src\SerializeTest.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\ColliderAABB.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="src\CaptainStealth.h">
       <Filter>Header Files\Scenes</Filter>
     </ClInclude>
@@ -464,6 +464,9 @@
     <ClInclude Include="src\Movement.h">
       <Filter>Header Files\Engine</Filter>
     </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Resources\PlanetTexture.png">
@@ -478,181 +481,198 @@
     <Image Include="Resources\grass.png">
       <Filter>Resource Files</Filter>
     </Image>
-    <Image Include="Resources\Characters\CaptainStealthBack1.png">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="Resources\Characters\CaptainStealthBack2.png">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="Resources\Characters\CaptainStealthBack3.png">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="Resources\Characters\CaptainStealthForward1.png">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="Resources\Characters\CaptainStealthForward2.png">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="Resources\Characters\CaptainStealthForward3.png">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="Resources\Characters\CaptainStealthLeft1.png">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="Resources\Characters\CaptainStealthLeft2.png">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="Resources\Characters\CaptainStealthLeft3.png">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="Resources\Characters\CaptainStealthRight1.png">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="Resources\Characters\CaptainStealthRight2.png">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="Resources\Characters\CaptainStealthRight3.png">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="Resources\Characters\PrisonerBack1.png">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="Resources\Characters\PrisonerBack2.png">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="Resources\Characters\PrisonerBack3.png">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="Resources\Characters\PrisonerForward1.png">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="Resources\Characters\PrisonerForward2.png">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="Resources\Characters\PrisonerForward3.png">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="Resources\Characters\PrisonerLeft1.png">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="Resources\Characters\PrisonerLeft2.png">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="Resources\Characters\PrisonerLeft3.png">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="Resources\Characters\PrisonerRight1.png">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="Resources\Characters\PrisonerRight2.png">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="Resources\Characters\PrisonerRight3.png">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="Resources\Characters\SecurityGuardBack1.png">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="Resources\Characters\SecurityGuardBack2.png">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="Resources\Characters\SecurityGuardBack3.png">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="Resources\Characters\SecurityGuardForward1.png">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="Resources\Characters\SecurityGuardForward2.png">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="Resources\Characters\SecurityGuardForward3.png">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="Resources\Characters\SecurityGuardLeft1.png">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="Resources\Characters\SecurityGuardLeft2.png">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="Resources\Characters\SecurityGuardLeft3.png">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="Resources\Characters\SecurityGuardRight1.png">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="Resources\Characters\SecurityGuardRight2.png">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="Resources\Characters\SecurityGuardRight3.png">
-      <Filter>Resource Files</Filter>
-    </Image>
     <Image Include="Resources\FloorTiles\BlackBrick.png">
-      <Filter>Resource Files</Filter>
+      <Filter>Resource Files\FloorTiles</Filter>
     </Image>
     <Image Include="Resources\FloorTiles\BlackBrickDown.png">
-      <Filter>Resource Files</Filter>
+      <Filter>Resource Files\FloorTiles</Filter>
     </Image>
     <Image Include="Resources\FloorTiles\BlackBrickLeft.png">
-      <Filter>Resource Files</Filter>
+      <Filter>Resource Files\FloorTiles</Filter>
     </Image>
     <Image Include="Resources\FloorTiles\BlackBrickRight.png">
-      <Filter>Resource Files</Filter>
+      <Filter>Resource Files\FloorTiles</Filter>
     </Image>
     <Image Include="Resources\FloorTiles\BlackBrickUp.png">
-      <Filter>Resource Files</Filter>
+      <Filter>Resource Files\FloorTiles</Filter>
     </Image>
-    <Image Include="Resources\FloorTiles\OfficeFloor.png">
-      <Filter>Resource Files</Filter>
+    <Image Include="Resources\Characters\CaptainStealthBack1.png">
+      <Filter>Resource Files\Characters</Filter>
     </Image>
-    <Image Include="Resources\FloorTiles\PrisonFloor.png">
-      <Filter>Resource Files</Filter>
+    <Image Include="Resources\Characters\CaptainStealthBack2.png">
+      <Filter>Resource Files\Characters</Filter>
     </Image>
-    <Image Include="Resources\FloorTiles\RedBrick.png">
-      <Filter>Resource Files</Filter>
+    <Image Include="Resources\Characters\CaptainStealthBack3.png">
+      <Filter>Resource Files\Characters</Filter>
     </Image>
-    <Image Include="Resources\FloorTiles\RedBrickDown.png">
-      <Filter>Resource Files</Filter>
+    <Image Include="Resources\Characters\CaptainStealthForward1.png">
+      <Filter>Resource Files\Characters</Filter>
     </Image>
-    <Image Include="Resources\FloorTiles\RedBrickLeft.png">
-      <Filter>Resource Files</Filter>
+    <Image Include="Resources\Characters\CaptainStealthForward2.png">
+      <Filter>Resource Files\Characters</Filter>
     </Image>
-    <Image Include="Resources\FloorTiles\RedBrickRight.png">
-      <Filter>Resource Files</Filter>
+    <Image Include="Resources\Characters\CaptainStealthForward3.png">
+      <Filter>Resource Files\Characters</Filter>
     </Image>
-    <Image Include="Resources\FloorTiles\RedBrickUp.png">
-      <Filter>Resource Files</Filter>
+    <Image Include="Resources\Characters\CaptainStealthLeft1.png">
+      <Filter>Resource Files\Characters</Filter>
+    </Image>
+    <Image Include="Resources\Characters\CaptainStealthLeft2.png">
+      <Filter>Resource Files\Characters</Filter>
+    </Image>
+    <Image Include="Resources\Characters\CaptainStealthLeft3.png">
+      <Filter>Resource Files\Characters</Filter>
+    </Image>
+    <Image Include="Resources\Characters\CaptainStealthRight1.png">
+      <Filter>Resource Files\Characters</Filter>
+    </Image>
+    <Image Include="Resources\Characters\CaptainStealthRight2.png">
+      <Filter>Resource Files\Characters</Filter>
+    </Image>
+    <Image Include="Resources\Characters\CaptainStealthRight3.png">
+      <Filter>Resource Files\Characters</Filter>
     </Image>
     <Image Include="Resources\MainMenu\Credit1.png">
-      <Filter>Resource Files</Filter>
+      <Filter>Resource Files\MainMenu</Filter>
     </Image>
     <Image Include="Resources\MainMenu\Credit2.png">
-      <Filter>Resource Files</Filter>
+      <Filter>Resource Files\MainMenu</Filter>
     </Image>
     <Image Include="Resources\MainMenu\Exit1.png">
-      <Filter>Resource Files</Filter>
+      <Filter>Resource Files\MainMenu</Filter>
     </Image>
     <Image Include="Resources\MainMenu\Exit2.png">
-      <Filter>Resource Files</Filter>
+      <Filter>Resource Files\MainMenu</Filter>
     </Image>
-    <Image Include="Resources\MainMenu\Logo.png">
-      <Filter>Resource Files</Filter>
+    <Image Include="Resources\Characters\PrisonerBack1.png">
+      <Filter>Resource Files\Characters</Filter>
+    </Image>
+    <Image Include="Resources\Characters\PrisonerBack2.png">
+      <Filter>Resource Files\Characters</Filter>
+    </Image>
+    <Image Include="Resources\Characters\PrisonerBack3.png">
+      <Filter>Resource Files\Characters</Filter>
+    </Image>
+    <Image Include="Resources\Characters\PrisonerForward1.png">
+      <Filter>Resource Files\Characters</Filter>
+    </Image>
+    <Image Include="Resources\Characters\PrisonerForward2.png">
+      <Filter>Resource Files\Characters</Filter>
+    </Image>
+    <Image Include="Resources\Characters\PrisonerForward3.png">
+      <Filter>Resource Files\Characters</Filter>
+    </Image>
+    <Image Include="Resources\Characters\PrisonerLeft1.png">
+      <Filter>Resource Files\Characters</Filter>
+    </Image>
+    <Image Include="Resources\Characters\PrisonerLeft2.png">
+      <Filter>Resource Files\Characters</Filter>
+    </Image>
+    <Image Include="Resources\Characters\PrisonerLeft3.png">
+      <Filter>Resource Files\Characters</Filter>
+    </Image>
+    <Image Include="Resources\Characters\PrisonerRight1.png">
+      <Filter>Resource Files\Characters</Filter>
+    </Image>
+    <Image Include="Resources\Characters\PrisonerRight2.png">
+      <Filter>Resource Files\Characters</Filter>
+    </Image>
+    <Image Include="Resources\Characters\PrisonerRight3.png">
+      <Filter>Resource Files\Characters</Filter>
+    </Image>
+    <Image Include="Resources\FloorTiles\OfficeFloor.png">
+      <Filter>Resource Files\FloorTiles</Filter>
+    </Image>
+    <Image Include="Resources\FloorTiles\RedBrick.png">
+      <Filter>Resource Files\FloorTiles</Filter>
+    </Image>
+    <Image Include="Resources\FloorTiles\RedBrickDown.png">
+      <Filter>Resource Files\FloorTiles</Filter>
+    </Image>
+    <Image Include="Resources\FloorTiles\RedBrickLeft.png">
+      <Filter>Resource Files\FloorTiles</Filter>
+    </Image>
+    <Image Include="Resources\FloorTiles\RedBrickRight.png">
+      <Filter>Resource Files\FloorTiles</Filter>
+    </Image>
+    <Image Include="Resources\FloorTiles\RedBrickUp.png">
+      <Filter>Resource Files\FloorTiles</Filter>
+    </Image>
+    <Image Include="Resources\Characters\SecurityGuardBack1.png">
+      <Filter>Resource Files\Characters</Filter>
+    </Image>
+    <Image Include="Resources\Characters\SecurityGuardBack2.png">
+      <Filter>Resource Files\Characters</Filter>
+    </Image>
+    <Image Include="Resources\Characters\SecurityGuardBack3.png">
+      <Filter>Resource Files\Characters</Filter>
+    </Image>
+    <Image Include="Resources\Characters\SecurityGuardForward1.png">
+      <Filter>Resource Files\Characters</Filter>
+    </Image>
+    <Image Include="Resources\Characters\SecurityGuardForward2.png">
+      <Filter>Resource Files\Characters</Filter>
+    </Image>
+    <Image Include="Resources\Characters\SecurityGuardForward3.png">
+      <Filter>Resource Files\Characters</Filter>
+    </Image>
+    <Image Include="Resources\Characters\SecurityGuardLeft1.png">
+      <Filter>Resource Files\Characters</Filter>
+    </Image>
+    <Image Include="Resources\Characters\SecurityGuardLeft2.png">
+      <Filter>Resource Files\Characters</Filter>
+    </Image>
+    <Image Include="Resources\Characters\SecurityGuardLeft3.png">
+      <Filter>Resource Files\Characters</Filter>
+    </Image>
+    <Image Include="Resources\Characters\SecurityGuardRight1.png">
+      <Filter>Resource Files\Characters</Filter>
+    </Image>
+    <Image Include="Resources\Characters\SecurityGuardRight2.png">
+      <Filter>Resource Files\Characters</Filter>
+    </Image>
+    <Image Include="Resources\Characters\SecurityGuardRight3.png">
+      <Filter>Resource Files\Characters</Filter>
     </Image>
     <Image Include="Resources\MainMenu\Play1.png">
-      <Filter>Resource Files</Filter>
+      <Filter>Resource Files\MainMenu</Filter>
     </Image>
     <Image Include="Resources\MainMenu\Play2.png">
-      <Filter>Resource Files</Filter>
+      <Filter>Resource Files\MainMenu</Filter>
     </Image>
     <Image Include="Resources\MainMenu\Setting1.png">
-      <Filter>Resource Files</Filter>
+      <Filter>Resource Files\MainMenu</Filter>
     </Image>
     <Image Include="Resources\MainMenu\Setting2.png">
-      <Filter>Resource Files</Filter>
+      <Filter>Resource Files\MainMenu</Filter>
+    </Image>
+    <Image Include="Resources\FloorTiles\PrisonFloor.png">
+      <Filter>Resource Files\FloorTiles</Filter>
+    </Image>
+    <Image Include="Resources\MainMenu\Logo.png">
+      <Filter>Resource Files\MainMenu</Filter>
     </Image>
   </ItemGroup>
   <ItemGroup>
     <Font Include="Resources\Roboto-Regular.ttf">
       <Filter>Resource Files</Filter>
     </Font>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Extern\lib\Alpha_Engine.dll">
+      <Filter>Resource Files\Libraries</Filter>
+    </None>
+    <None Include="Extern\lib\Alpha_EngineD.dll">
+      <Filter>Resource Files\Libraries</Filter>
+    </None>
+    <None Include="Extern\lib\freetype.dll">
+      <Filter>Resource Files\Libraries</Filter>
+    </None>
+    <None Include="Extern\lib\fmodL.dll">
+      <Filter>Resource Files\Libraries</Filter>
+    </None>
+    <None Include="Extern\lib\fmod.dll">
+      <Filter>Resource Files\Libraries</Filter>
+    </None>
   </ItemGroup>
 </Project>

@@ -10,12 +10,18 @@ using namespace StarBangBang;
 
 const int diagonal_Cost = 14;
 const int straight_Cost = 10;
+static bool isVisible = true;
 
 Grid worldGrid;
 
 void PathFinder::PathFinderInit()
 {
 	worldGrid.CreateGrid(64,50,50, AEVec2{ 0,0 });
+}
+
+void StarBangBang::PathFinder::ShowGrid(bool visible)
+{
+	isVisible = visible;
 }
 
 void PathFinder::Free()
@@ -25,11 +31,15 @@ void PathFinder::Free()
 
 void PathFinder::GridDraw()
 {
-	AEVec2 mousePos = GetMouseWorldPos();
-	A_Node* n = worldGrid.GetNodeFromPosition(mousePos);
-	if (n)
-		StarBangBang::DrawCircle(10.0f, n->nodePos);
-	worldGrid.DrawGrid();
+	if (isVisible)
+	{
+		AEVec2 mousePos = GetMouseWorldPos();
+		A_Node* n = worldGrid.GetNodeFromPosition(mousePos);
+		if (n)
+			StarBangBang::DrawCircle(10.0f, n->nodePos);
+		worldGrid.DrawGrid();
+
+	}
 }
 
 Grid& PathFinder::GetWorldGrid()
