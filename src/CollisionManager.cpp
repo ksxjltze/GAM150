@@ -244,7 +244,7 @@ void ResolveVelocity(const CollisionPair& pair)
 	if (dotVelScale > 0)
 		return;
 
-	float scale = -(1 + bounciness) * dotVelScale;
+	float scale = (1.0f + bounciness) * dotVelScale;
 	float total = pair.A.rb->inv_mass() + pair.B.rb->inv_mass();
 
 	if (total > 0)
@@ -254,8 +254,8 @@ void ResolveVelocity(const CollisionPair& pair)
 		// Apply impulse
 		AEVec2 impulse{ normal.x * scale  , normal.y * scale };
 
-		pair.A.rb->AddVelocity(impulse, -pair.A.rb->inv_mass());
-		pair.B.rb->AddVelocity(impulse, pair.B.rb->inv_mass());
+		pair.A.rb->AddVelocity(impulse, pair.A.rb->inv_mass());
+		pair.B.rb->AddVelocity(impulse, -pair.B.rb->inv_mass());
 	}
 }
 void ResolvePenetration(const CollisionPair& pair)
@@ -264,10 +264,14 @@ void ResolvePenetration(const CollisionPair& pair)
 
 	if (total <= 0)
 		return;
-
-	//position correction for penetration depth
-	AEVec2 corr = AEVec2{ (max(pair.data.pen_depth - 0.1f, 0.0f) / total) * 0.2f * pair.data.col_normal.x ,
-					(max(pair.data.pen_depth - 0.1f, 0.0f) / total) * 0.2f * pair.data.col_normal.y };
+	//negate small values to prevent jitter
+	f32 xMax = max(pair.data.pen_depth - 0.1f, 0.0f);
+	f32 yMax = max(pair.data.pen_depth - 0.1f, 0.0f);
+	
+	//might be helpful to compensate IEEE rounding error (we might not need cuz no constant gravity i think)
+	const float additional = 1.3f;
+	//position correction impulse for penetration depth 
+	AEVec2 corr = AEVec2{ additional * xMax/total  * pair.data.col_normal.x , additional * yMax/total  * pair.data.col_normal.y };
 
 	pair.A.rb->AddVelocity(corr, -pair.A.rb->inv_mass());
 	pair.B.rb->AddVelocity(corr, pair.B.rb->inv_mass());
