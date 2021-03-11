@@ -30,11 +30,15 @@ StarBangBang::Level_Demo::Level_Demo(int id, GameStateManager& manager) : Scene(
 
 void StarBangBang::Level_Demo::Load()
 {
-	playerImage = graphicsManager.CreateSprite("../Resources/boi.png");
-	player2Image = graphicsManager.CreateSprite("../Resources/boi2.png");
+	//playerImage = graphicsManager.CreateSprite("../Resources/boi.png");
+	//player2Image = graphicsManager.CreateSprite("../Resources/boi2.png");
+	playerImage = graphicsManager.CreateSprite(RESOURCES::CAPTAINSTEALTH_F1_PATH);
+	player2Image = graphicsManager.CreateSprite(RESOURCES::PRISONER_F1_PATH);
 	planetImage = graphicsManager.CreateSprite("../Resources/PlanetTexture.png");
-	guardImage = graphicsManager.CreateSprite("../Resources/guard.png");
-	securityCamImage = graphicsManager.CreateSprite("../Resources/guard.png");
+	//guardImage = graphicsManager.CreateSprite("../Resources/guard.png");
+	guardImage = graphicsManager.CreateSprite(RESOURCES::SECURITYGUARD_F1_PATH);
+	//securityCamImage = graphicsManager.CreateSprite("../Resources/guard.png");
+	securityCamImage = graphicsManager.CreateSprite(RESOURCES::SECURITYGUARD_F1_PATH);
 	mapImage = graphicsManager.CreateSprite("../Resources/map.png");
 }
 
@@ -83,7 +87,7 @@ void StarBangBang::Level_Demo::Init()
 	objectManager.AddComponent<Movement>(player);
 	objectManager.AddComponent<Movement>(player2);
 	objectManager.AddComponent<MovementManager>(movementController);
-	objectManager.AddComponent<SecondaryMovementController>(testInteractable);
+	//objectManager.AddComponent<SecondaryMovementController>(testInteractable);
 
 	movementController->GetComponent<MovementManager>()->AddController(player);
 	movementController->GetComponent<MovementManager>()->AddController(player2);
@@ -91,7 +95,7 @@ void StarBangBang::Level_Demo::Init()
 
 	//Testing Tags
 	tagManager.AddTag(*player, "Test");
-	tagManager.GetGameObjectByTag("Test").transform.scale = { 0.5, 0.5 };
+	tagManager.GetGameObjectByTag("Test").transform.scale = { 0.9f, 0.9f };
 
 	//Scale test
 	worldOriginMarker->transform.scale = { 0.5, 0.5 };
