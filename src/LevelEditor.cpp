@@ -5,6 +5,7 @@
 #include <fstream>
 #include "Movement.h"
 #include "Serialization.h"
+#include "PathFinder.h"
 
 namespace StarBangBang
 {
@@ -34,6 +35,8 @@ namespace StarBangBang
 
 	void LevelEditor::Init()
 	{
+		GRAPHICS::SetBackgroundColor(Black());
+		
 		filepath = RESOURCES::LEVEL_TEST_PATH;
 
 		//TODO: Optimize tile drawing (Low FPS on 100 x 100 tile map)
