@@ -8,7 +8,7 @@ using namespace StarBangBang;
 
 const unsigned int sides = 30;
 
-const float EPILSION = 0.0001;
+const float EPILSION = 0.0001f;
 
 
 
@@ -279,6 +279,11 @@ void ResolvePenetration(const CollisionPair& pair)
 	//CollisionManager::RecalculateColliderCells(pair.B);
 }
 
+void StarBangBang::CollisionManager::Free()
+{
+	collider_list.clear();
+}
+
 //wip
 void CollisionManager::ResolverUpdate()
 {
@@ -349,9 +354,9 @@ void CollisionManager::ResolverUpdate()
 	{
 		assert(col);
 		if (col->rb->isKinematic())
-			DebugCollider(*col, Red());
+			DebugCollider(*col, Red);
 		else
-			DebugCollider(*col, Black());
+			DebugCollider(*col, Black);
 	}
 
 #pragma region Partition

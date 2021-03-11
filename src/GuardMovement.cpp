@@ -5,6 +5,7 @@
 #include <iostream>
 
 #include "BasicMeshShape.h"
+#include "globals.h"
 
 using namespace StarBangBang;
 
@@ -79,7 +80,7 @@ void GuardMovement::Distracted()
 			if (MoveTo(path[nodeIndex]->nodePos))
 			{
 				//PRINT("NODE INDEX: %d\n", nodeIndex);
-				timer += AEFrameRateControllerGetFrameTime();
+				timer += g_dt;
 				if (timer >= 0.01f)
 				{
 					++nodeIndex;
@@ -108,7 +109,7 @@ bool GuardMovement::MoveTo(AEVec2 pos)
 		return true;
 	}
 
-	double dt = AEFrameRateControllerGetFrameTime();
+	float dt = g_dt;
 	AEVec2 dir = { 0, 0 };
 
 	AEVec2Sub(&dir, &pos, &gameObject->transform.position);
@@ -146,9 +147,10 @@ bool GuardMovement::IsChangingDir()
 	AEVec2 currNode, prevNode;
 	
 	prevNode = path[nodeIndex]->nodePos;
+	size_t index = static_cast<size_t>(nodeIndex) + static_cast<size_t>(1);
 
-	if (nodeIndex + 1 < path.size())
-		currNode = path[nodeIndex + 1]->nodePos;
+	if (index < path.size())
+		currNode = path[index]->nodePos;
 	else
 		currNode = prevNode;
 

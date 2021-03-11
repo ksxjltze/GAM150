@@ -34,5 +34,6 @@ void StarBangBang::CameraComponent::LateUpdate()
 
 
 	//temp
-	AEGfxSetCamPosition(position.x, position.y);
+	//AEGfxSetCamPosition(position.x, position.y);
+	GRAPHICS::SetCameraPosition(position.x, position.y);
 }

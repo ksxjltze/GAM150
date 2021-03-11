@@ -96,19 +96,20 @@ void Heap::SortDown(A_Node* item)
 
 void Heap::SortUp(A_Node* item)
 {
-	int parentIndex = (item->GetHeapIndex() - 1) / 2;
+	UNREFERENCED_PARAMETER(item);
+	//int parentIndex = (item->GetHeapIndex() - 1) / 2;
 
-	while (true)
-	{
-		A_Node* parentItem = items[parentIndex];
-		if (CompareTo(item, parentItem) > 0)
-		{
-			Swap(item, parentItem);
-		}
-		break;
-
-		parentIndex = (item->GetHeapIndex() - 1) / 2;
-	}
+	//	while (true)
+	//	{
+	//		A_Node* parentItem = items[parentIndex];
+	//		if (CompareTo(item, parentItem) > 0)
+	//		{
+	//			Swap(item, parentItem);
+	//		}
+	//		break;
+	//
+	//		parentIndex = (item->GetHeapIndex() - 1) / 2;
+	//	}
 }
 
 void Heap::Swap(A_Node* itemA, A_Node* itemB)

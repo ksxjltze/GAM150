@@ -2,5 +2,5 @@
 
 namespace StarBangBang
 {
-	extern double g_dt;
+	extern float g_dt;
 }

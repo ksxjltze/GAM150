@@ -10,32 +10,6 @@ static AEGfxVertexList* unitcircleMesh;
 static AEGfxVertexList* lineMesh;
 //static AEGfxVertexList* unitboxMesh;
 
-
-const Color StarBangBang::Red()
-{
-	return Color(1.0f, 0.0f, 0.0f, 1.0f);
-}
-const Color StarBangBang::Blue()
-{
-	return Color(0.0f, 0.0f, 1.0f, 1.0f);
-}
-const Color StarBangBang::White()
-{
-	return Color(1.0f, 1.0f, 1.0f, 1.0f);
-}
-const Color StarBangBang::Green()
-{
-	return Color(0.0f, 1.0f, 0.0f, 1.0f);
-}
-const Color StarBangBang::Black()
-{
-	return Color(0.0f, 0.0f, 0.0f, 1.0f);
-}
-const Color StarBangBang::Cyan()
-{
-	return Color(0.0f, 1.0f, 1.0f, 1.0f);
-}
-
 void StarBangBang::InitBasicMesh()
 {
 	//build unit box wired mesh
@@ -93,19 +67,10 @@ void StarBangBang::InitBasicMesh()
 }
 void StarBangBang::DrawBoxWired(AEVec2 size,AEVec2 pos , Color color)
 {
-	AEMtx33 scale = AEMtx33();
-	AEMtx33 result = AEMtx33();
-	float zoom = GRAPHICS::GetZoom();
 	
 	AEGfxSetRenderMode(AE_GFX_RM_COLOR);
 
-	AEMtx33Scale(&scale,size.x, size.y);
-	AEMtx33TransApply(&result,&scale,pos.x,pos.y);
-	AEMtx33ScaleApply(&result, &result, zoom, zoom);
-
-	GRAPHICS::ScaleFullscreen(result);
-
-	AEGfxSetTransform(result.m);
+	BasicMeshShape::ApplyTransform(size, pos);
 
 	AEGfxSetTintColor(color.R(), color.G(), color.B(), color.A());
 	AEGfxMeshDraw(unitboxWiredMesh, AEGfxMeshDrawMode::AE_GFX_MDM_LINES_STRIP);
@@ -115,17 +80,9 @@ void StarBangBang::DrawBox(AEVec2 size, AEVec2 pos, Color color)
 {
 	AEMtx33 scale = AEMtx33();
 	AEMtx33 result = AEMtx33();
-	float zoom = GRAPHICS::GetZoom();
 
 	AEGfxSetRenderMode(AE_GFX_RM_COLOR);
-
-	AEMtx33Scale(&scale, size.x, size.y);
-	AEMtx33TransApply(&result, &scale, pos.x, pos.y);
-	AEMtx33ScaleApply(&result, &result, zoom, zoom);
-
-	GRAPHICS::ScaleFullscreen(result);
-
-	AEGfxSetTransform(result.m);
+	BasicMeshShape::ApplyTransform(size, pos);
 	AEGfxSetTintColor(color.R(), color.G(), color.B(), color.A());
 
 	AEGfxMeshDraw(unitboxMesh, AEGfxMeshDrawMode::AE_GFX_MDM_TRIANGLES);
@@ -136,15 +93,9 @@ void StarBangBang::DrawCircle(float radius, AEVec2 pos,Color color)
 {
 	AEMtx33 scale = AEMtx33();
 	AEMtx33 result = AEMtx33();
-	float zoom = GRAPHICS::GetZoom();
 
 	AEGfxSetRenderMode(AE_GFX_RM_COLOR);
-	AEMtx33Scale(&scale, radius, radius);
-
-	AEMtx33TransApply(&result, &scale, pos.x, pos.y);
-	AEMtx33ScaleApply(&result, &result, zoom, zoom);
-	GRAPHICS::ScaleFullscreen(result);
-	AEGfxSetTransform(result.m);
+	BasicMeshShape::ApplyTransform({radius, radius}, pos);
 	AEGfxSetTintColor(color.R(), color.G(), color.B(), color.A());
 	AEGfxMeshDraw(unitcircleMesh, AEGfxMeshDrawMode::AE_GFX_MDM_LINES_STRIP);
 }
@@ -154,7 +105,6 @@ void StarBangBang::DrawLine(float length, AEVec2 pos, float angle, Color color)
 	AEMtx33 scale = AEMtx33();
 	AEMtx33 rot = AEMtx33();
 	AEMtx33 result = AEMtx33();
-	float zoom = GRAPHICS::GetZoom();
 
 	AEGfxSetRenderMode(AE_GFX_RM_COLOR);
 
@@ -163,8 +113,8 @@ void StarBangBang::DrawLine(float length, AEVec2 pos, float angle, Color color)
 	AEMtx33Concat(&result, &scale, &rot);
 
 	AEMtx33TransApply(&result, &result, pos.x, pos.y); 
-	AEMtx33ScaleApply(&result, &result, zoom, zoom);
-	GRAPHICS::ScaleFullscreen(result);
+	GRAPHICS::ApplyCameraMatrix(&result);
+
 	AEGfxSetTransform(result.m);
 	AEGfxSetTintColor(color.R(), color.G(), color.B(), color.A());
 
@@ -177,4 +127,16 @@ void StarBangBang::FreeUnitMeshes(void)
 	AEGfxMeshFree(unitcircleMesh);
 	AEGfxMeshFree(unitboxWiredMesh);
 	AEGfxMeshFree(lineMesh);
+}
+
+void StarBangBang::BasicMeshShape::ApplyTransform(AEVec2 size, AEVec2 pos)
+{
+	AEMtx33 scale;
+	AEMtx33 result;
+
+	AEMtx33Scale(&scale, size.x, size.y);
+	AEMtx33TransApply(&result, &scale, pos.x, pos.y);
+	GRAPHICS::ApplyCameraMatrix(&result);
+
+	AEGfxSetTransform(result.m);
 }

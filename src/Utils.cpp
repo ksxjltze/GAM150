@@ -9,7 +9,7 @@ namespace StarBangBang
 		AEVec2 CameraPos { 0, 0 };
 
 		AEInputGetCursorPosition(&mouseX, &mouseY);
-		AEGfxGetCamPosition(&CameraPos.x, &CameraPos.y);
+		CameraPos = GRAPHICS::GetCameraPosition();
 
 		AEVec2 pos = { (float)mouseX, (float)-mouseY };
 		AEMtx33 mtx;

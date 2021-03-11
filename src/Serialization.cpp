@@ -4,7 +4,7 @@
 void StarBangBang::Serialization::SaveObject(ISerializable const& sObject)
 {
 	std::ofstream ofs;
-	ofs.open("../Resources/test.bin", std::fstream::binary | std::ostream::trunc);
+	ofs.open("./Resources/test.bin", std::fstream::binary | std::ostream::trunc);
 	if (ofs.is_open())
 	{
 		sObject.Save(ofs);
@@ -17,7 +17,7 @@ void StarBangBang::Serialization::SaveObject(ISerializable const& sObject)
 void StarBangBang::Serialization::LoadObject(ISerializable& sObject)
 {
 	std::ifstream ifs;
-	ifs.open("../Resources/test.bin");
+	ifs.open("./Resources/test.bin");
 
 	if (ifs.is_open())
 	{
