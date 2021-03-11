@@ -39,7 +39,7 @@ namespace StarBangBang
 		void RemoveTile(A_Node* n);
 		void SaveLevel(const std::string& path);
 		bool LoadLevel(const std::string& path);
-		void CreateLevel(int width, int height, float tileSize);
+		void CreateLevel(int width, int height, float tileSize, TileType type);
 		void SetGrid();
 		
 		Sprite boi;

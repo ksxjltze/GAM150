@@ -80,7 +80,6 @@ void StarBangBang::DrawBox(AEVec2 size, AEVec2 pos, Color color)
 {
 	AEMtx33 scale = AEMtx33();
 	AEMtx33 result = AEMtx33();
-	float zoom = GRAPHICS::GetZoom();
 
 	AEGfxSetRenderMode(AE_GFX_RM_COLOR);
 	BasicMeshShape::ApplyTransform(size, pos);
@@ -94,7 +93,6 @@ void StarBangBang::DrawCircle(float radius, AEVec2 pos,Color color)
 {
 	AEMtx33 scale = AEMtx33();
 	AEMtx33 result = AEMtx33();
-	float zoom = GRAPHICS::GetZoom();
 
 	AEGfxSetRenderMode(AE_GFX_RM_COLOR);
 	BasicMeshShape::ApplyTransform({radius, radius}, pos);
@@ -107,7 +105,6 @@ void StarBangBang::DrawLine(float length, AEVec2 pos, float angle, Color color)
 	AEMtx33 scale = AEMtx33();
 	AEMtx33 rot = AEMtx33();
 	AEMtx33 result = AEMtx33();
-	float zoom = GRAPHICS::GetZoom();
 
 	AEGfxSetRenderMode(AE_GFX_RM_COLOR);
 

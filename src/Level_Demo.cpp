@@ -30,16 +30,16 @@ StarBangBang::Level_Demo::Level_Demo(int id, GameStateManager& manager) : Scene(
 
 void StarBangBang::Level_Demo::Load()
 {
-	//playerImage = graphicsManager.CreateSprite("../Resources/boi.png");
-	//player2Image = graphicsManager.CreateSprite("../Resources/boi2.png");
+	//playerImage = graphicsManager.CreateSprite("./Resources/boi.png");
+	//player2Image = graphicsManager.CreateSprite("./Resources/boi2.png");
 	playerImage = graphicsManager.CreateSprite(RESOURCES::CAPTAINSTEALTH_F1_PATH);
 	player2Image = graphicsManager.CreateSprite(RESOURCES::PRISONER_F1_PATH);
-	planetImage = graphicsManager.CreateSprite("../Resources/PlanetTexture.png");
-	//guardImage = graphicsManager.CreateSprite("../Resources/guard.png");
+	planetImage = graphicsManager.CreateSprite("./Resources/PlanetTexture.png");
+	//guardImage = graphicsManager.CreateSprite("./Resources/guard.png");
 	guardImage = graphicsManager.CreateSprite(RESOURCES::SECURITYGUARD_F1_PATH);
-	//securityCamImage = graphicsManager.CreateSprite("../Resources/guard.png");
+	//securityCamImage = graphicsManager.CreateSprite("./Resources/guard.png");
 	securityCamImage = graphicsManager.CreateSprite(RESOURCES::SECURITYGUARD_F1_PATH);
-	mapImage = graphicsManager.CreateSprite("../Resources/map.png");
+	mapImage = graphicsManager.CreateSprite("./Resources/map.png");
 }
 
 //Initialization of game objects, components and scripts.

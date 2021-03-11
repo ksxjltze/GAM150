@@ -100,6 +100,9 @@
     <Filter Include="Resource Files\FloorTiles">
       <UniqueIdentifier>{4321ed84-be09-4b2b-8b99-456c8aa47e3d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Resource Files\Libraries">
+      <UniqueIdentifier>{738585a8-b314-47dd-a230-7d5b1051fd5d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Main.cpp">
@@ -461,6 +464,9 @@
     <ClInclude Include="src\Movement.h">
       <Filter>Header Files\Engine</Filter>
     </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Resources\PlanetTexture.png">
@@ -651,5 +657,27 @@
     <Font Include="Resources\Roboto-Regular.ttf">
       <Filter>Resource Files</Filter>
     </Font>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Extern\lib\Alpha_Engine.dll">
+      <Filter>Resource Files\Libraries</Filter>
+    </None>
+    <None Include="Extern\lib\Alpha_EngineD.dll">
+      <Filter>Resource Files\Libraries</Filter>
+    </None>
+    <None Include="Extern\lib\freetype.dll">
+      <Filter>Resource Files\Libraries</Filter>
+    </None>
+    <None Include="Extern\lib\fmodL.dll">
+      <Filter>Resource Files\Libraries</Filter>
+    </None>
+    <None Include="Extern\lib\fmod.dll">
+      <Filter>Resource Files\Libraries</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="CaptainStealth.rc">
+      <Filter>Resource Files</Filter>
+    </ResourceCompile>
   </ItemGroup>
 </Project>

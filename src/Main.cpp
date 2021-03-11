@@ -61,7 +61,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 
 	AudioEngine audioEngine;
 	FMOD::Sound* sound = nullptr;
-	audioEngine.CreateSound(&sound, "../Resources/drumloop.wav"); //CHANGE THIS (copyright and stuff)
+	audioEngine.CreateSound(&sound, "./Resources/drumloop.wav"); //CHANGE THIS (copyright and stuff)
 	//audioEngine.playSound(sound, false);
 
 	GameStateManager gameStateManager;
@@ -117,7 +117,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 	AEGfxSetBlendMode(AE_GFX_BM_BLEND);
 
 	// ALWAYS CREATE FONTS OUTSIDE LOOP
-	fontId = AEGfxCreateFont("../Resources/Roboto-Regular.ttf", 12);
+	fontId = AEGfxCreateFont("./Resources/Roboto-Regular.ttf", 12);
 	if (fontId < 0)
 	{
 		fontId = 0;

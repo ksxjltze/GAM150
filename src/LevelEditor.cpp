@@ -43,7 +43,8 @@ namespace StarBangBang
 		//TODO: Optimize tile drawing (Low FPS on 100 x 100 tile map)
 		if (!LoadLevel(filepath))
 		{
-			CreateLevel(TILEMAP::DEFAULT_WIDTH, TILEMAP::DEFAULT_WIDTH, TILEMAP::DEFAULT_TILE_SIZE);
+			//CreateLevel(TILEMAP::DEFAULT_WIDTH, TILEMAP::DEFAULT_WIDTH, TILEMAP::DEFAULT_TILE_SIZE);
+			CreateLevel(30, 30, TILEMAP::DEFAULT_TILE_SIZE, TileType::BRICK_RED);
 		}
 
 		//Camera Object
@@ -71,7 +72,7 @@ namespace StarBangBang
 		{
 			if (AEInputCheckCurr(AEVK_LSHIFT))
 			{
-				CreateLevel(TILEMAP::DEFAULT_WIDTH, TILEMAP::DEFAULT_WIDTH, TILEMAP::DEFAULT_TILE_SIZE);
+				CreateLevel(TILEMAP::DEFAULT_WIDTH, TILEMAP::DEFAULT_WIDTH, TILEMAP::DEFAULT_TILE_SIZE, selectedType);
 			}
 			else
 				LoadLevel(filepath);
@@ -148,9 +149,9 @@ namespace StarBangBang
 		return success;
 	}
 
-	void LevelEditor::CreateLevel(int width, int height, float tileSize)
+	void LevelEditor::CreateLevel(int width, int height, float tileSize, TileType type)
 	{
-		tileMap.Generate(width, height, tileSize);
+		tileMap.Generate(width, height, tileSize, type);
 		SetGrid();
 	}
 

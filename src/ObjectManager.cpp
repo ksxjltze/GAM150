@@ -119,7 +119,7 @@ void StarBangBang::ObjectManager::DestroyGameObject(GameObject* gameObject)
 void StarBangBang::ObjectManager::SaveGameObject(GameObject& gameObject)
 {
 	std::ofstream ofs;
-	ofs.open("../Resources/test.bin", std::fstream::binary | std::ostream::trunc);
+	ofs.open("./Resources/test.bin", std::fstream::binary | std::ostream::trunc);
 	if (ofs.is_open())
 	{
 		//Write Transform
