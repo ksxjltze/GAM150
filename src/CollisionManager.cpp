@@ -94,19 +94,20 @@ void CalculateCollisionData(const BoxCollider& b1, const BoxCollider& b2, Collis
 	{
 		col.pen_depth = y_intersect;
 		// means that b2 center on the left of b1 center 
-		if (dist.x < 0)
-			col.col_normal = AEVec2{ -1.0f,0.0f };
+		if (dist.y < 0)
+			col.col_normal = AEVec2{ 0.0f, -1.0f };
 		else
-			col.col_normal = AEVec2{ 1.0f,0.0f };
+			col.col_normal = AEVec2{ 0.0f, 1.0f };
+		
 	}
 	else
 	{
 		col.pen_depth = x_intersect;
 		//means b2 center is below b1 center
-		if (dist.y < 0)
-			col.col_normal = AEVec2{ 0.0f, -1.0f };
+		if (dist.x < 0)
+			col.col_normal = AEVec2{ -1.0f,0.0f };
 		else
-			col.col_normal = AEVec2{ 0.0f, 1.0f };
+			col.col_normal = AEVec2{ 1.0f,0.0f };
 
 	}
 
@@ -278,14 +279,7 @@ void ResolvePenetration(const CollisionPair& pair)
 void CollisionManager::ResolverUpdate()
 {
 
-	for (BoxCollider* col : collider_list)
-	{
-		assert(col);
-		if (col->rb->isKinematic())
-			DebugCollider(*col, Red());
-		else
-			DebugCollider(*col, Black());
-	}
+	
 
 	/*if (!resolveQueue.empty())
 	{
@@ -317,7 +311,7 @@ void CollisionManager::ResolverUpdate()
 			//if both have rb use dynamic collision
 			if (col->rb && col2->rb)
 			{
-				if (col->rb->SqrVelocity() == 0 && col2->rb->SqrVelocity() == 0)
+				if (col->rb->SqrVelocity() == 0 || col2->rb->SqrVelocity() == 0)
 				{
 					if (StaticAABB_Check(*col, *col2, data))
 					{
@@ -347,7 +341,14 @@ void CollisionManager::ResolverUpdate()
 		}
 
 	}
-
+	for (BoxCollider* col : collider_list)
+	{
+		assert(col);
+		if (col->rb->isKinematic())
+			DebugCollider(*col, Red());
+		else
+			DebugCollider(*col, Black());
+	}
 
 #pragma region Partition
 	//paritition (still have some bugs)
@@ -435,7 +436,7 @@ bool CollisionManager::Dynamic_AABB(const BoxCollider& A, const AEVec2& vel1,
 	const BoxCollider& B, const AEVec2& vel2, CollisionData& data)
 {
 
-	/*if (vel1.x == 0 && vel1.y == 0 && vel2.x == 0 && vel2.y == 0)
+	/*if (A.rb->SqrVelocity() == 0 || B.rb->SqrVelocity() == 0)
 	{
 		return StaticAABB_Check(A, B, data);
 	}*/
