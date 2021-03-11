@@ -120,6 +120,23 @@ namespace StarBangBang
 		AEGfxSetCamPosition(0, 0);
 	}
 
+	AEMtx33 GRAPHICS::GetScaleMatrix()
+	{
+		AEMtx33 mtx;
+		AEMtx33 screenScaleMtx;
+		AEVec2 scale = GetScreenScale();
+		AEMtx33Scale(&mtx, zoom, zoom);
+		AEMtx33Scale(&screenScaleMtx, scale.x, scale.y);
+		AEMtx33Concat(&mtx, &mtx, &screenScaleMtx);
+		return mtx;
+	}
+
+	AEMtx33 GRAPHICS::GetCameraMatrix()
+	{
+		//temp
+		return GetScaleMatrix();
+	}
+
 	AEVec2 GRAPHICS::GetScreenScale()
 	{
 		if (isFullscreen)
@@ -182,11 +199,8 @@ namespace StarBangBang
 		AEMtx33Concat(&transformMtx, &scaleMtx, &rotationMtx);
 		AEMtx33TransApply(&transformMtx, &transformMtx, pos.x, pos.y);
 
-		// Camera Zoom
-		AEMtx33ScaleApply(&transformMtx, &transformMtx, zoom, zoom);
-
-		// Fullscreen scale
-		ScaleFullscreen(transformMtx);
+		AEMtx33 cameraMtx = GetCameraMatrix();
+		AEMtx33Concat(&transformMtx, &cameraMtx, &transformMtx);
 
 		AEGfxSetTransform(transformMtx.m);
 

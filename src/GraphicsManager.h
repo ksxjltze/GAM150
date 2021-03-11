@@ -16,6 +16,8 @@ namespace StarBangBang
 		void SetScreenScaleRatio(float x, float y);
 		void SetZoom(float scale);
 		void ResetCamera();
+		AEMtx33 GetScaleMatrix();
+		AEMtx33 GetCameraMatrix();
 
 		AEVec2 GetScreenScale();
 		float GetZoom();
