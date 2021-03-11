@@ -46,7 +46,7 @@ void StarBangBang::Level_Demo::Load()
 void StarBangBang::Level_Demo::Init()
 {
 	PathFinder::ShowGrid(true);
-	GRAPHICS::SetBackgroundColor(Black());
+	GRAPHICS::SetBackgroundColor(Black);
 	tilemap.Load(RESOURCES::LEVEL_TEST_PATH);
 
 	GameObject* worldOriginMarker = objectManager.NewGameObject();

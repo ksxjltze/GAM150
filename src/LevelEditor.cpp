@@ -30,13 +30,13 @@ namespace StarBangBang
 
 	void LevelEditor::Load()
 	{
-		GRAPHICS::SetBackgroundColor(Blue());
+		GRAPHICS::SetBackgroundColor(Blue);
 	}
 
 	void LevelEditor::Init()
 	{
 		PathFinder::ShowGrid(false);
-		GRAPHICS::SetBackgroundColor(Black());
+		GRAPHICS::SetBackgroundColor(Black);
 		
 		filepath = RESOURCES::LEVEL_TEST_PATH;
 
@@ -112,7 +112,7 @@ namespace StarBangBang
 	{
 		Scene::Draw();
 		HighLightGridNode(grid);
-		grid.DrawGrid(Black());
+		grid.DrawGrid(Black);
 	}
 
 	void LevelEditor::Free()

@@ -354,9 +354,9 @@ void CollisionManager::ResolverUpdate()
 	{
 		assert(col);
 		if (col->rb->isKinematic())
-			DebugCollider(*col, Red());
+			DebugCollider(*col, Red);
 		else
-			DebugCollider(*col, Black());
+			DebugCollider(*col, Black);
 	}
 
 #pragma region Partition
