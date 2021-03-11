@@ -75,7 +75,7 @@
     </Link>
     <PostBuildEvent>
       <Command>xcopy /y /d "$(SolutionDir)\Extern\lib\Debug" "$(OutDir)"
-xcopy /y /d /i /s "$(SolutionDir)\bin\Resources" "$(OutDir)\Resources"</Command>
+xcopy /y /d /i /s "$(SolutionDir)\Resources" "$(OutDir)\Resources"</Command>
     </PostBuildEvent>
     <PostBuildEvent>
       <Message>Copying dlls and resources into output directory</Message>
@@ -99,7 +99,7 @@ xcopy /y /d /i /s "$(SolutionDir)\bin\Resources" "$(OutDir)\Resources"</Command>
     </Link>
     <PostBuildEvent>
       <Command>xcopy /y /d "$(SolutionDir)\Extern\lib\Release\" "$(OutDir)"
-xcopy /y /d /i /s "$(SolutionDir)\bin\Resources" "$(OutDir)\Resources"</Command>
+xcopy /y /d /i /s "$(SolutionDir)\Resources" "$(OutDir)\Resources"</Command>
     </PostBuildEvent>
     <PostBuildEvent>
       <Message>Copying dlls and resources into output directory</Message>
