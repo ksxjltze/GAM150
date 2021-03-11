@@ -11,13 +11,13 @@ StarBangBang::PrimaryMovementController::PrimaryMovementController(GameObject* g
 void StarBangBang::PrimaryMovementController::Start()
 {
 	rb = gameObject->GetComponent<RigidBody>();
-	rb->drag = 0.5f;
+	rb->drag = 0.2f;
 }
 
 void StarBangBang::PrimaryMovementController::Update()
 {
 	float dt = static_cast<float>(AEFrameRateControllerGetFrameTime());
-	float speed = 30 * dt ;
+	float speed = 40.0f  ;
 	float h = 0.0f, v = 0.0f;
 
 	if (AEInputCheckCurr(AEVK_W))
@@ -34,5 +34,6 @@ void StarBangBang::PrimaryMovementController::Update()
 	
 	movement.x = h * speed;
 	movement.y = v * speed;
-	rb->AddVelocity(movement, 1.0f);
+	rb->AddForce(movement, 1.0f);
+	//rb->AddVelocity(movement, 1.0f);
 }

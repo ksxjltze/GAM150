@@ -9,7 +9,7 @@ inverse_mass{ 1.0f }, mass{1.0f}, drag{ 0.1f }, velocity{ AEVec2{ 0,0 } }
 
 	
 }
-
+f32 dt;
 
 AEVec2 RigidBody::GetNormalizedVelocity() const
 {
@@ -41,7 +41,7 @@ void RigidBody::SetMass(float m)
 
 void StarBangBang::RigidBody::Update()
 {
-	f32 dt = static_cast<f32>(AEFrameRateControllerGetFrameTime());
+	dt = static_cast<f32>(AEFrameRateControllerGetFrameTime());
 	velocity.x += acceleration.x  * dt;
 	velocity.y += acceleration.y  * dt;
 
@@ -64,8 +64,8 @@ void StarBangBang::RigidBody::Update()
 		velocity.y = 0;
 	}
 	
-	gameObject->transform.position.x += velocity.x ;
-	gameObject->transform.position.y += velocity.y ;
+	gameObject->transform.position.x += velocity.x  ;
+	gameObject->transform.position.y += velocity.y  ;
 
 	//PRINT("V:(%0.4f,%0.4f)\n", velocity.x, velocity.y);
 }
