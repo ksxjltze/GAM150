@@ -41,6 +41,7 @@ void StarBangBang::Level_Demo::Load()
 //Initialization of game objects, components and scripts.
 void StarBangBang::Level_Demo::Init()
 {
+	PathFinder::ShowGrid(true);
 	GRAPHICS::SetBackgroundColor(Black());
 	tilemap.Load(RESOURCES::LEVEL_TEST_PATH);
 

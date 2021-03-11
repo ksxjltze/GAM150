@@ -35,6 +35,7 @@ namespace StarBangBang
 
 	void LevelEditor::Init()
 	{
+		PathFinder::ShowGrid(false);
 		GRAPHICS::SetBackgroundColor(Black());
 		
 		filepath = RESOURCES::LEVEL_TEST_PATH;
