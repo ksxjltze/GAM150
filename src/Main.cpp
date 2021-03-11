@@ -19,10 +19,27 @@
 namespace StarBangBang
 {
 	float g_dt = 0;
+	s8 fontId = -1;
 }
 
 // ---------------------------------------------------------------------------
 // main
+
+namespace StarBangBang
+{
+	void DisplayFps()
+	{
+		char strBuffer[100];
+		memset(strBuffer, 0, 100 * sizeof(char));
+		sprintf_s(strBuffer, "FPS:  %.6f", AEFrameRateControllerGetFrameRate());
+
+		AEGfxSetBlendMode(AE_GFX_BM_BLEND);
+		f32 TextWidth, TextHeight;
+		AEGfxGetPrintSize(fontId, strBuffer, 1.0f, TextWidth, TextHeight);
+		AEGfxPrint(fontId, strBuffer, 0.99f - TextWidth, 0.99f - TextHeight, 1.0f, 1.f, 1.f, 1.f);
+	}
+
+}
 
 int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 	_In_opt_ HINSTANCE hPrevInstance,
@@ -41,7 +58,6 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 	// Variable declaration
 	using namespace StarBangBang;
 	int gGameRunning = 1;
-	s8 fontId = -1;
 
 	AudioEngine audioEngine;
 	FMOD::Sound* sound = nullptr;
@@ -128,28 +144,17 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 				GRAPHICS::ToggleFullscreen();
 		}
 
-		StarBangBang::TestGrid();
 
 		// Update State
 		gameStateManager.Update();
-		audioEngine.Update();
 
+		//Moved to gsm draw
+		//StarBangBang::TestGrid();
+		StarBangBang::PathFinderTest();
 		CollisionManager::ResolverUpdate();
 		
-		StarBangBang::PathFinderTest();
-		
-		//FPS
-		AEVec2 camPos;
-		AEGfxGetCamPosition(&camPos.x, &camPos.y);
-
-		char strBuffer[100];
-		memset(strBuffer, 0, 100 * sizeof(char));
-		sprintf_s(strBuffer, "FPS:  %.6f", AEFrameRateControllerGetFrameRate());
-
-		AEGfxSetBlendMode(AE_GFX_BM_BLEND);
-		f32 TextWidth, TextHeight;
-		AEGfxGetPrintSize(fontId, strBuffer, 1.0f, TextWidth, TextHeight);
-		AEGfxPrint(fontId, strBuffer, 0.99f - TextWidth, 0.99f - TextHeight, 1.0f, 1.f, 1.f, 1.f);
+		DisplayFps();
+		audioEngine.Update();
 
 		//StarBangBang::Test_BoxUpdate();
 		//StarbangBang::Test_CircleUpdate();

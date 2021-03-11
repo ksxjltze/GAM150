@@ -7,6 +7,7 @@ namespace StarBangBang
 	{
 		static bool isFullscreen = false;
 		static bool enableRescale = true;
+		static AEVec2 cameraPos{ 0, 0 };
 		//static AEVec2 screenScaleRatio;
 		static AEVec2 screenScaleRatio = {  TARGET_WINDOW_WIDTH / RESOLUTION_X, TARGET_WINDOW_HEIGHT / RESOLUTION_Y };
 	}
@@ -114,27 +115,56 @@ namespace StarBangBang
 		zoom = scale;
 	}
 
+	void GRAPHICS::SetCameraPosition(float x, float y)
+	{
+		cameraPos.x = x;
+		cameraPos.y = y;
+	}
+
+	AEVec2 GRAPHICS::GetCameraPosition()
+	{
+		return cameraPos;
+	}
+
 	void GRAPHICS::ResetCamera()
 	{
 		SetZoom(1.0f);
-		AEGfxSetCamPosition(0, 0);
+		SetCameraPosition(0, 0);
 	}
 
 	AEMtx33 GRAPHICS::GetScaleMatrix()
 	{
 		AEMtx33 mtx;
+		AEMtx33 zoomMtx;
 		AEMtx33 screenScaleMtx;
+
 		AEVec2 scale = GetScreenScale();
-		AEMtx33Scale(&mtx, zoom, zoom);
+
+		AEMtx33Scale(&zoomMtx, zoom, zoom);
 		AEMtx33Scale(&screenScaleMtx, scale.x, scale.y);
-		AEMtx33Concat(&mtx, &mtx, &screenScaleMtx);
+		AEMtx33Concat(&mtx, &zoomMtx, &screenScaleMtx);
+
 		return mtx;
 	}
 
 	AEMtx33 GRAPHICS::GetCameraMatrix()
 	{
-		//temp
-		return GetScaleMatrix();
+		AEMtx33 mtx;
+		AEMtx33 translateMtx;
+		AEMtx33 scaleMtx;
+
+		scaleMtx = GetScaleMatrix();
+
+		AEMtx33Trans(&translateMtx, -cameraPos.x, -cameraPos.y);
+		AEMtx33Concat(&mtx, &translateMtx, &scaleMtx);
+
+		return mtx;
+	}
+
+	void GRAPHICS::ApplyCameraMatrix(AEMtx33* mtx)
+	{
+		AEMtx33 camMtx = GetCameraMatrix();
+		AEMtx33Concat(mtx, &camMtx, mtx);
 	}
 
 	AEVec2 GRAPHICS::GetScreenScale()

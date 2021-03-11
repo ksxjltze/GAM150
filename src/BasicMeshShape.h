@@ -4,8 +4,13 @@
 
 namespace StarBangBang
 {
+	namespace BasicMeshShape
+	{
+		void ApplyTransform(AEVec2 size, AEVec2 pos);
+	}
 	
 	void InitBasicMesh();
+
 
 	void DrawBoxWired(AEVec2 size, AEVec2 pos, Color color = White());
 
