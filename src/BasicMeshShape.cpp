@@ -40,19 +40,18 @@ void StarBangBang::InitBasicMesh()
 	//build unit circle mesh
 	AEGfxMeshStart();
 	float interval = 2.0f * PI / sides;
-	//float x = 0, y = 0;
 	for (unsigned int i = 0; i < sides; i++)
 	{
 		float radian = interval * i;
 	
-		float x = static_cast<float>(sin(radian));
-		float y = static_cast<float>(cos(radian));
+		float y = static_cast<float>(sin(radian));
+		float x = static_cast<float>(cos(radian));
 		
 		AEGfxVertexAdd(x,y, 0xFFFFFFFF,0.0f,0.0f);
 		
 
 	}
-	AEGfxVertexAdd(0.0f, 1.0f, 0xFFFFFFFF, 0.0f, 0.0f);
+	AEGfxVertexAdd(1.0f, 0.0f, 0xFFFFFFFF, 0.0f, 0.0f);
 	unitcircleMesh = AEGfxMeshEnd();
 	AE_ASSERT_MESG(unitcircleMesh, "Failed to create wired circle\n");
 
