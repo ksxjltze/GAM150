@@ -23,6 +23,8 @@ namespace StarBangBang
 
 		AEVec2 GetNormalizedVelocity() const;
 
+		
+
 		f32 MagVelocity() const
 		{
 			return (f32)sqrt( ((double)velocity.x * (double)velocity.x + (double)velocity.y * (double)velocity.y));
@@ -40,7 +42,8 @@ namespace StarBangBang
 		void AddForce(AEVec2 force, float scale);
 
 		void AddVelocity(AEVec2 force, float scale);
-			
+		
+		void AddInstantVelocity(AEVec2 impulse, float scale);
 	};
 
 

@@ -273,8 +273,8 @@ void ResolvePenetration(const CollisionPair& pair)
 	//position correction impulse for penetration depth 
 	AEVec2 corr = AEVec2{ additional * xMax/total  * pair.data.col_normal.x , additional * yMax/total  * pair.data.col_normal.y };
 
-	pair.A.rb->AddVelocity(corr, -pair.A.rb->inv_mass());
-	pair.B.rb->AddVelocity(corr, pair.B.rb->inv_mass());
+	pair.A.rb->AddInstantVelocity(corr, -pair.A.rb->inv_mass());
+	pair.B.rb->AddInstantVelocity(corr, pair.B.rb->inv_mass());
 	//CollisionManager::RecalculateColliderCells(pair.A);
 	//CollisionManager::RecalculateColliderCells(pair.B);
 }
