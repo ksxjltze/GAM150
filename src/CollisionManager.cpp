@@ -258,6 +258,8 @@ void ResolveVelocity(const CollisionPair& pair)
 		pair.B.rb->AddVelocity(impulse, -pair.B.rb->inv_mass());
 	}
 }
+//static int collisionChecks = 0;
+//float timer = 10.0f;
 void ResolvePenetration(const CollisionPair& pair)
 {
 	float total = pair.A.rb->inv_mass() + pair.B.rb->inv_mass();
@@ -306,7 +308,7 @@ void CollisionManager::ResolverUpdate()
 		}
 	}*/
 	//non-partition 
-	for (BoxCollider* col : collider_list)
+	/*for (BoxCollider* col : collider_list)
 	{
 
 		for (BoxCollider* col2 : collider_list)
@@ -346,24 +348,21 @@ void CollisionManager::ResolverUpdate()
 				}
 
 			}
-
+			if (timer > 0)
+			{
+				++collisionChecks;
+			}
 		}
 
-	}
+	}*/
+	
+	 
+#pragma region Partition
+	//paritition (still have some bugs)
 	for (BoxCollider* col : collider_list)
 	{
 		assert(col);
-		if (col->rb->isKinematic())
-			DebugCollider(*col, Red);
-		else
-			DebugCollider(*col, Black);
-	}
-
-#pragma region Partition
-	//paritition (still have some bugs)
-	/*for (BoxCollider* col : collider_list)
-	{
-		assert(col);
+		RecalculateColliderCells(*col);
 		//printf("%zu\n", collider_list.size());
 		if (col->GetCellListSize() > 0)
 		{
@@ -391,6 +390,7 @@ void CollisionManager::ResolverUpdate()
 								ResolveVelocity(p);
 								ResolvePenetration(p);
 								//AddToResolveQueue(p);
+								PRINT("Static\n");
 							}
 						}
 						else
@@ -400,7 +400,7 @@ void CollisionManager::ResolverUpdate()
 								CollisionPair p{ *col,*col2, data };
 								ResolveVelocity(p);
 								ResolvePenetration(p);
-
+								PRINT("Dynamic\n");
 								//AddToResolveQueue(p);
 
 							}
@@ -409,12 +409,27 @@ void CollisionManager::ResolverUpdate()
 						}
 
 					}
+					/*if (timer > 0)
+					{
+						++collisionChecks;
+					}*/
+					
 				}
 
 			}
 		}
 
-	}*/
+	}
+	//std::cout << collisionChecks << std::endl;
+	for (BoxCollider* col : collider_list)
+	{
+		assert(col);
+		if (col->rb->isKinematic())
+			DebugCollider(*col, Red);
+		else
+			DebugCollider(*col, Black);
+	}
+	//timer -= AEFrameRateControllerGetFrameTime();
 #pragma endregion
 }
 
@@ -444,11 +459,6 @@ bool CollisionManager::StaticAABB_Check(const BoxCollider& A, const BoxCollider&
 bool CollisionManager::Dynamic_AABB(const BoxCollider& A, const AEVec2& vel1,
 	const BoxCollider& B, const AEVec2& vel2, CollisionData& data)
 {
-
-	/*if (A.rb->SqrVelocity() == 0 || B.rb->SqrVelocity() == 0)
-	{
-		return StaticAABB_Check(A, B, data);
-	}*/
 
 	if (StaticAABB_Check(A, B, data))
 	{
@@ -489,7 +499,7 @@ bool CollisionManager::Dynamic_AABB(const BoxCollider& A, const AEVec2& vel1,
 
 	}
 	//B moving right
-	if (rVel_B.x > 0)
+	else if (rVel_B.x > 0)
 	{
 		//A is on the left
 		if (A.Max().x < B.Min().x)
@@ -508,6 +518,10 @@ bool CollisionManager::Dynamic_AABB(const BoxCollider& A, const AEVec2& vel1,
 			t_last = min(l_temp, t_last);
 		}
 
+	}
+	else
+	{
+		return false;
 	}
 	//no collision 
 	if (t_first > t_last)
@@ -535,7 +549,7 @@ bool CollisionManager::Dynamic_AABB(const BoxCollider& A, const AEVec2& vel1,
 
 	}
 	//B moving up
-	if (rVel_B.y > 0)
+	else if (rVel_B.y > 0)
 	{
 		//A is on the bottom
 		if (A.Max().y < B.Min().y)
@@ -554,6 +568,10 @@ bool CollisionManager::Dynamic_AABB(const BoxCollider& A, const AEVec2& vel1,
 			t_last = min(l_temp, t_last);
 		}
 
+	}
+	else
+	{
+		return false;
 	}
 	//no collision 
 	if (t_first > t_last)

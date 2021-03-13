@@ -10,7 +10,6 @@ inverse_mass{ 1.0f }, mass{1.0f}, drag{ 0.1f }, velocity{ AEVec2{ 0,0 } }
 	
 }
 f32 dt;
-
 AEVec2 RigidBody::GetNormalizedVelocity() const
 {
 	f32 mag = velocity.x * velocity.x + velocity.y * velocity.y;

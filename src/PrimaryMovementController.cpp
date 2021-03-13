@@ -16,7 +16,6 @@ void StarBangBang::PrimaryMovementController::Start()
 
 void StarBangBang::PrimaryMovementController::Update()
 {
-	float dt = static_cast<float>(AEFrameRateControllerGetFrameTime());
 	float speed = 20.0f  ;
 	float h = 0.0f, v = 0.0f;
 
