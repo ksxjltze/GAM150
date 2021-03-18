@@ -2,7 +2,7 @@
 #include <any>
 #include <iostream>
 
-enum EventId {TEST};
+enum class EventId {DETECTED};
 
 namespace StarBangBang
 {

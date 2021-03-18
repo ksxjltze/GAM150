@@ -115,6 +115,7 @@ xcopy /y /d /i /s "$(SolutionDir)\Resources" "$(OutDir)\Resources"</Command>
     <ClCompile Include="src\Collider.cpp" />
     <ClCompile Include="src\CollisionManager.cpp" />
     <ClCompile Include="src\constants.cpp" />
+    <ClCompile Include="src\DetectionListener.cpp" />
     <ClCompile Include="src\Detector.cpp" />
     <ClCompile Include="src\DragComponent.cpp" />
     <ClCompile Include="src\EngineProof.cpp" />
@@ -166,6 +167,7 @@ xcopy /y /d /i /s "$(SolutionDir)\Resources" "$(OutDir)\Resources"</Command>
     <ClInclude Include="src\Component.h" />
     <ClInclude Include="src\ComponentCRTP.h" />
     <ClInclude Include="src\constants.h" />
+    <ClInclude Include="src\DetectionListener.h" />
     <ClInclude Include="src\Detector.h" />
     <ClInclude Include="src\DragComponent.h" />
     <ClInclude Include="src\EngineProof.h" />

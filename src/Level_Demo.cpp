@@ -8,6 +8,8 @@
 #include "Map.h"
 
 #include "MovementManager.h"
+#include "DetectionListener.h"
+#include "MessageBus.h"
 
 #include <iostream>
 #include "constants.h"
@@ -48,6 +50,8 @@ void StarBangBang::Level_Demo::Init()
 
 	GameObject* worldOriginMarker = objectManager.NewGameObject();
 	player = objectManager.NewGameObject();
+	DetectionListener* listener = &objectManager.AddComponent<DetectionListener>(player);
+	MessageBus::RegisterListener(listener);
 	
 	movementController = objectManager.NewGameObject();
 

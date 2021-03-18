@@ -261,6 +261,9 @@
     <ClCompile Include="src\MessageBus.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\DetectionListener.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\ImageComponent.h">
@@ -462,6 +465,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\ListenerComponent.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\DetectionListener.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

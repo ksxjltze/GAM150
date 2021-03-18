@@ -1,6 +1,7 @@
 #include "Detector.h"
 #include "BasicMeshShape.h"
 #include "globals.h"
+#include "MessageBus.h"
 
 using namespace StarBangBang;
 
@@ -91,6 +92,9 @@ void Detector::CheckForTargets()
 
 			//PRINT("%s\n", "DETECTED PLAYER");
 			detected = true;
+
+			//Event test
+			MessageBus::Notify({ EventId::DETECTED, std::string("TEST") });
 
 			//TEMP
 			//gameObject->transform.scale.x += 0.5f * static_cast<float>(g_dt);
