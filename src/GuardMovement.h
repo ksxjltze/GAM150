@@ -19,16 +19,20 @@ namespace StarBangBang
 		void Patrol();
 		void Distracted();
 
+		void LookForPath(const AEVec2& pos);
+
 		inline const AEVec2& GetNextPos() const { return nextPos; }
 		inline bool IsMoving() const { return isMoving; }
 		bool IsChangingDir();
 
 	private:
+		void MoveAlongPath();
 		bool MoveTo(AEVec2 pos);
 		bool ReachedPos(AEVec2 pos);
 		void SetWaypoints();
 
 		bool isMoving;
+		bool lookForPath;
 		bool foundPath;
 		unsigned int nodeIndex;
 
@@ -39,6 +43,6 @@ namespace StarBangBang
 
 		std::vector<A_Node*> path;
 
-		AEVec2 distraction_position;
+		//AEVec2 targetPos; // the end position of the path
 	};
 }
