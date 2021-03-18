@@ -1,10 +1,10 @@
 #pragma once
 #include "ScriptComponent.h"
-#include "Detector.h"
 
 namespace StarBangBang
 {
 	class GuardMovement;
+	class Detector;
 
 	class GuardVision : public Script
 	{

@@ -50,6 +50,7 @@ namespace StarBangBang
 		extern const std::string&& MAINMENU_PATH;
 		extern const std::string&& CHARACTERS_PATH;
 		extern const std::string&& FLOORTILES_PATH;
+		extern const std::string&& INTERACTABLE_PATH;
 		extern const std::string&& PROTOTYPE_SPRITE_1_PATH;
 		extern const std::string&& PROTOTYPE_SPRITE_2_PATH;
 		extern const std::string&& PROTOTYPE_SPRITE_GRASS_PATH;
@@ -137,6 +138,15 @@ namespace StarBangBang
 
 		extern const std::string&& OFFICEFLOOR_PATH;
 		extern const std::string&& PRISONFLOOR_PATH;
+
+		//interactable objects
+		extern const std::string&& CAMERA_PATH;
+		extern const std::string&& BIN_PATH;
+		extern const std::string&& BIN_RED_PATH;
+		extern const std::string&& VENDING_LEFT_PATH;
+		extern const std::string&& VENDING_LEFT_RED_PATH;
+		extern const std::string&& VENDING_RIGHT_PATH;
+		extern const std::string&& VENDING_RIGHT_RED_PATH;
 
 	}
 }

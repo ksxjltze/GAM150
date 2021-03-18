@@ -12,7 +12,7 @@ namespace StarBangBang
 		void Update();
 		void Draw();
 
-		void Init(float fov, float dist, bool fixedPos, GameObject* target);
+		void Init(float fov, float dist, GameObject* target);
 		void Rotate(float angle);
 
 		inline void SetAngle(float angle) { rotationAngle = angle; }
@@ -27,7 +27,6 @@ namespace StarBangBang
 		float rotationAngle;
 
 		bool detected;
-		bool isFixedPos;
 
 		AEVec2 defaultForward;
 		AEVec2 targetDir;

@@ -12,33 +12,20 @@ Detector::Detector(GameObject* gameObject)
 	, targetGO(nullptr)
 	, rotationAngle(0.f)
 	, detected(false)
-	, isFixedPos(false)
 	, defaultForward({ 0, 1 })
 	, targetDir({ 0, 1 })
 {
 }
 
-void Detector::Init(float fov, float dist, bool fixedPos, GameObject* target)
+void Detector::Init(float fov, float dist, GameObject* target)
 {
 	fieldOfView = fov;
 	viewDist = dist;
-	isFixedPos = fixedPos;
 	targetGO = target;
 }
 
 void Detector::Update()
 {
-	if (isFixedPos) // this detector is a security cam
-	{
-		// security cam behaviour (TEMP)
-		rotationAngle += static_cast<float>(g_dt) * 50.f;
-		if (rotationAngle > 360.f)
-			rotationAngle = 0.f;
-		
-		// need to rotate targetDir
-		Rotate(rotationAngle);
-	}
-
 	CheckForTargets();
 }
 
@@ -51,22 +38,20 @@ void Detector::Draw()
 	else
 		color = White;
 
-	DrawLine(viewDist + 50.f, gameObject->GetPos(), (fieldOfView * 0.5f) + rotationAngle, color);
-	DrawLine(viewDist + 50.f, gameObject->GetPos(), (-fieldOfView * 0.5f) + rotationAngle, color);
+	DrawLine(viewDist, gameObject->GetPos(), (fieldOfView * 0.5f) + rotationAngle, color);
+	DrawLine(viewDist, gameObject->GetPos(), (-fieldOfView * 0.5f) + rotationAngle, color);
 }
 
 void Detector::Rotate(float angle)
 {
 	rotationAngle = angle;
-
-	if (isFixedPos)
-	{
-		AEVec2FromAngle(&targetDir, AEDegToRad(90.f + rotationAngle));
-	}
 }
 
 void Detector::CheckForTargets()
 {
+	// continue only if game objects are in same partition
+	// ...
+	
 	AEVec2 toTargetVec;
 	AEVec2 goPos = gameObject->GetPos();
 	AEVec2 targetPos = targetGO->GetPos();
@@ -77,8 +62,11 @@ void Detector::CheckForTargets()
 	AEVec2Normalize(&toTargetVec, &toTargetVec);
 
 	dpResult = AEVec2DotProduct(&targetDir, &toTargetVec);
-	//if (dpResult < 0.f) // don't continue if target is behind detector
-		//return;
+	if (dpResult < 0.f) // don't continue if target is behind detector
+	{
+		detected = false;
+		return;
+	}
 
 	float angle = AEACos(dpResult);
 	angle = AERadToDeg(angle);

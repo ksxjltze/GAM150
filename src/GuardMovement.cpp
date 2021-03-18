@@ -12,6 +12,7 @@ using namespace StarBangBang;
 GuardMovement::GuardMovement(GameObject* gameObject)
 	: Script(gameObject)
 	, nodeIndex(0)
+	, lookForPath(false)
 	, foundPath(false)
 	, isMoving(false)
 {
@@ -20,7 +21,7 @@ GuardMovement::GuardMovement(GameObject* gameObject)
 
 	std::string text = "Guard ID: " + std::to_string(gameObject->GetComponent<Guard>()->GetID()) + "\n";
 	PRINT(text.c_str());
-	distraction_position = waypoints.front();
+	//targetPos = waypoints.front();
 }
 
 void GuardMovement::Idle()
@@ -49,55 +50,48 @@ void GuardMovement::Patrol()
 
 void GuardMovement::Distracted()
 {
-	if (AEInputCheckTriggered(VK_LBUTTON))
-	{
-		if (foundPath) // changing path midway into moving along the path
-		{
-			nodeIndex = 0;
-		}
+	if (!foundPath)
+		return;
 
-		distraction_position = GetMouseWorldPos();
-		path = PathFinder::SearchForPath(gameObject->transform.position, distraction_position);
-		foundPath = (path.size() > 0);
+	MoveAlongPath();
+}
+
+void GuardMovement::MoveAlongPath()
+{
+	for (const A_Node* n : path)
+	{
+		DrawCircle(20.0f, n->nodePos);
 	}
 
-	if (foundPath)
+	if (nodeIndex < path.size())
 	{
-		for (const A_Node* n : path)
-		{
-			DrawCircle(20.0f, n->nodePos);
-		}
+		isMoving = true;
+		//if (nodeIndex + 1 < path.size())
+		nextPos = path[nodeIndex]->nodePos;
 
-		if (nodeIndex < path.size())
+		//PRINT("target: %f, %f\n", nextPos.x, nextPos.y);
+
+		float timer = 0.f;
+		if (MoveTo(path[nodeIndex]->nodePos))
 		{
-			isMoving = true;
-			//if (nodeIndex + 1 < path.size())
-			nextPos = path[nodeIndex]->nodePos;
-			
-			//PRINT("target: %f, %f\n", nextPos.x, nextPos.y);
-				
-			float timer = 0.f;
-			if (MoveTo(path[nodeIndex]->nodePos))
+			//PRINT("NODE INDEX: %d\n", nodeIndex);
+			timer += g_dt;
+			if (timer >= 0.01f)
 			{
-				//PRINT("NODE INDEX: %d\n", nodeIndex);
-				timer += g_dt;
-				if (timer >= 0.01f)
-				{
-					++nodeIndex;
-					timer = 0.f;
-				}
+				++nodeIndex;
+				timer = 0.f;
 			}
 		}
-		else
-		{
-			// deactivate interactable object
-			// ...
+	}
+	else
+	{
+		// deactivate interactable object
+		// ...
 
-			path.clear();
-			nodeIndex = 0;
-			foundPath = false;
-			isMoving = false;
-		}
+		path.clear();
+		nodeIndex = 0;
+		foundPath = false;
+		isMoving = false;
 	}
 }
 
@@ -170,4 +164,18 @@ bool GuardMovement::IsChangingDir()
 
 	return false;*/
 	//return (currNode.x != prevNode.x || currNode.y != prevNode.y);
+}
+
+void GuardMovement::LookForPath(const AEVec2& pos)
+{
+	lookForPath = true;
+
+	if (foundPath) // changing path midway into moving along the path
+	{
+		nodeIndex = 0;
+	}
+
+	path = PathFinder::SearchForPath(gameObject->transform.position, pos);
+	foundPath = (path.size() > 0);
+	lookForPath = false;
 }

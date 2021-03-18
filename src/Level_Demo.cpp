@@ -4,6 +4,7 @@
 #include "InteractableComponent.h"
 #include "Guard.h"
 #include "GuardManager.h"
+#include "SecurityCamera.h"
 #include "Detector.h"
 #include "Map.h"
 
@@ -63,8 +64,9 @@ void StarBangBang::Level_Demo::Init()
 
 	testSecurityCam = objectManager.NewGameObject();
 	objectManager.AddImage(testSecurityCam, securityCamImage);
+	objectManager.AddComponent<SecurityCamera>(testSecurityCam).SetRotationMinMax(-90.f, 90.f);
 	objectManager.AddComponent<Detector>(testSecurityCam);
-	testSecurityCam->GetComponent<Detector>()->Init(90.f, 250.f, true, player);
+	testSecurityCam->GetComponent<Detector>()->Init(90.f, 250.f, player);
 	testSecurityCam->SetPos({ 100, 750 });
 
 	map = objectManager.NewGameObject();

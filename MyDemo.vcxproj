@@ -146,6 +146,7 @@ xcopy /y /d /i /s "$(SolutionDir)\Resources" "$(OutDir)\Resources"</Command>
     <ClCompile Include="src\PrimaryMovementController.cpp" />
     <ClCompile Include="src\Sample_Scene.cpp" />
     <ClCompile Include="src\SecondaryMovementController.cpp" />
+    <ClCompile Include="src\SecurityCamera.cpp" />
     <ClCompile Include="src\Serialization.cpp" />
     <ClCompile Include="src\SerializeTest.cpp" />
     <ClCompile Include="src\Subject.cpp" />
@@ -207,6 +208,7 @@ xcopy /y /d /i /s "$(SolutionDir)\Resources" "$(OutDir)\Resources"</Command>
     <ClInclude Include="src\SceneList.h" />
     <ClInclude Include="src\ScriptComponent.h" />
     <ClInclude Include="src\SecondaryMovementController.h" />
+    <ClInclude Include="src\SecurityCamera.h" />
     <ClInclude Include="src\Serialization.h" />
     <ClInclude Include="src\SerializeTest.h" />
     <ClInclude Include="src\Sprite.h" />
