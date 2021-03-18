@@ -148,6 +148,7 @@ xcopy /y /d /i /s "$(SolutionDir)\Resources" "$(OutDir)\Resources"</Command>
     <ClCompile Include="src\SerializeTest.cpp" />
     <ClCompile Include="src\Subject.cpp" />
     <ClCompile Include="src\TagManager.cpp" />
+    <ClCompile Include="src\Text.cpp" />
     <ClCompile Include="src\TileMap.cpp" />
     <ClCompile Include="src\TileSet.cpp" />
     <ClCompile Include="src\Utils.cpp" />
@@ -209,6 +210,7 @@ xcopy /y /d /i /s "$(SolutionDir)\Resources" "$(OutDir)\Resources"</Command>
     <ClInclude Include="src\State.h" />
     <ClInclude Include="src\Subject.h" />
     <ClInclude Include="src\TagManager.h" />
+    <ClInclude Include="src\Text.h" />
     <ClInclude Include="src\TileMap.h" />
     <ClInclude Include="src\TileSet.h" />
     <ClInclude Include="src\Transform.h" />
