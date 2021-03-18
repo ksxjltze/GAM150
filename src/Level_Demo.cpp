@@ -94,7 +94,7 @@ void StarBangBang::Level_Demo::Init()
 
 	movementController->GetComponent<MovementManager>()->AddController(player);
 	movementController->GetComponent<MovementManager>()->AddController(player2);
-	testInteractable->GetComponent<InteractableComponent>()->SetType(InteractableComponent::INTERACTABLE_TYPE::TYPE_PRINTER);
+	//testInteractable->GetComponent<InteractableComponent>()->SetType(InteractableComponent::INTERACTABLE_TYPE::TYPE_PRINTER);
 
 	//Testing Tags
 	tagManager.AddTag(*player, "Test");
