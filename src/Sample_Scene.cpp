@@ -16,13 +16,13 @@ StarBangBang::Sample_Scene::Sample_Scene(int id, GameStateManager& manager) : Sc
 
 void StarBangBang::Sample_Scene::Load()
 {
-	image = graphicsManager.CreateSprite("../Resources/PlanetTexture.png");
-	image2 = graphicsManager.CreateSprite("../Resources/boi.png");
+	image = graphicsManager.CreateSprite("./Resources/PlanetTexture.png");
+	image2 = graphicsManager.CreateSprite("./Resources/boi.png");
 }
 
 void StarBangBang::Sample_Scene::Init()
 {
-	GRAPHICS::SetBackgroundColor(SkyBlue());
+	GRAPHICS::SetBackgroundColor(SkyBlue);
 	gameObject = objectManager.NewGameObject();
 
 	//objectManager.AddImage(gameObject, image2);

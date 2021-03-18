@@ -23,8 +23,7 @@ namespace
 {
 
 	PartitionGrid p_grid;
-	//unique_queue<CollisionPair> resolveQueue;
-
+	
 	//all colliders created
 	std::vector<BoxCollider*> collider_list;
 
@@ -94,19 +93,20 @@ void CalculateCollisionData(const BoxCollider& b1, const BoxCollider& b2, Collis
 	{
 		col.pen_depth = y_intersect;
 		// means that b2 center on the left of b1 center 
-		if (dist.x < 0)
-			col.col_normal = AEVec2{ -1.0f,0.0f };
+		if (dist.y < 0)
+			col.col_normal = AEVec2{ 0.0f, -1.0f };
 		else
-			col.col_normal = AEVec2{ 1.0f,0.0f };
+			col.col_normal = AEVec2{ 0.0f, 1.0f };
+
 	}
 	else
 	{
 		col.pen_depth = x_intersect;
 		//means b2 center is below b1 center
-		if (dist.y < 0)
-			col.col_normal = AEVec2{ 0.0f, -1.0f };
+		if (dist.x < 0)
+			col.col_normal = AEVec2{ -1.0f,0.0f };
 		else
-			col.col_normal = AEVec2{ 0.0f, 1.0f };
+			col.col_normal = AEVec2{ 1.0f,0.0f };
 
 	}
 
@@ -243,7 +243,7 @@ void ResolveVelocity(const CollisionPair& pair)
 	if (dotVelScale > 0)
 		return;
 
-	float scale = -(1 + bounciness) * dotVelScale;
+	float scale = (1.0f + bounciness) * dotVelScale;
 	float total = pair.A.rb->inv_mass() + pair.B.rb->inv_mass();
 
 	if (total > 0)
@@ -253,25 +253,29 @@ void ResolveVelocity(const CollisionPair& pair)
 		// Apply impulse
 		AEVec2 impulse{ normal.x * scale  , normal.y * scale };
 
-		pair.A.rb->AddVelocity(impulse, -pair.A.rb->inv_mass());
-		pair.B.rb->AddVelocity(impulse, pair.B.rb->inv_mass());
+		pair.A.rb->AddVelocity(impulse, pair.A.rb->inv_mass());
+		pair.B.rb->AddVelocity(impulse, -pair.B.rb->inv_mass());
 	}
 }
+//static int collisionChecks = 0;
+//float timer = 10.0f;
 void ResolvePenetration(const CollisionPair& pair)
 {
 	float total = pair.A.rb->inv_mass() + pair.B.rb->inv_mass();
 
 	if (total <= 0)
 		return;
+	//negate small values to prevent jitter
+	f32 xMax = max(pair.data.pen_depth - 0.1f, 0.0f);
+	f32 yMax = max(pair.data.pen_depth - 0.1f, 0.0f);
 
-	//position correction for penetration depth
-	AEVec2 corr = AEVec2{ (max(pair.data.pen_depth - 0.1f, 0.0f) / total) * 0.2f * pair.data.col_normal.x ,
-					(max(pair.data.pen_depth - 0.1f, 0.0f) / total) * 0.2f * pair.data.col_normal.y };
+	//might be helpful to compensate IEEE rounding error (we might not need cuz no constant gravity i think)
+	const float additional = 1.3f;
+	//position correction impulse for penetration depth 
+	AEVec2 corr = AEVec2{ additional * xMax / total * pair.data.col_normal.x , additional * yMax / total * pair.data.col_normal.y };
 
-	pair.A.rb->AddVelocity(corr, -pair.A.rb->inv_mass());
-	pair.B.rb->AddVelocity(corr, pair.B.rb->inv_mass());
-	//CollisionManager::RecalculateColliderCells(pair.A);
-	//CollisionManager::RecalculateColliderCells(pair.B);
+	pair.A.rb->AddInstantVelocity(corr, -pair.A.rb->inv_mass());
+	pair.B.rb->AddInstantVelocity(corr, pair.B.rb->inv_mass());
 }
 
 void StarBangBang::CollisionManager::Free()
@@ -283,32 +287,8 @@ void StarBangBang::CollisionManager::Free()
 void CollisionManager::ResolverUpdate()
 {
 
-	for (BoxCollider* col : collider_list)
-	{
-		assert(col);
-		if (col->rb->isKinematic())
-			DebugCollider(*col, Red());
-		else
-			DebugCollider(*col, Black());
-	}
-
-	/*if (!resolveQueue.empty())
-	{
-		for (size_t i = 0; i < resolveQueue.size(); ++i)
-		{
-			int iteration = 100;
-			const CollisionPair& p = resolveQueue.front();
-			while (iteration > 0)
-			{
-				ResolveVelocity(p);
-				ResolvePenetration(p);
-				--iteration;
-			}
-			resolveQueue.pop();
-		}
-	}*/
 	//non-partition 
-	for (BoxCollider* col : collider_list)
+	/*for (BoxCollider* col : collider_list)
 	{
 
 		for (BoxCollider* col2 : collider_list)
@@ -322,7 +302,7 @@ void CollisionManager::ResolverUpdate()
 			//if both have rb use dynamic collision
 			if (col->rb && col2->rb)
 			{
-				if (col->rb->SqrVelocity() == 0 && col2->rb->SqrVelocity() == 0)
+				if (col->rb->SqrVelocity() == 0 || col2->rb->SqrVelocity() == 0)
 				{
 					if (StaticAABB_Check(*col, *col2, data))
 					{
@@ -348,17 +328,21 @@ void CollisionManager::ResolverUpdate()
 				}
 
 			}
-
+			if (timer > 0)
+			{
+				++collisionChecks;
+			}
 		}
 
-	}
+	}*/
 
 
 #pragma region Partition
 	//paritition (still have some bugs)
-	/*for (BoxCollider* col : collider_list)
+	for (BoxCollider* col : collider_list)
 	{
 		assert(col);
+		RecalculateColliderCells(*col);
 		//printf("%zu\n", collider_list.size());
 		if (col->GetCellListSize() > 0)
 		{
@@ -378,44 +362,43 @@ void CollisionManager::ResolverUpdate()
 					CollisionData data;
 					if (col->rb && col2->rb)
 					{
-						if (col->rb->SqrVelocity() == 0 && col2->rb->SqrVelocity() == 0)
+
+						if (Dynamic_AABB(*col, col->rb->velocity, *col2, col2->rb->velocity))
 						{
-							if (StaticAABB_Check(*col, *col2, data))
-							{
-								CollisionPair p{ *col,*col2, data };
-								ResolveVelocity(p);
-								ResolvePenetration(p);
-								//AddToResolveQueue(p);
-							}
-						}
-						else
-						{
-							if (Dynamic_AABB(*col, col->rb->velocity, *col2, col2->rb->velocity, data))
-							{
-								CollisionPair p{ *col,*col2, data };
-								ResolveVelocity(p);
-								ResolvePenetration(p);
-
-								//AddToResolveQueue(p);
-
-							}
-
-
+							CalculateCollisionData(*col, *col2, data);
+							CollisionPair p{ *col,*col2, data };
+							ResolveVelocity(p);
+							ResolvePenetration(p);
 						}
 
 					}
+					/*if (timer > 0)
+					{
+						++collisionChecks;
+					}*/
+
 				}
 
 			}
 		}
 
-	}*/
+	}
+	//std::cout << collisionChecks << std::endl;
+	for (BoxCollider* col : collider_list)
+	{
+		assert(col);
+		if (col->rb->isKinematic())
+			DebugCollider(*col, Red);
+		else
+			DebugCollider(*col, Black);
+	}
+	//timer -= AEFrameRateControllerGetFrameTime();
 #pragma endregion
 }
 
 
 //check for static aabb
-bool CollisionManager::StaticAABB_Check(const BoxCollider& A, const BoxCollider& B, CollisionData& data)
+bool CollisionManager::StaticAABB_Check(const BoxCollider& A, const BoxCollider& B)
 {
 
 	if (A.isTrigger || B.isTrigger)
@@ -431,21 +414,16 @@ bool CollisionManager::StaticAABB_Check(const BoxCollider& A, const BoxCollider&
 	{
 		return false;
 	}
-	CalculateCollisionData(A, B, data);
+	
 	return true;
 }
 
 //check for moving aabbs
 bool CollisionManager::Dynamic_AABB(const BoxCollider& A, const AEVec2& vel1,
-	const BoxCollider& B, const AEVec2& vel2, CollisionData& data)
+	const BoxCollider& B, const AEVec2& vel2)
 {
 
-	/*if (vel1.x == 0 && vel1.y == 0 && vel2.x == 0 && vel2.y == 0)
-	{
-		return StaticAABB_Check(A, B, data);
-	}*/
-
-	if (StaticAABB_Check(A, B, data))
+	if (StaticAABB_Check(A, B))
 	{
 		return true;
 
@@ -484,7 +462,7 @@ bool CollisionManager::Dynamic_AABB(const BoxCollider& A, const AEVec2& vel1,
 
 	}
 	//B moving right
-	if (rVel_B.x > 0)
+	else if (rVel_B.x > 0)
 	{
 		//A is on the left
 		if (A.Max().x < B.Min().x)
@@ -503,6 +481,10 @@ bool CollisionManager::Dynamic_AABB(const BoxCollider& A, const AEVec2& vel1,
 			t_last = min(l_temp, t_last);
 		}
 
+	}
+	else
+	{
+		return false;
 	}
 	//no collision 
 	if (t_first > t_last)
@@ -530,7 +512,7 @@ bool CollisionManager::Dynamic_AABB(const BoxCollider& A, const AEVec2& vel1,
 
 	}
 	//B moving up
-	if (rVel_B.y > 0)
+	else if (rVel_B.y > 0)
 	{
 		//A is on the bottom
 		if (A.Max().y < B.Min().y)
@@ -549,6 +531,10 @@ bool CollisionManager::Dynamic_AABB(const BoxCollider& A, const AEVec2& vel1,
 			t_last = min(l_temp, t_last);
 		}
 
+	}
+	else
+	{
+		return false;
 	}
 	//no collision 
 	if (t_first > t_last)

@@ -16,8 +16,7 @@ void StarBangBang::PrimaryMovementController::Start()
 
 void StarBangBang::PrimaryMovementController::Update()
 {
-	float dt = static_cast<float>(AEFrameRateControllerGetFrameTime());
-	float speed = 40 * dt ;
+	float speed = 20.0f  ;
 	float h = 0.0f, v = 0.0f;
 
 	if (AEInputCheckCurr(AEVK_W))
@@ -34,5 +33,6 @@ void StarBangBang::PrimaryMovementController::Update()
 	
 	movement.x = h * speed;
 	movement.y = v * speed;
+
 	rb->AddVelocity(movement, 1.0f);
 }

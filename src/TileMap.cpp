@@ -19,19 +19,16 @@ namespace StarBangBang
 		}
 	}
 
-	void TileMap::Generate(int width, int height, float tileSize)
+	void TileMap::Generate(int width, int height, float tileSize, TileType type)
 	{
 		//Default sprite
-		TileSprite tileSprite = tileSet.GetTileSprite(TileType::STONE);
-		//TileSprite tileSprite = tileSet.GetTileSprite(TileType::BRICK_RED);
+		TileSprite tileSprite = tileSet.GetTileSprite(type);
 
 		mapWidth = width;
 		mapHeight = height;
 		scale = tileSize;
 
 		AEVec2 offset = GetCentreOffset();
-		//AEVec2 offset = { 0, 0 };
-
 
 		for (int y = 0; y < height; y++)
 		{
@@ -137,10 +134,7 @@ namespace StarBangBang
 		{
 			Clear();
 
-			std::string widthStr;
-			std::string heightStr;
-			std::string sizeStr;
-
+			std::string widthStr, heightStr, sizeStr;
 			if (!ValidateFile(is, widthStr, heightStr, sizeStr))
 				return false;
 
@@ -245,22 +239,6 @@ namespace StarBangBang
 
 	void TileMap::Insert(int x, int y, TileType type)
 	{
-		//if (map.find({ x,y }) != map.end())
-		//{
-		//	objMgr.DestroyGameObject(map.at({ x, y }).spriteObject->gameObject);
-		//	Erase(x, y);
-		//}
-
-		//float x_offset = (scale * mapWidth) / 2;
-		//float y_offset = (scale * mapHeight) / 2;
-
-		//TileSprite sprite = tileSet.GetTileSprite(type);
-		//AEVec2 position = { x * scale - x_offset, y * scale - y_offset };
-
-		//Tile tile = CreateNewTile(position, sprite);
-
-		//std::pair<int, int> pos = { x, y };
-		//map.insert({ pos, tile });
 
 		AEVec2 offset = GetCentreOffset();
 		AEVec2 pos = { x * scale - offset.x, y * scale - offset.y };

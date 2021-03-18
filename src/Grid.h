@@ -84,7 +84,7 @@ namespace StarBangBang
 		constexpr float GetNodeSize() const { return nodeSize; }
 
 
-		void DrawGrid(Color color = Green());
+		void DrawGrid(Color color = Green);
 		void FreeGrid(void);
 		//create grid object
 		void CreateGrid(float _nodeSize, int sizeX, int sizeY, AEVec2 _offset);

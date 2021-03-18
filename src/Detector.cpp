@@ -33,9 +33,9 @@ void Detector::Draw()
 	Color color;
 
 	if (detected)
-		color = Red();
+		color = Red;
 	else
-		color = White();
+		color = White;
 
 	DrawLine(viewDist, gameObject->GetPos(), (fieldOfView * 0.5f) + rotationAngle, color);
 	DrawLine(viewDist, gameObject->GetPos(), (-fieldOfView * 0.5f) + rotationAngle, color);

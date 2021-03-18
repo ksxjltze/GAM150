@@ -19,7 +19,7 @@ namespace StarBangBang
 
 	void StarBangBang::EngineProof::Init()
 	{
-		GRAPHICS::SetBackgroundColor(LightGreen());
+		GRAPHICS::SetBackgroundColor(LightGreen);
 		GameObject* camera = objectManager.NewGameObject();
 		objectManager.AddComponent<CameraComponent>(camera);
 	}

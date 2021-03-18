@@ -9,8 +9,7 @@ inverse_mass{ 1.0f }, mass{1.0f}, drag{ 0.1f }, velocity{ AEVec2{ 0,0 } }
 
 	
 }
-
-
+f32 dt;
 AEVec2 RigidBody::GetNormalizedVelocity() const
 {
 	f32 mag = velocity.x * velocity.x + velocity.y * velocity.y;
@@ -41,7 +40,7 @@ void RigidBody::SetMass(float m)
 
 void StarBangBang::RigidBody::Update()
 {
-	f32 dt = static_cast<f32>(AEFrameRateControllerGetFrameTime());
+	dt = static_cast<f32>(AEFrameRateControllerGetFrameTime());
 	velocity.x += acceleration.x  * dt;
 	velocity.y += acceleration.y  * dt;
 
@@ -64,8 +63,8 @@ void StarBangBang::RigidBody::Update()
 		velocity.y = 0;
 	}
 	
-	gameObject->transform.position.x += velocity.x ;
-	gameObject->transform.position.y += velocity.y ;
+	gameObject->transform.position.x += velocity.x * dt ;
+	gameObject->transform.position.y += velocity.y * dt;
 
 	//PRINT("V:(%0.4f,%0.4f)\n", velocity.x, velocity.y);
 }
@@ -80,7 +79,17 @@ void RigidBody::AddForce(AEVec2 force, float scale)
 	acceleration = AEVec2{ force.x * inverse_mass * scale,force.y * inverse_mass * scale};	
 
 }
-//add instant velocity via calculated impulse 
+void RigidBody::AddInstantVelocity(AEVec2 impulse, float scale)
+{
+	impulse.x *= scale;
+	impulse.y *= scale; 
+	gameObject->transform.position.x += impulse.x;
+
+	gameObject->transform.position.y += impulse.y;
+
+}
+
+//add velocity via calculated impulse 
 void RigidBody::AddVelocity(AEVec2 impulse, float scale)
 {
 	if (mass <= 0)

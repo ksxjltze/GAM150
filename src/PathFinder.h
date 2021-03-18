@@ -7,6 +7,7 @@ namespace StarBangBang
 	namespace PathFinder
 	{
 		void PathFinderInit();
+		void ShowGrid(bool visible = true);
 		void Free();
 		std::vector<A_Node*> SearchForPath(AEVec2 start, AEVec2 target);
 		void GridDraw();
