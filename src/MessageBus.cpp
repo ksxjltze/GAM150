@@ -1,5 +1,15 @@
 #include "MessageBus.h"
 
+void StarBangBang::MessageBus::Reset()
+{
+	listenerList.clear();
+
+	while (!eventQueue.empty())
+	{
+		eventQueue.pop();
+	}
+}
+
 void StarBangBang::MessageBus::RegisterListener(ListenerComponent* listener)
 {
 	listenerList.push_back(listener);

@@ -4,6 +4,7 @@
 #include "MemoryManager.h"
 #include "TagManager.h"
 #include "GameStateManager.h"
+#include "MessageBus.h"
 
 namespace StarBangBang
 {
@@ -23,7 +24,7 @@ namespace StarBangBang
 		}
 		virtual void Draw() { objectManager.Draw(); }
 		virtual void Free() { memoryManager.Free(); CollisionManager::Free(); }
-		virtual void Unload() { memoryManager.Unload(); }
+		virtual void Unload() { memoryManager.Unload(); MessageBus::Reset(); }
 
 	protected:
 		friend class GameStateManager;

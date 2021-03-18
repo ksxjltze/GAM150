@@ -9,6 +9,7 @@ namespace StarBangBang
 	class MessageBus
 	{
 	public:
+		static void Reset();
 		static void RegisterListener(ListenerComponent* listener);
 		static void Update();
 		static void Notify(Event e);

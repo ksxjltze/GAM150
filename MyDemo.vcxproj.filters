@@ -467,7 +467,6 @@
     <ClInclude Include="src\SecurityCamera.h">
       <Filter>Header Files\Scripts\Guard</Filter>
 	</ClInclude>
-    <ClInclude Include="resource.h">
     <ClInclude Include="src\MessageBus.h">
       <Filter>Header Files</Filter>
     </ClInclude>
