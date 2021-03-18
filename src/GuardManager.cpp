@@ -3,6 +3,7 @@
 #include "Sprite.h"
 #include "Guard.h"
 #include "Detector.h"
+#include "Utils.h"
 
 using namespace StarBangBang;
 
@@ -25,12 +26,25 @@ void GuardManager::Init(ObjectManager* objManager, Sprite* sprite, GameObject* p
 		objManager->AddComponent<GuardVision>(guards[i]).SetPlayerAndClient(player, client);;
 		objManager->AddComponent<Detector>(guards[i]);
 	}
+
+	guards[0]->SetPos({ 250, 650 });
+	guards[1]->SetPos({ 250, 550 });
 }
 
 void GuardManager::Update()
 {
 	// upon receiving distraction event, get nearest guard to be distracted
 	// ...
+
+	if (AEInputCheckTriggered(VK_LBUTTON))
+	{
+		guards[0]->GetComponent<GuardMovement>()->LookForPath(GetMouseWorldPos());
+	}
+
+	if (AEInputCheckTriggered(VK_RBUTTON))
+	{
+		guards[1]->GetComponent<GuardMovement>()->LookForPath(GetMouseWorldPos());
+	}
 }
 
 GameObject* GuardManager::GetNearestGuard(AEVec2& _pos)
