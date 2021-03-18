@@ -16,6 +16,8 @@
 #include "CollisionTest.h"
 #include "globals.h"
 
+#include "MessageBus.h"
+
 namespace StarBangBang
 {
 	float g_dt = 0;
@@ -144,6 +146,8 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 				GRAPHICS::ToggleFullscreen();
 		}
 
+		// Events
+		MessageBus::Update();
 
 		// Update State
 		gameStateManager.Update();

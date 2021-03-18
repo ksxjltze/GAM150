@@ -67,6 +67,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -89,6 +90,7 @@ xcopy /y /d /i /s "$(SolutionDir)\Resources" "$(OutDir)\Resources"</Command>
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -116,7 +118,6 @@ xcopy /y /d /i /s "$(SolutionDir)\Resources" "$(OutDir)\Resources"</Command>
     <ClCompile Include="src\Detector.cpp" />
     <ClCompile Include="src\DragComponent.cpp" />
     <ClCompile Include="src\EngineProof.cpp" />
-    <ClCompile Include="src\EventTest.cpp" />
     <ClCompile Include="src\GameObject.cpp" />
     <ClCompile Include="src\GameStateManager.cpp" />
     <ClCompile Include="src\GraphicsManager.cpp" />
@@ -134,12 +135,12 @@ xcopy /y /d /i /s "$(SolutionDir)\Resources" "$(OutDir)\Resources"</Command>
     <ClCompile Include="src\Main_Menu.cpp" />
     <ClCompile Include="src\Map.cpp" />
     <ClCompile Include="src\MemoryManager.cpp" />
+    <ClCompile Include="src\MessageBus.cpp" />
     <ClCompile Include="src\Movement.cpp" />
     <ClCompile Include="src\MovementManager.cpp" />
     <ClCompile Include="src\ObjectManager.cpp" />
     <ClCompile Include="src\PathFinder.cpp" />
     <ClCompile Include="src\Physics.cpp" />
-    <ClCompile Include="src\ObserverTest.cpp" />
     <ClCompile Include="src\Player.cpp" />
     <ClCompile Include="src\PrimaryMovementController.cpp" />
     <ClCompile Include="src\Sample_Scene.cpp" />
@@ -153,7 +154,6 @@ xcopy /y /d /i /s "$(SolutionDir)\Resources" "$(OutDir)\Resources"</Command>
     <ClCompile Include="src\Utils.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="resource.h" />
     <ClInclude Include="src\BasicMeshShape.h" />
     <ClInclude Include="src\AudioEngine.h" />
     <ClInclude Include="src\CameraComponent.h" />
@@ -186,9 +186,11 @@ xcopy /y /d /i /s "$(SolutionDir)\Resources" "$(OutDir)\Resources"</Command>
     <ClInclude Include="src\LevelEditor.h" />
     <ClInclude Include="src\InteractableComponent.h" />
     <ClInclude Include="src\Level_Demo.h" />
+    <ClInclude Include="src\ListenerComponent.h" />
     <ClInclude Include="src\Main_Menu.h" />
     <ClInclude Include="src\Map.h" />
     <ClInclude Include="src\MemoryManager.h" />
+    <ClInclude Include="src\MessageBus.h" />
     <ClInclude Include="src\Movement.h" />
     <ClInclude Include="src\MovementManager.h" />
     <ClInclude Include="src\Grid.h" />

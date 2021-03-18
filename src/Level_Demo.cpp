@@ -12,9 +12,6 @@
 #include <iostream>
 #include "constants.h"
 
-#include "ObserverTest.h"
-#include "EventTest.h"
-
 StarBangBang::Level_Demo::Level_Demo(int id, GameStateManager& manager) : Scene(id, manager), tilemap{ objectManager, graphicsManager }
 {
 	player = nullptr;
@@ -100,13 +97,6 @@ void StarBangBang::Level_Demo::Init()
 	//Scale test
 	worldOriginMarker->transform.scale = { 0.5, 0.5 };
 	testObjects.push_back(worldOriginMarker);
-
-	objectManager.AddComponent<EventTest>(player);
-	objectManager.AddComponent<ObserverTest>(player2);
-
-	EventTest* test = player->GetComponent<EventTest>();
-	ObserverTest* obs = player2->GetComponent<ObserverTest>();
-	test->subject.addObserver(obs);
 
 	objectManager.Init();
 }

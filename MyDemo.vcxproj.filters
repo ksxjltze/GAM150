@@ -156,12 +156,6 @@
     <ClCompile Include="src\TagManager.cpp">
       <Filter>Source Files\Engine\Game Logic</Filter>
     </ClCompile>
-    <ClCompile Include="src\EventTest.cpp">
-      <Filter>Source Files\Scripts\Testing</Filter>
-    </ClCompile>
-    <ClCompile Include="src\ObserverTest.cpp">
-      <Filter>Source Files\Scripts\Testing</Filter>
-    </ClCompile>
     <ClCompile Include="src\LevelEditor.cpp">
       <Filter>Source Files\Tools</Filter>
     </ClCompile>
@@ -262,6 +256,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\PrimaryMovementController.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\MessageBus.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -461,7 +458,10 @@
     <ClInclude Include="src\Movement.h">
       <Filter>Header Files\Engine</Filter>
     </ClInclude>
-    <ClInclude Include="resource.h">
+    <ClInclude Include="src\MessageBus.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ListenerComponent.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
