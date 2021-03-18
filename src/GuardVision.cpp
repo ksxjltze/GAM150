@@ -1,6 +1,7 @@
 #include "GuardVision.h"
 #include "Guard.h"
 #include"GuardMovement.h"
+#include "Detector.h"
 #include "BasicMeshShape.h"
 #include "Utils.h"
 
@@ -22,7 +23,7 @@ void GuardVision::Start()
 {
 	movement = gameObject->GetComponent<GuardMovement>();
 	detector = gameObject->GetComponent<Detector>();
-	detector->Init(fieldOfView, viewDist, false, player);
+	detector->Init(fieldOfView, viewDist, player);
 }
 
 void GuardVision::Update()
@@ -30,10 +31,11 @@ void GuardVision::Update()
 	// only update if player or client in same partition grid as guard
 	// ...
 
+	AEVec2 defaultForward = { 0, 1 };
+
 	if (movement->IsMoving())
 	{
 		AEVec2 targetDir, targetPos, goPos;
-		AEVec2 defaultForward = { 0, 1 };
 		AEVec2 defaultLeft = { -1, 0 };
 		targetPos = movement->GetNextPos();
 		goPos = gameObject->GetPos();
@@ -53,6 +55,7 @@ void GuardVision::Update()
 	}
 	else
 	{
+		detector->SetFacingDir(defaultForward);
 		detector->Rotate(0.f);
 	}
 }
