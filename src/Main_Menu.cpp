@@ -48,7 +48,8 @@ namespace StarBangBang
 
 		//start game button
 		playbutton_obj = objectManager.NewGameObject();
-		objectManager.AddImage(playbutton_obj, playbutton1);
+		//objectManager.AddImage(playbutton_obj, playbutton1);
+		objectManager.AddComponent<ImageComponent>(playbutton_obj, playbutton1);
 		playbutton_obj->transform.position = { (float)AEGetWindowWidth() / -8, (float)AEGetWindowHeight() / 8 };
 		playbutton_obj->transform.scale = { 1.5, 1.5 };
 
