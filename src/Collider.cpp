@@ -22,7 +22,7 @@ void BoxCollider::AddToCellList(int index)
 			return;
 	}
 	cell_indexes.push_back(index);
-	
+
 }
 
 void StarBangBang::BoxCollider::Start()

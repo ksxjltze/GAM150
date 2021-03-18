@@ -76,11 +76,14 @@ void StarBangBang::Sample_Scene::Draw()
 void StarBangBang::Sample_Scene::Free()
 {
 	Scene::Free();
+
+	CollisionManager::ClearPartitionGridCells();
 }
 
 void StarBangBang::Sample_Scene::Unload()
 {
 	Scene::Unload();
+	
 }
 
 

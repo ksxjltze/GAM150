@@ -15,6 +15,11 @@
 #include <iostream>
 #include "constants.h"
 
+#include "ObserverTest.h"
+#include "EventTest.h"
+#include "Text.h"
+#include "globals.h"
+
 StarBangBang::Level_Demo::Level_Demo(int id, GameStateManager& manager) : Scene(id, manager), tilemap{ objectManager, graphicsManager }
 {
 	player = nullptr;
@@ -58,6 +63,11 @@ void StarBangBang::Level_Demo::Init()
 
 	objectManager.AddImage(worldOriginMarker, planetImage);
 	objectManager.AddImage(player, playerImage);
+	objectManager.AddComponent<Text>(player);
+	Text* txt = player->GetComponent<Text>();
+	assert(txt);
+	txt->fontID = StarBangBang::fontId;
+
 
 	guardManager = objectManager.NewGameObject();
 	objectManager.AddComponent<GuardManager>(guardManager).Init(&objectManager, &guardImage, player, player2);

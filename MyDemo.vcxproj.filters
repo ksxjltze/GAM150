@@ -267,6 +267,9 @@
     <ClCompile Include="src\SecurityCamera.cpp">
       <Filter>Source Files\Scripts\Guard</Filter>
     </ClCompile>
+    <ClCompile Include="src\Text.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\ImageComponent.h">
@@ -474,6 +477,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\DetectionListener.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Text.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
