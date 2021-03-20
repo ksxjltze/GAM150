@@ -22,7 +22,7 @@ namespace StarBangBang
 
 	void StarBangBang::Main_Menu::Load()
 	{
-		tilemap.Load(RESOURCES::LEVEL_MAIN_MENU_TEST_PATH);
+		tilemap.Load(RESOURCES::LEVELS::LEVEL_MAIN_MENU_TEST_PATH);
 		//load button images
 		logo = graphicsManager.CreateSprite(RESOURCES::LOGO_PATH,256,64);
 

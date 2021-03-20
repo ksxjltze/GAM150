@@ -18,8 +18,13 @@ namespace StarBangBang
 		const std::string&& MAINMENU_PATH				= ROOT_PATH + "MainMenu/";
 		const std::string&& CHARACTERS_PATH				= ROOT_PATH + "Characters/";
 		const std::string&& FLOORTILES_PATH				= ROOT_PATH + "FloorTiles/";
-		const std::string&& LEVEL_TEST_PATH				= LEVELS_PATH + "test.txt";
-		const std::string&& LEVEL_MAIN_MENU_TEST_PATH	= LEVELS_PATH + "title.csv";
+
+		namespace LEVELS
+		{
+			const std::string&& LEVEL_TEST_PATH = LEVELS_PATH + "test.txt";
+			const std::string&& LEVEL_MAIN_MENU_TEST_PATH = LEVELS_PATH + "title.csv";
+			const std::string&& COLLISION_TEST = LEVELS_PATH + "collision.csv";
+		}
 		
 		//Images path
 		const std::string&& PROTOTYPE_SPRITE_1_PATH = ROOT_PATH + "PlanetTexture.png";

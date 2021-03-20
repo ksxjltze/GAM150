@@ -38,7 +38,8 @@ namespace StarBangBang
 		PathFinder::ShowGrid(false);
 		GRAPHICS::SetBackgroundColor(Black);
 		
-		filepath = RESOURCES::LEVEL_TEST_PATH;
+		//filepath = RESOURCES::LEVELS::LEVEL_TEST_PATH;
+		filepath = RESOURCES::LEVELS::COLLISION_TEST;
 
 		//TODO: Optimize tile drawing (Low FPS on 100 x 100 tile map)
 		if (!LoadLevel(filepath))

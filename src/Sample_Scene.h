@@ -1,6 +1,7 @@
 #pragma once
 #include "State.h"
 #include "Player.h"
+#include "TileMap.h"
 
 namespace StarBangBang
 {
@@ -15,6 +16,7 @@ namespace StarBangBang
 		void Free();
 		void Unload();
 	private:
+		TileMap tilemap{ objectManager, graphicsManager };
 		Sprite image;
 		Sprite image2;
 		GameObject* gameObject;

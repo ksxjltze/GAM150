@@ -56,11 +56,14 @@ namespace StarBangBang
 		extern const std::string&& PROTOTYPE_SPRITE_GRASS_PATH;
 		extern const std::string&& PROTOTYPE_SPRITE_STONE_PATH;
 		extern const std::string&& SPRITE_PLAYER_PATH;
-								 
-		extern const std::string&& LEVEL_TEST_PATH;
-		extern const std::string&& LEVEL_MAIN_MENU_TEST_PATH;
-		extern const std::string&& LEVEL_MAIN_MENU_TEST2_PATH;
 
+		namespace LEVELS
+		{
+			extern const std::string&& LEVEL_TEST_PATH;
+			extern const std::string&& LEVEL_MAIN_MENU_TEST_PATH;
+			extern const std::string&& COLLISION_TEST;
+		}
+								
 
 		//main menu buttons sprites
 		extern const std::string&& PLAY1_BUTTON_PATH;
