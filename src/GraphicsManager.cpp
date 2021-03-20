@@ -206,14 +206,6 @@ namespace StarBangBang
 
 	void StarBangBang::GRAPHICS::DrawImage(AEGfxVertexList* mesh, AEGfxTexture* texture, AEVec2 pos, AEVec2 scale, float rotation)
 	{
-		AEGfxSetRenderMode(AE_GFX_RM_TEXTURE);
-
-		// No tint
-		AEGfxSetTintColor(1.0f, 1.0f, 1.0f, 1.0f);
-
-		// Set texture
-		AEGfxTextureSet(texture, 0, 0);
-
 		// Transform matrix
 		AEMtx33 transformMtx;
 
@@ -231,6 +223,18 @@ namespace StarBangBang
 
 		AEMtx33 cameraMtx = GetCameraMatrix();
 		AEMtx33Concat(&transformMtx, &cameraMtx, &transformMtx);
+
+		if (transformMtx.m[0][2] > AEGetWindowWidth() || transformMtx.m[1][2] > AEGetWindowHeight()
+			|| transformMtx.m[0][2] < -AEGetWindowWidth() || transformMtx.m[1][2] < -AEGetWindowHeight())
+			return;
+
+		AEGfxSetRenderMode(AE_GFX_RM_TEXTURE);
+
+		// No tint
+		AEGfxSetTintColor(1.0f, 1.0f, 1.0f, 1.0f);
+
+		// Set texture
+		AEGfxTextureSet(texture, 0, 0);
 
 		AEGfxSetTransform(transformMtx.m);
 
