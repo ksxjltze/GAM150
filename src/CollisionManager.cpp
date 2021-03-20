@@ -426,6 +426,7 @@ bool CollisionManager::Dynamic_AABB(const BoxCollider& A, const AEVec2& vel1,
 	//first collision time //collision exit time
 	float t_first = 0, t_last = (float)AEFrameRateControllerGetFrameTime();
 	//B relative velocity to A (where A = aabb1,vel1 , B = aabb2 , vel2)
+
 	AEVec2 rVel_B{ vel2.x - vel1.x,vel2.y - vel1.y };
 
 	//x-axis

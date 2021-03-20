@@ -27,14 +27,10 @@ void StarBangBang::Sample_Scene::Init()
 
 	//objectManager.AddImage(gameObject, image2);
 	objectManager.AddComponent<ImageComponent>(gameObject, image2);
-	MovementManager& moveMgr = objectManager.AddComponent<MovementManager>(gameObject);
-	objectManager.AddCollider(gameObject, false);
-	//objectManager.AddComponent<Click>(gameObject).setCallback(Testt);
-	objectManager.AddComponent<PrimaryMovementController>(gameObject);
 	objectManager.AddComponent<CameraComponent>(gameObject);
 	objectManager.AddComponent<RigidBody>(gameObject);
-	gameObject->GetComponent<RigidBody>()->SetMass(0);
-	moveMgr.AddController(gameObject);
+	objectManager.AddComponent<PrimaryMovementController>(gameObject);
+	objectManager.AddCollider(gameObject, false);
 
 	int nObjects = 8;
 	for (int i = 0; i < nObjects; i++)
@@ -47,12 +43,10 @@ void StarBangBang::Sample_Scene::Init()
 		pos.x = static_cast<float>(cos(rads) * 300);
 		pos.y = static_cast<float>(sin(rads) * 300);
 
-		objectManager.AddComponent<RigidBody>(obj);
+		objectManager.AddComponent<RigidBody>(obj).SetMass(0);
 		objectManager.AddImage(obj, image);
 		objectManager.AddCollider(obj, false);
-		objectManager.AddComponent<PrimaryMovementController>(obj);
-
-		moveMgr.AddController(obj);
+		//objectManager.AddComponent<PrimaryMovementController>(obj);
 
 	}
 
