@@ -18,6 +18,12 @@ using namespace StarBangBang;
 	{
 		delete[] grid;
 	}
+
+	void PartitionGrid::ClearABucketCell(int index)
+	{
+		grid[index].cell_colliders.clear();
+	}
+
 	void PartitionGrid::ClearAllBucketCell()
 	{
 		for (int i = 0; i < buckets; i++)
