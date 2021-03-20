@@ -26,6 +26,7 @@ namespace StarBangBang
 		void playSound(FMOD::Sound* sound, bool loop = false);
 		void playSound(const std::string& name, bool loop = false);
 		void ReleaseSound(FMOD::Sound* sound);
+		void StopMasterChannel();
 		void Update();
 		void Exit();
 	private:

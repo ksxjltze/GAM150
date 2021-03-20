@@ -95,6 +95,7 @@ namespace StarBangBang
 		//Sound test
 		if (AEInputCheckTriggered(AEVK_T))
 		{
+			MessageBus::Notify({ EventId::STOP_SOUND });
 			MessageBus::Notify({ EventId::PLAY_SOUND, "Test" });
 		}
 

@@ -58,6 +58,12 @@ void StarBangBang::AudioEngine::onNotify(Event e)
 		}
 
 	}
+
+	if (e.id == EventId::STOP_SOUND)
+	{
+		StopMasterChannel();
+	}
+
 }
 
 void StarBangBang::AudioEngine::AddSound(const std::string& name, FMOD::Sound* sound)
@@ -98,6 +104,13 @@ void StarBangBang::AudioEngine::playSound(const std::string& name, bool loop)
 void StarBangBang::AudioEngine::ReleaseSound(FMOD::Sound* sound)
 {
 	sound->release();
+}
+
+void StarBangBang::AudioEngine::StopMasterChannel()
+{
+	FMOD::ChannelGroup* channelGroup;
+	system->getMasterChannelGroup(&channelGroup);
+	channelGroup->stop();
 }
 
 void StarBangBang::AudioEngine::Update()
