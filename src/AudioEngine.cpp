@@ -26,6 +26,11 @@ void StarBangBang::AudioEngine::CreateSound(FMOD::Sound** sound, const char* fil
 	system->createSound(file, FMOD_DEFAULT, 0, sound);
 }
 
+void StarBangBang::AudioEngine::AddSound(const std::string& name, FMOD::Sound* sound)
+{
+	soundList.push_back({name, sound});
+}
+
 void StarBangBang::AudioEngine::playSound(FMOD::Sound* sound, bool loop)
 {
 	if (!loop)
@@ -43,6 +48,17 @@ void StarBangBang::AudioEngine::playSound(FMOD::Sound* sound, bool loop)
 	system->getMasterChannelGroup(&channelGroup);
 	system->getChannel(0, &channel);
 	system->playSound(sound, channelGroup, false, &channel);
+}
+
+void StarBangBang::AudioEngine::playSound(const std::string& name, bool loop)
+{
+	for (auto sound : soundList)
+	{
+		if (sound.name == name)
+		{
+			playSound(sound.sound, loop);
+		}
+	}
 }
 
 void StarBangBang::AudioEngine::ReleaseSound(FMOD::Sound* sound)
