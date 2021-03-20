@@ -97,21 +97,18 @@ void StarBangBang::Level_Demo::Init()
 	objectManager.AddComponent<CameraComponent>(player);
 	objectManager.AddComponent<InteractableComponent>(testInteractable);
 
-	objectManager.AddComponent<PrimaryMovementController>(player);
+	objectManager.AddComponent<Movement>(player);
 	objectManager.AddComponent<Movement>(player2);
-	//objectManager.AddComponent<MovementManager>(movementController);
+	objectManager.AddComponent<MovementManager>(movementController);
 	//objectManager.AddComponent<SecondaryMovementController>(testInteractable);
 
-	//movementController->GetComponent<MovementManager>()->AddController(player);
-	//movementController->GetComponent<MovementManager>()->AddController(player2);
+	movementController->GetComponent<MovementManager>()->AddController(player);
+	movementController->GetComponent<MovementManager>()->AddController(player2);
 	//testInteractable->GetComponent<InteractableComponent>()->SetType(InteractableComponent::INTERACTABLE_TYPE::TYPE_PRINTER);
 
 	//Testing Tags
 	tagManager.AddTag(*player, "Test");
 	tagManager.GetGameObjectByTag("Test").transform.scale = { 0.9f, 0.9f };
-
-	objectManager.AddComponent<RigidBody>(player);
-	objectManager.AddCollider(player, false);
 
 	//Scale test
 	worldOriginMarker->transform.scale = { 0.5, 0.5 };

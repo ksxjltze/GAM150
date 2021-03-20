@@ -255,13 +255,6 @@ namespace StarBangBang
 		{
 			Tile tile = CreateNewTile(pos, sprite);
 			map.insert({ {x++, y}, tile });
-
-			//Collision test
-			if (type == TileType::BRICK_BLACK)
-			{
-				objMgr.AddComponent<RigidBody>(tile.spriteObject->gameObject);
-				objMgr.AddCollider(tile.spriteObject->gameObject, true);
-			}
 		}
 
 	}
