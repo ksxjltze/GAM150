@@ -17,6 +17,8 @@
 #include "globals.h"
 #include "MessageBus.h"
 
+#include "TestScene.h"
+
 namespace StarBangBang
 {
 	float g_dt = 0;
@@ -91,6 +93,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 	Scene* gameScene		= gameStateManager.AddGameState<CaptainStealth>(SceneID::GAME);
 	Scene* mainMenuScene	= gameStateManager.AddGameState<Main_Menu>(SceneID::MAIN_MENU);
 	Scene* engineProof		= gameStateManager.AddGameState<EngineProof>();
+	Scene* testScene		= gameStateManager.AddGameState<TestScene>();
 	
 	sceneList.push_back(sceneDemo);
 	sceneList.push_back(sceneEditor);
@@ -101,7 +104,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 
 	// Set Initial State
 
-	gameStateManager.SetInitialState(sceneEditor);
+	gameStateManager.SetInitialState(testScene);
 
 	//// Using custom window procedure
 	AESysInit(hInstance, nCmdShow, (s32)GRAPHICS::TARGET_WINDOW_WIDTH, (s32)GRAPHICS::TARGET_WINDOW_HEIGHT, 1, 60, true, NULL);

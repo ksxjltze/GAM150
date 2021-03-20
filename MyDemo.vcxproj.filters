@@ -103,6 +103,12 @@
     <Filter Include="Resource Files\Libraries">
       <UniqueIdentifier>{738585a8-b314-47dd-a230-7d5b1051fd5d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Test">
+      <UniqueIdentifier>{b23d5e30-1c89-490d-93da-41b60df90efb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Test">
+      <UniqueIdentifier>{a6838f43-084e-402f-b625-c101cd40821d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Main.cpp">
@@ -149,9 +155,6 @@
     </ClCompile>
     <ClCompile Include="src\GraphicsManager.cpp">
       <Filter>Source Files\Engine\Graphics</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Subject.cpp">
-      <Filter>Source Files\Engine\Game Logic</Filter>
     </ClCompile>
     <ClCompile Include="src\TagManager.cpp">
       <Filter>Source Files\Engine\Game Logic</Filter>
@@ -270,6 +273,15 @@
     <ClCompile Include="src\Text.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\TestInteractable.cpp">
+      <Filter>Source Files\Test</Filter>
+    </ClCompile>
+    <ClCompile Include="src\TestListener.cpp">
+      <Filter>Source Files\Test</Filter>
+    </ClCompile>
+    <ClCompile Include="src\TestScene.cpp">
+      <Filter>Source Files\Test</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\ImageComponent.h">
@@ -338,9 +350,6 @@
     <ClInclude Include="src\ObserverTest.h">
       <Filter>Header Files\Scripts\Testing</Filter>
     </ClInclude>
-    <ClInclude Include="src\EventTest.h">
-      <Filter>Header Files\Scripts\Testing</Filter>
-    </ClInclude>
     <ClInclude Include="src\LevelEditor.h">
       <Filter>Header Files\Tools</Filter>
     </ClInclude>
@@ -363,9 +372,6 @@
       <Filter>Header Files\Engine</Filter>
     </ClInclude>
     <ClInclude Include="src\Observer.h">
-      <Filter>Header Files\Engine</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Subject.h">
       <Filter>Header Files\Engine</Filter>
     </ClInclude>
     <ClInclude Include="src\Sample_Scene.h">
@@ -484,6 +490,15 @@
     </ClInclude>
     <ClInclude Include="src\Listener.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\TestListener.h">
+      <Filter>Header Files\Test</Filter>
+    </ClInclude>
+    <ClInclude Include="src\TestInteractable.h">
+      <Filter>Header Files\Test</Filter>
+    </ClInclude>
+    <ClInclude Include="src\TestScene.h">
+      <Filter>Header Files\Test</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

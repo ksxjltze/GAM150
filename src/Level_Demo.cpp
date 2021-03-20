@@ -16,7 +16,6 @@
 #include "constants.h"
 
 #include "ObserverTest.h"
-#include "EventTest.h"
 #include "Text.h"
 #include "globals.h"
 

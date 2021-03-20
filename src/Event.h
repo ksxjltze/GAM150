@@ -2,7 +2,7 @@
 #include <any>
 #include <iostream>
 
-enum class EventId {DETECTED, PLAY_SOUND, PLAY_MUSIC, STOP_SOUND};
+enum class EventId {DETECTED, PLAY_SOUND, PLAY_MUSIC, STOP_SOUND, TEST};
 
 namespace StarBangBang
 {
