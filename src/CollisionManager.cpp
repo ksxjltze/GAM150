@@ -286,6 +286,7 @@ void ResolvePenetration(const CollisionPair& pair)
 void StarBangBang::CollisionManager::Free()
 {
 	collider_list.clear();
+	CollisionManager::ClearPartitionGridCells();
 }
 
 //wip

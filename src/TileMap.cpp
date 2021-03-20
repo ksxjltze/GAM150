@@ -290,6 +290,14 @@ namespace StarBangBang
 		tileObj->transform.scale = { scale / GRAPHICS::MESH_WIDTH, scale / GRAPHICS::MESH_HEIGHT };
 		ImageComponent* spriteObj = objMgr.AddImage(tileObj, tileSprite.sprite);
 
+		if (tileSprite.type == TileType::BRICK_BLACK)
+		{
+			GameObject* gameObject = tileObj;
+			objMgr.AddComponent<RigidBody>(gameObject);
+			gameObject->GetComponent<RigidBody>()->SetMass(0);
+			objMgr.AddCollider(gameObject, true);
+		}
+
 		tileObj->SetPos(pos);
 		Tile tile = { spriteObj };
 		tile.type = tileSprite.type;
