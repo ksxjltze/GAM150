@@ -5,6 +5,7 @@ namespace StarBangBang
 {
 	namespace GRAPHICS
 	{
+		const static float CULL_OFFSET = 50.0f;
 		static bool isFullscreen = false;
 		static bool enableRescale = true;
 		static AEVec2 cameraPos{ 0, 0 };
@@ -121,6 +122,14 @@ namespace StarBangBang
 		cameraPos.y = y;
 	}
 
+	bool GRAPHICS::CheckOutOfBounds(const AEMtx33& transformMtx)
+	{
+		if (transformMtx.m[0][2] > AEGetWindowWidth() / 2 + CULL_OFFSET || transformMtx.m[1][2] > AEGetWindowHeight() / 2 + CULL_OFFSET
+			|| transformMtx.m[0][2] < -AEGetWindowWidth() / 2 - CULL_OFFSET || transformMtx.m[1][2] < -AEGetWindowHeight() / 2 - CULL_OFFSET)
+			return true;
+		return false;
+	}
+
 	AEVec2 GRAPHICS::GetCameraPosition()
 	{
 		return cameraPos;
@@ -224,8 +233,7 @@ namespace StarBangBang
 		AEMtx33 cameraMtx = GetCameraMatrix();
 		AEMtx33Concat(&transformMtx, &cameraMtx, &transformMtx);
 
-		if (transformMtx.m[0][2] > AEGetWindowWidth() || transformMtx.m[1][2] > AEGetWindowHeight()
-			|| transformMtx.m[0][2] < -AEGetWindowWidth() || transformMtx.m[1][2] < -AEGetWindowHeight())
+		if (CheckOutOfBounds(transformMtx))
 			return;
 
 		AEGfxSetRenderMode(AE_GFX_RM_TEXTURE);

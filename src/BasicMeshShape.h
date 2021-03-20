@@ -6,7 +6,7 @@ namespace StarBangBang
 {
 	namespace BasicMeshShape
 	{
-		void ApplyTransform(AEVec2 size, AEVec2 pos);
+		bool ApplyTransform(AEVec2 size, AEVec2 pos);
 	}
 	
 	void InitBasicMesh();
