@@ -10,7 +10,7 @@ void StarBangBang::MessageBus::Reset()
 	}
 }
 
-void StarBangBang::MessageBus::RegisterListener(ListenerComponent* listener)
+void StarBangBang::MessageBus::RegisterListener(Listener* listener)
 {
 	listenerList.push_back(listener);
 }
@@ -23,8 +23,8 @@ void StarBangBang::MessageBus::Update()
 		for (auto listener : listenerList)
 		{
 			listener->onNotify(eventQueue.front());
-			eventQueue.pop();
 		}
+		eventQueue.pop();
 	}
 }
 

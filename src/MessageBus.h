@@ -10,12 +10,12 @@ namespace StarBangBang
 	{
 	public:
 		static void Reset();
-		static void RegisterListener(ListenerComponent* listener);
+		static void RegisterListener(Listener* listener);
 		static void Update();
 		static void Notify(Event e);
 
 	private:
 		inline static std::queue<Event> eventQueue;
-		inline static std::vector<ListenerComponent*>listenerList;
+		inline static std::vector<Listener*>listenerList;
 	};
 }

@@ -90,6 +90,12 @@ namespace StarBangBang
 			gameStateManager.ExitGame();
 		}
 
+		//Sound test
+		if (AEInputCheckTriggered(AEVK_T))
+		{
+			MessageBus::Notify({ EventId::SOUND, "Test" });
+		}
+
 	}
 
 	void StarBangBang::Main_Menu::Draw()

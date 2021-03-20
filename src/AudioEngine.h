@@ -4,6 +4,7 @@
 #include "fmod.hpp"
 #pragma warning(pop)
 
+#include "Listener.h"
 #include <vector>
 #include <string>
 
@@ -15,11 +16,12 @@ namespace StarBangBang
 		FMOD::Sound* sound;
 	};
 
-	class AudioEngine
+	class AudioEngine : public Listener
 	{
 	public:
 		AudioEngine();
 		void CreateSound(FMOD::Sound** sound, const char* file);
+		void onNotify(Event e);
 		void AddSound(const std::string& name, FMOD::Sound* sound);
 		void playSound(FMOD::Sound* sound, bool loop = false);
 		void playSound(const std::string& name, bool loop = false);

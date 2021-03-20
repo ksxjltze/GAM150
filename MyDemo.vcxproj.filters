@@ -469,7 +469,7 @@
     </ClInclude>
     <ClInclude Include="src\SecurityCamera.h">
       <Filter>Header Files\Scripts\Guard</Filter>
-	</ClInclude>
+    </ClInclude>
     <ClInclude Include="src\MessageBus.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -480,6 +480,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\Text.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Listener.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

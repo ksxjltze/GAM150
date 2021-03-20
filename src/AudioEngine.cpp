@@ -26,6 +26,25 @@ void StarBangBang::AudioEngine::CreateSound(FMOD::Sound** sound, const char* fil
 	system->createSound(file, FMOD_DEFAULT, 0, sound);
 }
 
+void StarBangBang::AudioEngine::onNotify(Event e)
+{
+	if (e.id == EventId::SOUND)
+	{
+		try
+		{
+			std::string s = std::any_cast<const char*>(e.context);
+			std::cout << "Playing sound: " << s << std::endl;
+			playSound(s);
+		}
+		catch (const std::exception&)
+		{
+			std::cout << "ERROR PLAYING SOUND" << std::endl;
+			return;
+		}
+
+	}
+}
+
 void StarBangBang::AudioEngine::AddSound(const std::string& name, FMOD::Sound* sound)
 {
 	soundList.push_back({name, sound});

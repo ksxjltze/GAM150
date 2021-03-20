@@ -190,6 +190,7 @@ xcopy /y /d /i /s "$(SolutionDir)\Resources" "$(OutDir)\Resources"</Command>
     <ClInclude Include="src\LevelEditor.h" />
     <ClInclude Include="src\InteractableComponent.h" />
     <ClInclude Include="src\Level_Demo.h" />
+    <ClInclude Include="src\Listener.h" />
     <ClInclude Include="src\ListenerComponent.h" />
     <ClInclude Include="src\Main_Menu.h" />
     <ClInclude Include="src\Map.h" />
