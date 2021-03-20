@@ -15,6 +15,11 @@ void StarBangBang::MessageBus::RegisterListener(Listener* listener)
 	listenerList.push_back(listener);
 }
 
+void StarBangBang::MessageBus::RegisterGlobalListener(Listener* listener)
+{
+	globalListenerList.push_back(listener);
+}
+
 void StarBangBang::MessageBus::Update()
 {
 	//Event loop
@@ -24,6 +29,12 @@ void StarBangBang::MessageBus::Update()
 		{
 			listener->onNotify(eventQueue.front());
 		}
+
+		for (auto listener : globalListenerList)
+		{
+			listener->onNotify(eventQueue.front());
+		}
+
 		eventQueue.pop();
 	}
 }

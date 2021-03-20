@@ -64,9 +64,9 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 	AudioEngine audioEngine;
 	FMOD::Sound* sound = nullptr;
 	audioEngine.CreateSound(&sound, "./Resources/drumloop.wav"); //CHANGE THIS (copyright and stuff)
-	audioEngine.AddSound("Test", sound); //CHANGE THIS (copyright and stuff)
+	audioEngine.AddSound("Test", sound); 
 
-	MessageBus::RegisterListener(&audioEngine);
+	MessageBus::RegisterGlobalListener(&audioEngine);
 	//audioEngine.playSound("Test", false);
 
 	GameStateManager gameStateManager;
