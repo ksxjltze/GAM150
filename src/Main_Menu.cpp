@@ -115,6 +115,7 @@ namespace StarBangBang
 	void StarBangBang::Main_Menu::Unload()
 	{
 		Scene::Unload();
+		MessageBus::Notify({ EventId::STOP_SOUND });
 	}
 
 	void Main_Menu::LoadLevelTest()
