@@ -15,7 +15,6 @@
 #include "BasicMeshShape.h"
 #include "CollisionTest.h"
 #include "globals.h"
-
 #include "MessageBus.h"
 
 namespace StarBangBang
@@ -92,7 +91,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 	Scene* gameScene		= gameStateManager.AddGameState<CaptainStealth>(SceneID::GAME);
 	Scene* mainMenuScene	= gameStateManager.AddGameState<Main_Menu>(SceneID::MAIN_MENU);
 	Scene* engineProof		= gameStateManager.AddGameState<EngineProof>();
-
+	
 	sceneList.push_back(sceneDemo);
 	sceneList.push_back(sceneEditor);
 	sceneList.push_back(sampleScene);
@@ -102,7 +101,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 
 	// Set Initial State
 
-	gameStateManager.SetInitialState(mainMenuScene);
+	gameStateManager.SetInitialState(sceneEditor);
 
 	//// Using custom window procedure
 	AESysInit(hInstance, nCmdShow, (s32)GRAPHICS::TARGET_WINDOW_WIDTH, (s32)GRAPHICS::TARGET_WINDOW_HEIGHT, 1, 60, true, NULL);

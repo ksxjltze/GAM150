@@ -52,7 +52,10 @@ namespace StarBangBang
 
 		void DebugCollider(CircleCollider c);
 
+		void ClearPartitionGridCell(int index);
+
 		void ClearPartitionGridCells();
+
 
 		BoxCollider* CreateBoxColliderInstance(GameObject* gameObject,bool is_static = true);
 

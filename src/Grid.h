@@ -56,7 +56,8 @@ namespace StarBangBang
 		//create grid object
 		int GetHashCellIndex(AEVec2 pos);
 		void ClearAllBucketCell();
-		
+		void ClearABucketCell(int index);
+
 		inline float GetCellSize() const { return cellSize; }
 		//Cell& GetCell(int index);
 		inline int GetBucketSize() const { return buckets; }

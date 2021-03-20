@@ -38,8 +38,8 @@ namespace StarBangBang
 		PathFinder::ShowGrid(false);
 		GRAPHICS::SetBackgroundColor(Black);
 		
-		//filepath = RESOURCES::LEVELS::LEVEL_TEST_PATH;
-		filepath = RESOURCES::LEVELS::COLLISION_TEST;
+		filepath = RESOURCES::LEVELS::LEVEL_TEST_PATH;
+		//filepath = RESOURCES::LEVELS::COLLISION_TEST;
 
 		//TODO: Optimize tile drawing (Low FPS on 100 x 100 tile map)
 		if (!LoadLevel(filepath))
@@ -94,7 +94,7 @@ namespace StarBangBang
 			{
 				InsertTile(n);
 
-				//Brush
+				////Brush
 				//for (auto node : grid.Get4_NodeNeighbours(n))
 				//{
 				//	InsertTile(node);
@@ -107,16 +107,22 @@ namespace StarBangBang
 			A_Node* n = grid.GetNodeFromPosition(mousePos);
 			if (n)
 			{
+				/*for (auto node : grid.Get8_NodeNeighbours(n))
+				{
+					RemoveTile(node);
+				}*/
 				RemoveTile(n);
 			}
+
 		}
 	}
 
 	void LevelEditor::Draw()
 	{
 		Scene::Draw();
+		AEGfxSetBackgroundColor(0.3f, 0.6f, 1.0f);
 		HighLightGridNode(grid);
-		grid.DrawGrid(Black);
+		grid.DrawGrid(Green);
 	}
 
 	void LevelEditor::Free()

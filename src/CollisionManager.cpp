@@ -28,6 +28,12 @@ namespace
 	std::vector<BoxCollider*> collider_list;
 
 }
+
+void CollisionManager::ClearPartitionGridCell(int index)
+{
+	p_grid.ClearABucketCell(index);
+}
+
 void CollisionManager::ClearPartitionGridCells()
 {
 	p_grid.ClearAllBucketCell();
