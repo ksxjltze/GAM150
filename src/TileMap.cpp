@@ -21,6 +21,7 @@ namespace StarBangBang
 
 	void TileMap::Generate(int width, int height, float tileSize, TileType type)
 	{
+		Clear();
 		//Default sprite
 		TileSprite tileSprite = tileSet.GetTileSprite(type);
 
