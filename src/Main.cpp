@@ -63,8 +63,11 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 
 	AudioEngine audioEngine;
 	FMOD::Sound* sound = nullptr;
+	FMOD::Sound* sound2 = nullptr;
 	audioEngine.CreateSound(&sound, "./Resources/drumloop.wav"); //CHANGE THIS (copyright and stuff)
+	audioEngine.CreateSound(&sound2, "./Resources/Music/wab.wav");
 	audioEngine.AddSound("Test", sound); 
+	audioEngine.AddSound("BGM", sound2); 
 
 	MessageBus::RegisterGlobalListener(&audioEngine);
 	//audioEngine.playSound("Test", false);

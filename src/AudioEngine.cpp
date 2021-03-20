@@ -28,13 +28,28 @@ void StarBangBang::AudioEngine::CreateSound(FMOD::Sound** sound, const char* fil
 
 void StarBangBang::AudioEngine::onNotify(Event e)
 {
-	if (e.id == EventId::SOUND)
+	if (e.id == EventId::PLAY_SOUND)
 	{
 		try
 		{
 			std::string s = std::any_cast<const char*>(e.context);
 			std::cout << "Playing sound: " << s << std::endl;
 			playSound(s);
+		}
+		catch (const std::exception&)
+		{
+			std::cout << "ERROR PLAYING SOUND" << std::endl;
+			return;
+		}
+
+	}
+	else if (e.id == EventId::PLAY_MUSIC)
+	{
+		try
+		{
+			std::string s = std::any_cast<const char*>(e.context);
+			std::cout << "Playing sound: " << s << std::endl;
+			playSound(s, true);
 		}
 		catch (const std::exception&)
 		{
