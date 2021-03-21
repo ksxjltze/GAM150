@@ -5,7 +5,7 @@ namespace StarBangBang
 {
 	namespace GRAPHICS
 	{
-		const static float CULL_OFFSET = 50.0f;
+		const static float CULL_OFFSET = 80.0f;
 		static bool isFullscreen = false;
 		static bool enableRescale = true;
 		static AEVec2 cameraPos{ 0, 0 };
@@ -137,7 +137,7 @@ namespace StarBangBang
 
 	void GRAPHICS::ResetCamera()
 	{
-		SetZoom(1.0f);
+		SetZoom(DEFAULT_ZOOM);
 		SetCameraPosition(0, 0);
 	}
 

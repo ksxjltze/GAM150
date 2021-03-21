@@ -4,10 +4,19 @@
 namespace StarBangBang
 {
 	enum SceneID {DEMO, EDITOR, SAMPLE, GAME, MAIN_MENU};
+
+	namespace TILEMAP
+	{
+		static const int DEFAULT_WIDTH = 50;
+		static const int DEFAULT_HEIGHT = 50;
+		static const float DEFAULT_TILE_SIZE = 50.0f;
+	}
+
 	namespace GRAPHICS
 	{
-		static const int MESH_WIDTH = 100, MESH_HEIGHT = 100;
-		static const float CAMERA_SCALE_FACTOR = 0.2f;
+		static const float MESH_WIDTH = TILEMAP::DEFAULT_TILE_SIZE, MESH_HEIGHT = TILEMAP::DEFAULT_TILE_SIZE;
+		static const float CAMERA_SCALE_FACTOR = 0.4f;
+		static const float DEFAULT_ZOOM = 2.0f;
 		static const float CAMERA_SCALE_MIN = 0.0f;
 		static const float CAMERA_SCALE_MAX = 3.0f;
 
@@ -20,13 +29,6 @@ namespace StarBangBang
 	namespace CONSTANTS
 	{
 		static const float DEFAULT_OBJECT_SCALE = 1.0f;
-	}
-
-	namespace TILEMAP
-	{
-		static const int DEFAULT_WIDTH = 50;
-		static const int DEFAULT_HEIGHT = 50;
-		static const float DEFAULT_TILE_SIZE = 50.0f;
 	}
 
 	namespace PLAYER

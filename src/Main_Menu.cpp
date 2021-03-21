@@ -39,6 +39,7 @@ namespace StarBangBang
 
 	void StarBangBang::Main_Menu::Init()
 	{
+		GRAPHICS::SetZoom(1.0f);
 		//logo 
 		logo_obj = objectManager.NewGameObject();
 		objectManager.AddImage(logo_obj, logo);
@@ -51,7 +52,7 @@ namespace StarBangBang
 		//objectManager.AddImage(playbutton_obj, playbutton1);
 		objectManager.AddComponent<ImageComponent>(playbutton_obj, playbutton1);
 		playbutton_obj->transform.position = { (float)AEGetWindowWidth() / -8, (float)AEGetWindowHeight() / 8 };
-		playbutton_obj->transform.scale = { 1.5, 1.5 };
+		playbutton_obj->transform.scale = { 3, 3 };
 
 		//auto d = []() {printf("MAIN MENU: TEST\n"); };
 		objectManager.AddComponent<Click<Main_Menu>>(playbutton_obj).setCallback(*this, &Main_Menu::LoadLevelTest);
@@ -61,19 +62,19 @@ namespace StarBangBang
 		settingsbutton_obj = objectManager.NewGameObject();
 		objectManager.AddImage(settingsbutton_obj, settingsbutton1);
 		settingsbutton_obj->transform.position = { (float)AEGetWindowWidth() / 8, (float)AEGetWindowHeight() / 8 };
-		settingsbutton_obj->transform.scale = { 1.5, 1.5 };
+		settingsbutton_obj->transform.scale = { 3, 3 };
 
 		//credits button
 		creditsbutton_obj = objectManager.NewGameObject();
 		objectManager.AddImage(creditsbutton_obj, creditsbutton1);
 		creditsbutton_obj->transform.position = { (float)AEGetWindowWidth() / -8, (float)AEGetWindowHeight() / -8 };
-		creditsbutton_obj->transform.scale = { 1.5, 1.5 };
+		creditsbutton_obj->transform.scale = { 3, 3 };
 
 		//exit game button
 		exitbutton_obj = objectManager.NewGameObject();
 		objectManager.AddImage(exitbutton_obj, exitbutton1);
 		exitbutton_obj->transform.position = { (float)AEGetWindowWidth() / 8, (float)AEGetWindowHeight() / -8, };
-		exitbutton_obj->transform.scale = { 1.5,1.5 };
+		exitbutton_obj->transform.scale = { 3,3 };
 
 		objectManager.AddComponent<Click<Main_Menu>>(exitbutton_obj).setCallback(*this, &Main_Menu::ExitGame);
 

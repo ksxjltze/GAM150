@@ -4,7 +4,7 @@
 StarBangBang::CameraComponent::CameraComponent(GameObject* gameObject) : Component<CameraComponent>(gameObject)
 {
 	position = { 0, 0 };
-	scale = 1.0f;
+	scale = GRAPHICS::DEFAULT_ZOOM;
 	scaleFactor = GRAPHICS::CAMERA_SCALE_FACTOR;
 }
 
