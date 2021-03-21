@@ -74,6 +74,10 @@ namespace StarBangBang
 		int size_x = 0; // number of nodes in a row
 		int size_y = 0; // number of nodes in a column
 		void CheckOccupiedGrid();
+
+		//Debug
+		void SetAllOccupied();
+
 	public:
 		constexpr AEVec2 GetGridExtend() const
 		{ 

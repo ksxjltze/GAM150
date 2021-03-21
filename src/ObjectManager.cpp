@@ -208,12 +208,8 @@ void StarBangBang::ObjectManager::Draw()
 {
 	for (_Component* component : componentList)
 	{
-		/*if (typeid(*component).name() == typeid(ImageComponent).name() && component->active)
-		{
-			static_cast<ImageComponent*>(component)->Draw();
-		}*/
-
-		component->Draw();
+		if (component->active)
+			component->Draw();
 	}
 }
 

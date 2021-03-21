@@ -64,5 +64,8 @@ namespace StarBangBang
 		TileSet tileSet;
 		std::vector<TileType> collidableList;
 		std::map<std::pair<int, int>, Tile> map;
+
+		//Debug
+		void SetVisible(bool visible);
 	};
 }
