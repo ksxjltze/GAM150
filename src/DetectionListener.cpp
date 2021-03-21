@@ -13,7 +13,7 @@ void StarBangBang::DetectionListener::onNotify(Event e)
 		try
 		{
 			std::string s = std::any_cast<std::string>(e.context);
-			std::cout << s << std::endl;
+			//std::cout << s << std::endl;
 		}
 		catch (const std::exception&)
 		{
