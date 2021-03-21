@@ -9,18 +9,6 @@
 
 namespace StarBangBang
 {
-	//struct TileSprite_Old
-	//{
-	//	int id = -1;
-	//	std::string name;
-	//	Sprite sprite;
-	//};
-
-	//struct Tile_Old
-	//{
-	//	TileSprite_Old sprite;
-	//	GameObject* gameObject { nullptr };
-	//};
 
 	class LevelEditor : public Scene
 	{

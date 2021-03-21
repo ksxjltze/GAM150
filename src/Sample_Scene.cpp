@@ -24,7 +24,9 @@ void StarBangBang::Sample_Scene::Load()
 void StarBangBang::Sample_Scene::Init()
 {
 	tilemap.Init();
+	tilemap.SetCollidableTypes({ TileType::BRICK_BLACK });
 	tilemap.Load(RESOURCES::LEVELS::COLLISION_TEST);
+
 	GRAPHICS::SetBackgroundColor(SkyBlue);
 	gameObject = objectManager.NewGameObject();
 

@@ -5,6 +5,7 @@
 
 namespace StarBangBang
 {
+
 	TileMap::TileMap(ObjectManager& objM, GraphicsManager& gfxM) : scale{ 1.0f }, mapWidth{ 0 }, mapHeight{ 0 }, objMgr{ objM }, gfxMgr{ gfxM }, base{ nullptr }
 	{
 		
@@ -17,6 +18,10 @@ namespace StarBangBang
 			tileSet.Load(gfxMgr);
 			base = objMgr.NewGameObject();
 		}
+
+		//Temporary solution
+		//collidableList.push_back(TileType::BRICK_BLACK);
+		//collidableList.push_back(TileType::BRICK_RED);
 	}
 
 	void TileMap::Generate(int width, int height, float tileSize, TileType type)
@@ -258,6 +263,18 @@ namespace StarBangBang
 			map.insert({ {x++, y}, tile });
 		}
 
+		//temp hack
+		for (auto collidableType : collidableList)
+		{
+			if (type == collidableType)
+			{
+				GameObject* gameObject = map.at({ x - 1, y }).spriteObject->gameObject;
+				objMgr.AddComponent<RigidBody>(gameObject);
+				gameObject->GetComponent<RigidBody>()->SetMass(0);
+				objMgr.AddCollider(gameObject, true);
+			}
+		}
+
 	}
 
 	void TileMap::Replace(int x, int y, TileType type)
@@ -298,14 +315,15 @@ namespace StarBangBang
 		}
 	}
 	
-	Tile TileMap::CreateNewTile(AEVec2 pos, TileSprite tileSprite)
+	Tile TileMap::CreateNewTile(AEVec2 pos, TileSprite tileSprite, bool collidable)
 	{
 		GameObject* tileObj = objMgr.NewGameObject(base);
 		tileObj->transform.scale = { scale / GRAPHICS::MESH_WIDTH, scale / GRAPHICS::MESH_HEIGHT };
 		ImageComponent* spriteObj = objMgr.AddImage(tileObj, tileSprite.sprite);
 		tileObj->SetPos(pos);
 
-		if (tileSprite.type == TileType::BRICK_BLACK)
+		//Set Collider
+		if (collidable)
 		{
 			GameObject* gameObject = tileObj;
 			objMgr.AddComponent<RigidBody>(gameObject);
@@ -329,6 +347,11 @@ namespace StarBangBang
 		obj->SetActive(true);
 
 		return tile;
+	}
+
+	void TileMap::SetCollidableTypes(std::initializer_list<TileType> typeList)
+	{
+		collidableList = typeList;
 	}
 
 }

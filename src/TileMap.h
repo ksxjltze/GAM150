@@ -9,6 +9,7 @@ namespace StarBangBang
 	{
 		ImageComponent* spriteObject;
 		TileType type;
+		bool collidable;
 	};
 
 	class TileMap
@@ -44,8 +45,9 @@ namespace StarBangBang
 		void Replace(int x, int y, TileType type);
 		void Erase(int x, int y);
 
-		Tile CreateNewTile(AEVec2 pos, TileSprite tileSprite);
+		Tile CreateNewTile(AEVec2 pos, TileSprite tileSprite, bool collidable = false);
 		Tile ReplaceTile(Tile tile, AEVec2 pos, TileSprite tileSprite);
+		void SetCollidableTypes(std::initializer_list<TileType> typeList);
 
 	private:
 		GameObject* base;
@@ -56,6 +58,7 @@ namespace StarBangBang
 		GraphicsManager& gfxMgr;
 
 		TileSet tileSet;
+		std::vector<TileType> collidableList;
 		std::map<std::pair<int, int>, Tile> map;
 	};
 }
