@@ -13,5 +13,14 @@ namespace StarBangBang
 		void Draw();
 		void Free();
 		void Unload();
+
+	private:
+		Sprite computerSprite;
+		GameObject* computerObj;
+		Sprite prisonerSprite;
+		GameObject* prisonerObj;
+		Sprite doorSprite;
+		GameObject* doorObj;
 	};
+
 }
