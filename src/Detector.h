@@ -19,11 +19,10 @@ namespace StarBangBang
 
 		inline void SetAngle(float angle) { rotationAngle = angle; }
 		inline void SetFacingDir(const AEVec2& dir) { targetDir = dir; }
-		inline bool DetectedPlayer() const { return detected; }
 		inline float GetRotation() const { return rotationAngle; }
 
 	private:
-		void CheckForTargets(const AEVec2& _targetPos);
+		void CheckForTargets(const AEVec2& _targetPos, bool checkForPlayer = true);
 
 		float fieldOfView;
 		float viewDist;
@@ -31,7 +30,7 @@ namespace StarBangBang
 
 		bool atMaxRot;
 
-		bool detected;
+		bool detectedTarget1, detectedTarget2;
 
 		AEVec2 defaultForward;
 		AEVec2 targetDir;

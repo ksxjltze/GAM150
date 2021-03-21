@@ -56,7 +56,7 @@ void GuardManager::CreateSecurityCameras(ObjectManager* objManager, Sprite* spri
 	for (size_t i = 0; i < 1; i++)
 	{
 		cameras.push_back(objManager->NewGameObject());
-		//cameras[i]->transform.scale = { 0.5f, 0.5f };
+		cameras[i]->transform.scale = { 0.7f, 0.7f };
 		objManager->AddImage(cameras[i], *sprite);
 		objManager->AddComponent<SecurityCamera>(cameras[i]).SetRotationMinMax(-90.f, 90.f);
 		objManager->AddComponent<Detector>(cameras[i]);

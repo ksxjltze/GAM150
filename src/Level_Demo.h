@@ -28,9 +28,7 @@ namespace StarBangBang
 		GameObject* movementController;
 		GameObject* player;
 		GameObject* player2;
-
 		GameObject* guardManager;
-
 
 		TileMap tilemap;
 	};
