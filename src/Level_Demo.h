@@ -30,7 +30,6 @@ namespace StarBangBang
 		GameObject* player2;
 
 		GameObject* guardManager;
-		GameObject* testSecurityCam;
 
 
 		TileMap tilemap;

@@ -22,7 +22,6 @@ StarBangBang::Level_Demo::Level_Demo(int id, GameStateManager& manager) : Scene(
 {
 	player = nullptr;
 	player2 = nullptr;
-	testSecurityCam = nullptr;
 	movementController = nullptr;
 	guardManager = nullptr;
 }
@@ -81,17 +80,10 @@ void StarBangBang::Level_Demo::Init()
 	moveMgr.AddController(player);
 	moveMgr.AddController(player2);
 
-	//Guard
+	//Guards and security cameras
 	guardManager = objectManager.NewGameObject();
 	objectManager.AddComponent<GuardManager>(guardManager).Init(&objectManager, &guardImage, player, player2);
-
-	//Security camera
-	testSecurityCam = objectManager.NewGameObject();
-	objectManager.AddImage(testSecurityCam, securityCamImage);
-	objectManager.AddComponent<SecurityCamera>(testSecurityCam).SetRotationMinMax(-90.f, 90.f);
-	objectManager.AddComponent<Detector>(testSecurityCam);
-	testSecurityCam->GetComponent<Detector>()->Init(90.f, 250.f, player, player2);
-	testSecurityCam->SetPos({ 100, 750 });
+	guardManager->GetComponent<GuardManager>()->CreateSecurityCameras(&objectManager, &securityCamImage, player, player2);
 
 	// Call Start on scripts
 	objectManager.Init();

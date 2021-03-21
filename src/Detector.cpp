@@ -83,16 +83,15 @@ void Detector::CheckForTargets(const AEVec2& _targetPos)
 	AEVec2 toTargetVec;
 	AEVec2 goPos = gameObject->GetPos();
 	AEVec2 targetPos = _targetPos;
-	float dpResult;
 
 	// calculate vector from game object to target
 	AEVec2Sub(&toTargetVec, &targetPos, &goPos);
 	AEVec2Normalize(&toTargetVec, &toTargetVec);
 
-	dpResult = AEVec2DotProduct(&targetDir, &toTargetVec);
+	float dpResult = AEVec2DotProduct(&targetDir, &toTargetVec);
 	if (dpResult < 0.f) // don't continue if target is behind detector
 	{
-		detected = false;
+		//detected = false;
 		return;
 	}
 
@@ -124,7 +123,7 @@ void Detector::CheckForTargets(const AEVec2& _targetPos)
 	}
 	else
 	{
-		detected = false;
+		//detected = false;
 		//PRINT("WHERE PLAYER\n");
 	}
 }

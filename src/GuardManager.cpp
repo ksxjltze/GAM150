@@ -3,6 +3,7 @@
 #include "Sprite.h"
 #include "Guard.h"
 #include "Detector.h"
+#include "SecurityCamera.h"
 #include "Physics.h"
 
 #include "Utils.h" // for mouseworldpos
@@ -48,6 +49,20 @@ void GuardManager::Init(ObjectManager* objManager, Sprite* sprite, GameObject* p
 	SetGuardWaypoints({ 930, 830 }, { 0, 515 });
 	SetGuardWaypoints({ -195, 790 }, { -815, 540 });
 	SetGuardWaypoints({ -1120, 420 }, { -880, 880 });
+}
+
+void GuardManager::CreateSecurityCameras(ObjectManager* objManager, Sprite* sprite, GameObject* player, GameObject* client)
+{
+	for (size_t i = 0; i < 1; i++)
+	{
+		cameras.push_back(objManager->NewGameObject());
+		//cameras[i]->transform.scale = { 0.5f, 0.5f };
+		objManager->AddImage(cameras[i], *sprite);
+		objManager->AddComponent<SecurityCamera>(cameras[i]).SetRotationMinMax(-90.f, 90.f);
+		objManager->AddComponent<Detector>(cameras[i]);
+		cameras[i]->GetComponent<Detector>()->Init(90.f, 250.f, player, client);
+		cameras[i]->SetPos({ 100, 750 });
+	}
 }
 
 void GuardManager::Update()
