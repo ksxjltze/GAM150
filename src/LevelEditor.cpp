@@ -38,6 +38,7 @@ namespace StarBangBang
 	{
 		PathFinder::ShowGrid(false);
 		GRAPHICS::SetBackgroundColor(Black);
+		GRAPHICS::SetZoom(1.0f);
 		
 		filepath = RESOURCES::LEVELS::LEVEL_TEST_PATH;
 		//filepath = RESOURCES::LEVELS::COLLISION_TEST;
