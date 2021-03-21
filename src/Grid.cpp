@@ -58,16 +58,6 @@ using namespace StarBangBang;
 #pragma endregion
 
 
-	int A_Node::GetHeapIndex() const
-	{
-		return heapIndex;
-	}
-	void A_Node::SetHeapIndex(int index)
-	{
-		heapIndex = index;
-	}
-
-
 
 #pragma region A* grid
 	
@@ -93,11 +83,6 @@ using namespace StarBangBang;
 		this->nodeSize = _nodeSize;
 		this->offset = _offset;
 		CreateGrid(_nodeSize, sizeX , sizeY, AEVec2{ 0,0 });
-	}
-
-	void Grid::CheckOccupiedGrid()
-	{
-
 	}
 
 	void Grid::CreateGrid(float _nodeSize, int sizeX , int sizeY, AEVec2 _offset)
@@ -230,6 +215,22 @@ using namespace StarBangBang;
 			return grid[y] + x;
 		else
 			return nullptr;
+	}
+
+	void StarBangBang::Grid::SetAllOccupied()
+	{
+		for (size_t y = 0; y < size_y; y++)
+		{
+			for (size_t x = 0; x < size_x; x++)
+			{
+				grid[y][x].occupied = true;
+			}
+		}
+	}
+
+	void StarBangBang::Grid::SetOccupied(int x, int y, bool occupied)
+	{
+		grid[y][x].occupied = occupied;
 	}
 
 	void Grid::DrawGrid(Color color)

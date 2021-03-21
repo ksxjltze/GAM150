@@ -45,14 +45,17 @@ void StarBangBang::Level_Demo::Init()
 	tilemap.SetCollidableTypes({ TileType::BRICK_BLACK });
 	tilemap.Load(RESOURCES::LEVELS::LEVEL_TEST_PATH);
 
+	tilemap.SetGrid(PathFinder::GetWorldGrid());
+	tilemap.SetVisible(false);
+
 	//Movement controller
 	movementController = objectManager.NewGameObject();
 	MovementManager& moveMgr = objectManager.AddComponent<MovementManager>(movementController);
 
 	//Player components and scripts
 	player = objectManager.NewGameObject();
-	player->SetPos({ -1000, -900 });
-	player->transform.scale = { 0.35f, 0.35f };
+	player->SetPos({ 250, 800 });
+	player->transform.scale = { 0.7f, 0.7f };
 
 	DetectionListener* listener = &objectManager.AddComponent<DetectionListener>(player);
 	MessageBus::RegisterListener(listener);
@@ -68,6 +71,7 @@ void StarBangBang::Level_Demo::Init()
 	
 	player2 = objectManager.NewGameObject();
 	player2->SetPos({ 250, 1000 });
+	player2->transform.scale = { 0.7f, 0.7f };
 
 	objectManager.AddImage(player2, player2Image);
 	objectManager.AddComponent<RigidBody>(player2);
