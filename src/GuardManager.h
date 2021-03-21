@@ -12,7 +12,7 @@ namespace StarBangBang
 	class GuardManager : public Script
 	{
 	private:
-		int NUM_GUARDS = 1; // to be read from file
+		int NUM_GUARDS = 13; // to be read from file
 
 	public:
 		GuardManager(GameObject* gameObject);
@@ -26,6 +26,9 @@ namespace StarBangBang
 
 	private:
 		GameObject* GetNearestGuard(AEVec2& _pos);
+
+		// temp
+		void SetGuardWaypoints(const AEVec2& start, const AEVec2& end, bool isIdle = false);
 
 		std::vector<GameObject*> guards; //GameObject* guards[NUM_GUARDS];
 	};
