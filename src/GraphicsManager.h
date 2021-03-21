@@ -4,12 +4,13 @@
 #include <AEEngine.h>
 #include <vector>
 #include <string>
+#include "constants.h"
 
 namespace StarBangBang
 {
 	namespace GRAPHICS
 	{
-		static float zoom = 1;
+		static float zoom = DEFAULT_ZOOM;
 
 		void DrawImage(AEGfxVertexList* mesh, AEGfxTexture* texture, AEVec2 pos, AEVec2 scale, float rotation);
 		void SetBackgroundColor(Color c);
