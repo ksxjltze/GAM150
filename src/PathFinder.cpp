@@ -5,6 +5,7 @@
 #include "Utils.h"
 #include "BasicMeshShape.h"
 #include <iostream>
+#include "constants.h"
 
 using namespace StarBangBang;
 
@@ -16,7 +17,11 @@ Grid worldGrid;
 
 void PathFinder::PathFinderInit()
 {
-	worldGrid.CreateGrid(64,50,50, AEVec2{ 0,0 });
+	//worldGrid.CreateGrid(64,50,50, AEVec2{ 0,0 });
+
+	//Fit to tilemap (Default)
+	float size = TILEMAP::DEFAULT_TILE_SIZE;
+	worldGrid.CreateGrid(size, 50, 50, AEVec2{ -size / 2, size /2 });
 }
 
 void StarBangBang::PathFinder::ShowGrid(bool visible)

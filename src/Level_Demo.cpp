@@ -46,6 +46,7 @@ void StarBangBang::Level_Demo::Init()
 	tilemap.Load(RESOURCES::LEVELS::LEVEL_TEST_PATH);
 
 	tilemap.SetGrid(PathFinder::GetWorldGrid());
+	tilemap.SetVisible(false);
 
 	//Movement controller
 	movementController = objectManager.NewGameObject();
