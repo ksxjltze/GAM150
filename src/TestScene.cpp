@@ -6,6 +6,8 @@
 #include "Movement.h"
 #include "MessageBus.h"
 #include "ComputerListener.h"
+#include "ComputerScript.h"
+#include "CameraComponent.h"
 
 namespace StarBangBang
 {
@@ -30,14 +32,23 @@ void StarBangBang::TestScene::Load()
 
 void StarBangBang::TestScene::Init()
 {
-	//computer obj (v machine)
-	computerObj = objectManager.NewGameObject();
-	objectManager.AddImage(computerObj, computerSprite);
+
+	for (int i = 0; i < 7; ++i)
+	{
+		GameObject *gameObjPtr;
+		//computer obj (v machine)
+		gameObjPtr = objectManager.NewGameObject();
+		objectManager.AddComponent<ComputerScript>(gameObjPtr);
+		objectManager.AddImage(gameObjPtr, computerSprite);
+		gameObjPtr->transform.position = { i * 100.0f, 0 };
+	}
+
 
 	//prison obj
 	prisonerObj = objectManager.NewGameObject();
 	objectManager.AddImage(prisonerObj, prisonerSprite);
 	objectManager.AddComponent<Movement>(prisonerObj);
+	objectManager.AddComponent<CameraComponent>(prisonerObj);
 
 	//door obj
 	doorObj = objectManager.NewGameObject();
@@ -83,19 +94,20 @@ void StarBangBang::TestScene::Init()
 void StarBangBang::TestScene::Update()
 {
 	Scene::Update();
-	if (AEInputCheckTriggered(AEVK_LBUTTON))
-	{
-		Transform& transform = computerObj->transform;
-		if (PointRectTest(GetMouseWorldPos(), transform.position, transform.scale.x * GRAPHICS::MESH_WIDTH, transform.scale.y * GRAPHICS::MESH_HEIGHT))
-		{
-			Event e;
-			e.id = EventId::COMPUTER_CLICK;
-			e.context = std::string("\nTESTING DETECTION LISTENER\n");
-			MessageBus::Notify(e);
+	//if (AEInputCheckTriggered(AEVK_LBUTTON))
+	//{
+	//	Transform& transform = computerObj->transform;
+	//	if (PointRectTest(GetMouseWorldPos(), transform.position, transform.scale.x * GRAPHICS::MESH_WIDTH, transform.scale.y * GRAPHICS::MESH_HEIGHT))
+	//	{
+	//		computerObj->active = false;
+	//		Event e;
+	//		e.id = EventId::COMPUTER_CLICK;
+	//		e.context = std::string("\nTESTING DETECTION LISTENER\n");
+	//		MessageBus::Notify(e);
 
-		}
+	//	}
 
-	}
+	//}
 
 	//Send message on key press (T)
 	if (AEInputCheckTriggered(AEVK_T))
