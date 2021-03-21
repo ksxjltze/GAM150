@@ -39,6 +39,18 @@ void CollisionManager::ClearPartitionGridCells()
 	p_grid.ClearAllBucketCell();
 }
 
+void StarBangBang::CollisionManager::RemoveCollider(Collider* pCollider)
+{
+	for (auto it = collider_list.begin(); it != collider_list.end(); it++)
+	{
+		if (*it == pCollider)
+		{
+			collider_list.erase(it);
+			return;
+		}
+	}
+}
+
 BoxCollider* CollisionManager::CreateBoxColliderInstance(GameObject* gameObject, bool is_static)
 {
 
@@ -339,6 +351,10 @@ void CollisionManager::ResolverUpdate()
 	for (BoxCollider* col : collider_list)
 	{
 		assert(col);
+
+		if (!col->active)
+			continue;
+
 		if(col->rb->SqrVelocity() > 0 && col->rb)
 			RecalculateColliderCells(*col);
 		//printf("%zu\n", collider_list.size());

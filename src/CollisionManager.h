@@ -56,6 +56,8 @@ namespace StarBangBang
 
 		void ClearPartitionGridCells();
 
+		void RemoveCollider(Collider* pCollider);
+
 
 		BoxCollider* CreateBoxColliderInstance(GameObject* gameObject,bool is_static = true);
 

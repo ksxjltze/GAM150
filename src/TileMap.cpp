@@ -280,6 +280,19 @@ namespace StarBangBang
 		if (map.find(pos) != map.end())
 		{
 			GameObject* obj = map.at(pos).spriteObject->gameObject;
+			BoxCollider* collider = obj->GetComponent<BoxCollider>();
+
+			if (collider)
+			{
+				std::vector cellIndices = collider->GetCellIndexes();
+				for (int index : cellIndices)
+				{
+					CollisionManager::ClearPartitionGridCell(index);
+				}
+
+				CollisionManager::RemoveCollider(collider);
+
+			}
 			objMgr.DestroyGameObject(obj);
 			map.erase(pos);
 		}

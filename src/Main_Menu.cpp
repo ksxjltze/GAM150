@@ -77,7 +77,7 @@ namespace StarBangBang
 
 		objectManager.AddComponent<Click<Main_Menu>>(exitbutton_obj).setCallback(*this, &Main_Menu::ExitGame);
 
-		MessageBus::Notify({ EventId::PLAY_MUSIC, "BGM" });
+		//MessageBus::Notify({ EventId::PLAY_MUSIC, "BGM" });
 	}
 
 	void StarBangBang::Main_Menu::Update()
