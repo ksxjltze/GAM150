@@ -38,13 +38,14 @@ namespace StarBangBang
 		PathFinder::ShowGrid(false);
 		GRAPHICS::SetBackgroundColor(Black);
 		
-		filepath = RESOURCES::LEVEL_TEST_PATH;
+		filepath = RESOURCES::LEVELS::LEVEL_TEST_PATH;
+		//filepath = RESOURCES::LEVELS::COLLISION_TEST;
 
 		//TODO: Optimize tile drawing (Low FPS on 100 x 100 tile map)
 		if (!LoadLevel(filepath))
 		{
-			//CreateLevel(TILEMAP::DEFAULT_WIDTH, TILEMAP::DEFAULT_WIDTH, TILEMAP::DEFAULT_TILE_SIZE);
-			CreateLevel(30, 30, TILEMAP::DEFAULT_TILE_SIZE, TileType::BRICK_RED);
+			CreateLevel(TILEMAP::DEFAULT_WIDTH, TILEMAP::DEFAULT_WIDTH, TILEMAP::DEFAULT_TILE_SIZE, TileType::BRICK_RED);
+			//CreateLevel(30, 30, TILEMAP::DEFAULT_TILE_SIZE, TileType::BRICK_RED);
 		}
 
 		//Camera Object
@@ -70,6 +71,7 @@ namespace StarBangBang
 
 		if (AEInputCheckTriggered(AEVK_R))
 		{
+			//Generate new level
 			if (AEInputCheckCurr(AEVK_LSHIFT))
 			{
 				CreateLevel(TILEMAP::DEFAULT_WIDTH, TILEMAP::DEFAULT_WIDTH, TILEMAP::DEFAULT_TILE_SIZE, selectedType);
@@ -91,10 +93,12 @@ namespace StarBangBang
 			if (n)
 			{
 				InsertTile(n);
-				for (auto node : grid.Get4_NodeNeighbours(n))
-				{
-					InsertTile(node);
-				}
+
+				////Brush
+				//for (auto node : grid.Get4_NodeNeighbours(n))
+				//{
+				//	InsertTile(node);
+				//}
 			}
 		}
 
@@ -103,16 +107,22 @@ namespace StarBangBang
 			A_Node* n = grid.GetNodeFromPosition(mousePos);
 			if (n)
 			{
+				/*for (auto node : grid.Get8_NodeNeighbours(n))
+				{
+					RemoveTile(node);
+				}*/
 				RemoveTile(n);
 			}
+
 		}
 	}
 
 	void LevelEditor::Draw()
 	{
 		Scene::Draw();
+		AEGfxSetBackgroundColor(0.3f, 0.6f, 1.0f);
 		HighLightGridNode(grid);
-		grid.DrawGrid(Black);
+		grid.DrawGrid(Green);
 	}
 
 	void LevelEditor::Free()

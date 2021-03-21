@@ -1,9 +1,14 @@
 #pragma once
+#include <any>
+#include <iostream>
+
+enum class EventId {DETECTED, PLAY_SOUND, PLAY_MUSIC, STOP_SOUND, TEST};
 
 namespace StarBangBang
 {
 	struct Event
 	{
-		int id;
+		EventId id;
+		std::any context;
 	};
 }

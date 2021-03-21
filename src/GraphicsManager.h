@@ -16,6 +16,7 @@ namespace StarBangBang
 		void SetScreenScaleRatio(float x, float y);
 		void SetZoom(float scale);
 		void SetCameraPosition(float x, float y);
+		bool CheckOutOfBounds(const AEMtx33& transformMtx);
 		AEVec2 GetCameraPosition();
 		void ResetCamera();
 

@@ -69,7 +69,8 @@ void StarBangBang::DrawBoxWired(AEVec2 size,AEVec2 pos , Color color)
 	
 	AEGfxSetRenderMode(AE_GFX_RM_COLOR);
 
-	BasicMeshShape::ApplyTransform(size, pos);
+	if (!BasicMeshShape::ApplyTransform(size, pos))
+		return;
 
 	AEGfxSetTintColor(color.R(), color.G(), color.B(), color.A());
 	AEGfxMeshDraw(unitboxWiredMesh, AEGfxMeshDrawMode::AE_GFX_MDM_LINES_STRIP);
@@ -81,7 +82,9 @@ void StarBangBang::DrawBox(AEVec2 size, AEVec2 pos, Color color)
 	AEMtx33 result = AEMtx33();
 
 	AEGfxSetRenderMode(AE_GFX_RM_COLOR);
-	BasicMeshShape::ApplyTransform(size, pos);
+	if (!BasicMeshShape::ApplyTransform(size, pos))
+		return;
+
 	AEGfxSetTintColor(color.R(), color.G(), color.B(), color.A());
 
 	AEGfxMeshDraw(unitboxMesh, AEGfxMeshDrawMode::AE_GFX_MDM_TRIANGLES);
@@ -94,7 +97,9 @@ void StarBangBang::DrawCircle(float radius, AEVec2 pos,Color color)
 	AEMtx33 result = AEMtx33();
 
 	AEGfxSetRenderMode(AE_GFX_RM_COLOR);
-	BasicMeshShape::ApplyTransform({radius, radius}, pos);
+	if (!BasicMeshShape::ApplyTransform({ radius, radius }, pos))
+		return;
+
 	AEGfxSetTintColor(color.R(), color.G(), color.B(), color.A());
 	AEGfxMeshDraw(unitcircleMesh, AEGfxMeshDrawMode::AE_GFX_MDM_LINES_STRIP);
 }
@@ -114,6 +119,10 @@ void StarBangBang::DrawLine(float length, AEVec2 pos, float angle, Color color)
 	AEMtx33TransApply(&result, &result, pos.x, pos.y); 
 	GRAPHICS::ApplyCameraMatrix(&result);
 
+	if (result.m[0][2] > AEGetWindowWidth() || result.m[1][2] > AEGetWindowHeight()
+		|| result.m[0][2] < -AEGetWindowWidth() || result.m[1][2] < -AEGetWindowHeight())
+		return;
+
 	AEGfxSetTransform(result.m);
 	AEGfxSetTintColor(color.R(), color.G(), color.B(), color.A());
 
@@ -128,7 +137,7 @@ void StarBangBang::FreeUnitMeshes(void)
 	AEGfxMeshFree(lineMesh);
 }
 
-void StarBangBang::BasicMeshShape::ApplyTransform(AEVec2 size, AEVec2 pos)
+bool StarBangBang::BasicMeshShape::ApplyTransform(AEVec2 size, AEVec2 pos)
 {
 	AEMtx33 scale;
 	AEMtx33 result;
@@ -137,5 +146,9 @@ void StarBangBang::BasicMeshShape::ApplyTransform(AEVec2 size, AEVec2 pos)
 	AEMtx33TransApply(&result, &scale, pos.x, pos.y);
 	GRAPHICS::ApplyCameraMatrix(&result);
 
+	if (GRAPHICS::CheckOutOfBounds(result))
+		return false;
+
 	AEGfxSetTransform(result.m);
+	return true;
 }

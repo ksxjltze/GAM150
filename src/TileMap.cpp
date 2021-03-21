@@ -5,6 +5,7 @@
 
 namespace StarBangBang
 {
+
 	TileMap::TileMap(ObjectManager& objM, GraphicsManager& gfxM) : scale{ 1.0f }, mapWidth{ 0 }, mapHeight{ 0 }, objMgr{ objM }, gfxMgr{ gfxM }, base{ nullptr }
 	{
 		
@@ -17,10 +18,12 @@ namespace StarBangBang
 			tileSet.Load(gfxMgr);
 			base = objMgr.NewGameObject();
 		}
+
 	}
 
 	void TileMap::Generate(int width, int height, float tileSize, TileType type)
 	{
+		Clear();
 		//Default sprite
 		TileSprite tileSprite = tileSet.GetTileSprite(type);
 
@@ -153,21 +156,37 @@ namespace StarBangBang
 				std::string row;
 				is >> row;
 
-				for (auto ch : row)
+				for (auto ch = row.begin(); ch != row.end(); ch++)
 				{
-					//Improve later to accomodate for > 10
-					if (ch != ',')
+					std::string typeString;
+
+					//Assuming CSV Format
+					//Reads data from each cell
+					while (*ch != ',')
 					{
-						TileType type = static_cast<TileType>(ch - '0');
-
-						if (type != TileType::NONE)
-						{
-							Insert(x++, y, type);
-						}
+						typeString += *ch;
+						if (ch + 1 != row.end())
+							++ch;
 						else
-							++x;
-
+							break;
 					}
+					
+					//Determine Tile Type
+					int typeID = atoi(typeString.c_str());
+					TileType type = static_cast<TileType>(typeID);
+
+					if (type == TileType::TEST)
+					{
+						printf("PEE PEE POO POO\n");
+					}
+
+					if (type != TileType::NONE)
+					{
+						Insert(x++, y, type);
+					}
+					else
+						++x;
+
 				}
 				--y;
 
@@ -257,6 +276,18 @@ namespace StarBangBang
 			map.insert({ {x++, y}, tile });
 		}
 
+		//temp hack
+		for (auto collidableType : collidableList)
+		{
+			if (type == collidableType)
+			{
+				GameObject* gameObject = map.at({ x - 1, y }).spriteObject->gameObject;
+				objMgr.AddComponent<RigidBody>(gameObject);
+				gameObject->GetComponent<RigidBody>()->SetMass(0);
+				objMgr.AddCollider(gameObject, true);
+			}
+		}
+
 	}
 
 	void TileMap::Replace(int x, int y, TileType type)
@@ -279,18 +310,40 @@ namespace StarBangBang
 		if (map.find(pos) != map.end())
 		{
 			GameObject* obj = map.at(pos).spriteObject->gameObject;
+			BoxCollider* collider = obj->GetComponent<BoxCollider>();
+
+			if (collider)
+			{
+				std::vector cellIndices = collider->GetCellIndexes();
+				for (int index : cellIndices)
+				{
+					CollisionManager::ClearPartitionGridCell(index);
+				}
+
+				CollisionManager::RemoveCollider(collider);
+
+			}
 			objMgr.DestroyGameObject(obj);
 			map.erase(pos);
 		}
 	}
 	
-	Tile TileMap::CreateNewTile(AEVec2 pos, TileSprite tileSprite)
+	Tile TileMap::CreateNewTile(AEVec2 pos, TileSprite tileSprite, bool collidable)
 	{
 		GameObject* tileObj = objMgr.NewGameObject(base);
 		tileObj->transform.scale = { scale / GRAPHICS::MESH_WIDTH, scale / GRAPHICS::MESH_HEIGHT };
 		ImageComponent* spriteObj = objMgr.AddImage(tileObj, tileSprite.sprite);
-
 		tileObj->SetPos(pos);
+
+		//Set Collider
+		if (collidable)
+		{
+			GameObject* gameObject = tileObj;
+			objMgr.AddComponent<RigidBody>(gameObject);
+			gameObject->GetComponent<RigidBody>()->SetMass(0);
+			objMgr.AddCollider(gameObject, true);
+		}
+
 		Tile tile = { spriteObj };
 		tile.type = tileSprite.type;
 
@@ -307,6 +360,11 @@ namespace StarBangBang
 		obj->SetActive(true);
 
 		return tile;
+	}
+
+	void TileMap::SetCollidableTypes(std::initializer_list<TileType> typeList)
+	{
+		collidableList = typeList;
 	}
 
 }

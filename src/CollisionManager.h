@@ -9,7 +9,6 @@ namespace StarBangBang
 	
 	class PartitionGrid;
 
-
 	struct CollisionData
 	{
 	public:
@@ -52,6 +51,12 @@ namespace StarBangBang
 		void DebugCollider(BoxCollider b, Color c );
 
 		void DebugCollider(CircleCollider c);
+
+		void ClearPartitionGridCell(int index);
+
+		void ClearPartitionGridCells();
+
+		void RemoveCollider(Collider* pCollider);
 
 
 		BoxCollider* CreateBoxColliderInstance(GameObject* gameObject,bool is_static = true);

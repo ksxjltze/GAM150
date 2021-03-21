@@ -29,6 +29,27 @@ namespace
 
 }
 
+void CollisionManager::ClearPartitionGridCell(int index)
+{
+	p_grid.ClearABucketCell(index);
+}
+
+void CollisionManager::ClearPartitionGridCells()
+{
+	p_grid.ClearAllBucketCell();
+}
+
+void StarBangBang::CollisionManager::RemoveCollider(Collider* pCollider)
+{
+	for (auto it = collider_list.begin(); it != collider_list.end(); it++)
+	{
+		if (*it == pCollider)
+		{
+			collider_list.erase(it);
+			return;
+		}
+	}
+}
 
 BoxCollider* CollisionManager::CreateBoxColliderInstance(GameObject* gameObject, bool is_static)
 {
@@ -192,6 +213,7 @@ void FetchAllColliderCells(const BoxCollider& c, std::vector<Cell*>& list)
 void CollisionManager::RecalculateColliderCells(BoxCollider& col)
 {
 	//clear the cells collider occupies
+	
 	if (col.GetCellIndexes().size() > 0)
 	{
 		for (const int index : col.GetCellIndexes())
@@ -210,8 +232,9 @@ void CollisionManager::RecalculateColliderCells(BoxCollider& col)
 	FetchAllColliderCells(col, cell_list);
 	for (Cell* cell_ref : cell_list)
 	{
-		if (!cell_ref)
-			continue;
+		assert(cell_ref);
+		//if (!cell_ref)
+		//	continue;
 
 		cell_ref->cell_colliders.insert(&col);
 		col.AddToCellList(cell_ref->cellIndex);
@@ -281,12 +304,14 @@ void ResolvePenetration(const CollisionPair& pair)
 void StarBangBang::CollisionManager::Free()
 {
 	collider_list.clear();
+	CollisionManager::ClearPartitionGridCells();
 }
 
 //wip
 void CollisionManager::ResolverUpdate()
 {
-
+	static size_t collision_check = 0;
+	static float timer = 5.0f;
 	//non-partition 
 	/*for (BoxCollider* col : collider_list)
 	{
@@ -302,35 +327,18 @@ void CollisionManager::ResolverUpdate()
 			//if both have rb use dynamic collision
 			if (col->rb && col2->rb)
 			{
-				if (col->rb->SqrVelocity() == 0 || col2->rb->SqrVelocity() == 0)
+				if (Dynamic_AABB(*col, col->rb->velocity, *col2, col2->rb->velocity))
 				{
-					if (StaticAABB_Check(*col, *col2, data))
-					{
-						CollisionPair p{ *col,*col2, data };
-						ResolveVelocity(p);
-						ResolvePenetration(p);
-						//AddToResolveQueue(p);
-					}
-				}
-				else
-				{
-					if (Dynamic_AABB(*col, col->rb->velocity, *col2, col2->rb->velocity, data))
-					{
-						CollisionPair p{ *col,*col2, data };
-						ResolveVelocity(p);
-						ResolvePenetration(p);
-
-						//AddToResolveQueue(p);
-
-					}
-
-
+					CalculateCollisionData(*col, *col2, data);
+					CollisionPair p{ *col,*col2, data };
+					ResolveVelocity(p);
+					ResolvePenetration(p);
 				}
 
 			}
 			if (timer > 0)
 			{
-				++collisionChecks;
+				++collision_check;
 			}
 		}
 
@@ -338,11 +346,17 @@ void CollisionManager::ResolverUpdate()
 
 
 #pragma region Partition
-	//paritition (still have some bugs)
+	
+	//paritition 
 	for (BoxCollider* col : collider_list)
 	{
 		assert(col);
-		RecalculateColliderCells(*col);
+
+		if (!col->active)
+			continue;
+
+		if(col->rb->SqrVelocity() > 0 && col->rb)
+			RecalculateColliderCells(*col);
 		//printf("%zu\n", collider_list.size());
 		if (col->GetCellListSize() > 0)
 		{
@@ -352,17 +366,18 @@ void CollisionManager::ResolverUpdate()
 				assert(index < p_grid.GetBucketSize());
 
 				Cell& c = p_grid.grid[index];
-
 				for (BoxCollider* col2 : c.cell_colliders)
 				{
 					assert(col2);
-
+				
+					//assert(index < c.cell_collider);
 					if (col2 == col)
 						continue;
 					CollisionData data;
+
+					assert(col2->rb);
 					if (col->rb && col2->rb)
 					{
-
 						if (Dynamic_AABB(*col, col->rb->velocity, *col2, col2->rb->velocity))
 						{
 							CalculateCollisionData(*col, *col2, data);
@@ -372,10 +387,10 @@ void CollisionManager::ResolverUpdate()
 						}
 
 					}
-					/*if (timer > 0)
+					if (timer > 0)
 					{
-						++collisionChecks;
-					}*/
+						++collision_check;
+					}
 
 				}
 
@@ -383,7 +398,7 @@ void CollisionManager::ResolverUpdate()
 		}
 
 	}
-	//std::cout << collisionChecks << std::endl;
+	//std::cout << collision_check << std::endl;
 	for (BoxCollider* col : collider_list)
 	{
 		assert(col);
@@ -432,6 +447,7 @@ bool CollisionManager::Dynamic_AABB(const BoxCollider& A, const AEVec2& vel1,
 	//first collision time //collision exit time
 	float t_first = 0, t_last = (float)AEFrameRateControllerGetFrameTime();
 	//B relative velocity to A (where A = aabb1,vel1 , B = aabb2 , vel2)
+
 	AEVec2 rVel_B{ vel2.x - vel1.x,vel2.y - vel1.y };
 
 	//x-axis

@@ -6,14 +6,15 @@ namespace StarBangBang
 {
 	enum class TileType
 	{
-		NONE = 0, 
-		GRASS, 
-		STONE, 
-		BRICK_BLACK, 
-		BRICK_RED, 
-		FLOOR_PRISON, 
-		FLOOR_OFFICE, 
-		END
+		NONE = 0,
+		GRASS,
+		STONE,
+		BRICK_BLACK,
+		BRICK_RED,
+		FLOOR_PRISON,
+		FLOOR_OFFICE,
+		END,
+		TEST = 11
 	};
 
 	struct TileSprite

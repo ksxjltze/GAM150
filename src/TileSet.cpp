@@ -12,6 +12,7 @@ namespace StarBangBang
 		LoadTileSprite(gfxMgr,	TileType::BRICK_RED,		RESOURCES::REDBRICK_PATH);
 		LoadTileSprite(gfxMgr,	TileType::FLOOR_OFFICE,		RESOURCES::OFFICEFLOOR_PATH);
 		LoadTileSprite(gfxMgr,	TileType::FLOOR_PRISON,		RESOURCES::PRISONFLOOR_PATH);
+		LoadTileSprite(gfxMgr,	TileType::TEST,				RESOURCES::SPRITE_PLAYER_PATH);
 	}
 
 	void TileSet::LoadTileSprite(GraphicsManager& gfxMgr, TileType type, const std::string& path)

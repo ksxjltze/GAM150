@@ -15,6 +15,9 @@
 #include "BasicMeshShape.h"
 #include "CollisionTest.h"
 #include "globals.h"
+#include "MessageBus.h"
+
+#include "TestScene.h"
 
 namespace StarBangBang
 {
@@ -61,8 +64,19 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 
 	AudioEngine audioEngine;
 	FMOD::Sound* sound = nullptr;
+	FMOD::Sound* sound2 = nullptr;
+	FMOD::Sound* sound3 = nullptr;
+
 	audioEngine.CreateSound(&sound, "./Resources/drumloop.wav"); //CHANGE THIS (copyright and stuff)
-	//audioEngine.playSound(sound, false);
+	audioEngine.CreateSound(&sound2, "./Resources/Music/wab.wav");
+	audioEngine.CreateSound(&sound3, "./Resources/Music/wab2.wav");
+
+	audioEngine.AddSound("Test", sound); 
+	audioEngine.AddSound("BGM", sound3); 
+	audioEngine.AddSound("BGM2", sound2); 
+
+	MessageBus::RegisterGlobalListener(&audioEngine);
+	//audioEngine.playSound("Test", false);
 
 	GameStateManager gameStateManager;
 
@@ -84,17 +98,20 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 	Scene* gameScene		= gameStateManager.AddGameState<CaptainStealth>(SceneID::GAME);
 	Scene* mainMenuScene	= gameStateManager.AddGameState<Main_Menu>(SceneID::MAIN_MENU);
 	Scene* engineProof		= gameStateManager.AddGameState<EngineProof>();
-
+	Scene* testScene		= gameStateManager.AddGameState<TestScene>();
+	
+	// Hack to remove unreferenced local variable warning
 	sceneList.push_back(sceneDemo);
 	sceneList.push_back(sceneEditor);
 	sceneList.push_back(sampleScene);
 	sceneList.push_back(gameScene);
 	sceneList.push_back(mainMenuScene);
 	sceneList.push_back(engineProof);
+	sceneList.push_back(testScene);
 
 	// Set Initial State
 
-	gameStateManager.SetInitialState(sceneDemo);
+	gameStateManager.SetInitialState(mainMenuScene);
 
 	//// Using custom window procedure
 	AESysInit(hInstance, nCmdShow, (s32)GRAPHICS::TARGET_WINDOW_WIDTH, (s32)GRAPHICS::TARGET_WINDOW_HEIGHT, 1, 60, true, NULL);
@@ -144,6 +161,8 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 				GRAPHICS::ToggleFullscreen();
 		}
 
+		// Events
+		MessageBus::Update();
 
 		// Update State
 		gameStateManager.Update();

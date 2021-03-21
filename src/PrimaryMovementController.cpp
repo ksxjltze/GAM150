@@ -16,7 +16,7 @@ void StarBangBang::PrimaryMovementController::Start()
 
 void StarBangBang::PrimaryMovementController::Update()
 {
-	float speed = 20.0f  ;
+	float speed = 80.0f;
 	float h = 0.0f, v = 0.0f;
 
 	if (AEInputCheckCurr(AEVK_W))

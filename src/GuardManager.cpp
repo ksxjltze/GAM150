@@ -5,6 +5,8 @@
 #include "Detector.h"
 #include "Utils.h"
 
+#include "Text.h"
+#include "globals.h"
 using namespace StarBangBang;
 
 GuardManager::GuardManager(GameObject* gameObject) 
@@ -25,6 +27,7 @@ void GuardManager::Init(ObjectManager* objManager, Sprite* sprite, GameObject* p
 		objManager->AddComponent<GuardMovement>(guards[i]);
 		objManager->AddComponent<GuardVision>(guards[i]).SetPlayerAndClient(player, client);;
 		objManager->AddComponent<Detector>(guards[i]);
+		objManager->AddComponent<Text>(guards[i]).fontID = StarBangBang::fontId;
 	}
 
 	guards[0]->SetPos({ 250, 650 });

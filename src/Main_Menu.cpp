@@ -22,7 +22,7 @@ namespace StarBangBang
 
 	void StarBangBang::Main_Menu::Load()
 	{
-		tilemap.Load(RESOURCES::LEVEL_MAIN_MENU_TEST_PATH);
+		tilemap.Load(RESOURCES::LEVELS::LEVEL_MAIN_MENU_TEST_PATH);
 		//load button images
 		logo = graphicsManager.CreateSprite(RESOURCES::LOGO_PATH,256,64);
 
@@ -48,7 +48,8 @@ namespace StarBangBang
 
 		//start game button
 		playbutton_obj = objectManager.NewGameObject();
-		objectManager.AddImage(playbutton_obj, playbutton1);
+		//objectManager.AddImage(playbutton_obj, playbutton1);
+		objectManager.AddComponent<ImageComponent>(playbutton_obj, playbutton1);
 		playbutton_obj->transform.position = { (float)AEGetWindowWidth() / -8, (float)AEGetWindowHeight() / 8 };
 		playbutton_obj->transform.scale = { 1.5, 1.5 };
 
@@ -75,6 +76,8 @@ namespace StarBangBang
 		exitbutton_obj->transform.scale = { 1.5,1.5 };
 
 		objectManager.AddComponent<Click<Main_Menu>>(exitbutton_obj).setCallback(*this, &Main_Menu::ExitGame);
+
+		//MessageBus::Notify({ EventId::PLAY_MUSIC, "BGM" });
 	}
 
 	void StarBangBang::Main_Menu::Update()
@@ -87,6 +90,13 @@ namespace StarBangBang
 		else if (AEInputCheckTriggered(AEVK_ESCAPE))
 		{
 			gameStateManager.ExitGame();
+		}
+
+		//Sound test
+		if (AEInputCheckTriggered(AEVK_T))
+		{
+			MessageBus::Notify({ EventId::STOP_SOUND });
+			MessageBus::Notify({ EventId::PLAY_SOUND, "Test" });
 		}
 
 	}
@@ -105,6 +115,7 @@ namespace StarBangBang
 	void StarBangBang::Main_Menu::Unload()
 	{
 		Scene::Unload();
+		MessageBus::Notify({ EventId::STOP_SOUND });
 	}
 
 	void Main_Menu::LoadLevelTest()

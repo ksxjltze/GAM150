@@ -8,12 +8,15 @@
 #include "Detector.h"
 
 #include "MovementManager.h"
+#include "DetectionListener.h"
+#include "MessageBus.h"
 
 #include <iostream>
 #include "constants.h"
 
 #include "ObserverTest.h"
-#include "EventTest.h"
+#include "Text.h"
+#include "globals.h"
 
 StarBangBang::Level_Demo::Level_Demo(int id, GameStateManager& manager) : Scene(id, manager), tilemap{ objectManager, graphicsManager }
 {
@@ -47,15 +50,22 @@ void StarBangBang::Level_Demo::Init()
 {
 	PathFinder::ShowGrid(true);
 	GRAPHICS::SetBackgroundColor(Black);
-	tilemap.Load(RESOURCES::LEVEL_TEST_PATH);
+	tilemap.Load(RESOURCES::LEVELS::LEVEL_TEST_PATH);
 
 	GameObject* worldOriginMarker = objectManager.NewGameObject();
 	player = objectManager.NewGameObject();
+	DetectionListener* listener = &objectManager.AddComponent<DetectionListener>(player);
+	MessageBus::RegisterListener(listener);
 	
 	movementController = objectManager.NewGameObject();
 
 	objectManager.AddImage(worldOriginMarker, planetImage);
 	objectManager.AddImage(player, playerImage);
+	objectManager.AddComponent<Text>(player);
+	Text* txt = player->GetComponent<Text>();
+	assert(txt);
+	txt->fontID = StarBangBang::fontId;
+
 
 	guardManager = objectManager.NewGameObject();
 	objectManager.AddComponent<GuardManager>(guardManager).Init(&objectManager, &guardImage, player, player2);
@@ -87,7 +97,7 @@ void StarBangBang::Level_Demo::Init()
 
 	movementController->GetComponent<MovementManager>()->AddController(player);
 	movementController->GetComponent<MovementManager>()->AddController(player2);
-	testInteractable->GetComponent<InteractableComponent>()->SetType(InteractableComponent::INTERACTABLE_TYPE::TYPE_PRINTER);
+	//testInteractable->GetComponent<InteractableComponent>()->SetType(InteractableComponent::INTERACTABLE_TYPE::TYPE_PRINTER);
 
 	//Testing Tags
 	tagManager.AddTag(*player, "Test");
@@ -96,13 +106,6 @@ void StarBangBang::Level_Demo::Init()
 	//Scale test
 	worldOriginMarker->transform.scale = { 0.5, 0.5 };
 	testObjects.push_back(worldOriginMarker);
-
-	objectManager.AddComponent<EventTest>(player);
-	objectManager.AddComponent<ObserverTest>(player2);
-
-	EventTest* test = player->GetComponent<EventTest>();
-	ObserverTest* obs = player2->GetComponent<ObserverTest>();
-	test->subject.addObserver(obs);
 
 	objectManager.Init();
 }
