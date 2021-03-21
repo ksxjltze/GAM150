@@ -3,10 +3,9 @@
 #include "GraphicsManager.h"
 #include "globals.h"
 
-StarBangBang::DebugText::DebugText(GameObject* obj) : 
-	ListenerComponent(obj), fontId{ -1 }, fontScale{ 3.0f }, textPos{ 0, 0.8f }, duration {2.0f}, timer {0.0f}
+StarBangBang::DebugText::DebugText(GameObject* obj) :
+	ListenerComponent(obj), fontId{ -1 }, fontScale{ 3.0f }, textPos{ 0, 0.8f }, duration{ 2.0f }, timer{ 0.0f }
 {
-
 }
 
 void StarBangBang::DebugText::SetFont(s8 id)
@@ -55,5 +54,5 @@ void StarBangBang::DebugText::Draw()
 
 	f32 TextWidth, TextHeight;
 	AEGfxGetPrintSize(fontId, str, fontScale, TextWidth, TextHeight);
-	AEGfxPrint(fontId, str, textPos.x - TextWidth / 2, textPos.y- TextHeight / 2, fontScale, color, color, color);
+	AEGfxPrint(fontId, str, textPos.x - TextWidth / 2, textPos.y - TextHeight / 2, fontScale, color, color, color);
 }
