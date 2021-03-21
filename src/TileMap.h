@@ -2,6 +2,7 @@
 #include <map>
 #include "ObjectManager.h"
 #include "TileSet.h"
+#include "Grid.h"
 
 namespace StarBangBang
 {
@@ -41,6 +42,9 @@ namespace StarBangBang
 		int GetMapWidth();
 		int GetMapHeight();
 
+		void SetGrid(Grid&);
+
+		Tile& At(int x, int y);
 		void Insert(int x, int y, TileType type);
 		void Replace(int x, int y, TileType type);
 		void Erase(int x, int y);

@@ -290,6 +290,23 @@ namespace StarBangBang
 
 	}
 
+	void TileMap::SetGrid(Grid& grid)
+	{
+		for (const auto& pair : map)
+		{
+			if (pair.second.collidable)
+			{
+				std::pair index = pair.first;
+				grid.SetOccupied(index.first, index.second);
+			}
+		}
+	}
+
+	Tile& TileMap::At(int x, int y)
+	{
+		return map.at({x, y});
+	}
+
 	void TileMap::Replace(int x, int y, TileType type)
 	{
 		TileSprite sprite = tileSet.GetTileSprite(type);

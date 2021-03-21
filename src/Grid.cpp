@@ -232,6 +232,11 @@ using namespace StarBangBang;
 			return nullptr;
 	}
 
+	void StarBangBang::Grid::SetOccupied(int x, int y, bool occupied)
+	{
+		grid[y][x].occupied = occupied;
+	}
+
 	void Grid::DrawGrid(Color color)
 	{
 
