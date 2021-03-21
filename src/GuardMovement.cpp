@@ -1,6 +1,5 @@
 #include "GuardMovement.h"
 #include "Guard.h"
-#include "Utils.h"
 #include <iostream>
 
 #include "BasicMeshShape.h"
@@ -26,6 +25,9 @@ GuardMovement::GuardMovement(GameObject* gameObject)
 
 void GuardMovement::Start()
 {
+	rb = gameObject->GetComponent<RigidBody>();
+	rb->drag = 0.2f;
+
 	startPos = gameObject->GetPos();
 	endPos = { 400, 650 };
 }
@@ -130,8 +132,9 @@ bool GuardMovement::MoveTo(AEVec2 pos)
 
 	AEVec2Sub(&dir, &pos, &gameObject->transform.position);
 	AEVec2Normalize(&dir, &dir);
-	AEVec2Scale(&dir, &dir, dt * SPEED);
-	AEVec2Add(&gameObject->transform.position, &gameObject->transform.position, &dir);
+	AEVec2Scale(&dir, &dir, SPEED);
+
+	rb->AddVelocity(dir, 1.f);
 
 	return false;
 }

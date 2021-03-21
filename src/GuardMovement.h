@@ -1,6 +1,7 @@
 #pragma once
 #include "ScriptComponent.h"
 #include "PathFinder.h"
+#include "Physics.h"
 #include <vector>
 
 namespace StarBangBang
@@ -8,7 +9,7 @@ namespace StarBangBang
 	class GuardMovement : public Script
 	{
 	private:
-		const float SPEED = 150.f;
+		const float SPEED = 30.f;
 	public:
 		GuardMovement(GameObject* gameObject);
 
@@ -51,6 +52,6 @@ namespace StarBangBang
 
 		std::vector<A_Node*> path;
 
-		//AEVec2 targetPos; // the end position of the path
+		RigidBody* rb;
 	};
 }
