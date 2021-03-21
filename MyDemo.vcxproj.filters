@@ -240,9 +240,6 @@
     <ClCompile Include="src\Detector.cpp">
       <Filter>Source Files\Scripts\Guard</Filter>
     </ClCompile>
-    <ClCompile Include="src\Map.cpp">
-      <Filter>Source Files\Scripts</Filter>
-    </ClCompile>
     <ClCompile Include="src\SecondaryMovementController.cpp">
       <Filter>Source Files\Scripts\Movement</Filter>
     </ClCompile>
@@ -458,16 +455,10 @@
     <ClInclude Include="src\Color.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\Detector.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="src\EngineProof.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\IClickable.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Map.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\SceneList.h">
@@ -477,6 +468,12 @@
       <Filter>Header Files\Engine</Filter>
     </ClInclude>
     <ClInclude Include="src\SecurityCamera.h">
+      <Filter>Header Files\Scripts\Guard</Filter>
+    </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Detector.h">
       <Filter>Header Files\Scripts\Guard</Filter>
     </ClInclude>
     <ClInclude Include="src\MessageBus.h">

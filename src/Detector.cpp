@@ -47,6 +47,31 @@ void Detector::Rotate(float angle)
 	rotationAngle = angle;
 }
 
+void Detector::SpanVision(float minRot, float maxRot, float speed)
+{
+	if (!atMaxRot && rotationAngle <= maxRot)
+	{
+		rotationAngle += static_cast<float>(g_dt) * speed;
+	}
+	else
+	{
+		atMaxRot = true;
+	}
+
+	if (atMaxRot && rotationAngle >= minRot)
+	{
+		rotationAngle -= static_cast<float>(g_dt) * speed;
+	}
+	else
+	{
+		atMaxRot = false;
+	}
+
+	AEVec2 facingDir;
+	AEVec2FromAngle(&facingDir, AEDegToRad(90.f + rotationAngle));
+	targetDir = facingDir;
+}
+
 void Detector::CheckForTargets()
 {
 	// continue only if game objects are in same partition

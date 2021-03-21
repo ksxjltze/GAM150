@@ -12,7 +12,7 @@ namespace StarBangBang
 	class GuardManager : public Script
 	{
 	private:
-		int NUM_GUARDS = 2; // to be read from file
+		int NUM_GUARDS = 1; // to be read from file
 
 	public:
 		GuardManager(GameObject* gameObject);

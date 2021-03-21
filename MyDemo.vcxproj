@@ -135,7 +135,6 @@ xcopy /y /d /i /s "$(SolutionDir)\Resources" "$(OutDir)\Resources"</Command>
     <ClCompile Include="src\Level_Demo.cpp" />
     <ClCompile Include="src\Main.cpp" />
     <ClCompile Include="src\Main_Menu.cpp" />
-    <ClCompile Include="src\Map.cpp" />
     <ClCompile Include="src\MemoryManager.cpp" />
     <ClCompile Include="src\MessageBus.cpp" />
     <ClCompile Include="src\Movement.cpp" />
@@ -196,7 +195,6 @@ xcopy /y /d /i /s "$(SolutionDir)\Resources" "$(OutDir)\Resources"</Command>
     <ClInclude Include="src\Listener.h" />
     <ClInclude Include="src\ListenerComponent.h" />
     <ClInclude Include="src\Main_Menu.h" />
-    <ClInclude Include="src\Map.h" />
     <ClInclude Include="src\MemoryManager.h" />
     <ClInclude Include="src\MessageBus.h" />
     <ClInclude Include="src\Movement.h" />

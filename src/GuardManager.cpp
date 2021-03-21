@@ -3,10 +3,13 @@
 #include "Sprite.h"
 #include "Guard.h"
 #include "Detector.h"
-#include "Utils.h"
+#include "Physics.h"
+
+#include "Utils.h" // for mouseworldpos
 
 #include "Text.h"
 #include "globals.h"
+
 using namespace StarBangBang;
 
 GuardManager::GuardManager(GameObject* gameObject) 
@@ -25,13 +28,14 @@ void GuardManager::Init(ObjectManager* objManager, Sprite* sprite, GameObject* p
 		objManager->AddImage(guards[i], *sprite);
 		objManager->AddComponent<Guard>(guards[i]);
 		objManager->AddComponent<GuardMovement>(guards[i]);
-		objManager->AddComponent<GuardVision>(guards[i]).SetPlayerAndClient(player, client);;
+		objManager->AddComponent<GuardVision>(guards[i]).SetPlayerAndClient(player, client);
 		objManager->AddComponent<Detector>(guards[i]);
 		objManager->AddComponent<Text>(guards[i]).fontID = StarBangBang::fontId;
+		objManager->AddComponent<RigidBody>(guards[i]);
 	}
 
 	guards[0]->SetPos({ 250, 650 });
-	guards[1]->SetPos({ 250, 550 });
+	//guards[1]->SetPos({ 250, 550 });
 }
 
 void GuardManager::Update()
@@ -41,12 +45,14 @@ void GuardManager::Update()
 
 	if (AEInputCheckTriggered(VK_LBUTTON))
 	{
-		guards[0]->GetComponent<GuardMovement>()->LookForPath(GetMouseWorldPos());
+		//guards[0]->GetComponent<GuardMovement>()->SetEndPos(GetMouseWorldPos());
+		guards[0]->GetComponent<Guard>()->SetState(Guard::GUARD_STATE::STATE_PATROL);
 	}
 
 	if (AEInputCheckTriggered(VK_RBUTTON))
 	{
-		guards[1]->GetComponent<GuardMovement>()->LookForPath(GetMouseWorldPos());
+		//guards[1]->GetComponent<GuardMovement>()->LookForPath(GetMouseWorldPos());
+		guards[0]->GetComponent<Guard>()->SetState(Guard::GUARD_STATE::STATE_IDLE);
 	}
 }
 

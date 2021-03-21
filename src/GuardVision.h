@@ -1,10 +1,11 @@
 #pragma once
 #include "ScriptComponent.h"
+#include "Detector.h"
 
 namespace StarBangBang
 {
 	class GuardMovement;
-	class Detector;
+	//class Detector;
 
 	class GuardVision : public Script
 	{
@@ -17,6 +18,7 @@ namespace StarBangBang
 		inline void SetPlayerAndClient(GameObject* _player, GameObject* _client) { player = _player; client = _client; }
 		inline void SetDetected(bool _detected) { detected_player = _detected; }
 		inline bool GetDetected() { return detected_player; }
+		inline Detector* GetDetector() { return detector; }
 
 	private:
 		bool detected_player;
