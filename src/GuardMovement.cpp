@@ -1,5 +1,4 @@
 #include "GuardMovement.h"
-#include "GuardVision.h"
 #include "Guard.h"
 #include "Utils.h"
 #include <iostream>
@@ -15,6 +14,7 @@ GuardMovement::GuardMovement(GameObject* gameObject)
 	, lookForPath(false)
 	, foundPath(false)
 	, isMoving(false)
+	, changedTargetPos(false)
 {
 	SetWaypoints();
 	//std::cout << waypoints.size() << "\n";
@@ -24,12 +24,20 @@ GuardMovement::GuardMovement(GameObject* gameObject)
 	//targetPos = waypoints.front();
 }
 
+void GuardMovement::Start()
+{
+	startPos = gameObject->GetPos();
+	endPos = { 400, 650 };
+}
+
 void GuardMovement::Idle()
 {
 	//std::cout << "GUARD: IDLE" << "\n";
 
 	// rotate between left, front, right, back sprites
 	// ...
+
+	isMoving = false;
 }
 
 void GuardMovement::Patrol()
@@ -45,7 +53,23 @@ void GuardMovement::Patrol()
 	AEVec2Add(&gameObject->transform.position, &gameObject->transform.position, &dir);*/
 
 	//MoveTo(waypoints.front());
-	Distracted();
+
+	if (!changedTargetPos)
+	{
+		targetPos = endPos;
+	}
+	else
+	{
+		targetPos = startPos;
+	}
+
+	if (!foundPath)
+	{
+		LookForPath(targetPos);
+		return;
+	}
+
+	MoveAlongPath();
 }
 
 void GuardMovement::Distracted()
@@ -66,15 +90,11 @@ void GuardMovement::MoveAlongPath()
 	if (nodeIndex < path.size())
 	{
 		isMoving = true;
-		//if (nodeIndex + 1 < path.size())
 		nextPos = path[nodeIndex]->nodePos;
-
-		//PRINT("target: %f, %f\n", nextPos.x, nextPos.y);
 
 		float timer = 0.f;
 		if (MoveTo(path[nodeIndex]->nodePos))
 		{
-			//PRINT("NODE INDEX: %d\n", nodeIndex);
 			timer += g_dt;
 			if (timer >= 0.01f)
 			{
@@ -88,10 +108,12 @@ void GuardMovement::MoveAlongPath()
 		// deactivate interactable object
 		// ...
 
+		reachedEndOfPath = true;
 		path.clear();
 		nodeIndex = 0;
 		foundPath = false;
 		isMoving = false;
+		changedTargetPos = !changedTargetPos;
 	}
 }
 
@@ -170,12 +192,16 @@ void GuardMovement::LookForPath(const AEVec2& pos)
 {
 	lookForPath = true;
 
-	if (foundPath) // changing path midway into moving along the path
+	if (lookForPath)
 	{
-		nodeIndex = 0;
-	}
+		if (foundPath) // changing path midway into moving along the path
+		{
+			nodeIndex = 0;
+		}
 
-	path = PathFinder::SearchForPath(gameObject->transform.position, pos);
-	foundPath = (path.size() > 0);
-	lookForPath = false;
+		path = PathFinder::SearchForPath(gameObject->transform.position, pos);
+		foundPath = (path.size() > 0);
+		lookForPath = false;
+		reachedEndOfPath = false;
+	}
 }

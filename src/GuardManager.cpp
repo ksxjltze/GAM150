@@ -28,7 +28,7 @@ void GuardManager::Init(ObjectManager* objManager, Sprite* sprite, GameObject* p
 	}
 
 	guards[0]->SetPos({ 250, 650 });
-	guards[1]->SetPos({ 250, 550 });
+	//guards[1]->SetPos({ 250, 550 });
 }
 
 void GuardManager::Update()
@@ -38,12 +38,14 @@ void GuardManager::Update()
 
 	if (AEInputCheckTriggered(VK_LBUTTON))
 	{
-		guards[0]->GetComponent<GuardMovement>()->LookForPath(GetMouseWorldPos());
+		//guards[0]->GetComponent<GuardMovement>()->SetEndPos(GetMouseWorldPos());
+		guards[0]->GetComponent<Guard>()->SetState(Guard::GUARD_STATE::STATE_PATROL);
 	}
 
 	if (AEInputCheckTriggered(VK_RBUTTON))
 	{
-		guards[1]->GetComponent<GuardMovement>()->LookForPath(GetMouseWorldPos());
+		//guards[1]->GetComponent<GuardMovement>()->LookForPath(GetMouseWorldPos());
+		guards[0]->GetComponent<Guard>()->SetState(Guard::GUARD_STATE::STATE_IDLE);
 	}
 }
 

@@ -55,7 +55,7 @@ void GuardVision::Update()
 	}
 	else
 	{
-		detector->SetFacingDir(defaultForward);
-		detector->Rotate(0.f);
+		/*detector->SetFacingDir(defaultForward);
+		detector->Rotate(0.f);*/
 	}
 }

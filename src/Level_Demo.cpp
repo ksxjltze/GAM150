@@ -6,7 +6,6 @@
 #include "GuardManager.h"
 #include "SecurityCamera.h"
 #include "Detector.h"
-#include "Map.h"
 
 #include "MovementManager.h"
 
@@ -20,7 +19,7 @@ StarBangBang::Level_Demo::Level_Demo(int id, GameStateManager& manager) : Scene(
 {
 	player = nullptr;
 	player2 = nullptr;
-	map = nullptr;
+
 	testSecurityCam = nullptr;
 
 	movementController = nullptr;
@@ -68,11 +67,6 @@ void StarBangBang::Level_Demo::Init()
 	testSecurityCam->GetComponent<Detector>()->Init(90.f, 250.f, player);
 	testSecurityCam->SetPos({ 100, 750 });
 
-	map = objectManager.NewGameObject();
-	objectManager.AddImage(map, mapImage);
-	map->transform.scale = { 5.f, 5.f };
-	objectManager.AddComponent<Map>(map).Init(tilemap.GetMapWidth(), tilemap.GetMapHeight(), player, &objectManager, &playerImage);
-
 	//Creates a clone of the player gameObject and changes the sprite texture.
 	player2 = objectManager.CloneGameObject(player);
 	player2->GetComponent<ImageComponent>()->SetTexture(player2Image.texture);
@@ -119,14 +113,6 @@ void StarBangBang::Level_Demo::Update()
 	if (AEInputCheckTriggered(VK_SPACE))
 	{
 		gameStateManager.SetNextGameState(SceneID::EDITOR);
-	}
-
-	if (AEInputCheckTriggered(AEVK_M))
-	{
-		map->active = !map->active;
-
-		// send message to player so he can't move
-		// ...
 	}
 }
 

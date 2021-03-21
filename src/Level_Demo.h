@@ -34,8 +34,6 @@ namespace StarBangBang
 		GameObject* testInteractable;
 		GameObject* guardManager;
 		GameObject* testSecurityCam;
-		
-		GameObject* map;
 
 		std::vector<GameObject*> testObjects;
 

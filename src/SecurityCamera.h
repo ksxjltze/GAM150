@@ -18,9 +18,7 @@ namespace StarBangBang
 		void SetRotationMinMax(float _minRot, float _maxRot);
 
 	private:
-		bool atMaxRot;
 		float minRot, maxRot;
-		float rotation;
 		Detector* detector;
 	};
 }

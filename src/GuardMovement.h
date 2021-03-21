@@ -12,7 +12,7 @@ namespace StarBangBang
 	public:
 		GuardMovement(GameObject* gameObject);
 
-		void Start() {}
+		void Start();
 		void Update() {}
 
 		void Idle();
@@ -20,6 +20,7 @@ namespace StarBangBang
 		void Distracted();
 
 		void LookForPath(const AEVec2& pos);
+		inline void SetEndPos(const AEVec2& pos) { endPos = pos; }
 
 		inline const AEVec2& GetNextPos() const { return nextPos; }
 		inline bool IsMoving() const { return isMoving; }
@@ -34,12 +35,19 @@ namespace StarBangBang
 		bool isMoving;
 		bool lookForPath;
 		bool foundPath;
+		bool reachedEndOfPath;
+		bool changedTargetPos;
+
 		unsigned int nodeIndex;
+
+		AEVec2 targetPos;
+		AEVec2 startPos;
+		AEVec2 endPos;
 
 		AEVec2 nextPos;
 
 		// Waypoints specific to this guard
-		std::vector<AEVec2> waypoints;
+		std::vector<AEVec2> waypoints; // to use in case pathfinding causes fps drops
 
 		std::vector<A_Node*> path;
 

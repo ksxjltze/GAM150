@@ -29,6 +29,7 @@ namespace StarBangBang
 	private:
 		GUARD_STATE state;
 		GuardMovement* movement;
+		GuardVision* vision;
 		static int id;
 	};
 }
