@@ -45,6 +45,9 @@ void StarBangBang::Level_Demo::Init()
 	tilemap.SetCollidableTypes({ TileType::BRICK_BLACK });
 	tilemap.Load(RESOURCES::LEVELS::LEVEL_TEST_PATH);
 
+	tilemap.SetGrid(PathFinder::GetWorldGrid());
+	tilemap.SetVisible(false);
+
 	//Movement controller
 	movementController = objectManager.NewGameObject();
 	MovementManager& moveMgr = objectManager.AddComponent<MovementManager>(movementController);

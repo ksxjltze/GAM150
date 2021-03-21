@@ -217,6 +217,22 @@ using namespace StarBangBang;
 			return nullptr;
 	}
 
+	void StarBangBang::Grid::SetAllOccupied()
+	{
+		for (size_t y = 0; y < size_y; y++)
+		{
+			for (size_t x = 0; x < size_x; x++)
+			{
+				grid[y][x].occupied = true;
+			}
+		}
+	}
+
+	void StarBangBang::Grid::SetOccupied(int x, int y, bool occupied)
+	{
+		grid[y][x].occupied = occupied;
+	}
+
 	void Grid::DrawGrid(Color color)
 	{
 
