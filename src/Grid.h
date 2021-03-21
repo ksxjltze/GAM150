@@ -20,7 +20,7 @@ namespace StarBangBang
 			
 	};
 	//A* star node
-	class A_Node : public Node , public Interface
+	class A_Node : public Node 
 	{
 	public:
 		bool occupied = false;
@@ -29,8 +29,7 @@ namespace StarBangBang
 		int gcost = 0;	 //cost to start node to end node
 		constexpr int GetfCost()  const { return hcost + gcost; }
 
-		virtual int GetHeapIndex() const;
-		virtual void SetHeapIndex(int);
+		
 	};
 	//partition cell
 	class Cell
@@ -73,7 +72,6 @@ namespace StarBangBang
 		AEVec2 offset = AEVec2();	// grid offset from center (ie to place it in other position)
 		int size_x = 0; // number of nodes in a row
 		int size_y = 0; // number of nodes in a column
-		void CheckOccupiedGrid();
 	public:
 		constexpr AEVec2 GetGridExtend() const
 		{ 
