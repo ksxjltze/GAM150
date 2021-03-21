@@ -55,7 +55,7 @@ void StarBangBang::Level_Demo::Init()
 	//Player components and scripts
 	player = objectManager.NewGameObject();
 	player->SetPos({ 250, 800 });
-	player->transform.scale = { 0.9f, 0.9f };
+	player->transform.scale = { 0.7f, 0.7f };
 
 	DetectionListener* listener = &objectManager.AddComponent<DetectionListener>(player);
 	MessageBus::RegisterListener(listener);
@@ -71,6 +71,7 @@ void StarBangBang::Level_Demo::Init()
 	
 	player2 = objectManager.NewGameObject();
 	player2->SetPos({ 250, 1000 });
+	player2->transform.scale = { 0.7f, 0.7f };
 
 	objectManager.AddImage(player2, player2Image);
 	objectManager.AddComponent<RigidBody>(player2);

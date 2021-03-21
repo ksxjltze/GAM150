@@ -1,7 +1,6 @@
 #pragma once
 #include "../Extern/AlphaEngine_V3.08/include/AEEngine.h"
 #include <unordered_set>
-#include "Heap.h"
 #include "Color.h"
 
 namespace StarBangBang
