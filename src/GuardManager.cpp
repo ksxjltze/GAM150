@@ -53,16 +53,25 @@ void GuardManager::Init(ObjectManager* objManager, Sprite* sprite, GameObject* p
 
 void GuardManager::CreateSecurityCameras(ObjectManager* objManager, Sprite* sprite, GameObject* player, GameObject* client)
 {
-	for (size_t i = 0; i < 1; i++)
+	for (size_t i = 0; i < NUM_CAMERAS; i++)
 	{
 		cameras.push_back(objManager->NewGameObject());
 		cameras[i]->transform.scale = { 0.7f, 0.7f };
 		objManager->AddImage(cameras[i], *sprite);
-		objManager->AddComponent<SecurityCamera>(cameras[i]).SetRotationMinMax(-90.f, 90.f);
-		objManager->AddComponent<Detector>(cameras[i]);
-		cameras[i]->GetComponent<Detector>()->Init(90.f, 250.f, player, client);
-		cameras[i]->SetPos({ 100, 750 });
+		objManager->AddComponent<SecurityCamera>(cameras[i]);
+		objManager->AddComponent<Detector>(cameras[i]).Init(50.f, 100.f, player, client);
 	}
+
+	SetCameraPosAndViewMinMax({-1030, -790},  -250.f, -150.f);
+	SetCameraPosAndViewMinMax({ -250, -520 }, -270.f, -130.f);
+	SetCameraPosAndViewMinMax({ -620, 190 }, -200.f, -80.f);
+	SetCameraPosAndViewMinMax({ 470, -480 }, 0.f, 90.f);
+	SetCameraPosAndViewMinMax({ -645, -410 }, -90.f, 0.f);
+	SetCameraPosAndViewMinMax({ 1020, 350 }, 0.f, 90.f);
+	SetCameraPosAndViewMinMax({ -180, 340 }, 0.f, 90.f);
+	SetCameraPosAndViewMinMax({ -13, 1165 }, -180.f, -90.f);
+	SetCameraPosAndViewMinMax({ -1160, 1130 }, -180.f, -90.f);
+	SetCameraPosAndViewMinMax({ -690, 720 }, 0.f, 360.f);
 }
 
 void GuardManager::Update()
@@ -112,5 +121,13 @@ void GuardManager::SetGuardWaypoints(const AEVec2& start, const AEVec2& end, boo
 	if (isIdle)
 		guards[id]->GetComponent<Guard>()->SetState(Guard::GUARD_STATE::STATE_IDLE);
 
+	++id;
+}
+
+void GuardManager::SetCameraPosAndViewMinMax(const AEVec2& pos, float min, float max)
+{
+	static int id = 0;
+	cameras[id]->SetPos(pos);
+	cameras[id]->GetComponent<SecurityCamera>()->SetRotationMinMax(min, max);
 	++id;
 }

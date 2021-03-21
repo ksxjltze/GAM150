@@ -138,7 +138,7 @@ bool GuardMovement::MoveTo(AEVec2 pos)
 
 bool GuardMovement::ReachedPos(AEVec2 pos)
 {
-	float minDistToTarget = 5.f;
+	float minDistToTarget = 10.f;
 	return (AEVec2SquareDistance(&pos, &gameObject->transform.position) <= minDistToTarget * minDistToTarget);
 }
 
