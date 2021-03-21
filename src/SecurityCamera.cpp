@@ -25,4 +25,5 @@ void SecurityCamera::SetRotationMinMax(float _minRot, float _maxRot)
 void SecurityCamera::Update()
 {
 	detector->SpanVision(minRot, maxRot, ROT_SPEED);
+	gameObject->transform.rotation = detector->GetRotation();
 }

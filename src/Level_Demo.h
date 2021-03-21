@@ -25,7 +25,6 @@ namespace StarBangBang
 		Sprite planetImage;
 		Sprite guardImage;
 		Sprite securityCamImage;
-		Sprite mapImage;
 
 		GameObject* movementController;
 		GameObject* player;

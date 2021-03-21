@@ -20,6 +20,7 @@ namespace StarBangBang
 		inline void SetAngle(float angle) { rotationAngle = angle; }
 		inline void SetFacingDir(const AEVec2& dir) { targetDir = dir; }
 		inline bool DetectedPlayer() const { return detected; }
+		inline float GetRotation() const { return rotationAngle; }
 
 	private:
 		void CheckForTargets();

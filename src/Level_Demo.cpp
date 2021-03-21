@@ -41,8 +41,7 @@ void StarBangBang::Level_Demo::Load()
 	//guardImage = graphicsManager.CreateSprite("./Resources/guard.png");
 	guardImage = graphicsManager.CreateSprite(RESOURCES::SECURITYGUARD_F1_PATH);
 	//securityCamImage = graphicsManager.CreateSprite("./Resources/guard.png");
-	securityCamImage = graphicsManager.CreateSprite(RESOURCES::SECURITYGUARD_F1_PATH);
-	mapImage = graphicsManager.CreateSprite("./Resources/map.png");
+	securityCamImage = graphicsManager.CreateSprite(RESOURCES::CAMERA_PATH);
 }
 
 //Initialization of game objects, components and scripts.
