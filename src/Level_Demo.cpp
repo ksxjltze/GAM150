@@ -49,6 +49,8 @@ void StarBangBang::Level_Demo::Init()
 {
 	PathFinder::ShowGrid(true);
 	GRAPHICS::SetBackgroundColor(Black);
+
+	tilemap.SetCollidableTypes({TileType::BRICK_BLACK});
 	tilemap.Load(RESOURCES::LEVELS::LEVEL_TEST_PATH);
 
 	GameObject* worldOriginMarker = objectManager.NewGameObject();
@@ -61,6 +63,7 @@ void StarBangBang::Level_Demo::Init()
 	objectManager.AddImage(worldOriginMarker, planetImage);
 	objectManager.AddImage(player, playerImage);
 	objectManager.AddComponent<Text>(player);
+
 	Text* txt = player->GetComponent<Text>();
 	assert(txt);
 	txt->fontID = StarBangBang::fontId;
@@ -82,21 +85,16 @@ void StarBangBang::Level_Demo::Init()
 
 	testInteractable = objectManager.CloneGameObject(player2);
 
-	player->SetPos({ 250, 750 }); //200, 200
+	player->SetPos({ 250, 800 }); //200, 200
 	player2->SetPos({ -150, 200 });
 	testInteractable->SetPos({ 50, 50 });
 
 	objectManager.AddComponent<CameraComponent>(player);
+	objectManager.AddComponent<RigidBody>(player);
+	objectManager.AddCollider(player, false);
+	objectManager.AddComponent<PrimaryMovementController>(player);
 	objectManager.AddComponent<InteractableComponent>(testInteractable);
 
-	objectManager.AddComponent<Movement>(player);
-	objectManager.AddComponent<Movement>(player2);
-	objectManager.AddComponent<MovementManager>(movementController);
-	//objectManager.AddComponent<SecondaryMovementController>(testInteractable);
-
-	movementController->GetComponent<MovementManager>()->AddController(player);
-	movementController->GetComponent<MovementManager>()->AddController(player2);
-	//testInteractable->GetComponent<InteractableComponent>()->SetType(InteractableComponent::INTERACTABLE_TYPE::TYPE_PRINTER);
 
 	//Testing Tags
 	tagManager.AddTag(*player, "Test");
