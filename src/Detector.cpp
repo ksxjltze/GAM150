@@ -9,7 +9,8 @@ Detector::Detector(GameObject* gameObject)
 	: Script(gameObject)
 	, fieldOfView(0.f)
 	, viewDist(0.f)
-	, targetGO(nullptr)
+	, target1(nullptr)
+	, target2(nullptr)
 	, rotationAngle(0.f)
 	, detected(false)
 	, defaultForward({ 0, 1 })
@@ -17,16 +18,18 @@ Detector::Detector(GameObject* gameObject)
 {
 }
 
-void Detector::Init(float fov, float dist, GameObject* target)
+void Detector::Init(float fov, float dist, GameObject* player, GameObject* client)
 {
 	fieldOfView = fov;
 	viewDist = dist;
-	targetGO = target;
+	target1 = player;
+	target2 = client;
 }
 
 void Detector::Update()
 {
-	CheckForTargets();
+	CheckForTargets(target1->GetPos());
+	CheckForTargets(target2->GetPos());
 }
 
 void Detector::Draw()
@@ -72,14 +75,14 @@ void Detector::SpanVision(float minRot, float maxRot, float speed)
 	targetDir = facingDir;
 }
 
-void Detector::CheckForTargets()
+void Detector::CheckForTargets(const AEVec2& _targetPos)
 {
 	// continue only if game objects are in same partition
 	// ...
 	
 	AEVec2 toTargetVec;
 	AEVec2 goPos = gameObject->GetPos();
-	AEVec2 targetPos = targetGO->GetPos();
+	AEVec2 targetPos = _targetPos;
 	float dpResult;
 
 	// calculate vector from game object to target

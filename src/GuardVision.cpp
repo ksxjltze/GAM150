@@ -23,7 +23,7 @@ void GuardVision::Start()
 {
 	movement = gameObject->GetComponent<GuardMovement>();
 	detector = gameObject->GetComponent<Detector>();
-	detector->Init(fieldOfView, viewDist, player);
+	detector->Init(fieldOfView, viewDist, player, client);
 }
 
 void GuardVision::Update()

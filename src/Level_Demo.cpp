@@ -68,9 +68,8 @@ void StarBangBang::Level_Demo::Init()
 	objectManager.AddComponent<PrimaryMovementController>(player);
 
 	//Player 2
-	
 	player2 = objectManager.NewGameObject();
-	player2->SetPos({ 250, 1000 });
+	player2->SetPos({ 250, 950 });
 	player2->transform.scale = { 0.7f, 0.7f };
 
 	objectManager.AddImage(player2, player2Image);
@@ -91,7 +90,7 @@ void StarBangBang::Level_Demo::Init()
 	objectManager.AddImage(testSecurityCam, securityCamImage);
 	objectManager.AddComponent<SecurityCamera>(testSecurityCam).SetRotationMinMax(-90.f, 90.f);
 	objectManager.AddComponent<Detector>(testSecurityCam);
-	testSecurityCam->GetComponent<Detector>()->Init(90.f, 250.f, player);
+	testSecurityCam->GetComponent<Detector>()->Init(90.f, 250.f, player, player2);
 	testSecurityCam->SetPos({ 100, 750 });
 
 	// Call Start on scripts
