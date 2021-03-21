@@ -137,7 +137,7 @@ namespace StarBangBang
 
 	void GRAPHICS::ResetCamera()
 	{
-		SetZoom(1.0f);
+		SetZoom(DEFAULT_ZOOM);
 		SetCameraPosition(0, 0);
 	}
 
