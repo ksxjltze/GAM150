@@ -6,13 +6,14 @@ namespace StarBangBang
 {
 	enum class TileType
 	{
-		NONE = 0, 
-		GRASS, 
-		STONE, 
-		BRICK_BLACK, 
-		BRICK_RED, 
-		FLOOR_PRISON, 
-		FLOOR_OFFICE, 
+		NONE = 0,
+		GRASS,
+		STONE,
+		BRICK_BLACK,
+		BRICK_RED,
+		FLOOR_PRISON,
+		FLOOR_OFFICE,
+		TEST = 11,
 		END
 	};
 

@@ -19,9 +19,6 @@ namespace StarBangBang
 			base = objMgr.NewGameObject();
 		}
 
-		//Temporary solution
-		//collidableList.push_back(TileType::BRICK_BLACK);
-		//collidableList.push_back(TileType::BRICK_RED);
 	}
 
 	void TileMap::Generate(int width, int height, float tileSize, TileType type)
@@ -159,21 +156,37 @@ namespace StarBangBang
 				std::string row;
 				is >> row;
 
-				for (auto ch : row)
+				for (auto ch = row.begin(); ch != row.end(); ch++)
 				{
-					//Improve later to accomodate for > 10
-					if (ch != ',')
+					std::string typeString;
+
+					//Assuming CSV Format
+					//Reads data from each cell
+					while (*ch != ',')
 					{
-						TileType type = static_cast<TileType>(ch - '0');
-
-						if (type != TileType::NONE)
-						{
-							Insert(x++, y, type);
-						}
+						typeString += *ch;
+						if (ch + 1 != row.end())
+							++ch;
 						else
-							++x;
-
+							break;
 					}
+					
+					//Determine Tile Type
+					int typeID = atoi(typeString.c_str());
+					TileType type = static_cast<TileType>(typeID);
+
+					if (type == TileType::TEST)
+					{
+						printf("PEE PEE POO POO\n");
+					}
+
+					if (type != TileType::NONE)
+					{
+						Insert(x++, y, type);
+					}
+					else
+						++x;
+
 				}
 				--y;
 
