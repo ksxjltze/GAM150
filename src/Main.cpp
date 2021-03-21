@@ -100,12 +100,14 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 	Scene* engineProof		= gameStateManager.AddGameState<EngineProof>();
 	Scene* testScene		= gameStateManager.AddGameState<TestScene>();
 	
+	// Hack to remove unreferenced local variable warning
 	sceneList.push_back(sceneDemo);
 	sceneList.push_back(sceneEditor);
 	sceneList.push_back(sampleScene);
 	sceneList.push_back(gameScene);
 	sceneList.push_back(mainMenuScene);
 	sceneList.push_back(engineProof);
+	sceneList.push_back(testScene);
 
 	// Set Initial State
 

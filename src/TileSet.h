@@ -13,8 +13,8 @@ namespace StarBangBang
 		BRICK_RED,
 		FLOOR_PRISON,
 		FLOOR_OFFICE,
-		TEST = 11,
-		END
+		END,
+		TEST = 11
 	};
 
 	struct TileSprite
