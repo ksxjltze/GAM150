@@ -282,6 +282,9 @@
     <ClCompile Include="src\TestScene.cpp">
       <Filter>Source Files\Test</Filter>
     </ClCompile>
+    <ClCompile Include="src\DebugText.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\ImageComponent.h">
@@ -499,6 +502,9 @@
     </ClInclude>
     <ClInclude Include="src\TestScene.h">
       <Filter>Header Files\Test</Filter>
+    </ClInclude>
+    <ClInclude Include="src\DebugText.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

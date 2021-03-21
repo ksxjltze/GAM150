@@ -6,6 +6,7 @@
 #include "CameraComponent.h"
 #include "SerializeTest.h"
 #include "TileMap.h"
+#include "DebugText.h"
 
 namespace StarBangBang
 {
@@ -38,5 +39,6 @@ namespace StarBangBang
 		Grid grid;
 
 		GameObject* camera{ nullptr };
+		GameObject* debugText{ nullptr };
 	};
 }

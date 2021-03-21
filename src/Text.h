@@ -17,10 +17,12 @@ namespace StarBangBang
 	class Text: public Component<Text>
 	{
 	public:
+		Text(GameObject* gameObject);
 		AEVec2 position;
 		TextBox textbox;
 		s8 fontID;
-		Text(GameObject* gameObject);
+		void SetText(const std::string& s);
+		void SetTextBox(float width, float height);
 		void Draw();
 	private:
 		std::string text;

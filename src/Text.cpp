@@ -9,6 +9,17 @@ Text::Text(GameObject* gameObject) : Component(gameObject), position{ AEVec2{0,0
 
 }
 
+void StarBangBang::Text::SetText(const std::string& s)
+{
+	text = s;
+}
+
+void StarBangBang::Text::SetTextBox(float width, float height)
+{
+	textbox.width = width;
+	textbox.height = height;
+}
+
 void Text::Draw()
 {
 	if (fontID == -1)
