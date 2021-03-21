@@ -1,5 +1,6 @@
 #pragma once
 #include "ScriptComponent.h"
+#include "Physics.h"
 
 namespace StarBangBang
 {
@@ -9,5 +10,7 @@ namespace StarBangBang
 		PrimaryMovementController(GameObject* gameObject);
 		void Start();
 		void Update();
+	private:
+		StarBangBang::RigidBody* rb;
 	};
 }

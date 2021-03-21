@@ -4,7 +4,7 @@
 #include "globals.h"
 
 StarBangBang::DebugText::DebugText(GameObject* obj) :
-	ListenerComponent(obj), fontId{ -1 }, fontScale{ 3.0f }, textPos{ 0, 0.8f }, duration{ 2.0f }, timer{ 0.0f }
+	ListenerComponent(obj), fontId{ -1 }, fontScale{ 1.0f }, textPos{ 0, 0.8f }, duration{ 2.0f }, timer{ 0.0f }
 {
 }
 

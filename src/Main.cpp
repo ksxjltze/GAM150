@@ -38,8 +38,8 @@ namespace StarBangBang
 
 		AEGfxSetBlendMode(AE_GFX_BM_BLEND);
 		f32 TextWidth, TextHeight;
-		AEGfxGetPrintSize(fontId, strBuffer, 1.0f, TextWidth, TextHeight);
-		AEGfxPrint(fontId, strBuffer, 0.99f - TextWidth, 0.99f - TextHeight, 1.0f, 1.f, 1.f, 1.f);
+		AEGfxGetPrintSize(fontId, strBuffer, 0.5f, TextWidth, TextHeight);
+		AEGfxPrint(fontId, strBuffer, 0.99f - TextWidth, 0.99f - TextHeight, 0.5f, 1.f, 1.f, 1.f);
 	}
 
 }
@@ -134,7 +134,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 	AEGfxSetBlendMode(AE_GFX_BM_BLEND);
 
 	// ALWAYS CREATE FONTS OUTSIDE LOOP
-	fontId = AEGfxCreateFont("./Resources/Roboto-Regular.ttf", 12);
+	fontId = AEGfxCreateFont("./Resources/Roboto-Regular.ttf", 32);
 	if (fontId < 0)
 	{
 		fontId = 0;

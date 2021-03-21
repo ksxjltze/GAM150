@@ -22,7 +22,6 @@ namespace StarBangBang
 	private:
 		Sprite playerImage;
 		Sprite player2Image;
-		Sprite planetImage;
 		Sprite guardImage;
 		Sprite securityCamImage;
 
@@ -30,11 +29,9 @@ namespace StarBangBang
 		GameObject* player;
 		GameObject* player2;
 
-		GameObject* testInteractable;
 		GameObject* guardManager;
 		GameObject* testSecurityCam;
 
-		std::vector<GameObject*> testObjects;
 
 		TileMap tilemap;
 	};

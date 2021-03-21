@@ -1,7 +1,5 @@
 #include "PrimaryMovementController.h"
-#include "Physics.h"
 
-StarBangBang::RigidBody* rb;
 AEVec2 movement = AEVec2{0,0};
 StarBangBang::PrimaryMovementController::PrimaryMovementController(GameObject* gameObject) : Script(gameObject)
 {
