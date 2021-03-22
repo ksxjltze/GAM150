@@ -246,6 +246,11 @@ namespace StarBangBang
 		return mapWidth;
 	}
 
+	AEVec2 TileMap::GetPositionAtIndex(int x, int y)
+	{
+		return (map.at({ x, y }).spriteObject->gameObject->transform.position);
+	}
+
 	int TileMap::GetMapHeight()
 	{
 		return mapHeight;

@@ -10,8 +10,10 @@ namespace StarBangBang
 		PlayerScript(GameObject* obj);
 		void onNotify(Event e);
 		bool isGameOver();
+		bool isWin();
 	private:
 		bool gameover = false;
+		bool win = false;
 
 	};
 }

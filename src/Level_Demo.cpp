@@ -38,6 +38,7 @@ void StarBangBang::Level_Demo::Load()
 	player2Image = graphicsManager.CreateSprite(RESOURCES::PRISONER_F1_PATH);
 	guardImage = graphicsManager.CreateSprite(RESOURCES::SECURITYGUARD_F1_PATH);
 	securityCamImage = graphicsManager.CreateSprite(RESOURCES::CAMERA_PATH);
+	exitImage = graphicsManager.CreateSprite(RESOURCES::VENDING_LEFT_PATH);
 }
 
 //Initialization of game objects, components and scripts.
@@ -98,6 +99,16 @@ void StarBangBang::Level_Demo::Init()
 	playerCol = player->GetComponent<BoxCollider>();
 	clientCol = player2->GetComponent<BoxCollider>();
 
+	//Level Exit
+	GameObject* exit = objectManager.NewGameObject();
+	//temp
+	exit->transform.position = tilemap.GetPositionAtIndex(10, 40);
+	exit->name = "EXIT";
+
+	objectManager.AddImage(exit, exitImage);
+	objectManager.AddCollider(exit, true).isTrigger = true;
+	
+
 	// Call Start on scripts
 	objectManager.Init();
 }
@@ -110,8 +121,15 @@ void StarBangBang::Level_Demo::Update()
 		gameStateManager.SetNextGameState(SceneID::EDITOR);
 	}
 
-	if (player->GetComponent<PlayerScript>()->isGameOver())
+	PlayerScript* playerScript = player->GetComponent<PlayerScript>();
+	if (playerScript->isGameOver())
 	{
+		std::cout << "LOSE\n" << std::endl;
+		gameStateManager.SetNextGameState(MAIN_MENU);
+	}
+	else if (playerScript->isWin())
+	{
+		std::cout << "WIN\n" << std::endl;
 		gameStateManager.SetNextGameState(MAIN_MENU);
 	}
 

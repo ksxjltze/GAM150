@@ -3,6 +3,7 @@
 #include <vector>
 #include <typeinfo>
 #include <algorithm>
+#include <string>
 
 namespace StarBangBang
 {
@@ -13,6 +14,8 @@ namespace StarBangBang
 		Transform transform;
 		GameObject* parent = nullptr;
 		bool active = true;
+		
+		std::string name;
 
 		GameObject();
 		GameObject(const GameObject& prefab);

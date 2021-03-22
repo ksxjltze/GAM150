@@ -38,6 +38,7 @@ namespace StarBangBang
 		/// <returns>Offset Vector</returns>
 		AEVec2 GetCentreOffset(AEVec2 pos = { 0, 0 });
 		void SetPosition(AEVec2 pos);
+		AEVec2 GetPositionAtIndex(int x, int y);
 
 		int GetMapWidth();
 		int GetMapHeight();
