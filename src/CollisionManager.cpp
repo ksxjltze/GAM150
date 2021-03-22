@@ -3,7 +3,6 @@
 #include "Grid.h"
 #include <cmath>
 #include <iostream>
-#include "UniqueQueue.h"
 #include "MessageBus.h"
 
 using namespace StarBangBang;
@@ -30,6 +29,99 @@ namespace
 	std::vector<BoxCollider*> collider_list;
 
 }
+bool LineContainsPoint(const Ray& line, AEVec2 pt)
+{
+	AEVec2 p0 {line.start.x - pt.x , line.start.y - pt.y } ;
+	AEVec2 p1 {line.end.x - pt.x , line.end.y - pt.y };
+
+
+	float dotp0 = AEVec2DotProduct(&p0,&pt);
+	float dotp1 = AEVec2DotProduct(&p0, &pt);
+
+	//point within line
+	if (dotp0 * dotp1 < 0)
+		return true;
+	return false;
+
+}
+
+int LineOrientation(AEVec2 start, AEVec2 end, AEVec2 ptToTest)
+{
+	//wedge product
+	int ori = (int)roundf(
+		(start.y - end.y) * (ptToTest.x - start.x) -
+		(start.x - end.x) * (ptToTest.y - start.y)	);
+	
+	if (ori == 0) return 0;
+
+	return (ori > 0) ? 1 : -1;
+}
+
+bool LineIntersect(const Ray& l1, const Ray& l2)
+{
+
+	int o1 = LineOrientation(l1.start, l1.end, l2.start);
+	int o2 = LineOrientation(l1.start, l1.end, l2.end);
+	int o3 = LineOrientation(l2.start, l2.end, l1.start);
+	int o4 = LineOrientation(l2.start, l2.end, l1.end);
+
+	//pairs of different orientation means line segment intersects
+	if (o1 != o2 && o3 != o4)
+		return true;
+
+	// when points are collinear 
+	// points are on the same line check if they are within the min and max bound of line
+	if (o1 == 0 && LineContainsPoint(l1, l2.start) || o2 == 0 && LineContainsPoint(l1, l2.end)
+		|| o3 == 0 && LineContainsPoint(l2, l1.start) || o4 == 0 && LineContainsPoint(l2, l1.end))
+	{
+		return true;
+	}
+
+	return false;
+}
+
+BoxCollider* CollisionManager::LineCast(const Ray& ray, BoxCollider* ignore)
+{
+	const int sides = 4;
+	for (BoxCollider* col : collider_list)
+	{
+
+		if (col == ignore)
+			continue;
+
+		//if ray starts inside the collider
+		//intersect
+		/*if (CollisionManager::ContainsPoint(*col, ray.start) || CollisionManager::ContainsPoint(*col, ray.end))
+		{
+			return col;
+		}*/
+		//box line segements
+		Ray boxAxis[4] = {
+
+				Ray{AEVec2{col->Min().x,col->Max().y },col->Max()},
+
+				Ray{col->Max() , AEVec2{col->Max().x,col->Min().y }},
+
+				Ray{AEVec2{col->Max().x,col->Min().y } , col->Min()},
+
+				Ray{col->Min(),AEVec2{col->Min().x,col->Max().y }},
+		};
+
+		for (int i = 0; i < sides; ++i)
+		{
+			//intersect
+			if (LineIntersect(boxAxis[i], ray))
+			{
+				return col;
+			}
+
+		}
+
+	}
+	//non intersect
+	return nullptr;
+}
+
 
 void CollisionManager::ClearPartitionGridCell(int index)
 {

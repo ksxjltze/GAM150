@@ -19,6 +19,9 @@
 #include "Text.h"
 #include "globals.h"
 
+StarBangBang::BoxCollider* playerCol;
+StarBangBang::BoxCollider* clientCol;
+
 StarBangBang::Level_Demo::Level_Demo(int id, GameStateManager& manager) : Scene(id, manager), tilemap{ objectManager, graphicsManager }
 {
 	player = nullptr;
@@ -88,6 +91,10 @@ void StarBangBang::Level_Demo::Init()
 	mgr.Init(&objectManager, &guardImage, player, player2);
 	guardManager->GetComponent<GuardManager>()->CreateSecurityCameras(&objectManager, &securityCamImage, player, player2);
 
+	//serve as references parameter for raycast ignore
+	playerCol = player->GetComponent<BoxCollider>();
+	clientCol = player2->GetComponent<BoxCollider>();
+
 	// Call Start on scripts
 	objectManager.Init();
 }
@@ -99,7 +106,6 @@ void StarBangBang::Level_Demo::Update()
 	{
 		gameStateManager.SetNextGameState(SceneID::EDITOR);
 	}
-
 
 
 }
