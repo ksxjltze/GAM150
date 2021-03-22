@@ -46,8 +46,8 @@ using namespace StarBangBang;
 
 		if (hashIndex < 0)
 			hashIndex += buckets;
-
-		//PRINT("hash:%d\n", hashIndex);
+		//PRINT("--------------------\n");
+		//PRINT("hash:%d\n\n", hashIndex);
 		//PRINT("%d------------------\n", counter);
 
 		return hashIndex;

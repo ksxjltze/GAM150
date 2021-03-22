@@ -19,6 +19,8 @@
 #include "Text.h"
 #include "globals.h"
 
+#include "PlayerScript.h"
+
 StarBangBang::BoxCollider* playerCol;
 StarBangBang::BoxCollider* clientCol;
 
@@ -69,7 +71,8 @@ void StarBangBang::Level_Demo::Init()
 	objectManager.AddComponent<RigidBody>(player);
 	objectManager.AddCollider(player, false);
 	objectManager.AddComponent<PrimaryMovementController>(player);
-	objectManager.AddComponent<CollisionListener>(player);
+	Listener* l = &objectManager.AddComponent<PlayerScript>(player);
+	MessageBus::RegisterListener(l);
 
 	//Player 2
 	player2 = objectManager.NewGameObject();
@@ -105,6 +108,11 @@ void StarBangBang::Level_Demo::Update()
 	if (AEInputCheckTriggered(VK_SPACE))
 	{
 		gameStateManager.SetNextGameState(SceneID::EDITOR);
+	}
+
+	if (player->GetComponent<PlayerScript>()->isGameOver())
+	{
+		gameStateManager.SetNextGameState(MAIN_MENU);
 	}
 
 

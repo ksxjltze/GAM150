@@ -393,6 +393,8 @@ void ResolvePenetration(const CollisionPair& pair)
 	pair.A.rb->AddInstantVelocity(corr, -pair.A.rb->inv_mass());
 
 	pair.B.rb->AddInstantVelocity(corr, pair.B.rb->inv_mass());
+
+
 }
 
 void StarBangBang::CollisionManager::Free()
