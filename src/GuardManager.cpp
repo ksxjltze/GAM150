@@ -52,6 +52,8 @@ void GuardManager::Init(ObjectManager* objManager, Sprite* sprite, GameObject* p
 	SetGuardWaypoints(id++, { 930, 830 }, { 0, 515 });
 	SetGuardWaypoints(id++, { -195, 790 }, { -815, 540 });
 	SetGuardWaypoints(id++, { -1120, 420 }, { -880, 880 });
+	SetGuardWaypoints(id++, { 1070, 1011 }, { -733, -1060 }, false, 40.f); // patrol level kinda
+	SetGuardWaypoints(id++, { 1055, 145 }, { 1055, -950 }, false, 40.f); // patrol level kinda
 }
 
 void GuardManager::CreateSecurityCameras(ObjectManager* objManager, Sprite* sprite, GameObject* player, GameObject* client)
@@ -81,7 +83,7 @@ void GuardManager::CreateSecurityCameras(ObjectManager* objManager, Sprite* spri
 
 void GuardManager::Update()
 {
-	//PRINT("x: %f, y: %f\n", GetMouseWorldPos().x, GetMouseWorldPos().y);
+	PRINT("x: %f, y: %f\n", GetMouseWorldPos().x, GetMouseWorldPos().y);
 
 	// upon receiving distraction event, get nearest guard to be distracted
 	// ...
@@ -118,12 +120,14 @@ GameObject* GuardManager::GetNearestGuard(AEVec2& _pos)
 	return nearestGuard;
 }
 
-void GuardManager::SetGuardWaypoints(int id, const AEVec2& start, const AEVec2& end, bool isIdle)
+void GuardManager::SetGuardWaypoints(int id, const AEVec2& start, const AEVec2& end, bool isIdle, float speed)
 {
 	guards[id]->GetComponent<GuardMovement>()->SetStartEndPos(start, end);
 
 	if (isIdle)
 		guards[id]->GetComponent<Guard>()->SetState(Guard::GUARD_STATE::STATE_IDLE);
+
+	guards[id]->GetComponent<GuardMovement>()->SetSpeed(speed);
 }
 
 void GuardManager::InitSecurityCam(int id, const AEVec2& pos, float min, float max, float speed)
