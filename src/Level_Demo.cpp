@@ -67,9 +67,11 @@ namespace StarBangBang
 
 		//Player components and scripts
 		CaptainStealth::SpawnPlayer(objectManager, player, playerImage);
+		player->transform.position = tilemap.GetPositionAtIndex(6, 3);
 
 		//Client
 		CaptainStealth::SpawnClient(objectManager, player2, player2Image);
+		player2->transform.position = tilemap.GetPositionAtIndex(8, 3);
 
 		//Compooter
 		srand(static_cast<unsigned int>(time(NULL)));
@@ -97,7 +99,7 @@ namespace StarBangBang
 		//Level Exit
 		GameObject* exit = objectManager.NewGameObject();
 		//temp
-		exit->transform.position = tilemap.GetPositionAtIndex(10, 40);
+		exit->transform.position = tilemap.GetPositionAtIndex(40, 45);
 		exit->name = "EXIT";
 		objectManager.AddImage(exit, exitImage);
 		objectManager.AddCollider(exit, true).isTrigger = true;
