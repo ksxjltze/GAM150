@@ -109,6 +109,8 @@ namespace StarBangBang
 		
 		const std::string&& OFFICEFLOOR_PATH				= FLOORTILES_PATH + "OfficeFloor.png";
 		const std::string&& PRISONFLOOR_PATH				= FLOORTILES_PATH + "PrisonFloor.png";
+		const std::string&& PRISONCELL_PATH					= FLOORTILES_PATH + "prisoncell.png";
+		const std::string&& DOOR_PATH						= FLOORTILES_PATH + "Door.png";
 
 		//interactable objects
 		const std::string&& CAMERA_PATH						= INTERACTABLE_PATH + "CameraUp.png";
@@ -118,5 +120,7 @@ namespace StarBangBang
 		const std::string&& VENDING_LEFT_RED_PATH			= INTERACTABLE_PATH + "VendingMachineLeft1.png";
 		const std::string&& VENDING_RIGHT_PATH				= INTERACTABLE_PATH + "VendingMachineRight.png";
 		const std::string&& VENDING_RIGHT_RED_PATH			= INTERACTABLE_PATH + "VendingMachineRight1.png";
+		const std::string&& COMPUTER_PATH					= INTERACTABLE_PATH + "Computer.png";
+
 	}
 }

@@ -25,9 +25,9 @@ StarBangBang::TestScene::TestScene(int id, GameStateManager& gsm) : Scene(id, gs
 
 void StarBangBang::TestScene::Load()
 {
-	computerSprite = graphicsManager.CreateSprite(RESOURCES::VENDING_LEFT_PATH);
+	computerSprite = graphicsManager.CreateSprite(RESOURCES::COMPUTER_PATH);
 	prisonerSprite = graphicsManager.CreateSprite(RESOURCES::PRISONER_F1_PATH);
-	doorSprite = graphicsManager.CreateSprite(RESOURCES::BIN_PATH);
+	doorSprite = graphicsManager.CreateSprite(RESOURCES::DOOR_PATH);
 }
 
 void StarBangBang::TestScene::Init()
