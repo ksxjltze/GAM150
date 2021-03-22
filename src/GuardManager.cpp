@@ -31,8 +31,8 @@ void GuardManager::Init(ObjectManager* objManager, Sprite* sprite, GameObject* p
 		objManager->AddImage(guards[i], *sprite);
 		objManager->AddComponent<Guard>(guards[i]);
 		objManager->AddComponent<GuardMovement>(guards[i]);
-		objManager->AddComponent<GuardVision>(guards[i]).SetPlayerAndClient(player, client);
-		objManager->AddComponent<Detector>(guards[i]);
+		objManager->AddComponent<GuardVision>(guards[i]);
+		objManager->AddComponent<Detector>(guards[i]).Init(GUARD::GUARD_FOV, GUARD::GUARD_VIEW_DIST, player, client);
 		objManager->AddComponent<Text>(guards[i]).fontID = StarBangBang::fontId;
 		objManager->AddComponent<RigidBody>(guards[i]);
 		objManager->AddCollider(guards[i], false);
@@ -64,7 +64,7 @@ void GuardManager::CreateSecurityCameras(ObjectManager* objManager, Sprite* spri
 		cameras[i]->transform.scale = { 0.7f, 0.7f };
 		objManager->AddImage(cameras[i], *sprite);
 		objManager->AddComponent<SecurityCamera>(cameras[i]);
-		objManager->AddComponent<Detector>(cameras[i]).Init(50.f, 200.f, player, client);
+		objManager->AddComponent<Detector>(cameras[i]).Init(GUARD::CAM_FOV, GUARD::CAM_VIEW_DIST, player, client);
 	}
 
 	SetCameraPosAndViewMinMax(id++, {-1030, -790},  -250.f, -150.f);

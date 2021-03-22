@@ -48,8 +48,8 @@ void Detector::Draw()
 	else if (!detectedTarget1 && !detectedTarget2)
 		color = White;
 
-	DrawLine(viewDist, gameObject->GetPos(), (fieldOfView * 0.5f) + rotationAngle, color);
-	DrawLine(viewDist, gameObject->GetPos(), (-fieldOfView * 0.5f) + rotationAngle, color);
+	DrawLine(viewDist + 50.f, gameObject->GetPos(), (fieldOfView * 0.5f) + rotationAngle, color);
+	DrawLine(viewDist + 50.f, gameObject->GetPos(), (-fieldOfView * 0.5f) + rotationAngle, color);
 }
 
 void Detector::Rotate(float angle)

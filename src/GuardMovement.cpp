@@ -129,7 +129,7 @@ bool GuardMovement::MoveTo(AEVec2 pos)
 
 	AEVec2Sub(&dir, &pos, &gameObject->transform.position);
 	AEVec2Normalize(&dir, &dir);
-	AEVec2Scale(&dir, &dir, SPEED);
+	AEVec2Scale(&dir, &dir, GUARD::GUARD_SPEED);
 
 	rb->AddVelocity(dir, 1.f);
 
