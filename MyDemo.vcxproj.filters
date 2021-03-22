@@ -309,6 +309,9 @@
     <ClCompile Include="src\Physics.cpp">
       <Filter>Source Files\Engine\Collision</Filter>
     </ClCompile>
+    <ClCompile Include="src\PlayerScript.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\ImageComponent.h">
@@ -532,6 +535,9 @@
     </ClInclude>
     <ClInclude Include="src\TileSet.h">
       <Filter>Header Files\Engine\Game Logic</Filter>
+    </ClInclude>
+    <ClInclude Include="src\PlayerScript.h">
+      <Filter>Header Files\Scripts</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
