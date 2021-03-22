@@ -9,6 +9,7 @@
 
 #include "MovementManager.h"
 #include "DetectionListener.h"
+#include "CollisionListener.h"
 #include "MessageBus.h"
 
 #include <iostream>
@@ -65,6 +66,7 @@ void StarBangBang::Level_Demo::Init()
 	objectManager.AddComponent<RigidBody>(player);
 	objectManager.AddCollider(player, false);
 	objectManager.AddComponent<PrimaryMovementController>(player);
+	objectManager.AddComponent<CollisionListener>(player);
 
 	//Player 2
 	player2 = objectManager.NewGameObject();
@@ -73,7 +75,7 @@ void StarBangBang::Level_Demo::Init()
 
 	objectManager.AddImage(player2, player2Image);
 	objectManager.AddComponent<RigidBody>(player2);
-	objectManager.AddCollider(player2, false);
+	objectManager.AddCollider(player2, false).isTrigger = true;
 	objectManager.AddComponent<PrimaryMovementController>(player2);
 
 	//Movement Manager

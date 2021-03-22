@@ -4,6 +4,8 @@
 #include <cmath>
 #include <iostream>
 #include "UniqueQueue.h"
+#include "MessageBus.h"
+
 using namespace StarBangBang;
 
 const unsigned int sides = 30;
@@ -380,6 +382,15 @@ void CollisionManager::ResolverUpdate()
 					{
 						if (Dynamic_AABB(*col, col->rb->velocity, *col2, col2->rb->velocity))
 						{
+							if (col->isTrigger || col2->isTrigger)
+							{
+								Event collisionEvent;
+								collisionEvent.id = EventId::COLLISION;
+								collisionEvent.context = std::pair<Collider*, Collider*>(col, col2);
+								MessageBus::Notify(collisionEvent);
+								continue;
+							}
+
 							CalculateCollisionData(*col, *col2, data);
 							CollisionPair p{ *col,*col2, data };
 							ResolveVelocity(p);
