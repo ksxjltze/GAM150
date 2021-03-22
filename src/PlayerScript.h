@@ -16,7 +16,6 @@ namespace StarBangBang
 		bool gameover = false;
 		bool playerEscaped = false;
 		bool clientEscaped = false;
-		bool win = false;
 
 	};
 }

@@ -12,6 +12,7 @@ namespace StarBangBang
 		float scale;
 		float scaleFactor;
 		void SetTarget(GameObject* obj);
+		GameObject* GetTarget();
 	private:
 		GameObject* target;
 

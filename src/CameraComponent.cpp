@@ -44,3 +44,8 @@ void StarBangBang::CameraComponent::SetTarget(GameObject* obj)
 {
 	target = obj;
 }
+
+StarBangBang::GameObject* StarBangBang::CameraComponent::GetTarget()
+{
+	return target;
+}

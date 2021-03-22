@@ -37,8 +37,7 @@ void StarBangBang::PlayerScript::onNotify(Event e)
 
 void StarBangBang::PlayerScript::Update()
 {
-	if (playerEscaped && clientEscaped)
-		win = true;
+
 }
 
 bool StarBangBang::PlayerScript::isGameOver()
@@ -48,5 +47,8 @@ bool StarBangBang::PlayerScript::isGameOver()
 
 bool StarBangBang::PlayerScript::isWin()
 {
-	return win;
+	if (playerEscaped && clientEscaped)
+		return true;
+	else
+		return false;
 }

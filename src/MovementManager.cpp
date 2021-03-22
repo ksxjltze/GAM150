@@ -21,7 +21,7 @@ void StarBangBang::MovementManager::Start()
 
 void StarBangBang::MovementManager::Update()
 {
-	if (!cam->gameObject->active)
+	if (!cam->GetTarget()->active)
 	{
 		for (auto controller : controllers)
 		{
