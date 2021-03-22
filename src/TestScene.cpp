@@ -8,6 +8,7 @@
 #include "ComputerListener.h"
 #include "ComputerScript.h"
 #include "CameraComponent.h"
+#include "CollisionListener.h"
 
 namespace StarBangBang
 {
@@ -41,6 +42,10 @@ void StarBangBang::TestScene::Init()
 		objectManager.AddComponent<ComputerScript>(gameObjPtr);
 		objectManager.AddImage(gameObjPtr, computerSprite);
 		gameObjPtr->transform.position = { i * 100.0f, 0 };
+
+		//Add Collider
+		Collider& collider = objectManager.AddCollider(gameObjPtr, false);
+		collider.isTrigger = true;
 	}
 
 
@@ -49,6 +54,11 @@ void StarBangBang::TestScene::Init()
 	objectManager.AddImage(prisonerObj, prisonerSprite);
 	objectManager.AddComponent<Movement>(prisonerObj);
 	objectManager.AddComponent<CameraComponent>(prisonerObj);
+	objectManager.AddCollider(prisonerObj, false);
+
+	//Collision Listener
+	CollisionListener& colListener = objectManager.AddComponent<CollisionListener>(prisonerObj);
+	MessageBus::RegisterListener(&colListener);
 
 	//door obj
 	doorObj = objectManager.NewGameObject();

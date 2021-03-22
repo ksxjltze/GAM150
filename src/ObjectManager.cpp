@@ -5,12 +5,15 @@
 
 StarBangBang::BoxCollider& StarBangBang::ObjectManager::AddCollider(GameObject* gameObject, bool isStatic)
 {
-	
-		BoxCollider* collider = CollisionManager::CreateBoxColliderInstance(gameObject, isStatic);
-		assert(collider);
-		componentList.push_back(collider);
-		gameObject->AddComponent(collider);
-		return *collider;
+	if (!gameObject->GetComponent<RigidBody>())
+		AddComponent<RigidBody>(gameObject);
+
+	BoxCollider* collider = CollisionManager::CreateBoxColliderInstance(gameObject, isStatic);
+	assert(collider);
+
+	componentList.push_back(collider);
+	gameObject->AddComponent(collider);
+	return *collider;
 	
 }
 

@@ -110,7 +110,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 	sceneList.push_back(testScene);
 
 	// Set Initial State
-	gameStateManager.SetInitialState(mainMenuScene);
+	gameStateManager.SetInitialState(testScene);
 
 
 	//// Using custom window procedure
