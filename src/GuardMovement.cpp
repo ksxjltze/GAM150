@@ -124,7 +124,6 @@ bool GuardMovement::MoveTo(AEVec2 pos)
 		return true;
 	}
 
-	float dt = g_dt;
 	AEVec2 dir = { 0, 0 };
 
 	AEVec2Sub(&dir, &pos, &gameObject->transform.position);
