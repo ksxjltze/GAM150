@@ -38,7 +38,6 @@ namespace StarBangBang
 	{
 		PathFinder::ShowGrid(false);
 		GRAPHICS::SetBackgroundColor(Black);
-		GRAPHICS::SetZoom(1.0f);
 		
 		filepath = RESOURCES::LEVELS::LEVEL_TEST_PATH;
 		//filepath = RESOURCES::LEVELS::COLLISION_TEST;
@@ -52,7 +51,7 @@ namespace StarBangBang
 
 		//Camera Object
 		camera = objectManager.NewGameObject();
-		objectManager.AddComponent<CameraComponent>(camera);
+		objectManager.AddComponent<CameraComponent>(camera).scale = 0.75f;
 		objectManager.AddComponent<Movement>(camera);
 
 		debugText = objectManager.NewGameObject();
@@ -90,7 +89,7 @@ namespace StarBangBang
 				LoadLevel(filepath);
 		}
 
-		if (AEInputCheckTriggered(AEVK_SPACE))
+		if (AEInputCheckTriggered(AEVK_ESCAPE))
 		{
 			gameStateManager.SetNextGameState(SceneID::MAIN_MENU);
 		}

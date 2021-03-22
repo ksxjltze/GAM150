@@ -19,6 +19,7 @@ namespace StarBangBang
 		void Free();
 		void Unload();
 
+		void LoadEditor();
 		void LoadLevel();
 		void ExitGame();
 

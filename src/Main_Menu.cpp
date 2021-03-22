@@ -8,8 +8,11 @@ static const float y_scale = 5.0f;
 static const float WinWidth = (float)AEGetWindowWidth();
 static const float WinHeight = (float)AEGetWindowHeight();
 
+
 namespace StarBangBang
 {
+	Sprite vending_machine_sprite;
+
 	StarBangBang::Main_Menu::Main_Menu(int id, GameStateManager& manager) : Scene(id, manager), tilemap{ objectManager, graphicsManager }
 	{
 		tf = false;
@@ -35,6 +38,8 @@ namespace StarBangBang
 		settingsbutton2 = graphicsManager.CreateSprite(RESOURCES::SETTING2_BUTTON_PATH);
 		creditsbutton2 = graphicsManager.CreateSprite(RESOURCES::CREDIT2_BUTTON_PATH);
 		exitbutton2 = graphicsManager.CreateSprite(RESOURCES::EXIT2_BUTTON_PATH);
+
+		vending_machine_sprite = graphicsManager.CreateSprite(RESOURCES::VENDING_LEFT_PATH);
 	}
 
 	void StarBangBang::Main_Menu::Init()
@@ -79,6 +84,12 @@ namespace StarBangBang
 		objectManager.AddComponent<Click<Main_Menu>>(exitbutton_obj).setCallback(*this, &Main_Menu::ExitGame);
 
 		//MessageBus::Notify({ EventId::PLAY_MUSIC, "BGM" });
+
+		GameObject* editorBtn = objectManager.NewGameObject();
+		objectManager.AddImage(editorBtn, vending_machine_sprite);
+		editorBtn->transform.position = { (float)AEGetWindowWidth() * 0.35f, (float)AEGetWindowHeight() / 8, };
+
+		objectManager.AddComponent<Click<Main_Menu>>(editorBtn).setCallback(*this, &Main_Menu::LoadEditor);
 	}
 
 	void StarBangBang::Main_Menu::Update()
@@ -117,6 +128,11 @@ namespace StarBangBang
 	{
 		Scene::Unload();
 		MessageBus::Notify({ EventId::STOP_SOUND });
+	}
+
+	void Main_Menu::LoadEditor()
+	{
+		gameStateManager.SetNextGameState(SceneID::EDITOR);
 	}
 
 	void Main_Menu::LoadLevel()
