@@ -82,7 +82,8 @@ void StarBangBang::Level_Demo::Init()
 
 	//Guards and security cameras
 	guardManager = objectManager.NewGameObject();
-	objectManager.AddComponent<GuardManager>(guardManager).Init(&objectManager, &guardImage, player, player2);
+	GuardManager& mgr = objectManager.AddComponent<GuardManager>(guardManager);
+	mgr.Init(&objectManager, &guardImage, player, player2);
 	guardManager->GetComponent<GuardManager>()->CreateSecurityCameras(&objectManager, &securityCamImage, player, player2);
 
 	// Call Start on scripts
