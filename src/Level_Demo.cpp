@@ -102,7 +102,7 @@ namespace StarBangBang
 		objectManager.AddImage(exit, exitImage);
 		objectManager.AddCollider(exit, true).isTrigger = true;
 
-		CaptainStealth::SpawnDoor(objectManager, doorSprite, exit->transform.position);
+		//CaptainStealth::SpawnDoor(objectManager, doorSprite, exit->transform.position);
 
 	
 	}

@@ -21,6 +21,15 @@ void StarBangBang::MovementManager::Start()
 
 void StarBangBang::MovementManager::Update()
 {
+	if (!cam->gameObject->active)
+	{
+		for (auto controller : controllers)
+		{
+			if (controller->gameObject->active)
+				SetActiveController(controller->gameObject);
+		}
+	}
+
 	if (AEInputCheckTriggered(AEVK_TAB))
 	{
 		static int id = 0;
@@ -36,16 +45,6 @@ void StarBangBang::MovementManager::Update()
 		SetActiveController(0);
 	}
 
-	//if (AEInputCheckTriggered(AEVK_1))
-	//{
-	//	std::cout << "Activating controller 1." << std::endl;
-	//	SetActiveController(0);
-	//}
-	//else if (AEInputCheckTriggered(AEVK_2))
-	//{
-	//	std::cout << "Activating controller 2." << std::endl;
-	//	SetActiveController(1);
-	//}
 }
 
 void StarBangBang::MovementManager::SetCamera(GameObject* obj)
@@ -60,15 +59,18 @@ void StarBangBang::MovementManager::SetActiveController(int id)
 	if (controllers.size() == 0)
 		return;
 
+	SetActiveController(controllers.at(id)->gameObject);
+
+}
+
+void StarBangBang::MovementManager::SetActiveController(GameObject* obj)
+{
 	for (PrimaryMovementController* controller : controllers)
 	{
 		controller->SetActive(false);
 	}
-
-	PrimaryMovementController* controller = controllers.at(id);
-	controller->SetActive(true);
+	obj->GetComponent<PrimaryMovementController>()->SetActive(true);
 
 	if (cam)
-		cam->SetTarget(controller->gameObject);
-
+		cam->SetTarget(obj);
 }

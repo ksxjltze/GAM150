@@ -457,9 +457,6 @@ void CollisionManager::ResolverUpdate()
 	{
 		assert(col);
 
-		if (!col->gameObject->active || !col->active)
-			continue;
-
 		if(col->rb && col->rb->isKinematic())
 			RecalculateColliderCells(*col);
 		//printf("%zu\n", collider_list.size());
@@ -474,6 +471,9 @@ void CollisionManager::ResolverUpdate()
 				for (BoxCollider* col2 : c.cell_colliders)
 				{
 					assert(col2);
+
+					if (!col->gameObject->active || !col2->gameObject->active)
+						continue;
 				
 					//assert(index < c.cell_collider);
 					if (col2 == col)

@@ -11,7 +11,9 @@ void StarBangBang::PlayerScript::onNotify(Event e)
 {
 	if (e.id == EventId::DETECTED)
 	{
-		gameover = true;
+		GameObject* detectedObj = std::any_cast<GameObject*>(e.context);
+		if (detectedObj->active)
+			gameover = true;
 	}
 
 	if (e.id == EventId::COLLISION)
@@ -20,8 +22,23 @@ void StarBangBang::PlayerScript::onNotify(Event e)
 		colPair pair = std::any_cast<colPair>(e.context);
 
 		if (pair.first->gameObject->name == "EXIT" && pair.second->gameObject->name == "Player")
-			win = true;
+		{
+			pair.second->gameObject->active = false;
+			playerEscaped = true;
+		}
+		if (pair.first->gameObject->name == "EXIT" && pair.second->gameObject->name == "Client")
+		{
+			pair.second->gameObject->active = false;
+			clientEscaped = true;
+		}
+
 	}
+}
+
+void StarBangBang::PlayerScript::Update()
+{
+	if (playerEscaped && clientEscaped)
+		win = true;
 }
 
 bool StarBangBang::PlayerScript::isGameOver()

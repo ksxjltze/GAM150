@@ -37,8 +37,10 @@ void Detector::Init(float fov, float dist, GameObject* player, GameObject* clien
 
 void Detector::Update()
 {
-	CheckForTargets(target1->GetPos());
-	CheckForTargets(target2->GetPos(), false);
+	if (target1->active)
+		CheckForTargets(target1->GetPos());
+	if (target2->active)
+		CheckForTargets(target2->GetPos(), false);
 }
 
 void Detector::Draw()
@@ -133,7 +135,10 @@ void Detector::CheckForTargets(const AEVec2& _targetPos, bool checkForPlayer)
 					detectedTarget2 = true;
 
 				//Event test
-				MessageBus::Notify({ EventId::DETECTED, std::string("TEST") });
+				if (detectedTarget1)
+					MessageBus::Notify({ EventId::DETECTED, target1 });
+				else if (detectedTarget2)
+					MessageBus::Notify({ EventId::DETECTED, target2 });
 			}
 			else
 			{

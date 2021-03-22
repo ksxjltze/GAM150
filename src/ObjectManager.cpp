@@ -220,7 +220,7 @@ void StarBangBang::ObjectManager::Update()
 {
 	for (_Component* component : componentList)
 	{
-		if (component->active)
+		if (component->active && component->gameObject->active)
 			component->Update();
 	}
 }
