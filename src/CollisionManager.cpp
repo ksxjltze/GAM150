@@ -27,34 +27,29 @@ namespace
 	std::vector<BoxCollider*> collider_list;
 
 }
-bool LineContains(const Ray& line, AEVec2 pt)
+bool LineContainsPoint(const Ray& line, AEVec2 pt)
 {
-	float max_x = line.start.x;
-	float max_y = line.start.y;
-	float min_x = line.end.x;
-	float min_y = line.end.y;
+	AEVec2 p0 {line.start.x - pt.x , line.start.y - pt.y } ;
+	AEVec2 p1 {line.end.x - pt.x , line.end.y - pt.y };
 
-	if (line.end.x > line.start.x)
-	{
-		max_x = line.end.x;
-		min_x = line.start.x;
-	}
-	if (line.end.y > line.start.y)
-	{
-		max_y = line.end.y;
-		min_y = line.start.y;
-	}
-	if (pt.x < min_x || pt.x > max_x || pt.y > max_y || pt.y < min_y)
-		return false;
 
-	return true;
+	float dotp0 = AEVec2DotProduct(&p0,&pt);
+	float dotp1 = AEVec2DotProduct(&p0, &pt);
+
+	//point within line
+	if (dotp0 * dotp1 < 0)
+		return true;
+	return false;
+
 }
 
-int LineOrientation(AEVec2 p, AEVec2 q, AEVec2 r)
+int LineOrientation(AEVec2 start, AEVec2 end, AEVec2 ptToTest)
 {
-	int ori = (int)roundf((q.y - p.y) * (r.x - q.x) -
-		(q.x - p.x) * (r.y - q.y));
-
+	//wedge product
+	int ori = (int)roundf(
+		(start.y - end.y) * (ptToTest.x - start.x) -
+		(start.x - end.x) * (ptToTest.y - start.y)	);
+	
 	if (ori == 0) return 0;
 
 	return (ori > 0) ? 1 : -1;
@@ -68,14 +63,14 @@ bool LineIntersect(const Ray& l1, const Ray& l2)
 	int o3 = LineOrientation(l2.start, l2.end, l1.start);
 	int o4 = LineOrientation(l2.start, l2.end, l1.end);
 
-	//pairs of different ori means line segment intersects
+	//pairs of different orientation means line segment intersects
 	if (o1 != o2 && o3 != o4)
 		return true;
 
 	// when points are collinear 
 	// points are on the same line check if they are within the min and max bound of line
-	if (o1 == 0 && LineContains(l1, l2.start) || o2 == 0 && LineContains(l1, l2.end)
-		|| o3 == 0 && LineContains(l2, l1.start) || o4 == 0 && LineContains(l2, l1.end))
+	if (o1 == 0 && LineContainsPoint(l1, l2.start) || o2 == 0 && LineContainsPoint(l1, l2.end)
+		|| o3 == 0 && LineContainsPoint(l2, l1.start) || o4 == 0 && LineContainsPoint(l2, l1.end))
 	{
 		return true;
 	}
@@ -83,21 +78,22 @@ bool LineIntersect(const Ray& l1, const Ray& l2)
 	return false;
 }
 
-BoxCollider* CollisionManager::LineCast(const Ray& ray,BoxCollider* player)
+BoxCollider* CollisionManager::LineCast(const Ray& ray, BoxCollider* ignore)
 {
+	const int sides = 4;
 	for (BoxCollider* col : collider_list)
 	{
 
-		if (col == player)
+		if (col == ignore)
 			continue;
 
 		//if ray starts inside the collider
 		//intersect
-		if (CollisionManager::ContainsPoint(*col, ray.start) || CollisionManager::ContainsPoint(*col, ray.end))
+		/*if (CollisionManager::ContainsPoint(*col, ray.start) || CollisionManager::ContainsPoint(*col, ray.end))
 		{
 			return col;
-		}
-		AEVec2 extend = col->GetExtend();
+		}*/
+		//box line segements
 		Ray boxAxis[4] = {
 
 				Ray{AEVec2{col->Min().x,col->Max().y },col->Max()},
@@ -109,7 +105,7 @@ BoxCollider* CollisionManager::LineCast(const Ray& ray,BoxCollider* player)
 				Ray{col->Min(),AEVec2{col->Min().x,col->Max().y }},
 		};
 
-		for (int i = 0; i < 4; ++i)
+		for (int i = 0; i < sides; ++i)
 		{
 			//intersect
 			if (LineIntersect(boxAxis[i], ray))
@@ -123,64 +119,7 @@ BoxCollider* CollisionManager::LineCast(const Ray& ray,BoxCollider* player)
 	//non intersect
 	return nullptr;
 }
-//BoxCollider* CollisionManager::LineCast(const Ray& ray)
-//{
-//
-//	AEVec2 v = ray.GetDirection();
-//	
-//
-//	const size_t sides = 4;
-//	AEVec2 boxNormals[sides]{	AEVec2{0,1},
-//							AEVec2{1,0},
-//							AEVec2{0,-1},
-//							AEVec2{-1,0},
-//	};
-//
-//	for (BoxCollider* col : collider_list)
-//	{	
-//		//if ray starts inside the collider
-//		if (CollisionManager::ContainsPoint(*col, ray.start) || CollisionManager::ContainsPoint(*col, ray.end))
-//		{
-//			return col;
-//		}
-//
-//
-//
-//		for (size_t i = 0; i < sides ; ++i)
-//		{
-//			f32 dot = AEVec2DotProduct(&v , &boxNormals[i]);
-//
-//			//might intersect
-//			if (dot < 0)
-//			{
-//				AEVec2 p0 = ray.start;
-//				AEVec2 bs = AEVec2{col->Min().x};
-//				float ti = (AEVec2DotProduct(&p0, &boxNormals[i]) - AEVec2DotProduct(&boxNormals[i], &bs)) / dot;
-//
-//
-//				if (ti >= 0 && ti <= 1)
-//				{
-//					
-//				}
-//				//no intersection
-//				else
-//				{
-//					return nullptr;
-//				}
-//			}
-//
-//
-//
-//		}
-//
-//		
-//
-//
-//		//float AEVec2DotProduct();
-//	}
-//
-//	return nullptr;
-//}
+
 
 void CollisionManager::ClearPartitionGridCell(int index)
 {
