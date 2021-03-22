@@ -1,6 +1,14 @@
 #pragma once
 #include "State.h"
-#include "Player.h"
+
+#include "MovementManager.h"
+#include "MessageBus.h"
+#include "PlayerScript.h"
+#include "CameraComponent.h"
+#include "RigidBody.h"
+#include "PrimaryMovementController.h"
+#include "DetectionListener.h"
+#include "Text.h"
 
 namespace StarBangBang
 {
@@ -14,6 +22,9 @@ namespace StarBangBang
 		void Draw();
 		void Free();
 		void Unload();
+
+		static void SpawnPlayer(ObjectManager& objMgr, GameObject*& player, Sprite playerImage);
+		static void SpawnClient(ObjectManager& objMgr, GameObject*& client, Sprite clientImage);
 
 	private:
 		GameObject* player;

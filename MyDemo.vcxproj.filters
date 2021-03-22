@@ -150,9 +150,6 @@
     <ClCompile Include="src\Utils.cpp">
       <Filter>Source Files\Engine</Filter>
     </ClCompile>
-    <ClCompile Include="src\Player.cpp">
-      <Filter>Source Files\Scripts</Filter>
-    </ClCompile>
     <ClCompile Include="src\SecondaryMovementController.cpp">
       <Filter>Source Files\Scripts</Filter>
     </ClCompile>
@@ -331,9 +328,6 @@
     </ClInclude>
     <ClInclude Include="src\constants.h">
       <Filter>Header Files\Globals</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Player.h">
-      <Filter>Header Files\Scripts</Filter>
     </ClInclude>
     <ClInclude Include="src\PrimaryMovementController.h">
       <Filter>Header Files\Scripts</Filter>

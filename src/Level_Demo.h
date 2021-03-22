@@ -4,7 +4,6 @@
 #include "GraphicsManager.h"
 #include "MemoryManager.h"
 #include "GameStateManager.h"
-#include "Player.h"
 #include "TileMap.h"
 
 namespace StarBangBang

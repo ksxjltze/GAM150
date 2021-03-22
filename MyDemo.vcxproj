@@ -144,7 +144,6 @@ xcopy /y /d /i /s "$(SolutionDir)\Resources" "$(OutDir)\Resources"</Command>
     <ClCompile Include="src\ObjectManager.cpp" />
     <ClCompile Include="src\PathFinder.cpp" />
     <ClCompile Include="src\Physics.cpp" />
-    <ClCompile Include="src\Player.cpp" />
     <ClCompile Include="src\PlayerScript.cpp" />
     <ClCompile Include="src\PrimaryMovementController.cpp" />
     <ClCompile Include="src\Sample_Scene.cpp" />
@@ -210,7 +209,6 @@ xcopy /y /d /i /s "$(SolutionDir)\Resources" "$(OutDir)\Resources"</Command>
     <ClInclude Include="src\Physics.h" />
     <ClInclude Include="src\Observer.h" />
     <ClInclude Include="src\ObserverTest.h" />
-    <ClInclude Include="src\Player.h" />
     <ClInclude Include="src\PlayerScript.h" />
     <ClInclude Include="src\PrimaryMovementController.h" />
     <ClInclude Include="src\Sample_Scene.h" />

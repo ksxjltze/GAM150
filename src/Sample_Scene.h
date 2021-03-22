@@ -1,6 +1,5 @@
 #pragma once
 #include "State.h"
-#include "Player.h"
 #include "TileMap.h"
 
 namespace StarBangBang

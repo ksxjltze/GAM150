@@ -7,10 +7,8 @@
 #include "SecurityCamera.h"
 #include "Detector.h"
 
-#include "MovementManager.h"
 #include "DetectionListener.h"
 #include "CollisionListener.h"
-#include "MessageBus.h"
 
 #include <iostream>
 #include "constants.h"
@@ -19,7 +17,8 @@
 #include "Text.h"
 #include "globals.h"
 
-#include "PlayerScript.h"
+
+#include "CaptainStealth.h"
 
 StarBangBang::BoxCollider* playerCol;
 StarBangBang::BoxCollider* clientCol;
@@ -59,31 +58,10 @@ void StarBangBang::Level_Demo::Init()
 	MovementManager& moveMgr = objectManager.AddComponent<MovementManager>(movementController);
 
 	//Player components and scripts
-	player = objectManager.NewGameObject();
-	player->SetPos({ 250, 800 });
-	player->transform.scale = { 0.7f, 0.7f };
+	CaptainStealth::SpawnPlayer(objectManager, player, playerImage);
 
-	DetectionListener* listener = &objectManager.AddComponent<DetectionListener>(player);
-	MessageBus::RegisterListener(listener);
-
-	objectManager.AddImage(player, playerImage);
-	objectManager.AddComponent<Text>(player).fontID = StarBangBang::fontId;
-	objectManager.AddComponent<CameraComponent>(player);
-	objectManager.AddComponent<RigidBody>(player);
-	objectManager.AddCollider(player, false);
-	objectManager.AddComponent<PrimaryMovementController>(player);
-	Listener* l = &objectManager.AddComponent<PlayerScript>(player);
-	MessageBus::RegisterListener(l);
-
-	//Player 2
-	player2 = objectManager.NewGameObject();
-	player2->SetPos({ 250, 950 });
-	player2->transform.scale = { 0.7f, 0.7f };
-
-	objectManager.AddImage(player2, player2Image);
-	objectManager.AddComponent<RigidBody>(player2);
-	objectManager.AddCollider(player2, false).isTrigger = true;
-	objectManager.AddComponent<PrimaryMovementController>(player2);
+	//Client
+	CaptainStealth::SpawnClient(objectManager, player2, player2Image);
 
 	//Movement Manager
 	moveMgr.AddController(player);
