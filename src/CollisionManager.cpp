@@ -423,7 +423,6 @@ void CollisionManager::ResolverUpdate()
 			{
 				if (Dynamic_AABB(*col, col->rb->velocity, *col2, col2->rb->velocity))
 				{
-
 					if (col->isTrigger || col2->isTrigger)
 					{
 						Event collisionEvent;
