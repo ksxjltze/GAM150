@@ -10,6 +10,7 @@
 #include "CameraComponent.h"
 #include "CollisionListener.h"
 
+
 namespace StarBangBang
 {
 	namespace Test
@@ -45,7 +46,8 @@ void StarBangBang::TestScene::Init()
 
 		//Add Collider
 		Collider& collider = objectManager.AddCollider(gameObjPtr, false);
-		collider.isTrigger = true;
+		
+		//collider.isTrigger = true;
 	}
 
 
