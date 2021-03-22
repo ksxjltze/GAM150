@@ -18,8 +18,8 @@ GuardMovement::GuardMovement(GameObject* gameObject)
 	SetWaypoints();
 	//std::cout << waypoints.size() << "\n";
 
-	std::string text = "Guard ID: " + std::to_string(gameObject->GetComponent<Guard>()->GetID()) + "\n";
-	PRINT(text.c_str());
+	//std::string text = "Guard ID: " + std::to_string(gameObject->GetComponent<Guard>()->GetID()) + "\n";
+	//PRINT(text.c_str());
 	//targetPos = waypoints.front();
 }
 

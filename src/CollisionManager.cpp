@@ -409,45 +409,45 @@ void CollisionManager::ResolverUpdate()
 	/*static size_t collision_check = 0;
 	static float timer = 5.0f;*/
 	//non-partition 
-	/*for (BoxCollider* col : collider_list)
-	{
+	//for (BoxCollider* col : collider_list)
+	//{
 
-		for (BoxCollider* col2 : collider_list)
-		{
-			assert(col2);
+	//	for (BoxCollider* col2 : collider_list)
+	//	{
+	//		assert(col2);
 
-			if (col == col2)
-				continue;
-			CollisionData data;
+	//		if (col == col2)
+	//			continue;
+	//		CollisionData data;
 
-			//if both have rb use dynamic collision
-			if (col->rb && col2->rb)
-			{
-				if (Dynamic_AABB(*col, col->rb->velocity, *col2, col2->rb->velocity))
-				{
-					if (col->isTrigger || col2->isTrigger)
-					{
-						Event collisionEvent;
-						collisionEvent.id = EventId::COLLISION;
-						collisionEvent.context = std::pair<Collider*, Collider*>(col, col2);
-						MessageBus::Notify(collisionEvent);
-						continue;
-					}
+	//		//if both have rb use dynamic collision
+	//		if (col->rb && col2->rb)
+	//		{
+	//			if (Dynamic_AABB(*col, col->rb->velocity, *col2, col2->rb->velocity))
+	//			{
+	//				if (col->isTrigger || col2->isTrigger)
+	//				{
+	//					Event collisionEvent;
+	//					collisionEvent.id = EventId::COLLISION;
+	//					collisionEvent.context = std::pair<Collider*, Collider*>(col, col2);
+	//					MessageBus::Notify(collisionEvent);
+	//					continue;
+	//				}
 
-					CalculateCollisionData(*col, *col2, data);
-					CollisionPair p{ *col,*col2, data };
-					ResolveVelocity(p);
-					ResolvePenetration(p);
-				}
+	//				CalculateCollisionData(*col, *col2, data);
+	//				CollisionPair p{ *col,*col2, data };
+	//				ResolveVelocity(p);
+	//				ResolvePenetration(p);
+	//			}
 
-			}
-			//if (timer > 0)
-			//{
-			//	++collision_check;
-			//}
-		}
+	//		}
+	//		//if (timer > 0)
+	//		//{
+	//		//	++collision_check;
+	//		//}
+	//	}
 
-	}*/
+	//}
 
 
 #pragma region Partition
@@ -460,7 +460,7 @@ void CollisionManager::ResolverUpdate()
 		if (!col->active)
 			continue;
 
-		if(col->rb->isKinematic())
+		if(col->rb && col->rb->isKinematic())
 			RecalculateColliderCells(*col);
 		//printf("%zu\n", collider_list.size());
 		if (col->GetCellListSize() > 0)
