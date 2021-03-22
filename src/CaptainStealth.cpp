@@ -91,6 +91,7 @@ namespace StarBangBang
 	void CaptainStealth::SpawnClient(ObjectManager& objMgr, GameObject*& client, Sprite clientImage)
 	{
 		client = objMgr.NewGameObject();
+		client->name = "Client";
 		client->SetPos({ 250, 950 });
 		client->transform.scale = { 0.7f, 0.7f };
 

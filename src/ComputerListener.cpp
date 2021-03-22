@@ -12,8 +12,8 @@ void StarBangBang::ComputerListener::onNotify(Event e)
 {
 	if (e.id == EventId::COMPUTER_CLICK)
 	{
-		std::cout << "dasd";
 		++counter;
+		std::cout << "Hax: " << counter;
 		if (counter >= CONSTANTS::COMPUTER_COUNT)
 		{
 			BoxCollider* col = gameObject->GetComponent<BoxCollider>();
