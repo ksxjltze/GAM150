@@ -43,14 +43,12 @@ void StarBangBang::TestScene::Init()
 
 
 	//prison obj
-	prisonerObj = objectManager.NewGameObject();
-	objectManager.AddImage(prisonerObj, prisonerSprite);
-	objectManager.AddComponent<Movement>(prisonerObj);
-	objectManager.AddComponent<CameraComponent>(prisonerObj);
-	objectManager.AddCollider(prisonerObj, false);
+	GameObject* player;
+	CaptainStealth::SpawnPlayer(objectManager, player, prisonerSprite);
+	player->transform.position = { 0, 0 };
 
 	//door obj
-	doorObj->transform.position={ (float)AEGetWindowWidth() / -8, (float)AEGetWindowHeight() / 8 };
+	CaptainStealth::SpawnDoor(objectManager, doorSprite, { (float)AEGetWindowWidth() / -8, (float)AEGetWindowHeight() / 8 });
 
 
 }

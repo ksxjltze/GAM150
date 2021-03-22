@@ -60,6 +60,8 @@ namespace StarBangBang
 		GameObject* doorObj = objMgr.NewGameObject();
 		objMgr.AddImage(doorObj, image);
 		doorObj->transform.position = position;
+		objMgr.AddComponent<RigidBody>(doorObj).SetMass(0);
+		objMgr.AddCollider(doorObj, true);
 
 		ComputerListener& listener = objMgr.AddComponent<ComputerListener>(doorObj);
 		MessageBus::RegisterListener(&listener);

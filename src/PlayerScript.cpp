@@ -19,7 +19,7 @@ void StarBangBang::PlayerScript::onNotify(Event e)
 		using colPair = std::pair<Collider*, Collider*>;
 		colPair pair = std::any_cast<colPair>(e.context);
 
-		if (pair.first->gameObject->name == "EXIT" || pair.second->gameObject->name == "EXIT")
+		if (pair.first->gameObject->name == "EXIT" && pair.second->gameObject->name == "Player")
 			win = true;
 	}
 }

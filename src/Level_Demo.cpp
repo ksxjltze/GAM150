@@ -73,7 +73,7 @@ namespace StarBangBang
 
 		//Compooter
 		srand(time(NULL));
-		for (int i = 0; i < 7; ++i)
+		for (int i = 0; i < CONSTANTS::COMPUTER_COUNT; ++i)
 		{
 			Grid& grid = PathFinder::GetWorldGrid();
 			A_Node n = grid.GetRandomFreeNode();
@@ -99,11 +99,11 @@ namespace StarBangBang
 		//temp
 		exit->transform.position = tilemap.GetPositionAtIndex(10, 40);
 		exit->name = "EXIT";
+		objectManager.AddImage(exit, exitImage);
+		objectManager.AddCollider(exit, true).isTrigger = true;
 
 		CaptainStealth::SpawnDoor(objectManager, doorSprite, exit->transform.position);
 
-		objectManager.AddImage(exit, exitImage);
-		objectManager.AddCollider(exit, true).isTrigger = true;
 	
 	}
 

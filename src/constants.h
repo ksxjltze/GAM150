@@ -29,6 +29,7 @@ namespace StarBangBang
 	namespace CONSTANTS
 	{
 		static const float DEFAULT_OBJECT_SCALE = 1.0f;
+		static const int COMPUTER_COUNT = 7;
 	}
 
 	namespace PLAYER

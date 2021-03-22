@@ -1,21 +1,27 @@
 #include "ComputerListener.h"
 #include <iostream>
+#include "Collider.h"
+#include "constants.h"
 
-StarBangBang::ComputerListener::ComputerListener(GameObject* gameObject) : ListenerComponent(gameObject)
+StarBangBang::ComputerListener::ComputerListener(GameObject* gameObject) : ListenerComponent(gameObject), counter{ 0 }
 {
 
 }
 
 void StarBangBang::ComputerListener::onNotify(Event e)
 {
-	static int counter = 0;
 	if (e.id == EventId::COMPUTER_CLICK)
 	{
 		std::cout << "dasd";
 		++counter;
-		if (counter > 5)
+		if (counter >= CONSTANTS::COMPUTER_COUNT)
 		{
-			gameObject->active = false;
+			BoxCollider* col = gameObject->GetComponent<BoxCollider>();
+			if (col)
+			{
+				gameObject->active = false;
+				col->isTrigger = true;
+			}
 		}
 	}
 }

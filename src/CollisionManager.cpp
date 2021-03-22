@@ -457,7 +457,7 @@ void CollisionManager::ResolverUpdate()
 	{
 		assert(col);
 
-		if (!col->active)
+		if (!col->gameObject->active || !col->active)
 			continue;
 
 		if(col->rb && col->rb->isKinematic())

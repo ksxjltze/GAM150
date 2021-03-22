@@ -44,7 +44,6 @@ namespace StarBangBang
 					gameObject->active = false;
 					Event e;
 					e.id = EventId::COMPUTER_CLICK;
-					e.context = std::string("\nTESTING DETECTION LISTENER\n");
 					MessageBus::Notify(e);
 				}
 			}

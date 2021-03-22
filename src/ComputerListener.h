@@ -16,5 +16,7 @@ namespace StarBangBang
 	public:
 		ComputerListener(GameObject* gameObject);
 		virtual void onNotify(Event e);
+	private:
+		int counter;
 	};
 }
