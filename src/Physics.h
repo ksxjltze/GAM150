@@ -45,6 +45,26 @@ namespace StarBangBang
 		
 		void AddInstantVelocity(AEVec2 impulse, float scale);
 	};
+	class Ray
+	{
 
+	public:
+		Ray(AEVec2 start, AEVec2 end);
+
+		AEVec2 Outward_Normal() const { return AEVec2{ v.y, -v.x }; }
+
+		AEVec2 GetDirection() const { return v; }
+
+		AEVec2 start;
+		AEVec2 end;
+
+	private:
+		
+		//direction
+		AEVec2 v;
+
+	
+	};
+	
 
 }

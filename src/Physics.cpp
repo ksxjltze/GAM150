@@ -2,6 +2,7 @@
 using namespace StarBangBang;
 
 const float EPILISON = 0.0000000001f;
+f32 dt;
 
 RigidBody::RigidBody(GameObject* gameObject) :Component(gameObject), acceleration{ AEVec2{ 0,0 } }, 
 inverse_mass{ 1.0f }, mass{1.0f}, drag{ 0.1f }, velocity{ AEVec2{ 0,0 } }
@@ -9,7 +10,7 @@ inverse_mass{ 1.0f }, mass{1.0f}, drag{ 0.1f }, velocity{ AEVec2{ 0,0 } }
 
 	
 }
-f32 dt;
+
 AEVec2 RigidBody::GetNormalizedVelocity() const
 {
 	f32 mag = velocity.x * velocity.x + velocity.y * velocity.y;
@@ -100,6 +101,11 @@ void RigidBody::AddVelocity(AEVec2 impulse, float scale)
 	
 	velocity.x += impulse.x;
 	velocity.y += impulse.y;
+
+}
+
+StarBangBang::Ray::Ray(AEVec2 start, AEVec2 end) : start{ start }, end{ end }, v{ AEVec2{end.x - start.x, end.y - start.y} }
+{
 
 }
 
