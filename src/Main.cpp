@@ -110,8 +110,8 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 	sceneList.push_back(testScene);
 
 	// Set Initial State
-
 	gameStateManager.SetInitialState(testScene);
+
 
 	//// Using custom window procedure
 	AESysInit(hInstance, nCmdShow, (s32)GRAPHICS::TARGET_WINDOW_WIDTH, (s32)GRAPHICS::TARGET_WINDOW_HEIGHT, 1, 60, true, NULL);

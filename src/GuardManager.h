@@ -30,7 +30,8 @@ namespace StarBangBang
 		GameObject* GetNearestGuard(AEVec2& _pos);
 
 		// temp
-		void SetGuardWaypoints(const AEVec2& start, const AEVec2& end, bool isIdle = false);
+		void SetGuardWaypoints(int id, const AEVec2& start, const AEVec2& end, bool isIdle = false);
+		void SetCameraPosAndViewMinMax(int id, const AEVec2& pos, float min, float max);
 
 		std::vector<GameObject*> guards; //GameObject* guards[NUM_GUARDS];
 		std::vector<GameObject*> cameras;
