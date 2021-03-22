@@ -3,8 +3,8 @@
 #include "GraphicsManager.h"
 #include "globals.h"
 
-StarBangBang::DebugText::DebugText(GameObject* obj) :
-	ListenerComponent(obj), fontId{ -1 }, fontScale{ 1.0f }, textPos{ 0, 0.8f }, duration{ 2.0f }, timer{ 0.0f }
+StarBangBang::DebugText::DebugText(GameObject* obj, s8 fontId) :
+	ListenerComponent(obj), fontId{ fontId }, fontScale{ 1.0f }, textPos{ 0, 0.8f }, duration{ 2.0f }, timer{ 0.0f }
 {
 }
 
@@ -38,17 +38,17 @@ void StarBangBang::DebugText::Update()
 	}
 	else
 	{
-		timer = 0.0f;
+		timer = -1.0f;
 		text = "";
 	}
 }
 
 void StarBangBang::DebugText::Draw()
 {
-	if (fontId == -1)
+	if (fontId == -1 || timer <= 0.0f)
 		return;
 
-	AEGfxSetBlendMode(AE_GFX_BM_BLEND);
+	AEGfxSetBlendMode(AE_GFX_BM_BLEND); 
 	s8* str = const_cast<s8*>(text.c_str());
 	float color = timer / duration;
 

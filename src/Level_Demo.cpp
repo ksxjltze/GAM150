@@ -19,6 +19,7 @@
 
 
 #include "CaptainStealth.h"
+#include "DebugText.h"
 
 
 namespace StarBangBang
@@ -106,16 +107,21 @@ namespace StarBangBang
 
 		CaptainStealth::SpawnDoor(objectManager, doorSprite, exit->transform.position);
 
+
+		//Floating text
+		MessageBus::RegisterListener(&objectManager.AddComponent<DebugText>(player, fontId));
+		MessageBus::Notify({ EventId::PRINT_TEXT, std::string("Find the Exit!") });
+
 	
 	}
 
 	void StarBangBang::Level_Demo::Update()
 	{
 		Scene::Update();
-		//if (AEInputCheckTriggered(VK_SPACE))
-		//{
-		//	gameStateManager.SetNextGameState(SceneID::EDITOR);
-		//}
+		if (AEInputCheckTriggered(VK_SPACE))
+		{
+			MessageBus::Notify({ EventId::PRINT_TEXT, std::string("Find the Exit!") });
+		}
 
 		if (AEInputCheckTriggered(AEVK_ESCAPE))
 		{
