@@ -109,6 +109,9 @@
     <Filter Include="Header Files\Test">
       <UniqueIdentifier>{a6838f43-084e-402f-b625-c101cd40821d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Resource Files\InteractableObj">
+      <UniqueIdentifier>{6b862cd7-77d5-480b-bab7-a1252db5129a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Main.cpp">
@@ -277,6 +280,12 @@
       <Filter>Source Files\Test</Filter>
     </ClCompile>
     <ClCompile Include="src\DebugText.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ComputerListener.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ComputerScript.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\CollisionListener.cpp">
@@ -500,6 +509,12 @@
     <ClInclude Include="src\CollisionListener.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\ComputerListener.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ComputerScript.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Resources\PlanetTexture.png">
@@ -684,6 +699,33 @@
     </Image>
     <Image Include="Resources\MainMenu\Logo.png">
       <Filter>Resource Files\MainMenu</Filter>
+    </Image>
+    <Image Include="Resources\InteractableObj\bin.png">
+      <Filter>Resource Files\InteractableObj</Filter>
+    </Image>
+    <Image Include="Resources\InteractableObj\bin1.png">
+      <Filter>Resource Files\InteractableObj</Filter>
+    </Image>
+    <Image Include="Resources\InteractableObj\CameraUp.png">
+      <Filter>Resource Files\InteractableObj</Filter>
+    </Image>
+    <Image Include="Resources\InteractableObj\Computer.png">
+      <Filter>Resource Files\InteractableObj</Filter>
+    </Image>
+    <Image Include="Resources\InteractableObj\VendingMachineLeft.png">
+      <Filter>Resource Files\InteractableObj</Filter>
+    </Image>
+    <Image Include="Resources\InteractableObj\VendingMachineLeft1.png">
+      <Filter>Resource Files\InteractableObj</Filter>
+    </Image>
+    <Image Include="Resources\InteractableObj\VendingMachineRight.png">
+      <Filter>Resource Files\InteractableObj</Filter>
+    </Image>
+    <Image Include="Resources\InteractableObj\VendingMachineRight1.png">
+      <Filter>Resource Files\InteractableObj</Filter>
+    </Image>
+    <Image Include="Resources\FloorTiles\prisoncell.png">
+      <Filter>Resource Files\FloorTiles</Filter>
     </Image>
   </ItemGroup>
   <ItemGroup>

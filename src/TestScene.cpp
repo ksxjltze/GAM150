@@ -2,6 +2,12 @@
 #include "TestInteractable.h"
 #include "TestListener.h"
 #include "DetectionListener.h"
+#include "Utils.h"
+#include "Movement.h"
+#include "MessageBus.h"
+#include "ComputerListener.h"
+#include "ComputerScript.h"
+#include "CameraComponent.h"
 
 namespace StarBangBang
 {
@@ -19,11 +25,39 @@ StarBangBang::TestScene::TestScene(int id, GameStateManager& gsm) : Scene(id, gs
 
 void StarBangBang::TestScene::Load()
 {
-
+	computerSprite = graphicsManager.CreateSprite(RESOURCES::COMPUTER_PATH);
+	prisonerSprite = graphicsManager.CreateSprite(RESOURCES::PRISONER_F1_PATH);
+	doorSprite = graphicsManager.CreateSprite(RESOURCES::DOOR_PATH);
 }
 
 void StarBangBang::TestScene::Init()
 {
+
+	for (int i = 0; i < 7; ++i)
+	{
+		GameObject *gameObjPtr;
+		//computer obj (v machine)
+		gameObjPtr = objectManager.NewGameObject();
+		objectManager.AddComponent<ComputerScript>(gameObjPtr);
+		objectManager.AddImage(gameObjPtr, computerSprite);
+		gameObjPtr->transform.position = { i * 100.0f, 0 };
+	}
+
+
+	//prison obj
+	prisonerObj = objectManager.NewGameObject();
+	objectManager.AddImage(prisonerObj, prisonerSprite);
+	objectManager.AddComponent<Movement>(prisonerObj);
+	objectManager.AddComponent<CameraComponent>(prisonerObj);
+
+	//door obj
+	doorObj = objectManager.NewGameObject();
+	objectManager.AddImage(doorObj, doorSprite);
+	doorObj->transform.position={ (float)AEGetWindowWidth() / -8, (float)AEGetWindowHeight() / 8 };
+	ComputerListener &listenerComponent2 = objectManager.AddComponent<ComputerListener>(doorObj);
+
+	MessageBus::RegisterListener(&listenerComponent2);
+
 	//Add Listener to event system
 	MessageBus::RegisterListener(&Test::listener);
 
@@ -59,6 +93,22 @@ void StarBangBang::TestScene::Init()
 
 void StarBangBang::TestScene::Update()
 {
+	Scene::Update();
+	//if (AEInputCheckTriggered(AEVK_LBUTTON))
+	//{
+	//	Transform& transform = computerObj->transform;
+	//	if (PointRectTest(GetMouseWorldPos(), transform.position, transform.scale.x * GRAPHICS::MESH_WIDTH, transform.scale.y * GRAPHICS::MESH_HEIGHT))
+	//	{
+	//		computerObj->active = false;
+	//		Event e;
+	//		e.id = EventId::COMPUTER_CLICK;
+	//		e.context = std::string("\nTESTING DETECTION LISTENER\n");
+	//		MessageBus::Notify(e);
+
+	//	}
+
+	//}
+
 	//Send message on key press (T)
 	if (AEInputCheckTriggered(AEVK_T))
 	{
@@ -78,7 +128,7 @@ void StarBangBang::TestScene::Update()
 
 void StarBangBang::TestScene::Draw()
 {
-
+	Scene::Draw();
 }
 
 void StarBangBang::TestScene::Free()

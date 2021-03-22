@@ -143,6 +143,8 @@ namespace StarBangBang
 
 		extern const std::string&& OFFICEFLOOR_PATH;
 		extern const std::string&& PRISONFLOOR_PATH;
+		extern const std::string&& PRISONCELL_PATH;
+		extern const std::string&& DOOR_PATH;
 
 		//interactable objects
 		extern const std::string&& CAMERA_PATH;
@@ -152,6 +154,9 @@ namespace StarBangBang
 		extern const std::string&& VENDING_LEFT_RED_PATH;
 		extern const std::string&& VENDING_RIGHT_PATH;
 		extern const std::string&& VENDING_RIGHT_RED_PATH;
+		extern const std::string&& COMPUTER_PATH;
+
+
 
 	}
 }
