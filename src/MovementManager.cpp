@@ -1,5 +1,6 @@
 #include "MovementManager.h"
 #include <iostream>
+#include "CameraComponent.h"
 
 void StarBangBang::MovementManager::AddController(GameObject* obj)
 {
@@ -10,6 +11,7 @@ void StarBangBang::MovementManager::AddController(GameObject* obj)
 		controllers.push_back(controller);
 		controller->SetActive(false);
 	}
+	SetCamera(obj);
 }
 
 void StarBangBang::MovementManager::Start()
@@ -46,6 +48,13 @@ void StarBangBang::MovementManager::Update()
 	//}
 }
 
+void StarBangBang::MovementManager::SetCamera(GameObject* obj)
+{
+	CameraComponent* camera = obj->GetComponent<CameraComponent>();
+	if (camera)
+		cam = camera;
+}
+
 void StarBangBang::MovementManager::SetActiveController(int id)
 {
 	if (controllers.size() == 0)
@@ -56,5 +65,10 @@ void StarBangBang::MovementManager::SetActiveController(int id)
 		controller->SetActive(false);
 	}
 
-	controllers.at(id)->SetActive(true);
+	PrimaryMovementController* controller = controllers.at(id);
+	controller->SetActive(true);
+
+	if (cam)
+		cam->SetTarget(controller->gameObject);
+
 }

@@ -127,6 +127,7 @@ namespace StarBangBang
 				GRAPHICS::ResetCamera();
 				currentState->Load();
 				currentState->Init();
+				currentState->Start();
 				stateChanged = false;
 
 			}

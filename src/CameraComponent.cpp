@@ -6,6 +6,7 @@ StarBangBang::CameraComponent::CameraComponent(GameObject* gameObject) : Compone
 	position = { 0, 0 };
 	scale = GRAPHICS::DEFAULT_ZOOM;
 	scaleFactor = GRAPHICS::CAMERA_SCALE_FACTOR;
+	target = gameObject;
 }
 
 void StarBangBang::CameraComponent::LateUpdate()
@@ -24,7 +25,8 @@ void StarBangBang::CameraComponent::LateUpdate()
 			scale = GRAPHICS::CAMERA_SCALE_MAX;
 	}
 
-	position = gameObject->transform.position;
+	//position = gameObject->transform.position;
+	position = target->transform.position;
 	AEVec2Scale(&position, &position, scale);
 	GRAPHICS::SetZoom(scale);
 
@@ -36,4 +38,9 @@ void StarBangBang::CameraComponent::LateUpdate()
 	//temp
 	//AEGfxSetCamPosition(position.x, position.y);
 	GRAPHICS::SetCameraPosition(position.x, position.y);
+}
+
+void StarBangBang::CameraComponent::SetTarget(GameObject* obj)
+{
+	target = obj;
 }

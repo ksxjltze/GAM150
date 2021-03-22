@@ -105,9 +105,6 @@ namespace StarBangBang
 		objectManager.AddImage(exit, exitImage);
 		objectManager.AddCollider(exit, true).isTrigger = true;
 	
-
-		// Call Start on scripts
-		objectManager.Init();
 	}
 
 	void StarBangBang::Level_Demo::Update()

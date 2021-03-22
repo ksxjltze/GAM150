@@ -11,6 +11,9 @@ namespace StarBangBang
 		AEVec2 position;
 		float scale;
 		float scaleFactor;
+		void SetTarget(GameObject* obj);
+	private:
+		GameObject* target;
 
 	};
 }

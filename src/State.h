@@ -16,6 +16,7 @@ namespace StarBangBang
 		inline int getID() { return id; }
 
 		virtual void Load() = 0;
+		void Start() { objectManager.Init(); }
 		virtual void Init() = 0;
 		virtual void Update() 
 		{ 
