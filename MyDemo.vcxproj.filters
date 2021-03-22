@@ -309,9 +309,6 @@
     <ClCompile Include="src\PlayerScript.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\CameraManager.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\ImageComponent.h">
@@ -534,9 +531,6 @@
       <Filter>Header Files\Engine\Game Logic</Filter>
     </ClInclude>
     <ClInclude Include="src\PlayerScript.h">
-      <Filter>Header Files\Scripts</Filter>
-    </ClInclude>
-    <ClInclude Include="src\CameraManager.h">
       <Filter>Header Files\Scripts</Filter>
     </ClInclude>
   </ItemGroup>

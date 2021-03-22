@@ -111,7 +111,6 @@ xcopy /y /d /i /s "$(SolutionDir)\Resources" "$(OutDir)\Resources"</Command>
     <ClCompile Include="src\BasicMeshShape.cpp" />
     <ClCompile Include="src\AudioEngine.cpp" />
     <ClCompile Include="src\CameraComponent.cpp" />
-    <ClCompile Include="src\CameraManager.cpp" />
     <ClCompile Include="src\CaptainStealth.cpp" />
     <ClCompile Include="src\Collider.cpp" />
     <ClCompile Include="src\CollisionListener.cpp" />
@@ -165,7 +164,6 @@ xcopy /y /d /i /s "$(SolutionDir)\Resources" "$(OutDir)\Resources"</Command>
     <ClInclude Include="src\BasicMeshShape.h" />
     <ClInclude Include="src\AudioEngine.h" />
     <ClInclude Include="src\CameraComponent.h" />
-    <ClInclude Include="src\CameraManager.h" />
     <ClInclude Include="src\CaptainStealth.h" />
     <ClInclude Include="src\Click.h" />
     <ClInclude Include="src\Collider.h" />
