@@ -8,6 +8,6 @@ namespace StarBangBang
 	{
 	public:
 		CollisionListener(GameObject* obj);
-		void onNotify(Event e);
+		virtual void onNotify(Event e);
 	};
 }
