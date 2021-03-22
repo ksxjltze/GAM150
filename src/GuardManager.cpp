@@ -83,7 +83,7 @@ void GuardManager::CreateSecurityCameras(ObjectManager* objManager, Sprite* spri
 
 void GuardManager::Update()
 {
-	PRINT("x: %f, y: %f\n", GetMouseWorldPos().x, GetMouseWorldPos().y);
+	//PRINT("x: %f, y: %f\n", GetMouseWorldPos().x, GetMouseWorldPos().y);
 
 	// upon receiving distraction event, get nearest guard to be distracted
 	// ...
