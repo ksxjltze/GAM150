@@ -41,6 +41,20 @@ namespace StarBangBang
 		Scene::Unload();
 	}
 
+	void CaptainStealth::SpawnComputer(ObjectManager& objMgr, Sprite computerSprite, AEVec2 position)
+	{
+		GameObject* gameObjPtr;
+		//computer obj (v machine)
+		gameObjPtr = objMgr.NewGameObject();
+		objMgr.AddComponent<ComputerScript>(gameObjPtr);
+		objMgr.AddImage(gameObjPtr, computerSprite);
+		gameObjPtr->transform.position = position;
+
+		//Add Collider
+		Collider& collider = objMgr.AddCollider(gameObjPtr, false);
+		collider.isTrigger = true;
+	}
+
 	void CaptainStealth::SpawnPlayer(ObjectManager& objMgr, GameObject*& player, Sprite playerImage)
 	{
 		player = objMgr.NewGameObject();
@@ -67,7 +81,7 @@ namespace StarBangBang
 
 		objMgr.AddImage(client, clientImage);
 		objMgr.AddComponent<RigidBody>(client);
-		objMgr.AddCollider(client, false).isTrigger = true;
+		objMgr.AddCollider(client, false);
 		objMgr.AddComponent<PrimaryMovementController>(client);
 	}
 

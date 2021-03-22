@@ -9,6 +9,7 @@
 #include "ComputerScript.h"
 #include "CameraComponent.h"
 #include "CollisionListener.h"
+#include "CaptainStealth.h"
 
 
 namespace StarBangBang
@@ -37,17 +38,7 @@ void StarBangBang::TestScene::Init()
 
 	for (int i = 0; i < 7; ++i)
 	{
-		GameObject *gameObjPtr;
-		//computer obj (v machine)
-		gameObjPtr = objectManager.NewGameObject();
-		objectManager.AddComponent<ComputerScript>(gameObjPtr);
-		objectManager.AddImage(gameObjPtr, computerSprite);
-		gameObjPtr->transform.position = { i * 100.0f, 0 };
-
-		//Add Collider
-		Collider& collider = objectManager.AddCollider(gameObjPtr, false);
-		
-		//collider.isTrigger = true;
+		CaptainStealth::SpawnComputer(objectManager, computerSprite, { i * 100.0f, 0 });
 	}
 
 

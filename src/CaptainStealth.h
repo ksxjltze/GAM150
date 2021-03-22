@@ -9,6 +9,7 @@
 #include "PrimaryMovementController.h"
 #include "DetectionListener.h"
 #include "Text.h"
+#include "ComputerScript.h"
 
 namespace StarBangBang
 {
@@ -25,6 +26,7 @@ namespace StarBangBang
 
 		static void SpawnPlayer(ObjectManager& objMgr, GameObject*& player, Sprite playerImage);
 		static void SpawnClient(ObjectManager& objMgr, GameObject*& client, Sprite clientImage);
+		static void SpawnComputer(ObjectManager& objMgr, Sprite playerImage, AEVec2 position);
 
 	private:
 		GameObject* player;
