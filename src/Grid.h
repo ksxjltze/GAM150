@@ -87,6 +87,7 @@ namespace StarBangBang
 		constexpr int GetGridSizeY() const { return size_y; }
 		constexpr float GetNodeSize() const { return nodeSize; }
 
+		A_Node GetRandomFreeNode();
 		void SetOccupied(int x, int y, bool occupied = true);
 		void DrawGrid(Color color = Green);
 		void FreeGrid(void);

@@ -228,6 +228,20 @@ using namespace StarBangBang;
 		}
 	}
 
+	A_Node StarBangBang::Grid::GetRandomFreeNode()
+	{
+		int rand_x = AERandFloat() * size_x, rand_y= AERandFloat()* size_y;
+		A_Node n = grid[rand_y][rand_x];
+
+		while (n.occupied)
+		{
+			rand_x = AERandFloat() * size_x, rand_y = AERandFloat() * size_y;
+			n = grid[rand_y][rand_x];
+		}
+
+		return n;
+	}
+
 	void StarBangBang::Grid::SetOccupied(int x, int y, bool occupied)
 	{
 		if (x < size_x && y < size_y)

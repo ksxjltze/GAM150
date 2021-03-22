@@ -68,6 +68,7 @@ namespace StarBangBang
 	void CaptainStealth::SpawnPlayer(ObjectManager& objMgr, GameObject*& player, Sprite playerImage)
 	{
 		player = objMgr.NewGameObject();
+		player->name = "Player";
 		player->SetPos({ 250, 800 });
 		player->transform.scale = { 0.7f, 0.7f };
 

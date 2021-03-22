@@ -72,8 +72,13 @@ namespace StarBangBang
 		CaptainStealth::SpawnClient(objectManager, player2, player2Image);
 
 		//Compooter
-		CaptainStealth::SpawnComputer(objectManager, computerSprite, player->transform.position);
-		CaptainStealth::SpawnDoor(objectManager, doorSprite, player2->transform.position);
+		srand(time(NULL));
+		for (int i = 0; i < 7; ++i)
+		{
+			Grid& grid = PathFinder::GetWorldGrid();
+			A_Node n = grid.GetRandomFreeNode();
+			CaptainStealth::SpawnComputer(objectManager, computerSprite, n.nodePos);
+		}
 
 		//Movement Manager
 		moveMgr.AddController(player);
@@ -94,6 +99,8 @@ namespace StarBangBang
 		//temp
 		exit->transform.position = tilemap.GetPositionAtIndex(10, 40);
 		exit->name = "EXIT";
+
+		CaptainStealth::SpawnDoor(objectManager, doorSprite, exit->transform.position);
 
 		objectManager.AddImage(exit, exitImage);
 		objectManager.AddCollider(exit, true).isTrigger = true;

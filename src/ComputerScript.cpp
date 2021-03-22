@@ -23,8 +23,12 @@ namespace StarBangBang
 
 			BoxCollider* collider = gameObject->GetComponent<BoxCollider>();
 
-			if (colliderPair.first == collider || colliderPair.second == collider)
-				enabled = true;
+			if (colliderPair.first->gameObject->name == "Player" || colliderPair.second->gameObject->name == "Player")
+			{
+				if (colliderPair.first == collider || colliderPair.second == collider)
+					enabled = true;
+
+			}
 		}
 	}
 
