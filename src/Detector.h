@@ -12,18 +12,17 @@ namespace StarBangBang
 		void Update();
 		void Draw();
 
-		void Init(float fov, float dist, GameObject* target);
+		void Init(float fov, float dist, GameObject* player, GameObject* client);
 		void Rotate(float angle);
 
 		void SpanVision(float minRot, float maxRot, float speed);
 
 		inline void SetAngle(float angle) { rotationAngle = angle; }
 		inline void SetFacingDir(const AEVec2& dir) { targetDir = dir; }
-		inline bool DetectedPlayer() const { return detected; }
 		inline float GetRotation() const { return rotationAngle; }
 
 	private:
-		void CheckForTargets();
+		void CheckForTargets(const AEVec2& _targetPos, bool checkForPlayer = true);
 
 		float fieldOfView;
 		float viewDist;
@@ -31,11 +30,11 @@ namespace StarBangBang
 
 		bool atMaxRot;
 
-		bool detected;
+		bool detectedTarget1, detectedTarget2;
 
 		AEVec2 defaultForward;
 		AEVec2 targetDir;
 
-		GameObject* targetGO;
+		GameObject* target1, *target2;
 	};
 }

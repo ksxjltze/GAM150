@@ -11,7 +11,7 @@ GuardVision::GuardVision(GameObject* gameObject)
 	: Script(gameObject)
 	, detected_player(false)
 	, fieldOfView(90.f)
-	, viewDist(250.f)
+	, viewDist(100.f)
 	, player(nullptr)
 	, client(nullptr)
 	, movement(nullptr)
@@ -23,7 +23,7 @@ void GuardVision::Start()
 {
 	movement = gameObject->GetComponent<GuardMovement>();
 	detector = gameObject->GetComponent<Detector>();
-	detector->Init(fieldOfView, viewDist, player);
+	detector->Init(fieldOfView, viewDist, player, client);
 }
 
 void GuardVision::Update()

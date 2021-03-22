@@ -279,15 +279,47 @@ namespace StarBangBang
 		//temp hack
 		for (auto collidableType : collidableList)
 		{
+			Tile& tile = map.at({ x - 1, y });
 			if (type == collidableType)
 			{
-				GameObject* gameObject = map.at({ x - 1, y }).spriteObject->gameObject;
+				tile.collidable = true;
+
+				GameObject* gameObject = tile.spriteObject->gameObject;
 				objMgr.AddComponent<RigidBody>(gameObject);
 				gameObject->GetComponent<RigidBody>()->SetMass(0);
 				objMgr.AddCollider(gameObject, true);
 			}
+			else {
+				tile.collidable = false;
+			}
 		}
 
+	}
+
+	void TileMap::SetGrid(Grid& grid)
+	{
+		//grid.SetAllOccupied();
+		for (const auto& pair : map)
+		{
+			if (pair.second.collidable)
+			{
+				std::pair index = pair.first;
+				grid.SetOccupied(index.first, index.second);
+			}
+		}
+	}
+
+	Tile& TileMap::At(int x, int y)
+	{
+		return map.at({x, y});
+	}
+
+	void TileMap::SetVisible(bool vis)
+	{
+		for (const auto& pair : map)
+		{
+			pair.second.spriteObject->active = vis;
+		}
 	}
 
 	void TileMap::Replace(int x, int y, TileType type)

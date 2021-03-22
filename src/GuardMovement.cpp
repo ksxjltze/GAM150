@@ -27,9 +27,6 @@ void GuardMovement::Start()
 {
 	rb = gameObject->GetComponent<RigidBody>();
 	rb->drag = 0.2f;
-
-	startPos = gameObject->GetPos();
-	endPos = { 400, 650 };
 }
 
 void GuardMovement::Idle()
@@ -141,7 +138,7 @@ bool GuardMovement::MoveTo(AEVec2 pos)
 
 bool GuardMovement::ReachedPos(AEVec2 pos)
 {
-	float minDistToTarget = 5.f;
+	float minDistToTarget = 10.f;
 	return (AEVec2SquareDistance(&pos, &gameObject->transform.position) <= minDistToTarget * minDistToTarget);
 }
 
@@ -207,4 +204,11 @@ void GuardMovement::LookForPath(const AEVec2& pos)
 		lookForPath = false;
 		reachedEndOfPath = false;
 	}
+}
+
+void GuardMovement::SetStartEndPos(const AEVec2& start, const AEVec2& end)
+{
+	gameObject->SetPos(start);
+	startPos = start;
+	endPos = end;
 }

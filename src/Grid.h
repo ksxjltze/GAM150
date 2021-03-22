@@ -1,7 +1,6 @@
 #pragma once
 #include "../Extern/AlphaEngine_V3.08/include/AEEngine.h"
 #include <unordered_set>
-#include "Heap.h"
 #include "Color.h"
 
 namespace StarBangBang
@@ -20,7 +19,7 @@ namespace StarBangBang
 			
 	};
 	//A* star node
-	class A_Node : public Node , public Interface
+	class A_Node : public Node 
 	{
 	public:
 		bool occupied = false;
@@ -29,8 +28,7 @@ namespace StarBangBang
 		int gcost = 0;	 //cost to start node to end node
 		constexpr int GetfCost()  const { return hcost + gcost; }
 
-		virtual int GetHeapIndex() const;
-		virtual void SetHeapIndex(int);
+		
 	};
 	//partition cell
 	class Cell
@@ -73,7 +71,10 @@ namespace StarBangBang
 		AEVec2 offset = AEVec2();	// grid offset from center (ie to place it in other position)
 		int size_x = 0; // number of nodes in a row
 		int size_y = 0; // number of nodes in a column
-		void CheckOccupiedGrid();
+
+		//Debug
+		void SetAllOccupied();
+
 	public:
 		constexpr AEVec2 GetGridExtend() const
 		{ 
@@ -86,7 +87,7 @@ namespace StarBangBang
 		constexpr int GetGridSizeY() const { return size_y; }
 		constexpr float GetNodeSize() const { return nodeSize; }
 
-
+		void SetOccupied(int x, int y, bool occupied = true);
 		void DrawGrid(Color color = Green);
 		void FreeGrid(void);
 		//create grid object

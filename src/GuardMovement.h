@@ -21,7 +21,7 @@ namespace StarBangBang
 		void Distracted();
 
 		void LookForPath(const AEVec2& pos);
-		inline void SetEndPos(const AEVec2& pos) { endPos = pos; }
+		void SetStartEndPos(const AEVec2& start, const AEVec2& end);
 
 		inline const AEVec2& GetNextPos() const { return nextPos; }
 		inline bool IsMoving() const { return isMoving; }

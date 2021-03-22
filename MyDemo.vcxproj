@@ -115,6 +115,7 @@ xcopy /y /d /i /s "$(SolutionDir)\Resources" "$(OutDir)\Resources"</Command>
     <ClCompile Include="src\Collider.cpp" />
     <ClCompile Include="src\CollisionManager.cpp" />
     <ClCompile Include="src\constants.cpp" />
+    <ClCompile Include="src\DebugText.cpp" />
     <ClCompile Include="src\DetectionListener.cpp" />
     <ClCompile Include="src\Detector.cpp" />
     <ClCompile Include="src\DragComponent.cpp" />
@@ -127,7 +128,6 @@ xcopy /y /d /i /s "$(SolutionDir)\Resources" "$(OutDir)\Resources"</Command>
     <ClCompile Include="src\GuardManager.cpp" />
     <ClCompile Include="src\GuardMovement.cpp" />
     <ClCompile Include="src\GuardVision.cpp" />
-    <ClCompile Include="src\Heap.cpp" />
     <ClCompile Include="src\ImageComponent.cpp" />
     <ClCompile Include="src\LevelEditor.cpp" />
     <ClCompile Include="src\InteractableComponent.cpp" />
@@ -170,6 +170,7 @@ xcopy /y /d /i /s "$(SolutionDir)\Resources" "$(OutDir)\Resources"</Command>
     <ClInclude Include="src\Component.h" />
     <ClInclude Include="src\ComponentCRTP.h" />
     <ClInclude Include="src\constants.h" />
+    <ClInclude Include="src\DebugText.h" />
     <ClInclude Include="src\DetectionListener.h" />
     <ClInclude Include="src\Detector.h" />
     <ClInclude Include="src\DragComponent.h" />
@@ -183,7 +184,6 @@ xcopy /y /d /i /s "$(SolutionDir)\Resources" "$(OutDir)\Resources"</Command>
     <ClInclude Include="src\GuardManager.h" />
     <ClInclude Include="src\GuardMovement.h" />
     <ClInclude Include="src\GuardVision.h" />
-    <ClInclude Include="src\Heap.h" />
     <ClInclude Include="src\IClickable.h" />
     <ClInclude Include="src\ImageComponent.h" />
     <ClInclude Include="src\ISerializable.h" />

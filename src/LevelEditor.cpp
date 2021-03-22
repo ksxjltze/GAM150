@@ -6,6 +6,7 @@
 #include "Movement.h"
 #include "Serialization.h"
 #include "PathFinder.h"
+#include "globals.h"
 
 namespace StarBangBang
 {
@@ -37,6 +38,7 @@ namespace StarBangBang
 	{
 		PathFinder::ShowGrid(false);
 		GRAPHICS::SetBackgroundColor(Black);
+		GRAPHICS::SetZoom(1.0f);
 		
 		filepath = RESOURCES::LEVELS::LEVEL_TEST_PATH;
 		//filepath = RESOURCES::LEVELS::COLLISION_TEST;
@@ -53,6 +55,13 @@ namespace StarBangBang
 		objectManager.AddComponent<CameraComponent>(camera);
 		objectManager.AddComponent<Movement>(camera);
 
+		debugText = objectManager.NewGameObject();
+		DebugText& text = objectManager.AddComponent<DebugText>(debugText);
+		text.SetTextbox(100, 100);
+		text.SetFont(StarBangBang::fontId);
+
+		MessageBus::RegisterListener(&text);
+
 	}
 
 	void LevelEditor::Update()
@@ -62,6 +71,7 @@ namespace StarBangBang
 		if (AEInputCheckTriggered(AEVK_TAB))
 		{
 			++selectedType;
+			MessageBus::Notify({ EventId::PRINT_TEXT, std::string("TILE TYPE CHANGED" ) });
 		}
 
 		if (AEInputCheckTriggered(AEVK_RETURN))

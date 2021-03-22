@@ -20,6 +20,11 @@ void SecurityCamera::SetRotationMinMax(float _minRot, float _maxRot)
 {
 	minRot = _minRot;
 	maxRot = _maxRot;
+
+	if (!detector)
+		detector = gameObject->GetComponent<Detector>();
+
+	detector->Rotate(maxRot);
 }
 
 void SecurityCamera::Update()

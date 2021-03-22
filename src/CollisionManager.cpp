@@ -415,7 +415,7 @@ void ResolveVelocity(const CollisionPair& pair)
 							, pair.B.rb->velocity.y - pair.A.rb->velocity.y };
 
 	float dotVelScale = AEVec2DotProduct(&relVel, &normal);
-	//towards same direction curr
+	//towards same direction as resolving normal 
 	if (dotVelScale > 0)
 		return;
 
@@ -429,12 +429,11 @@ void ResolveVelocity(const CollisionPair& pair)
 		// Apply impulse
 		AEVec2 impulse{ normal.x * scale  , normal.y * scale };
 
+		//check for accounting static obejcts with no rb
 		pair.A.rb->AddVelocity(impulse, pair.A.rb->inv_mass());
 		pair.B.rb->AddVelocity(impulse, -pair.B.rb->inv_mass());
 	}
 }
-//static int collisionChecks = 0;
-//float timer = 10.0f;
 void ResolvePenetration(const CollisionPair& pair)
 {
 	float total = pair.A.rb->inv_mass() + pair.B.rb->inv_mass();
@@ -451,6 +450,7 @@ void ResolvePenetration(const CollisionPair& pair)
 	AEVec2 corr = AEVec2{ additional * xMax / total * pair.data.col_normal.x , additional * yMax / total * pair.data.col_normal.y };
 
 	pair.A.rb->AddInstantVelocity(corr, -pair.A.rb->inv_mass());
+
 	pair.B.rb->AddInstantVelocity(corr, pair.B.rb->inv_mass());
 }
 
@@ -463,8 +463,8 @@ void StarBangBang::CollisionManager::Free()
 //wip
 void CollisionManager::ResolverUpdate()
 {
-	static size_t collision_check = 0;
-	static float timer = 5.0f;
+	/*static size_t collision_check = 0;
+	static float timer = 5.0f;*/
 	//non-partition 
 	/*for (BoxCollider* col : collider_list)
 	{
@@ -540,10 +540,11 @@ void CollisionManager::ResolverUpdate()
 						}
 
 					}
-					if (timer > 0)
+				
+					/*if (timer > 0)
 					{
 						++collision_check;
-					}
+					}*/
 
 				}
 
@@ -711,30 +712,6 @@ bool CollisionManager::Dynamic_AABB(const BoxCollider& A, const AEVec2& vel1,
 
 	return true;
 
-
-}
-
-bool CollisionManager::CircleVsCircle(CircleCollider c1, CircleCollider c2, CollisionData& col)
-{
-	float r = c1.GetRadius() + c2.GetRadius();
-	AEVec2 c1_center = c1.GetCenter();
-	AEVec2 c2_center = c2.GetCenter();
-	float d = AEVec2SquareDistance(&c1_center, &c2_center);
-	if (d > r * r)
-		return false;
-	//collided
-	d = sqrtf(d);
-
-	if (d != 0)
-	{
-		col.pen_depth = r - d;
-		col.col_normal = AEVec2{ (c2_center.x - c1_center.x) / d , (c2_center.y - c1_center.y) / d };
-		return true;
-	}
-	//same circle center	
-	col.pen_depth = c1.GetRadius();
-	col.col_normal = AEVec2{ 0, 1 };
-	return true;
 
 }
 
