@@ -230,7 +230,8 @@ using namespace StarBangBang;
 
 	void StarBangBang::Grid::SetOccupied(int x, int y, bool occupied)
 	{
-		grid[y][x].occupied = occupied;
+		if (x < size_x && y < size_y)
+			grid[y][x].occupied = occupied;
 	}
 
 	void Grid::DrawGrid(Color color)

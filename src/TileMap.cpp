@@ -175,11 +175,6 @@ namespace StarBangBang
 					int typeID = atoi(typeString.c_str());
 					TileType type = static_cast<TileType>(typeID);
 
-					if (type == TileType::TEST)
-					{
-						printf("PEE PEE POO POO\n");
-					}
-
 					if (type != TileType::NONE)
 					{
 						Insert(x++, y, type);
