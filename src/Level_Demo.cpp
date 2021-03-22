@@ -17,6 +17,9 @@
 #include "ObserverTest.h"
 #include "Text.h"
 #include "globals.h"
+#include "Utils.h"
+
+ StarBangBang::BoxCollider* playerCol;
 
 StarBangBang::Level_Demo::Level_Demo(int id, GameStateManager& manager) : Scene(id, manager), tilemap{ objectManager, graphicsManager }
 {
@@ -64,6 +67,10 @@ void StarBangBang::Level_Demo::Init()
 	Text* txt = player->GetComponent<Text>();
 	assert(txt);
 	txt->fontID = StarBangBang::fontId;
+	objectManager.AddImage(player2, player2Image);
+	objectManager.AddComponent<RigidBody>(player2).SetMass(30.0f);
+	objectManager.AddCollider(player2, false);
+	objectManager.AddComponent<PrimaryMovementController>(player2);
 
 
 	guardManager = objectManager.NewGameObject();
@@ -106,6 +113,9 @@ void StarBangBang::Level_Demo::Init()
 	worldOriginMarker->transform.scale = { 0.5, 0.5 };
 	testObjects.push_back(worldOriginMarker);
 
+	playerCol = player->GetComponent<BoxCollider>();
+
+	// Call Start on scripts
 	objectManager.Init();
 }
 
@@ -115,6 +125,16 @@ void StarBangBang::Level_Demo::Update()
 	if (AEInputCheckTriggered(VK_SPACE))
 	{
 		gameStateManager.SetNextGameState(SceneID::EDITOR);
+	}
+
+	AEVec2 mousePos = GetMouseWorldPos();
+
+	Ray ray = Ray(player->GetPos(), mousePos);
+
+	if (CollisionManager::LineCast(ray, playerCol))
+	{
+		
+		PRINT("HIT\n");
 	}
 }
 
