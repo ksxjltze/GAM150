@@ -8,7 +8,7 @@ namespace StarBangBang
 	class MovementManager : public Script
 	{
 	public:
-		MovementManager(GameObject* obj) : Script(obj) {}
+		MovementManager(GameObject* obj) : Script(obj), cam{ nullptr } {}
 		void AddController(GameObject* obj);
 		void Start();
 		void Update();

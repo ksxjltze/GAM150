@@ -230,12 +230,12 @@ using namespace StarBangBang;
 
 	A_Node StarBangBang::Grid::GetRandomFreeNode()
 	{
-		int rand_x = AERandFloat() * size_x, rand_y= AERandFloat()* size_y;
+		int rand_x = static_cast<int>(AERandFloat() * size_x), rand_y = static_cast<int>(AERandFloat()* size_y);
 		A_Node n = grid[rand_y][rand_x];
 
 		while (n.occupied)
 		{
-			rand_x = AERandFloat() * size_x, rand_y = AERandFloat() * size_y;
+			rand_x = static_cast<int>(AERandFloat() * size_x), rand_y = static_cast<int>(AERandFloat() * size_y);
 			n = grid[rand_y][rand_x];
 		}
 

@@ -72,7 +72,7 @@ namespace StarBangBang
 		CaptainStealth::SpawnClient(objectManager, player2, player2Image);
 
 		//Compooter
-		srand(time(NULL));
+		srand(static_cast<unsigned int>(time(NULL)));
 		for (int i = 0; i < CONSTANTS::COMPUTER_COUNT; ++i)
 		{
 			Grid& grid = PathFinder::GetWorldGrid();
@@ -110,9 +110,14 @@ namespace StarBangBang
 	void StarBangBang::Level_Demo::Update()
 	{
 		Scene::Update();
-		if (AEInputCheckTriggered(VK_SPACE))
+		//if (AEInputCheckTriggered(VK_SPACE))
+		//{
+		//	gameStateManager.SetNextGameState(SceneID::EDITOR);
+		//}
+
+		if (AEInputCheckTriggered(AEVK_ESCAPE))
 		{
-			gameStateManager.SetNextGameState(SceneID::EDITOR);
+			gameStateManager.SetNextGameState(MAIN_MENU);
 		}
 
 		PlayerScript* playerScript = player->GetComponent<PlayerScript>();

@@ -55,7 +55,7 @@ namespace StarBangBang
 		playbutton_obj->transform.scale = { 3, 3 };
 
 		//auto d = []() {printf("MAIN MENU: TEST\n"); };
-		objectManager.AddComponent<Click<Main_Menu>>(playbutton_obj).setCallback(*this, &Main_Menu::LoadLevelTest);
+		objectManager.AddComponent<Click<Main_Menu>>(playbutton_obj).setCallback(*this, &Main_Menu::LoadLevel);
 		
 
 		//settings button
@@ -86,7 +86,7 @@ namespace StarBangBang
 		Scene::Update();
 		if (AEInputCheckTriggered(AEVK_SPACE))
 		{
-			gameStateManager.SetNextGameState();
+			LoadLevel();
 		}
 		else if (AEInputCheckTriggered(AEVK_ESCAPE))
 		{
@@ -119,9 +119,9 @@ namespace StarBangBang
 		MessageBus::Notify({ EventId::STOP_SOUND });
 	}
 
-	void Main_Menu::LoadLevelTest()
+	void Main_Menu::LoadLevel()
 	{
-		gameStateManager.SetNextGameState();
+		gameStateManager.SetNextGameState(SceneID::DEMO);
 	}
 
 	void Main_Menu::ExitGame()

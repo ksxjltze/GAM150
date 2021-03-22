@@ -19,7 +19,7 @@ namespace StarBangBang
 		void Free();
 		void Unload();
 
-		void LoadLevelTest();
+		void LoadLevel();
 		void ExitGame();
 
 	private:

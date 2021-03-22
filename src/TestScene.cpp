@@ -21,7 +21,7 @@ namespace StarBangBang
 	}
 }
 
-StarBangBang::TestScene::TestScene(int id, GameStateManager& gsm) : Scene(id, gsm)
+StarBangBang::TestScene::TestScene(int id, GameStateManager& gsm) : Scene(id, gsm), computerObj{ nullptr }, doorObj{ nullptr }, prisonerObj{nullptr}
 {
 
 }

@@ -82,7 +82,7 @@ bool LineIntersect(const Ray& l1, const Ray& l2)
 
 BoxCollider* CollisionManager::LineCast(const Ray& ray, BoxCollider* ignore)
 {
-	const int sides = 4;
+	const int c_sides = 4;
 	for (BoxCollider* col : collider_list)
 	{
 
@@ -107,7 +107,7 @@ BoxCollider* CollisionManager::LineCast(const Ray& ray, BoxCollider* ignore)
 				Ray{col->Min(),AEVec2{col->Min().x,col->Max().y }},
 		};
 
-		for (int i = 0; i < sides; ++i)
+		for (int i = 0; i < c_sides; ++i)
 		{
 			//intersect
 			if (LineIntersect(boxAxis[i], ray))

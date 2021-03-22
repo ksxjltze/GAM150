@@ -92,11 +92,11 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 	// Add Game States/Scenes
 	std::vector<Scene*> sceneList;
 
+	Scene* mainMenuScene	= gameStateManager.AddGameState<Main_Menu>(SceneID::MAIN_MENU);
 	Scene* sceneDemo		= gameStateManager.AddGameState<Level_Demo>(SceneID::DEMO);
 	Scene* sceneEditor		= gameStateManager.AddGameState<LevelEditor>(SceneID::EDITOR);
 	Scene* sampleScene		= gameStateManager.AddGameState<Sample_Scene>(SceneID::SAMPLE);
 	Scene* gameScene		= gameStateManager.AddGameState<CaptainStealth>(SceneID::GAME);
-	Scene* mainMenuScene	= gameStateManager.AddGameState<Main_Menu>(SceneID::MAIN_MENU);
 	Scene* engineProof		= gameStateManager.AddGameState<EngineProof>();
 	Scene* testScene		= gameStateManager.AddGameState<TestScene>();
 	
