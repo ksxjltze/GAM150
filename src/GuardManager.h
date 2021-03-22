@@ -31,7 +31,7 @@ namespace StarBangBang
 
 		// temp
 		void SetGuardWaypoints(int id, const AEVec2& start, const AEVec2& end, bool isIdle = false);
-		void SetCameraPosAndViewMinMax(int id, const AEVec2& pos, float min, float max);
+		void InitSecurityCam(int id, const AEVec2& pos, float min, float max, float speed = GUARD::CAM_ROT_SPEED);
 
 		std::vector<GameObject*> guards; //GameObject* guards[NUM_GUARDS];
 		std::vector<GameObject*> cameras;
