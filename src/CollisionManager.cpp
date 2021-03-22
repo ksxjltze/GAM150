@@ -393,6 +393,8 @@ void ResolvePenetration(const CollisionPair& pair)
 	pair.A.rb->AddInstantVelocity(corr, -pair.A.rb->inv_mass());
 
 	pair.B.rb->AddInstantVelocity(corr, pair.B.rb->inv_mass());
+
+
 }
 
 void StarBangBang::CollisionManager::Free()
@@ -407,7 +409,7 @@ void CollisionManager::ResolverUpdate()
 	/*static size_t collision_check = 0;
 	static float timer = 5.0f;*/
 	//non-partition 
-	for (BoxCollider* col : collider_list)
+	/*for (BoxCollider* col : collider_list)
 	{
 
 		for (BoxCollider* col2 : collider_list)
@@ -446,75 +448,75 @@ void CollisionManager::ResolverUpdate()
 			//}
 		}
 
-	}
+	}*/
 
-//
-//#pragma region Partition
-//	
-//	//paritition 
-//	for (BoxCollider* col : collider_list)
-//	{
-//		assert(col);
-//
-//		if (!col->active)
-//			continue;
-//
-//		if(col->rb && col->rb->SqrVelocity() > 0)
-//			RecalculateColliderCells(*col);
-//		//printf("%zu\n", collider_list.size());
-//		if (col->GetCellListSize() > 0)
-//		{
-//			for (const int index : col->GetCellIndexes())
-//			{
-//				//PRINT("C_Index: %d\n", index);
-//				assert(index < p_grid.GetBucketSize());
-//
-//				Cell& c = p_grid.grid[index];
-//				for (BoxCollider* col2 : c.cell_colliders)
-//				{
-//					assert(col2);
-//				
-//					//assert(index < c.cell_collider);
-//					if (col2 == col)
-//						continue;
-//					CollisionData data;
-//
-//					assert(col2->rb);
-//					if (col->rb && col2->rb)
-//					{
-//						if (Dynamic_AABB(*col, col->rb->velocity, *col2, col2->rb->velocity))
-//						{
-//							if (col->isTrigger || col2->isTrigger)
-//							{
-//								Event collisionEvent;
-//								collisionEvent.id = EventId::COLLISION;
-//								collisionEvent.context = std::pair<Collider*, Collider*>(col, col2);
-//								MessageBus::Notify(collisionEvent);
-//								continue;
-//							}
-//
-//							CalculateCollisionData(*col, *col2, data);
-//							CollisionPair p{ *col,*col2, data };
-//							ResolveVelocity(p);
-//							ResolvePenetration(p);
-//						}
-//
-//					}
-//				
-//					/*if (timer > 0)
-//					{
-//						++collision_check;
-//					}*/
-//
-//				}
-//
-//			}
-//		}
-//
-//	}
-//	//std::cout << collision_check << std::endl;
-//	//timer -= AEFrameRateControllerGetFrameTime();
-//#pragma endregion
+
+#pragma region Partition
+	
+	//paritition 
+	for (BoxCollider* col : collider_list)
+	{
+		assert(col);
+
+		if (!col->active)
+			continue;
+
+		if(col->rb->isKinematic())
+			RecalculateColliderCells(*col);
+		//printf("%zu\n", collider_list.size());
+		if (col->GetCellListSize() > 0)
+		{
+			for (const int index : col->GetCellIndexes())
+			{
+				//PRINT("C_Index: %d\n", index);
+				assert(index < p_grid.GetBucketSize());
+
+				Cell& c = p_grid.grid[index];
+				for (BoxCollider* col2 : c.cell_colliders)
+				{
+					assert(col2);
+				
+					//assert(index < c.cell_collider);
+					if (col2 == col)
+						continue;
+					CollisionData data;
+
+					assert(col2->rb);
+					if (col->rb && col2->rb)
+					{
+						if (Dynamic_AABB(*col, col->rb->velocity, *col2, col2->rb->velocity))
+						{
+							if (col->isTrigger || col2->isTrigger)
+							{
+								Event collisionEvent;
+								collisionEvent.id = EventId::COLLISION;
+								collisionEvent.context = std::pair<Collider*, Collider*>(col, col2);
+								MessageBus::Notify(collisionEvent);
+								continue;
+							}
+
+							CalculateCollisionData(*col, *col2, data);
+							CollisionPair p{ *col,*col2, data };
+							ResolveVelocity(p);
+							ResolvePenetration(p);
+						}
+
+					}
+				
+					/*if (timer > 0)
+					{
+						++collision_check;
+					}*/
+
+				}
+
+			}
+		}
+
+	}
+	//std::cout << collision_check << std::endl;
+	//timer -= AEFrameRateControllerGetFrameTime();
+#pragma endregion
 
 	for (BoxCollider* col : collider_list)
 	{
