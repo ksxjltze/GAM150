@@ -4,7 +4,7 @@
 #include "globals.h"
 
 StarBangBang::DebugText::DebugText(GameObject* obj, s8 fontId) :
-	ListenerComponent(obj), fontId{ fontId }, fontScale{ 1.0f }, textPos{ 0, 0.8f }, duration{ 2.0f }, timer{ 0.0f }
+	ListenerComponent(obj), fontId{ fontId }, fontScale{ 1.0f }, textPos{ 0, 0.8f }, duration{ 4.0f }, timer{ 0.0f }, fadeStart{ 2.0f }
 {
 }
 
@@ -50,7 +50,11 @@ void StarBangBang::DebugText::Draw()
 
 	AEGfxSetBlendMode(AE_GFX_BM_BLEND); 
 	s8* str = const_cast<s8*>(text.c_str());
-	float color = timer / duration;
+	float color = timer / (duration - fadeStart);
+
+	//magic numbers for now
+	if (color <= 0.1f)
+		color = 0.1f;
 
 	f32 TextWidth, TextHeight;
 	AEGfxGetPrintSize(fontId, str, fontScale, TextWidth, TextHeight);

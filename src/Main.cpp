@@ -18,6 +18,7 @@
 #include "MessageBus.h"
 
 #include "TestScene.h"
+#include "Scene_GameOver.h"
 
 namespace StarBangBang
 {
@@ -97,6 +98,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 	Scene* sceneEditor		= gameStateManager.AddGameState<LevelEditor>(SceneID::EDITOR);
 	Scene* sampleScene		= gameStateManager.AddGameState<Sample_Scene>(SceneID::SAMPLE);
 	Scene* gameScene		= gameStateManager.AddGameState<CaptainStealth>(SceneID::GAME);
+	Scene* ggScene			= gameStateManager.AddGameState<Scene_GameOver>(GAME_OVER);
 	Scene* engineProof		= gameStateManager.AddGameState<EngineProof>();
 	Scene* testScene		= gameStateManager.AddGameState<TestScene>();
 	
@@ -108,6 +110,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 	sceneList.push_back(mainMenuScene);
 	sceneList.push_back(engineProof);
 	sceneList.push_back(testScene);
+	sceneList.push_back(ggScene);
 
 	// Set Initial State
 	gameStateManager.SetInitialState(mainMenuScene);

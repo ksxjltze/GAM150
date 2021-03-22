@@ -3,7 +3,7 @@
 
 namespace StarBangBang
 {
-	enum SceneID {DEMO, EDITOR, SAMPLE, GAME, MAIN_MENU};
+	enum SceneID {DEMO, EDITOR, SAMPLE, GAME, MAIN_MENU, GAME_OVER};
 
 	namespace TILEMAP
 	{

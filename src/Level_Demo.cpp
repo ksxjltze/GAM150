@@ -110,7 +110,8 @@ namespace StarBangBang
 
 		//Floating text
 		MessageBus::RegisterListener(&objectManager.AddComponent<DebugText>(player, fontId));
-		MessageBus::Notify({ EventId::PRINT_TEXT, std::string("Find the Exit!") });
+		MessageBus::Notify({ EventId::PRINT_TEXT, std::string("Find the Vending Machine!") });
+		MessageBus::Notify({ EventId::PLAY_SOUND, "Test"});
 
 	
 	}
@@ -132,7 +133,7 @@ namespace StarBangBang
 		if (playerScript->isGameOver())
 		{
 			std::cout << "LOSE\n" << std::endl;
-			gameStateManager.SetNextGameState(MAIN_MENU);
+			gameStateManager.SetNextGameState(GAME_OVER);
 		}
 		else if (playerScript->isWin())
 		{

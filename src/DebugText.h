@@ -15,6 +15,7 @@ namespace StarBangBang
 		void Draw();
 	private:
 		float duration;
+		float fadeStart;
 		float timer;
 
 		s8 fontId;
