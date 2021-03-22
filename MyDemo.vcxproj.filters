@@ -112,6 +112,24 @@
     <Filter Include="Resource Files\InteractableObj">
       <UniqueIdentifier>{6b862cd7-77d5-480b-bab7-a1252db5129a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Engine\EventSystem">
+      <UniqueIdentifier>{dba2bfce-ac58-40eb-bf5b-7f45698b7553}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Engine\Globals">
+      <UniqueIdentifier>{dc4456fc-a7d1-4337-ac6e-287b3158ae14}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Engine\Debug">
+      <UniqueIdentifier>{577eb510-fe11-4757-a321-6c0c0fb863f0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Engine\EventSystem">
+      <UniqueIdentifier>{105f24eb-227f-4c19-b5e0-ec5307e91a0f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Engine\Interfaces">
+      <UniqueIdentifier>{135311ec-048c-4282-a72f-42797fd51f17}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Debug">
+      <UniqueIdentifier>{0109f387-e055-4cf8-892a-c3d898c2538e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Main.cpp">
@@ -177,18 +195,6 @@
     <ClCompile Include="src\Sample_Scene.cpp">
       <Filter>Source Files\Scenes</Filter>
     </ClCompile>
-    <ClCompile Include="src\BasicMeshShape.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Grid.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\PathFinder.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Physics.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\Guard.cpp">
       <Filter>Source Files\Scripts\Guard</Filter>
     </ClCompile>
@@ -222,19 +228,10 @@
     <ClCompile Include="src\Serialization.cpp">
       <Filter>Source Files\Engine</Filter>
     </ClCompile>
-    <ClCompile Include="src\TileMap.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\constants.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\Main_Menu.cpp">
       <Filter>Source Files\Scenes</Filter>
     </ClCompile>
     <ClCompile Include="src\TileMap.cpp">
-      <Filter>Source Files\Engine</Filter>
-    </ClCompile>
-    <ClCompile Include="src\TileSet.cpp">
       <Filter>Source Files\Engine</Filter>
     </ClCompile>
     <ClCompile Include="src\Detector.cpp">
@@ -252,23 +249,11 @@
     <ClCompile Include="src\PrimaryMovementController.cpp">
       <Filter>Source Files\Scripts</Filter>
     </ClCompile>
-    <ClCompile Include="src\Movement.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\PrimaryMovementController.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\MessageBus.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\DetectionListener.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\SecurityCamera.cpp">
       <Filter>Source Files\Scripts\Guard</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Text.cpp">
-      <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\TestInteractable.cpp">
       <Filter>Source Files\Test</Filter>
@@ -279,17 +264,50 @@
     <ClCompile Include="src\TestScene.cpp">
       <Filter>Source Files\Test</Filter>
     </ClCompile>
-    <ClCompile Include="src\DebugText.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\ComputerListener.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\ComputerScript.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Scripts</Filter>
     </ClCompile>
     <ClCompile Include="src\CollisionListener.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Scripts</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ComputerScript.cpp">
+      <Filter>Source Files\Scripts</Filter>
+    </ClCompile>
+    <ClCompile Include="src\DetectionListener.cpp">
+      <Filter>Source Files\Scripts</Filter>
+    </ClCompile>
+    <ClCompile Include="src\MessageBus.cpp">
+      <Filter>Source Files\Engine\EventSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="src\constants.cpp">
+      <Filter>Source Files\Engine\Globals</Filter>
+    </ClCompile>
+    <ClCompile Include="src\DebugText.cpp">
+      <Filter>Source Files\Engine\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Grid.cpp">
+      <Filter>Source Files\Engine\Game Logic</Filter>
+    </ClCompile>
+    <ClCompile Include="src\PathFinder.cpp">
+      <Filter>Source Files\Engine\Game Logic</Filter>
+    </ClCompile>
+    <ClCompile Include="src\TileSet.cpp">
+      <Filter>Source Files\Engine\Game Logic</Filter>
+    </ClCompile>
+    <ClCompile Include="src\TileMap.cpp">
+      <Filter>Source Files\Engine\Game Logic</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Movement.cpp">
+      <Filter>Source Files\Scripts</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Text.cpp">
+      <Filter>Source Files\Scripts</Filter>
+    </ClCompile>
+    <ClCompile Include="src\BasicMeshShape.cpp">
+      <Filter>Source Files\Engine\Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Physics.cpp">
+      <Filter>Source Files\Engine\Collision</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -377,29 +395,8 @@
     <ClInclude Include="src\ComponentCRTP.h">
       <Filter>Header Files\Engine\Game Logic</Filter>
     </ClInclude>
-    <ClInclude Include="src\Event.h">
-      <Filter>Header Files\Engine</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Observer.h">
-      <Filter>Header Files\Engine</Filter>
-    </ClInclude>
     <ClInclude Include="src\Sample_Scene.h">
       <Filter>Header Files\Scenes</Filter>
-    </ClInclude>
-    <ClInclude Include="src\BasicMeshShape.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\CollisionTest.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Grid.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\PathFinder.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Physics.h">
-      <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\Guard.h">
       <Filter>Header Files\Scripts\Guard</Filter>
@@ -428,71 +425,17 @@
     <ClInclude Include="src\Physics.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\SerializeTest.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="src\CaptainStealth.h">
       <Filter>Header Files\Scenes</Filter>
     </ClInclude>
     <ClInclude Include="src\Main_Menu.h">
       <Filter>Header Files\Scenes</Filter>
     </ClInclude>
-    <ClInclude Include="src\TileSet.h">
-      <Filter>Header Files\Engine</Filter>
-    </ClInclude>
-    <ClInclude Include="src\TileMap.h">
-      <Filter>Header Files\Engine</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Serialization.h">
-      <Filter>Header Files\Engine</Filter>
-    </ClInclude>
-    <ClInclude Include="src\ISerializable.h">
-      <Filter>Header Files\Engine</Filter>
-    </ClInclude>
-    <ClInclude Include="src\UniqueQueue.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\globals.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Click.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Color.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\EngineProof.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\IClickable.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\SceneList.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Movement.h">
-      <Filter>Header Files\Engine</Filter>
-    </ClInclude>
     <ClInclude Include="src\SecurityCamera.h">
       <Filter>Header Files\Scripts\Guard</Filter>
     </ClInclude>
     <ClInclude Include="src\Detector.h">
       <Filter>Header Files\Scripts\Guard</Filter>
-    </ClInclude>
-    <ClInclude Include="src\MessageBus.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\ListenerComponent.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\DetectionListener.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Text.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Listener.h">
-      <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\TestListener.h">
       <Filter>Header Files\Test</Filter>
@@ -503,17 +446,92 @@
     <ClInclude Include="src\TestScene.h">
       <Filter>Header Files\Test</Filter>
     </ClInclude>
-    <ClInclude Include="src\DebugText.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="src\CollisionListener.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Scripts</Filter>
     </ClInclude>
     <ClInclude Include="src\ComputerListener.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Scripts</Filter>
+    </ClInclude>
+    <ClInclude Include="src\DetectionListener.h">
+      <Filter>Header Files\Scripts</Filter>
+    </ClInclude>
+    <ClInclude Include="src\globals.h">
+      <Filter>Header Files\Globals</Filter>
+    </ClInclude>
+    <ClInclude Include="src\EngineProof.h">
+      <Filter>Header Files\Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="src\MessageBus.h">
+      <Filter>Header Files\Engine\EventSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Event.h">
+      <Filter>Header Files\Engine\EventSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ISerializable.h">
+      <Filter>Header Files\Engine\Interfaces</Filter>
+    </ClInclude>
+    <ClInclude Include="src\IClickable.h">
+      <Filter>Header Files\Engine\Interfaces</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Listener.h">
+      <Filter>Header Files\Engine\Interfaces</Filter>
+    </ClInclude>
+    <ClInclude Include="src\CollisionTest.h">
+      <Filter>Header Files\Test</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Physics.h">
+      <Filter>Header Files\Engine\Collision</Filter>
     </ClInclude>
     <ClInclude Include="src\ComputerScript.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Scripts</Filter>
+    </ClInclude>
+    <ClInclude Include="src\BasicMeshShape.h">
+      <Filter>Header Files\Engine\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Text.h">
+      <Filter>Header Files\Engine\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="src\SerializeTest.h">
+      <Filter>Header Files\Test</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ListenerComponent.h">
+      <Filter>Header Files\Engine\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="src\SceneList.h">
+      <Filter>Header Files\Globals</Filter>
+    </ClInclude>
+    <ClInclude Include="src\DebugText.h">
+      <Filter>Header Files\Debug</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Color.h">
+      <Filter>Header Files\Engine\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Click.h">
+      <Filter>Header Files\Scripts</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Grid.h">
+      <Filter>Header Files\Engine\Game Logic</Filter>
+    </ClInclude>
+    <ClInclude Include="src\PathFinder.h">
+      <Filter>Header Files\Engine\Game Logic</Filter>
+    </ClInclude>
+    <ClInclude Include="src\UniqueQueue.h">
+      <Filter>Header Files\Engine\Game Logic</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Observer.h">
+      <Filter>Header Files\Engine\Interfaces</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Serialization.h">
+      <Filter>Header Files\Engine\Game State</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Movement.h">
+      <Filter>Header Files\Scripts</Filter>
+    </ClInclude>
+    <ClInclude Include="src\TileMap.h">
+      <Filter>Header Files\Engine\Game Logic</Filter>
+    </ClInclude>
+    <ClInclude Include="src\TileSet.h">
+      <Filter>Header Files\Engine\Game Logic</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
