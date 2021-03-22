@@ -97,6 +97,9 @@ void StarBangBang::Level_Demo::Update()
 	{
 		gameStateManager.SetNextGameState(SceneID::EDITOR);
 	}
+
+
+
 }
 
 void StarBangBang::Level_Demo::Draw()
