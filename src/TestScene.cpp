@@ -50,12 +50,9 @@ void StarBangBang::TestScene::Init()
 	objectManager.AddCollider(prisonerObj, false);
 
 	//door obj
-	doorObj = objectManager.NewGameObject();
-	objectManager.AddImage(doorObj, doorSprite);
 	doorObj->transform.position={ (float)AEGetWindowWidth() / -8, (float)AEGetWindowHeight() / 8 };
 
-	ComputerListener &listener = objectManager.AddComponent<ComputerListener>(doorObj);
-	MessageBus::RegisterListener(&listener);
+
 }
 
 void StarBangBang::TestScene::Update()

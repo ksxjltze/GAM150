@@ -55,6 +55,16 @@ namespace StarBangBang
 		collider.isTrigger = true;
 	}
 
+	void CaptainStealth::SpawnDoor(ObjectManager& objMgr, Sprite image, AEVec2 position)
+	{
+		GameObject* doorObj = objMgr.NewGameObject();
+		objMgr.AddImage(doorObj, image);
+		doorObj->transform.position = position;
+
+		ComputerListener& listener = objMgr.AddComponent<ComputerListener>(doorObj);
+		MessageBus::RegisterListener(&listener);
+	}
+
 	void CaptainStealth::SpawnPlayer(ObjectManager& objMgr, GameObject*& player, Sprite playerImage)
 	{
 		player = objMgr.NewGameObject();
@@ -64,11 +74,13 @@ namespace StarBangBang
 		DetectionListener* listener = &objMgr.AddComponent<DetectionListener>(player);
 		MessageBus::RegisterListener(listener);
 		objMgr.AddImage(player, playerImage);
+
 		objMgr.AddComponent<Text>(player).fontID = StarBangBang::fontId;
 		objMgr.AddComponent<CameraComponent>(player);
-		objMgr.AddComponent<RigidBody>(player);
+
 		objMgr.AddCollider(player, false);
 		objMgr.AddComponent<PrimaryMovementController>(player);
+
 		Listener* l = &objMgr.AddComponent<PlayerScript>(player);
 		MessageBus::RegisterListener(l);
 	}
@@ -80,7 +92,6 @@ namespace StarBangBang
 		client->transform.scale = { 0.7f, 0.7f };
 
 		objMgr.AddImage(client, clientImage);
-		objMgr.AddComponent<RigidBody>(client);
 		objMgr.AddCollider(client, false);
 		objMgr.AddComponent<PrimaryMovementController>(client);
 	}

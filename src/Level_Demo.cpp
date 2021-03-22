@@ -20,112 +20,126 @@
 
 #include "CaptainStealth.h"
 
-StarBangBang::BoxCollider* playerCol;
-StarBangBang::BoxCollider* clientCol;
 
-StarBangBang::Level_Demo::Level_Demo(int id, GameStateManager& manager) : Scene(id, manager), tilemap{ objectManager, graphicsManager }
+namespace StarBangBang
 {
-	player = nullptr;
-	player2 = nullptr;
-	movementController = nullptr;
-	guardManager = nullptr;
-}
+	Sprite computerSprite;
+	Sprite doorSprite;
 
-void StarBangBang::Level_Demo::Load()
-{
-	playerImage = graphicsManager.CreateSprite(RESOURCES::CAPTAINSTEALTH_F1_PATH);
-	player2Image = graphicsManager.CreateSprite(RESOURCES::PRISONER_F1_PATH);
-	guardImage = graphicsManager.CreateSprite(RESOURCES::SECURITYGUARD_F1_PATH);
-	securityCamImage = graphicsManager.CreateSprite(RESOURCES::CAMERA_PATH);
-	exitImage = graphicsManager.CreateSprite(RESOURCES::VENDING_LEFT_PATH);
-}
+	StarBangBang::BoxCollider* playerCol;
+	StarBangBang::BoxCollider* clientCol;
 
-//Initialization of game objects, components and scripts.
-void StarBangBang::Level_Demo::Init()
-{
-	PathFinder::ShowGrid(true);
-	GRAPHICS::SetBackgroundColor(Black);
+	StarBangBang::Level_Demo::Level_Demo(int id, GameStateManager& manager) : Scene(id, manager), tilemap{ objectManager, graphicsManager }
+	{
+		player = nullptr;
+		player2 = nullptr;
+		movementController = nullptr;
+		guardManager = nullptr;
+	}
 
-	//Load tilemap
-	tilemap.SetCollidableTypes({ TileType::BRICK_BLACK });
-	tilemap.Load(RESOURCES::LEVELS::LEVEL_TEST_PATH);
+	void StarBangBang::Level_Demo::Load()
+	{
+		playerImage = graphicsManager.CreateSprite(RESOURCES::CAPTAINSTEALTH_F1_PATH);
+		player2Image = graphicsManager.CreateSprite(RESOURCES::PRISONER_F1_PATH);
+		guardImage = graphicsManager.CreateSprite(RESOURCES::SECURITYGUARD_F1_PATH);
+		securityCamImage = graphicsManager.CreateSprite(RESOURCES::CAMERA_PATH);
+		exitImage = graphicsManager.CreateSprite(RESOURCES::VENDING_LEFT_PATH);
+		computerSprite = graphicsManager.CreateSprite(RESOURCES::COMPUTER_PATH);
+		doorSprite = graphicsManager.CreateSprite(RESOURCES::DOOR_PATH);
+	}
 
-	tilemap.SetGrid(PathFinder::GetWorldGrid());
-	//tilemap.SetVisible(false);
+	//Initialization of game objects, components and scripts.
+	void StarBangBang::Level_Demo::Init()
+	{
+		PathFinder::ShowGrid(true);
+		GRAPHICS::SetBackgroundColor(Black);
 
-	//Movement controller
-	movementController = objectManager.NewGameObject();
-	MovementManager& moveMgr = objectManager.AddComponent<MovementManager>(movementController);
+		//Load tilemap
+		tilemap.SetCollidableTypes({ TileType::BRICK_BLACK });
+		tilemap.Load(RESOURCES::LEVELS::LEVEL_TEST_PATH);
 
-	//Player components and scripts
-	CaptainStealth::SpawnPlayer(objectManager, player, playerImage);
+		tilemap.SetGrid(PathFinder::GetWorldGrid());
+		//tilemap.SetVisible(false);
 
-	//Client
-	CaptainStealth::SpawnClient(objectManager, player2, player2Image);
+		//Movement controller
+		movementController = objectManager.NewGameObject();
+		MovementManager& moveMgr = objectManager.AddComponent<MovementManager>(movementController);
 
-	//Movement Manager
-	moveMgr.AddController(player);
-	moveMgr.AddController(player2);
+		//Player components and scripts
+		CaptainStealth::SpawnPlayer(objectManager, player, playerImage);
 
-	//Guards and security cameras
-	guardManager = objectManager.NewGameObject();
-	GuardManager& mgr = objectManager.AddComponent<GuardManager>(guardManager);
-	mgr.Init(&objectManager, &guardImage, player, player2);
-	guardManager->GetComponent<GuardManager>()->CreateSecurityCameras(&objectManager, &securityCamImage, player, player2);
+		//Client
+		CaptainStealth::SpawnClient(objectManager, player2, player2Image);
 
-	//serve as references parameter for raycast ignore
-	playerCol = player->GetComponent<BoxCollider>();
-	clientCol = player2->GetComponent<BoxCollider>();
+		//Compooter
+		CaptainStealth::SpawnComputer(objectManager, computerSprite, player->transform.position);
+		CaptainStealth::SpawnDoor(objectManager, doorSprite, player2->transform.position);
 
-	//Level Exit
-	GameObject* exit = objectManager.NewGameObject();
-	//temp
-	exit->transform.position = tilemap.GetPositionAtIndex(10, 40);
-	exit->name = "EXIT";
+		//Movement Manager
+		moveMgr.AddController(player);
+		moveMgr.AddController(player2);
 
-	objectManager.AddImage(exit, exitImage);
-	objectManager.AddCollider(exit, true).isTrigger = true;
+		//Guards and security cameras
+		guardManager = objectManager.NewGameObject();
+		GuardManager& mgr = objectManager.AddComponent<GuardManager>(guardManager);
+		mgr.Init(&objectManager, &guardImage, player, player2);
+		guardManager->GetComponent<GuardManager>()->CreateSecurityCameras(&objectManager, &securityCamImage, player, player2);
+
+		//serve as references parameter for raycast ignore
+		playerCol = player->GetComponent<BoxCollider>();
+		clientCol = player2->GetComponent<BoxCollider>();
+
+		//Level Exit
+		GameObject* exit = objectManager.NewGameObject();
+		//temp
+		exit->transform.position = tilemap.GetPositionAtIndex(10, 40);
+		exit->name = "EXIT";
+
+		objectManager.AddImage(exit, exitImage);
+		objectManager.AddCollider(exit, true).isTrigger = true;
 	
 
-	// Call Start on scripts
-	objectManager.Init();
-}
-
-void StarBangBang::Level_Demo::Update()
-{
-	Scene::Update();
-	if (AEInputCheckTriggered(VK_SPACE))
-	{
-		gameStateManager.SetNextGameState(SceneID::EDITOR);
+		// Call Start on scripts
+		objectManager.Init();
 	}
 
-	PlayerScript* playerScript = player->GetComponent<PlayerScript>();
-	if (playerScript->isGameOver())
+	void StarBangBang::Level_Demo::Update()
 	{
-		std::cout << "LOSE\n" << std::endl;
-		gameStateManager.SetNextGameState(MAIN_MENU);
+		Scene::Update();
+		if (AEInputCheckTriggered(VK_SPACE))
+		{
+			gameStateManager.SetNextGameState(SceneID::EDITOR);
+		}
+
+		PlayerScript* playerScript = player->GetComponent<PlayerScript>();
+		if (playerScript->isGameOver())
+		{
+			std::cout << "LOSE\n" << std::endl;
+			gameStateManager.SetNextGameState(MAIN_MENU);
+		}
+		else if (playerScript->isWin())
+		{
+			std::cout << "WIN\n" << std::endl;
+			gameStateManager.SetNextGameState(MAIN_MENU);
+		}
+
+
 	}
-	else if (playerScript->isWin())
+
+	void StarBangBang::Level_Demo::Draw()
 	{
-		std::cout << "WIN\n" << std::endl;
-		gameStateManager.SetNextGameState(MAIN_MENU);
+		Scene::Draw();
 	}
 
+	void StarBangBang::Level_Demo::Free()
+	{
+		Scene::Free();
+	}
 
-}
+	void StarBangBang::Level_Demo::Unload()
+	{
+		tilemap.Unload();
+		Scene::Unload();
+	}
 
-void StarBangBang::Level_Demo::Draw()
-{
-	Scene::Draw();
-}
-
-void StarBangBang::Level_Demo::Free()
-{
-	Scene::Free();
-}
-
-void StarBangBang::Level_Demo::Unload()
-{
-	tilemap.Unload();
-	Scene::Unload();
 }

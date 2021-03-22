@@ -10,6 +10,7 @@
 #include "DetectionListener.h"
 #include "Text.h"
 #include "ComputerScript.h"
+#include "ComputerListener.h"
 
 namespace StarBangBang
 {
@@ -24,9 +25,10 @@ namespace StarBangBang
 		void Free();
 		void Unload();
 
-		static void SpawnPlayer(ObjectManager& objMgr, GameObject*& player, Sprite playerImage);
-		static void SpawnClient(ObjectManager& objMgr, GameObject*& client, Sprite clientImage);
-		static void SpawnComputer(ObjectManager& objMgr, Sprite playerImage, AEVec2 position);
+		static void SpawnPlayer(ObjectManager& objMgr, GameObject*& player, Sprite image);
+		static void SpawnClient(ObjectManager& objMgr, GameObject*& client, Sprite image);
+		static void SpawnComputer(ObjectManager& objMgr, Sprite image, AEVec2 position);
+		static void SpawnDoor(ObjectManager& objMgr, Sprite image, AEVec2 position);
 
 	private:
 		GameObject* player;
