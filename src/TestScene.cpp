@@ -56,68 +56,18 @@ void StarBangBang::TestScene::Init()
 	objectManager.AddComponent<CameraComponent>(prisonerObj);
 	objectManager.AddCollider(prisonerObj, false);
 
-	//Collision Listener
-	CollisionListener& colListener = objectManager.AddComponent<CollisionListener>(prisonerObj);
-	MessageBus::RegisterListener(&colListener);
-
 	//door obj
 	doorObj = objectManager.NewGameObject();
 	objectManager.AddImage(doorObj, doorSprite);
 	doorObj->transform.position={ (float)AEGetWindowWidth() / -8, (float)AEGetWindowHeight() / 8 };
-	ComputerListener &listenerComponent2 = objectManager.AddComponent<ComputerListener>(doorObj);
 
-	MessageBus::RegisterListener(&listenerComponent2);
-
-	//Add Listener to event system
-	MessageBus::RegisterListener(&Test::listener);
-
-	//Create new game object to listen for events
-	GameObject* listenerObj = objectManager.NewGameObject();
-
-	//Attach Listener Component
-	objectManager.AddComponent<DetectionListener>(listenerObj);
-
-	//Get Listener Component
-	DetectionListener* detectionListener = listenerObj->GetComponent<DetectionListener>();
-
-	//DetectionListener Component inherits from ListenerComponent
-	//Polymorphism allows the following line
-	ListenerComponent* listenerComponent = detectionListener;
-
-	//Listener Component inherits from Listener
-	//Polymorphism allows the following line
-	Listener* listenPtr = listenerComponent;
-
-	//The following code registers the same listener 3 times
-	//As a result, any events that are received will also notify the same listener 3 times.
-	
-	//Add Listener to event system
-	MessageBus::RegisterListener(listenPtr);
-
-	//Alternative
-	MessageBus::RegisterListener(listenerComponent);
-
-	//Alternative 2
-	MessageBus::RegisterListener(detectionListener);
+	ComputerListener &listener = objectManager.AddComponent<ComputerListener>(doorObj);
+	MessageBus::RegisterListener(&listener);
 }
 
 void StarBangBang::TestScene::Update()
 {
 	Scene::Update();
-	//if (AEInputCheckTriggered(AEVK_LBUTTON))
-	//{
-	//	Transform& transform = computerObj->transform;
-	//	if (PointRectTest(GetMouseWorldPos(), transform.position, transform.scale.x * GRAPHICS::MESH_WIDTH, transform.scale.y * GRAPHICS::MESH_HEIGHT))
-	//	{
-	//		computerObj->active = false;
-	//		Event e;
-	//		e.id = EventId::COMPUTER_CLICK;
-	//		e.context = std::string("\nTESTING DETECTION LISTENER\n");
-	//		MessageBus::Notify(e);
-
-	//	}
-
-	//}
 
 	//Send message on key press (T)
 	if (AEInputCheckTriggered(AEVK_T))
