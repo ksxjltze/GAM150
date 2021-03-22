@@ -35,7 +35,18 @@ namespace StarBangBang
 	namespace PLAYER
 	{
 		static const float PLAYER_SPEED = 300.0f;
+	}
 
+	namespace GUARD
+	{
+		static const float GUARD_FOV = 90.f;
+		static const float CAM_FOV = 50.f;
+
+		static const float GUARD_VIEW_DIST = 100.f;
+		static const float CAM_VIEW_DIST = 170.f;
+
+		static const float GUARD_SPEED = 20.f;
+		static const float CAM_ROT_SPEED = 25.f;
 	}
 
 	namespace STRING_TAGS

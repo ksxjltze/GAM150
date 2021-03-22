@@ -8,8 +8,6 @@ namespace StarBangBang
 {
 	class GuardMovement : public Script
 	{
-	private:
-		const float SPEED = 30.f;
 	public:
 		GuardMovement(GameObject* gameObject);
 

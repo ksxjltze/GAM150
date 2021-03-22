@@ -7,9 +7,6 @@ namespace StarBangBang
 
 	class SecurityCamera : public Script
 	{
-	private:
-		const float ROT_SPEED = 25.f;
-
 	public:
 		SecurityCamera(GameObject* gameObject);
 
