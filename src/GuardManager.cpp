@@ -35,6 +35,7 @@ void GuardManager::Init(ObjectManager* objManager, Sprite* sprite, GameObject* p
 		objManager->AddComponent<Detector>(guards[i]);
 		objManager->AddComponent<Text>(guards[i]).fontID = StarBangBang::fontId;
 		objManager->AddComponent<RigidBody>(guards[i]);
+		objManager->AddCollider(guards[i], false);
 	}
 
 	// temp, will change to read from file laterz
@@ -63,7 +64,7 @@ void GuardManager::CreateSecurityCameras(ObjectManager* objManager, Sprite* spri
 		cameras[i]->transform.scale = { 0.7f, 0.7f };
 		objManager->AddImage(cameras[i], *sprite);
 		objManager->AddComponent<SecurityCamera>(cameras[i]);
-		objManager->AddComponent<Detector>(cameras[i]).Init(50.f, 100.f, player, client);
+		objManager->AddComponent<Detector>(cameras[i]).Init(50.f, 200.f, player, client);
 	}
 
 	SetCameraPosAndViewMinMax(id++, {-1030, -790},  -250.f, -150.f);

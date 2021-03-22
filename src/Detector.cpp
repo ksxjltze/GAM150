@@ -2,6 +2,7 @@
 #include "BasicMeshShape.h"
 #include "globals.h"
 #include "MessageBus.h"
+#include "CollisionManager.h"
 
 using namespace StarBangBang;
 
@@ -11,6 +12,8 @@ Detector::Detector(GameObject* gameObject)
 	, viewDist(0.f)
 	, target1(nullptr)
 	, target2(nullptr)
+	, target1Col(nullptr)
+	, target2Col(nullptr)
 	, rotationAngle(0.f)
 	, detectedTarget1(false)
 	, detectedTarget2(false)
@@ -25,6 +28,9 @@ void Detector::Init(float fov, float dist, GameObject* player, GameObject* clien
 	viewDist = dist;
 	target1 = player;
 	target2 = client;
+	target1Col = target1->GetComponent<BoxCollider>();
+	target2Col = target2->GetComponent<BoxCollider>();
+	myCollider = gameObject->GetComponent<BoxCollider>();
 }
 
 void Detector::Update()
@@ -80,6 +86,13 @@ void Detector::CheckForTargets(const AEVec2& _targetPos, bool checkForPlayer)
 {
 	// continue only if game objects are in same partition
 	// ...
+
+	BoxCollider* collider = nullptr;
+
+	if (checkForPlayer)
+		collider = target1Col;
+	else
+		collider = target2Col;
 	
 	AEVec2 toTargetVec;
 	AEVec2 goPos = gameObject->GetPos();
@@ -108,15 +121,25 @@ void Detector::CheckForTargets(const AEVec2& _targetPos, bool checkForPlayer)
 		if (angle < (fieldOfView * 0.5f))
 		{
 			// check if vision is colliding with environment first
-			// ...
+			Ray ray = Ray(gameObject->GetPos(), _targetPos);
 
-			if (checkForPlayer)
-				detectedTarget1 = true;
+			if (CollisionManager::LineCast(ray, myCollider) == collider)
+			{
+				if (checkForPlayer)
+					detectedTarget1 = true;
+				else
+					detectedTarget2 = true;
+
+				//Event test
+				MessageBus::Notify({ EventId::DETECTED, std::string("TEST") });
+			}
 			else
-				detectedTarget2 = true;
-
-			//Event test
-			MessageBus::Notify({ EventId::DETECTED, std::string("TEST") });
+			{
+				if (checkForPlayer)
+					detectedTarget1 = false;
+				else
+					detectedTarget2 = false;
+			}
 		}
 		else
 		{

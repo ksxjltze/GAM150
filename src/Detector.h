@@ -3,6 +3,8 @@
 
 namespace StarBangBang
 {
+	class BoxCollider;
+
 	class Detector : public Script
 	{
 	public:
@@ -36,5 +38,7 @@ namespace StarBangBang
 		AEVec2 targetDir;
 
 		GameObject* target1, *target2;
+		BoxCollider* target1Col, *target2Col;
+		BoxCollider* myCollider;
 	};
 }
