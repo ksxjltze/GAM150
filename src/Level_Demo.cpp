@@ -21,6 +21,8 @@
 #include "CaptainStealth.h"
 #include "DebugText.h"
 
+static bool god = false;
+
 
 namespace StarBangBang
 {
@@ -52,6 +54,7 @@ namespace StarBangBang
 	//Initialization of game objects, components and scripts.
 	void StarBangBang::Level_Demo::Init()
 	{
+		god = false;
 		PathFinder::ShowGrid(true);
 		GRAPHICS::SetBackgroundColor(Black);
 
@@ -129,13 +132,23 @@ namespace StarBangBang
 			gameStateManager.SetNextGameState(MAIN_MENU);
 		}
 
+		if (AEInputCheckTriggered(AEVK_G))
+		{
+			god = true;
+		}
+
 		PlayerScript* playerScript = player->GetComponent<PlayerScript>();
 		if (playerScript->isGameOver())
 		{
-			std::cout << "LOSE\n" << std::endl;
-			gameStateManager.SetNextGameState(GAME_OVER);
+			if (!god)
+			{
+				std::cout << "LOSE\n" << std::endl;
+				gameStateManager.SetNextGameState(GAME_OVER);
+
+			}
 		}
-		else if (playerScript->isWin())
+
+		if (playerScript->isWin())
 		{
 			std::cout << "WIN\n" << std::endl;
 			gameStateManager.SetNextGameState(MAIN_MENU);

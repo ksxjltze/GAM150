@@ -23,6 +23,7 @@ void StarBangBang::PlayerScript::onNotify(Event e)
 
 		if (pair.first->gameObject->name == "EXIT" && pair.second->gameObject->name == "Player")
 		{
+			printf("PLAYER ESCAPED\n");
 			pair.second->gameObject->active = false;
 			playerEscaped = true;
 		}

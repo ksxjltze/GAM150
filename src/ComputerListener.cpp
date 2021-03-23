@@ -7,7 +7,7 @@
 
 StarBangBang::ComputerListener::ComputerListener(GameObject* gameObject) : ListenerComponent(gameObject), counter{ 0 }
 {
-	MessageBus::RegisterListener(this);
+	//MessageBus::RegisterListener(this);
 }
 
 void StarBangBang::ComputerListener::onNotify(Event e)
@@ -16,16 +16,18 @@ void StarBangBang::ComputerListener::onNotify(Event e)
 	{
 		++counter;
 		std::cout << "Hax: " << counter;
+
+		std::string str;
+		std::ostringstream is(str);
+		is << "Computers Left: " << CONSTANTS::COMPUTER_COUNT - counter;
+
+		MessageBus::Notify({EventId::PRINT_TEXT, str});
+
 		if (counter >= CONSTANTS::COMPUTER_COUNT)
 		{
 			BoxCollider* col = gameObject->GetComponent<BoxCollider>();
 			if (col)
 			{
-				std::string str;
-				std::ostringstream is(str);
-				is << "Computers Left: " << CONSTANTS::COMPUTER_COUNT - counter;
-
-				MessageBus::Notify({EventId::PRINT_TEXT, str});
 				gameObject->active = false;
 				col->isTrigger = true;
 			}
