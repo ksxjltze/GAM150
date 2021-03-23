@@ -1,6 +1,7 @@
 #pragma once
 #include "GameObject.h"
 #include "Collider.h"
+#include "MessageBus.h"
 
 namespace StarBangBang
 {
@@ -8,6 +9,8 @@ namespace StarBangBang
 	{
 		GameObject* gameObject;
 		std::pair<Collider*, Collider*> colliderPair;
+
+		void SendEvent() { MessageBus::Notify({ EventId::COLLISION, *this }); };
 
 	};
 }

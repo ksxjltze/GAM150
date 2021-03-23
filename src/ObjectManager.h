@@ -17,6 +17,7 @@ namespace StarBangBang
 		{
 			T* component = new T(gameObject, args...);
 			AddComponent(gameObject, component);
+			component->objMgr = this;
 			return *component;
 		}
 
@@ -25,6 +26,7 @@ namespace StarBangBang
 		{
 			T* component = new T<U>(gameObject);
 			AddComponent(gameObject, component);
+			component->objMgr = this;
 			return *component;
 		}
 
