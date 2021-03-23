@@ -6,7 +6,10 @@ StarBangBang::PlayerScript::PlayerScript(GameObject* obj) : Script(obj)
 {
 
 }
-
+void StarBangBang::PlayerScript::Start()
+{
+	
+}
 void StarBangBang::PlayerScript::onNotify(Event e)
 {
 	if (e.id == EventId::DETECTED)

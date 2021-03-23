@@ -58,7 +58,7 @@ void StarBangBang::RigidBody::Update()
 	//PRINT("\nn:(%.3f,%.3f) \n", n.x, n.y);
 	//PRINT("\nv:(%.3f,%.3f) \n", velocity.x, velocity.y);
 	//if velocity is really small reset
-	if (SqrVelocity() < EPILISON && SqrVelocity() > -EPILISON)
+	if (SqrVelocity() < EPILISON )
 	{
 		velocity.x = 0;
 		velocity.y = 0;

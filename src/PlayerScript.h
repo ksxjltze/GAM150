@@ -12,6 +12,7 @@ namespace StarBangBang
 		void onNotify(Event e);
 		bool isGameOver();
 		bool isWin();
+		void Start();
 	private:
 		bool gameover = false;
 		bool playerEscaped = false;
