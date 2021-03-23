@@ -16,6 +16,7 @@ void StarBangBang::PlayerScript::Start()
 
 	rb_controller = gameObject->GetComponent<PrimaryMovementController>();
 	
+
 	assert(rb_controller);
 	range *= range;
 
