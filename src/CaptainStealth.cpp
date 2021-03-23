@@ -63,8 +63,7 @@ namespace StarBangBang
 		objMgr.AddComponent<RigidBody>(doorObj).SetMass(0);
 		objMgr.AddCollider(doorObj, true);
 
-		ComputerListener& listener = objMgr.AddComponent<ComputerListener>(doorObj);
-		MessageBus::RegisterListener(&listener);
+		objMgr.AddComponent<ComputerListener>(doorObj);
 	}
 
 	void CaptainStealth::SpawnPlayer(ObjectManager& objMgr, GameObject*& player, Sprite playerImage)
@@ -73,8 +72,7 @@ namespace StarBangBang
 		player->name = "Player";
 		player->transform.scale = { 0.7f, 0.7f };
 
-		DetectionListener* listener = &objMgr.AddComponent<DetectionListener>(player);
-		MessageBus::RegisterListener(listener);
+		objMgr.AddComponent<DetectionListener>(player);
 		objMgr.AddImage(player, playerImage);
 
 		objMgr.AddComponent<CameraComponent>(player);
@@ -82,8 +80,7 @@ namespace StarBangBang
 		objMgr.AddCollider(player, false);
 		objMgr.AddComponent<PrimaryMovementController>(player);
 
-		Listener* l = &objMgr.AddComponent<PlayerScript>(player);
-		MessageBus::RegisterListener(l);
+		objMgr.AddComponent<PlayerScript>(player);
 	}
 
 	void CaptainStealth::SpawnClient(ObjectManager& objMgr, GameObject*& client, Sprite clientImage)

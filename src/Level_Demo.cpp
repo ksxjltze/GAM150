@@ -17,6 +17,8 @@
 #include "Text.h"
 #include "globals.h"
 
+#include "Distractor.h"
+
 
 #include "CaptainStealth.h"
 #include "DebugText.h"
@@ -147,14 +149,15 @@ namespace StarBangBang
 		//Distraction
 		GameObject* distract = objectManager.NewGameObject();
 		//temp
-		distract->transform.position = tilemap.GetPositionAtIndex(40, 45);
-		distract->name = "EXIT";
+		distract->transform.position = tilemap.GetPositionAtIndex(8, 8);
+		objectManager.AddComponent<Distractor>(distract);
 		objectManager.AddImage(distract, boi);
 		objectManager.AddCollider(distract, true).isTrigger = true;
 
+		//Notification Text
+		objectManager.AddComponent<DebugText>(objectManager.NewGameObject(), fontId);
 
 		//Floating text
-		MessageBus::RegisterListener(&objectManager.AddComponent<DebugText>(player, fontId));
 		MessageBus::Notify({ EventId::PRINT_TEXT, std::string("Find the Vending Machine!") });
 		MessageBus::Notify({ EventId::PLAY_SOUND, "Test"});
 
@@ -319,7 +322,16 @@ namespace StarBangBang
 
 		if (AEInputCheckTriggered(AEVK_G))
 		{
-			god = true;
+			if (!god)
+			{
+				god = true;
+				MessageBus::Notify({ EventId::PRINT_TEXT, std::string("God Mode Enabled!") });
+			}
+			else
+			{
+				god = false;
+				MessageBus::Notify({ EventId::PRINT_TEXT, std::string("God Mode Disabled!") });
+			}
 		}
 
 		PlayerScript* playerScript = player->GetComponent<PlayerScript>();

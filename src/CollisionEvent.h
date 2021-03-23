@@ -10,7 +10,13 @@ namespace StarBangBang
 		GameObject* gameObject;
 		std::pair<Collider*, Collider*> colliderPair;
 
-		void SendEvent() { MessageBus::Notify({ EventId::COLLISION, *this }); };
+		void SendEvent() 
+		{ 
+			Event e;
+			e.id = EventId::COLLISION;
+			e.context = *this;
+			MessageBus::Notify(e); 
+		};
 
 	};
 }

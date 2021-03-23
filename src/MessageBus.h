@@ -2,10 +2,11 @@
 #include <vector>
 #include <queue>
 #include "Event.h"
-#include "ListenerComponent.h"
 
 namespace StarBangBang
 {
+	class Listener;
+
 	class MessageBus
 	{
 	public:
