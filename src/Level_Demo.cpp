@@ -122,6 +122,8 @@ namespace StarBangBang
 		objectManager.AddImage(distract, boi);
 		objectManager.AddCollider(distract, true).isTrigger = true;
 
+		//Notification Text
+		objectManager.AddComponent<DebugText>(objectManager.NewGameObject(), fontId);
 
 		//Floating text
 		MessageBus::Notify({ EventId::PRINT_TEXT, std::string("Find the Vending Machine!") });
@@ -145,7 +147,16 @@ namespace StarBangBang
 
 		if (AEInputCheckTriggered(AEVK_G))
 		{
-			god = true;
+			if (!god)
+			{
+				god = true;
+				MessageBus::Notify({ EventId::PRINT_TEXT, std::string("God Mode Enabled!") });
+			}
+			else
+			{
+				god = false;
+				MessageBus::Notify({ EventId::PRINT_TEXT, std::string("God Mode Disabled!") });
+			}
 		}
 
 		PlayerScript* playerScript = player->GetComponent<PlayerScript>();
