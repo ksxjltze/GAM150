@@ -21,11 +21,14 @@
 #include "CaptainStealth.h"
 #include "DebugText.h"
 
+static bool god = false;
+
 
 namespace StarBangBang
 {
 	Sprite computerSprite;
 	Sprite doorSprite;
+	Sprite boi;
 
 	StarBangBang::BoxCollider* playerCol;
 	StarBangBang::BoxCollider* clientCol;
@@ -47,11 +50,13 @@ namespace StarBangBang
 		exitImage = graphicsManager.CreateSprite(RESOURCES::VENDING_LEFT_PATH);
 		computerSprite = graphicsManager.CreateSprite(RESOURCES::COMPUTER_PATH);
 		doorSprite = graphicsManager.CreateSprite(RESOURCES::DOOR_PATH);
+		boi = graphicsManager.CreateSprite(RESOURCES::PROTOTYPE_SPRITE_2_PATH);
 	}
 
 	//Initialization of game objects, components and scripts.
 	void StarBangBang::Level_Demo::Init()
 	{
+		god = false;
 		PathFinder::ShowGrid(true);
 		GRAPHICS::SetBackgroundColor(Black);
 
@@ -109,6 +114,14 @@ namespace StarBangBang
 
 		CaptainStealth::SpawnDoor(objectManager, doorSprite, exit->transform.position);
 
+		//Distraction
+		GameObject* distract = objectManager.NewGameObject();
+		//temp
+		distract->transform.position = tilemap.GetPositionAtIndex(40, 45);
+		distract->name = "EXIT";
+		objectManager.AddImage(distract, boi);
+		objectManager.AddCollider(distract, true).isTrigger = true;
+
 
 		//Floating text
 		MessageBus::RegisterListener(&objectManager.AddComponent<DebugText>(player, fontId));
@@ -131,13 +144,23 @@ namespace StarBangBang
 			gameStateManager.SetNextGameState(MAIN_MENU);
 		}
 
+		if (AEInputCheckTriggered(AEVK_G))
+		{
+			god = true;
+		}
+
 		PlayerScript* playerScript = player->GetComponent<PlayerScript>();
 		if (playerScript->isGameOver())
 		{
-			std::cout << "LOSE\n" << std::endl;
-			gameStateManager.SetNextGameState(GAME_OVER);
+			if (!god)
+			{
+				std::cout << "LOSE\n" << std::endl;
+				gameStateManager.SetNextGameState(GAME_OVER);
+
+			}
 		}
-		else if (playerScript->isWin())
+
+		if (playerScript->isWin())
 		{
 			std::cout << "WIN\n" << std::endl;
 			gameStateManager.SetNextGameState(MAIN_MENU);

@@ -28,6 +28,8 @@ namespace StarBangBang
 			return *component;
 		}
 
+		GameObject* Find(const std::string& name);
+
 		BoxCollider& AddCollider(GameObject* gameObject, bool isStatic);
 
 		void AddComponent(GameObject* gameObject, _Component* component);

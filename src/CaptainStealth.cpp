@@ -77,7 +77,6 @@ namespace StarBangBang
 		MessageBus::RegisterListener(listener);
 		objMgr.AddImage(player, playerImage);
 
-		objMgr.AddComponent<Text>(player).fontID = StarBangBang::fontId;
 		objMgr.AddComponent<CameraComponent>(player);
 
 		objMgr.AddCollider(player, false);

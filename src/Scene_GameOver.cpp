@@ -48,10 +48,10 @@ void StarBangBang::Scene_GameOver::Draw()
 
 void StarBangBang::Scene_GameOver::Free()
 {
-
+	Scene::Free();
 }
 
 void StarBangBang::Scene_GameOver::Unload()
 {
-
+	Scene::Unload();
 }
