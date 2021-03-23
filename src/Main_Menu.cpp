@@ -45,10 +45,6 @@ namespace StarBangBang
 
 	void StarBangBang::Main_Menu::Init()
 	{
-		std::any a = CollisionEvent();
-
-		CollisionEvent b = std::any_cast<CollisionEvent>(a);
-
 		GRAPHICS::SetZoom(1.0f);
 		//logo 
 		logo_obj = objectManager.NewGameObject();
@@ -88,7 +84,7 @@ namespace StarBangBang
 
 		objectManager.AddComponent<Click<Main_Menu>>(exitbutton_obj).setCallback(*this, &Main_Menu::ExitGame);
 
-		MessageBus::Notify({ EventId::PLAY_MUSIC, "BGM" });
+		//MessageBus::Notify({ EventId::PLAY_MUSIC, "BGM" });
 
 		GameObject* editorBtn = objectManager.NewGameObject();
 		objectManager.AddImage(editorBtn, vending_machine_sprite);
