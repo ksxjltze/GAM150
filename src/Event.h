@@ -8,7 +8,7 @@ namespace StarBangBang
 {
 	struct Event
 	{
-		EventId id;
+		EventId id{ -1 };
 		std::any context;
 	};
 }

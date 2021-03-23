@@ -1,7 +1,7 @@
 #include "ComputerScript.h"
 #include "Utils.h"
 #include "MessageBus.h"
-#include "Collider.h"
+#include "CollisionEvent.h"
 
 namespace StarBangBang
 {
@@ -18,14 +18,12 @@ namespace StarBangBang
 	{
 		if (e.id == EventId::COLLISION)
 		{
-			using colPair = std::pair<Collider*, Collider*>;
-			colPair colliderPair = std::any_cast<colPair>(e.context);
-
+			CollisionEvent data = std::any_cast<CollisionEvent>(e.context);
 			BoxCollider* collider = gameObject->GetComponent<BoxCollider>();
 
-			if (colliderPair.first->gameObject->name == "Player" || colliderPair.first->gameObject->name == "Client")
+			if (data.colliderPair.first->gameObject->name == "Player" || data.colliderPair.first->gameObject->name == "Client")
 			{
-				if (colliderPair.first == collider || colliderPair.second == collider)
+				if (data.colliderPair.first == collider || data.colliderPair.second == collider)
 					enabled = true;
 
 			}

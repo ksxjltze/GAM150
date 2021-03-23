@@ -1,6 +1,7 @@
 #include "Main_Menu.h"
 #include "constants.h"
 #include "Click.h"
+#include "CollisionEvent.h"
 
 
 static const float x_scale = 5.0f;
@@ -44,6 +45,10 @@ namespace StarBangBang
 
 	void StarBangBang::Main_Menu::Init()
 	{
+		std::any a = CollisionEvent();
+
+		CollisionEvent b = std::any_cast<CollisionEvent>(a);
+
 		GRAPHICS::SetZoom(1.0f);
 		//logo 
 		logo_obj = objectManager.NewGameObject();
