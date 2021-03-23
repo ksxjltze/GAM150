@@ -20,5 +20,7 @@ namespace StarBangBang
 	private:
 		GuardMovement* movement;
 		Detector* detector;
+
+		float rotation;
 	};
 }

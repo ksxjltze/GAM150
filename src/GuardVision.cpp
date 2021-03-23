@@ -4,6 +4,7 @@
 #include "Detector.h"
 #include "BasicMeshShape.h"
 #include "Utils.h"
+#include "globals.h"
 
 using namespace StarBangBang;
 
@@ -11,6 +12,7 @@ GuardVision::GuardVision(GameObject* gameObject)
 	: Script(gameObject)
 	, movement(nullptr)
 	, detector(nullptr)
+	, rotation(0.f)
 {
 }
 
@@ -38,14 +40,28 @@ void GuardVision::Update()
 		AEVec2Normalize(&targetDir, &targetDir);
 
 		float dpResult = AEVec2DotProduct(&defaultForward, &targetDir);
-		float rotationAngle = AERadToDeg(AEACos(dpResult));
+		float targetRot = AERadToDeg(AEACos(dpResult));
 
 		float dp = AEVec2DotProduct(&defaultLeft, &targetDir);
 		if (dp <= 0.f)
-			rotationAngle *= -1;
+			targetRot *= -1;
 
-		detector->SetFacingDir(targetDir);
-		detector->Rotate(rotationAngle);
+		if (targetRot > 0.f)
+		{
+			if (rotation <= targetRot)
+				rotation += 300.f * g_dt;
+			else
+				detector->SetFacingDir(targetDir);
+		}
+		else
+		{
+			if (rotation >= targetRot)
+				rotation -= 300.f * g_dt;
+			else
+				detector->SetFacingDir(targetDir);
+		}
+		
+		detector->Rotate(rotation);
 	}
 	else
 	{
