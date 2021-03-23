@@ -19,8 +19,28 @@ namespace StarBangBang
 		void Free();
 		void Unload();
 	private:
+		//player stuffs
 		Sprite playerImage;
+
+		Sprite playerImageL1;
+		Sprite playerImageL2;
+		Sprite playerImageL3;
+
+		Sprite playerImageR1;
+		Sprite playerImageR2;
+		Sprite playerImageR3;
+
+		//player 2 stuffs
 		Sprite player2Image;
+
+		Sprite playerImage2L1;
+		Sprite playerImage2L2;
+		Sprite playerImage2L3;
+
+		Sprite playerImage2R1;
+		Sprite playerImage2R2;
+		Sprite playerImage2R3;
+
 		Sprite guardImage;
 		Sprite securityCamImage;
 		Sprite exitImage;
