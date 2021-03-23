@@ -11,12 +11,13 @@ namespace StarBangBang
 	{
 	public:
 		static void Reset();
-		static void RegisterListener(Listener* listener);
 		static void RegisterGlobalListener(Listener* listener);
 		static void Update();
 		static void Notify(Event e);
+		friend class Listener;
 
 	private:
+		static void RegisterListener(Listener* listener);
 		inline static std::queue<Event> eventQueue;
 		inline static std::vector<Listener*>listenerList;
 		inline static std::vector<Listener*>globalListenerList;

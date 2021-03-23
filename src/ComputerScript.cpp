@@ -7,7 +7,7 @@ namespace StarBangBang
 {
 	ComputerScript::ComputerScript(GameObject* gameObject) : Script(gameObject), enabled{ false }
 	{
-		MessageBus::RegisterListener(this);
+
 	}
 
 	void ComputerScript::Start()
