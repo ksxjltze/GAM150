@@ -178,7 +178,6 @@ namespace StarBangBang
 				switch (animation_counter)
 				{
 				case 1:
-					printf("RIGHT");
 					player->GetComponent<ImageComponent>()->SetSprite(playerImageR2);
 					break;
 				case 2:
@@ -193,11 +192,9 @@ namespace StarBangBang
 				switch (animation_counter)
 				{
 				case 1:
-					printf("LEFT");
 					player->GetComponent<ImageComponent>()->SetSprite(playerImageL2);
 					break;
 				case 2:
-					printf("LEFT2");
 					player->GetComponent<ImageComponent>()->SetSprite(playerImageL3);
 					break;
 				}
@@ -216,7 +213,6 @@ namespace StarBangBang
 				switch (animation_counter)
 				{
 				case 1:
-					printf("RIGHT");
 					player2->GetComponent<ImageComponent>()->SetSprite(playerImage2R2);
 					break;
 				case 2:
@@ -254,13 +250,11 @@ namespace StarBangBang
 		{
 			if (character == current_char::fei_ge)
 			{
-				printf("prisoner\n");
 				character = current_char::prisoner;
 			}
 
 			else if (character == current_char::prisoner)
 			{
-				printf("fg\n");
 				character = current_char::fei_ge;
 			}
 		}
@@ -297,17 +291,6 @@ namespace StarBangBang
 			app_time = 0.0f;
 			if (animation_counter > 2) animation_counter = 0;
 		}
-
-		//if (AEInputCheckTriggered(AEVK_D))
-		//{
-		//	player->GetComponent<ImageComponent>()->SetSprite(playerImageR2);
-		//}
-
-		//if (AEInputCheckTriggered(AEVK_A))
-		//{
-		//	//player->GetComponent<ImageComponent>()->active = false;
-		//	player->GetComponent<ImageComponent>()->SetSprite(playerImageR3);
-		//}
 
 
 		if (AEInputCheckTriggered(VK_SPACE))
