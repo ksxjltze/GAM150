@@ -241,10 +241,6 @@ namespace StarBangBang
 			
 		}
 
-
-
-			
-
 		//ANIMATION TEST
 		if (AEInputCheckTriggered(AEVK_TAB))
 		{
@@ -263,26 +259,16 @@ namespace StarBangBang
 		{
 			dir = direction::right;
 			app_time = app_time + AEFrameRateControllerGetFrameTime();
-			std::cout << app_time;
 		}
 		else if (AEInputCheckCurr(AEVK_A))
 		{
 			dir = direction::left;
 			app_time = app_time + AEFrameRateControllerGetFrameTime();
-			std::cout << app_time;
 		}
 
-		else if (AEInputCheckCurr(AEVK_W))
+		else if (AEInputCheckCurr(AEVK_W) || AEInputCheckCurr(AEVK_S))
 		{
 			app_time = app_time + AEFrameRateControllerGetFrameTime();
-			std::cout << app_time;
-		}
-
-		else if (AEInputCheckCurr(AEVK_S))
-		{
-			//dir = direction::left;
-			app_time = app_time + AEFrameRateControllerGetFrameTime();
-			std::cout << app_time;
 		}
 
 		if (app_time >= 0.1f)
