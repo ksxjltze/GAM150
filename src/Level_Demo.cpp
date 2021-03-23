@@ -265,20 +265,20 @@ namespace StarBangBang
 			app_time = app_time + AEFrameRateControllerGetFrameTime();
 			std::cout << app_time;
 		}
-		if (AEInputCheckCurr(AEVK_A))
+		else if (AEInputCheckCurr(AEVK_A))
 		{
 			dir = direction::left;
 			app_time = app_time + AEFrameRateControllerGetFrameTime();
 			std::cout << app_time;
 		}
 
-		if (AEInputCheckCurr(AEVK_W))
+		else if (AEInputCheckCurr(AEVK_W))
 		{
 			app_time = app_time + AEFrameRateControllerGetFrameTime();
 			std::cout << app_time;
 		}
 
-		if (AEInputCheckCurr(AEVK_S))
+		else if (AEInputCheckCurr(AEVK_S))
 		{
 			//dir = direction::left;
 			app_time = app_time + AEFrameRateControllerGetFrameTime();
