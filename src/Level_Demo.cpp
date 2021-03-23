@@ -28,6 +28,7 @@ namespace StarBangBang
 {
 	Sprite computerSprite;
 	Sprite doorSprite;
+	Sprite boi;
 
 	StarBangBang::BoxCollider* playerCol;
 	StarBangBang::BoxCollider* clientCol;
@@ -49,6 +50,7 @@ namespace StarBangBang
 		exitImage = graphicsManager.CreateSprite(RESOURCES::VENDING_LEFT_PATH);
 		computerSprite = graphicsManager.CreateSprite(RESOURCES::COMPUTER_PATH);
 		doorSprite = graphicsManager.CreateSprite(RESOURCES::DOOR_PATH);
+		boi = graphicsManager.CreateSprite(RESOURCES::PROTOTYPE_SPRITE_2_PATH);
 	}
 
 	//Initialization of game objects, components and scripts.
@@ -109,6 +111,14 @@ namespace StarBangBang
 		objectManager.AddCollider(exit, true).isTrigger = true;
 
 		CaptainStealth::SpawnDoor(objectManager, doorSprite, exit->transform.position);
+
+		//Distraction
+		GameObject* distract = objectManager.NewGameObject();
+		//temp
+		distract->transform.position = tilemap.GetPositionAtIndex(40, 45);
+		distract->name = "EXIT";
+		objectManager.AddImage(distract, boi);
+		objectManager.AddCollider(distract, true).isTrigger = true;
 
 
 		//Floating text
