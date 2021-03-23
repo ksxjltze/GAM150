@@ -44,7 +44,7 @@ void StarBangBang::TestScene::Init()
 
 	//prison obj
 	GameObject* player;
-	CaptainStealth::SpawnPlayer(objectManager, player, prisonerSprite);
+	CaptainStealth::SpawnPlayer(objectManager, player ,prisonerSprite);
 	player->transform.position = { 0, 0 };
 
 	//door obj

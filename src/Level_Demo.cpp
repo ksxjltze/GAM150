@@ -66,13 +66,15 @@ namespace StarBangBang
 		movementController = objectManager.NewGameObject();
 		MovementManager& moveMgr = objectManager.AddComponent<MovementManager>(movementController);
 
-		//Player components and scripts
-		CaptainStealth::SpawnPlayer(objectManager, player, playerImage);
-		player->transform.position = tilemap.GetPositionAtIndex(6, 3);
 
 		//Client
 		CaptainStealth::SpawnClient(objectManager, player2, player2Image);
 		player2->transform.position = tilemap.GetPositionAtIndex(8, 3);
+
+
+		//Player components and scripts
+		CaptainStealth::SpawnPlayer(objectManager, player, playerImage);
+		player->transform.position = tilemap.GetPositionAtIndex(6, 3);
 
 		//Compooter
 		srand(static_cast<unsigned int>(time(NULL)));

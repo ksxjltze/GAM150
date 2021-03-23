@@ -4,11 +4,22 @@
 
 StarBangBang::PlayerScript::PlayerScript(GameObject* obj) : Script(obj)
 {
-
+	client = nullptr;
+	rb_controller = nullptr;
+	range = 30.0f;
+	gameover = false;
+	playerEscaped = false;
+	clientEscaped = false;
 }
 void StarBangBang::PlayerScript::Start()
 {
+
+	rb_controller = gameObject->GetComponent<PrimaryMovementController>();
 	
+	assert(rb_controller);
+	range *= range;
+
+
 }
 void StarBangBang::PlayerScript::onNotify(Event e)
 {
@@ -40,6 +51,19 @@ void StarBangBang::PlayerScript::onNotify(Event e)
 
 void StarBangBang::PlayerScript::Update()
 {
+	
+	AEVec2 myPos = gameObject->transform.position;
+	AEVec2 clientPos = client->GetPos();
+	float real_sqrDis = AEVec2SquareDistance(&myPos, &clientPos);
+
+	if (real_sqrDis > range )
+	{
+		rb_controller->active = false;
+	}
+	else
+	{
+		rb_controller->active = true;
+	}
 
 }
 
