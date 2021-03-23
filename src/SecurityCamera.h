@@ -13,9 +13,11 @@ namespace StarBangBang
 		void Start();
 		void Update();
 		void SetRotationMinMax(float _minRot, float _maxRot);
+		inline void SetRotSpeed(float _speed) { rotSpeed = _speed; }
 
 	private:
 		float minRot, maxRot;
+		float rotSpeed;
 		Detector* detector;
 	};
 }

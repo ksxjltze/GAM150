@@ -54,6 +54,7 @@ void Detector::Draw()
 
 	DrawLine(viewDist, gameObject->GetPos(), (fieldOfView * 0.5f) + rotationAngle, color);
 	DrawLine(viewDist, gameObject->GetPos(), (-fieldOfView * 0.5f) + rotationAngle, color);
+	//DrawLine(viewDist, gameObject->GetPos(), rotationAngle, color);
 }
 
 void Detector::Rotate(float angle)

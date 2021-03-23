@@ -71,7 +71,6 @@ namespace StarBangBang
 	{
 		player = objMgr.NewGameObject();
 		player->name = "Player";
-		player->SetPos({ 250, 800 });
 		player->transform.scale = { 0.7f, 0.7f };
 
 		DetectionListener* listener = &objMgr.AddComponent<DetectionListener>(player);
@@ -92,7 +91,6 @@ namespace StarBangBang
 	{
 		client = objMgr.NewGameObject();
 		client->name = "Client";
-		client->SetPos({ 250, 950 });
 		client->transform.scale = { 0.7f, 0.7f };
 
 		objMgr.AddImage(client, clientImage);

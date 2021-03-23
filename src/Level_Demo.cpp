@@ -19,6 +19,7 @@
 
 
 #include "CaptainStealth.h"
+#include "DebugText.h"
 
 
 namespace StarBangBang
@@ -67,9 +68,11 @@ namespace StarBangBang
 
 		//Player components and scripts
 		CaptainStealth::SpawnPlayer(objectManager, player, playerImage);
+		player->transform.position = tilemap.GetPositionAtIndex(6, 3);
 
 		//Client
 		CaptainStealth::SpawnClient(objectManager, player2, player2Image);
+		player2->transform.position = tilemap.GetPositionAtIndex(8, 3);
 
 		//Compooter
 		srand(static_cast<unsigned int>(time(NULL)));
@@ -97,12 +100,18 @@ namespace StarBangBang
 		//Level Exit
 		GameObject* exit = objectManager.NewGameObject();
 		//temp
-		exit->transform.position = tilemap.GetPositionAtIndex(10, 40);
+		exit->transform.position = tilemap.GetPositionAtIndex(40, 45);
 		exit->name = "EXIT";
 		objectManager.AddImage(exit, exitImage);
 		objectManager.AddCollider(exit, true).isTrigger = true;
 
 		CaptainStealth::SpawnDoor(objectManager, doorSprite, exit->transform.position);
+
+
+		//Floating text
+		MessageBus::RegisterListener(&objectManager.AddComponent<DebugText>(player, fontId));
+		MessageBus::Notify({ EventId::PRINT_TEXT, std::string("Find the Vending Machine!") });
+		MessageBus::Notify({ EventId::PLAY_SOUND, "Test"});
 
 	
 	}
@@ -110,10 +119,10 @@ namespace StarBangBang
 	void StarBangBang::Level_Demo::Update()
 	{
 		Scene::Update();
-		//if (AEInputCheckTriggered(VK_SPACE))
-		//{
-		//	gameStateManager.SetNextGameState(SceneID::EDITOR);
-		//}
+		if (AEInputCheckTriggered(VK_SPACE))
+		{
+			MessageBus::Notify({ EventId::PRINT_TEXT, std::string("Find the Exit!") });
+		}
 
 		if (AEInputCheckTriggered(AEVK_ESCAPE))
 		{
@@ -124,7 +133,7 @@ namespace StarBangBang
 		if (playerScript->isGameOver())
 		{
 			std::cout << "LOSE\n" << std::endl;
-			gameStateManager.SetNextGameState(MAIN_MENU);
+			gameStateManager.SetNextGameState(GAME_OVER);
 		}
 		else if (playerScript->isWin())
 		{

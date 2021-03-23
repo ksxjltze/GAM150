@@ -7,7 +7,7 @@ namespace StarBangBang
 	class DebugText : public ListenerComponent
 	{
 	public:
-		DebugText(GameObject* obj);
+		DebugText(GameObject* obj, s8 fontId = -1);
 		void SetFont(s8 fontId);
 		void SetTextbox(float width, float height);
 		void onNotify(Event e);
@@ -15,6 +15,7 @@ namespace StarBangBang
 		void Draw();
 	private:
 		float duration;
+		float fadeStart;
 		float timer;
 
 		s8 fontId;

@@ -32,7 +32,7 @@ void GuardManager::Init(ObjectManager* objManager, Sprite* sprite, GameObject* p
 		objManager->AddComponent<Guard>(guards[i]);
 		objManager->AddComponent<GuardMovement>(guards[i]);
 		objManager->AddComponent<GuardVision>(guards[i]);
-		objManager->AddComponent<Detector>(guards[i]).Init(GUARD::GUARD_FOV, GUARD::GUARD_VIEW_DIST, player, client);
+		objManager->AddComponent<Detector>(guards[i]).Init(50.f, 250.f, player, client);
 		objManager->AddComponent<Text>(guards[i]).fontID = StarBangBang::fontId;
 		objManager->AddComponent<RigidBody>(guards[i]);
 		objManager->AddCollider(guards[i], false);
@@ -52,6 +52,8 @@ void GuardManager::Init(ObjectManager* objManager, Sprite* sprite, GameObject* p
 	SetGuardWaypoints(id++, { 930, 830 }, { 0, 515 });
 	SetGuardWaypoints(id++, { -195, 790 }, { -815, 540 });
 	SetGuardWaypoints(id++, { -1120, 420 }, { -880, 880 });
+	SetGuardWaypoints(id++, { 1070, 1011 }, { -733, -1060 }, false, 40.f); // patrol level kinda
+	SetGuardWaypoints(id++, { 1055, 145 }, { 1055, -950 }, false, 40.f); // patrol level kinda
 }
 
 void GuardManager::CreateSecurityCameras(ObjectManager* objManager, Sprite* sprite, GameObject* player, GameObject* client)
@@ -64,19 +66,19 @@ void GuardManager::CreateSecurityCameras(ObjectManager* objManager, Sprite* spri
 		cameras[i]->transform.scale = { 0.7f, 0.7f };
 		objManager->AddImage(cameras[i], *sprite);
 		objManager->AddComponent<SecurityCamera>(cameras[i]);
-		objManager->AddComponent<Detector>(cameras[i]).Init(GUARD::CAM_FOV, GUARD::CAM_VIEW_DIST, player, client);
+		objManager->AddComponent<Detector>(cameras[i]).Init(50.f, 300.f, player, client);
 	}
 
-	SetCameraPosAndViewMinMax(id++, {-1030, -790},  -250.f, -150.f);
-	SetCameraPosAndViewMinMax(id++, { -250, -520 }, -270.f, -130.f);
-	SetCameraPosAndViewMinMax(id++, { -620, 190 }, -200.f, -80.f);
-	SetCameraPosAndViewMinMax(id++, { 470, -480 }, 0.f, 90.f);
-	SetCameraPosAndViewMinMax(id++, { -645, -410 }, -90.f, 0.f);
-	SetCameraPosAndViewMinMax(id++, { 1020, 350 }, 0.f, 90.f);
-	SetCameraPosAndViewMinMax(id++, { -180, 340 }, 0.f, 90.f);
-	SetCameraPosAndViewMinMax(id++, { -13, 1165 }, -180.f, -90.f);
-	SetCameraPosAndViewMinMax(id++, { -1160, 1130 }, -180.f, -90.f);
-	SetCameraPosAndViewMinMax(id++, { -690, 720 }, 0.f, 360.f);
+	InitSecurityCam(id++, {-1030, -790},	-250.f, -150.f);
+	InitSecurityCam(id++, { -250, -520 },	-270.f, -130.f);
+	InitSecurityCam(id++, { -620, 190 },	-200.f,  -80.f,		60.f);
+	InitSecurityCam(id++, { 470, -480 },	   0.f,   90.f);
+	InitSecurityCam(id++, { -645, -410 },	 -90.f,    0.f,		60.f);
+	InitSecurityCam(id++, { 1020, 350 },	   0.f,   90.f,		60.f);
+	InitSecurityCam(id++, { -180, 340 },	   0.f,   90.f);
+	InitSecurityCam(id++, { -13, 1165 },	-180.f,  -90.f);
+	InitSecurityCam(id++, { -1160, 1130 },	-180.f,  -90.f,		60.f);
+	InitSecurityCam(id++, { -690, 720 },	   0.f,  360.f);
 }
 
 void GuardManager::Update()
@@ -89,13 +91,13 @@ void GuardManager::Update()
 	if (AEInputCheckTriggered(VK_LBUTTON))
 	{
 		//guards[0]->GetComponent<GuardMovement>()->SetEndPos(GetMouseWorldPos());
-		guards[0]->GetComponent<Guard>()->SetState(Guard::GUARD_STATE::STATE_PATROL);
+		//guards[0]->GetComponent<Guard>()->SetState(Guard::GUARD_STATE::STATE_PATROL);
 	}
 
 	if (AEInputCheckTriggered(VK_RBUTTON))
 	{
 		//guards[1]->GetComponent<GuardMovement>()->LookForPath(GetMouseWorldPos());
-		guards[0]->GetComponent<Guard>()->SetState(Guard::GUARD_STATE::STATE_IDLE);
+		//guards[0]->GetComponent<Guard>()->SetState(Guard::GUARD_STATE::STATE_IDLE);
 	}
 }
 
@@ -118,16 +120,19 @@ GameObject* GuardManager::GetNearestGuard(AEVec2& _pos)
 	return nearestGuard;
 }
 
-void GuardManager::SetGuardWaypoints(int id, const AEVec2& start, const AEVec2& end, bool isIdle)
+void GuardManager::SetGuardWaypoints(int id, const AEVec2& start, const AEVec2& end, bool isIdle, float speed)
 {
 	guards[id]->GetComponent<GuardMovement>()->SetStartEndPos(start, end);
 
 	if (isIdle)
 		guards[id]->GetComponent<Guard>()->SetState(Guard::GUARD_STATE::STATE_IDLE);
+
+	guards[id]->GetComponent<GuardMovement>()->SetSpeed(speed);
 }
 
-void GuardManager::SetCameraPosAndViewMinMax(int id, const AEVec2& pos, float min, float max)
+void GuardManager::InitSecurityCam(int id, const AEVec2& pos, float min, float max, float speed)
 {
 	cameras[id]->SetPos(pos);
 	cameras[id]->GetComponent<SecurityCamera>()->SetRotationMinMax(min, max);
+	cameras[id]->GetComponent<SecurityCamera>()->SetRotSpeed(speed);
 }

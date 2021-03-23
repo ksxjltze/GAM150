@@ -7,6 +7,7 @@ SecurityCamera::SecurityCamera(GameObject* gameObject)
 	: Script(gameObject)
 	, minRot(0.f)
 	, maxRot(0.f)
+	, rotSpeed(GUARD::CAM_ROT_SPEED)
 	, detector(nullptr)
 {
 }
@@ -29,6 +30,6 @@ void SecurityCamera::SetRotationMinMax(float _minRot, float _maxRot)
 
 void SecurityCamera::Update()
 {
-	detector->SpanVision(minRot, maxRot, GUARD::CAM_ROT_SPEED);
+	detector->SpanVision(minRot, maxRot, rotSpeed);
 	gameObject->transform.rotation = detector->GetRotation();
 }

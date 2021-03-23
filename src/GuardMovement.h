@@ -23,6 +23,7 @@ namespace StarBangBang
 
 		inline const AEVec2& GetNextPos() const { return nextPos; }
 		inline bool IsMoving() const { return isMoving; }
+		inline void SetSpeed(float _speed) { speed = _speed; }
 		bool IsChangingDir();
 
 	private:
@@ -36,6 +37,8 @@ namespace StarBangBang
 		bool foundPath;
 		bool reachedEndOfPath;
 		bool changedTargetPos;
+
+		float speed;
 
 		unsigned int nodeIndex;
 
