@@ -130,10 +130,7 @@ void Detector::CheckForTargets(const AEVec2& _targetPos, bool checkForPlayer)
 
 			if (CollisionManager::LineCast(ray, myCollider) == collider)
 			{
-				if (checkForPlayer)
-					detectedTarget1 = true;
-				else
-					detectedTarget2 = true;
+				SetDetected(checkForPlayer, true);
 
 				//Event test
 				if (detectedTarget1)
@@ -143,25 +140,24 @@ void Detector::CheckForTargets(const AEVec2& _targetPos, bool checkForPlayer)
 			}
 			else
 			{
-				if (checkForPlayer)
-					detectedTarget1 = false;
-				else
-					detectedTarget2 = false;
+				SetDetected(checkForPlayer, false);
 			}
 		}
 		else
 		{
-			if (checkForPlayer)
-				detectedTarget1 = false;
-			else
-				detectedTarget2 = false;
+			SetDetected(checkForPlayer, false);
 		}
 	}
 	else
 	{
-		if (checkForPlayer)
-			detectedTarget1 = false;
-		else
-			detectedTarget2 = false;
+		SetDetected(checkForPlayer, false);
 	}
+}
+
+void Detector::SetDetected(bool checkForPlayer, bool detected)
+{
+	if (checkForPlayer)
+		detectedTarget1 = detected;
+	else
+		detectedTarget2 = detected;
 }
