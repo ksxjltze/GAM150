@@ -22,7 +22,14 @@
 #include "DebugText.h"
 
 static bool god = false;
+static float app_time = 0.0f;
+static int animation_counter = 0;
 
+enum class direction {left, right};
+direction dir;
+
+enum class current_char { fei_ge, prisoner };
+current_char character;
 
 namespace StarBangBang
 {
@@ -43,8 +50,33 @@ namespace StarBangBang
 
 	void StarBangBang::Level_Demo::Load()
 	{
+		//forward player 1
 		playerImage = graphicsManager.CreateSprite(RESOURCES::CAPTAINSTEALTH_F1_PATH);
+
+
+		//right animation player 1
+		playerImageR1 = graphicsManager.CreateSprite(RESOURCES::CAPTAINSTEALTH_R1_PATH);
+		playerImageR2 = graphicsManager.CreateSprite(RESOURCES::CAPTAINSTEALTH_R2_PATH);
+		playerImageR3 = graphicsManager.CreateSprite(RESOURCES::CAPTAINSTEALTH_R3_PATH);
+
+		//left animation for player 1 
+		playerImageL1 = graphicsManager.CreateSprite(RESOURCES::CAPTAINSTEALTH_L1_PATH);
+		playerImageL2 = graphicsManager.CreateSprite(RESOURCES::CAPTAINSTEALTH_L2_PATH);
+		playerImageL3 = graphicsManager.CreateSprite(RESOURCES::CAPTAINSTEALTH_L3_PATH);
+
+		//player 2
 		player2Image = graphicsManager.CreateSprite(RESOURCES::PRISONER_F1_PATH);
+
+		//right animation player 2
+		playerImage2R1 = graphicsManager.CreateSprite(RESOURCES::PRISONER_R1_PATH);
+		playerImage2R2 = graphicsManager.CreateSprite(RESOURCES::PRISONER_R2_PATH);
+		playerImage2R3 = graphicsManager.CreateSprite(RESOURCES::PRISONER_R3_PATH);
+
+		//left animation for player 2 
+		playerImage2L1 = graphicsManager.CreateSprite(RESOURCES::PRISONER_L1_PATH);
+		playerImage2L2 = graphicsManager.CreateSprite(RESOURCES::PRISONER_L2_PATH);
+		playerImage2L3 = graphicsManager.CreateSprite(RESOURCES::PRISONER_L3_PATH);
+
 		guardImage = graphicsManager.CreateSprite(RESOURCES::SECURITYGUARD_F1_PATH);
 		securityCamImage = graphicsManager.CreateSprite(RESOURCES::CAMERA_PATH);
 		exitImage = graphicsManager.CreateSprite(RESOURCES::VENDING_LEFT_PATH);
@@ -132,6 +164,149 @@ namespace StarBangBang
 	void StarBangBang::Level_Demo::Update()
 	{
 		Scene::Update();
+		switch (character)
+		{
+		case current_char::fei_ge:
+
+			switch (dir)
+			{	//fei ge's animation
+			case direction::right:
+
+				switch (animation_counter)
+				{
+				case 1:
+					printf("RIGHT");
+					player->GetComponent<ImageComponent>()->SetSprite(playerImageR2);
+					break;
+				case 2:
+					player->GetComponent<ImageComponent>()->SetSprite(playerImageR3);
+					break;
+				}
+
+				break;
+
+			case direction::left:
+
+				switch (animation_counter)
+				{
+				case 1:
+					printf("LEFT");
+					player->GetComponent<ImageComponent>()->SetSprite(playerImageL2);
+					break;
+				case 2:
+					printf("LEFT2");
+					player->GetComponent<ImageComponent>()->SetSprite(playerImageL3);
+					break;
+				}
+
+				break;
+			}
+
+			break;
+
+		case current_char::prisoner:
+			switch (dir)
+			{
+				//prisoner's animation
+			case direction::right:
+
+				switch (animation_counter)
+				{
+				case 1:
+					printf("RIGHT");
+					player2->GetComponent<ImageComponent>()->SetSprite(playerImage2R2);
+					break;
+				case 2:
+					player2->GetComponent<ImageComponent>()->SetSprite(playerImage2R3);
+					break;
+				}
+
+				break;
+
+			case direction::left:
+
+				switch (animation_counter)
+				{
+				case 1:
+					player2->GetComponent<ImageComponent>()->SetSprite(playerImage2L2);
+					break;
+				case 2:
+					player2->GetComponent<ImageComponent>()->SetSprite(playerImage2L3);
+					break;
+				}
+
+				break;
+
+			}
+			break;
+			
+		}
+
+
+
+			
+
+		//ANIMATION TEST
+		if (AEInputCheckTriggered(AEVK_TAB))
+		{
+			if (character == current_char::fei_ge)
+			{
+				printf("prisoner\n");
+				character = current_char::prisoner;
+			}
+
+			else if (character == current_char::prisoner)
+			{
+				printf("fg\n");
+				character = current_char::fei_ge;
+			}
+		}
+
+		if (AEInputCheckCurr(AEVK_D))
+		{
+			dir = direction::right;
+			app_time = app_time + AEFrameRateControllerGetFrameTime();
+			std::cout << app_time;
+		}
+		if (AEInputCheckCurr(AEVK_A))
+		{
+			dir = direction::left;
+			app_time = app_time + AEFrameRateControllerGetFrameTime();
+			std::cout << app_time;
+		}
+
+		if (AEInputCheckCurr(AEVK_W))
+		{
+			app_time = app_time + AEFrameRateControllerGetFrameTime();
+			std::cout << app_time;
+		}
+
+		if (AEInputCheckCurr(AEVK_S))
+		{
+			//dir = direction::left;
+			app_time = app_time + AEFrameRateControllerGetFrameTime();
+			std::cout << app_time;
+		}
+
+		if (app_time >= 0.1f)
+		{
+			animation_counter++;
+			app_time = 0.0f;
+			if (animation_counter > 2) animation_counter = 0;
+		}
+
+		//if (AEInputCheckTriggered(AEVK_D))
+		//{
+		//	player->GetComponent<ImageComponent>()->SetSprite(playerImageR2);
+		//}
+
+		//if (AEInputCheckTriggered(AEVK_A))
+		//{
+		//	//player->GetComponent<ImageComponent>()->active = false;
+		//	player->GetComponent<ImageComponent>()->SetSprite(playerImageR3);
+		//}
+
+
 		if (AEInputCheckTriggered(VK_SPACE))
 		{
 			MessageBus::Notify({ EventId::PRINT_TEXT, std::string("Find the Exit!") });
