@@ -33,6 +33,15 @@ void StarBangBang::PlayerScript::onNotify(Event e)
 			gameover = true;
 	}
 
+	if (e.id == EventId::PLAYER_COLLISION)
+	{
+		CollisionEvent data = std::any_cast<CollisionEvent>(e.context);
+		if (data.colliderPair.second->gameObject->name == "Guard")
+		{
+			gameover = true;
+		}
+	}
+
 	if (e.id == EventId::COLLISION)
 	{
 		CollisionEvent data = std::any_cast<CollisionEvent>(e.context);

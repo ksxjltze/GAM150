@@ -494,6 +494,12 @@ void CollisionManager::ResolverUpdate()
 								continue;
 							}
 
+							if (col->gameObject->name == "Player")
+							{
+								Event e{ EventId::PLAYER_COLLISION, CollisionEvent{col->gameObject, {col, col2}} };
+								MessageBus::Notify(e);
+							}
+
 							CalculateCollisionData(*col, *col2, data);
 							CollisionPair p{ *col,*col2, data };
 							ResolveVelocity(p);
