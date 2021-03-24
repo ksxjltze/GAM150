@@ -23,7 +23,7 @@ void StarBangBang::Distractor::onNotify(Event e)
 	if (e.id == EventId::COLLISION)
 	{
 		CollisionEvent data = std::any_cast<CollisionEvent>(e.context);
-		if (data.gameObject->name == "Player")
+		if (data.first->gameObject->name == "Player")
 			SendDistractionEvent();
 	}
 

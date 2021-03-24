@@ -263,17 +263,17 @@ namespace StarBangBang
 		if (AEInputCheckCurr(AEVK_D))
 		{
 			dir = direction::right;
-			app_time = app_time + AEFrameRateControllerGetFrameTime();
+			app_time = app_time + g_dt;
 		}
 		else if (AEInputCheckCurr(AEVK_A))
 		{
 			dir = direction::left;
-			app_time = app_time + AEFrameRateControllerGetFrameTime();
+			app_time = app_time + g_dt;
 		}
 
 		else if (AEInputCheckCurr(AEVK_W) || AEInputCheckCurr(AEVK_S))
 		{
-			app_time = app_time + AEFrameRateControllerGetFrameTime();
+			app_time = app_time + g_dt;
 		}
 
 		if (app_time >= 0.1f)

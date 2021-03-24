@@ -21,9 +21,9 @@ namespace StarBangBang
 			CollisionEvent data = std::any_cast<CollisionEvent>(e.context);
 			BoxCollider* collider = gameObject->GetComponent<BoxCollider>();
 
-			if (data.colliderPair.first->gameObject->name == "Player" || data.colliderPair.first->gameObject->name == "Client")
+			if (data.first->gameObject->name == "Player" || data.first->gameObject->name == "Client")
 			{
-				if (data.colliderPair.first == collider || data.colliderPair.second == collider)
+				if (data.first == collider || data.second == collider)
 					enabled = true;
 
 			}

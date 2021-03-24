@@ -488,7 +488,7 @@ void CollisionManager::ResolverUpdate()
 						{
 							if (col->isTrigger || col2->isTrigger)
 							{
-								Event e{ EventId::COLLISION, CollisionEvent{col->gameObject, {col, col2}} };
+								Event e{ EventId::COLLISION, CollisionEvent{col, col2 } };
 								MessageBus::Notify(e);
 								////e.SendEvent();
 								continue;
@@ -496,7 +496,7 @@ void CollisionManager::ResolverUpdate()
 
 							if (col->gameObject->name == "Player" || col->gameObject->name == "Client")
 							{
-								Event e{ EventId::PLAYER_COLLISION, CollisionEvent{col->gameObject, {col, col2}} };
+								Event e{ EventId::PLAYER_COLLISION, CollisionEvent{col, col2} };
 								MessageBus::Notify(e);
 							}
 
