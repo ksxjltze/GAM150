@@ -494,7 +494,7 @@ void CollisionManager::ResolverUpdate()
 								continue;
 							}
 
-							if (col->gameObject->name == "Player")
+							if (col->gameObject->name == "Player" || col->gameObject->name == "Client")
 							{
 								Event e{ EventId::PLAYER_COLLISION, CollisionEvent{col->gameObject, {col, col2}} };
 								MessageBus::Notify(e);
