@@ -2,6 +2,8 @@
 #include "MessageBus.h"
 #include "Collider.h"
 #include "ObjectManager.h"
+#include "CollisionEvent.h"
+
 StarBangBang::PlayerScript::PlayerScript(GameObject* obj) : Script(obj)
 {
 	client = nullptr;
@@ -33,18 +35,17 @@ void StarBangBang::PlayerScript::onNotify(Event e)
 
 	if (e.id == EventId::COLLISION)
 	{
-		using colPair = std::pair<Collider*, Collider*>;
-		colPair pair = std::any_cast<colPair>(e.context);
+		CollisionEvent data = std::any_cast<CollisionEvent>(e.context);
 
-		if (pair.first->gameObject->name == "EXIT" && pair.second->gameObject->name == "Player")
+		if (data.colliderPair.first->gameObject->name == "EXIT" && data.colliderPair.second->gameObject->name == "Player")
 		{
 			printf("PLAYER ESCAPED\n");
-			pair.second->gameObject->active = false;
+			data.colliderPair.second->gameObject->active = false;
 			playerEscaped = true;
 		}
-		if (pair.first->gameObject->name == "EXIT" && pair.second->gameObject->name == "Client")
+		if (data.colliderPair.first->gameObject->name == "EXIT" && data.colliderPair.second->gameObject->name == "Client")
 		{
-			pair.second->gameObject->active = false;
+			data.colliderPair.second->gameObject->active = false;
 			clientEscaped = true;
 		}
 

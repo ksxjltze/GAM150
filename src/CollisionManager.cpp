@@ -4,6 +4,7 @@
 #include <cmath>
 #include <iostream>
 #include "MessageBus.h"
+#include "CollisionEvent.h"
 
 using namespace StarBangBang;
 
@@ -487,10 +488,9 @@ void CollisionManager::ResolverUpdate()
 						{
 							if (col->isTrigger || col2->isTrigger)
 							{
-								Event collisionEvent;
-								collisionEvent.id = EventId::COLLISION;
-								collisionEvent.context = std::pair<Collider*, Collider*>(col, col2);
-								MessageBus::Notify(collisionEvent);
+								Event e{ EventId::COLLISION, CollisionEvent{col->gameObject, {col, col2}} };
+								MessageBus::Notify(e);
+								////e.SendEvent();
 								continue;
 							}
 

@@ -60,8 +60,6 @@ namespace StarBangBang
 		text.SetTextbox(100, 100);
 		text.SetFont(StarBangBang::fontId);
 
-		MessageBus::RegisterListener(&text);
-
 	}
 
 	void LevelEditor::Update()

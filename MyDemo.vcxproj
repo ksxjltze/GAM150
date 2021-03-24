@@ -182,6 +182,7 @@ xcopy /y /d /i /s "$(SolutionDir)\Resources" "$(OutDir)\Resources"</Command>
     <ClInclude Include="src\DebugText.h" />
     <ClInclude Include="src\DetectionListener.h" />
     <ClInclude Include="src\Detector.h" />
+    <ClInclude Include="src\DistractionEvent.h" />
     <ClInclude Include="src\Distractor.h" />
     <ClInclude Include="src\DragComponent.h" />
     <ClInclude Include="src\EngineProof.h" />
