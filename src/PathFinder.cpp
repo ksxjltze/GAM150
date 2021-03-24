@@ -5,14 +5,14 @@
 #include "Utils.h"
 #include "BasicMeshShape.h"
 #include <iostream>
+#include <queue>
 #include "constants.h"
-
+#include "Heap.h"
 using namespace StarBangBang;
 
 const int diagonal_Cost = 14;
 const int straight_Cost = 10;
 static bool isVisible = true;
-
 Grid worldGrid;
 
 void PathFinder::PathFinderInit()
@@ -38,10 +38,10 @@ void PathFinder::GridDraw()
 {
 	if (isVisible)
 	{
-		AEVec2 mousePos = GetMouseWorldPos();
+		/*AEVec2 mousePos = GetMouseWorldPos();
 		A_Node* n = worldGrid.GetNodeFromPosition(mousePos);
 		if (n)
-			StarBangBang::DrawCircle(10.0f, n->nodePos);
+			StarBangBang::DrawCircle(10.0f, n->nodePos);*/
 		worldGrid.DrawGrid();
 
 	}
@@ -72,6 +72,7 @@ void TracePath(A_Node* start, A_Node* end , std::vector<A_Node*>& p)
 	A_Node* currNode = end;
 	while (currNode != start)
 	{
+		currNode->occupied = true;
 		p.push_back(currNode);
 		currNode = currNode->parent;
 	}
@@ -93,6 +94,7 @@ void TracePath(A_Node* start, A_Node* end , std::vector<A_Node*>& p)
 	//}
 
 }
+
 std::vector<A_Node*> PathFinder::SearchForPath(AEVec2 start, AEVec2 target)
 {
 	std::vector<A_Node*> pathing;
@@ -110,7 +112,7 @@ std::vector<A_Node*> PathFinder::SearchForPath(AEVec2 start, AEVec2 target)
 		return pathing;
 	if (endNode->occupied)
 	{
-		PRINT("End node occupied\n");
+		//PRINT("End node occupied\n");
 		return pathing;
 	}
 		

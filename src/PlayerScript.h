@@ -1,7 +1,7 @@
 #pragma once
 #include "ScriptComponent.h"
 #include "Listener.h"
-
+#include "PrimaryMovementController.h"
 namespace StarBangBang
 {
 	class PlayerScript : public Script, public Listener
@@ -12,7 +12,11 @@ namespace StarBangBang
 		void onNotify(Event e);
 		bool isGameOver();
 		bool isWin();
+		void Start();
 	private:
+		GameObject* client = nullptr;
+		PrimaryMovementController* rb_controller;
+		float range;
 		bool gameover = false;
 		bool playerEscaped = false;
 		bool clientEscaped = false;

@@ -121,6 +121,7 @@ xcopy /y /d /i /s "$(SolutionDir)\Resources" "$(OutDir)\Resources"</Command>
     <ClCompile Include="src\DebugText.cpp" />
     <ClCompile Include="src\DetectionListener.cpp" />
     <ClCompile Include="src\Detector.cpp" />
+    <ClCompile Include="src\Distractor.cpp" />
     <ClCompile Include="src\DragComponent.cpp" />
     <ClCompile Include="src\EngineProof.cpp" />
     <ClCompile Include="src\GameObject.cpp" />
@@ -168,6 +169,7 @@ xcopy /y /d /i /s "$(SolutionDir)\Resources" "$(OutDir)\Resources"</Command>
     <ClInclude Include="src\CaptainStealth.h" />
     <ClInclude Include="src\Click.h" />
     <ClInclude Include="src\Collider.h" />
+    <ClInclude Include="src\CollisionEvent.h" />
     <ClInclude Include="src\CollisionListener.h" />
     <ClInclude Include="src\CollisionManager.h" />
     <ClInclude Include="src\CollisionTest.h" />
@@ -180,6 +182,8 @@ xcopy /y /d /i /s "$(SolutionDir)\Resources" "$(OutDir)\Resources"</Command>
     <ClInclude Include="src\DebugText.h" />
     <ClInclude Include="src\DetectionListener.h" />
     <ClInclude Include="src\Detector.h" />
+    <ClInclude Include="src\DistractionEvent.h" />
+    <ClInclude Include="src\Distractor.h" />
     <ClInclude Include="src\DragComponent.h" />
     <ClInclude Include="src\EngineProof.h" />
     <ClInclude Include="src\Event.h" />
@@ -191,6 +195,7 @@ xcopy /y /d /i /s "$(SolutionDir)\Resources" "$(OutDir)\Resources"</Command>
     <ClInclude Include="src\GuardManager.h" />
     <ClInclude Include="src\GuardMovement.h" />
     <ClInclude Include="src\GuardVision.h" />
+    <ClInclude Include="src\Heap.h" />
     <ClInclude Include="src\IClickable.h" />
     <ClInclude Include="src\ImageComponent.h" />
     <ClInclude Include="src\ISerializable.h" />

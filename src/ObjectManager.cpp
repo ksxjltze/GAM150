@@ -3,6 +3,18 @@
 #include <typeinfo>
 #include <fstream>
 
+StarBangBang::GameObject* StarBangBang::ObjectManager::Find(const std::string& name)
+{
+	for (auto gameObject : gameObjectList)
+	{
+		if (gameObject->name == name)
+		{
+			return gameObject;
+		}
+	}
+	return nullptr;
+}
+
 StarBangBang::BoxCollider& StarBangBang::ObjectManager::AddCollider(GameObject* gameObject, bool isStatic)
 {
 	if (!gameObject->GetComponent<RigidBody>())
