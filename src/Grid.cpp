@@ -71,10 +71,7 @@ using namespace StarBangBang;
 		delete[] grid;
 	}
 
-	Grid::~Grid()
-	{
-		Grid::FreeGrid();
-	}
+	
 
 
 	

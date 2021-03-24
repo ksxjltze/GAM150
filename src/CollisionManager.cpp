@@ -523,7 +523,7 @@ void CollisionManager::ResolverUpdate()
 		if (col->rb->isKinematic())
 			DebugCollider(*col, Red);
 		else
-			DebugCollider(*col, Black);
+			DebugCollider(*col, Green);
 	}
 
 }

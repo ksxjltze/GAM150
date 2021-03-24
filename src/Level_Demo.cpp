@@ -56,8 +56,11 @@ namespace StarBangBang
 	//Initialization of game objects, components and scripts.
 	void StarBangBang::Level_Demo::Init()
 	{
-		god = false;
+
+		PathFinder::PathFinderInit();
 		PathFinder::ShowGrid(true);
+
+		god = false;
 		GRAPHICS::SetBackgroundColor(Black);
 
 		//Load tilemap
@@ -176,7 +179,10 @@ namespace StarBangBang
 
 	void StarBangBang::Level_Demo::Free()
 	{
+		PathFinder::Free();
 		Scene::Free();
+		
+
 	}
 
 	void StarBangBang::Level_Demo::Unload()

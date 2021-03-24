@@ -82,10 +82,10 @@ void GuardMovement::Distracted()
 
 void GuardMovement::MoveAlongPath()
 {
-	for (const A_Node* n : path)
+	/*for (const A_Node* n : path)
 	{
 		DrawCircle(20.0f, n->nodePos);
-	}
+	}*/
 
 	if (nodeIndex < path.size())
 	{
@@ -98,6 +98,7 @@ void GuardMovement::MoveAlongPath()
 			timer += g_dt;
 			if (timer >= 0.01f)
 			{
+				path[nodeIndex]->occupied = false;
 				++nodeIndex;
 				timer = 0.f;
 			}

@@ -4,6 +4,8 @@
 
 namespace StarBangBang
 {
+	class ObjectManager;
+
 	class _Component
 	{
 	public:

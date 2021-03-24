@@ -132,7 +132,7 @@ namespace StarBangBang
 
 			}
 			currentState->Update();
-			PathFinder::GridDraw();
+			//PathFinder::GridDraw();
 			currentState->Draw();
 
 		}

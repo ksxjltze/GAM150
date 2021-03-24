@@ -36,6 +36,7 @@ namespace StarBangBang
 
 	void LevelEditor::Init()
 	{
+		PathFinder::PathFinderInit();
 		PathFinder::ShowGrid(false);
 		GRAPHICS::SetBackgroundColor(Black);
 		

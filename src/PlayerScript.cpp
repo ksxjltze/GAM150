@@ -1,12 +1,12 @@
 #include "PlayerScript.h"
 #include "MessageBus.h"
 #include "Collider.h"
-
+#include "ObjectManager.h"
 StarBangBang::PlayerScript::PlayerScript(GameObject* obj) : Script(obj)
 {
 	client = nullptr;
 	rb_controller = nullptr;
-	range = 30.0f;
+	range = 500.0f;
 	gameover = false;
 	playerEscaped = false;
 	clientEscaped = false;
@@ -15,11 +15,11 @@ void StarBangBang::PlayerScript::Start()
 {
 
 	rb_controller = gameObject->GetComponent<PrimaryMovementController>();
-	
+	client = objMgr->Find("Client");
 
+	assert(client);
 	assert(rb_controller);
 	range *= range;
-
 
 }
 void StarBangBang::PlayerScript::onNotify(Event e)
@@ -54,18 +54,21 @@ void StarBangBang::PlayerScript::onNotify(Event e)
 void StarBangBang::PlayerScript::Update()
 {
 	
-	AEVec2 myPos = gameObject->transform.position;
+	/*AEVec2 myPos = gameObject->transform.position;
 	AEVec2 clientPos = client->GetPos();
-	float real_sqrDis = AEVec2SquareDistance(&myPos, &clientPos);
+	float real_sqrDis = AEVec2SquareDistance(&myPos, &clientPos);*/
 
-	if (real_sqrDis > range )
+	/*if (myPos.x > AEGfxGetWinMaxX() || myPos.x < AEGfxGetWinMinX()
+		|| myPos.y > AEGfxGetWinMaxY() || myPos.y < AEGfxGetWinMinY())
 	{
 		rb_controller->active = false;
-	}
-	else
+	}*/
+		
+	/*if (real_sqrDis > range )
 	{
-		rb_controller->active = true;
-	}
+		rb_controller->active = false;
+	}*/
+
 
 }
 

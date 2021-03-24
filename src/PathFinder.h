@@ -10,8 +10,20 @@ namespace StarBangBang
 		void ShowGrid(bool visible = true);
 		void Free();
 		std::vector<A_Node*> SearchForPath(AEVec2 start, AEVec2 target);
+
+		void RequestPath(AEVec2 start , AEVec2 end , std::vector<A_Node*>& successPath);
+
 		void GridDraw();
 		Grid& GetWorldGrid();
+
+		class PathRequest
+		{
+		public:
+			AEVec2 start;
+			AEVec2 end;
+			bool success;
+			std::vector<A_Node*> path;
+		};
 	}
 	
 }
