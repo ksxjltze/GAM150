@@ -13,6 +13,9 @@ GuardVision::GuardVision(GameObject* gameObject)
 	, movement(nullptr)
 	, detector(nullptr)
 	, rotation(0.f)
+	, prevRot(-1)
+	, currRot(0)
+	, turn(false)
 {
 }
 
@@ -44,28 +47,59 @@ void GuardVision::Update()
 
 		float dp = AEVec2DotProduct(&defaultLeft, &targetDir);
 		if (dp <= 0.f)
-			targetRot *= -1;
+			targetRot = -targetRot;
 
-		if (targetRot > 0.f)
+		currRot = static_cast<int>(rint(targetRot));
+
+		if (currRot != prevRot)
 		{
-			if (rotation <= targetRot)
-				rotation += 300.f * g_dt;
-			else
-				detector->SetFacingDir(targetDir);
+			prevRot = currRot;
+			turn = true;
+			//PRINT("target rot: %d\n", currRot);
 		}
-		else
+
+		if (turn)
 		{
-			if (rotation >= targetRot)
-				rotation -= 300.f * g_dt;
+			if (currRot >= 0)
+			{
+				if (rotation <= targetRot)
+				{
+					rotation += 350.f * g_dt;
+					FaceTowardsRotation();
+				}
+				else
+				{
+					turn = false;
+					detector->SetFacingDir(targetDir);
+				}
+			}
 			else
-				detector->SetFacingDir(targetDir);
+			{
+				if (rotation >= targetRot)
+				{
+					rotation -= 350.f * g_dt;
+					FaceTowardsRotation();
+				}
+				else
+				{
+					turn = false;
+					detector->SetFacingDir(targetDir);
+				}
+			}
+			
+			detector->Rotate(rotation);
 		}
-		
-		detector->Rotate(rotation);
 	}
 	else
 	{
 		/*detector->SetFacingDir(defaultForward);
 		detector->Rotate(0.f);*/
 	}
+}
+
+void GuardVision::FaceTowardsRotation()
+{
+	AEVec2 facingDir;
+	AEVec2FromAngle(&facingDir, AEDegToRad(90.f + rotation));
+	detector->SetFacingDir(facingDir);
 }

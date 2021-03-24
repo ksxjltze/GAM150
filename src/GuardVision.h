@@ -18,9 +18,14 @@ namespace StarBangBang
 		inline Detector* GetDetector() { return detector; }
 
 	private:
+		void FaceTowardsRotation();
+
 		GuardMovement* movement;
 		Detector* detector;
 
 		float rotation;
+		int prevRot, currRot;
+
+		bool turn;
 	};
 }
