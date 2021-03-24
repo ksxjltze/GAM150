@@ -17,7 +17,7 @@ void StarBangBang::Scene_GameOver::Init()
 {
 	GameObject* obj = objectManager.NewGameObject();
 	obj->transform.scale = { 0.00001f, 0.00001f };
-	ImageComponent* image = objectManager.AddImage(obj, graphicsManager.CreateSprite(RESOURCES::BIN_PATH));
+	objectManager.AddImage(obj, graphicsManager.CreateSprite(RESOURCES::BIN_PATH));
 
 	PathFinder::ShowGrid(false);
 }
@@ -48,10 +48,10 @@ void StarBangBang::Scene_GameOver::Draw()
 
 void StarBangBang::Scene_GameOver::Free()
 {
-
+	Scene::Free();
 }
 
 void StarBangBang::Scene_GameOver::Unload()
 {
-
+	Scene::Unload();
 }

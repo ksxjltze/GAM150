@@ -27,7 +27,6 @@ namespace StarBangBang
 		int hcost = 0;	 //estimate cost from current to end node 
 		int gcost = 0;	 //cost to start node to end node
 		constexpr int GetfCost()  const { return hcost + gcost; }
-
 		
 	};
 	//partition cell
@@ -106,8 +105,6 @@ namespace StarBangBang
 		Grid(float _nodeSize, int sizeX, int sizeY, AEVec2 _offset = AEVec2{0.0f,0.0f});
 
 		
-
-		~Grid();
 	
 	};
 }

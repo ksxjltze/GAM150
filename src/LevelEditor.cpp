@@ -36,6 +36,7 @@ namespace StarBangBang
 
 	void LevelEditor::Init()
 	{
+		PathFinder::PathFinderInit();
 		PathFinder::ShowGrid(false);
 		GRAPHICS::SetBackgroundColor(Black);
 		
@@ -58,8 +59,6 @@ namespace StarBangBang
 		DebugText& text = objectManager.AddComponent<DebugText>(debugText);
 		text.SetTextbox(100, 100);
 		text.SetFont(StarBangBang::fontId);
-
-		MessageBus::RegisterListener(&text);
 
 	}
 

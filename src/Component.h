@@ -4,6 +4,8 @@
 
 namespace StarBangBang
 {
+	class ObjectManager;
+
 	class _Component
 	{
 	public:
@@ -16,6 +18,7 @@ namespace StarBangBang
 		GameObject* gameObject { nullptr };
 		virtual ~_Component() {}
 		bool active { true };
+		ObjectManager* objMgr{ nullptr };
 
 	};
 }
