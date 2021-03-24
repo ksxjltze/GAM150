@@ -25,6 +25,7 @@ namespace StarBangBang
 
 	private:
 		void CheckForTargets(const AEVec2& _targetPos, bool checkForPlayer = true);
+		void SetDetected(bool checkForPlayer, bool detected);
 
 		float fieldOfView;
 		float viewDist;
