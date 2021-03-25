@@ -13,5 +13,9 @@ namespace StarBangBang
 		void Update();
 		void onNotify(Event e);
 		void SendDistractionEvent();
+	private:
+		bool activated;
+		float duration;
+		float timer;
 	};
 }
