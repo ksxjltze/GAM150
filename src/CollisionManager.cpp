@@ -484,6 +484,10 @@ void CollisionManager::ResolverUpdate()
 					assert(col2->rb);
 					if (col->rb && col2->rb)
 					{
+
+						if (col->isStatic && col2->isStatic)
+							continue;
+
 						if (Dynamic_AABB(*col, col->rb->velocity, *col2, col2->rb->velocity))
 						{
 							if (col->isTrigger || col2->isTrigger)
