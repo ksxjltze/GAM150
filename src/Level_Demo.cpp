@@ -28,7 +28,7 @@ static bool god = false;
 static float app_time = 0.0f;
 static int animation_counter = 0;
 
-enum class direction {idle, left, right};
+enum class direction {idle = 0, left, right};
 direction dir;
 
 enum class current_char { fei_ge, prisoner };

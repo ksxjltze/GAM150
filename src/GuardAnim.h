@@ -9,6 +9,10 @@ namespace StarBangBang
 		GuardAnim(GameObject* gameObject);
 		void Start();
 		void Update();
+		void load();
+
+	private:
+		static Sprite 
 	};
 }
 
