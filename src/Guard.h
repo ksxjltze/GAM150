@@ -2,10 +2,11 @@
 #include "ScriptComponent.h"
 #include "GuardMovement.h"
 #include "GuardVision.h"
+#include "Listener.h"
 
 namespace StarBangBang
 {
-	class Guard : public Script
+	class Guard : public Script, Listener
 	{
 	public:
 		enum class GUARD_STATE
@@ -20,6 +21,7 @@ namespace StarBangBang
 
 		void Start();
 		void Update();
+		void onNotify(Event e);
 
 		inline void SetState(GUARD_STATE _state) { state = _state; }
 		inline int GetID() const { return id; }
