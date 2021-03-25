@@ -494,7 +494,6 @@ void CollisionManager::ResolverUpdate()
 							{
 								Event e{ EventId::COLLISION, CollisionEvent{col, col2 } };
 								MessageBus::Notify(e);
-								////e.SendEvent();
 								continue;
 							}
 
