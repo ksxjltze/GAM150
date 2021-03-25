@@ -8,11 +8,6 @@ namespace StarBangBang
 	class ComputerScript : public Script, public Listener
 	{
 	public:
-		enum class COMPUTER_STATE
-		{
-			STATE_IDLE = 0,
-		};
-
 		ComputerScript(GameObject* gameObject);
 
 		void Start();
