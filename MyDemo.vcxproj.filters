@@ -315,6 +315,9 @@
     <ClCompile Include="src\Distractor.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\GuardAnim.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\ImageComponent.h">
@@ -549,6 +552,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\DistractionEvent.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Heap.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GuardAnim.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

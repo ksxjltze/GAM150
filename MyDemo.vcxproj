@@ -129,6 +129,7 @@ xcopy /y /d /i /s "$(SolutionDir)\Resources" "$(OutDir)\Resources"</Command>
     <ClCompile Include="src\GraphicsManager.cpp" />
     <ClCompile Include="src\Grid.cpp" />
     <ClCompile Include="src\Guard.cpp" />
+    <ClCompile Include="src\GuardAnim.cpp" />
     <ClCompile Include="src\GuardManager.cpp" />
     <ClCompile Include="src\GuardMovement.cpp" />
     <ClCompile Include="src\GuardVision.cpp" />
@@ -192,6 +193,7 @@ xcopy /y /d /i /s "$(SolutionDir)\Resources" "$(OutDir)\Resources"</Command>
     <ClInclude Include="src\globals.h" />
     <ClInclude Include="src\GraphicsManager.h" />
     <ClInclude Include="src\Guard.h" />
+    <ClInclude Include="src\GuardAnim.h" />
     <ClInclude Include="src\GuardManager.h" />
     <ClInclude Include="src\GuardMovement.h" />
     <ClInclude Include="src\GuardVision.h" />
