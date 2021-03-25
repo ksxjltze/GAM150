@@ -18,6 +18,7 @@
 #include "globals.h"
 
 #include "Distractor.h"
+#include "time.h"
 
 
 #include "CaptainStealth.h"
@@ -27,7 +28,7 @@ static bool god = false;
 static float app_time = 0.0f;
 static int animation_counter = 0;
 
-enum class direction {left, right};
+enum class direction {idle, left, right};
 direction dir;
 
 enum class current_char { fei_ge, prisoner };
@@ -177,7 +178,8 @@ namespace StarBangBang
 		case current_char::fei_ge:
 
 			switch (dir)
-			{	//fei ge's animation
+			{//fei ge's animation
+
 			case direction::right:
 
 				switch (animation_counter)
@@ -187,6 +189,10 @@ namespace StarBangBang
 					break;
 				case 2:
 					player->GetComponent<ImageComponent>()->SetSprite(playerImageR3);
+					break;
+
+				case 3:
+					player->GetComponent<ImageComponent>()->SetSprite(playerImageR1);
 					break;
 				}
 
@@ -202,6 +208,9 @@ namespace StarBangBang
 				case 2:
 					player->GetComponent<ImageComponent>()->SetSprite(playerImageL3);
 					break;
+				case 3:
+					player->GetComponent<ImageComponent>()->SetSprite(playerImageL1);
+					break;
 				}
 
 				break;
@@ -213,6 +222,7 @@ namespace StarBangBang
 			switch (dir)
 			{
 				//prisoner's animation
+			
 			case direction::right:
 
 				switch (animation_counter)
@@ -222,6 +232,9 @@ namespace StarBangBang
 					break;
 				case 2:
 					player2->GetComponent<ImageComponent>()->SetSprite(playerImage2R3);
+					break;
+				case 3:
+					player2->GetComponent<ImageComponent>()->SetSprite(playerImage2R1);
 					break;
 				}
 
@@ -237,6 +250,10 @@ namespace StarBangBang
 				case 2:
 					player2->GetComponent<ImageComponent>()->SetSprite(playerImage2L3);
 					break;
+
+				case 3:
+					player2->GetComponent<ImageComponent>()->SetSprite(playerImage2L1);
+					break;
 				}
 
 				break;
@@ -246,7 +263,9 @@ namespace StarBangBang
 			
 		}
 
-		//ANIMATION TEST
+		//ANIMATION ~~~
+
+		//this is to switch characters
 		if (AEInputCheckTriggered(AEVK_TAB))
 		{
 			if (character == current_char::fei_ge)
@@ -258,6 +277,11 @@ namespace StarBangBang
 			{
 				character = current_char::fei_ge;
 			}
+		}
+
+		if (!(AEInputCheckCurr(AEVK_W) || AEInputCheckCurr(AEVK_S) || AEInputCheckCurr(AEVK_A) || AEInputCheckCurr(AEVK_D)))
+		{
+			animation_counter = 3;
 		}
 
 		if (AEInputCheckCurr(AEVK_D))
