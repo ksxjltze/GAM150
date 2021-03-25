@@ -296,6 +296,7 @@ xcopy /y /d /i /s "$(SolutionDir)\Resources" "$(OutDir)\Resources"</Command>
     <Image Include="Resources\InteractableObj\bin1.png" />
     <Image Include="Resources\InteractableObj\CameraUp.png" />
     <Image Include="Resources\InteractableObj\Computer.png" />
+    <Image Include="Resources\InteractableObj\keys.png" />
     <Image Include="Resources\InteractableObj\VendingMachineLeft.png" />
     <Image Include="Resources\InteractableObj\VendingMachineLeft1.png" />
     <Image Include="Resources\InteractableObj\VendingMachineRight.png" />
@@ -309,6 +310,7 @@ xcopy /y /d /i /s "$(SolutionDir)\Resources" "$(OutDir)\Resources"</Command>
     <Image Include="Resources\MainMenu\Play2.png" />
     <Image Include="Resources\MainMenu\Setting1.png" />
     <Image Include="Resources\MainMenu\Setting2.png" />
+    <Image Include="Resources\Misc\Indicator.png" />
     <Image Include="Resources\PlanetTexture.png" />
     <Image Include="Resources\YellowTexture.png" />
   </ItemGroup>

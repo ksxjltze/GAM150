@@ -130,6 +130,9 @@
     <Filter Include="Header Files\Debug">
       <UniqueIdentifier>{0109f387-e055-4cf8-892a-c3d898c2538e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Resource Files\Misc">
+      <UniqueIdentifier>{d1903ab2-a47e-499d-9cad-c0397db65ebd}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Main.cpp">
@@ -771,6 +774,12 @@
     </Image>
     <Image Include="Resources\FloorTiles\prisoncell.png">
       <Filter>Resource Files\FloorTiles</Filter>
+    </Image>
+    <Image Include="Resources\InteractableObj\keys.png">
+      <Filter>Resource Files\InteractableObj</Filter>
+    </Image>
+    <Image Include="Resources\Misc\Indicator.png">
+      <Filter>Resource Files\Misc</Filter>
     </Image>
   </ItemGroup>
   <ItemGroup>

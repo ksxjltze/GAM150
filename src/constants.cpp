@@ -18,6 +18,7 @@ namespace StarBangBang
 		const std::string&& MAINMENU_PATH				= ROOT_PATH + "MainMenu/";
 		const std::string&& CHARACTERS_PATH				= ROOT_PATH + "Characters/";
 		const std::string&& FLOORTILES_PATH				= ROOT_PATH + "FloorTiles/";
+		const std::string&& MISC_PATH					= ROOT_PATH + "Misc/";
 
 		namespace LEVELS
 		{
@@ -121,6 +122,10 @@ namespace StarBangBang
 		const std::string&& VENDING_RIGHT_PATH				= INTERACTABLE_PATH + "VendingMachineRight.png";
 		const std::string&& VENDING_RIGHT_RED_PATH			= INTERACTABLE_PATH + "VendingMachineRight1.png";
 		const std::string&& COMPUTER_PATH					= INTERACTABLE_PATH + "Computer.png";
+		const  std::string&& KEY_PATH						= INTERACTABLE_PATH + "keys.png";
+
+		//misc objects
+		const std::string&& INDICATOR_PATH					= MISC_PATH + "Indicator.png";
 
 	}
 }
