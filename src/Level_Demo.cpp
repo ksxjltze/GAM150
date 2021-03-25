@@ -19,7 +19,7 @@
 
 #include "Distractor.h"
 #include "time.h"
-
+#include "GuardAnim.h"
 
 #include "CaptainStealth.h"
 #include "DebugText.h"
@@ -56,6 +56,8 @@ namespace StarBangBang
 		//forward player 1
 		playerImage = graphicsManager.CreateSprite(RESOURCES::CAPTAINSTEALTH_F1_PATH);
 
+
+		GuardAnim::Load(graphicsManager);
 
 		//right animation player 1
 		playerImageR1 = graphicsManager.CreateSprite(RESOURCES::CAPTAINSTEALTH_R1_PATH);
