@@ -1,4 +1,5 @@
 #include "GuardAnim.h"
+#include "Physics.h"
 
 namespace StarBangBang
 {
@@ -11,6 +12,12 @@ namespace StarBangBang
 
 	void GuardAnim::Update()
 	{
-		
+		RigidBody* rb = gameObject->GetComponent<RigidBody>();
+		if (rb)
+		{
+			AEVec2 velocity = rb->velocity;
+			// Do animation stuff
+
+		}
 	}
 }
