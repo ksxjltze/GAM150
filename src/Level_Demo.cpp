@@ -88,6 +88,9 @@ namespace StarBangBang
 		computerSprite = graphicsManager.CreateSprite(RESOURCES::COMPUTER_PATH);
 		doorSprite = graphicsManager.CreateSprite(RESOURCES::DOOR_PATH);
 		boi = graphicsManager.CreateSprite(RESOURCES::PROTOTYPE_SPRITE_2_PATH);
+
+		//indicator sprite
+		indicator = graphicsManager.CreateSprite(RESOURCES::INDICATOR_PATH);
 	}
 
 	//Initialization of game objects, components and scripts.
@@ -121,6 +124,11 @@ namespace StarBangBang
 		CaptainStealth::SpawnPlayer(objectManager, player, playerImage);
 		player->transform.position = tilemap.GetPositionAtIndex(6, 3);
 
+		//character indicator
+		indicatorObj = objectManager.NewGameObject();
+		objectManager.AddComponent<ImageComponent>(indicatorObj, indicator);
+		indicatorObj->transform.scale = {0.65f, 0.65f};
+		
 		//Compooter
 		srand(static_cast<unsigned int>(time(NULL)));
 		for (int i = 0; i < CONSTANTS::COMPUTER_COUNT; ++i)
@@ -175,6 +183,21 @@ namespace StarBangBang
 	void StarBangBang::Level_Demo::Update()
 	{
 		Scene::Update();
+
+		//indicator update
+		if (character == current_char::fei_ge)
+		{
+			indicatorObj->SetPos(player->GetPos());
+			indicatorObj->transform.position.y += 30.0f;
+		}
+		else if (character == current_char::prisoner)
+		{
+			indicatorObj->SetPos(player2->GetPos());
+			indicatorObj->transform.position.y += 30.0f;
+		}
+
+
+		//update animation for prisoner and client
 		switch (character)
 		{
 		case current_char::fei_ge:

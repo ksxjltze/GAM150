@@ -64,6 +64,7 @@ namespace StarBangBang
 		extern const std::string&& MAINMENU_PATH;
 		extern const std::string&& CHARACTERS_PATH;
 		extern const std::string&& FLOORTILES_PATH;
+		extern const std::string&& MISC_PATH;
 		extern const std::string&& INTERACTABLE_PATH;
 		extern const std::string&& PROTOTYPE_SPRITE_1_PATH;
 		extern const std::string&& PROTOTYPE_SPRITE_2_PATH;
@@ -167,6 +168,11 @@ namespace StarBangBang
 		extern const std::string&& VENDING_RIGHT_PATH;
 		extern const std::string&& VENDING_RIGHT_RED_PATH;
 		extern const std::string&& COMPUTER_PATH;
+		extern const std::string&& KEY_PATH;
+
+		//misc objects
+		extern const std::string&& INDICATOR_PATH;
+
 
 
 
