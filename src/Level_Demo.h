@@ -41,6 +41,9 @@ namespace StarBangBang
 		Sprite playerImage2R2;
 		Sprite playerImage2R3;
 
+		//Indicator
+		Sprite indicator;
+
 		Sprite guardImage;
 		Sprite securityCamImage;
 		Sprite exitImage;
@@ -49,6 +52,7 @@ namespace StarBangBang
 		GameObject* player;
 		GameObject* player2;
 		GameObject* guardManager;
+		GameObject* indicatorObj;
 
 		TileMap tilemap;
 	};
