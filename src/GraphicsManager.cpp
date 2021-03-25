@@ -34,14 +34,14 @@ namespace StarBangBang
 
 		// This shape has 2 triangles
 		AEGfxTriAdd(
-			-width / 2, -height / 2, 0, 0.0f, 1.0f,
-			width / 2, -height / 2, 0, 1.0f, 1.0f,
-			-width / 2, height / 2, 0, 0.0f, 0.0f);
+			-width / 2, -height / 2, 0xFFFFFFFF, 0.0f, 1.0f,
+			width / 2, -height / 2, 0xFFFFFFFF, 1.0f, 1.0f,
+			-width / 2, height / 2, 0xFFFFFFFF, 0.0f, 0.0f);
 
 		AEGfxTriAdd(
-			width / 2, -height / 2, 0, 1.0f, 1.0f,
-			width / 2, height / 2, 0, 1.0f, 0.0f,
-			-width / 2, height / 2, 0, 0.0f, 0.0f);
+			width / 2, -height / 2, 0xFFFFFFFF, 1.0f, 1.0f,
+			width / 2, height / 2, 0xFFFFFFFF, 1.0f, 0.0f,
+			-width / 2, height / 2, 0xFFFFFFFF, 0.0f, 0.0f);
 
 		// Saving the mesh (list of triangles) in pMesh2
 
@@ -215,6 +215,7 @@ namespace StarBangBang
 
 	void StarBangBang::GRAPHICS::DrawImage(AEGfxVertexList* mesh, AEGfxTexture* texture, AEVec2 pos, AEVec2 scale, float rotation)
 	{
+		AEGfxSetBlendMode(AE_GFX_BM_BLEND);
 		// Transform matrix
 		AEMtx33 transformMtx;
 
@@ -250,6 +251,20 @@ namespace StarBangBang
 		AEGfxSetTransparency(1.0f);
 
 		// Drawing the mesh (list of triangles)
+		AEGfxMeshDraw(mesh, AE_GFX_MDM_TRIANGLES);
+	}
+
+	void GRAPHICS::DrawOverlay(AEGfxVertexList* mesh)
+	{
+		AEGfxSetBlendMode(AE_GFX_BM_BLEND);
+		AEGfxSetRenderMode(AE_GFX_RM_COLOR);
+		AEMtx33 s, t, trans;
+		AEMtx33Scale(&s, 100, 100);
+		AEMtx33Trans(&t, 0, 0);
+		AEMtx33Concat(&trans, &s, &t);
+
+		AEGfxSetTransform(trans.m);
+		AEGfxSetTintColor(0.0f, 0.0f, 0.0f, 0.5f);
 		AEGfxMeshDraw(mesh, AE_GFX_MDM_TRIANGLES);
 	}
 
