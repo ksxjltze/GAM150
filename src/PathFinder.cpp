@@ -7,13 +7,33 @@
 #include <iostream>
 #include <queue>
 #include "constants.h"
-#include "Heap.h"
+#include "Heap.hpp"
 using namespace StarBangBang;
 
 const int diagonal_Cost = 14;
 const int straight_Cost = 10;
 static bool isVisible = true;
 Grid worldGrid;
+
+
+//compare node functor
+struct A_Node_Greater
+{
+	bool operator ()(const A_Node* lhs, const A_Node* rhs) const
+	{
+		if (lhs->GetfCost() > rhs->GetfCost())
+			return true;
+		if (rhs->GetfCost() > lhs->GetfCost())
+			return false;
+		if (lhs->hcost > rhs->hcost)
+			return true;
+		if (rhs->hcost > lhs->hcost)
+			return false;
+
+		return false;
+	}
+};
+
 
 void PathFinder::PathFinderInit()
 {
@@ -94,8 +114,73 @@ void TracePath(A_Node* start, A_Node* end , std::vector<A_Node*>& p)
 	//}
 
 }
-
+//optimise search
 std::vector<A_Node*> PathFinder::SearchForPath(AEVec2 start, AEVec2 target)
+{
+	std::vector<A_Node*> pathing;
+	pathing.reserve(100);
+
+	A_Node* startNode = worldGrid.GetNodeFromPosition(start);
+	A_Node* endNode = worldGrid.GetNodeFromPosition(target);
+	Heap<A_Node*,std::vector<A_Node*>, A_Node_Greater> openList;
+
+	std::unordered_set<A_Node*> closeList;
+	closeList.reserve(30);
+
+	//invalid positions
+	if (!endNode || !startNode)
+		return pathing;
+	if (endNode->occupied)
+	{
+		//PRINT("End node occupied\n");
+		return pathing;
+	}
+
+	openList.push(startNode);
+
+	while (openList.size() > 0)
+	{
+		A_Node* currNode = openList.top();
+		openList.pop();
+		//scanned nodes
+		closeList.insert(currNode);
+
+		if (currNode == endNode)
+		{
+			TracePath(startNode, endNode, pathing);
+			return pathing;
+		}
+
+
+		for (A_Node* neighbour : worldGrid.Get4_NodeNeighbours(currNode))
+		{
+			std::unordered_set<A_Node*>::const_iterator u_iter = closeList.find(neighbour);
+
+
+			//not occupied and not in closed hashlist
+			if (!(neighbour->occupied) && u_iter == closeList.end())
+			{
+				int movementCost = currNode->gcost + NodeDistance(currNode, neighbour);
+
+				Heap <A_Node*, std::vector<A_Node*>>::const_iterator v_iter2 = openList.find(neighbour);
+
+				//movement from neighbour / is not in openlist
+				if (movementCost < neighbour->gcost || v_iter2 == openList.cend()) {
+					neighbour->gcost = movementCost;
+					neighbour->hcost = NodeDistance(neighbour, endNode);
+					neighbour->parent = currNode;
+
+					//add to openlist if openlist doesnt contain neighbour
+					if (v_iter2 == openList.cend())
+						openList.push(neighbour);
+				}
+			}
+		}
+	}
+	return pathing;
+}
+
+/*std::vector<A_Node*> PathFinder::SearchForPath(AEVec2 start, AEVec2 target)
 {
 	std::vector<A_Node*> pathing;
 	pathing.reserve(100);
@@ -115,7 +200,7 @@ std::vector<A_Node*> PathFinder::SearchForPath(AEVec2 start, AEVec2 target)
 		//PRINT("End node occupied\n");
 		return pathing;
 	}
-		
+
 	openList.push_back(startNode);
 
 	while (openList.size() > 0)
@@ -124,14 +209,14 @@ std::vector<A_Node*> PathFinder::SearchForPath(AEVec2 start, AEVec2 target)
 		size_t i = 1;
 		for (i ; i < openList.size(); i++)
 		{
-			//if the total cost is lesser 
+			//if the total cost is lesser
 			//OR the total cost is equal but the cost to from curr the target node is lesser
 			if (openList[i]->GetfCost() < currNode->GetfCost()
 				|| openList[i]->GetfCost() == currNode->GetfCost() && openList[i]->hcost < currNode->hcost)
 			{
 				currNode = openList[i];
 			}
-			
+
 		}
 		openList.erase(std::remove(openList.begin(), openList.end(), currNode), openList.end());
 		//scanned nodes
@@ -142,13 +227,13 @@ std::vector<A_Node*> PathFinder::SearchForPath(AEVec2 start, AEVec2 target)
 			TracePath(startNode,endNode, pathing);
 			return pathing;
 		}
-			
+
 
 		for (A_Node* neighbour : worldGrid.Get4_NodeNeighbours(currNode))
 		{
 			std::unordered_set<A_Node*>::const_iterator u_iter = closeList.find(neighbour);
-			
-			
+
+
 			//not occupied and not in closed hashlist
 			if (!(neighbour->occupied) && u_iter == closeList.end())
 			{
@@ -170,5 +255,4 @@ std::vector<A_Node*> PathFinder::SearchForPath(AEVec2 start, AEVec2 target)
 		}
 	}
 	return pathing;
-}
-
+}*/

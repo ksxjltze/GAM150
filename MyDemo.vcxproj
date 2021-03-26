@@ -197,7 +197,7 @@ xcopy /y /d /i /s "$(SolutionDir)\Resources" "$(OutDir)\Resources"</Command>
     <ClInclude Include="src\GuardManager.h" />
     <ClInclude Include="src\GuardMovement.h" />
     <ClInclude Include="src\GuardVision.h" />
-    <ClInclude Include="src\Heap.h" />
+    <ClInclude Include="src\Heap.hpp" />
     <ClInclude Include="src\IClickable.h" />
     <ClInclude Include="src\ImageComponent.h" />
     <ClInclude Include="src\ISerializable.h" />
