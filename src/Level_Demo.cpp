@@ -343,8 +343,10 @@ namespace StarBangBang
 			gameStateManager.SetNextGameState(MAIN_MENU);
 		}
 
+		PlayerScript* playerScript = player->GetComponent<PlayerScript>();
 		if (AEInputCheckTriggered(AEVK_G))
 		{
+			playerScript->Debug_Reset();
 			if (!god)
 			{
 				god = true;
@@ -357,7 +359,6 @@ namespace StarBangBang
 			}
 		}
 
-		PlayerScript* playerScript = player->GetComponent<PlayerScript>();
 		if (playerScript->isGameOver())
 		{
 			if (!god)

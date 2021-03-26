@@ -24,6 +24,12 @@ void StarBangBang::PlayerScript::Start()
 	range *= range;
 
 }
+
+void StarBangBang::PlayerScript::Debug_Reset()
+{
+	gameover = false;
+}
+
 void StarBangBang::PlayerScript::onNotify(Event e)
 {
 	if (e.id == EventId::DETECTED)
