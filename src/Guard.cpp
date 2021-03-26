@@ -1,4 +1,5 @@
 #include "Guard.h"
+#include "DistractionEvent.h"
 
 using namespace StarBangBang;
 
@@ -34,5 +35,27 @@ void Guard::Update()
 		break;
 	default:
 		break;
+	}
+}
+
+void StarBangBang::Guard::onNotify(Event e)
+{
+	if (e.id == EventId::DISTRACTION)
+	{
+		DistractionEvent distraction = std::any_cast<DistractionEvent>(e.context);
+		DistractGuard(distraction.gameObject->GetPos());
+	}
+}
+
+void StarBangBang::Guard::DistractGuard(AEVec2 const& pos)
+{
+	static int distractCount = 0;
+	AEVec2 distractionPos = pos;
+	float alertRadius = 400.0f;
+
+	if (AEVec2Distance(&distractionPos, &gameObject->transform.position) <= alertRadius)
+	{
+		std::cout << "GUARD DISTRACTED " << ++distractCount << std::endl;
+
 	}
 }

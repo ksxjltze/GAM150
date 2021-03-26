@@ -3,6 +3,7 @@
 #include "Sprite.h"
 #include "Guard.h"
 #include "Detector.h"
+#include "GuardAnim.h"
 #include "SecurityCamera.h"
 #include "Physics.h"
 
@@ -28,6 +29,7 @@ void GuardManager::Init(ObjectManager* objManager, Sprite* sprite, GameObject* p
 		guards.push_back(objManager->NewGameObject());
 		//guards[i]->SetPos({ 250, 650 });
 		guards[i]->transform.scale = {0.7f, 0.7f};
+		guards[i]->name = "Guard";
 		objManager->AddImage(guards[i], *sprite);
 		objManager->AddComponent<Guard>(guards[i]);
 		objManager->AddComponent<GuardMovement>(guards[i]);
@@ -35,6 +37,7 @@ void GuardManager::Init(ObjectManager* objManager, Sprite* sprite, GameObject* p
 		objManager->AddComponent<Detector>(guards[i]).Init(50.f, 250.f, player, client);
 		objManager->AddComponent<Text>(guards[i]).fontID = StarBangBang::fontId;
 		objManager->AddComponent<RigidBody>(guards[i]);
+		objManager->AddComponent<GuardAnim>(guards[i]);
 		objManager->AddCollider(guards[i], false);
 	}
 

@@ -129,6 +129,7 @@ xcopy /y /d /i /s "$(SolutionDir)\Resources" "$(OutDir)\Resources"</Command>
     <ClCompile Include="src\GraphicsManager.cpp" />
     <ClCompile Include="src\Grid.cpp" />
     <ClCompile Include="src\Guard.cpp" />
+    <ClCompile Include="src\GuardAnim.cpp" />
     <ClCompile Include="src\GuardManager.cpp" />
     <ClCompile Include="src\GuardMovement.cpp" />
     <ClCompile Include="src\GuardVision.cpp" />
@@ -192,10 +193,11 @@ xcopy /y /d /i /s "$(SolutionDir)\Resources" "$(OutDir)\Resources"</Command>
     <ClInclude Include="src\globals.h" />
     <ClInclude Include="src\GraphicsManager.h" />
     <ClInclude Include="src\Guard.h" />
+    <ClInclude Include="src\GuardAnim.h" />
     <ClInclude Include="src\GuardManager.h" />
     <ClInclude Include="src\GuardMovement.h" />
     <ClInclude Include="src\GuardVision.h" />
-    <ClInclude Include="src\Heap.h" />
+    <ClInclude Include="src\Heap.hpp" />
     <ClInclude Include="src\IClickable.h" />
     <ClInclude Include="src\ImageComponent.h" />
     <ClInclude Include="src\ISerializable.h" />
@@ -294,6 +296,7 @@ xcopy /y /d /i /s "$(SolutionDir)\Resources" "$(OutDir)\Resources"</Command>
     <Image Include="Resources\InteractableObj\bin1.png" />
     <Image Include="Resources\InteractableObj\CameraUp.png" />
     <Image Include="Resources\InteractableObj\Computer.png" />
+    <Image Include="Resources\InteractableObj\keys.png" />
     <Image Include="Resources\InteractableObj\VendingMachineLeft.png" />
     <Image Include="Resources\InteractableObj\VendingMachineLeft1.png" />
     <Image Include="Resources\InteractableObj\VendingMachineRight.png" />
@@ -307,6 +310,7 @@ xcopy /y /d /i /s "$(SolutionDir)\Resources" "$(OutDir)\Resources"</Command>
     <Image Include="Resources\MainMenu\Play2.png" />
     <Image Include="Resources\MainMenu\Setting1.png" />
     <Image Include="Resources\MainMenu\Setting2.png" />
+    <Image Include="Resources\Misc\Indicator.png" />
     <Image Include="Resources\PlanetTexture.png" />
     <Image Include="Resources\YellowTexture.png" />
   </ItemGroup>

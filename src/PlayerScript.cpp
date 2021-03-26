@@ -24,6 +24,12 @@ void StarBangBang::PlayerScript::Start()
 	range *= range;
 
 }
+
+void StarBangBang::PlayerScript::Debug_Reset()
+{
+	gameover = false;
+}
+
 void StarBangBang::PlayerScript::onNotify(Event e)
 {
 	if (e.id == EventId::DETECTED)
@@ -33,19 +39,28 @@ void StarBangBang::PlayerScript::onNotify(Event e)
 			gameover = true;
 	}
 
+	if (e.id == EventId::PLAYER_COLLISION)
+	{
+		CollisionEvent data = std::any_cast<CollisionEvent>(e.context);
+		if (data.second->gameObject->name == "Guard")
+		{
+			gameover = true;
+		}
+	}
+
 	if (e.id == EventId::COLLISION)
 	{
 		CollisionEvent data = std::any_cast<CollisionEvent>(e.context);
 
-		if (data.colliderPair.first->gameObject->name == "EXIT" && data.colliderPair.second->gameObject->name == "Player")
+		if (data.first->gameObject->name == "EXIT" && data.second->gameObject->name == "Player")
 		{
 			printf("PLAYER ESCAPED\n");
-			data.colliderPair.second->gameObject->active = false;
+			data.second->active = false;
 			playerEscaped = true;
 		}
-		if (data.colliderPair.first->gameObject->name == "EXIT" && data.colliderPair.second->gameObject->name == "Client")
+		if (data.first->gameObject->name == "EXIT" && data.second->gameObject->name == "Client")
 		{
-			data.colliderPair.second->gameObject->active = false;
+			data.second->active = false;
 			clientEscaped = true;
 		}
 

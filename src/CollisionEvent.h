@@ -7,8 +7,8 @@ namespace StarBangBang
 {
 	struct CollisionEvent
 	{
-		GameObject* gameObject;
-		std::pair<Collider*, Collider*> colliderPair;
+		Collider* first;
+		Collider* second;
 
 		void SendEvent() 
 		{ 

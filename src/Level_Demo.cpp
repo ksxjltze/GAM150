@@ -18,7 +18,8 @@
 #include "globals.h"
 
 #include "Distractor.h"
-
+#include "time.h"
+#include "GuardAnim.h"
 
 #include "CaptainStealth.h"
 #include "DebugText.h"
@@ -27,7 +28,7 @@ static bool god = false;
 static float app_time = 0.0f;
 static int animation_counter = 0;
 
-enum class direction {left, right};
+enum class direction {idle = 0, left, right};
 direction dir;
 
 enum class current_char { fei_ge, prisoner };
@@ -55,6 +56,8 @@ namespace StarBangBang
 		//forward player 1
 		playerImage = graphicsManager.CreateSprite(RESOURCES::CAPTAINSTEALTH_F1_PATH);
 
+
+		GuardAnim::Load(graphicsManager);
 
 		//right animation player 1
 		playerImageR1 = graphicsManager.CreateSprite(RESOURCES::CAPTAINSTEALTH_R1_PATH);
@@ -85,6 +88,9 @@ namespace StarBangBang
 		computerSprite = graphicsManager.CreateSprite(RESOURCES::COMPUTER_PATH);
 		doorSprite = graphicsManager.CreateSprite(RESOURCES::DOOR_PATH);
 		boi = graphicsManager.CreateSprite(RESOURCES::PROTOTYPE_SPRITE_2_PATH);
+
+		//indicator sprite
+		indicator = graphicsManager.CreateSprite(RESOURCES::INDICATOR_PATH);
 	}
 
 	//Initialization of game objects, components and scripts.
@@ -118,6 +124,11 @@ namespace StarBangBang
 		CaptainStealth::SpawnPlayer(objectManager, player, playerImage);
 		player->transform.position = tilemap.GetPositionAtIndex(6, 3);
 
+		//character indicator
+		indicatorObj = objectManager.NewGameObject();
+		objectManager.AddComponent<ImageComponent>(indicatorObj, indicator);
+		indicatorObj->transform.scale = {0.65f, 0.65f};
+		
 		//Compooter
 		srand(static_cast<unsigned int>(time(NULL)));
 		for (int i = 0; i < CONSTANTS::COMPUTER_COUNT; ++i)
@@ -172,12 +183,28 @@ namespace StarBangBang
 	void StarBangBang::Level_Demo::Update()
 	{
 		Scene::Update();
+
+		//indicator update
+		if (character == current_char::fei_ge)
+		{
+			indicatorObj->SetPos(player->GetPos());
+			indicatorObj->transform.position.y += 30.0f;
+		}
+		else if (character == current_char::prisoner)
+		{
+			indicatorObj->SetPos(player2->GetPos());
+			indicatorObj->transform.position.y += 30.0f;
+		}
+
+
+		//update animation for prisoner and client
 		switch (character)
 		{
 		case current_char::fei_ge:
 
 			switch (dir)
-			{	//fei ge's animation
+			{//fei ge's animation
+
 			case direction::right:
 
 				switch (animation_counter)
@@ -187,6 +214,10 @@ namespace StarBangBang
 					break;
 				case 2:
 					player->GetComponent<ImageComponent>()->SetSprite(playerImageR3);
+					break;
+
+				case 3:
+					player->GetComponent<ImageComponent>()->SetSprite(playerImageR1);
 					break;
 				}
 
@@ -202,6 +233,9 @@ namespace StarBangBang
 				case 2:
 					player->GetComponent<ImageComponent>()->SetSprite(playerImageL3);
 					break;
+				case 3:
+					player->GetComponent<ImageComponent>()->SetSprite(playerImageL1);
+					break;
 				}
 
 				break;
@@ -213,6 +247,7 @@ namespace StarBangBang
 			switch (dir)
 			{
 				//prisoner's animation
+			
 			case direction::right:
 
 				switch (animation_counter)
@@ -222,6 +257,9 @@ namespace StarBangBang
 					break;
 				case 2:
 					player2->GetComponent<ImageComponent>()->SetSprite(playerImage2R3);
+					break;
+				case 3:
+					player2->GetComponent<ImageComponent>()->SetSprite(playerImage2R1);
 					break;
 				}
 
@@ -237,6 +275,10 @@ namespace StarBangBang
 				case 2:
 					player2->GetComponent<ImageComponent>()->SetSprite(playerImage2L3);
 					break;
+
+				case 3:
+					player2->GetComponent<ImageComponent>()->SetSprite(playerImage2L1);
+					break;
 				}
 
 				break;
@@ -246,7 +288,9 @@ namespace StarBangBang
 			
 		}
 
-		//ANIMATION TEST
+		//ANIMATION ~~~
+
+		//this is to switch characters
 		if (AEInputCheckTriggered(AEVK_TAB))
 		{
 			if (character == current_char::fei_ge)
@@ -260,20 +304,25 @@ namespace StarBangBang
 			}
 		}
 
+		if (!(AEInputCheckCurr(AEVK_W) || AEInputCheckCurr(AEVK_S) || AEInputCheckCurr(AEVK_A) || AEInputCheckCurr(AEVK_D)))
+		{
+			animation_counter = 3;
+		}
+
 		if (AEInputCheckCurr(AEVK_D))
 		{
 			dir = direction::right;
-			app_time = app_time + AEFrameRateControllerGetFrameTime();
+			app_time = app_time + g_dt;
 		}
 		else if (AEInputCheckCurr(AEVK_A))
 		{
 			dir = direction::left;
-			app_time = app_time + AEFrameRateControllerGetFrameTime();
+			app_time = app_time + g_dt;
 		}
 
 		else if (AEInputCheckCurr(AEVK_W) || AEInputCheckCurr(AEVK_S))
 		{
-			app_time = app_time + AEFrameRateControllerGetFrameTime();
+			app_time = app_time + g_dt;
 		}
 
 		if (app_time >= 0.1f)
@@ -294,8 +343,10 @@ namespace StarBangBang
 			gameStateManager.SetNextGameState(MAIN_MENU);
 		}
 
+		PlayerScript* playerScript = player->GetComponent<PlayerScript>();
 		if (AEInputCheckTriggered(AEVK_G))
 		{
+			playerScript->Debug_Reset();
 			if (!god)
 			{
 				god = true;
@@ -308,7 +359,6 @@ namespace StarBangBang
 			}
 		}
 
-		PlayerScript* playerScript = player->GetComponent<PlayerScript>();
 		if (playerScript->isGameOver())
 		{
 			if (!god)

@@ -13,6 +13,8 @@ namespace StarBangBang
 		bool isGameOver();
 		bool isWin();
 		void Start();
+
+		void Debug_Reset();
 	private:
 		GameObject* client = nullptr;
 		PrimaryMovementController* rb_controller;
