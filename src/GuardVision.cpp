@@ -46,49 +46,64 @@ void GuardVision::Update()
 		float targetRot = AERadToDeg(AEACos(dpResult));
 
 		float dp = AEVec2DotProduct(&defaultLeft, &targetDir);
-		if (dp <= 0.f)
+		if (dp < 0.f)
 			targetRot = -targetRot;
 
-		currRot = static_cast<int>(rint(targetRot));
+		detector->SetFacingDir(targetDir);
+		detector->Rotate(targetRot);
 
-		if (currRot != prevRot)
-		{
-			prevRot = currRot;
-			turn = true;
-			//PRINT("target rot: %d\n", currRot);
-		}
+		//currRot = static_cast<int>(rint(targetRot));
 
-		if (turn)
-		{
-			if (currRot >= 0)
-			{
-				if (rotation <= targetRot)
-				{
-					rotation += 350.f * g_dt;
-					FaceTowardsRotation();
-				}
-				else
-				{
-					turn = false;
-					detector->SetFacingDir(targetDir);
-				}
-			}
-			else
-			{
-				if (rotation >= targetRot)
-				{
-					rotation -= 350.f * g_dt;
-					FaceTowardsRotation();
-				}
-				else
-				{
-					turn = false;
-					detector->SetFacingDir(targetDir);
-				}
-			}
-			
-			detector->Rotate(rotation);
-		}
+		//if (currRot != prevRot)
+		//{
+		//	prevRot = currRot;
+		//	turn = true;
+		//	movement->SetTurning(true);
+		//	PRINT("target rot: %d\n", currRot);
+		//}
+
+		//if (turn)
+		//{
+		//	// eg. prevRot = -180, currRot = 90;
+		//	// i want it to change to 90 from -180
+
+		//	// 1. i can either make -180 a positive
+		//	// 2. or 
+
+
+		//	if (currRot >= 0)
+		//	{
+		//		if (rotation <= targetRot)
+		//		{
+		//			rotation += 50.f * g_dt;
+		//			PRINT("increasing\n");
+		//			FaceTowardsRotation();
+		//		}
+		//		else
+		//		{
+		//			movement->SetTurning(false);
+		//			turn = false;
+		//			detector->SetFacingDir(targetDir);
+		//		}
+		//	}
+		//	else
+		//	{
+		//		if (rotation >= targetRot)
+		//		{
+		//			PRINT("decreasing\n");
+		//			rotation -= 50.f * g_dt;
+		//			FaceTowardsRotation();
+		//		}
+		//		else
+		//		{
+		//			movement->SetTurning(false);
+		//			turn = false;
+		//			detector->SetFacingDir(targetDir);
+		//		}
+		//	}
+		//	
+		//	detector->Rotate(targetRot);
+		//}
 	}
 	else
 	{

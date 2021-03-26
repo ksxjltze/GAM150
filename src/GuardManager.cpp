@@ -52,7 +52,7 @@ void GuardManager::Init(ObjectManager* objManager, Sprite* sprite, GameObject* p
 	SetGuardWaypoints(id++, { 930, 830 }, { 0, 515 });
 	SetGuardWaypoints(id++, { -195, 790 }, { -815, 540 });
 	SetGuardWaypoints(id++, { -1120, 420 }, { -880, 880 });
-	SetGuardWaypoints(id++, { 1070, 1011 }, { -733, -1060 }, false, 40.f); // patrol level kinda
+	SetGuardWaypoints(id++, { 1070, 1011 }, { -733, -1060 }, false, 20.f); // patrol level kinda
 	SetGuardWaypoints(id++, { 1055, 145 }, { 1055, -950 }, false, 40.f); // patrol level kinda
 }
 

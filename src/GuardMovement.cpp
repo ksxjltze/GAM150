@@ -82,6 +82,9 @@ void GuardMovement::Distracted()
 
 void GuardMovement::MoveAlongPath()
 {
+	if (turning)
+		return;
+
 	/*for (const A_Node* n : path)
 	{
 		DrawCircle(20.0f, n->nodePos);
