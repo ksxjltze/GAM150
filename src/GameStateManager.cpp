@@ -134,7 +134,6 @@ namespace StarBangBang
 			currentState->Update();
 			//PathFinder::GridDraw();
 			currentState->Draw();
-
 		}
 		else
 		{

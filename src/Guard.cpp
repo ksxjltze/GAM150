@@ -4,7 +4,7 @@
 using namespace StarBangBang;
 
 Guard::Guard(GameObject* gameObject)
-	: Script(gameObject)
+	: Script(gameObject), Listener()
 	, state(GUARD_STATE::STATE_PATROL)
 	, movement(nullptr)
 	, vision(nullptr)
@@ -31,6 +31,7 @@ void Guard::Update()
 		break;
 	case Guard::GUARD_STATE::STATE_DISTRACTED:
 		movement->Distracted();
+		Listener::open = false;
 		break;
 	default:
 		break;
@@ -51,6 +52,8 @@ void StarBangBang::Guard::DistractGuard(AEVec2 const& pos)
 	static int distractCount = 0;
 	AEVec2 distractionPos = pos;
 	float alertRadius = 400.0f;
+	
+	SetState(GUARD_STATE::STATE_DISTRACTED);
 
 	if (AEVec2Distance(&distractionPos, &gameObject->transform.position) <= alertRadius)
 	{

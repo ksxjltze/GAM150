@@ -7,7 +7,10 @@ namespace StarBangBang
 	class Listener
 	{
 	public:
-		Listener() { MessageBus::RegisterListener(this); };
+		Listener() : open{ true } { MessageBus::RegisterListener(this); };
 		virtual void onNotify(Event e) = 0;
+		inline bool isOpen() { return open; };
+	protected:
+		bool open;
 	};
 }
