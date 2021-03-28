@@ -381,9 +381,9 @@ namespace StarBangBang
 	void StarBangBang::Level_Demo::Draw()
 	{
 		Scene::Draw();
-		Color dark = { 0, 0, 0, 0.5f };
-		Color light = { 1.0f, 1.0f, 1.0f, 0.5f };
-		GRAPHICS::DrawOverlay(graphicsManager.GetMesh(), { 20, 20 }, { 0, 0 }, dark, AE_GFX_BM_BLEND);
+		//Color dark = { 0, 0, 0, 0.5f };
+		//Color light = { 1.0f, 1.0f, 1.0f, 0.5f };
+		//GRAPHICS::DrawOverlay(graphicsManager.GetMesh(), { 20, 20 }, { 0, 0 }, dark, AE_GFX_BM_BLEND);
 	}
 
 	void StarBangBang::Level_Demo::Free()

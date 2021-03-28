@@ -74,6 +74,9 @@ void GuardMovement::Patrol()
 
 void GuardMovement::Distracted()
 {
+	//Distraction test
+	gameObject->transform.scale = { 2, 2 };
+
 	if (!foundPath)
 		return;
 
