@@ -28,12 +28,14 @@ void StarBangBang::MessageBus::Update()
 	{
 		for (auto listener : listenerList)
 		{
-			listener->onNotify(eventQueue.front());
+			if (listener->isOpen())
+				listener->onNotify(eventQueue.front());
 		}
 
 		for (auto listener : globalListenerList)
 		{
-			listener->onNotify(eventQueue.front());
+			if (listener->isOpen())
+				listener->onNotify(eventQueue.front());
 		}
 
 		eventQueue.pop();

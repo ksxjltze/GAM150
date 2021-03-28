@@ -33,6 +33,7 @@ void Guard::Update()
 		break;
 	case Guard::GUARD_STATE::STATE_DISTRACTED:
 		movement->Distracted();
+		Listener::open = false;
 		break;
 	default:
 		break;
