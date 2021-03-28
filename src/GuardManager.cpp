@@ -31,7 +31,7 @@ void GuardManager::Init(ObjectManager* objManager, Sprite* sprite, GameObject* p
 		guards[i]->transform.scale = {0.7f, 0.7f};
 		guards[i]->name = "Guard";
 		objManager->AddImage(guards[i], *sprite);
-		objManager->AddComponent<Guard>(guards[i]);
+		objManager->AddComponent<Guard>(guards[i]).SetID(i);
 		objManager->AddComponent<GuardMovement>(guards[i]);
 		objManager->AddComponent<GuardVision>(guards[i]);
 		objManager->AddComponent<Detector>(guards[i]).Init(50.f, 250.f, player, client);

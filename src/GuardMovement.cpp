@@ -194,6 +194,8 @@ bool GuardMovement::IsChangingDir()
 
 void GuardMovement::LookForPath(const AEVec2& pos)
 {
+	foundPath = false;
+	turning = false;
 	lookForPath = true;
 
 	if (lookForPath)

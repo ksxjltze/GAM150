@@ -3,15 +3,13 @@
 
 using namespace StarBangBang;
 
-int Guard::id = -1;
-
 Guard::Guard(GameObject* gameObject)
 	: Script(gameObject)
 	, state(GUARD_STATE::STATE_PATROL)
 	, movement(nullptr)
 	, vision(nullptr)
+	, id(0)
 {
-	++id;
 }
 
 void Guard::Start()
@@ -56,7 +54,8 @@ void StarBangBang::Guard::DistractGuard(AEVec2 const& pos)
 
 	if (AEVec2Distance(&distractionPos, &gameObject->transform.position) <= alertRadius)
 	{
-		std::cout << "GUARD DISTRACTED " << ++distractCount << std::endl;
-
+		std::cout << "GUARD DISTRACTED! GUARD ID: " << id << std::endl;
+		state = GUARD_STATE::STATE_DISTRACTED;
+		movement->LookForPath(distractionPos);
 	}
 }

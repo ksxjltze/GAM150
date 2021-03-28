@@ -24,7 +24,8 @@ namespace StarBangBang
 		void onNotify(Event e);
 
 		inline void SetState(GUARD_STATE _state) { state = _state; }
-		inline int GetID() const { return id; }
+		inline void SetID(size_t _id) { id = _id; }
+		inline size_t GetID() const { return id; }
 
 		void DistractGuard(AEVec2 const& pos);
 
@@ -32,7 +33,7 @@ namespace StarBangBang
 		GUARD_STATE state;
 		GuardMovement* movement;
 		GuardVision* vision;
-		static int id;
+		size_t id;
 	};
 }
 
