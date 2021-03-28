@@ -28,6 +28,7 @@ namespace StarBangBang
 		bool IsChangingDir();
 
 		inline void SetTurning(bool _turning) { turning = _turning; }
+		inline bool IsTurning() const { return turning; }
 
 	private:
 		void MoveAlongPath();

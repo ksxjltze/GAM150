@@ -319,7 +319,7 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\GuardAnim.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Scripts\Guard</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -557,11 +557,11 @@
     <ClInclude Include="src\DistractionEvent.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\GuardAnim.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="src\Heap.hpp">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GuardAnim.h">
+      <Filter>Header Files\Scripts\Guard</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

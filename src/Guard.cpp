@@ -9,6 +9,7 @@ Guard::Guard(GameObject* gameObject)
 	: Script(gameObject)
 	, state(GUARD_STATE::STATE_PATROL)
 	, movement(nullptr)
+	, vision(nullptr)
 {
 	++id;
 }

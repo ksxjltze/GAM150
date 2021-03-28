@@ -46,9 +46,9 @@ void GuardManager::Init(ObjectManager* objManager, Sprite* sprite, GameObject* p
 	SetGuardWaypoints(id++, { -1144, -942}, { -850, -942 });
 	SetGuardWaypoints(id++, { -752, -746 }, { -752, -590 });
 	SetGuardWaypoints(id++, { -1020, -230 }, { -1020, -670 });
-	SetGuardWaypoints(id++, { -750, 100 }, { -750, -90 });
+	SetGuardWaypoints(id++, { -740, 100 }, { -740, -80 });
 	SetGuardWaypoints(id++, { -180, -50 }, { -20, 120 });
-	SetGuardWaypoints(id++, { 350, -250 }, { -195, -250 });
+	SetGuardWaypoints(id++, { 350, -240 }, { -195, -240 });
 	SetGuardWaypoints(id++, { 455, 190 }, { 630, -415 });
 	SetGuardWaypoints(id++, { 160, -1125 }, { 370, -980 });
 	SetGuardWaypoints(id++, { 795, -530 }, { 795, -530 }, true); // IDLE

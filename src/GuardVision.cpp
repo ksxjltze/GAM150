@@ -49,61 +49,43 @@ void GuardVision::Update()
 		if (dp < 0.f)
 			targetRot = -targetRot;
 
-		detector->SetFacingDir(targetDir);
-		detector->Rotate(targetRot);
+		currRot = static_cast<int>(rint(targetRot));
 
-		//currRot = static_cast<int>(rint(targetRot));
-
-		//if (currRot != prevRot)
-		//{
-		//	prevRot = currRot;
-		//	turn = true;
-		//	movement->SetTurning(true);
-		//	PRINT("target rot: %d\n", currRot);
-		//}
-
-		//if (turn)
-		//{
-		//	// eg. prevRot = -180, currRot = 90;
-		//	// i want it to change to 90 from -180
-
-		//	// 1. i can either make -180 a positive
-		//	// 2. or 
+		if (currRot != prevRot)
+		{
+			if (currRot == 0)
+				currRot = 1;
 
 
-		//	if (currRot >= 0)
-		//	{
-		//		if (rotation <= targetRot)
-		//		{
-		//			rotation += 50.f * g_dt;
-		//			PRINT("increasing\n");
-		//			FaceTowardsRotation();
-		//		}
-		//		else
-		//		{
-		//			movement->SetTurning(false);
-		//			turn = false;
-		//			detector->SetFacingDir(targetDir);
-		//		}
-		//	}
-		//	else
-		//	{
-		//		if (rotation >= targetRot)
-		//		{
-		//			PRINT("decreasing\n");
-		//			rotation -= 50.f * g_dt;
-		//			FaceTowardsRotation();
-		//		}
-		//		else
-		//		{
-		//			movement->SetTurning(false);
-		//			turn = false;
-		//			detector->SetFacingDir(targetDir);
-		//		}
-		//	}
-		//	
-		//	detector->Rotate(targetRot);
-		//}
+			prevRot = currRot;
+			turn = true;
+			movement->SetTurning(true);
+			//PRINT("target rot: %d, curr rot: %f\n", currRot, rotation);
+		}
+
+		if (turn)
+		{
+			if (rotation + 3.f < targetRot)
+			{
+				rotation += 150.f * g_dt;
+				FaceTowardsRotation();
+			}
+			else if (rotation - 3.f > targetRot)
+			{
+				rotation -= 150.f * g_dt;
+				FaceTowardsRotation();
+			}
+			
+			if ((rotation - targetRot) >= -3.f && (rotation - targetRot) <= 3.f)
+			{
+				movement->SetTurning(false);
+				turn = false;
+				rotation = targetRot;
+				detector->SetFacingDir(targetDir);
+			}
+			
+			detector->Rotate(rotation);
+		}
 	}
 	else
 	{
