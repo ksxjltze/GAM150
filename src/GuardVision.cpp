@@ -46,45 +46,42 @@ void GuardVision::Update()
 		float targetRot = AERadToDeg(AEACos(dpResult));
 
 		float dp = AEVec2DotProduct(&defaultLeft, &targetDir);
-		if (dp <= 0.f)
+		if (dp < 0.f)
 			targetRot = -targetRot;
 
 		currRot = static_cast<int>(rint(targetRot));
 
 		if (currRot != prevRot)
 		{
+			if (currRot == 0)
+				currRot = 1;
+
+
 			prevRot = currRot;
 			turn = true;
-			//PRINT("target rot: %d\n", currRot);
+			movement->SetTurning(true);
+			//PRINT("target rot: %d, curr rot: %f\n", currRot, rotation);
 		}
 
 		if (turn)
 		{
-			if (currRot >= 0)
+			if (rotation + 3.f < targetRot)
 			{
-				if (rotation <= targetRot)
-				{
-					rotation += 350.f * g_dt;
-					FaceTowardsRotation();
-				}
-				else
-				{
-					turn = false;
-					detector->SetFacingDir(targetDir);
-				}
+				rotation += 150.f * g_dt;
+				FaceTowardsRotation();
 			}
-			else
+			else if (rotation - 3.f > targetRot)
 			{
-				if (rotation >= targetRot)
-				{
-					rotation -= 350.f * g_dt;
-					FaceTowardsRotation();
-				}
-				else
-				{
-					turn = false;
-					detector->SetFacingDir(targetDir);
-				}
+				rotation -= 150.f * g_dt;
+				FaceTowardsRotation();
+			}
+			
+			if ((rotation - targetRot) >= -3.f && (rotation - targetRot) <= 3.f)
+			{
+				movement->SetTurning(false);
+				turn = false;
+				rotation = targetRot;
+				detector->SetFacingDir(targetDir);
 			}
 			
 			detector->Rotate(rotation);

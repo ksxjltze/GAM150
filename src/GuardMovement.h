@@ -27,6 +27,9 @@ namespace StarBangBang
 		inline void SetSpeed(float _speed) { speed = _speed; }
 		bool IsChangingDir();
 
+		inline void SetTurning(bool _turning) { turning = _turning; }
+		inline bool IsTurning() const { return turning; }
+
 	private:
 		void MoveAlongPath();
 		bool MoveTo(AEVec2 pos);
@@ -38,6 +41,8 @@ namespace StarBangBang
 		bool foundPath;
 		bool reachedEndOfPath;
 		bool changedTargetPos;
+
+		bool turning;
 
 		float speed;
 

@@ -2,6 +2,7 @@
 #include "Physics.h"
 #include "globals.h"
 #include "ImageComponent.h"
+#include "GuardMovement.h"
 
 namespace StarBangBang
 {
@@ -23,19 +24,29 @@ namespace StarBangBang
 	static Sprite guardBackSprite2;
 	static Sprite guardBackSprite3;
 
-	GuardAnim::GuardAnim(GameObject* gameObject) : Script(gameObject), dir{ guard_direction::idle } {}
+	GuardAnim::GuardAnim(GameObject* gameObject) 
+		: Script(gameObject)
+		, rb(nullptr)
+		, movement(nullptr)
+		, dir{ guard_direction::idle } 
+	{}
 
 	void GuardAnim::Start()
 	{
-
+		rb = gameObject->GetComponent<RigidBody>();
+		movement = gameObject->GetComponent<GuardMovement>();
 	}
 
 	void GuardAnim::Update()
 	{
-		RigidBody* rb = gameObject->GetComponent<RigidBody>();
+		if (movement->IsTurning())
+		{
+			gameObject->GetComponent<ImageComponent>()->SetSprite(guardForwardSprite1);
+			return;
+		}
+
 		if (rb)
 		{
-
 			switch (dir)
 			{
 			case guard_direction::left:
