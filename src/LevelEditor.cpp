@@ -61,11 +61,7 @@ namespace StarBangBang
 	}
 
 	void LevelEditor::Init()
-	{
-		PathFinder::PathFinderInit();
-		PathFinder::ShowGrid(false);
-		GRAPHICS::SetBackgroundColor(Black);
-		
+	{		
 		filepath = RESOURCES::LEVELS::LEVEL_TEST_PATH;
 		//filepath = RESOURCES::LEVELS::COLLISION_TEST;
 
@@ -143,8 +139,8 @@ namespace StarBangBang
 
 		if (n)
 		{
-			tileOutline->transform.position = n->nodePos;
-			tileImg->SetSprite(tileMap.tileSet.GetTileSprite(selectedType).sprite);
+			//tileOutline->transform.position = n->nodePos;
+			//tileImg->SetSprite(tileMap.tileSet.GetTileSprite(selectedType).sprite);
 
 			if (AEInputCheckCurr(AEVK_LBUTTON))
 			{
@@ -226,6 +222,7 @@ namespace StarBangBang
 	void LevelEditor::Free()
 	{
 		Scene::Free();
+		grid.FreeGrid();
 	}
 
 	void LevelEditor::Unload()

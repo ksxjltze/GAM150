@@ -70,10 +70,6 @@ using namespace StarBangBang;
 		}
 		delete[] grid;
 	}
-
-	
-
-
 	
 	Grid::Grid(float _nodeSize, int sizeX, int sizeY, AEVec2 _offset)
 	{
