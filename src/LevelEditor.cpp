@@ -102,6 +102,11 @@ namespace StarBangBang
 			++brushMode;
 			MessageBus::Notify({ EventId::PRINT_TEXT, std::string("BRUSH CHANGED") });
 		}
+
+		if (AEInputCheckTriggered(AEVK_F))
+		{
+			grid.ToggleVisible();
+		}
 		
 
 		if (AEInputCheckTriggered(AEVK_RETURN))
