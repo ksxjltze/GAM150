@@ -118,10 +118,14 @@ namespace StarBangBang
 
 		if (AEInputCheckTriggered(AEVK_R))
 		{
-			//Generate new level
+			//Clear Level
 			if (AEInputCheckCurr(AEVK_LSHIFT))
 			{
-				CreateLevel(TILEMAP::DEFAULT_WIDTH, TILEMAP::DEFAULT_WIDTH, TILEMAP::DEFAULT_TILE_SIZE, selectedType);
+				tileMap.Clear();
+			}
+			else if (AEInputCheckCurr(AEVK_LCTRL))
+			{
+				tileMap.Fill(selectedType);
 			}
 			else
 				LoadLevel(filepath);

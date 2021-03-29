@@ -25,6 +25,7 @@ namespace StarBangBang
 		void Save(std::string path);
 		bool Load(std::string path);
 		void Clear();
+		void Fill(TileType type);
 		void Unload();
 
 		float GetTileScale();
@@ -40,12 +41,12 @@ namespace StarBangBang
 		void SetPosition(AEVec2 pos);
 		AEVec2 GetPositionAtIndex(int x, int y);
 
+		Tile& At(int x, int y);
 		int GetMapWidth();
 		int GetMapHeight();
 
 		void SetGrid(Grid&);
 
-		Tile& At(int x, int y);
 		void Insert(int x, int y, TileType type);
 		void Replace(int x, int y, TileType type);
 		void Erase(int x, int y);
