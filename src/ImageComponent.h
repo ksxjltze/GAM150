@@ -18,6 +18,7 @@ namespace StarBangBang
 		Sprite GetSprite() { return sprite; }
 
 		void Draw();
+		void Draw(AEVec2 pos);
 	private:
 		Sprite sprite;
 		float transparency{ 1.0f };

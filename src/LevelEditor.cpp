@@ -11,6 +11,27 @@
 namespace StarBangBang
 {
 
+	enum class BrushMode {SINGLE, CROSS, SQUARE, END};
+
+	BrushMode& operator++(BrushMode& mode)
+	{
+		BrushMode m = BrushMode(static_cast<int>(mode) + 1);
+		if (m >= BrushMode::END)
+		{
+			m = BrushMode::SINGLE;
+		}
+
+		mode = m;
+		return mode;
+	}
+
+	BrushMode operator++(BrushMode& mode, int)
+	{
+		BrushMode m = mode;
+		++mode;
+		return m;
+	}
+
 	void HighLightGridNode(Grid& grid)
 	{
 		AEVec2 mousePos = GetMouseWorldPos();
@@ -19,7 +40,7 @@ namespace StarBangBang
 			DrawCircle(grid.GetNodeSize() / 2, n->nodePos);
 	}
 
-	LevelEditor::LevelEditor(int id, GameStateManager& manager) : Scene(id, manager), tileMap{ objectManager, graphicsManager }, selectedType{ TileType::STONE }
+	LevelEditor::LevelEditor(int id, GameStateManager& manager) : Scene(id, manager), tileMap{ objectManager, graphicsManager }, selectedType{ TileType::STONE }, brushMode{BrushMode::SINGLE}
 	{
 		
 	}
@@ -76,6 +97,13 @@ namespace StarBangBang
 			MessageBus::Notify({ EventId::PRINT_TEXT, std::string("TILE TYPE CHANGED" ) });
 		}
 
+		if (AEInputCheckTriggered(AEVK_Q))
+		{
+			++brushMode;
+			MessageBus::Notify({ EventId::PRINT_TEXT, std::string("BRUSH CHANGED") });
+		}
+		
+
 		if (AEInputCheckTriggered(AEVK_RETURN))
 		{
 			SaveLevel(filepath);
@@ -108,13 +136,23 @@ namespace StarBangBang
 		{
 			if (n)
 			{
+				//Brush
 				InsertTile(n);
-
-				////Brush
-				//for (auto node : grid.Get4_NodeNeighbours(n))
-				//{
-				//	InsertTile(node);
-				//}
+				switch (brushMode)
+				{
+				case BrushMode::CROSS:
+					for (auto node : grid.Get4_NodeNeighbours(n))
+					{
+						InsertTile(node);
+					}
+					break;
+				case BrushMode::SQUARE:
+					for (auto node : grid.Get8_NodeNeighbours(n))
+					{
+						InsertTile(node);
+					}
+					break;
+				}
 			}
 		}
 
@@ -122,11 +160,23 @@ namespace StarBangBang
 		{
 			if (n)
 			{
-				/*for (auto node : grid.Get8_NodeNeighbours(n))
-				{
-					RemoveTile(node);
-				}*/
 				RemoveTile(n);
+				//Brush
+				switch (brushMode)
+				{
+				case BrushMode::CROSS:
+					for (auto node : grid.Get4_NodeNeighbours(n))
+					{
+						RemoveTile(node);
+					}
+					break;
+				case BrushMode::SQUARE:
+					for (auto node : grid.Get8_NodeNeighbours(n))
+					{
+						RemoveTile(node);
+					}
+					break;
+				}
 			}
 
 		}
@@ -137,6 +187,25 @@ namespace StarBangBang
 		Scene::Draw();
 		AEGfxSetBackgroundColor(0.3f, 0.6f, 1.0f);
 		HighLightGridNode(grid);
+
+		AEVec2 mousePos = GetMouseWorldPos();
+		A_Node* n = grid.GetNodeFromPosition(mousePos);
+		switch (brushMode)
+		{
+		case BrushMode::CROSS:
+			for (auto node : grid.Get4_NodeNeighbours(n))
+			{
+				tileImg->Draw(node->nodePos);
+			}
+			break;
+		case BrushMode::SQUARE:
+			for (auto node : grid.Get8_NodeNeighbours(n))
+			{
+				tileImg->Draw(node->nodePos);
+			}
+			break;
+		}
+
 		grid.DrawGrid(Green);
 
 	}

@@ -38,11 +38,15 @@ void StarBangBang::ImageComponent::SetTransparency(float alpha)
 
 void StarBangBang::ImageComponent::Draw()
 {
- 	if (gameObject->active)
+	Draw(gameObject->transform.position);
+}
+
+void StarBangBang::ImageComponent::Draw(AEVec2 pos)
+{
+	if (gameObject->active)
 	{
 		if (sprite.mesh && sprite.texture)
 		{
-			AEVec2 pos = gameObject->GetPos();
 			GRAPHICS::DrawImage(sprite.mesh, sprite.texture, sprite.color, pos, gameObject->transform.scale, gameObject->transform.rotation, transparency);
 
 		}
