@@ -141,12 +141,12 @@ namespace StarBangBang
 		AEVec2 mousePos = GetMouseWorldPos();
 		A_Node* n = grid.GetNodeFromPosition(mousePos);
 
-		tileOutline->transform.position = n->nodePos;
-		tileImg->SetSprite(tileMap.tileSet.GetTileSprite(selectedType).sprite);
-
-		if (AEInputCheckCurr(AEVK_LBUTTON))
+		if (n)
 		{
-			if (n)
+			tileOutline->transform.position = n->nodePos;
+			tileImg->SetSprite(tileMap.tileSet.GetTileSprite(selectedType).sprite);
+
+			if (AEInputCheckCurr(AEVK_LBUTTON))
 			{
 				//Brush
 				InsertTile(n);
@@ -166,11 +166,8 @@ namespace StarBangBang
 					break;
 				}
 			}
-		}
 
-		if (AEInputCheckCurr(AEVK_RBUTTON))
-		{
-			if (n)
+			if (AEInputCheckCurr(AEVK_RBUTTON))
 			{
 				RemoveTile(n);
 				//Brush
@@ -192,6 +189,7 @@ namespace StarBangBang
 			}
 
 		}
+
 	}
 
 	void LevelEditor::Draw()
@@ -202,20 +200,23 @@ namespace StarBangBang
 
 		AEVec2 mousePos = GetMouseWorldPos();
 		A_Node* n = grid.GetNodeFromPosition(mousePos);
-		switch (brushMode)
+		if (n)
 		{
-		case BrushMode::CROSS:
-			for (auto node : grid.Get4_NodeNeighbours(n))
+			switch (brushMode)
 			{
-				tileImg->Draw(node->nodePos);
+			case BrushMode::CROSS:
+				for (auto node : grid.Get4_NodeNeighbours(n))
+				{
+					tileImg->Draw(node->nodePos);
+				}
+				break;
+			case BrushMode::SQUARE:
+				for (auto node : grid.Get8_NodeNeighbours(n))
+				{
+					tileImg->Draw(node->nodePos);
+				}
+				break;
 			}
-			break;
-		case BrushMode::SQUARE:
-			for (auto node : grid.Get8_NodeNeighbours(n))
-			{
-				tileImg->Draw(node->nodePos);
-			}
-			break;
 		}
 
 		grid.DrawGrid(Green);
