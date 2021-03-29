@@ -84,8 +84,7 @@ namespace StarBangBang
 
 		tileOutline = objectManager.NewGameObject();
 		tileImg = objectManager.AddImage(tileOutline, tileMap.tileSet.GetTileSprite(selectedType).sprite);
-		tileImg->SetTransparency(0.9f);
-
+		tileImg->SetTransparency(0.85f);
 	}
 
 	void LevelEditor::Update()
@@ -139,8 +138,8 @@ namespace StarBangBang
 
 		if (n)
 		{
-			//tileOutline->transform.position = n->nodePos;
-			//tileImg->SetSprite(tileMap.tileSet.GetTileSprite(selectedType).sprite);
+			tileOutline->transform.position = n->nodePos;
+			tileImg->SetSprite(tileMap.tileSet.GetTileSprite(selectedType).sprite);
 
 			if (AEInputCheckCurr(AEVK_LBUTTON))
 			{
