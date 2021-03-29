@@ -40,5 +40,7 @@ namespace StarBangBang
 
 		GameObject* camera{ nullptr };
 		GameObject* debugText{ nullptr };
+		GameObject* tileOutline{ nullptr };
+		ImageComponent* tileImg{ nullptr };
 	};
 }

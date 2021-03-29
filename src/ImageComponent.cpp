@@ -26,6 +26,16 @@ void StarBangBang::ImageComponent::SetMesh(AEGfxVertexList* mesh)
 	sprite.mesh = mesh;
 }
 
+void StarBangBang::ImageComponent::SetColor(Color c)
+{
+	sprite.color = c;
+}
+
+void StarBangBang::ImageComponent::SetTransparency(float alpha)
+{
+	transparency = alpha;
+}
+
 void StarBangBang::ImageComponent::Draw()
 {
  	if (gameObject->active)
@@ -33,7 +43,7 @@ void StarBangBang::ImageComponent::Draw()
 		if (sprite.mesh && sprite.texture)
 		{
 			AEVec2 pos = gameObject->GetPos();
-			GRAPHICS::DrawImage(sprite.mesh, sprite.texture, pos, gameObject->transform.scale, gameObject->transform.rotation);
+			GRAPHICS::DrawImage(sprite.mesh, sprite.texture, sprite.color, pos, gameObject->transform.scale, gameObject->transform.rotation, transparency);
 
 		}
 	}

@@ -12,7 +12,7 @@ namespace StarBangBang
 	{
 		static float zoom = DEFAULT_ZOOM;
 
-		void DrawImage(AEGfxVertexList* mesh, AEGfxTexture* texture, AEVec2 pos, AEVec2 scale, float rotation);
+		void DrawImage(AEGfxVertexList* mesh, AEGfxTexture* texture, Color c, AEVec2 pos, AEVec2 scale, float rotation, float transparency);
 		void DrawOverlay(AEGfxVertexList* mesh, AEVec2 scale, AEVec2 pos, Color c, AEGfxBlendMode blend);
 		void SetBackgroundColor(Color c);
 		void SetScreenScaleRatio(float x, float y);

@@ -19,7 +19,7 @@ namespace StarBangBang
 			DrawCircle(grid.GetNodeSize() / 2, n->nodePos);
 	}
 
-	LevelEditor::LevelEditor(int id, GameStateManager& manager) : Scene(id, manager), tileMap{objectManager, graphicsManager}, selectedType{TileType::STONE}
+	LevelEditor::LevelEditor(int id, GameStateManager& manager) : Scene(id, manager), tileMap{ objectManager, graphicsManager }, selectedType{ TileType::STONE }
 	{
 		
 	}
@@ -60,6 +60,10 @@ namespace StarBangBang
 		text.SetTextbox(100, 100);
 		text.SetFont(StarBangBang::fontId);
 
+		tileOutline = objectManager.NewGameObject();
+		tileImg = objectManager.AddImage(tileOutline, tileMap.tileSet.GetTileSprite(selectedType).sprite);
+		tileImg->SetTransparency(0.9f);
+
 	}
 
 	void LevelEditor::Update()
@@ -95,9 +99,13 @@ namespace StarBangBang
 
 		//Insert/Replace/Remove Tile.
 		AEVec2 mousePos = GetMouseWorldPos();
+		A_Node* n = grid.GetNodeFromPosition(mousePos);
+
+		tileOutline->transform.position = n->nodePos;
+		tileImg->SetSprite(tileMap.tileSet.GetTileSprite(selectedType).sprite);
+
 		if (AEInputCheckCurr(AEVK_LBUTTON))
 		{
-			A_Node* n = grid.GetNodeFromPosition(mousePos);
 			if (n)
 			{
 				InsertTile(n);
@@ -112,7 +120,6 @@ namespace StarBangBang
 
 		if (AEInputCheckCurr(AEVK_RBUTTON))
 		{
-			A_Node* n = grid.GetNodeFromPosition(mousePos);
 			if (n)
 			{
 				/*for (auto node : grid.Get8_NodeNeighbours(n))
@@ -131,6 +138,7 @@ namespace StarBangBang
 		AEGfxSetBackgroundColor(0.3f, 0.6f, 1.0f);
 		HighLightGridNode(grid);
 		grid.DrawGrid(Green);
+
 	}
 
 	void LevelEditor::Free()

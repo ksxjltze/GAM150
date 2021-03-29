@@ -55,6 +55,7 @@ namespace StarBangBang
 		void SetCollidableTypes(std::initializer_list<TileType> typeList);
 
 	private:
+		friend class LevelEditor;
 		GameObject* base;
 		float scale;
 		int mapWidth, mapHeight;

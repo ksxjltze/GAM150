@@ -13,10 +13,13 @@ namespace StarBangBang
 		void SetSprite(Sprite s) { sprite = s; }
 		void SetTexture(AEGfxTexture* texture);
 		void SetMesh(AEGfxVertexList* mesh);
+		void SetColor(Color c);
+		void SetTransparency(float alpha);
 		Sprite GetSprite() { return sprite; }
 
 		void Draw();
 	private:
 		Sprite sprite;
+		float transparency{ 1.0f };
 	};
 }
