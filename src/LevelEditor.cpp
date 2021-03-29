@@ -7,11 +7,16 @@
 #include "Serialization.h"
 #include "PathFinder.h"
 #include "globals.h"
+#include <sstream>
 
 namespace StarBangBang
 {
 
-	enum class BrushMode {SINGLE, CROSS, SQUARE, END};
+	enum class BrushMode { SINGLE, CROSS, SQUARE, END };
+	static const std::map<BrushMode, const std::string> brushNames
+	{
+		{BrushMode::SINGLE, "SINGLE"}, {BrushMode::CROSS, "CROSS"}, {BrushMode::SQUARE, "SQUARE"}
+	};
 
 	BrushMode& operator++(BrushMode& mode)
 	{
@@ -67,8 +72,8 @@ namespace StarBangBang
 		//TODO: Optimize tile drawing (Low FPS on 100 x 100 tile map)
 		if (!LoadLevel(filepath))
 		{
-			CreateLevel(TILEMAP::DEFAULT_WIDTH, TILEMAP::DEFAULT_WIDTH, TILEMAP::DEFAULT_TILE_SIZE, TileType::BRICK_RED);
-			//CreateLevel(30, 30, TILEMAP::DEFAULT_TILE_SIZE, TileType::BRICK_RED);
+			CreateLevel(TILEMAP::DEFAULT_WIDTH, TILEMAP::DEFAULT_WIDTH, TILEMAP::DEFAULT_TILE_SIZE, TileType::FLOOR_PRISON);
+			//CreateLevel(30, 30, TILEMAP::DEFAULT_TILE_SIZE, TileType::FLOOR_PRISON);
 		}
 
 		//Camera Object
@@ -94,13 +99,15 @@ namespace StarBangBang
 		if (AEInputCheckTriggered(AEVK_TAB))
 		{
 			++selectedType;
-			MessageBus::Notify({ EventId::PRINT_TEXT, std::string("TILE TYPE CHANGED" ) });
+			MessageBus::Notify({ EventId::PRINT_TEXT, std::string("TILE TYPE CHANGED: ") + tileMap.tileSet.GetTileTypeName(selectedType) });
 		}
 
 		if (AEInputCheckTriggered(AEVK_Q))
 		{
 			++brushMode;
-			MessageBus::Notify({ EventId::PRINT_TEXT, std::string("BRUSH CHANGED") });
+			std::string text{ "BRUSH CHANGED: " };
+			text += brushNames.at(brushMode);
+			MessageBus::Notify({ EventId::PRINT_TEXT, text});
 		}
 
 		if (AEInputCheckTriggered(AEVK_F))
