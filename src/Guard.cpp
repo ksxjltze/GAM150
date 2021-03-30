@@ -1,17 +1,15 @@
 #include "Guard.h"
-#include "DistractionEvent.h"
 
 using namespace StarBangBang;
 
-int Guard::id = -1;
-
 Guard::Guard(GameObject* gameObject)
-	: Script(gameObject), Listener()
+	: Script(gameObject)//, Listener()
 	, state(GUARD_STATE::STATE_PATROL)
+	, prevState(GUARD_STATE::STATE_NONE)
 	, movement(nullptr)
 	, vision(nullptr)
+	, id(0)
 {
-	++id;
 }
 
 void Guard::Start()
@@ -33,33 +31,14 @@ void Guard::Update()
 		break;
 	case Guard::GUARD_STATE::STATE_DISTRACTED:
 		movement->Distracted();
-		Listener::open = false;
 		break;
 	default:
 		break;
 	}
 }
 
-void StarBangBang::Guard::onNotify(Event e)
+void Guard::SetState(GUARD_STATE _state)
 {
-	if (e.id == EventId::DISTRACTION)
-	{
-		DistractionEvent distraction = std::any_cast<DistractionEvent>(e.context);
-		DistractGuard(distraction.gameObject->GetPos());
-	}
-}
-
-void StarBangBang::Guard::DistractGuard(AEVec2 const& pos)
-{
-	static int distractCount = 0;
-	AEVec2 distractionPos = pos;
-	float alertRadius = 400.0f;
-	
-	SetState(GUARD_STATE::STATE_DISTRACTED);
-
-	if (AEVec2Distance(&distractionPos, &gameObject->transform.position) <= alertRadius)
-	{
-		std::cout << "GUARD DISTRACTED " << ++distractCount << std::endl;
-
-	}
+	prevState = state;
+	state = _state;
 }

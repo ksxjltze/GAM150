@@ -10,11 +10,14 @@ using namespace StarBangBang;
 GuardMovement::GuardMovement(GameObject* gameObject)
 	: Script(gameObject)
 	, speed(GUARD::GUARD_SPEED)
+	, idleTimer(0.f)
 	, nodeIndex(0)
+	, pathSize(0)
 	, lookForPath(false)
 	, foundPath(false)
 	, isMoving(false)
 	, changedTargetPos(false)
+	, idleForever(false)
 {
 	SetWaypoints();
 	//std::cout << waypoints.size() << "\n";
@@ -28,6 +31,8 @@ void GuardMovement::Start()
 {
 	rb = gameObject->GetComponent<RigidBody>();
 	rb->drag = 0.2f;
+
+	guard = gameObject->GetComponent<Guard>();
 }
 
 void GuardMovement::Idle()
@@ -38,6 +43,18 @@ void GuardMovement::Idle()
 	// ...
 
 	isMoving = false;
+
+	if (idleForever)
+		return;
+
+	// Return to patrol state
+	idleTimer += g_dt;
+	if (idleTimer > 5.f)
+	{
+		guard->SetState(Guard::GUARD_STATE::STATE_PATROL);
+		foundPath = false;
+		idleTimer = 0.f;
+	}
 }
 
 void GuardMovement::Patrol()
@@ -54,13 +71,20 @@ void GuardMovement::Patrol()
 
 	//MoveTo(waypoints.front());
 
-	if (!changedTargetPos)
+	/*if (guard->GetPrevState() == Guard::GUARD_STATE::STATE_IDLE)
 	{
 		targetPos = endPos;
 	}
-	else
+	else*/
 	{
-		targetPos = startPos;
+		if (!changedTargetPos)
+		{
+			targetPos = endPos;
+		}
+		else
+		{
+			targetPos = startPos;
+		}
 	}
 
 	if (!foundPath)
@@ -74,26 +98,32 @@ void GuardMovement::Patrol()
 
 void GuardMovement::Distracted()
 {
-	//Distraction test
-	gameObject->transform.scale = { 2, 2 };
-
 	if (!foundPath)
 		return;
 
 	MoveAlongPath();
+
+	if (reachedEndOfPath)
+	{
+		guard->SetState(Guard::GUARD_STATE::STATE_IDLE);
+	}
 }
 
 void GuardMovement::MoveAlongPath()
 {
 	if (turning)
 		return;
-
-	/*for (const A_Node* n : path)
+	
+	if (gameObject->GetComponent<Guard>()->GetState() == Guard::GUARD_STATE::STATE_DISTRACTED)
 	{
-		DrawCircle(20.0f, n->nodePos);
-	}*/
+		pathSize = path.size() - 1;
+	}
+	else
+	{
+		pathSize = path.size();
+	}
 
-	if (nodeIndex < path.size())
+	if (nodeIndex < pathSize)
 	{
 		isMoving = true;
 		nextPos = path[nodeIndex]->nodePos;
@@ -197,6 +227,7 @@ bool GuardMovement::IsChangingDir()
 
 void GuardMovement::LookForPath(const AEVec2& pos)
 {
+	turning = false;
 	lookForPath = true;
 
 	if (lookForPath)
@@ -213,9 +244,18 @@ void GuardMovement::LookForPath(const AEVec2& pos)
 	}
 }
 
-void GuardMovement::SetStartEndPos(const AEVec2& start, const AEVec2& end)
+void GuardMovement::SetStartEndPos(const AEVec2& start, const AEVec2& end, bool _idleForever)
 {
 	gameObject->SetPos(start);
 	startPos = start;
 	endPos = end;
+	idleForever = _idleForever;
+}
+
+void GuardMovement::UnblockPatrolPath()
+{
+	for (A_Node* n : path)
+	{
+		n->occupied = false;
+	}
 }

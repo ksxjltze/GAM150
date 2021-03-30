@@ -170,6 +170,13 @@ namespace StarBangBang
 		objectManager.AddImage(distract, boi);
 		objectManager.AddCollider(distract, true).isTrigger = true;
 
+		GameObject* distract2 = objectManager.NewGameObject();
+		//temp
+		distract2->transform.position = tilemap.GetPositionAtIndex(8, 12);
+		objectManager.AddComponent<Distractor>(distract2);
+		objectManager.AddImage(distract2, boi);
+		objectManager.AddCollider(distract2, true).isTrigger = true;
+
 		//Notification Text
 		objectManager.AddComponent<DebugText>(objectManager.NewGameObject(), fontId);
 
@@ -380,7 +387,7 @@ namespace StarBangBang
 
 	void StarBangBang::Level_Demo::Draw()
 	{
-		Scene::Draw();
+		Scene::Draw(); //PathFinder::GridDraw();
 		//Color dark = { 0, 0, 0, 0.5f };
 		//Color light = { 1.0f, 1.0f, 1.0f, 0.5f };
 		//GRAPHICS::DrawOverlay(graphicsManager.GetMesh(), { 20, 20 }, { 0, 0 }, dark, AE_GFX_BM_BLEND);
