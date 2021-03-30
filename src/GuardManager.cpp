@@ -130,9 +130,6 @@ GameObject* GuardManager::GetNearestGuard(const AEVec2& _pos)
 	AEVec2 distractionPos = _pos;
 	float minDist = 999999.f;
 	GameObject* nearestGuard = nullptr;
-	
-	//AEVec2SquareDistance(&distractionPos, &guards[0]->transform.position);
-	//GameObject* nearestGuard = guards[0];
 
 	for (size_t i = 0; i < NUM_GUARDS; i++)
 	{

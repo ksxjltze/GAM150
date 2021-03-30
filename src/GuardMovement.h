@@ -25,7 +25,7 @@ namespace StarBangBang
 
 		void LookForPath(const AEVec2& pos);
 		void SetStartEndPos(const AEVec2& start, const AEVec2& end, bool _idleForever = false);
-		void UnblockPatrolPath();
+		void UnblockPreviousPath();
 
 		inline const AEVec2& GetNextPos() const { return nextPos; }
 		inline bool IsMoving() const { return isMoving; }
@@ -72,5 +72,6 @@ namespace StarBangBang
 		Guard* guard;
 
 		RigidBody* rb;
+		A_Node* distractionNode;
 	};
 }

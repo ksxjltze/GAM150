@@ -18,6 +18,9 @@ GuardMovement::GuardMovement(GameObject* gameObject)
 	, isMoving(false)
 	, changedTargetPos(false)
 	, idleForever(false)
+	, guard(nullptr)
+	, rb(nullptr)
+	, distractionNode(nullptr)
 {
 	SetWaypoints();
 	//std::cout << waypoints.size() << "\n";
@@ -90,6 +93,10 @@ void GuardMovement::Patrol()
 	if (!foundPath)
 	{
 		LookForPath(targetPos);
+
+		if (distractionNode)
+			distractionNode->occupied = false;
+
 		return;
 	}
 
@@ -98,8 +105,9 @@ void GuardMovement::Patrol()
 
 void GuardMovement::OnEnterDistracted()
 {
-	UnblockPatrolPath();
+	UnblockPreviousPath();
 	LookForPath(targetPos);
+	distractionNode = path.back();
 }
 
 void GuardMovement::Distracted()
@@ -258,10 +266,12 @@ void GuardMovement::SetStartEndPos(const AEVec2& start, const AEVec2& end, bool 
 	idleForever = _idleForever;
 }
 
-void GuardMovement::UnblockPatrolPath()
+void GuardMovement::UnblockPreviousPath()
 {
 	for (A_Node* n : path)
 	{
 		n->occupied = false;
 	}
+
+	path.clear();
 }

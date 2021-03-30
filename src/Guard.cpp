@@ -44,9 +44,8 @@ void Guard::Update()
 void Guard::ChangeState(GUARD_STATE _state)
 {
 	prevState = state;
-	state = _state;
 
-	switch (state)
+	switch (_state)
 	{
 	case Guard::GUARD_STATE::STATE_IDLE:
 		break;
@@ -58,4 +57,6 @@ void Guard::ChangeState(GUARD_STATE _state)
 	default:
 		break;
 	}
+
+	state = _state;
 }
