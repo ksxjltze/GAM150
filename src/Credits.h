@@ -13,6 +13,8 @@ namespace StarBangBang
 		void Draw();
 		void Free();
 		void Unload();
+	private:
+		GameObject* cameraObject{ nullptr };
 	};
 
 }
