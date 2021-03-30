@@ -6,6 +6,7 @@
 #include "GuardAnim.h"
 #include "SecurityCamera.h"
 #include "Physics.h"
+#include "DistractionEvent.h"
 
 #include "Utils.h" // for mouseworldpos
 
@@ -16,8 +17,8 @@ using namespace StarBangBang;
 
 GuardManager::GuardManager(GameObject* gameObject) 
 	: Script(gameObject)
+	, Listener()
 {
-
 }
 
 void GuardManager::Init(ObjectManager* objManager, Sprite* sprite, GameObject* player, GameObject* client)
@@ -104,14 +105,43 @@ void GuardManager::Update()
 	}
 }
 
-GameObject* GuardManager::GetNearestGuard(AEVec2& _pos)
+void GuardManager::onNotify(Event e)
 {
-	float minDist = AEVec2SquareDistance(&_pos, &guards[0]->transform.position);
-	GameObject* nearestGuard = guards[0];
-
-	for (size_t i = 1; i < NUM_GUARDS; i++)
+	if (e.id == EventId::DISTRACTION)
 	{
-		float dist = AEVec2SquareDistance(&_pos, &guards[i]->transform.position);
+		DistractionEvent distraction = std::any_cast<DistractionEvent>(e.context);
+		AEVec2 distractPos = distraction.gameObject->GetPos();
+		GameObject* guard = GetNearestGuard(distractPos);
+
+		if (!guard)
+		{
+			//std::cout << "No guard nearby\n";
+			return;
+		}
+
+		std::cout << "GUARD DISTRACTED! GUARD ID: " << guard->GetComponent<Guard>()->GetID() << std::endl;
+		guard->GetComponent<Guard>()->SetState(Guard::GUARD_STATE::STATE_DISTRACTED);
+		guard->GetComponent<GuardMovement>()->UnblockPatrolPath();
+		guard->GetComponent<GuardMovement>()->LookForPath(distractPos);
+	}
+}
+
+GameObject* GuardManager::GetNearestGuard(const AEVec2& _pos)
+{
+	AEVec2 distractionPos = _pos;
+	float minDist = 999999.f;
+	GameObject* nearestGuard = nullptr;
+	
+	//AEVec2SquareDistance(&distractionPos, &guards[0]->transform.position);
+	//GameObject* nearestGuard = guards[0];
+
+	for (size_t i = 0; i < NUM_GUARDS; i++)
+	{
+		// only look for guards not currently distracted
+		if (guards[i]->GetComponent<Guard>()->GetState() == Guard::GUARD_STATE::STATE_DISTRACTED)
+			continue;
+
+		float dist = AEVec2SquareDistance(&distractionPos, &guards[i]->transform.position);
 
 		if (dist < minDist)
 		{

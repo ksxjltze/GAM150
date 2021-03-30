@@ -170,6 +170,13 @@ namespace StarBangBang
 		objectManager.AddImage(distract, boi);
 		objectManager.AddCollider(distract, true).isTrigger = true;
 
+		GameObject* distract2 = objectManager.NewGameObject();
+		//temp
+		distract2->transform.position = tilemap.GetPositionAtIndex(8, 12);
+		objectManager.AddComponent<Distractor>(distract2);
+		objectManager.AddImage(distract2, boi);
+		objectManager.AddCollider(distract2, true).isTrigger = true;
+
 		//Notification Text
 		objectManager.AddComponent<DebugText>(objectManager.NewGameObject(), fontId);
 
