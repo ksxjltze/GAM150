@@ -138,7 +138,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 
 	// ALWAYS CREATE FONTS OUTSIDE LOOP
 	fontId = AEGfxCreateFont("./Resources/Roboto-Regular.ttf", 32);
-	fontId2 = AEGfxCreateFont("./Resources/Roboto-Regular.ttf", 64);
+	fontId2 = AEGfxCreateFont("./Resources/Roboto-Regular.ttf", 48);
 	if (fontId < 0)
 	{
 		fontId = 0;

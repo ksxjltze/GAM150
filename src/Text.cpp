@@ -45,15 +45,20 @@ void Text::Draw()
 	float wWidth = AEGetWindowWidth();
 	float wHeight = AEGetWindowHeight();
 
-	AEGfxGetPrintSize(fontID, str, scale, TextWidth, TextHeight);
-	AEGfxPrint
-	(fontID, str, 0.0f - TextWidth / 2, 0.0f - TextHeight / 2,
-		scale, 1.0f, 1.0f, 1.0f
-	);
+	float textScale = scale;
+	AEVec2 screenScale = GRAPHICS::GetScreenScale();
+
+	textScale *= screenScale.x / screenScale.y;
+
+	AEGfxGetPrintSize(fontID, str, textScale, TextWidth, TextHeight);
 	//AEGfxPrint
-	//(fontID, str, 
-	//	position.x / wWidth - TextWidth / 2, 
-	//	position.y / wHeight - TextHeight / 2, 
-	//	f_scale, 1.0f, 1.0f ,1.0f
+	//(fontID, str, 0.0f - TextWidth / 2, 0.0f - TextHeight / 2,
+	//	scale, 1.0f, 1.0f, 1.0f
 	//);
+	AEGfxPrint
+	(fontID, str, 
+		position.x / wWidth * 2 - TextWidth / 2, 
+		position.y / wHeight * 2 - TextHeight / 2, 
+		textScale, 1.0f, 1.0f ,1.0f
+	);
 }
