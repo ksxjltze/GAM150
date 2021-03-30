@@ -70,10 +70,6 @@ using namespace StarBangBang;
 		}
 		delete[] grid;
 	}
-
-	
-
-
 	
 	Grid::Grid(float _nodeSize, int sizeX, int sizeY, AEVec2 _offset)
 	{
@@ -225,6 +221,11 @@ using namespace StarBangBang;
 		}
 	}
 
+	void StarBangBang::Grid::ToggleVisible()
+	{
+		visible = !visible;
+	}
+
 	A_Node StarBangBang::Grid::GetRandomFreeNode()
 	{
 		int rand_x = static_cast<int>(AERandFloat() * size_x), rand_y = static_cast<int>(AERandFloat()* size_y);
@@ -247,6 +248,8 @@ using namespace StarBangBang;
 
 	void Grid::DrawGrid(Color color)
 	{
+		if (!visible)
+			return;
 
 		for (size_t y = 0; y < size_y; y++)
 		{

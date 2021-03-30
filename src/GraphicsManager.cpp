@@ -213,7 +213,7 @@ namespace StarBangBang
 		AEToogleFullScreen(isFullscreen);
 	}
 
-	void StarBangBang::GRAPHICS::DrawImage(AEGfxVertexList* mesh, AEGfxTexture* texture, AEVec2 pos, AEVec2 scale, float rotation)
+	void StarBangBang::GRAPHICS::DrawImage(AEGfxVertexList* mesh, AEGfxTexture* texture, Color color, AEVec2 pos, AEVec2 scale, float rotation, float transparency)
 	{
 		AEGfxSetBlendMode(AE_GFX_BM_BLEND);
 		// Transform matrix
@@ -240,7 +240,7 @@ namespace StarBangBang
 		AEGfxSetRenderMode(AE_GFX_RM_TEXTURE);
 
 		// No tint
-		AEGfxSetTintColor(1.0f, 1.0f, 1.0f, 1.0f);
+		AEGfxSetTintColor(color.R(), color.G(), color.B(), color.A());
 
 		// Set texture
 		AEGfxTextureSet(texture, 0, 0);
@@ -248,7 +248,7 @@ namespace StarBangBang
 		AEGfxSetTransform(transformMtx.m);
 
 		// Set Transparency
-		AEGfxSetTransparency(1.0f);
+		AEGfxSetTransparency(transparency);
 
 		// Drawing the mesh (list of triangles)
 		AEGfxMeshDraw(mesh, AE_GFX_MDM_TRIANGLES);

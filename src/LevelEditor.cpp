@@ -7,9 +7,35 @@
 #include "Serialization.h"
 #include "PathFinder.h"
 #include "globals.h"
+#include <sstream>
 
 namespace StarBangBang
 {
+
+	enum class BrushMode { SINGLE, CROSS, SQUARE, END };
+	static const std::map<BrushMode, const std::string> brushNames
+	{
+		{BrushMode::SINGLE, "SINGLE"}, {BrushMode::CROSS, "CROSS"}, {BrushMode::SQUARE, "SQUARE"}
+	};
+
+	BrushMode& operator++(BrushMode& mode)
+	{
+		BrushMode m = BrushMode(static_cast<int>(mode) + 1);
+		if (m >= BrushMode::END)
+		{
+			m = BrushMode::SINGLE;
+		}
+
+		mode = m;
+		return mode;
+	}
+
+	BrushMode operator++(BrushMode& mode, int)
+	{
+		BrushMode m = mode;
+		++mode;
+		return m;
+	}
 
 	void HighLightGridNode(Grid& grid)
 	{
@@ -19,7 +45,7 @@ namespace StarBangBang
 			DrawCircle(grid.GetNodeSize() / 2, n->nodePos);
 	}
 
-	LevelEditor::LevelEditor(int id, GameStateManager& manager) : Scene(id, manager), tileMap{objectManager, graphicsManager}, selectedType{TileType::STONE}
+	LevelEditor::LevelEditor(int id, GameStateManager& manager) : Scene(id, manager), tileMap{ objectManager, graphicsManager }, selectedType{ TileType::STONE }, brushMode{BrushMode::SINGLE}
 	{
 		
 	}
@@ -35,19 +61,15 @@ namespace StarBangBang
 	}
 
 	void LevelEditor::Init()
-	{
-		PathFinder::PathFinderInit();
-		PathFinder::ShowGrid(false);
-		GRAPHICS::SetBackgroundColor(Black);
-		
+	{		
 		filepath = RESOURCES::LEVELS::LEVEL_TEST_PATH;
 		//filepath = RESOURCES::LEVELS::COLLISION_TEST;
 
 		//TODO: Optimize tile drawing (Low FPS on 100 x 100 tile map)
 		if (!LoadLevel(filepath))
 		{
-			CreateLevel(TILEMAP::DEFAULT_WIDTH, TILEMAP::DEFAULT_WIDTH, TILEMAP::DEFAULT_TILE_SIZE, TileType::BRICK_RED);
-			//CreateLevel(30, 30, TILEMAP::DEFAULT_TILE_SIZE, TileType::BRICK_RED);
+			CreateLevel(TILEMAP::DEFAULT_WIDTH, TILEMAP::DEFAULT_WIDTH, TILEMAP::DEFAULT_TILE_SIZE, TileType::FLOOR_PRISON);
+			//CreateLevel(30, 30, TILEMAP::DEFAULT_TILE_SIZE, TileType::FLOOR_PRISON);
 		}
 
 		//Camera Object
@@ -60,6 +82,9 @@ namespace StarBangBang
 		text.SetTextbox(100, 100);
 		text.SetFont(StarBangBang::fontId);
 
+		tileOutline = objectManager.NewGameObject();
+		tileImg = objectManager.AddImage(tileOutline, tileMap.tileSet.GetTileSprite(selectedType).sprite);
+		tileImg->SetTransparency(0.85f);
 	}
 
 	void LevelEditor::Update()
@@ -69,8 +94,22 @@ namespace StarBangBang
 		if (AEInputCheckTriggered(AEVK_TAB))
 		{
 			++selectedType;
-			MessageBus::Notify({ EventId::PRINT_TEXT, std::string("TILE TYPE CHANGED" ) });
+			MessageBus::Notify({ EventId::PRINT_TEXT, std::string("TILE TYPE CHANGED: ") + tileMap.tileSet.GetTileTypeName(selectedType) });
 		}
+
+		if (AEInputCheckTriggered(AEVK_Q))
+		{
+			++brushMode;
+			std::string text{ "BRUSH CHANGED: " };
+			text += brushNames.at(brushMode);
+			MessageBus::Notify({ EventId::PRINT_TEXT, text});
+		}
+
+		if (AEInputCheckTriggered(AEVK_F))
+		{
+			grid.ToggleVisible();
+		}
+		
 
 		if (AEInputCheckTriggered(AEVK_RETURN))
 		{
@@ -79,10 +118,14 @@ namespace StarBangBang
 
 		if (AEInputCheckTriggered(AEVK_R))
 		{
-			//Generate new level
+			//Clear Level
 			if (AEInputCheckCurr(AEVK_LSHIFT))
 			{
-				CreateLevel(TILEMAP::DEFAULT_WIDTH, TILEMAP::DEFAULT_WIDTH, TILEMAP::DEFAULT_TILE_SIZE, selectedType);
+				tileMap.Clear();
+			}
+			else if (AEInputCheckCurr(AEVK_LCTRL))
+			{
+				tileMap.Fill(selectedType);
 			}
 			else
 				LoadLevel(filepath);
@@ -95,34 +138,57 @@ namespace StarBangBang
 
 		//Insert/Replace/Remove Tile.
 		AEVec2 mousePos = GetMouseWorldPos();
-		if (AEInputCheckCurr(AEVK_LBUTTON))
+		A_Node* n = grid.GetNodeFromPosition(mousePos);
+
+		if (n)
 		{
-			A_Node* n = grid.GetNodeFromPosition(mousePos);
-			if (n)
+			tileOutline->transform.position = n->nodePos;
+			tileImg->SetSprite(tileMap.tileSet.GetTileSprite(selectedType).sprite);
+
+			if (AEInputCheckCurr(AEVK_LBUTTON))
 			{
+				//Brush
 				InsertTile(n);
-
-				////Brush
-				//for (auto node : grid.Get4_NodeNeighbours(n))
-				//{
-				//	InsertTile(node);
-				//}
-			}
-		}
-
-		if (AEInputCheckCurr(AEVK_RBUTTON))
-		{
-			A_Node* n = grid.GetNodeFromPosition(mousePos);
-			if (n)
-			{
-				/*for (auto node : grid.Get8_NodeNeighbours(n))
+				switch (brushMode)
 				{
-					RemoveTile(node);
-				}*/
+				case BrushMode::CROSS:
+					for (auto node : grid.Get4_NodeNeighbours(n))
+					{
+						InsertTile(node);
+					}
+					break;
+				case BrushMode::SQUARE:
+					for (auto node : grid.Get8_NodeNeighbours(n))
+					{
+						InsertTile(node);
+					}
+					break;
+				}
+			}
+
+			if (AEInputCheckCurr(AEVK_RBUTTON))
+			{
 				RemoveTile(n);
+				//Brush
+				switch (brushMode)
+				{
+				case BrushMode::CROSS:
+					for (auto node : grid.Get4_NodeNeighbours(n))
+					{
+						RemoveTile(node);
+					}
+					break;
+				case BrushMode::SQUARE:
+					for (auto node : grid.Get8_NodeNeighbours(n))
+					{
+						RemoveTile(node);
+					}
+					break;
+				}
 			}
 
 		}
+
 	}
 
 	void LevelEditor::Draw()
@@ -130,12 +196,36 @@ namespace StarBangBang
 		Scene::Draw();
 		AEGfxSetBackgroundColor(0.3f, 0.6f, 1.0f);
 		HighLightGridNode(grid);
+
+		AEVec2 mousePos = GetMouseWorldPos();
+		A_Node* n = grid.GetNodeFromPosition(mousePos);
+		if (n)
+		{
+			switch (brushMode)
+			{
+			case BrushMode::CROSS:
+				for (auto node : grid.Get4_NodeNeighbours(n))
+				{
+					tileImg->Draw(node->nodePos);
+				}
+				break;
+			case BrushMode::SQUARE:
+				for (auto node : grid.Get8_NodeNeighbours(n))
+				{
+					tileImg->Draw(node->nodePos);
+				}
+				break;
+			}
+		}
+
 		grid.DrawGrid(Green);
+
 	}
 
 	void LevelEditor::Free()
 	{
 		Scene::Free();
+		grid.FreeGrid();
 	}
 
 	void LevelEditor::Unload()

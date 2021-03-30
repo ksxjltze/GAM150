@@ -1,5 +1,6 @@
 #pragma once
 #include "AEEngine.h"
+#include "Color.h"
 
 namespace StarBangBang
 {
@@ -13,5 +14,6 @@ namespace StarBangBang
 		}
 		AEGfxTexture* texture;
 		AEGfxVertexList* mesh;
+		Color color;
 	};
 }

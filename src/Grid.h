@@ -70,6 +70,7 @@ namespace StarBangBang
 		AEVec2 offset = AEVec2();	// grid offset from center (ie to place it in other position)
 		int size_x = 0; // number of nodes in a row
 		int size_y = 0; // number of nodes in a column
+		bool visible{ true };
 
 		//Debug
 		void SetAllOccupied();
@@ -85,6 +86,8 @@ namespace StarBangBang
 		//how many nodes in y
 		constexpr int GetGridSizeY() const { return size_y; }
 		constexpr float GetNodeSize() const { return nodeSize; }
+
+		void ToggleVisible();
 
 		A_Node GetRandomFreeNode();
 		void SetOccupied(int x, int y, bool occupied = true);

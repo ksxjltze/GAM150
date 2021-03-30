@@ -196,6 +196,19 @@ namespace StarBangBang
 		}
 	}
 
+	void TileMap::Fill(TileType type)
+	{
+		if (!map.empty())
+		{
+			TileSprite s = tileSet.GetTileSprite(type);
+			using coords = std::pair<int, int>;
+			for (const std::pair<coords, Tile>& tile : map)
+			{
+				tile.second.spriteObject->SetSprite(s.sprite);
+			}
+		}
+	}
+
 	void TileMap::Clear()
 	{
 		//Clear map
@@ -311,7 +324,7 @@ namespace StarBangBang
 
 	Tile& TileMap::At(int x, int y)
 	{
-		return map.at({x, y});
+		return map.at({ x, y });
 	}
 
 	void TileMap::SetVisible(bool vis)

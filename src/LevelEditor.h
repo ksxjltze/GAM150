@@ -10,6 +10,7 @@
 
 namespace StarBangBang
 {
+	enum class BrushMode;
 
 	class LevelEditor : public Scene
 	{
@@ -33,6 +34,7 @@ namespace StarBangBang
 		
 		Sprite boi;
 		std::string filepath;
+		BrushMode brushMode;
 
 		TileMap tileMap;
 		TileType selectedType;
@@ -40,5 +42,7 @@ namespace StarBangBang
 
 		GameObject* camera{ nullptr };
 		GameObject* debugText{ nullptr };
+		GameObject* tileOutline{ nullptr };
+		ImageComponent* tileImg{ nullptr };
 	};
 }

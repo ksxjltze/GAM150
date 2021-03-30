@@ -10,8 +10,8 @@ namespace StarBangBang
 		GRASS,
 		STONE,
 		BRICK_BLACK,
-		BRICK_RED,
 		FLOOR_PRISON,
+		FLOOR_PRISON2,
 		FLOOR_OFFICE,
 		END,
 		TEST = 11
@@ -29,7 +29,7 @@ namespace StarBangBang
 		void Load(GraphicsManager&);
 		void LoadTileSprite(GraphicsManager&, TileType type, const std::string& path);
 		void Clear();
-
+		const std::string& GetTileTypeName(TileType type);
 		const TileSprite& GetTileSprite(TileType);
 	private:
 		std::map<TileType, TileSprite> set;
