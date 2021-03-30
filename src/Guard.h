@@ -11,7 +11,8 @@ namespace StarBangBang
 	public:
 		enum class GUARD_STATE
 		{
-			STATE_IDLE = 0,
+			STATE_NONE = 0,
+			STATE_IDLE,
 			STATE_PATROL,
 			STATE_DISTRACTED,
 			STATE_TOTAL
@@ -23,7 +24,9 @@ namespace StarBangBang
 		void Update();
 		void onNotify(Event e);
 
-		inline void SetState(GUARD_STATE _state) { state = _state; }
+		void SetState(GUARD_STATE _state);
+		inline GUARD_STATE GetState() const { return state; }
+		inline GUARD_STATE GetPrevState() const { return prevState; }
 		inline void SetID(size_t _id) { id = _id; }
 		inline size_t GetID() const { return id; }
 
@@ -31,6 +34,8 @@ namespace StarBangBang
 
 	private:
 		GUARD_STATE state;
+		GUARD_STATE prevState;
+
 		GuardMovement* movement;
 		GuardVision* vision;
 		size_t id;

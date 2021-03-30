@@ -125,10 +125,12 @@ GameObject* GuardManager::GetNearestGuard(AEVec2& _pos)
 
 void GuardManager::SetGuardWaypoints(int id, const AEVec2& start, const AEVec2& end, bool isIdle, float speed)
 {
-	guards[id]->GetComponent<GuardMovement>()->SetStartEndPos(start, end);
+	guards[id]->GetComponent<GuardMovement>()->SetStartEndPos(start, end, isIdle);
 
 	if (isIdle)
+	{
 		guards[id]->GetComponent<Guard>()->SetState(Guard::GUARD_STATE::STATE_IDLE);
+	}
 
 	guards[id]->GetComponent<GuardMovement>()->SetSpeed(speed);
 }
