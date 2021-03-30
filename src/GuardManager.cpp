@@ -43,21 +43,28 @@ void GuardManager::Init(ObjectManager* objManager, Sprite* sprite, GameObject* p
 	}
 
 	// temp, will change to read from file laterz
-	SetGuardWaypoints(id++, { -300, -1085 }, { -420, -1085 });
-	SetGuardWaypoints(id++, { -1144, -942}, { -850, -942 });
-	SetGuardWaypoints(id++, { -752, -746 }, { -752, -590 });
-	SetGuardWaypoints(id++, { -1020, -230 }, { -1020, -670 });
-	SetGuardWaypoints(id++, { -740, 100 }, { -740, -80 });
-	SetGuardWaypoints(id++, { -180, -50 }, { -20, 120 });
-	SetGuardWaypoints(id++, { 350, -240 }, { -195, -240 });
-	SetGuardWaypoints(id++, { 455, 190 }, { 630, -415 });
-	SetGuardWaypoints(id++, { 160, -1125 }, { 370, -980 });
-	SetGuardWaypoints(id++, { 795, -530 }, { 795, -530 }, true); // IDLE
-	SetGuardWaypoints(id++, { 930, 830 }, { 0, 515 });
-	SetGuardWaypoints(id++, { -195, 790 }, { -815, 540 });
-	SetGuardWaypoints(id++, { -1120, 420 }, { -880, 880 });
-	SetGuardWaypoints(id++, { 1070, 1011 }, { -733, -1060 }, false, 20.f); // patrol level kinda
-	SetGuardWaypoints(id++, { 1055, 145 }, { 1055, -950 }, false, 40.f); // patrol level kinda
+	SetGuardStartEnd(id++, { -300, -1085 }, { -420, -1085 });
+	SetGuardStartEnd(id++, { -1144, -942}, { -850, -942 });
+	SetGuardStartEnd(id++, { -752, -746 }, { -752, -590 });
+	SetGuardStartEnd(id++, { -1020, -230 }, { -1020, -670 });
+	SetGuardStartEnd(id++, { -740, 100 }, { -740, -80 });
+	SetGuardStartEnd(id++, { -180, -50 }, { -20, 120 });
+	SetGuardStartEnd(id++, { 350, -240 }, { -195, -240 });
+	SetGuardStartEnd(id++, { 455, 190 }, { 630, -415 });
+	SetGuardStartEnd(id++, { 160, -1125 }, { 370, -980 });
+	SetGuardStartEnd(id++, { 795, -530 }, { 795, -530 }, true); // IDLE
+	SetGuardStartEnd(id++, { 930, 830 }, { 0, 515 });
+	SetGuardStartEnd(id++, { -195, 790 }, { -815, 540 });
+	SetGuardStartEnd(id++, { -1120, 420 }, { -880, 880 });
+	SetGuardStartEnd(id++, { 1070, 1011 }, { -733, -1060 }, false, 20.f); // patrol level kinda
+	SetGuardStartEnd(id++, { 1055, 145 }, { 1055, -950 }, false, 40.f); // patrol level kinda
+
+	std::vector<AEVec2> testWaypoints;
+	testWaypoints.push_back({ -460, -550 });
+	testWaypoints.push_back({ -460, -750 });
+	testWaypoints.push_back({ -230, -750 });
+	testWaypoints.push_back({ -230, -550 });
+	SetGuardWaypoints(id++, testWaypoints);
 }
 
 void GuardManager::CreateSecurityCameras(ObjectManager* objManager, Sprite* sprite, GameObject* player, GameObject* client)
@@ -88,9 +95,6 @@ void GuardManager::CreateSecurityCameras(ObjectManager* objManager, Sprite* spri
 void GuardManager::Update()
 {
 	//PRINT("x: %f, y: %f\n", GetMouseWorldPos().x, GetMouseWorldPos().y);
-
-	// upon receiving distraction event, get nearest guard to be distracted
-	// ...
 
 	if (AEInputCheckTriggered(VK_LBUTTON))
 	{
@@ -149,16 +153,22 @@ GameObject* GuardManager::GetNearestGuard(const AEVec2& _pos)
 	return nearestGuard;
 }
 
-void GuardManager::SetGuardWaypoints(int id, const AEVec2& start, const AEVec2& end, bool isIdle, float speed)
+void GuardManager::SetGuardStartEnd(int id, const AEVec2& start, const AEVec2& end, bool isIdle, float speed)
 {
+	guards[id]->GetComponent<GuardMovement>()->SetSpeed(speed);
 	guards[id]->GetComponent<GuardMovement>()->SetStartEndPos(start, end, isIdle);
 
 	if (isIdle)
 	{
 		guards[id]->GetComponent<Guard>()->ChangeState(Guard::GUARD_STATE::STATE_IDLE);
 	}
+}
 
+void GuardManager::SetGuardWaypoints(int id, std::vector<AEVec2>& waypoints, float speed)
+{
 	guards[id]->GetComponent<GuardMovement>()->SetSpeed(speed);
+	guards[id]->GetComponent<GuardMovement>()->SetWaypoints(waypoints);
+	guards[id]->SetPos(waypoints.front());
 }
 
 void GuardManager::InitSecurityCam(int id, const AEVec2& pos, float min, float max, float speed)

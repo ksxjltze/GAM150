@@ -12,17 +12,20 @@ GuardMovement::GuardMovement(GameObject* gameObject)
 	, speed(GUARD::GUARD_SPEED)
 	, idleTimer(0.f)
 	, nodeIndex(0)
+	, waypointIndex(0)
 	, pathSize(0)
 	, lookForPath(false)
 	, foundPath(false)
 	, isMoving(false)
 	, changedTargetPos(false)
 	, idleForever(false)
+	, turning(false)
+	, usingWaypoints(false)
+	, movingToLastWaypoint(true)
 	, guard(nullptr)
 	, rb(nullptr)
 	, distractionNode(nullptr)
 {
-	SetWaypoints();
 	//std::cout << waypoints.size() << "\n";
 
 	//std::string text = "Guard ID: " + std::to_string(gameObject->GetComponent<Guard>()->GetID()) + "\n";
@@ -72,13 +75,8 @@ void GuardMovement::Patrol()
 	AEVec2Normalize(&dir, &dir);
 	AEVec2Add(&gameObject->transform.position, &gameObject->transform.position, &dir);*/
 
-	//MoveTo(waypoints.front());
 
-	/*if (guard->GetPrevState() == Guard::GUARD_STATE::STATE_IDLE)
-	{
-		targetPos = endPos;
-	}
-	else*/
+	if (!usingWaypoints)
 	{
 		if (!changedTargetPos)
 		{
@@ -88,6 +86,10 @@ void GuardMovement::Patrol()
 		{
 			targetPos = startPos;
 		}
+	}
+	else
+	{
+		targetPos = waypoints[waypointIndex];
 	}
 
 	if (!foundPath)
@@ -101,6 +103,29 @@ void GuardMovement::Patrol()
 	}
 
 	MoveAlongPath();
+
+	if (usingWaypoints && reachedEndOfPath)
+	{
+		if (movingToLastWaypoint)
+		{
+			++waypointIndex;
+
+			if (waypointIndex >= waypoints.size())
+			{
+				movingToLastWaypoint = false; // now guard will go to waypoints in reverse order
+				waypointIndex = waypoints.size() - 1;
+			}
+		}
+		else
+		{
+			--waypointIndex;
+			if (waypointIndex <= 0)
+			{
+				movingToLastWaypoint = true; // now guard will go to waypoints in order
+				waypointIndex = 0;
+			}
+		}
+	}
 }
 
 void GuardMovement::OnEnterDistracted()
@@ -193,20 +218,10 @@ bool GuardMovement::ReachedPos(AEVec2 pos)
 	return (AEVec2SquareDistance(&pos, &gameObject->transform.position) <= minDistToTarget * minDistToTarget);
 }
 
-void GuardMovement::SetWaypoints()
+void GuardMovement::SetWaypoints(std::vector<AEVec2>& _waypoints)
 {
-	//std::cout << "GUARD: SETTING WAYPOINTS\n";
-	// Test
-	waypoints.push_back({ 100, 10 });
-
-
-	// ***********************************
-
-	// Read from file
-	// ...
-
-	// Set waypoints specfic to this guard
-	// ...
+	usingWaypoints = true;
+	waypoints = _waypoints;
 }
 
 bool GuardMovement::IsChangingDir()
