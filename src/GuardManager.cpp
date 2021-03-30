@@ -95,13 +95,13 @@ void GuardManager::Update()
 	if (AEInputCheckTriggered(VK_LBUTTON))
 	{
 		//guards[0]->GetComponent<GuardMovement>()->SetEndPos(GetMouseWorldPos());
-		//guards[0]->GetComponent<Guard>()->SetState(Guard::GUARD_STATE::STATE_PATROL);
+		//guards[0]->GetComponent<Guard>()->ChangeState(Guard::GUARD_STATE::STATE_PATROL);
 	}
 
 	if (AEInputCheckTriggered(VK_RBUTTON))
 	{
 		//guards[1]->GetComponent<GuardMovement>()->LookForPath(GetMouseWorldPos());
-		//guards[0]->GetComponent<Guard>()->SetState(Guard::GUARD_STATE::STATE_IDLE);
+		//guards[0]->GetComponent<Guard>()->ChangeState(Guard::GUARD_STATE::STATE_IDLE);
 	}
 }
 
@@ -120,9 +120,8 @@ void GuardManager::onNotify(Event e)
 		}
 
 		std::cout << "GUARD DISTRACTED! GUARD ID: " << guard->GetComponent<Guard>()->GetID() << std::endl;
-		guard->GetComponent<Guard>()->SetState(Guard::GUARD_STATE::STATE_DISTRACTED);
-		guard->GetComponent<GuardMovement>()->UnblockPatrolPath();
-		guard->GetComponent<GuardMovement>()->LookForPath(distractPos);
+		guard->GetComponent<GuardMovement>()->SetTargetPos(distractPos);
+		guard->GetComponent<Guard>()->ChangeState(Guard::GUARD_STATE::STATE_DISTRACTED);
 	}
 }
 
@@ -159,7 +158,7 @@ void GuardManager::SetGuardWaypoints(int id, const AEVec2& start, const AEVec2& 
 
 	if (isIdle)
 	{
-		guards[id]->GetComponent<Guard>()->SetState(Guard::GUARD_STATE::STATE_IDLE);
+		guards[id]->GetComponent<Guard>()->ChangeState(Guard::GUARD_STATE::STATE_IDLE);
 	}
 
 	guards[id]->GetComponent<GuardMovement>()->SetSpeed(speed);

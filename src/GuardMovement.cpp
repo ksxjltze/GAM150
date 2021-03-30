@@ -51,7 +51,7 @@ void GuardMovement::Idle()
 	idleTimer += g_dt;
 	if (idleTimer > 5.f)
 	{
-		guard->SetState(Guard::GUARD_STATE::STATE_PATROL);
+		guard->ChangeState(Guard::GUARD_STATE::STATE_PATROL);
 		foundPath = false;
 		idleTimer = 0.f;
 	}
@@ -96,6 +96,12 @@ void GuardMovement::Patrol()
 	MoveAlongPath();
 }
 
+void GuardMovement::OnEnterDistracted()
+{
+	UnblockPatrolPath();
+	LookForPath(targetPos);
+}
+
 void GuardMovement::Distracted()
 {
 	if (!foundPath)
@@ -105,7 +111,7 @@ void GuardMovement::Distracted()
 
 	if (reachedEndOfPath)
 	{
-		guard->SetState(Guard::GUARD_STATE::STATE_IDLE);
+		guard->ChangeState(Guard::GUARD_STATE::STATE_IDLE);
 	}
 }
 

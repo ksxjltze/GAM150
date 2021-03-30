@@ -1,9 +1,10 @@
 #include "Guard.h"
+#include "Text.h"
 
 using namespace StarBangBang;
 
 Guard::Guard(GameObject* gameObject)
-	: Script(gameObject)//, Listener()
+	: Script(gameObject)
 	, state(GUARD_STATE::STATE_PATROL)
 	, prevState(GUARD_STATE::STATE_NONE)
 	, movement(nullptr)
@@ -14,6 +15,9 @@ Guard::Guard(GameObject* gameObject)
 
 void Guard::Start()
 {
+	// display guard id for debugging
+	gameObject->GetComponent<Text>()->SetText(std::to_string(id));
+
 	movement = gameObject->GetComponent<GuardMovement>();
 	vision = gameObject->GetComponent<GuardVision>();
 }
@@ -37,8 +41,21 @@ void Guard::Update()
 	}
 }
 
-void Guard::SetState(GUARD_STATE _state)
+void Guard::ChangeState(GUARD_STATE _state)
 {
 	prevState = state;
 	state = _state;
+
+	switch (state)
+	{
+	case Guard::GUARD_STATE::STATE_IDLE:
+		break;
+	case Guard::GUARD_STATE::STATE_PATROL:
+		break;
+	case Guard::GUARD_STATE::STATE_DISTRACTED:
+		movement->OnEnterDistracted();
+		break;
+	default:
+		break;
+	}
 }

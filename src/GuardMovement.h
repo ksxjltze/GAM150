@@ -19,6 +19,8 @@ namespace StarBangBang
 
 		void Idle();
 		void Patrol();
+
+		void OnEnterDistracted();
 		void Distracted();
 
 		void LookForPath(const AEVec2& pos);
@@ -32,6 +34,8 @@ namespace StarBangBang
 
 		inline void SetTurning(bool _turning) { turning = _turning; }
 		inline bool IsTurning() const { return turning; }
+
+		inline void SetTargetPos(const AEVec2 pos) { targetPos = pos; }
 
 	private:
 		void MoveAlongPath();
@@ -52,7 +56,7 @@ namespace StarBangBang
 		float idleTimer;
 
 		unsigned int nodeIndex;
-		unsigned int pathSize;
+		size_t pathSize;
 
 		AEVec2 targetPos;
 		AEVec2 startPos;

@@ -22,7 +22,7 @@ namespace StarBangBang
 		void Start();
 		void Update();
 
-		void SetState(GUARD_STATE _state);
+		void ChangeState(GUARD_STATE _state);
 		inline GUARD_STATE GetState() const { return state; }
 		inline GUARD_STATE GetPrevState() const { return prevState; }
 		inline void SetID(size_t _id) { id = _id; }
