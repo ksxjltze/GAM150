@@ -14,6 +14,7 @@ namespace StarBangBang
 			STATE_IDLE,
 			STATE_PATROL,
 			STATE_DISTRACTED,
+			STATE_CHASE,
 			STATE_TOTAL
 		};
 

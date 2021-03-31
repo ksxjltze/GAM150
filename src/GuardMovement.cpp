@@ -155,6 +155,27 @@ void GuardMovement::Distracted()
 	}
 }
 
+void GuardMovement::OnEnterChase()
+{
+	UnblockPreviousPath();
+	LookForPath(targetPos);
+	speed = 40.f;
+}
+
+void GuardMovement::Chase()
+{
+	if (!foundPath)
+		return;
+
+	MoveAlongPath();
+
+	if (reachedEndOfPath)
+	{
+		// send game over event
+		MessageBus::Notify({ EventId::GAME_OVER, gameObject });
+	}
+}
+
 void GuardMovement::MoveAlongPath()
 {
 	if (turning)

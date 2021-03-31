@@ -23,6 +23,9 @@ namespace StarBangBang
 		void OnEnterDistracted();
 		void Distracted();
 
+		void OnEnterChase();
+		void Chase();
+
 		void LookForPath(const AEVec2& pos);
 		void SetStartEndPos(const AEVec2& start, const AEVec2& end, bool _idleForever = false);
 		void UnblockPreviousPath();

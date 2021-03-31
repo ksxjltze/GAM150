@@ -15,6 +15,9 @@ namespace StarBangBang
 		void Start();
 
 		void Debug_Reset();
+
+		inline bool GetDetected() const { return detected; }
+
 	private:
 		GameObject* client = nullptr;
 		PrimaryMovementController* rb_controller;
@@ -22,6 +25,6 @@ namespace StarBangBang
 		bool gameover = false;
 		bool playerEscaped = false;
 		bool clientEscaped = false;
-
+		bool detected = false;
 	};
 }

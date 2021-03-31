@@ -25,6 +25,17 @@ void Guard::Start()
 
 void Guard::Update()
 {
+	if (state != Guard::GUARD_STATE::STATE_CHASE)
+	{
+		AEVec2 targetPos;
+		if (vision->GetDetector()->GetDetected(targetPos))
+		{
+			MessageBus::Notify({ EventId::PRINT_TEXT, std::string("DETECTED!") });
+			movement->SetTargetPos(targetPos);
+			ChangeState(Guard::GUARD_STATE::STATE_CHASE);
+		}
+	}
+
 	switch (state)
 	{
 	case Guard::GUARD_STATE::STATE_IDLE:
@@ -36,6 +47,9 @@ void Guard::Update()
 		break;
 	case Guard::GUARD_STATE::STATE_DISTRACTED:
 		movement->Distracted();
+		break;
+	case Guard::GUARD_STATE::STATE_CHASE:
+		movement->Chase();
 		break;
 	default:
 		break;
@@ -54,6 +68,9 @@ void Guard::ChangeState(GUARD_STATE _state)
 		break;
 	case Guard::GUARD_STATE::STATE_DISTRACTED:
 		movement->OnEnterDistracted();
+		break;
+	case Guard::GUARD_STATE::STATE_CHASE:
+		movement->OnEnterChase();
 		break;
 	default:
 		break;
