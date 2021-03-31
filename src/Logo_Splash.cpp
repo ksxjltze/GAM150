@@ -11,7 +11,7 @@ struct FadeObj
 	Sprite sprite = Sprite();
 	float fadeSpeed = 0.2f;
 	float duration = 5.5f;
-
+	AEVec2 aspect = AEVec2{ 1,1 };
 };
 
 using DrawFunc = void (*)(GameStateManager& gsm);
@@ -29,12 +29,12 @@ void DrawFmod(GameStateManager& gsm)
 	AEVec2 screenScale = GRAPHICS::GetScreenScale();
 
 
-	AEVec2 scale{ 1.0f * 5.0f / screenScale.x ,1.0f * 2.0f  / screenScale.y};
+	AEVec2 aspect_scale{ fmod_logo.aspect.x / screenScale.x , fmod_logo.aspect.y / screenScale.y};
 	GRAPHICS::SetBackgroundColor(Black);
 
 	
 	StarBangBang::GRAPHICS::DrawImage(fmod_logo.sprite.mesh, fmod_logo.sprite.texture, White, 
-		AEVec2{ 0,0 }, scale , 0.0f, fmod_logo.alpha);
+		AEVec2{ 0,0 }, aspect_scale, 0.0f, fmod_logo.alpha);
 
 
 	fmod_logo.duration -= StarBangBang::g_dt;
@@ -53,12 +53,12 @@ void DrawDigipen(GameStateManager& gsm)
 	AEVec2 screenScale = GRAPHICS::GetScreenScale();
 
 
-	AEVec2 scale{ 1.0f * 5.0f / screenScale.x ,1.0f * 2.0f / screenScale.y };
+	AEVec2 aspect_scale{ digipen_logo.aspect.x / screenScale.x , digipen_logo.aspect.y / screenScale.y };
 
 	GRAPHICS::SetBackgroundColor(Black);
 
 	StarBangBang::GRAPHICS::DrawImage(digipen_logo.sprite.mesh, digipen_logo.sprite.texture, White, 
-		AEVec2{ 0,0 }, scale , 0.0f, digipen_logo.alpha);
+		AEVec2{ 0,0 }, aspect_scale, 0.0f, digipen_logo.alpha);
 	
 
 	digipen_logo.duration -= StarBangBang::g_dt;
@@ -97,10 +97,13 @@ void StarBangBang::LogoSplash::Init()
 	digipen_logo.alpha = 1.0f;
 	digipen_logo.fadeSpeed = 0.2f;
 	digipen_logo.duration = 5.5f;
+	digipen_logo.aspect = AEVec2{ 5.0f , 1.5f};
+
 
 	fmod_logo.alpha = 1.0f;
 	fmod_logo.duration = 5.5f;
 	fmod_logo.fadeSpeed = 0.2f;
+	fmod_logo.aspect = AEVec2{ 3.8f , 1.0f };
 
 	
 	current = DrawDigipen;
@@ -109,8 +112,8 @@ void StarBangBang::LogoSplash::Init()
 
 void StarBangBang::LogoSplash::Update()
 {
-	if (AEInputCheckTriggered(VK_ESCAPE) || AEInputCheckTriggered(VK_SPACE)
-		|| AEInputCheckTriggered(VK_RBUTTON) || AEInputCheckTriggered(VK_LBUTTON))
+	if ( AEInputCheckTriggered(VK_ESCAPE)  || AEInputCheckTriggered(VK_SPACE) ||
+		 AEInputCheckTriggered(VK_RBUTTON) || AEInputCheckTriggered(VK_LBUTTON) )
 	{
 		skipCurrent = true;
 	}
