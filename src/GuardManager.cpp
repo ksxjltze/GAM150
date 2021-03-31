@@ -43,34 +43,34 @@ void GuardManager::Init(ObjectManager* objManager, Sprite* sprite, GameObject* p
 	}
 
 	// temp, will change to read from file laterz
-	SetGuardWaypoints(id++, { -322, -1163 }, { -322, -596 });
-	SetGuardWaypoints(id++, { -72, -1162}, { -72, -385 });
-	SetGuardWaypoints(id++, { -42, -1203 }, { 1069, -1203 });
-	SetGuardWaypoints(id++, { 900, -1009 }, { 906, -456 });
+	SetGuardStartEnd(id++, { -322, -1163 }, { -322, -596 });
+	SetGuardStartEnd(id++, { -72, -1162}, { -72, -385 });
+	SetGuardStartEnd(id++, { -42, -1203 }, { 1069, -1203 });
+	SetGuardStartEnd(id++, { 900, -1009 }, { 906, -456 });
 	//SetGuardWaypoints(id++, { -740, 100 }, { -740, -80 }); CIRCLE GUARD
-	SetGuardWaypoints(id++, { 945, -93 }, { 198, -93 });
-	SetGuardWaypoints(id++, { -225, -42 }, { -225, 296 });
-	SetGuardWaypoints(id++, { -251, 958 }, { -251, 605 });
-	SetGuardWaypoints(id++, { -13, 889 }, { 754, 895 });
+	SetGuardStartEnd(id++, { 945, -93 }, { 198, -93 });
+	SetGuardStartEnd(id++, { -225, -42 }, { -225, 296 });
+	SetGuardStartEnd(id++, { -251, 958 }, { -251, 605 });
+	SetGuardStartEnd(id++, { -13, 889 }, { 754, 895 });
 	//SetGuardWaypoints(id++, { 795, -530 }, { 795, -530 }, true); // IDLE
-	SetGuardWaypoints(id++, { 330, 282 }, { 893, 282 });
+	SetGuardStartEnd(id++, { 330, 282 }, { 893, 282 });
 	//SetGuardWaypoints(id++, { -195, 790 }, { -815, 540 }); complex guard
-	SetGuardWaypoints(id++, { 1118, 68 }, { 1118, 671 });
+	SetGuardStartEnd(id++, { 1118, 68 }, { 1118, 671 });
 	//SetGuardWaypoints(id++, { 44, -873 }, { 330, -873 });
-	SetGuardWaypoints(id++, { 466, -589 }, { 769, -589 });
-	SetGuardWaypoints(id++, { 751, -835 }, { 491, -853 });
-	SetGuardWaypoints(id++, { 314, -461 }, { 314, -954 });
-	SetGuardWaypoints(id++, { 783, 551 }, { 428, 551 });
+	SetGuardStartEnd(id++, { 466, -589 }, { 769, -589 });
+	SetGuardStartEnd(id++, { 751, -835 }, { 491, -853 });
+	SetGuardStartEnd(id++, { 314, -461 }, { 314, -954 });
+	SetGuardStartEnd(id++, { 783, 551 }, { 428, 551 });
 	//last
-	SetGuardWaypoints(id++, { -667, 1015 }, { -911, 1015 });
-	SetGuardWaypoints(id++, { -849, 806 }, { -849, 949 });
-	SetGuardWaypoints(id++, { -1022, 651 }, { -715, 651 });
-	SetGuardWaypoints(id++, { -821, 544 }, { -821, 358 });
-	SetGuardWaypoints(id++, { -489, 972 }, { -489, 635 });
-	SetGuardWaypoints(id++, { -469, 382 }, { -469, 100 });
-	SetGuardWaypoints(id++, { -617, 175 }, { -617, 459 });
-	SetGuardWaypoints(id++, { -817, 47 }, { -1024, 47 });
-	SetGuardWaypoints(id++, { -893, -238 }, { -746, -238 });
+	SetGuardStartEnd(id++, { -667, 1015 }, { -911, 1015 });
+	SetGuardStartEnd(id++, { -849, 806 }, { -849, 949 });
+	SetGuardStartEnd(id++, { -1022, 651 }, { -715, 651 });
+	SetGuardStartEnd(id++, { -821, 544 }, { -821, 358 });
+	SetGuardStartEnd(id++, { -489, 972 }, { -489, 635 });
+	SetGuardStartEnd(id++, { -469, 382 }, { -469, 100 });
+	SetGuardStartEnd(id++, { -617, 175 }, { -617, 459 });
+	SetGuardStartEnd(id++, { -817, 47 }, { -1024, 47 });
+	SetGuardStartEnd(id++, { -893, -238 }, { -746, -238 });
 
 	//SetGuardWaypoints(id++, { 1070, 1011 }, { -733, -1060 }, false, 20.f); // patrol level kinda
 	//SetGuardWaypoints(id++, { 1055, 145 }, { 1055, -950 }, false, 40.f); // patrol level kinda
