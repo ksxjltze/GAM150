@@ -1,8 +1,7 @@
 #include "Logo_Splash.h"
 #include "GraphicsManager.h"
 #include "globals.h"
-#include <queue>
-#include <list>
+
 using namespace StarBangBang;
 
 struct FadeObj
