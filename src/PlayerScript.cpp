@@ -19,8 +19,8 @@ void StarBangBang::PlayerScript::Start()
 	rb_controller = gameObject->GetComponent<PrimaryMovementController>();
 	client = objMgr->Find("Client");
 
-	//assert(client);
-	//assert(rb_controller);
+	assert(client);
+	assert(rb_controller);
 	range *= range;
 
 }
