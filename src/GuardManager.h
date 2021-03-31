@@ -13,8 +13,8 @@ namespace StarBangBang
 	class GuardManager : public Script, Listener
 	{
 	private:
-		const unsigned int NUM_GUARDS = 16; // to be read from file
-		const unsigned int NUM_CAMERAS = 10;
+		const unsigned int NUM_GUARDS = 23; // to be read from file
+		const unsigned int NUM_CAMERAS = 1;
 
 	public:
 		GuardManager(GameObject* gameObject);
@@ -33,7 +33,7 @@ namespace StarBangBang
 
 		// temp
 		void SetGuardStartEnd(int id, const AEVec2& start, const AEVec2& end, bool isIdle = false, float speed = GUARD::GUARD_SPEED);
-		void SetGuardWaypoints(int id, std::vector<AEVec2>& waypoints, float speed = GUARD::GUARD_SPEED);
+		void SetGuardWaypoints(int id, const std::vector<AEVec2>& waypoints, float speed = GUARD::GUARD_SPEED);
 		void InitSecurityCam(int id, const AEVec2& pos, float min, float max, float speed = GUARD::CAM_ROT_SPEED);
 
 		std::vector<GameObject*> guards; //GameObject* guards[NUM_GUARDS];

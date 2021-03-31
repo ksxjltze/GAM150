@@ -37,7 +37,7 @@ namespace StarBangBang
 
 		inline void SetTargetPos(const AEVec2 pos) { targetPos = pos; }
 
-		void SetWaypoints(std::vector<AEVec2>& _waypoints);
+		void SetWaypoints(const std::vector<AEVec2>& _waypoints);
 
 	private:
 		void MoveAlongPath();
