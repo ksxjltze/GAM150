@@ -23,6 +23,9 @@ namespace StarBangBang
 		void DisplayPauseMenu();
 		void TogglePause();
 		bool paused{ false };
+
+		void SpawnDoors();
+
 		//player stuffs
 		Sprite playerImage;
 
