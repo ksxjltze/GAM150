@@ -29,11 +29,11 @@ namespace StarBangBang
 		std::vector<GameObject*> GetGuards() const { return guards; }
 
 	private:
-		GameObject* GetNearestGuard(const AEVec2& _pos);
+		GameObject* GetNearestGuard(const AEVec2& _pos, unsigned int roomNum);
 
 		// temp
-		void SetGuardStartEnd(int id, const AEVec2& start, const AEVec2& end, bool isIdle = false, float speed = GUARD::GUARD_SPEED);
-		void SetGuardWaypoints(int id, const std::vector<AEVec2>& waypoints, float speed = GUARD::GUARD_SPEED);
+		void SetGuardStartEnd(int id, unsigned int roomNum, const AEVec2& start, const AEVec2& end, bool isIdle = false, float speed = GUARD::GUARD_SPEED);
+		void SetGuardWaypoints(int id, unsigned int roomNum, const std::vector<AEVec2>& waypoints, float speed = GUARD::GUARD_SPEED);
 		void InitSecurityCam(int id, const AEVec2& pos, float min, float max, float speed = GUARD::CAM_ROT_SPEED);
 
 		std::vector<GameObject*> guards; //GameObject* guards[NUM_GUARDS];

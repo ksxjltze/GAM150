@@ -166,7 +166,7 @@ namespace StarBangBang
 		GameObject* distract2 = objectManager.NewGameObject();
 		//temp
 		distract2->transform.position = tilemap.GetPositionAtIndex(8, 12);
-		objectManager.AddComponent<Distractor>(distract2);
+		objectManager.AddComponent<Distractor>(distract2).SetRoomNum(1);
 		objectManager.AddImage(distract2, vendingMachineSprite);
 		objectManager.AddCollider(distract2, true).isTrigger = true;
 

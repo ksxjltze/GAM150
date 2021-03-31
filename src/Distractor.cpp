@@ -7,7 +7,7 @@
 
 const static float DISTRACT_DURATION = 10.0f;
 
-StarBangBang::Distractor::Distractor(GameObject* gameObject) : Script(gameObject), activated{ false }, duration{ DISTRACT_DURATION}, timer{duration}
+StarBangBang::Distractor::Distractor(GameObject* gameObject) : Script(gameObject), activated{ false }, duration{ DISTRACT_DURATION}, timer{duration}, roomNum(0)
 {
 	
 }

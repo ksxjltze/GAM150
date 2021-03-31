@@ -43,34 +43,37 @@ void GuardManager::Init(ObjectManager* objManager, Sprite* sprite, GameObject* p
 	}
 
 	// temp, will change to read from file laterz
-	SetGuardStartEnd(id++, { -322, -1163 }, { -322, -596 });
-	SetGuardStartEnd(id++, { -72, -1162}, { -72, -385 });
-	SetGuardStartEnd(id++, { -42, -1203 }, { 1069, -1203 });
-	SetGuardStartEnd(id++, { 900, -1009 }, { 906, -456 });
+	int roomNum = 1;
+	SetGuardStartEnd(id++, roomNum, { -322, -1163 }, { -322, -596 });
+
+	roomNum = 2; // TEMP
+	SetGuardStartEnd(id++, roomNum, { -72, -1162}, { -72, -385 });
+	SetGuardStartEnd(id++, roomNum, { -42, -1203 }, { 1069, -1203 });
+	SetGuardStartEnd(id++, roomNum, { 900, -1009 }, { 906, -456 });
 	//SetGuardWaypoints(id++, { -740, 100 }, { -740, -80 }); CIRCLE GUARD
-	SetGuardStartEnd(id++, { 945, -93 }, { 198, -93 });
-	SetGuardStartEnd(id++, { -225, -42 }, { -225, 296 });
-	SetGuardStartEnd(id++, { -251, 958 }, { -251, 605 });
-	SetGuardStartEnd(id++, { -13, 889 }, { 754, 895 });
+	SetGuardStartEnd(id++, roomNum, { 945, -93 }, { 198, -93 });
+	SetGuardStartEnd(id++, roomNum, { -225, -42 }, { -225, 296 });
+	SetGuardStartEnd(id++, roomNum, { -251, 958 }, { -251, 605 });
+	SetGuardStartEnd(id++, roomNum, { -13, 889 }, { 754, 895 });
 	//SetGuardWaypoints(id++, { 795, -530 }, { 795, -530 }, true); // IDLE
-	SetGuardStartEnd(id++, { 330, 282 }, { 893, 282 });
+	SetGuardStartEnd(id++, roomNum, { 330, 282 }, { 893, 282 });
 	//SetGuardWaypoints(id++, { -195, 790 }, { -815, 540 }); complex guard
-	SetGuardStartEnd(id++, { 1118, 68 }, { 1118, 671 });
+	SetGuardStartEnd(id++, roomNum, { 1118, 68 }, { 1118, 671 });
 	//SetGuardWaypoints(id++, { 44, -873 }, { 330, -873 });
-	SetGuardStartEnd(id++, { 466, -589 }, { 769, -589 });
-	SetGuardStartEnd(id++, { 751, -835 }, { 491, -853 });
-	SetGuardStartEnd(id++, { 314, -461 }, { 314, -954 });
-	SetGuardStartEnd(id++, { 783, 551 }, { 428, 551 });
+	SetGuardStartEnd(id++, roomNum, { 466, -589 }, { 769, -589 });
+	SetGuardStartEnd(id++, roomNum, { 751, -835 }, { 491, -853 });
+	SetGuardStartEnd(id++, roomNum, { 314, -461 }, { 314, -954 });
+	SetGuardStartEnd(id++, roomNum, { 783, 551 }, { 428, 551 });
 	//last
-	SetGuardStartEnd(id++, { -667, 1015 }, { -911, 1015 });
-	SetGuardStartEnd(id++, { -849, 806 }, { -849, 949 });
-	SetGuardStartEnd(id++, { -1022, 651 }, { -715, 651 });
-	SetGuardStartEnd(id++, { -821, 544 }, { -821, 358 });
-	SetGuardStartEnd(id++, { -489, 972 }, { -489, 635 });
-	SetGuardStartEnd(id++, { -469, 382 }, { -469, 100 });
-	SetGuardStartEnd(id++, { -617, 175 }, { -617, 459 });
-	SetGuardStartEnd(id++, { -817, 47 }, { -1024, 47 });
-	SetGuardStartEnd(id++, { -893, -238 }, { -746, -238 });
+	SetGuardStartEnd(id++, roomNum, { -667, 1015 }, { -911, 1015 });
+	SetGuardStartEnd(id++, roomNum, { -849, 806 }, { -849, 949 });
+	SetGuardStartEnd(id++, roomNum, { -1022, 651 }, { -715, 651 });
+	SetGuardStartEnd(id++, roomNum, { -821, 544 }, { -821, 358 });
+	SetGuardStartEnd(id++, roomNum, { -489, 972 }, { -489, 635 });
+	SetGuardStartEnd(id++, roomNum, { -469, 382 }, { -469, 100 });
+	SetGuardStartEnd(id++, roomNum, { -617, 175 }, { -617, 459 });
+	SetGuardStartEnd(id++, roomNum, { -817, 47 }, { -1024, 47 });
+	SetGuardStartEnd(id++, roomNum, { -893, -238 }, { -746, -238 });
 
 	//SetGuardWaypoints(id++, { 1070, 1011 }, { -733, -1060 }, false, 20.f); // patrol level kinda
 	//SetGuardWaypoints(id++, { 1055, 145 }, { 1055, -950 }, false, 40.f); // patrol level kinda
@@ -124,21 +127,22 @@ void GuardManager::onNotify(Event e)
 	{
 		DistractionEvent distraction = std::any_cast<DistractionEvent>(e.context);
 		AEVec2 distractPos = distraction.gameObject->GetPos();
-		GameObject* guard = GetNearestGuard(distractPos);
+		GameObject* guard = GetNearestGuard(distractPos, distraction.roomNum);
 
 		if (!guard)
 		{
-			//std::cout << "No guard nearby\n";
+			std::cout << "No guard nearby/found\n";
 			return;
 		}
 
+		std::cout << "Distraction Room Num: " << distraction.roomNum << std::endl;
 		std::cout << "GUARD DISTRACTED! GUARD ID: " << guard->GetComponent<Guard>()->GetID() << std::endl;
 		guard->GetComponent<GuardMovement>()->SetTargetPos(distractPos);
 		guard->GetComponent<Guard>()->ChangeState(Guard::GUARD_STATE::STATE_DISTRACTED);
 	}
 }
 
-GameObject* GuardManager::GetNearestGuard(const AEVec2& _pos)
+GameObject* GuardManager::GetNearestGuard(const AEVec2& _pos, unsigned int roomNum)
 {
 	AEVec2 distractionPos = _pos;
 	float minDist = 999999.f;
@@ -147,7 +151,11 @@ GameObject* GuardManager::GetNearestGuard(const AEVec2& _pos)
 	for (size_t i = 0; i < NUM_GUARDS; i++)
 	{
 		// only look for guards not currently distracted
-		if (guards[i]->GetComponent<Guard>()->GetState() == Guard::GUARD_STATE::STATE_DISTRACTED)
+		Guard* guard = guards[i]->GetComponent<Guard>();
+		if (guard->GetState() == Guard::GUARD_STATE::STATE_DISTRACTED)
+			continue;
+
+		if (guard->GetRoomNum() != roomNum)
 			continue;
 
 		float dist = AEVec2SquareDistance(&distractionPos, &guards[i]->transform.position);
@@ -162,8 +170,9 @@ GameObject* GuardManager::GetNearestGuard(const AEVec2& _pos)
 	return nearestGuard;
 }
 
-void GuardManager::SetGuardStartEnd(int id, const AEVec2& start, const AEVec2& end, bool isIdle, float speed)
+void GuardManager::SetGuardStartEnd(int id, unsigned int roomNum, const AEVec2& start, const AEVec2& end, bool isIdle, float speed)
 {
+	guards[id]->GetComponent<Guard>()->SetRoomNum(roomNum);
 	guards[id]->GetComponent<GuardMovement>()->SetSpeed(speed);
 	guards[id]->GetComponent<GuardMovement>()->SetStartEndPos(start, end, isIdle);
 
@@ -173,8 +182,9 @@ void GuardManager::SetGuardStartEnd(int id, const AEVec2& start, const AEVec2& e
 	}
 }
 
-void GuardManager::SetGuardWaypoints(int id, const std::vector<AEVec2>& waypoints, float speed)
+void GuardManager::SetGuardWaypoints(int id, unsigned int roomNum, const std::vector<AEVec2>& waypoints, float speed)
 {
+	guards[id]->GetComponent<Guard>()->SetRoomNum(roomNum);
 	guards[id]->GetComponent<GuardMovement>()->SetSpeed(speed);
 	guards[id]->GetComponent<GuardMovement>()->SetWaypoints(waypoints);
 	guards[id]->SetPos(waypoints.front());
