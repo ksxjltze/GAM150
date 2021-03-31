@@ -47,9 +47,15 @@ namespace StarBangBang
 	struct Pause
 	{
 		GameObject* exitBtn{ nullptr };
+		GameObject* continueBtn{ nullptr };
 		void Update() 
 		{
 			for (auto& component : exitBtn->GetComponents())
+			{
+				component->Update();
+			}
+
+			for (auto& component : continueBtn->GetComponents())
 			{
 				component->Update();
 			}
@@ -116,6 +122,7 @@ namespace StarBangBang
 	//Initialization of game objects, components and scripts.
 	void StarBangBang::Level_Demo::Init()
 	{
+		paused = false;
 		PathFinder::PathFinderInit();
 		PathFinder::ShowGrid(false);
 
@@ -127,6 +134,7 @@ namespace StarBangBang
 		tilemap.Load(RESOURCES::LEVELS::LEVEL_TEST_PATH);
 
 		tilemap.SetGrid(PathFinder::GetWorldGrid());
+		CollisionManager::SetDebugVisible(false);
 		//tilemap.SetVisible(false);
 
 		//Movement controller
@@ -179,53 +187,9 @@ namespace StarBangBang
 		objectManager.AddImage(exit, boiSprite);
 		objectManager.AddCollider(exit, true).isTrigger = true;
 
-		//////////////////////////////////////////////////////////////////////////////////////////////////////////
-		// Door
-		//////////////////////////////////////////////////////////////////////////////////////////////////////////
-		//First room door
+		SpawnDoors();
 
-
-		Door* door = CaptainStealth::SpawnDoor(objectManager, doorSprite, tilemap.GetPositionAtIndex(20, 9));
-		Door* door2 = CaptainStealth::SpawnDoor(objectManager, doorSprite, tilemap.GetPositionAtIndex(20, 8));
-		Door* door3 = CaptainStealth::SpawnDoor(objectManager, doorSprite, tilemap.GetPositionAtIndex(20, 7));
-
-		CaptainStealth::SpawnKey(objectManager, door, keySprite, tilemap.GetPositionAtIndex(14, 12));
-		CaptainStealth::SpawnKey(objectManager, door, keySprite, tilemap.GetPositionAtIndex(3, 2));
-		door->Link({ door2, door3 });
-
-		//Second room door
-		door = CaptainStealth::SpawnDoor(objectManager, doorSprite, tilemap.GetPositionAtIndex(35,  20));
-		door2 = CaptainStealth::SpawnDoor(objectManager, doorSprite, tilemap.GetPositionAtIndex(36, 20));
-		door3 = CaptainStealth::SpawnDoor(objectManager, doorSprite, tilemap.GetPositionAtIndex(37, 20));
-
-		CaptainStealth::SpawnKey(objectManager, door, keySprite, tilemap.GetPositionAtIndex(45, 6));
-		CaptainStealth::SpawnKey(objectManager, door, keySprite, tilemap.GetPositionAtIndex(48, 18));
-		door->Link({ door2, door3 });
-
-		//Third room door
-		door = CaptainStealth::SpawnDoor(objectManager, doorSprite, tilemap.GetPositionAtIndex(19, 36));
-		door2 = CaptainStealth::SpawnDoor(objectManager, doorSprite, tilemap.GetPositionAtIndex(19, 35));
-		door3 = CaptainStealth::SpawnDoor(objectManager, doorSprite, tilemap.GetPositionAtIndex(19, 34));
-
-		CaptainStealth::SpawnKey(objectManager, door, keySprite, tilemap.GetPositionAtIndex(46, 44));
-		CaptainStealth::SpawnKey(objectManager, door, keySprite, tilemap.GetPositionAtIndex(21, 44));
-		door->Link({ door2, door3 });
-
-		//Fourth room door
-		door = CaptainStealth::SpawnDoor(objectManager, doorSprite, tilemap.GetPositionAtIndex(3, 35));
-		door2 = CaptainStealth::SpawnDoor(objectManager, doorSprite, tilemap.GetPositionAtIndex(3, 34));
-		door3 = CaptainStealth::SpawnDoor(objectManager, doorSprite, tilemap.GetPositionAtIndex(3, 33));
-
-		CaptainStealth::SpawnKey(objectManager, door, keySprite, tilemap.GetPositionAtIndex(15, 19));
-		CaptainStealth::SpawnKey(objectManager, door, keySprite, tilemap.GetPositionAtIndex(16, 47));
-		door->Link({ door2, door3 });
-		//////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-		///Pause
-		pauseMenu.exitBtn = objectManager.NewGameObject();
-		objectManager.AddComponent<Click<Level_Demo>>(pauseMenu.exitBtn).setCallback(*this, &Level_Demo::Exit);
-		objectManager.AddImage(pauseMenu.exitBtn, exitBtnSprite);
-		pauseMenu.exitBtn->active = false;
+		InitPause();
 
 		GameObject* distract2 = objectManager.NewGameObject();
 		//temp
@@ -254,15 +218,20 @@ namespace StarBangBang
 
 		if (paused)
 		{
-			pauseMenu.exitBtn->active = true;
-			pauseMenu.exitBtn->transform.position = player->transform.position;
+			if (AEInputCheckTriggered(AEVK_RETURN))
+			{
+				TogglePause();
+				return;
+			}
+
+			AEVec2 pos = player->GetComponent<CameraComponent>()->GetTarget()->transform.position;
+			pauseMenu.continueBtn->transform.position = { pos.x, pos.y + 50 };
+			pauseMenu.exitBtn->transform.position = { pos.x, pos.y - 50 };
 
 			pauseMenu.Update();
 
 			return;
 		}
-		else
-			pauseMenu.exitBtn->active = false;
 
 		Scene::Update();
 
@@ -491,12 +460,76 @@ namespace StarBangBang
 
 	void Level_Demo::DisplayPauseMenu()
 	{
+		GRAPHICS::DrawOverlay(graphicsManager.GetMesh(), { 20, 20 }, { 0, 0 }, { 0, 0, 0, 0.7f }, AEGfxBlendMode::AE_GFX_BM_BLEND);
 		pauseMenu.exitBtn->GetComponent<ImageComponent>()->Draw();
+		pauseMenu.continueBtn->GetComponent<ImageComponent>()->Draw();
 	}
 
 	void Level_Demo::TogglePause()
 	{
 		paused = !paused;
+
+		pauseMenu.continueBtn->active = paused;
+		pauseMenu.exitBtn->active = paused;
+	}
+
+	void Level_Demo::SpawnDoors()
+	{
+		//////////////////////////////////////////////////////////////////////////////////////////////////////////
+		// Door
+		//////////////////////////////////////////////////////////////////////////////////////////////////////////
+		//First room door
+
+
+		Door* door = CaptainStealth::SpawnDoor(objectManager, doorSprite, tilemap.GetPositionAtIndex(20, 9));
+		Door* door2 = CaptainStealth::SpawnDoor(objectManager, doorSprite, tilemap.GetPositionAtIndex(20, 8));
+		Door* door3 = CaptainStealth::SpawnDoor(objectManager, doorSprite, tilemap.GetPositionAtIndex(20, 7));
+
+		CaptainStealth::SpawnKey(objectManager, door, keySprite, tilemap.GetPositionAtIndex(14, 12));
+		CaptainStealth::SpawnKey(objectManager, door, keySprite, tilemap.GetPositionAtIndex(3, 2));
+		door->Link({ door2, door3 });
+
+		//Second room door
+		door = CaptainStealth::SpawnDoor(objectManager, doorSprite, tilemap.GetPositionAtIndex(35, 20));
+		door2 = CaptainStealth::SpawnDoor(objectManager, doorSprite, tilemap.GetPositionAtIndex(36, 20));
+		door3 = CaptainStealth::SpawnDoor(objectManager, doorSprite, tilemap.GetPositionAtIndex(37, 20));
+
+		CaptainStealth::SpawnKey(objectManager, door, keySprite, tilemap.GetPositionAtIndex(45, 6));
+		CaptainStealth::SpawnKey(objectManager, door, keySprite, tilemap.GetPositionAtIndex(48, 18));
+		door->Link({ door2, door3 });
+
+		//Third room door
+		door = CaptainStealth::SpawnDoor(objectManager, doorSprite, tilemap.GetPositionAtIndex(19, 36));
+		door2 = CaptainStealth::SpawnDoor(objectManager, doorSprite, tilemap.GetPositionAtIndex(19, 35));
+		door3 = CaptainStealth::SpawnDoor(objectManager, doorSprite, tilemap.GetPositionAtIndex(19, 34));
+
+		CaptainStealth::SpawnKey(objectManager, door, keySprite, tilemap.GetPositionAtIndex(46, 44));
+		CaptainStealth::SpawnKey(objectManager, door, keySprite, tilemap.GetPositionAtIndex(21, 44));
+		door->Link({ door2, door3 });
+
+		//Fourth room door
+		door = CaptainStealth::SpawnDoor(objectManager, doorSprite, tilemap.GetPositionAtIndex(3, 35));
+		door2 = CaptainStealth::SpawnDoor(objectManager, doorSprite, tilemap.GetPositionAtIndex(3, 34));
+		door3 = CaptainStealth::SpawnDoor(objectManager, doorSprite, tilemap.GetPositionAtIndex(3, 33));
+
+		CaptainStealth::SpawnKey(objectManager, door, keySprite, tilemap.GetPositionAtIndex(15, 19));
+		CaptainStealth::SpawnKey(objectManager, door, keySprite, tilemap.GetPositionAtIndex(16, 47));
+		door->Link({ door2, door3 });
+		//////////////////////////////////////////////////////////////////////////////////////////////////////////
+	}
+
+	void Level_Demo::InitPause()
+	{
+		///Pause
+		pauseMenu.exitBtn = objectManager.NewGameObject();
+		objectManager.AddComponent<Click<Level_Demo>>(pauseMenu.exitBtn).setCallback(*this, &Level_Demo::Exit);
+		objectManager.AddImage(pauseMenu.exitBtn, exitBtnSprite);
+		pauseMenu.exitBtn->active = false;
+
+		pauseMenu.continueBtn = objectManager.NewGameObject();
+		objectManager.AddComponent<Click<Level_Demo>>(pauseMenu.continueBtn).setCallback(*this, &Level_Demo::TogglePause);
+		objectManager.AddImage(pauseMenu.continueBtn, boiSprite);
+		pauseMenu.continueBtn->active = false;
 	}
 
 }
