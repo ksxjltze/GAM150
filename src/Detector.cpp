@@ -140,17 +140,17 @@ void Detector::CheckForTargets(const AEVec2& _targetPos, bool checkForPlayer)
 			}
 			else
 			{
-				//SetDetected(checkForPlayer, false);
+				SetDetected(checkForPlayer, false);
 			}
 		}
 		else
 		{
-			//SetDetected(checkForPlayer, false);
+			SetDetected(checkForPlayer, false);
 		}
 	}
 	else
 	{
-		//SetDetected(checkForPlayer, false);
+		SetDetected(checkForPlayer, false);
 	}
 }
 
