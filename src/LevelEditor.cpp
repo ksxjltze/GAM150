@@ -145,6 +145,13 @@ namespace StarBangBang
 			tileOutline->transform.position = n->nodePos;
 			tileImg->SetSprite(tileMap.tileSet.GetTileSprite(selectedType).sprite);
 
+			//Debug index pos
+			if (AEInputCheckCurr(AEVK_G))
+			{
+				printf("%d, %d\n", n->index_x, n->index_y);
+
+			}
+
 			if (AEInputCheckCurr(AEVK_LBUTTON))
 			{
 				//Brush

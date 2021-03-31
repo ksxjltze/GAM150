@@ -64,11 +64,16 @@ using namespace StarBangBang;
 	//Change to destructor some time
 	void Grid::FreeGrid()
 	{
+		if (!grid)
+			return;
+
 		for (int i = 0; i < size_y; i++)
 		{
 			delete[] grid[i];
 		}
 		delete[] grid;
+		
+		grid = nullptr;
 	}
 	
 	Grid::Grid(float _nodeSize, int sizeX, int sizeY, AEVec2 _offset)

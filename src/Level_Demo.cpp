@@ -38,7 +38,7 @@ namespace StarBangBang
 {
 	Sprite computerSprite;
 	Sprite doorSprite;
-	Sprite boi;
+	Sprite keySprite;
 
 	StarBangBang::BoxCollider* playerCol;
 	StarBangBang::BoxCollider* clientCol;
@@ -84,10 +84,10 @@ namespace StarBangBang
 
 		guardImage = graphicsManager.CreateSprite(RESOURCES::SECURITYGUARD_F1_PATH);
 		securityCamImage = graphicsManager.CreateSprite(RESOURCES::CAMERA_PATH);
-		exitImage = graphicsManager.CreateSprite(RESOURCES::VENDING_LEFT_PATH);
+		vendingMachineSprite = graphicsManager.CreateSprite(RESOURCES::VENDING_LEFT_PATH);
 		computerSprite = graphicsManager.CreateSprite(RESOURCES::COMPUTER_PATH);
 		doorSprite = graphicsManager.CreateSprite(RESOURCES::DOOR_PATH);
-		boi = graphicsManager.CreateSprite(RESOURCES::PROTOTYPE_SPRITE_2_PATH);
+		keySprite = graphicsManager.CreateSprite(RESOURCES::KEY_PATH);
 
 		//indicator sprite
 		indicator = graphicsManager.CreateSprite(RESOURCES::INDICATOR_PATH);
@@ -98,7 +98,7 @@ namespace StarBangBang
 	{
 
 		PathFinder::PathFinderInit();
-		PathFinder::ShowGrid(true);
+		PathFinder::ShowGrid(false);
 
 		god = false;
 		GRAPHICS::SetBackgroundColor(Black);
@@ -130,13 +130,13 @@ namespace StarBangBang
 		indicatorObj->transform.scale = {0.65f, 0.65f};
 		
 		//Compooter
-		srand(static_cast<unsigned int>(time(NULL)));
-		for (int i = 0; i < CONSTANTS::COMPUTER_COUNT; ++i)
-		{
-			Grid& grid = PathFinder::GetWorldGrid();
-			A_Node n = grid.GetRandomFreeNode();
-			CaptainStealth::SpawnComputer(objectManager, computerSprite, n.nodePos);
-		}
+		//srand(static_cast<unsigned int>(time(NULL)));
+		//for (int i = 0; i < CONSTANTS::COMPUTER_COUNT; ++i)
+		//{
+		//	Grid& grid = PathFinder::GetWorldGrid();
+		//	A_Node n = grid.GetRandomFreeNode();
+		//	CaptainStealth::SpawnComputer(objectManager, computerSprite, n.nodePos);
+		//}
 
 		//Movement Manager
 		moveMgr.AddController(player);
@@ -152,29 +152,27 @@ namespace StarBangBang
 		playerCol = player->GetComponent<BoxCollider>();
 		clientCol = player2->GetComponent<BoxCollider>();
 
-		//Level Exit
-		GameObject* exit = objectManager.NewGameObject();
-		//temp
-		exit->transform.position = tilemap.GetPositionAtIndex(40, 45);
-		exit->name = "EXIT";
-		objectManager.AddImage(exit, exitImage);
-		objectManager.AddCollider(exit, true).isTrigger = true;
+		////Level Exit
+		//GameObject* exit = objectManager.NewGameObject();
+		////temp
+		//exit->transform.position = tilemap.GetPositionAtIndex(10, 14);
+		//exit->name = "EXIT";
+		//objectManager.AddImage(exit, vendingMachineSprite);
+		//objectManager.AddCollider(exit, true).isTrigger = true;
 
-		CaptainStealth::SpawnDoor(objectManager, doorSprite, exit->transform.position);
+		Door* door = CaptainStealth::SpawnDoor(objectManager, doorSprite, tilemap.GetPositionAtIndex(35,  20));
+		Door* door2 = CaptainStealth::SpawnDoor(objectManager, doorSprite, tilemap.GetPositionAtIndex(36, 20));
+		Door* door3 = CaptainStealth::SpawnDoor(objectManager, doorSprite, tilemap.GetPositionAtIndex(37, 20));
 
-		//Distraction
-		GameObject* distract = objectManager.NewGameObject();
-		//temp
-		distract->transform.position = tilemap.GetPositionAtIndex(8, 8);
-		objectManager.AddComponent<Distractor>(distract);
-		objectManager.AddImage(distract, boi);
-		objectManager.AddCollider(distract, true).isTrigger = true;
+		CaptainStealth::SpawnKey(objectManager, door, keySprite, tilemap.GetPositionAtIndex(8, 14));
+		door->Link({ door2, door3 });
+
 
 		GameObject* distract2 = objectManager.NewGameObject();
 		//temp
 		distract2->transform.position = tilemap.GetPositionAtIndex(8, 12);
 		objectManager.AddComponent<Distractor>(distract2);
-		objectManager.AddImage(distract2, boi);
+		objectManager.AddImage(distract2, vendingMachineSprite);
 		objectManager.AddCollider(distract2, true).isTrigger = true;
 
 		//Notification Text

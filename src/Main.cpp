@@ -21,6 +21,9 @@
 #include "Scene_GameOver.h"
 #include "Credits.h"
 
+//Test scenes
+#include "DoorTest.h"
+
 namespace StarBangBang
 {
 	float g_dt = 0;
@@ -103,6 +106,8 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 	Scene* gameScene		= gameStateManager.AddGameState<CaptainStealth>(SceneID::GAME);
 	Scene* ggScene			= gameStateManager.AddGameState<Scene_GameOver>(GAME_OVER);
 	Scene* credits			= gameStateManager.AddGameState<Credits>(CREDITS);
+
+	Scene* door			= gameStateManager.AddGameState<DoorTest>();
 	
 	// Hack to remove unreferenced local variable warning
 	sceneList.push_back(sceneDemo);
@@ -112,6 +117,8 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 	sceneList.push_back(mainMenuScene);
 	sceneList.push_back(ggScene);
 	sceneList.push_back(credits);
+
+	sceneList.push_back(door);
 
 	// Set Initial State
 	gameStateManager.SetInitialState(mainMenuScene);
