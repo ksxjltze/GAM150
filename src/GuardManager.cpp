@@ -70,7 +70,7 @@ void GuardManager::Init(ObjectManager* objManager, Sprite* sprite, GameObject* p
 	SetGuardStartEnd(id++, { -469, 382 }, { -469, 100 });
 	SetGuardStartEnd(id++, { -617, 175 }, { -617, 459 });
 	SetGuardStartEnd(id++, { -817, 47 }, { -1024, 47 });
-	SetGuardStartEnd(id++, { -893, -238 }, { -746, -238 });
+	SetGuardStartEnd(id++, { -757, -250 }, { -1003, -250 });
 
 	//SetGuardWaypoints(id++, { 1070, 1011 }, { -733, -1060 }, false, 20.f); // patrol level kinda
 	//SetGuardWaypoints(id++, { 1055, 145 }, { 1055, -950 }, false, 40.f); // patrol level kinda

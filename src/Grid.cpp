@@ -258,7 +258,7 @@ using namespace StarBangBang;
 				if (grid[y][x].occupied)
 				{
 					//Disable for now
-					StarBangBang::DrawBox(AEVec2{ nodeSize,nodeSize }, grid[y][x].nodePos, Red);
+					/*StarBangBang::DrawBox(AEVec2{ nodeSize,nodeSize }, grid[y][x].nodePos, Red);*/
 				}
 				else
 					StarBangBang::DrawBoxWired(AEVec2{ nodeSize,nodeSize }, grid[y][x].nodePos, color);
