@@ -17,8 +17,6 @@ namespace StarBangBang
 		void Init();
 		void Draw();
 		void Update();
-	
-
 
 
 	};
