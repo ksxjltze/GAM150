@@ -5,7 +5,7 @@
 #include "constants.h"
 #include "globals.h"
 
-const static float DISTRACT_DURATION = 10.0f;
+const static float DISTRACT_DURATION = 30.0f;
 
 StarBangBang::Distractor::Distractor(GameObject* gameObject) : Script(gameObject), activated{ false }, duration{ DISTRACT_DURATION}, timer{duration}, roomNum(0)
 {

@@ -143,6 +143,7 @@ void GuardManager::onNotify(Event e)
 		std::cout << "Distraction Room Num: " << distraction.roomNum << std::endl;
 		std::cout << "GUARD DISTRACTED! GUARD ID: " << guard->GetComponent<Guard>()->GetID() << std::endl;
 		guard->GetComponent<GuardMovement>()->SetTargetPos(distractPos);
+		guard->GetComponent<GuardMovement>()->SetDistractionDuration(distraction.duration);
 		guard->GetComponent<Guard>()->ChangeState(Guard::GUARD_STATE::STATE_DISTRACTED);
 	}
 }
@@ -155,11 +156,13 @@ GameObject* GuardManager::GetNearestGuard(const AEVec2& _pos, unsigned int roomN
 
 	for (size_t i = 0; i < NUM_GUARDS; i++)
 	{
-		// only look for guards not currently distracted
 		Guard* guard = guards[i]->GetComponent<Guard>();
+
+		// only look for guards not currently distracted
 		if (guard->GetState() == Guard::GUARD_STATE::STATE_DISTRACTED)
 			continue;
 
+		// only look for guards in same room as distraction object
 		if (guard->GetRoomNum() != roomNum)
 			continue;
 

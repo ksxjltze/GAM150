@@ -140,17 +140,17 @@ void Detector::CheckForTargets(const AEVec2& _targetPos, bool checkForPlayer)
 			}
 			else
 			{
-				SetDetected(checkForPlayer, false);
+				//SetDetected(checkForPlayer, false);
 			}
 		}
 		else
 		{
-			SetDetected(checkForPlayer, false);
+			//SetDetected(checkForPlayer, false);
 		}
 	}
 	else
 	{
-		SetDetected(checkForPlayer, false);
+		//SetDetected(checkForPlayer, false);
 	}
 }
 
@@ -160,4 +160,18 @@ void Detector::SetDetected(bool checkForPlayer, bool detected)
 		detectedTarget1 = detected;
 	else
 		detectedTarget2 = detected;
+}
+
+bool Detector::GetDetected(AEVec2& targetPos) const
+{
+	if (detectedTarget1)
+	{
+		targetPos = target1->GetPos();
+	}
+	else if (detectedTarget2)
+	{
+		targetPos = target2->GetPos();
+	}
+
+	return (detectedTarget1 || detectedTarget2);
 }

@@ -17,6 +17,8 @@ namespace StarBangBang
 		void Start();
 		void Update();
 	private:
+		bool flip{ false };
+		float scale;
 		bool collected;
 		Door* door;
 	};

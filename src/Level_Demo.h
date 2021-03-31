@@ -19,6 +19,10 @@ namespace StarBangBang
 		void Free();
 		void Unload();
 	private:
+		void Exit();
+		void DisplayPauseMenu();
+		void TogglePause();
+		bool paused{ false };
 		//player stuffs
 		Sprite playerImage;
 

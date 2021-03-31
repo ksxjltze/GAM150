@@ -1,12 +1,13 @@
 #include "Key.h"
 #include "CollisionEvent.h"
 #include "Door.h"
+#include "globals.h"
 
 namespace StarBangBang
 {
 	Key::Key(GameObject* obj, Door* door) : Script(obj), door{ door }, collected{ false }
 	{
-
+		scale = gameObject->transform.scale.x;
 	}
 
 	bool Key::isCollected()
@@ -44,6 +45,14 @@ namespace StarBangBang
 
 	void Key::Update()
 	{
-	
+		if (!flip)
+			gameObject->transform.scale.x -= g_dt;
+		else
+			gameObject->transform.scale.x += g_dt;
+
+		if (gameObject->transform.scale.x < -scale)
+			flip = true;
+		else if (gameObject->transform.scale.x > scale)
+			flip = false;
 	}
 }

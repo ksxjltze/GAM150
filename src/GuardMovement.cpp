@@ -10,7 +10,7 @@ using namespace StarBangBang;
 GuardMovement::GuardMovement(GameObject* gameObject)
 	: Script(gameObject)
 	, speed(GUARD::GUARD_SPEED)
-	, idleTimer(0.f)
+	, distractedDuration(0.f)
 	, nodeIndex(0)
 	, waypointIndex(0)
 	, pathSize(0)
@@ -59,12 +59,15 @@ void GuardMovement::Idle()
 		return;
 
 	// Return to patrol state
-	idleTimer += g_dt;
-	if (idleTimer > 5.f)
+	if (guard->GetPrevState() == Guard::GUARD_STATE::STATE_DISTRACTED)
 	{
-		guard->ChangeState(Guard::GUARD_STATE::STATE_PATROL);
-		foundPath = false;
-		idleTimer = 0.f;
+		distractedDuration -= g_dt;
+		if (distractedDuration <= 0.f)
+		{
+			guard->ChangeState(Guard::GUARD_STATE::STATE_PATROL);
+			foundPath = false;
+			distractedDuration = 0.f;
+		}
 	}
 }
 
@@ -135,6 +138,7 @@ void GuardMovement::Patrol()
 
 void GuardMovement::OnEnterDistracted()
 {
+	speed = GUARD::GUARD_SPEED + 15.f;
 	UnblockPreviousPath();
 	LookForPath(targetPos);
 
@@ -152,6 +156,32 @@ void GuardMovement::Distracted()
 	if (reachedEndOfPath)
 	{
 		guard->ChangeState(Guard::GUARD_STATE::STATE_IDLE);
+	}
+}
+
+void GuardMovement::OnExitDistracted()
+{
+	speed = GUARD::GUARD_SPEED;
+}
+
+void GuardMovement::OnEnterChase()
+{
+	speed = GUARD::GUARD_SPEED + 20.f;
+	UnblockPreviousPath();
+	LookForPath(targetPos);
+}
+
+void GuardMovement::Chase()
+{
+	if (!foundPath)
+		return;
+
+	MoveAlongPath();
+
+	if (reachedEndOfPath)
+	{
+		// send game over event
+		MessageBus::Notify({ EventId::GAME_OVER, gameObject });
 	}
 }
 

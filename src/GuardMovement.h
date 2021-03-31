@@ -22,6 +22,10 @@ namespace StarBangBang
 
 		void OnEnterDistracted();
 		void Distracted();
+		void OnExitDistracted();
+
+		void OnEnterChase();
+		void Chase();
 
 		void LookForPath(const AEVec2& pos);
 		void SetStartEndPos(const AEVec2& start, const AEVec2& end, bool _idleForever = false);
@@ -36,6 +40,7 @@ namespace StarBangBang
 		inline bool IsTurning() const { return turning; }
 
 		inline void SetTargetPos(const AEVec2 pos) { targetPos = pos; }
+		inline void SetDistractionDuration(float duration) { distractedDuration = duration; }
 
 		void SetWaypoints(const std::vector<AEVec2>& _waypoints);
 
@@ -56,7 +61,7 @@ namespace StarBangBang
 		bool movingToLastWaypoint;
 
 		float speed;
-		float idleTimer;
+		float distractedDuration;
 
 		unsigned int nodeIndex;
 		unsigned int waypointIndex;
