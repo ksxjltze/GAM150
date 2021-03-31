@@ -16,16 +16,16 @@ namespace StarBangBang
 		LoadTileSprite(gfxMgr,	TileType::STONE,			RESOURCES::PROTOTYPE_SPRITE_STONE_PATH);
 		LoadTileSprite(gfxMgr,	TileType::BRICK_BLACK,		RESOURCES::BLACKBRICK_PATH);
 		LoadTileSprite(gfxMgr,	TileType::FLOOR_PRISON,		RESOURCES::PRISONFLOOR_PATH);
-		LoadTileSprite(gfxMgr,	TileType::FLOOR_OFFICE,		RESOURCES::OFFICEFLOOR_PATH);
-		LoadTileSprite(gfxMgr,	TileType::FLOOR_PRISON2,		RESOURCES::PRISONFLOOR_PATH);
+		LoadTileSprite(gfxMgr,	TileType::BRICK_RED,		RESOURCES::REDBRICK_PATH);
+		LoadTileSprite(gfxMgr,	TileType::FLOOR_PRISON2,	RESOURCES::PRISONFLOOR_PATH);
 		LoadTileSprite(gfxMgr,	TileType::TEST,				RESOURCES::SPRITE_PLAYER_PATH);
 
-		RegisterTileType(TileType::GRASS,		 "GRASS");
-		RegisterTileType(TileType::STONE,		 "STONE");
-		RegisterTileType(TileType::FLOOR_PRISON,	 "FLOOR_PRISON");
-		RegisterTileType(TileType::BRICK_BLACK,  "BRICK_BLACK");
-		RegisterTileType(TileType::FLOOR_PRISON2, "FLOOR_PRISON2");
-		RegisterTileType(TileType::FLOOR_OFFICE, "FLOOR_OFFICE");
+		RegisterTileType(TileType::GRASS,			"GRASS");
+		RegisterTileType(TileType::STONE,			"STONE");
+		RegisterTileType(TileType::FLOOR_PRISON,	"FLOOR_PRISON");
+		RegisterTileType(TileType::BRICK_BLACK,		"BRICK_BLACK");
+		RegisterTileType(TileType::FLOOR_PRISON2,	"FLOOR_PRISON2");
+		RegisterTileType(TileType::BRICK_RED,		"BRICK_RED");
 		
 	}
 
