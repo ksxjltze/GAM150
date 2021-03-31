@@ -1,5 +1,4 @@
 #include "PrimaryMovementController.h"
-#include "PlayerScript.h"
 
 AEVec2 movement = AEVec2{0,0};
 StarBangBang::PrimaryMovementController::PrimaryMovementController(GameObject* gameObject) : Script(gameObject), rb{nullptr}
@@ -15,14 +14,6 @@ void StarBangBang::PrimaryMovementController::Start()
 
 void StarBangBang::PrimaryMovementController::Update()
 {
-	// Don't allow player to move when detected
-	PlayerScript* playerScript = gameObject->GetComponent<PlayerScript>();
-	if (playerScript)
-	{
-		if (playerScript->GetDetected())
-			return;
-	}
-
 	float speed = 50.0f;
 	float h = 0.0f, v = 0.0f;
 
