@@ -110,6 +110,32 @@ void GuardVision::Update()
 	}
 }
 
+void GuardVision::Idle()
+{
+	if (gameObject->GetComponent<Guard>()->GetPrevState() == Guard::GUARD_STATE::STATE_DISTRACTED)
+	{
+		AEVec2 defaultForward = { 0, 1 };
+		AEVec2 targetDir, targetPos, goPos;
+		AEVec2 defaultLeft = { -1, 0 };
+		targetPos = movement->GetTargetPos(); // movement->GetNextPos();
+		goPos = gameObject->GetPos();
+
+		AEVec2Sub(&targetDir, &targetPos, &goPos);
+		AEVec2Normalize(&targetDir, &targetDir);
+
+		float dpResult = AEVec2DotProduct(&defaultForward, &targetDir);
+		float targetRot = AERadToDeg(AEACos(dpResult));
+
+		float dp = AEVec2DotProduct(&defaultLeft, &targetDir);
+		if (dp < 0.f)
+			targetRot = -targetRot;
+
+		//detector->SetFacingDir(targetDir);
+		//detector->Rotate(targetRot);
+		detector->SpanVision(targetRot - 90.f, targetRot + 90.f, 50.f);
+	}
+}
+
 void GuardVision::FaceTowardsRotation()
 {
 	AEVec2 facingDir;

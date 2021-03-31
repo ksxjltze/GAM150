@@ -124,7 +124,7 @@ namespace StarBangBang
 	{
 		paused = false;
 		PathFinder::PathFinderInit();
-		PathFinder::ShowGrid(false);
+		PathFinder::ShowGrid(true);
 
 		god = false;
 		GRAPHICS::SetBackgroundColor(Black);
