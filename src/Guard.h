@@ -25,8 +25,12 @@ namespace StarBangBang
 		void ChangeState(GUARD_STATE _state);
 		inline GUARD_STATE GetState() const { return state; }
 		inline GUARD_STATE GetPrevState() const { return prevState; }
+
 		inline void SetID(size_t _id) { id = _id; }
 		inline size_t GetID() const { return id; }
+
+		inline void SetRoomNum(unsigned int num) { roomNum = num; }
+		inline unsigned int GetRoomNum() const { return roomNum; }
 
 	private:
 		GUARD_STATE state;
@@ -35,6 +39,7 @@ namespace StarBangBang
 		GuardMovement* movement;
 		GuardVision* vision;
 		size_t id;
+		unsigned int roomNum;
 	};
 }
 

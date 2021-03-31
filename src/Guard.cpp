@@ -10,6 +10,7 @@ Guard::Guard(GameObject* gameObject)
 	, movement(nullptr)
 	, vision(nullptr)
 	, id(0)
+	, roomNum(0)
 {
 }
 
