@@ -9,11 +9,9 @@ struct FadeObj
 {
 
 	float alpha = 1.0f;
-	Sprite sprite;
-	float dimensionX;
-	float dimensionY;
-	float fadeSpeed;
-	float duration;
+	Sprite sprite = Sprite();
+	float fadeSpeed = 0.2f;
+	float duration = 5.5f;
 
 };
 
@@ -88,16 +86,12 @@ void StarBangBang::LogoSplash::Init()
 {
 
 	digipen_logo.alpha = 1.0f;
-	digipen_logo.dimensionX = 1026.0f;
-	digipen_logo.dimensionY = 249.0f;
-	digipen_logo.fadeSpeed = 0.15f;
-	digipen_logo.duration = 5.0f;
+	digipen_logo.fadeSpeed = 0.2f;
+	digipen_logo.duration = 5.5f;
 
 	fmod_logo.alpha = 1.0f;
-	fmod_logo.dimensionX = 728.0f;
-	fmod_logo.dimensionY = 192.0f;
-	fmod_logo.duration = 5.0f;
-	fmod_logo.fadeSpeed = 0.15f;
+	fmod_logo.duration = 5.5f;
+	fmod_logo.fadeSpeed = 0.2f;
 
 	current = DrawDigipen;
 
