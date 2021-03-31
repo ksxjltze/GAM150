@@ -224,6 +224,18 @@ namespace StarBangBang
 
 	void StarBangBang::Level_Demo::Update()
 	{
+		if (AEInputCheckTriggered(AEVK_ESCAPE))
+		{
+			TogglePause();
+			//gameStateManager.SetNextGameState(MAIN_MENU);
+		}
+
+		if (paused)
+		{
+			DisplayPauseMenu();
+			return;
+		}
+
 		Scene::Update();
 
 		//indicator update
@@ -380,11 +392,6 @@ namespace StarBangBang
 			MessageBus::Notify({ EventId::PRINT_TEXT, std::string("Find the Exit!") });
 		}
 
-		if (AEInputCheckTriggered(AEVK_ESCAPE))
-		{
-			gameStateManager.SetNextGameState(MAIN_MENU);
-		}
-
 		PlayerScript* playerScript = player->GetComponent<PlayerScript>();
 		if (AEInputCheckTriggered(AEVK_G))
 		{
@@ -444,6 +451,16 @@ namespace StarBangBang
 	{
 		tilemap.Unload();
 		Scene::Unload();
+	}
+
+	void Level_Demo::DisplayPauseMenu()
+	{
+		paused = true;
+	}
+
+	void Level_Demo::TogglePause()
+	{
+		paused = !paused;
 	}
 
 }
