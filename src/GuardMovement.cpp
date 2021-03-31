@@ -138,6 +138,7 @@ void GuardMovement::Patrol()
 
 void GuardMovement::OnEnterDistracted()
 {
+	isMoving = false;
 	speed = GUARD::GUARD_SPEED + 15.f;
 	UnblockPreviousPath();
 	LookForPath(targetPos);
@@ -166,6 +167,7 @@ void GuardMovement::OnExitDistracted()
 
 void GuardMovement::OnEnterChase()
 {
+	isMoving = false;
 	speed = GUARD::GUARD_SPEED + 20.f;
 	UnblockPreviousPath();
 	LookForPath(targetPos);

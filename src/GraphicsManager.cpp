@@ -213,6 +213,11 @@ namespace StarBangBang
 		AEToogleFullScreen(isFullscreen);
 	}
 
+	bool GRAPHICS::IsFullscreen()
+	{
+		return isFullscreen;
+	}
+
 	void StarBangBang::GRAPHICS::DrawImage(AEGfxVertexList* mesh, AEGfxTexture* texture, Color color, AEVec2 pos, AEVec2 scale, float rotation, float transparency)
 	{
 		AEGfxSetBlendMode(AE_GFX_BM_BLEND);

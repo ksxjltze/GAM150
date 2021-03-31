@@ -587,6 +587,9 @@
     <ClInclude Include="src\DoorTest.h">
       <Filter>Source Files\Test</Filter>
     </ClInclude>
+    <ClInclude Include="src\CaughtByCameraEvent.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Resources\PlanetTexture.png">

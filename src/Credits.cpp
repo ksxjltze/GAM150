@@ -6,6 +6,8 @@
 namespace StarBangBang
 {
 	const static float CAMERA_SPEED = 30.0f;
+	const static float CREDITS_SPEED_UP_FACTOR = 10.0f;
+	const static float END_OFFSET = 50.0f;
 	static Sprite logoSprite;
 
 	void Credits::NewTextObject(AEVec2 position, const std::string& s, float scale)
@@ -63,11 +65,33 @@ namespace StarBangBang
 		NewTextObject({ pos.x, pos.y += spacing }, "Wong Han Feng, Gerald", 1.0f);
 
 		cameraObject->transform.position.y = 100.0f;
+
+		end = objectManager.NewGameObject();
+		end->transform.position = { pos.x, pos.y };
 	}
 
 	void StarBangBang::Credits::Update()
 	{
-		cameraObject->transform.position.y -= CAMERA_SPEED * g_dt;
+		float speed = CAMERA_SPEED;
+		if (AEInputCheckCurr(AEVK_SPACE))
+		{
+			speed *= CREDITS_SPEED_UP_FACTOR;
+		}
+
+		if (AEInputCheckTriggered(AEVK_ESCAPE))
+		{
+			gameStateManager.SetNextGameState(MAIN_MENU);
+			return;
+		}
+
+		cameraObject->transform.position.y -= speed * g_dt;
+
+		if (cameraObject->GetPos().y < end->GetPos().y - AEGetWindowHeight() / 2 + END_OFFSET)
+		{
+			gameStateManager.SetNextGameState(MAIN_MENU);
+			return;
+		}
+
 		Scene::Update();
 	}
 

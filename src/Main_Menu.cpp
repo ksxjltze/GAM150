@@ -46,6 +46,7 @@ namespace StarBangBang
 	void StarBangBang::Main_Menu::Init()
 	{
 		GRAPHICS::SetZoom(1.0f);
+		GRAPHICS::SetBackgroundColor(Black);
 		//logo 
 		logo_obj = objectManager.NewGameObject();
 		objectManager.AddImage(logo_obj, logo);
@@ -97,6 +98,11 @@ namespace StarBangBang
 
 	void StarBangBang::Main_Menu::Update()
 	{
+		if (GRAPHICS::IsFullscreen())
+			GRAPHICS::SetZoom(1.5f);
+		else
+			GRAPHICS::SetZoom(1.0f);
+
 		Scene::Update();
 		if (AEInputCheckTriggered(AEVK_SPACE))
 		{
