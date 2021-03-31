@@ -39,6 +39,7 @@ namespace StarBangBang
 	Sprite computerSprite;
 	Sprite doorSprite;
 	Sprite keySprite;
+	Sprite boiSprite;
 
 	StarBangBang::BoxCollider* playerCol;
 	StarBangBang::BoxCollider* clientCol;
@@ -92,6 +93,7 @@ namespace StarBangBang
 
 		//indicator sprite
 		indicator = graphicsManager.CreateSprite(RESOURCES::INDICATOR_PATH);
+		boiSprite = graphicsManager.CreateSprite(RESOURCES::SPRITE_PLAYER_PATH);
 	}
 
 	//Initialization of game objects, components and scripts.
@@ -153,13 +155,13 @@ namespace StarBangBang
 		playerCol = player->GetComponent<BoxCollider>();
 		clientCol = player2->GetComponent<BoxCollider>();
 
-		////Level Exit
-		//GameObject* exit = objectManager.NewGameObject();
-		////temp
-		//exit->transform.position = tilemap.GetPositionAtIndex(10, 14);
-		//exit->name = "EXIT";
-		//objectManager.AddImage(exit, vendingMachineSprite);
-		//objectManager.AddCollider(exit, true).isTrigger = true;
+		//Level Exit
+		GameObject* exit = objectManager.NewGameObject();
+		//temp
+		exit->transform.position = tilemap.GetPositionAtIndex(1, 34);
+		exit->name = "EXIT";
+		objectManager.AddImage(exit, boiSprite);
+		objectManager.AddCollider(exit, true).isTrigger = true;
 
 		//////////////////////////////////////////////////////////////////////////////////////////////////////////
 		// Door
