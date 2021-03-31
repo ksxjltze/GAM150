@@ -2,7 +2,7 @@
 
 namespace StarBangBang
 {
-	Door::Door(GameObject* obj) : Script(obj)
+	Door::Door(GameObject* obj) : Script(obj), parent{ nullptr }
 	{
 
 	}

@@ -49,6 +49,7 @@ namespace StarBangBang
 		player2 = nullptr;
 		movementController = nullptr;
 		guardManager = nullptr;
+		indicatorObj = nullptr;
 	}
 
 	void StarBangBang::Level_Demo::Load()
@@ -180,7 +181,7 @@ namespace StarBangBang
 		door3 = CaptainStealth::SpawnDoor(objectManager, doorSprite, tilemap.GetPositionAtIndex(37, 20));
 
 		CaptainStealth::SpawnKey(objectManager, door, keySprite, tilemap.GetPositionAtIndex(45, 6));
-		CaptainStealth::SpawnKey(objectManager, door, keySprite, tilemap.GetPositionAtIndex(36, 8));
+		CaptainStealth::SpawnKey(objectManager, door, keySprite, tilemap.GetPositionAtIndex(48, 18));
 		door->Link({ door2, door3 });
 
 		//Third room door
@@ -189,10 +190,11 @@ namespace StarBangBang
 		door3 = CaptainStealth::SpawnDoor(objectManager, doorSprite, tilemap.GetPositionAtIndex(19, 34));
 
 		CaptainStealth::SpawnKey(objectManager, door, keySprite, tilemap.GetPositionAtIndex(46, 44));
+		CaptainStealth::SpawnKey(objectManager, door, keySprite, tilemap.GetPositionAtIndex(21, 44));
 		door->Link({ door2, door3 });
 
 		//Fourth room door
-		door = CaptainStealth::SpawnDoor(objectManager, doorSprite, tilemap.GetPositionAtIndex( 3, 35));
+		door = CaptainStealth::SpawnDoor(objectManager, doorSprite, tilemap.GetPositionAtIndex(3, 35));
 		door2 = CaptainStealth::SpawnDoor(objectManager, doorSprite, tilemap.GetPositionAtIndex(3, 34));
 		door3 = CaptainStealth::SpawnDoor(objectManager, doorSprite, tilemap.GetPositionAtIndex(3, 33));
 
