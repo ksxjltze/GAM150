@@ -40,7 +40,7 @@ void Guard::Update()
 	{
 	case Guard::GUARD_STATE::STATE_IDLE:
 		movement->Idle();
-		vision->Idle(); //vision->GetDetector()->SpanVision(-90.f, 90.f, 50.f);
+		vision->Idle();
 		break;
 	case Guard::GUARD_STATE::STATE_PATROL:
 		movement->Patrol();

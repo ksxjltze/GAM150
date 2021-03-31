@@ -61,7 +61,7 @@ void GuardVision::Update()
 				if (targetRot > 0)
 				{
 					if ((static_cast<int>(rotation) + static_cast<int>(targetRot)) != 0)
-						rotation = -rotation;
+						;// rotation = -rotation;
 				}
 			}
 			else
@@ -69,7 +69,7 @@ void GuardVision::Update()
 				if (targetRot < 0)
 				{
 					if ((static_cast<int>(rotation) + static_cast<int>(targetRot)) != 0)
-						rotation = -rotation;
+						;// rotation = -rotation;
 				}
 			}
 
@@ -130,8 +130,6 @@ void GuardVision::Idle()
 		if (dp < 0.f)
 			targetRot = -targetRot;
 
-		//detector->SetFacingDir(targetDir);
-		//detector->Rotate(targetRot);
 		detector->SpanVision(targetRot - 90.f, targetRot + 90.f, 50.f);
 	}
 }

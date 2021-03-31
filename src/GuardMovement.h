@@ -41,6 +41,7 @@ namespace StarBangBang
 
 		inline void SetTargetPos(const AEVec2 pos) { targetPos = pos; }
 		inline const AEVec2& GetTargetPos() const { return targetPos; }
+
 		inline void SetDistractionDuration(float duration) { distractedDuration = duration; }
 
 		void SetWaypoints(const std::vector<AEVec2>& _waypoints);
