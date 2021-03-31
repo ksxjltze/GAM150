@@ -218,7 +218,7 @@ bool GuardMovement::ReachedPos(AEVec2 pos)
 	return (AEVec2SquareDistance(&pos, &gameObject->transform.position) <= minDistToTarget * minDistToTarget);
 }
 
-void GuardMovement::SetWaypoints(std::vector<AEVec2>& _waypoints)
+void GuardMovement::SetWaypoints(const std::vector<AEVec2>& _waypoints)
 {
 	usingWaypoints = true;
 	waypoints = _waypoints;

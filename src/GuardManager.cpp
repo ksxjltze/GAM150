@@ -164,7 +164,7 @@ void GuardManager::SetGuardStartEnd(int id, const AEVec2& start, const AEVec2& e
 	}
 }
 
-void GuardManager::SetGuardWaypoints(int id, std::vector<AEVec2>& waypoints, float speed)
+void GuardManager::SetGuardWaypoints(int id, const std::vector<AEVec2>& waypoints, float speed)
 {
 	guards[id]->GetComponent<GuardMovement>()->SetSpeed(speed);
 	guards[id]->GetComponent<GuardMovement>()->SetWaypoints(waypoints);
