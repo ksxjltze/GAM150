@@ -43,28 +43,37 @@ void GuardManager::Init(ObjectManager* objManager, Sprite* sprite, GameObject* p
 	}
 
 	// temp, will change to read from file laterz
-	SetGuardStartEnd(id++, { -300, -1085 }, { -420, -1085 });
-	SetGuardStartEnd(id++, { -1144, -942}, { -850, -942 });
-	SetGuardStartEnd(id++, { -752, -746 }, { -752, -590 });
-	SetGuardStartEnd(id++, { -1020, -230 }, { -1020, -670 });
-	SetGuardStartEnd(id++, { -740, 100 }, { -740, -80 });
-	SetGuardStartEnd(id++, { -180, -50 }, { -20, 120 });
-	SetGuardStartEnd(id++, { 350, -240 }, { -195, -240 });
-	SetGuardStartEnd(id++, { 455, 190 }, { 630, -415 });
-	SetGuardStartEnd(id++, { 160, -1125 }, { 370, -980 });
-	SetGuardStartEnd(id++, { 795, -530 }, { 795, -530 }, true); // IDLE
-	SetGuardStartEnd(id++, { 930, 830 }, { 0, 515 });
-	SetGuardStartEnd(id++, { -195, 790 }, { -815, 540 });
-	SetGuardStartEnd(id++, { -1120, 420 }, { -880, 880 });
-	SetGuardStartEnd(id++, { 1070, 1011 }, { -733, -1060 }, false, 20.f); // patrol level kinda
-	SetGuardStartEnd(id++, { 1055, 145 }, { 1055, -950 }, false, 40.f); // patrol level kinda
+	SetGuardStartEnd(id++, { -322, -1163 }, { -322, -596 });
+	SetGuardStartEnd(id++, { -72, -1162}, { -72, -385 });
+	SetGuardStartEnd(id++, { -42, -1203 }, { 1069, -1203 });
+	SetGuardStartEnd(id++, { 900, -1009 }, { 906, -456 });
+	//SetGuardWaypoints(id++, { -740, 100 }, { -740, -80 }); CIRCLE GUARD
+	SetGuardStartEnd(id++, { 945, -93 }, { 198, -93 });
+	SetGuardStartEnd(id++, { -225, -42 }, { -225, 296 });
+	SetGuardStartEnd(id++, { -251, 958 }, { -251, 605 });
+	SetGuardStartEnd(id++, { -13, 889 }, { 754, 895 });
+	//SetGuardWaypoints(id++, { 795, -530 }, { 795, -530 }, true); // IDLE
+	SetGuardStartEnd(id++, { 330, 282 }, { 893, 282 });
+	//SetGuardWaypoints(id++, { -195, 790 }, { -815, 540 }); complex guard
+	SetGuardStartEnd(id++, { 1118, 68 }, { 1118, 671 });
+	//SetGuardWaypoints(id++, { 44, -873 }, { 330, -873 });
+	SetGuardStartEnd(id++, { 466, -589 }, { 769, -589 });
+	SetGuardStartEnd(id++, { 751, -835 }, { 491, -853 });
+	SetGuardStartEnd(id++, { 314, -461 }, { 314, -954 });
+	SetGuardStartEnd(id++, { 783, 551 }, { 428, 551 });
+	//last
+	SetGuardStartEnd(id++, { -667, 1015 }, { -911, 1015 });
+	SetGuardStartEnd(id++, { -849, 806 }, { -849, 949 });
+	SetGuardStartEnd(id++, { -1022, 651 }, { -715, 651 });
+	SetGuardStartEnd(id++, { -821, 544 }, { -821, 358 });
+	SetGuardStartEnd(id++, { -489, 972 }, { -489, 635 });
+	SetGuardStartEnd(id++, { -469, 382 }, { -469, 100 });
+	SetGuardStartEnd(id++, { -617, 175 }, { -617, 459 });
+	SetGuardStartEnd(id++, { -817, 47 }, { -1024, 47 });
+	SetGuardStartEnd(id++, { -893, -238 }, { -746, -238 });
 
-	std::vector<AEVec2> testWaypoints;
-	testWaypoints.push_back({ -460, -550 });
-	testWaypoints.push_back({ -460, -750 });
-	testWaypoints.push_back({ -230, -750 });
-	testWaypoints.push_back({ -230, -550 });
-	SetGuardWaypoints(id++, testWaypoints);
+	//SetGuardWaypoints(id++, { 1070, 1011 }, { -733, -1060 }, false, 20.f); // patrol level kinda
+	//SetGuardWaypoints(id++, { 1055, 145 }, { 1055, -950 }, false, 40.f); // patrol level kinda
 }
 
 void GuardManager::CreateSecurityCameras(ObjectManager* objManager, Sprite* sprite, GameObject* player, GameObject* client)
@@ -80,21 +89,21 @@ void GuardManager::CreateSecurityCameras(ObjectManager* objManager, Sprite* spri
 		objManager->AddComponent<Detector>(cameras[i]).Init(50.f, 300.f, player, client);
 	}
 
-	InitSecurityCam(id++, {-1030, -790},	-250.f, -150.f);
-	InitSecurityCam(id++, { -250, -520 },	-270.f, -130.f);
-	InitSecurityCam(id++, { -620, 190 },	-200.f,  -80.f,		60.f);
-	InitSecurityCam(id++, { 470, -480 },	   0.f,   90.f);
-	InitSecurityCam(id++, { -645, -410 },	 -90.f,    0.f,		60.f);
-	InitSecurityCam(id++, { 1020, 350 },	   0.f,   90.f,		60.f);
-	InitSecurityCam(id++, { -180, 340 },	   0.f,   90.f);
-	InitSecurityCam(id++, { -13, 1165 },	-180.f,  -90.f);
-	InitSecurityCam(id++, { -1160, 1130 },	-180.f,  -90.f,		60.f);
-	InitSecurityCam(id++, { -690, 720 },	   0.f,  360.f);
+	InitSecurityCam(id++, {1157, -1205},	-250.f, -150.f);
+	//InitSecurityCam(id++, { -250, -520 },	-270.f, -130.f);
+	//InitSecurityCam(id++, { -620, 190 },	-200.f,  -80.f,		60.f);
+	//InitSecurityCam(id++, { 470, -480 },	   0.f,   90.f);
+	//InitSecurityCam(id++, { -645, -410 },	 -90.f,    0.f,		60.f);
+	//InitSecurityCam(id++, { 1020, 350 },	   0.f,   90.f,		60.f);
+	//InitSecurityCam(id++, { -180, 340 },	   0.f,   90.f);
+	//InitSecurityCam(id++, { -13, 1165 },	-180.f,  -90.f);
+	//InitSecurityCam(id++, { -1160, 1130 },	-180.f,  -90.f,		60.f);
+	//InitSecurityCam(id++, { -690, 720 },	   0.f,  360.f);
 }
 
 void GuardManager::Update()
 {
-	//PRINT("x: %f, y: %f\n", GetMouseWorldPos().x, GetMouseWorldPos().y);
+	PRINT("x: %f, y: %f\n", GetMouseWorldPos().x, GetMouseWorldPos().y);
 
 	if (AEInputCheckTriggered(VK_LBUTTON))
 	{

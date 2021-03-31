@@ -184,7 +184,7 @@ namespace StarBangBang
 		MessageBus::Notify({ EventId::PRINT_TEXT, std::string("Find the Vending Machine!") });
 		MessageBus::Notify({ EventId::PLAY_SOUND, "Test"});
 
-	
+		character = current_char::fei_ge;
 	}
 
 	void StarBangBang::Level_Demo::Update()
