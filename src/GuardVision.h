@@ -15,6 +15,8 @@ namespace StarBangBang
 		void Start();
 		void Update();
 
+		void Idle();
+
 		inline Detector* GetDetector() { return detector; }
 
 	private:

@@ -1,5 +1,6 @@
 #pragma once
 #include "ScriptComponent.h"
+#include "Color.h"
 
 namespace StarBangBang
 {
@@ -43,5 +44,7 @@ namespace StarBangBang
 		GameObject* target1, *target2;
 		BoxCollider* target1Col, *target2Col;
 		BoxCollider* myCollider;
+
+		Color color;
 	};
 }
