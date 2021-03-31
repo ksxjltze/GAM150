@@ -19,7 +19,7 @@
 
 #include "TestScene.h"
 #include "Scene_GameOver.h"
-
+#include "Logo_Splash.h"
 namespace StarBangBang
 {
 	float g_dt = 0;
@@ -100,6 +100,8 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 	Scene* sampleScene		= gameStateManager.AddGameState<Sample_Scene>(SceneID::SAMPLE);
 	Scene* gameScene		= gameStateManager.AddGameState<CaptainStealth>(SceneID::GAME);
 	Scene* ggScene			= gameStateManager.AddGameState<Scene_GameOver>(GAME_OVER);
+	Scene* logoScene = gameStateManager.AddGameState<LogoSplash>();
+
 	Scene* engineProof		= gameStateManager.AddGameState<EngineProof>();
 	Scene* testScene		= gameStateManager.AddGameState<TestScene>();
 	
@@ -114,7 +116,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 	sceneList.push_back(ggScene);
 
 	// Set Initial State
-	gameStateManager.SetInitialState(mainMenuScene);
+	gameStateManager.SetInitialState(logoScene);
 
 
 	//// Using custom window procedure

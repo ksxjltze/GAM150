@@ -321,6 +321,9 @@
     <ClCompile Include="src\GuardAnim.cpp">
       <Filter>Source Files\Scripts\Guard</Filter>
     </ClCompile>
+    <ClCompile Include="src\Logo_Splash.cpp">
+      <Filter>Source Files\Scenes</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\ImageComponent.h">
@@ -524,9 +527,6 @@
     <ClInclude Include="src\PathFinder.h">
       <Filter>Header Files\Engine\Game Logic</Filter>
     </ClInclude>
-    <ClInclude Include="src\UniqueQueue.h">
-      <Filter>Header Files\Engine\Game Logic</Filter>
-    </ClInclude>
     <ClInclude Include="src\Observer.h">
       <Filter>Header Files\Engine\Interfaces</Filter>
     </ClInclude>
@@ -562,6 +562,9 @@
     </ClInclude>
     <ClInclude Include="src\GuardAnim.h">
       <Filter>Header Files\Scripts\Guard</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Logo_Splash.h">
+      <Filter>Header Files\Scenes</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
