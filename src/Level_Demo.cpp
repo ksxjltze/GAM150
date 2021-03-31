@@ -267,6 +267,12 @@ namespace StarBangBang
 
 		if (paused)
 		{
+			if (AEInputCheckTriggered(AEVK_RETURN))
+			{
+				TogglePause();
+				return;
+			}
+
 			AEVec2 pos = player->GetComponent<CameraComponent>()->GetTarget()->transform.position;
 			pauseMenu.continueBtn->transform.position = { pos.x, pos.y + 50 };
 			pauseMenu.exitBtn->transform.position = { pos.x, pos.y - 50 };
