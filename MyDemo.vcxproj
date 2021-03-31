@@ -123,6 +123,8 @@ xcopy /y /d /i /s "$(SolutionDir)\Resources" "$(OutDir)\Resources"</Command>
     <ClCompile Include="src\DetectionListener.cpp" />
     <ClCompile Include="src\Detector.cpp" />
     <ClCompile Include="src\Distractor.cpp" />
+    <ClCompile Include="src\Door.cpp" />
+    <ClCompile Include="src\DoorTest.cpp" />
     <ClCompile Include="src\DragComponent.cpp" />
     <ClCompile Include="src\EngineProof.cpp" />
     <ClCompile Include="src\GameObject.cpp" />
@@ -135,6 +137,7 @@ xcopy /y /d /i /s "$(SolutionDir)\Resources" "$(OutDir)\Resources"</Command>
     <ClCompile Include="src\GuardMovement.cpp" />
     <ClCompile Include="src\GuardVision.cpp" />
     <ClCompile Include="src\ImageComponent.cpp" />
+    <ClCompile Include="src\Key.cpp" />
     <ClCompile Include="src\LevelEditor.cpp" />
     <ClCompile Include="src\InteractableComponent.cpp" />
     <ClCompile Include="src\Level_Demo.cpp" />
@@ -187,6 +190,8 @@ xcopy /y /d /i /s "$(SolutionDir)\Resources" "$(OutDir)\Resources"</Command>
     <ClInclude Include="src\Detector.h" />
     <ClInclude Include="src\DistractionEvent.h" />
     <ClInclude Include="src\Distractor.h" />
+    <ClInclude Include="src\Door.h" />
+    <ClInclude Include="src\DoorTest.h" />
     <ClInclude Include="src\DragComponent.h" />
     <ClInclude Include="src\EngineProof.h" />
     <ClInclude Include="src\Event.h" />
@@ -203,6 +208,7 @@ xcopy /y /d /i /s "$(SolutionDir)\Resources" "$(OutDir)\Resources"</Command>
     <ClInclude Include="src\IClickable.h" />
     <ClInclude Include="src\ImageComponent.h" />
     <ClInclude Include="src\ISerializable.h" />
+    <ClInclude Include="src\Key.h" />
     <ClInclude Include="src\LevelEditor.h" />
     <ClInclude Include="src\InteractableComponent.h" />
     <ClInclude Include="src\Level_Demo.h" />

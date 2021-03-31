@@ -42,8 +42,8 @@ void Text::Draw()
 
 	//float wWidth = AEGetWindowWidth();
 	//float wHeight = AEGetWindowHeight();
-	float wWidth = AEGetWindowWidth();
-	float wHeight = AEGetWindowHeight();
+	float wWidth = static_cast<float>(AEGetWindowWidth());
+	float wHeight = static_cast<float>(AEGetWindowHeight());
 
 	float textScale = scale;
 	AEVec2 screenScale = GRAPHICS::GetScreenScale();

@@ -11,7 +11,6 @@
 #include "CollisionListener.h"
 #include "CaptainStealth.h"
 
-
 namespace StarBangBang
 {
 	namespace Test
@@ -21,9 +20,8 @@ namespace StarBangBang
 	}
 }
 
-StarBangBang::TestScene::TestScene(int id, GameStateManager& gsm) : Scene(id, gsm), computerObj{ nullptr }, doorObj{ nullptr }, prisonerObj{nullptr}
+StarBangBang::TestScene::TestScene(int id, GameStateManager& gsm) : Scene(id, gsm), computerObj{ nullptr }, doorObj{ nullptr }, prisonerObj{ nullptr }
 {
-
 }
 
 void StarBangBang::TestScene::Load()
@@ -35,22 +33,18 @@ void StarBangBang::TestScene::Load()
 
 void StarBangBang::TestScene::Init()
 {
-
 	for (int i = 0; i < 7; ++i)
 	{
 		CaptainStealth::SpawnComputer(objectManager, computerSprite, { i * 100.0f, 0 });
 	}
 
-
 	//prison obj
 	GameObject* player;
-	CaptainStealth::SpawnPlayer(objectManager, player ,prisonerSprite);
+	CaptainStealth::SpawnPlayer(objectManager, player, prisonerSprite);
 	player->transform.position = { 0, 0 };
 
 	//door obj
 	CaptainStealth::SpawnDoor(objectManager, doorSprite, { (float)AEGetWindowWidth() / -8, (float)AEGetWindowHeight() / 8 });
-
-
 }
 
 void StarBangBang::TestScene::Update()
