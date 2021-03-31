@@ -20,6 +20,7 @@ namespace StarBangBang
 		void Unload();
 
 		void LoadEditor();
+		void LoadTutorial();
 		void LoadLevel();
 		void Credits();
 		void ExitGame();
@@ -31,6 +32,7 @@ namespace StarBangBang
 		Sprite settingsbutton1;
 		Sprite creditsbutton1;
 		Sprite exitbutton1;
+		Sprite tutorialButton1;
 
 		Sprite playbutton2;
 		Sprite settingsbutton2;
@@ -42,6 +44,7 @@ namespace StarBangBang
 		GameObject* settingsbutton_obj;
 		GameObject* creditsbutton_obj;
 		GameObject* exitbutton_obj;
+		GameObject* tutorialbutton_obj;
 
 		bool tf;
 	};

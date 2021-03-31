@@ -1,7 +1,6 @@
 #include "Logo_Splash.h"
 #include "GraphicsManager.h"
 #include "globals.h"
-#include <queue>
 
 using namespace StarBangBang;
 
@@ -15,13 +14,14 @@ struct FadeObj
 
 };
 
-
 using DrawFunc = void (*)(GameStateManager& gsm);
+
 
 DrawFunc current;
 
 FadeObj digipen_logo;
 FadeObj fmod_logo;
+bool skipCurrent = false;
 
 void DrawFmod(GameStateManager& gsm)
 {
@@ -40,9 +40,10 @@ void DrawFmod(GameStateManager& gsm)
 	fmod_logo.duration -= StarBangBang::g_dt;
 	fmod_logo.alpha -= StarBangBang::g_dt * fmod_logo.fadeSpeed;
 
-	if (fmod_logo.duration < 0.0f)
+	if (fmod_logo.duration < 0.0f || skipCurrent)
 	{
 		gsm.SetNextGameState(SceneID::MAIN_MENU);
+		skipCurrent = false;
 	}
 
 }
@@ -64,9 +65,10 @@ void DrawDigipen(GameStateManager& gsm)
 	digipen_logo.alpha -= StarBangBang::g_dt * digipen_logo.fadeSpeed;
 	AEGfxSetTransparency(digipen_logo.alpha);
 
-	if (digipen_logo.duration < 0.0f)
+	if (digipen_logo.duration < 0.0f || skipCurrent)
 	{
 		current = DrawFmod;
+		skipCurrent = false;
 	}
 }
 
@@ -78,7 +80,15 @@ StarBangBang::LogoSplash::LogoSplash(int id, GameStateManager& gsm) : Scene(id, 
 void StarBangBang::LogoSplash::Load()
 {
 	digipen_logo.sprite = graphicsManager.CreateSprite("Resources/Logos/DigiPen_WHITE.png");
-	fmod_logo.sprite = graphicsManager.CreateSprite("Resources/Logos/FMOD_Logo.png");	
+	fmod_logo.sprite = graphicsManager.CreateSprite("Resources/Logos/FMOD_Logo.png");
+
+	assert(digipen_logo.sprite.texture);
+	assert(digipen_logo.sprite.mesh);
+	assert(fmod_logo.sprite.texture);
+	assert(fmod_logo.sprite.mesh);
+
+
+	
 }
 
 void StarBangBang::LogoSplash::Init()
@@ -92,18 +102,22 @@ void StarBangBang::LogoSplash::Init()
 	fmod_logo.duration = 5.5f;
 	fmod_logo.fadeSpeed = 0.2f;
 
+	
 	current = DrawDigipen;
-
+	
 }
 
 void StarBangBang::LogoSplash::Update()
 {
-	current(gameStateManager);
+	if (AEInputCheckTriggered(VK_ESCAPE) || AEInputCheckTriggered(VK_SPACE)
+		|| AEInputCheckTriggered(VK_RBUTTON) || AEInputCheckTriggered(VK_LBUTTON))
+	{
+		skipCurrent = true;
+	}
 }
-
 
 void StarBangBang::LogoSplash::Draw()
 {
-	
+	current(gameStateManager);
 }
 

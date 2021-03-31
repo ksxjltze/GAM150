@@ -333,7 +333,13 @@
     <ClCompile Include="src\DoorTest.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\Tutorial.cpp">
+      <Filter>Source Files\Scenes</Filter>
+    </ClCompile>
     <ClCompile Include="src\UIComponent.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Logo_Splash.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -593,7 +599,13 @@
     <ClInclude Include="src\CaughtByCameraEvent.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\Tutorial.h">
+      <Filter>Header Files\Scenes</Filter>
+    </ClInclude>
     <ClInclude Include="src\UIComponent.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Logo_Splash.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -812,6 +824,18 @@
       <Filter>Resource Files\InteractableObj</Filter>
     </Image>
     <Image Include="Resources\Misc\Indicator.png">
+      <Filter>Resource Files\Misc</Filter>
+    </Image>
+    <Image Include="Resources\MainMenu\BackButton.png">
+      <Filter>Resource Files\MainMenu</Filter>
+    </Image>
+    <Image Include="Resources\MainMenu\TutorialButton.png">
+      <Filter>Resource Files\MainMenu</Filter>
+    </Image>
+    <Image Include="Resources\Misc\TabButton.png">
+      <Filter>Resource Files\Misc</Filter>
+    </Image>
+    <Image Include="Resources\Misc\UpDownLeftRight.png">
       <Filter>Resource Files\Misc</Filter>
     </Image>
   </ItemGroup>
