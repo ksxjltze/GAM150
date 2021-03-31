@@ -141,6 +141,7 @@ xcopy /y /d /i /s "$(SolutionDir)\Resources" "$(OutDir)\Resources"</Command>
     <ClCompile Include="src\LevelEditor.cpp" />
     <ClCompile Include="src\InteractableComponent.cpp" />
     <ClCompile Include="src\Level_Demo.cpp" />
+    <ClCompile Include="src\Logo_Splash.cpp" />
     <ClCompile Include="src\Main.cpp" />
     <ClCompile Include="src\Main_Menu.cpp" />
     <ClCompile Include="src\MemoryManager.cpp" />
@@ -216,6 +217,7 @@ xcopy /y /d /i /s "$(SolutionDir)\Resources" "$(OutDir)\Resources"</Command>
     <ClInclude Include="src\Level_Demo.h" />
     <ClInclude Include="src\Listener.h" />
     <ClInclude Include="src\ListenerComponent.h" />
+    <ClInclude Include="src\Logo_Splash.h" />
     <ClInclude Include="src\Main_Menu.h" />
     <ClInclude Include="src\MemoryManager.h" />
     <ClInclude Include="src\MessageBus.h" />

@@ -19,6 +19,7 @@
 
 #include "TestScene.h"
 #include "Scene_GameOver.h"
+#include "Logo_Splash.h"
 #include "Credits.h"
 
 //Test scenes
@@ -105,6 +106,10 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 	Scene* sampleScene		= gameStateManager.AddGameState<Sample_Scene>(SceneID::SAMPLE);
 	Scene* gameScene		= gameStateManager.AddGameState<CaptainStealth>(SceneID::GAME);
 	Scene* ggScene			= gameStateManager.AddGameState<Scene_GameOver>(GAME_OVER);
+	Scene* logoScene 		= gameStateManager.AddGameState<LogoSplash>();
+
+	Scene* engineProof		= gameStateManager.AddGameState<EngineProof>();
+	Scene* testScene		= gameStateManager.AddGameState<TestScene>();
 	Scene* credits			= gameStateManager.AddGameState<Credits>(CREDITS);
 
 	Scene* door			= gameStateManager.AddGameState<DoorTest>();
@@ -121,7 +126,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 	sceneList.push_back(door);
 
 	// Set Initial State
-	gameStateManager.SetInitialState(mainMenuScene);
+	gameStateManager.SetInitialState(logoScene);
 
 
 	//// Using custom window procedure
