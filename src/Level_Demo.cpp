@@ -25,6 +25,7 @@
 #include "DebugText.h"
 
 #include "Click.h"
+#include "UIComponent.h"
 
 static bool god = false;
 static float app_time = 0.0f;
@@ -223,13 +224,6 @@ namespace StarBangBang
 				TogglePause();
 				return;
 			}
-
-			AEVec2 pos = player->GetComponent<CameraComponent>()->GetTarget()->transform.position;
-			pauseMenu.continueBtn->transform.position = { pos.x, pos.y + 70 };
-			pauseMenu.exitBtn->transform.position = { pos.x, pos.y - 70 };
-
-			pauseMenu.Update();
-
 			return;
 		}
 
@@ -460,11 +454,9 @@ namespace StarBangBang
 
 	void Level_Demo::DisplayPauseMenu()
 	{
-		GRAPHICS::DrawOverlay(graphicsManager.GetMesh(), { 20, 20 }, { 0, 0 }, { 0, 0, 0, 0.7f }, AEGfxBlendMode::AE_GFX_BM_BLEND);
-		pauseMenu.exitBtn->transform.scale = { AEGetWindowWidth() / 50.0f * 0.2f, AEGetWindowHeight() / 50.0f * 0.2f };
-		pauseMenu.continueBtn->transform.scale = { AEGetWindowWidth() / 50.0f * 0.2f, AEGetWindowHeight() / 50.0f * 0.2f };
-		pauseMenu.exitBtn->GetComponent<ImageComponent>()->Draw();
-		pauseMenu.continueBtn->GetComponent<ImageComponent>()->Draw();
+		GRAPHICS::DrawOverlay(graphicsManager.GetMesh(), nullptr, { 20, 20 }, { 0, 0 }, { 0, 0, 0, 0.7f });
+		pauseMenu.exitBtn->GetComponent<UIComponent>()->Draw();
+		pauseMenu.continueBtn->GetComponent<UIComponent>()->Draw();
 	}
 
 	void Level_Demo::TogglePause()
@@ -524,14 +516,16 @@ namespace StarBangBang
 	{
 		///Pause
 		pauseMenu.exitBtn = objectManager.NewGameObject();
-		objectManager.AddComponent<Click<Level_Demo>>(pauseMenu.exitBtn).setCallback(*this, &Level_Demo::Exit);
-		objectManager.AddImage(pauseMenu.exitBtn, exitBtnSprite);
-		pauseMenu.exitBtn->active = false;
+		objectManager.AddComponent<Click<Level_Demo>>(pauseMenu.exitBtn, true).setCallback(*this, &Level_Demo::Exit);
+		objectManager.AddComponent<UIComponent>(pauseMenu.exitBtn, exitBtnSprite);
+		pauseMenu.exitBtn->transform.position.y = -100;
+		pauseMenu.exitBtn->transform.scale = { 3, 3 };
 
 		pauseMenu.continueBtn = objectManager.NewGameObject();
-		objectManager.AddComponent<Click<Level_Demo>>(pauseMenu.continueBtn).setCallback(*this, &Level_Demo::TogglePause);
-		objectManager.AddImage(pauseMenu.continueBtn, boiSprite);
-		pauseMenu.continueBtn->active = false;
+		objectManager.AddComponent<Click<Level_Demo>>(pauseMenu.continueBtn, true).setCallback(*this, &Level_Demo::TogglePause);
+		objectManager.AddComponent<UIComponent>(pauseMenu.continueBtn, boiSprite);
+		pauseMenu.continueBtn->transform.position.y = 100;
+		pauseMenu.continueBtn->transform.scale = { 3, 3 };
 	}
 
 }

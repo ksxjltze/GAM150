@@ -259,14 +259,21 @@ namespace StarBangBang
 		AEGfxMeshDraw(mesh, AE_GFX_MDM_TRIANGLES);
 	}
 
-	void GRAPHICS::DrawOverlay(AEGfxVertexList* mesh, AEVec2 scale, AEVec2 pos, Color c, AEGfxBlendMode blend)
+	void GRAPHICS::DrawOverlay(AEGfxVertexList* mesh, AEGfxTexture* texture, AEVec2 scale, AEVec2 pos, Color c)
 	{
-		AEGfxSetBlendMode(blend);
-		AEGfxSetRenderMode(AE_GFX_RM_COLOR);
+		AEGfxSetBlendMode(AE_GFX_BM_BLEND);
+
+		if (texture)
+		{
+			AEGfxSetRenderMode(AE_GFX_RM_TEXTURE);
+			AEGfxTextureSet(texture, 0, 0);
+		}
+		else
+			AEGfxSetRenderMode(AE_GFX_RM_COLOR);
 		AEMtx33 s, t, trans;
 		AEMtx33Scale(&s, scale.x, scale.y);
 		AEMtx33Trans(&t, pos.x, pos.y);
-		AEMtx33Concat(&trans, &s, &t);
+		AEMtx33Concat(&trans, &t, &s);
 
 		AEGfxSetTransform(trans.m);
 		AEGfxSetTintColor(c.R(), c.G(), c.B(), c.A());

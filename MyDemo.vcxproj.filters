@@ -333,6 +333,9 @@
     <ClCompile Include="src\DoorTest.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\UIComponent.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\ImageComponent.h">
@@ -588,6 +591,9 @@
       <Filter>Source Files\Test</Filter>
     </ClInclude>
     <ClInclude Include="src\CaughtByCameraEvent.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\UIComponent.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

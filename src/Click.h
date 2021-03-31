@@ -9,16 +9,16 @@ namespace StarBangBang
 	class Click : public Script, public IClickable
 	{
 	public:
-		Click(GameObject* obj) : Script(obj) {}
+		Click(GameObject* obj, bool overlay = false) : Script(obj), isOverlay{ overlay } {}
 		Click(GameObject* obj, void (*fptr)(void)) : Script(obj), callback{ fptr } {}
 
-		void Start() { printf("TESTT\n"); }
+		void Start() {  }
 		void Update()
 		{
 			if (AEInputCheckTriggered(AEVK_LBUTTON))
 			{
 				Transform& transform = gameObject->transform;
-				if (PointRectTest(GetMouseWorldPos(), transform.position, transform.scale.x * GRAPHICS::MESH_WIDTH, transform.scale.y * GRAPHICS::MESH_HEIGHT))
+				if (PointRectTest(GetMouseWorldPos(!isOverlay), transform.position, transform.scale.x * GRAPHICS::MESH_WIDTH, transform.scale.y * GRAPHICS::MESH_HEIGHT))
 				{
 					onClick();
 				}
@@ -42,6 +42,7 @@ namespace StarBangBang
 		}
 
 	private:
+		bool isOverlay{ false };
 		void (*callback)(void) { nullptr };
 		std::vector<std::pair<ClassType&, void (ClassType::*)(void)>> callbackList;
 	};

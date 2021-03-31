@@ -165,6 +165,7 @@ xcopy /y /d /i /s "$(SolutionDir)\Resources" "$(OutDir)\Resources"</Command>
     <ClCompile Include="src\Text.cpp" />
     <ClCompile Include="src\TileMap.cpp" />
     <ClCompile Include="src\TileSet.cpp" />
+    <ClCompile Include="src\UIComponent.cpp" />
     <ClCompile Include="src\Utils.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -246,6 +247,7 @@ xcopy /y /d /i /s "$(SolutionDir)\Resources" "$(OutDir)\Resources"</Command>
     <ClInclude Include="src\TileMap.h" />
     <ClInclude Include="src\TileSet.h" />
     <ClInclude Include="src\Transform.h" />
+    <ClInclude Include="src\UIComponent.h" />
     <ClInclude Include="src\UniqueQueue.h" />
     <ClInclude Include="src\Utils.h" />
   </ItemGroup>
