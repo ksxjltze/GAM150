@@ -103,7 +103,7 @@ void GuardManager::CreateSecurityCameras(ObjectManager* objManager, Sprite* spri
 
 void GuardManager::Update()
 {
-	PRINT("x: %f, y: %f\n", GetMouseWorldPos().x, GetMouseWorldPos().y);
+	//PRINT("x: %f, y: %f\n", GetMouseWorldPos().x, GetMouseWorldPos().y);
 
 	if (AEInputCheckTriggered(VK_LBUTTON))
 	{
