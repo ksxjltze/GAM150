@@ -151,6 +151,11 @@ namespace StarBangBang
 				printf("%d, %d\n", n->index_x, n->index_y);
 
 			}
+			else if (AEInputCheckCurr(AEVK_T))
+			{
+				AEVec2 pos = n->nodePos;
+				printf("%f, %f\n", pos.x, pos.y);
+			}
 
 			if (AEInputCheckCurr(AEVK_LBUTTON))
 			{
