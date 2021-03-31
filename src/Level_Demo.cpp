@@ -47,9 +47,15 @@ namespace StarBangBang
 	struct Pause
 	{
 		GameObject* exitBtn{ nullptr };
+		GameObject* continueBtn{ nullptr };
 		void Update() 
 		{
 			for (auto& component : exitBtn->GetComponents())
+			{
+				component->Update();
+			}
+
+			for (auto& component : continueBtn->GetComponents())
 			{
 				component->Update();
 			}
@@ -229,6 +235,11 @@ namespace StarBangBang
 		objectManager.AddImage(pauseMenu.exitBtn, exitBtnSprite);
 		pauseMenu.exitBtn->active = false;
 
+		pauseMenu.continueBtn = objectManager.NewGameObject();
+		objectManager.AddComponent<Click<Level_Demo>>(pauseMenu.continueBtn).setCallback(*this, &Level_Demo::TogglePause);
+		objectManager.AddImage(pauseMenu.continueBtn, boiSprite);
+		pauseMenu.continueBtn->active = false;
+
 		GameObject* distract2 = objectManager.NewGameObject();
 		//temp
 		distract2->transform.position = tilemap.GetPositionAtIndex(8, 12);
@@ -256,15 +267,14 @@ namespace StarBangBang
 
 		if (paused)
 		{
-			pauseMenu.exitBtn->active = true;
-			pauseMenu.exitBtn->transform.position = player->transform.position;
+			AEVec2 pos = player->GetComponent<CameraComponent>()->GetTarget()->transform.position;
+			pauseMenu.continueBtn->transform.position = { pos.x, pos.y + 50 };
+			pauseMenu.exitBtn->transform.position = { pos.x, pos.y - 50 };
 
 			pauseMenu.Update();
 
 			return;
 		}
-		else
-			pauseMenu.exitBtn->active = false;
 
 		Scene::Update();
 
@@ -495,11 +505,15 @@ namespace StarBangBang
 	{
 		GRAPHICS::DrawOverlay(graphicsManager.GetMesh(), { 20, 20 }, { 0, 0 }, { 0, 0, 0, 0.7f }, AEGfxBlendMode::AE_GFX_BM_BLEND);
 		pauseMenu.exitBtn->GetComponent<ImageComponent>()->Draw();
+		pauseMenu.continueBtn->GetComponent<ImageComponent>()->Draw();
 	}
 
 	void Level_Demo::TogglePause()
 	{
 		paused = !paused;
+
+		pauseMenu.continueBtn->active = paused;
+		pauseMenu.exitBtn->active = paused;
 	}
 
 }
