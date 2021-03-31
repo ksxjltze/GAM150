@@ -43,6 +43,14 @@ namespace StarBangBang
 		key->transform.position = { -100, 0 };
 		objectManager.AddCollider(key, true).isTrigger = true;
 
+		//Key2
+		GameObject* key2 = objectManager.NewGameObject();
+		objectManager.AddImage(key2, keySprite);
+
+		objectManager.AddComponent<Key>(key2, door);
+		key2->transform.position = { -100, 150 };
+		objectManager.AddCollider(key2, true).isTrigger = true;
+
 		GameObject* player;
 		player = objectManager.NewGameObject();
 		player->name = "Player";
