@@ -42,6 +42,10 @@ namespace StarBangBang
 		logoImg->gameObject->transform.scale.x = 6.0f;
 		logoImg->gameObject->transform.scale.y = 1.5f;
 
+		end = objectManager.NewGameObject();
+		end->transform.scale = { EPSILON, EPSILON };
+		objectManager.AddImage(end, logoSprite);
+
 		NewTextObject(pos, "StarBangBang", 1.0f);
 		NewTextObject({ pos.x, pos.y += spacing }, "Presents", 0.8f);
 
@@ -65,8 +69,6 @@ namespace StarBangBang
 		NewTextObject({ pos.x, pos.y += spacing }, "Wong Han Feng, Gerald", 1.0f);
 
 		cameraObject->transform.position.y = 100.0f;
-
-		end = objectManager.NewGameObject();
 		end->transform.position = { pos.x, pos.y };
 	}
 
