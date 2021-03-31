@@ -171,6 +171,7 @@ void GuardMovement::OnEnterChase()
 	speed = GUARD::GUARD_SPEED + 20.f;
 	UnblockPreviousPath();
 	LookForPath(targetPos);
+	nodeIndex = 1;
 }
 
 void GuardMovement::Chase()

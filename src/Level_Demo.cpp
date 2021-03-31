@@ -125,7 +125,7 @@ namespace StarBangBang
 	{
 		paused = false;
 		PathFinder::PathFinderInit();
-		PathFinder::ShowGrid(false);
+		PathFinder::ShowGrid(true);
 
 		god = false;
 		GRAPHICS::SetBackgroundColor(Black);
@@ -192,12 +192,81 @@ namespace StarBangBang
 
 		InitPause();
 
+		//room 1 distractor
 		GameObject* distract2 = objectManager.NewGameObject();
 		//temp
 		distract2->transform.position = tilemap.GetPositionAtIndex(8, 12);
 		objectManager.AddComponent<Distractor>(distract2).SetRoomNum(1);
 		objectManager.AddImage(distract2, vendingMachineSprite);
 		objectManager.AddCollider(distract2, true).isTrigger = true;
+
+		//room 2 distractor
+		GameObject* distract10 = objectManager.NewGameObject();
+		//temp
+		distract10->transform.position = tilemap.GetPositionAtIndex(30, 6);
+		objectManager.AddComponent<Distractor>(distract10).SetRoomNum(2);
+		objectManager.AddImage(distract10, vendingMachineSprite);
+		objectManager.AddCollider(distract10, true).isTrigger = true;
+
+		GameObject* distract11 = objectManager.NewGameObject();
+		//temp
+		distract11->transform.position = tilemap.GetPositionAtIndex(40, 10);
+		objectManager.AddComponent<Distractor>(distract11).SetRoomNum(2);
+		objectManager.AddImage(distract11, computerSprite);
+		objectManager.AddCollider(distract11, true).isTrigger = true;
+
+		//room 3 distractor
+		GameObject* distract3 = objectManager.NewGameObject();
+		//temp
+		distract3->transform.position = tilemap.GetPositionAtIndex(31, 7);
+		objectManager.AddComponent<Distractor>(distract3).SetRoomNum(3);
+		objectManager.AddImage(distract3, computerSprite);
+		objectManager.AddCollider(distract3, true).isTrigger = true;
+		
+		GameObject* distract8 = objectManager.NewGameObject();
+		//temp
+		distract8->transform.position = tilemap.GetPositionAtIndex(41, 43);
+		objectManager.AddComponent<Distractor>(distract8).SetRoomNum(3);
+		objectManager.AddImage(distract8, computerSprite);
+		objectManager.AddCollider(distract8, true).isTrigger = true;
+
+		GameObject* distract9 = objectManager.NewGameObject();
+		//temp
+		distract9->transform.position = tilemap.GetPositionAtIndex(39, 37);
+		objectManager.AddComponent<Distractor>(distract9).SetRoomNum(3);
+		objectManager.AddImage(distract9, vendingMachineSprite);
+		objectManager.AddCollider(distract9, true).isTrigger = true;
+
+
+
+		//room 4 distractor
+		GameObject* distract4 = objectManager.NewGameObject();
+		//temp
+		distract3->transform.position = tilemap.GetPositionAtIndex(15, 42);
+		objectManager.AddComponent<Distractor>(distract4).SetRoomNum(4);
+		objectManager.AddImage(distract4, computerSprite);
+		objectManager.AddCollider(distract4, true).isTrigger = true;
+
+		GameObject* distract5 = objectManager.NewGameObject();
+		//temp
+		distract5->transform.position = tilemap.GetPositionAtIndex(5, 21);
+		objectManager.AddComponent<Distractor>(distract5).SetRoomNum(4);
+		objectManager.AddImage(distract5, computerSprite);
+		objectManager.AddCollider(distract5, true).isTrigger = true;
+
+		GameObject* distract6 = objectManager.NewGameObject();
+		//temp
+		distract6->transform.position = tilemap.GetPositionAtIndex(16, 27);
+		objectManager.AddComponent<Distractor>(distract6).SetRoomNum(4);
+		objectManager.AddImage(distract6, vendingMachineSprite);
+		objectManager.AddCollider(distract6, true).isTrigger = true;
+
+		GameObject* distract7 = objectManager.NewGameObject();
+		//temp
+		distract7->transform.position = tilemap.GetPositionAtIndex(5, 47);
+		objectManager.AddComponent<Distractor>(distract7).SetRoomNum(4);
+		objectManager.AddImage(distract7, vendingMachineSprite);
+		objectManager.AddCollider(distract7, true).isTrigger = true;
 
 		//Notification Text
 		objectManager.AddComponent<DebugText>(objectManager.NewGameObject(), fontId);
