@@ -79,21 +79,21 @@ namespace StarBangBang
 
 		objectManager.AddComponent<Click<Main_Menu>>(creditsbutton_obj).setCallback(*this, &Main_Menu::Credits);
 
-		//exit game button
-		exitbutton_obj = objectManager.NewGameObject();
-		objectManager.AddImage(exitbutton_obj, exitbutton1);
-		exitbutton_obj->transform.position = { (float)AEGetWindowWidth() / 8, (float)AEGetWindowHeight() / -8, };
-		exitbutton_obj->transform.scale = { 3,3 };
-
-		objectManager.AddComponent<Click<Main_Menu>>(exitbutton_obj).setCallback(*this, &Main_Menu::ExitGame);
-
 		//tutorial button
 		tutorialbutton_obj = objectManager.NewGameObject();
 		objectManager.AddImage(tutorialbutton_obj, tutorialButton1);
-		tutorialbutton_obj->transform.position = { 0.f, -200.f };
+		tutorialbutton_obj->transform.position = { (float)AEGetWindowWidth() / 8, (float)AEGetWindowHeight() / -8 };
 		tutorialbutton_obj->transform.scale = { 3,3 };
 
 		objectManager.AddComponent<Click<Main_Menu>>(tutorialbutton_obj).setCallback(*this, &Main_Menu::LoadTutorial);
+
+		//exit game button
+		exitbutton_obj = objectManager.NewGameObject();
+		objectManager.AddImage(exitbutton_obj, exitbutton1);
+		exitbutton_obj->transform.position = { 0, -200 };
+		exitbutton_obj->transform.scale = { 3,3 };
+
+		objectManager.AddComponent<Click<Main_Menu>>(exitbutton_obj).setCallback(*this, &Main_Menu::ExitGame);
 
 		//MessageBus::Notify({ EventId::PLAY_MUSIC, "BGM" });
 
