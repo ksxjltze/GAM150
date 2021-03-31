@@ -25,6 +25,7 @@ namespace StarBangBang
 		bool paused{ false };
 
 		void SpawnDoors();
+		void InitPause();
 
 		//player stuffs
 		Sprite playerImage;

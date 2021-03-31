@@ -189,16 +189,7 @@ namespace StarBangBang
 
 		SpawnDoors();
 
-		///Pause
-		pauseMenu.exitBtn = objectManager.NewGameObject();
-		objectManager.AddComponent<Click<Level_Demo>>(pauseMenu.exitBtn).setCallback(*this, &Level_Demo::Exit);
-		objectManager.AddImage(pauseMenu.exitBtn, exitBtnSprite);
-		pauseMenu.exitBtn->active = false;
-
-		pauseMenu.continueBtn = objectManager.NewGameObject();
-		objectManager.AddComponent<Click<Level_Demo>>(pauseMenu.continueBtn).setCallback(*this, &Level_Demo::TogglePause);
-		objectManager.AddImage(pauseMenu.continueBtn, boiSprite);
-		pauseMenu.continueBtn->active = false;
+		InitPause();
 
 		GameObject* distract2 = objectManager.NewGameObject();
 		//temp
@@ -525,6 +516,20 @@ namespace StarBangBang
 		CaptainStealth::SpawnKey(objectManager, door, keySprite, tilemap.GetPositionAtIndex(16, 47));
 		door->Link({ door2, door3 });
 		//////////////////////////////////////////////////////////////////////////////////////////////////////////
+	}
+
+	void Level_Demo::InitPause()
+	{
+		///Pause
+		pauseMenu.exitBtn = objectManager.NewGameObject();
+		objectManager.AddComponent<Click<Level_Demo>>(pauseMenu.exitBtn).setCallback(*this, &Level_Demo::Exit);
+		objectManager.AddImage(pauseMenu.exitBtn, exitBtnSprite);
+		pauseMenu.exitBtn->active = false;
+
+		pauseMenu.continueBtn = objectManager.NewGameObject();
+		objectManager.AddComponent<Click<Level_Demo>>(pauseMenu.continueBtn).setCallback(*this, &Level_Demo::TogglePause);
+		objectManager.AddImage(pauseMenu.continueBtn, boiSprite);
+		pauseMenu.continueBtn->active = false;
 	}
 
 }
