@@ -44,6 +44,7 @@ namespace StarBangBang
 	Sprite keySprite;
 	Sprite boiSprite;
 	Sprite exitBtnSprite;
+	Sprite continueBtnSprite;
 
 	struct Pause
 	{
@@ -118,6 +119,7 @@ namespace StarBangBang
 		boiSprite = graphicsManager.CreateSprite(RESOURCES::SPRITE_PLAYER_PATH);
 
 		exitBtnSprite = graphicsManager.CreateSprite(RESOURCES::EXIT1_BUTTON_PATH);
+		continueBtnSprite = graphicsManager.CreateSprite(RESOURCES::PLAY1_BUTTON_PATH);
 	}
 
 	//Initialization of game objects, components and scripts.
@@ -594,7 +596,7 @@ namespace StarBangBang
 
 		pauseMenu.continueBtn = objectManager.NewGameObject();
 		objectManager.AddComponent<Click<Level_Demo>>(pauseMenu.continueBtn, true).setCallback(*this, &Level_Demo::TogglePause);
-		objectManager.AddComponent<UIComponent>(pauseMenu.continueBtn, boiSprite);
+		objectManager.AddComponent<UIComponent>(pauseMenu.continueBtn, continueBtnSprite);
 		pauseMenu.continueBtn->transform.position.y = 100;
 		pauseMenu.continueBtn->transform.scale = { 3, 3 };
 		pauseMenu.continueBtn->active = false;
