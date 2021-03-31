@@ -132,7 +132,9 @@ void GuardMovement::OnEnterDistracted()
 {
 	UnblockPreviousPath();
 	LookForPath(targetPos);
-	distractionNode = path.back();
+
+	if (path.size() > 0)
+		distractionNode = path.back();
 }
 
 void GuardMovement::Distracted()
