@@ -56,11 +56,27 @@ void GuardVision::Update()
 			if (currRot == 0)
 				currRot = 1;
 
+			if (rotation < 0.f)
+			{
+				if (targetRot > 0)
+				{
+					if ((static_cast<int>(rotation) + static_cast<int>(targetRot)) != 0)
+						;// rotation = -rotation;
+				}
+			}
+			else
+			{
+				if (targetRot < 0)
+				{
+					if ((static_cast<int>(rotation) + static_cast<int>(targetRot)) != 0)
+						;// rotation = -rotation;
+				}
+			}
 
 			prevRot = currRot;
 			turn = true;
 			movement->SetTurning(true);
-			//PRINT("target rot: %d, curr rot: %f\n", currRot, rotation);
+			//PRINT("target rot: %f, rotation: %f\n", targetRot, rotation);
 		}
 
 		if (turn)
@@ -91,6 +107,30 @@ void GuardVision::Update()
 	{
 		/*detector->SetFacingDir(defaultForward);
 		detector->Rotate(0.f);*/
+	}
+}
+
+void GuardVision::Idle()
+{
+	if (gameObject->GetComponent<Guard>()->GetPrevState() == Guard::GUARD_STATE::STATE_DISTRACTED)
+	{
+		AEVec2 defaultForward = { 0, 1 };
+		AEVec2 targetDir, targetPos, goPos;
+		AEVec2 defaultLeft = { -1, 0 };
+		targetPos = movement->GetTargetPos(); // movement->GetNextPos();
+		goPos = gameObject->GetPos();
+
+		AEVec2Sub(&targetDir, &targetPos, &goPos);
+		AEVec2Normalize(&targetDir, &targetDir);
+
+		float dpResult = AEVec2DotProduct(&defaultForward, &targetDir);
+		float targetRot = AERadToDeg(AEACos(dpResult));
+
+		float dp = AEVec2DotProduct(&defaultLeft, &targetDir);
+		if (dp < 0.f)
+			targetRot = -targetRot;
+
+		detector->SpanVision(targetRot - 90.f, targetRot + 90.f, 50.f);
 	}
 }
 

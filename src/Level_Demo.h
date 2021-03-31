@@ -19,6 +19,14 @@ namespace StarBangBang
 		void Free();
 		void Unload();
 	private:
+		void Exit();
+		void DisplayPauseMenu();
+		void TogglePause();
+		bool paused{ false };
+
+		void SpawnDoors();
+		void InitPause();
+
 		//player stuffs
 		Sprite playerImage;
 
@@ -46,7 +54,7 @@ namespace StarBangBang
 
 		Sprite guardImage;
 		Sprite securityCamImage;
-		Sprite exitImage;
+		Sprite vendingMachineSprite;
 
 		GameObject* movementController;
 		GameObject* player;

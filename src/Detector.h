@@ -1,5 +1,6 @@
 #pragma once
 #include "ScriptComponent.h"
+#include "Color.h"
 
 namespace StarBangBang
 {
@@ -23,6 +24,8 @@ namespace StarBangBang
 		inline void SetFacingDir(const AEVec2& dir) { targetDir = dir; }
 		inline float GetRotation() const { return rotationAngle; }
 
+		bool GetDetected(AEVec2& targetPos) const;
+
 	private:
 		void CheckForTargets(const AEVec2& _targetPos, bool checkForPlayer = true);
 		void SetDetected(bool checkForPlayer, bool detected);
@@ -41,5 +44,7 @@ namespace StarBangBang
 		GameObject* target1, *target2;
 		BoxCollider* target1Col, *target2Col;
 		BoxCollider* myCollider;
+
+		Color color;
 	};
 }

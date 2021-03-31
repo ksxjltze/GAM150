@@ -45,16 +45,13 @@ void Detector::Update()
 
 void Detector::Draw()
 {
-	Color color;
-
 	if (detectedTarget1 || detectedTarget2)
 		color = Red;
-	else if (!detectedTarget1 && !detectedTarget2)
-		color = White;
+	//else if (!detectedTarget1 && !detectedTarget2)
+	//	color = White;
 
 	DrawLine(viewDist, gameObject->GetPos(), (fieldOfView * 0.5f) + rotationAngle, color);
 	DrawLine(viewDist, gameObject->GetPos(), (-fieldOfView * 0.5f) + rotationAngle, color);
-	//DrawLine(viewDist, gameObject->GetPos(), rotationAngle, color);
 }
 
 void Detector::Rotate(float angle)
@@ -160,4 +157,18 @@ void Detector::SetDetected(bool checkForPlayer, bool detected)
 		detectedTarget1 = detected;
 	else
 		detectedTarget2 = detected;
+}
+
+bool Detector::GetDetected(AEVec2& targetPos) const
+{
+	if (detectedTarget1)
+	{
+		targetPos = target1->GetPos();
+	}
+	else if (detectedTarget2)
+	{
+		targetPos = target2->GetPos();
+	}
+
+	return (detectedTarget1 || detectedTarget2);
 }

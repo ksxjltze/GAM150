@@ -24,6 +24,8 @@
 #include "CaptainStealth.h"
 #include "DebugText.h"
 
+#include "Click.h"
+
 static bool god = false;
 static float app_time = 0.0f;
 static int animation_counter = 0;
@@ -38,7 +40,27 @@ namespace StarBangBang
 {
 	Sprite computerSprite;
 	Sprite doorSprite;
-	Sprite boi;
+	Sprite keySprite;
+	Sprite boiSprite;
+	Sprite exitBtnSprite;
+
+	struct Pause
+	{
+		GameObject* exitBtn{ nullptr };
+		GameObject* continueBtn{ nullptr };
+		void Update() 
+		{
+			for (auto& component : exitBtn->GetComponents())
+			{
+				component->Update();
+			}
+
+			for (auto& component : continueBtn->GetComponents())
+			{
+				component->Update();
+			}
+		}
+	}pauseMenu;
 
 	StarBangBang::BoxCollider* playerCol;
 	StarBangBang::BoxCollider* clientCol;
@@ -49,6 +71,7 @@ namespace StarBangBang
 		player2 = nullptr;
 		movementController = nullptr;
 		guardManager = nullptr;
+		indicatorObj = nullptr;
 	}
 
 	void StarBangBang::Level_Demo::Load()
@@ -84,19 +107,22 @@ namespace StarBangBang
 
 		guardImage = graphicsManager.CreateSprite(RESOURCES::SECURITYGUARD_F1_PATH);
 		securityCamImage = graphicsManager.CreateSprite(RESOURCES::CAMERA_PATH);
-		exitImage = graphicsManager.CreateSprite(RESOURCES::VENDING_LEFT_PATH);
+		vendingMachineSprite = graphicsManager.CreateSprite(RESOURCES::VENDING_LEFT_PATH);
 		computerSprite = graphicsManager.CreateSprite(RESOURCES::COMPUTER_PATH);
 		doorSprite = graphicsManager.CreateSprite(RESOURCES::DOOR_PATH);
-		boi = graphicsManager.CreateSprite(RESOURCES::PROTOTYPE_SPRITE_2_PATH);
+		keySprite = graphicsManager.CreateSprite(RESOURCES::KEY_PATH);
 
 		//indicator sprite
 		indicator = graphicsManager.CreateSprite(RESOURCES::INDICATOR_PATH);
+		boiSprite = graphicsManager.CreateSprite(RESOURCES::SPRITE_PLAYER_PATH);
+
+		exitBtnSprite = graphicsManager.CreateSprite(RESOURCES::EXIT1_BUTTON_PATH);
 	}
 
 	//Initialization of game objects, components and scripts.
 	void StarBangBang::Level_Demo::Init()
 	{
-
+		paused = false;
 		PathFinder::PathFinderInit();
 		PathFinder::ShowGrid(true);
 
@@ -108,6 +134,7 @@ namespace StarBangBang
 		tilemap.Load(RESOURCES::LEVELS::LEVEL_TEST_PATH);
 
 		tilemap.SetGrid(PathFinder::GetWorldGrid());
+		CollisionManager::SetDebugVisible(false);
 		//tilemap.SetVisible(false);
 
 		//Movement controller
@@ -130,13 +157,13 @@ namespace StarBangBang
 		indicatorObj->transform.scale = {0.65f, 0.65f};
 		
 		//Compooter
-		srand(static_cast<unsigned int>(time(NULL)));
-		for (int i = 0; i < CONSTANTS::COMPUTER_COUNT; ++i)
-		{
-			Grid& grid = PathFinder::GetWorldGrid();
-			A_Node n = grid.GetRandomFreeNode();
-			CaptainStealth::SpawnComputer(objectManager, computerSprite, n.nodePos);
-		}
+		//srand(static_cast<unsigned int>(time(NULL)));
+		//for (int i = 0; i < CONSTANTS::COMPUTER_COUNT; ++i)
+		//{
+		//	Grid& grid = PathFinder::GetWorldGrid();
+		//	A_Node n = grid.GetRandomFreeNode();
+		//	CaptainStealth::SpawnComputer(objectManager, computerSprite, n.nodePos);
+		//}
 
 		//Movement Manager
 		moveMgr.AddController(player);
@@ -155,20 +182,90 @@ namespace StarBangBang
 		//Level Exit
 		GameObject* exit = objectManager.NewGameObject();
 		//temp
-		exit->transform.position = tilemap.GetPositionAtIndex(40, 45);
+		exit->transform.position = tilemap.GetPositionAtIndex(1, 34);
 		exit->name = "EXIT";
-		objectManager.AddImage(exit, exitImage);
+		objectManager.AddImage(exit, boiSprite);
 		objectManager.AddCollider(exit, true).isTrigger = true;
 
-		CaptainStealth::SpawnDoor(objectManager, doorSprite, exit->transform.position);
+		SpawnDoors();
 
-		//Distraction
-		GameObject* distract = objectManager.NewGameObject();
+		InitPause();
+
+		//room 1 distractor
+		GameObject* distract2 = objectManager.NewGameObject();
 		//temp
-		distract->transform.position = tilemap.GetPositionAtIndex(8, 8);
-		objectManager.AddComponent<Distractor>(distract);
-		objectManager.AddImage(distract, boi);
-		objectManager.AddCollider(distract, true).isTrigger = true;
+		distract2->transform.position = tilemap.GetPositionAtIndex(8, 12);
+		objectManager.AddComponent<Distractor>(distract2).SetRoomNum(1);
+		objectManager.AddImage(distract2, vendingMachineSprite);
+		objectManager.AddCollider(distract2, true).isTrigger = true;
+
+		//room 2 distractor
+		GameObject* distract10 = objectManager.NewGameObject();
+		//temp
+		distract10->transform.position = tilemap.GetPositionAtIndex(30, 6);
+		objectManager.AddComponent<Distractor>(distract10).SetRoomNum(2);
+		objectManager.AddImage(distract10, vendingMachineSprite);
+		objectManager.AddCollider(distract10, true).isTrigger = true;
+
+		GameObject* distract11 = objectManager.NewGameObject();
+		//temp
+		distract11->transform.position = tilemap.GetPositionAtIndex(40, 10);
+		objectManager.AddComponent<Distractor>(distract11).SetRoomNum(2);
+		objectManager.AddImage(distract11, computerSprite);
+		objectManager.AddCollider(distract11, true).isTrigger = true;
+
+		//room 3 distractor
+		GameObject* distract3 = objectManager.NewGameObject();
+		//temp
+		distract3->transform.position = tilemap.GetPositionAtIndex(31, 7);
+		objectManager.AddComponent<Distractor>(distract3).SetRoomNum(3);
+		objectManager.AddImage(distract3, computerSprite);
+		objectManager.AddCollider(distract3, true).isTrigger = true;
+		
+		GameObject* distract8 = objectManager.NewGameObject();
+		//temp
+		distract8->transform.position = tilemap.GetPositionAtIndex(41, 43);
+		objectManager.AddComponent<Distractor>(distract8).SetRoomNum(3);
+		objectManager.AddImage(distract8, computerSprite);
+		objectManager.AddCollider(distract8, true).isTrigger = true;
+
+		GameObject* distract9 = objectManager.NewGameObject();
+		//temp
+		distract9->transform.position = tilemap.GetPositionAtIndex(39, 37);
+		objectManager.AddComponent<Distractor>(distract9).SetRoomNum(3);
+		objectManager.AddImage(distract9, vendingMachineSprite);
+		objectManager.AddCollider(distract9, true).isTrigger = true;
+
+
+
+		//room 4 distractor
+		GameObject* distract4 = objectManager.NewGameObject();
+		//temp
+		distract3->transform.position = tilemap.GetPositionAtIndex(15, 42);
+		objectManager.AddComponent<Distractor>(distract4).SetRoomNum(4);
+		objectManager.AddImage(distract4, computerSprite);
+		objectManager.AddCollider(distract4, true).isTrigger = true;
+
+		GameObject* distract5 = objectManager.NewGameObject();
+		//temp
+		distract5->transform.position = tilemap.GetPositionAtIndex(5, 21);
+		objectManager.AddComponent<Distractor>(distract5).SetRoomNum(4);
+		objectManager.AddImage(distract5, computerSprite);
+		objectManager.AddCollider(distract5, true).isTrigger = true;
+
+		GameObject* distract6 = objectManager.NewGameObject();
+		//temp
+		distract6->transform.position = tilemap.GetPositionAtIndex(16, 27);
+		objectManager.AddComponent<Distractor>(distract6).SetRoomNum(4);
+		objectManager.AddImage(distract6, vendingMachineSprite);
+		objectManager.AddCollider(distract6, true).isTrigger = true;
+
+		GameObject* distract7 = objectManager.NewGameObject();
+		//temp
+		distract7->transform.position = tilemap.GetPositionAtIndex(5, 47);
+		objectManager.AddComponent<Distractor>(distract7).SetRoomNum(4);
+		objectManager.AddImage(distract7, vendingMachineSprite);
+		objectManager.AddCollider(distract7, true).isTrigger = true;
 
 		//Notification Text
 		objectManager.AddComponent<DebugText>(objectManager.NewGameObject(), fontId);
@@ -177,11 +274,34 @@ namespace StarBangBang
 		MessageBus::Notify({ EventId::PRINT_TEXT, std::string("Find the Vending Machine!") });
 		MessageBus::Notify({ EventId::PLAY_SOUND, "Test"});
 
-	
+		character = current_char::fei_ge;
 	}
 
 	void StarBangBang::Level_Demo::Update()
 	{
+		if (AEInputCheckTriggered(AEVK_ESCAPE))
+		{
+			TogglePause();
+			//gameStateManager.SetNextGameState(MAIN_MENU);
+		}
+
+		if (paused)
+		{
+			if (AEInputCheckTriggered(AEVK_RETURN))
+			{
+				TogglePause();
+				return;
+			}
+
+			AEVec2 pos = player->GetComponent<CameraComponent>()->GetTarget()->transform.position;
+			pauseMenu.continueBtn->transform.position = { pos.x, pos.y + 70 };
+			pauseMenu.exitBtn->transform.position = { pos.x, pos.y - 70 };
+
+			pauseMenu.Update();
+
+			return;
+		}
+
 		Scene::Update();
 
 		//indicator update
@@ -338,11 +458,6 @@ namespace StarBangBang
 			MessageBus::Notify({ EventId::PRINT_TEXT, std::string("Find the Exit!") });
 		}
 
-		if (AEInputCheckTriggered(AEVK_ESCAPE))
-		{
-			gameStateManager.SetNextGameState(MAIN_MENU);
-		}
-
 		PlayerScript* playerScript = player->GetComponent<PlayerScript>();
 		if (AEInputCheckTriggered(AEVK_G))
 		{
@@ -381,6 +496,13 @@ namespace StarBangBang
 	void StarBangBang::Level_Demo::Draw()
 	{
 		Scene::Draw();
+
+		// draw occupied pathfinding nodes for debugging
+		PathFinder::GridDraw();
+
+		if (paused)
+			DisplayPauseMenu();
+
 		//Color dark = { 0, 0, 0, 0.5f };
 		//Color light = { 1.0f, 1.0f, 1.0f, 0.5f };
 		//GRAPHICS::DrawOverlay(graphicsManager.GetMesh(), { 20, 20 }, { 0, 0 }, dark, AE_GFX_BM_BLEND);
@@ -398,6 +520,87 @@ namespace StarBangBang
 	{
 		tilemap.Unload();
 		Scene::Unload();
+	}
+
+	void Level_Demo::Exit()
+	{
+		gameStateManager.SetNextGameState(MAIN_MENU);
+	}
+
+	void Level_Demo::DisplayPauseMenu()
+	{
+		GRAPHICS::DrawOverlay(graphicsManager.GetMesh(), { 20, 20 }, { 0, 0 }, { 0, 0, 0, 0.7f }, AEGfxBlendMode::AE_GFX_BM_BLEND);
+		pauseMenu.exitBtn->transform.scale = { AEGetWindowWidth() / 50.0f * 0.2f, AEGetWindowHeight() / 50.0f * 0.2f };
+		pauseMenu.continueBtn->transform.scale = { AEGetWindowWidth() / 50.0f * 0.2f, AEGetWindowHeight() / 50.0f * 0.2f };
+		pauseMenu.exitBtn->GetComponent<ImageComponent>()->Draw();
+		pauseMenu.continueBtn->GetComponent<ImageComponent>()->Draw();
+	}
+
+	void Level_Demo::TogglePause()
+	{
+		paused = !paused;
+
+		pauseMenu.continueBtn->active = paused;
+		pauseMenu.exitBtn->active = paused;
+	}
+
+	void Level_Demo::SpawnDoors()
+	{
+		//////////////////////////////////////////////////////////////////////////////////////////////////////////
+		// Door
+		//////////////////////////////////////////////////////////////////////////////////////////////////////////
+		//First room door
+
+
+		Door* door = CaptainStealth::SpawnDoor(objectManager, doorSprite, tilemap.GetPositionAtIndex(20, 9));
+		Door* door2 = CaptainStealth::SpawnDoor(objectManager, doorSprite, tilemap.GetPositionAtIndex(20, 8));
+		Door* door3 = CaptainStealth::SpawnDoor(objectManager, doorSprite, tilemap.GetPositionAtIndex(20, 7));
+
+		CaptainStealth::SpawnKey(objectManager, door, keySprite, tilemap.GetPositionAtIndex(14, 12));
+		CaptainStealth::SpawnKey(objectManager, door, keySprite, tilemap.GetPositionAtIndex(3, 2));
+		door->Link({ door2, door3 });
+
+		//Second room door
+		door = CaptainStealth::SpawnDoor(objectManager, doorSprite, tilemap.GetPositionAtIndex(35, 20));
+		door2 = CaptainStealth::SpawnDoor(objectManager, doorSprite, tilemap.GetPositionAtIndex(36, 20));
+		door3 = CaptainStealth::SpawnDoor(objectManager, doorSprite, tilemap.GetPositionAtIndex(37, 20));
+
+		CaptainStealth::SpawnKey(objectManager, door, keySprite, tilemap.GetPositionAtIndex(45, 6));
+		CaptainStealth::SpawnKey(objectManager, door, keySprite, tilemap.GetPositionAtIndex(48, 18));
+		door->Link({ door2, door3 });
+
+		//Third room door
+		door = CaptainStealth::SpawnDoor(objectManager, doorSprite, tilemap.GetPositionAtIndex(19, 36));
+		door2 = CaptainStealth::SpawnDoor(objectManager, doorSprite, tilemap.GetPositionAtIndex(19, 35));
+		door3 = CaptainStealth::SpawnDoor(objectManager, doorSprite, tilemap.GetPositionAtIndex(19, 34));
+
+		CaptainStealth::SpawnKey(objectManager, door, keySprite, tilemap.GetPositionAtIndex(46, 44));
+		CaptainStealth::SpawnKey(objectManager, door, keySprite, tilemap.GetPositionAtIndex(21, 44));
+		door->Link({ door2, door3 });
+
+		//Fourth room door
+		door = CaptainStealth::SpawnDoor(objectManager, doorSprite, tilemap.GetPositionAtIndex(3, 35));
+		door2 = CaptainStealth::SpawnDoor(objectManager, doorSprite, tilemap.GetPositionAtIndex(3, 34));
+		door3 = CaptainStealth::SpawnDoor(objectManager, doorSprite, tilemap.GetPositionAtIndex(3, 33));
+
+		CaptainStealth::SpawnKey(objectManager, door, keySprite, tilemap.GetPositionAtIndex(15, 19));
+		CaptainStealth::SpawnKey(objectManager, door, keySprite, tilemap.GetPositionAtIndex(16, 47));
+		door->Link({ door2, door3 });
+		//////////////////////////////////////////////////////////////////////////////////////////////////////////
+	}
+
+	void Level_Demo::InitPause()
+	{
+		///Pause
+		pauseMenu.exitBtn = objectManager.NewGameObject();
+		objectManager.AddComponent<Click<Level_Demo>>(pauseMenu.exitBtn).setCallback(*this, &Level_Demo::Exit);
+		objectManager.AddImage(pauseMenu.exitBtn, exitBtnSprite);
+		pauseMenu.exitBtn->active = false;
+
+		pauseMenu.continueBtn = objectManager.NewGameObject();
+		objectManager.AddComponent<Click<Level_Demo>>(pauseMenu.continueBtn).setCallback(*this, &Level_Demo::TogglePause);
+		objectManager.AddImage(pauseMenu.continueBtn, boiSprite);
+		pauseMenu.continueBtn->active = false;
 	}
 
 }

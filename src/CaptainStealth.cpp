@@ -1,6 +1,7 @@
 #include "CaptainStealth.h"
 #include "globals.h"
 #include "constants.h"
+#include "Door.h"
 
 namespace StarBangBang
 {
@@ -55,15 +56,27 @@ namespace StarBangBang
 		collider.isTrigger = true;
 	}
 
-	void CaptainStealth::SpawnDoor(ObjectManager& objMgr, Sprite image, AEVec2 position)
+	Door* CaptainStealth::SpawnDoor(ObjectManager& objMgr, Sprite image, AEVec2 position)
 	{
 		GameObject* doorObj = objMgr.NewGameObject();
+		Door& door = objMgr.AddComponent<Door>(doorObj);
 		objMgr.AddImage(doorObj, image);
 		doorObj->transform.position = position;
 		objMgr.AddComponent<RigidBody>(doorObj).SetMass(0);
 		objMgr.AddCollider(doorObj, true);
 
-		objMgr.AddComponent<ComputerListener>(doorObj);
+		return &door;
+	}
+
+	void CaptainStealth::SpawnKey(ObjectManager& objMgr, Door* door, Sprite image, AEVec2 position)
+	{
+		GameObject* key = objMgr.NewGameObject();
+		objMgr.AddImage(key, image);
+		key->transform.scale = { 0.5f, 0.5f };
+
+		objMgr.AddComponent<Key>(key, door);
+		key->transform.position = position;
+		objMgr.AddCollider(key, true).isTrigger = true;
 	}
 
 	void CaptainStealth::SpawnPlayer(ObjectManager& objMgr, GameObject*& player, Sprite playerImage)

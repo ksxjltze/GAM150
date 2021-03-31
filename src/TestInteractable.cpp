@@ -18,5 +18,4 @@ void StarBangBang::TestInteractable::Interact()
 	//Adds an event to the queue and sends it to all listeners
 	MessageBus::Notify(e);
 	MessageBus::Notify(e2);
-
 }

@@ -2,6 +2,7 @@
 #include "ScriptComponent.h"
 #include "ObjectManager.h"
 #include "Guard.h"
+#include "Listener.h"
 #include <vector>
 
 namespace StarBangBang
@@ -9,17 +10,18 @@ namespace StarBangBang
 	class ObjectManager;
 	struct Sprite;
 
-	class GuardManager : public Script
+	class GuardManager : public Script, Listener
 	{
 	private:
-		const unsigned int NUM_GUARDS = 15; // to be read from file
-		const unsigned int NUM_CAMERAS = 10;
+		const unsigned int NUM_GUARDS = 23; // to be read from file
+		const unsigned int NUM_CAMERAS = 4;
 
 	public:
 		GuardManager(GameObject* gameObject);
 
 		void Start() {};
 		void Update();
+		void onNotify(Event e);
 
 		void Init(ObjectManager* objManager, Sprite* sprite, GameObject* player, GameObject* client);
 		void CreateSecurityCameras(ObjectManager* objManager, Sprite* sprite, GameObject* player, GameObject* client);
@@ -27,11 +29,12 @@ namespace StarBangBang
 		std::vector<GameObject*> GetGuards() const { return guards; }
 
 	private:
-		GameObject* GetNearestGuard(AEVec2& _pos);
+		GameObject* GetNearestGuard(const AEVec2& _pos, unsigned int roomNum);
 
 		// temp
-		void SetGuardWaypoints(int id, const AEVec2& start, const AEVec2& end, bool isIdle = false, float speed = GUARD::GUARD_SPEED);
-		void InitSecurityCam(int id, const AEVec2& pos, float min, float max, float speed = GUARD::CAM_ROT_SPEED);
+		void SetGuardStartEnd(int id, unsigned int roomNum, const AEVec2& start, const AEVec2& end, bool isIdle = false, float speed = GUARD::GUARD_SPEED);
+		void SetGuardWaypoints(int id, unsigned int roomNum, const std::vector<AEVec2>& waypoints, float speed = GUARD::GUARD_SPEED);
+		void InitSecurityCam(int id, unsigned int roomNum, const AEVec2& pos, float min, float max, float speed = GUARD::CAM_ROT_SPEED);
 
 		std::vector<GameObject*> guards; //GameObject* guards[NUM_GUARDS];
 		std::vector<GameObject*> cameras;

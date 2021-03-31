@@ -10,13 +10,27 @@ using namespace StarBangBang;
 GuardMovement::GuardMovement(GameObject* gameObject)
 	: Script(gameObject)
 	, speed(GUARD::GUARD_SPEED)
+	, distractedDuration(0.f)
 	, nodeIndex(0)
+	, waypointIndex(0)
+	, pathSize(0)
 	, lookForPath(false)
 	, foundPath(false)
 	, isMoving(false)
 	, changedTargetPos(false)
+	, idleForever(false)
+	, turning(false)
+	, usingWaypoints(false)
+	, movingToLastWaypoint(true)
+	, guard(nullptr)
+	, rb(nullptr)
+	, distractionNode(nullptr)
+	, startPos{ 0, 0 }
+	, targetPos{ 0, 0 }
+	, endPos{ 0, 0 }
+	, nextPos{ 0, 0 }
+	, reachedEndOfPath{ false }
 {
-	SetWaypoints();
 	//std::cout << waypoints.size() << "\n";
 
 	//std::string text = "Guard ID: " + std::to_string(gameObject->GetComponent<Guard>()->GetID()) + "\n";
@@ -28,6 +42,8 @@ void GuardMovement::Start()
 {
 	rb = gameObject->GetComponent<RigidBody>();
 	rb->drag = 0.2f;
+
+	guard = gameObject->GetComponent<Guard>();
 }
 
 void GuardMovement::Idle()
@@ -38,6 +54,21 @@ void GuardMovement::Idle()
 	// ...
 
 	isMoving = false;
+
+	if (idleForever)
+		return;
+
+	// Return to patrol state
+	if (guard->GetPrevState() == Guard::GUARD_STATE::STATE_DISTRACTED)
+	{
+		distractedDuration -= g_dt;
+		if (distractedDuration <= 0.f)
+		{
+			guard->ChangeState(Guard::GUARD_STATE::STATE_PATROL);
+			foundPath = false;
+			distractedDuration = 0.f;
+		}
+	}
 }
 
 void GuardMovement::Patrol()
@@ -52,48 +83,126 @@ void GuardMovement::Patrol()
 	AEVec2Normalize(&dir, &dir);
 	AEVec2Add(&gameObject->transform.position, &gameObject->transform.position, &dir);*/
 
-	//MoveTo(waypoints.front());
 
-	if (!changedTargetPos)
+	if (!usingWaypoints)
 	{
-		targetPos = endPos;
+		if (!changedTargetPos)
+		{
+			targetPos = endPos;
+		}
+		else
+		{
+			targetPos = startPos;
+		}
 	}
 	else
 	{
-		targetPos = startPos;
+		targetPos = waypoints[waypointIndex];
 	}
 
 	if (!foundPath)
 	{
 		LookForPath(targetPos);
+
+		if (distractionNode)
+			distractionNode->occupied = false;
+
 		return;
 	}
 
 	MoveAlongPath();
+
+	if (usingWaypoints && reachedEndOfPath)
+	{
+		if (movingToLastWaypoint)
+		{
+			++waypointIndex;
+
+			if (waypointIndex >= waypoints.size())
+			{
+				movingToLastWaypoint = false; // now guard will go to waypoints in reverse order
+				waypointIndex = static_cast<unsigned int>(waypoints.size() - 1);
+			}
+		}
+		else
+		{
+			--waypointIndex;
+			if (waypointIndex <= 0)
+			{
+				movingToLastWaypoint = true; // now guard will go to waypoints in order
+				waypointIndex = 0;
+			}
+		}
+	}
+}
+
+void GuardMovement::OnEnterDistracted()
+{
+	isMoving = false;
+	speed = GUARD::GUARD_SPEED + 15.f;
+	UnblockPreviousPath();
+	LookForPath(targetPos);
+
+	if (path.size() > 0)
+		distractionNode = path.back();
 }
 
 void GuardMovement::Distracted()
 {
-	//Distraction test
-	gameObject->transform.scale = { 2, 2 };
-
 	if (!foundPath)
 		return;
 
 	MoveAlongPath();
+
+	if (reachedEndOfPath)
+	{
+		guard->ChangeState(Guard::GUARD_STATE::STATE_IDLE);
+	}
+}
+
+void GuardMovement::OnExitDistracted()
+{
+	speed = GUARD::GUARD_SPEED;
+}
+
+void GuardMovement::OnEnterChase()
+{
+	isMoving = false;
+	speed = GUARD::GUARD_SPEED + 20.f;
+	UnblockPreviousPath();
+	LookForPath(targetPos);
+	nodeIndex = 1;
+}
+
+void GuardMovement::Chase()
+{
+	if (!foundPath)
+		return;
+
+	MoveAlongPath();
+
+	if (reachedEndOfPath)
+	{
+		// send game over event
+		MessageBus::Notify({ EventId::GAME_OVER, gameObject });
+	}
 }
 
 void GuardMovement::MoveAlongPath()
 {
 	if (turning)
 		return;
-
-	/*for (const A_Node* n : path)
+	
+	if (gameObject->GetComponent<Guard>()->GetState() == Guard::GUARD_STATE::STATE_DISTRACTED)
 	{
-		DrawCircle(20.0f, n->nodePos);
-	}*/
+		pathSize = path.size() - 1;
+	}
+	else
+	{
+		pathSize = path.size();
+	}
 
-	if (nodeIndex < path.size())
+	if (nodeIndex < pathSize)
 	{
 		isMoving = true;
 		nextPos = path[nodeIndex]->nodePos;
@@ -149,20 +258,10 @@ bool GuardMovement::ReachedPos(AEVec2 pos)
 	return (AEVec2SquareDistance(&pos, &gameObject->transform.position) <= minDistToTarget * minDistToTarget);
 }
 
-void GuardMovement::SetWaypoints()
+void GuardMovement::SetWaypoints(const std::vector<AEVec2>& _waypoints)
 {
-	//std::cout << "GUARD: SETTING WAYPOINTS\n";
-	// Test
-	waypoints.push_back({ 100, 10 });
-
-
-	// ***********************************
-
-	// Read from file
-	// ...
-
-	// Set waypoints specfic to this guard
-	// ...
+	usingWaypoints = true;
+	waypoints = _waypoints;
 }
 
 bool GuardMovement::IsChangingDir()
@@ -197,6 +296,7 @@ bool GuardMovement::IsChangingDir()
 
 void GuardMovement::LookForPath(const AEVec2& pos)
 {
+	turning = false;
 	lookForPath = true;
 
 	if (lookForPath)
@@ -213,9 +313,20 @@ void GuardMovement::LookForPath(const AEVec2& pos)
 	}
 }
 
-void GuardMovement::SetStartEndPos(const AEVec2& start, const AEVec2& end)
+void GuardMovement::SetStartEndPos(const AEVec2& start, const AEVec2& end, bool _idleForever)
 {
 	gameObject->SetPos(start);
 	startPos = start;
 	endPos = end;
+	idleForever = _idleForever;
+}
+
+void GuardMovement::UnblockPreviousPath()
+{
+	for (A_Node* n : path)
+	{
+		n->occupied = false;
+	}
+
+	path.clear();
 }

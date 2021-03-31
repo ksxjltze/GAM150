@@ -20,10 +20,16 @@
 #include "TestScene.h"
 #include "Scene_GameOver.h"
 #include "Logo_Splash.h"
+#include "Credits.h"
+
+//Test scenes
+#include "DoorTest.h"
+
 namespace StarBangBang
 {
 	float g_dt = 0;
 	s8 fontId = -1;
+	s8 fontId2 = -1;
 }
 
 // ---------------------------------------------------------------------------
@@ -100,10 +106,13 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 	Scene* sampleScene		= gameStateManager.AddGameState<Sample_Scene>(SceneID::SAMPLE);
 	Scene* gameScene		= gameStateManager.AddGameState<CaptainStealth>(SceneID::GAME);
 	Scene* ggScene			= gameStateManager.AddGameState<Scene_GameOver>(GAME_OVER);
-	Scene* logoScene = gameStateManager.AddGameState<LogoSplash>();
+	Scene* logoScene 		= gameStateManager.AddGameState<LogoSplash>();
 
 	Scene* engineProof		= gameStateManager.AddGameState<EngineProof>();
 	Scene* testScene		= gameStateManager.AddGameState<TestScene>();
+	Scene* credits			= gameStateManager.AddGameState<Credits>(CREDITS);
+
+	Scene* door			= gameStateManager.AddGameState<DoorTest>();
 	
 	// Hack to remove unreferenced local variable warning
 	sceneList.push_back(sceneDemo);
@@ -111,9 +120,10 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 	sceneList.push_back(sampleScene);
 	sceneList.push_back(gameScene);
 	sceneList.push_back(mainMenuScene);
-	sceneList.push_back(engineProof);
-	sceneList.push_back(testScene);
 	sceneList.push_back(ggScene);
+	sceneList.push_back(credits);
+
+	sceneList.push_back(door);
 
 	// Set Initial State
 	gameStateManager.SetInitialState(logoScene);
@@ -140,6 +150,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 
 	// ALWAYS CREATE FONTS OUTSIDE LOOP
 	fontId = AEGfxCreateFont("./Resources/Roboto-Regular.ttf", 32);
+	fontId2 = AEGfxCreateFont("./Resources/Roboto-Regular.ttf", 48);
 	if (fontId < 0)
 	{
 		fontId = 0;

@@ -32,11 +32,24 @@ void StarBangBang::PlayerScript::Debug_Reset()
 
 void StarBangBang::PlayerScript::onNotify(Event e)
 {
-	if (e.id == EventId::DETECTED)
+	if (e.id == EventId::GAME_OVER)
 	{
 		GameObject* detectedObj = std::any_cast<GameObject*>(e.context);
 		if (detectedObj->active)
 			gameover = true;
+	}
+
+	if (e.id == EventId::DETECTED)
+	{
+		GameObject* detectedObj = std::any_cast<GameObject*>(e.context);
+		if (detectedObj->active)
+		{
+			detected = true;
+
+			// Don't allow player to move when detected
+			//gameObject->GetComponent<PrimaryMovementController>()->SetActive(false);
+			//client->GetComponent<PrimaryMovementController>()->SetActive(false);
+		}
 	}
 
 	if (e.id == EventId::PLAYER_COLLISION)

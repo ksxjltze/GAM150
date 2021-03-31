@@ -21,6 +21,7 @@ namespace StarBangBang
 
 		void LoadEditor();
 		void LoadLevel();
+		void Credits();
 		void ExitGame();
 
 	private:

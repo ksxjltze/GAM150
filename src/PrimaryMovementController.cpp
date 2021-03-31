@@ -14,8 +14,6 @@ void StarBangBang::PrimaryMovementController::Start()
 
 void StarBangBang::PrimaryMovementController::Update()
 {
-
-
 	float speed = 50.0f;
 	float h = 0.0f, v = 0.0f;
 

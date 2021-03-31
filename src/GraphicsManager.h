@@ -32,6 +32,7 @@ namespace StarBangBang
 		void ScaleFullscreen(AEMtx33& mtx);
 		void InverseScaleFullscreen(AEMtx33& mtx);
 		void ToggleFullscreen();
+		bool IsFullscreen();
 
 	}
 

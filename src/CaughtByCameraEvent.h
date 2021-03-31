@@ -1,22 +1,21 @@
 #pragma once
 #include "GameObject.h"
 #include "MessageBus.h"
-#include "Distractor.h"
+#include "SecurityCamera.h"
 
 namespace StarBangBang
 {
-	struct DistractionEvent
+	struct CaughtByCameraEvent
 	{
 		GameObject* gameObject;
+		AEVec2 pos;
 		unsigned int roomNum = 0;
-		float duration;
 
 		void SendEvent()
 		{
-			roomNum = gameObject->GetComponent<Distractor>()->GetRoomNum();
-			duration = gameObject->GetComponent<Distractor>()->GetDuration();
+			roomNum = gameObject->GetComponent<SecurityCamera>()->GetRoomNum();
 			Event e;
-			e.id = EventId::DISTRACTION;
+			e.id = EventId::CAUGHT_BY_CAMERA;
 			e.context = *this;
 			MessageBus::Notify(e);
 		};

@@ -46,6 +46,7 @@ namespace StarBangBang
 	void StarBangBang::Main_Menu::Init()
 	{
 		GRAPHICS::SetZoom(1.0f);
+		GRAPHICS::SetBackgroundColor(Black);
 		//logo 
 		logo_obj = objectManager.NewGameObject();
 		objectManager.AddImage(logo_obj, logo);
@@ -76,6 +77,8 @@ namespace StarBangBang
 		creditsbutton_obj->transform.position = { (float)AEGetWindowWidth() / -8, (float)AEGetWindowHeight() / -8 };
 		creditsbutton_obj->transform.scale = { 3, 3 };
 
+		objectManager.AddComponent<Click<Main_Menu>>(creditsbutton_obj).setCallback(*this, &Main_Menu::Credits);
+
 		//exit game button
 		exitbutton_obj = objectManager.NewGameObject();
 		objectManager.AddImage(exitbutton_obj, exitbutton1);
@@ -95,6 +98,11 @@ namespace StarBangBang
 
 	void StarBangBang::Main_Menu::Update()
 	{
+		if (GRAPHICS::IsFullscreen())
+			GRAPHICS::SetZoom(1.5f);
+		else
+			GRAPHICS::SetZoom(1.0f);
+
 		Scene::Update();
 		if (AEInputCheckTriggered(AEVK_SPACE))
 		{
@@ -139,6 +147,11 @@ namespace StarBangBang
 	void Main_Menu::LoadLevel()
 	{
 		gameStateManager.SetNextGameState(SceneID::DEMO);
+	}
+
+	void Main_Menu::Credits()
+	{
+		gameStateManager.SetNextGameState(CREDITS);
 	}
 
 	void Main_Menu::ExitGame()

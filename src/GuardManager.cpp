@@ -6,6 +6,8 @@
 #include "GuardAnim.h"
 #include "SecurityCamera.h"
 #include "Physics.h"
+#include "DistractionEvent.h"
+#include "CaughtByCameraEvent.h"
 
 #include "Utils.h" // for mouseworldpos
 
@@ -16,8 +18,8 @@ using namespace StarBangBang;
 
 GuardManager::GuardManager(GameObject* gameObject) 
 	: Script(gameObject)
+	, Listener()
 {
-
 }
 
 void GuardManager::Init(ObjectManager* objManager, Sprite* sprite, GameObject* player, GameObject* client)
@@ -31,7 +33,7 @@ void GuardManager::Init(ObjectManager* objManager, Sprite* sprite, GameObject* p
 		guards[i]->transform.scale = {0.7f, 0.7f};
 		guards[i]->name = "Guard";
 		objManager->AddImage(guards[i], *sprite);
-		objManager->AddComponent<Guard>(guards[i]);
+		objManager->AddComponent<Guard>(guards[i]).SetID(i);
 		objManager->AddComponent<GuardMovement>(guards[i]);
 		objManager->AddComponent<GuardVision>(guards[i]);
 		objManager->AddComponent<Detector>(guards[i]).Init(50.f, 250.f, player, client);
@@ -42,21 +44,43 @@ void GuardManager::Init(ObjectManager* objManager, Sprite* sprite, GameObject* p
 	}
 
 	// temp, will change to read from file laterz
-	SetGuardWaypoints(id++, { -300, -1085 }, { -420, -1085 });
-	SetGuardWaypoints(id++, { -1144, -942}, { -850, -942 });
-	SetGuardWaypoints(id++, { -752, -746 }, { -752, -590 });
-	SetGuardWaypoints(id++, { -1020, -230 }, { -1020, -670 });
-	SetGuardWaypoints(id++, { -740, 100 }, { -740, -80 });
-	SetGuardWaypoints(id++, { -180, -50 }, { -20, 120 });
-	SetGuardWaypoints(id++, { 350, -240 }, { -195, -240 });
-	SetGuardWaypoints(id++, { 455, 190 }, { 630, -415 });
-	SetGuardWaypoints(id++, { 160, -1125 }, { 370, -980 });
-	SetGuardWaypoints(id++, { 795, -530 }, { 795, -530 }, true); // IDLE
-	SetGuardWaypoints(id++, { 930, 830 }, { 0, 515 });
-	SetGuardWaypoints(id++, { -195, 790 }, { -815, 540 });
-	SetGuardWaypoints(id++, { -1120, 420 }, { -880, 880 });
-	SetGuardWaypoints(id++, { 1070, 1011 }, { -733, -1060 }, false, 20.f); // patrol level kinda
-	SetGuardWaypoints(id++, { 1055, 145 }, { 1055, -950 }, false, 40.f); // patrol level kinda
+	int roomNum = 1;
+	SetGuardStartEnd(id++, roomNum, { -322, -1163 }, { -322, -596 });
+
+	//ROOM2
+	roomNum = 2; // TEMP
+	SetGuardStartEnd(id++, roomNum, { -72, -1162}, { -72, -385 });
+	SetGuardStartEnd(id++, roomNum, { -42, -1203 }, { 1069, -1203 });
+	SetGuardStartEnd(id++, roomNum, { 900, -1009 }, { 906, -456 });
+	SetGuardStartEnd(id++, roomNum, { 466, -589 }, { 769, -589 });
+	SetGuardStartEnd(id++, roomNum, { 314, -461 }, { 314, -954 });
+	SetGuardStartEnd(id++, roomNum, { 751, -835 }, { 491, -853 });
+
+	//ROOM3
+	roomNum = 3;
+	SetGuardStartEnd(id++, roomNum, { 945, -93 }, { 198, -93 });
+	SetGuardStartEnd(id++, roomNum, { -225, -42 }, { -225, 296 });
+	SetGuardStartEnd(id++, roomNum, { 0.1, 850 }, { 0.1, 500 });
+	SetGuardStartEnd(id++, roomNum, { -13, 889 }, { 754, 895 });
+	SetGuardStartEnd(id++, roomNum, { 1118, 68 }, { 1118, 671 });
+	SetGuardStartEnd(id++, roomNum, { 330, 282 }, { 893, 282 });
+	SetGuardStartEnd(id++, roomNum, { 783, 551 }, { 428, 551 });
+	
+	//ROOM 4
+	roomNum = 4;
+	SetGuardStartEnd(id++, roomNum,{ -667, 1015 }, { -911, 1015 });
+	SetGuardStartEnd(id++, roomNum,{ -849, 806 }, { -849, 949 });
+	SetGuardStartEnd(id++, roomNum, { -1022, 651 }, { -715, 651 });
+	SetGuardStartEnd(id++, roomNum, { -821, 544 }, { -821, 358 });
+	SetGuardStartEnd(id++, roomNum, { -489, 972 }, { -489, 635 });
+	SetGuardStartEnd(id++, roomNum, { -469, 382 }, { -469, 100 });
+	SetGuardStartEnd(id++, roomNum, { -617, 175 }, { -617, 459 });
+	SetGuardStartEnd(id++, roomNum, { -817, 47 }, { -1024, 47 });
+	//SetGuardStartEnd(id++, { -1050, -1051 }, { -850, -1051 });
+	SetGuardStartEnd(id++, roomNum, { -1001, -100 }, { -1001, -300 });
+
+	//SetGuardWaypoints(id++, { 1070, 1011 }, { -733, -1060 }, false, 20.f); // patrol level kinda
+	//SetGuardWaypoints(id++, { 1055, 145 }, { 1055, -950 }, false, 40.f); // patrol level kinda
 }
 
 void GuardManager::CreateSecurityCameras(ObjectManager* objManager, Sprite* sprite, GameObject* player, GameObject* client)
@@ -72,46 +96,99 @@ void GuardManager::CreateSecurityCameras(ObjectManager* objManager, Sprite* spri
 		objManager->AddComponent<Detector>(cameras[i]).Init(50.f, 300.f, player, client);
 	}
 
-	InitSecurityCam(id++, {-1030, -790},	-250.f, -150.f);
-	InitSecurityCam(id++, { -250, -520 },	-270.f, -130.f);
-	InitSecurityCam(id++, { -620, 190 },	-200.f,  -80.f,		60.f);
-	InitSecurityCam(id++, { 470, -480 },	   0.f,   90.f);
-	InitSecurityCam(id++, { -645, -410 },	 -90.f,    0.f,		60.f);
-	InitSecurityCam(id++, { 1020, 350 },	   0.f,   90.f,		60.f);
-	InitSecurityCam(id++, { -180, 340 },	   0.f,   90.f);
-	InitSecurityCam(id++, { -13, 1165 },	-180.f,  -90.f);
-	InitSecurityCam(id++, { -1160, 1130 },	-180.f,  -90.f,		60.f);
-	InitSecurityCam(id++, { -690, 720 },	   0.f,  360.f);
+	int roomNum = 1;
+	InitSecurityCam(id++, roomNum,{ -300, -1200 }, 0.0f, 90.0f);
+	//InitSecurityCam(id++, { 450, -100 }, -90.0f, 0.0f);
+	InitSecurityCam(id++, roomNum,{450, -100},	0.0f, 90.0f);
+	InitSecurityCam(id++, roomNum,{ 1150, -1200 }, -0.0f, 90.0f);
+	InitSecurityCam(id++, roomNum,{ 200, 700 }, -180.0f, -90.0f);
+	//InitSecurityCam(id++, { -250, -520 },	-270.f, -130.f);
+	//InitSecurityCam(id++, { -620, 190 },	-200.f,  -80.f,		60.f);
+	//InitSecurityCam(id++, { 470, -480 },	   0.f,   90.f);
+	//InitSecurityCam(id++, { -645, -410 },	 -90.f,    0.f,		60.f);
+	//InitSecurityCam(id++, { 1020, 350 },	   0.f,   90.f,		60.f);
+	//InitSecurityCam(id++, { -180, 340 },	   0.f,   90.f);
+	//InitSecurityCam(id++, { -13, 1165 },	-180.f,  -90.f);
+	//InitSecurityCam(id++, { -1160, 1130 },	-180.f,  -90.f,		60.f);
+	//InitSecurityCam(id++, { -690, 720 },	   0.f,  360.f);
 }
 
 void GuardManager::Update()
 {
 	//PRINT("x: %f, y: %f\n", GetMouseWorldPos().x, GetMouseWorldPos().y);
 
-	// upon receiving distraction event, get nearest guard to be distracted
-	// ...
-
 	if (AEInputCheckTriggered(VK_LBUTTON))
 	{
 		//guards[0]->GetComponent<GuardMovement>()->SetEndPos(GetMouseWorldPos());
-		//guards[0]->GetComponent<Guard>()->SetState(Guard::GUARD_STATE::STATE_PATROL);
+		//guards[0]->GetComponent<Guard>()->ChangeState(Guard::GUARD_STATE::STATE_PATROL);
 	}
 
 	if (AEInputCheckTriggered(VK_RBUTTON))
 	{
 		//guards[1]->GetComponent<GuardMovement>()->LookForPath(GetMouseWorldPos());
-		//guards[0]->GetComponent<Guard>()->SetState(Guard::GUARD_STATE::STATE_IDLE);
+		//guards[0]->GetComponent<Guard>()->ChangeState(Guard::GUARD_STATE::STATE_IDLE);
 	}
 }
 
-GameObject* GuardManager::GetNearestGuard(AEVec2& _pos)
+void GuardManager::onNotify(Event e)
 {
-	float minDist = AEVec2SquareDistance(&_pos, &guards[0]->transform.position);
-	GameObject* nearestGuard = guards[0];
-
-	for (size_t i = 1; i < NUM_GUARDS; i++)
+	if (e.id == EventId::DISTRACTION)
 	{
-		float dist = AEVec2SquareDistance(&_pos, &guards[i]->transform.position);
+		DistractionEvent distraction = std::any_cast<DistractionEvent>(e.context);
+		AEVec2 distractPos = distraction.gameObject->GetPos();
+		GameObject* guard = GetNearestGuard(distractPos, distraction.roomNum);
+
+		if (!guard)
+		{
+			std::cout << "No guard nearby/found\n";
+			return;
+		}
+
+		std::cout << "Distraction Room Num: " << distraction.roomNum << std::endl;
+		std::cout << "GUARD DISTRACTED! GUARD ID: " << guard->GetComponent<Guard>()->GetID() << std::endl;
+		guard->GetComponent<GuardMovement>()->SetTargetPos(distractPos);
+		guard->GetComponent<GuardMovement>()->SetDistractionDuration(distraction.duration);
+		guard->GetComponent<Guard>()->ChangeState(Guard::GUARD_STATE::STATE_DISTRACTED);
+	}
+
+	if (e.id == EventId::CAUGHT_BY_CAMERA)
+	{
+		CaughtByCameraEvent event = std::any_cast<CaughtByCameraEvent>(e.context);
+		AEVec2 eventPos = event.pos;
+		GameObject* guard = GetNearestGuard(eventPos, event.roomNum);
+
+		if (!guard)
+		{
+			std::cout << "No guard nearby/found\n";
+			return;
+		}
+
+		std::cout << "CAUGHT BY CAMERA in Room Num: " << event.roomNum << std::endl;
+		std::cout << "GUARD CHASING! GUARD ID: " << guard->GetComponent<Guard>()->GetID() << std::endl;
+		guard->GetComponent<GuardMovement>()->SetTargetPos(eventPos);
+		guard->GetComponent<Guard>()->ChangeState(Guard::GUARD_STATE::STATE_CHASE);
+	}
+}
+
+GameObject* GuardManager::GetNearestGuard(const AEVec2& _pos, unsigned int roomNum)
+{
+	AEVec2 distractionPos = _pos;
+	float minDist = 999999.f;
+	GameObject* nearestGuard = nullptr;
+
+	for (size_t i = 0; i < NUM_GUARDS; i++)
+	{
+		Guard* guard = guards[i]->GetComponent<Guard>();
+
+		// only look for guards not currently distracted
+		if (guard->GetState() == Guard::GUARD_STATE::STATE_DISTRACTED)
+			continue;
+
+		// only look for guards in same room as distraction object
+		if (guard->GetRoomNum() != roomNum)
+			continue;
+
+		float dist = AEVec2SquareDistance(&distractionPos, &guards[i]->transform.position);
 
 		if (dist < minDist)
 		{
@@ -123,19 +200,30 @@ GameObject* GuardManager::GetNearestGuard(AEVec2& _pos)
 	return nearestGuard;
 }
 
-void GuardManager::SetGuardWaypoints(int id, const AEVec2& start, const AEVec2& end, bool isIdle, float speed)
+void GuardManager::SetGuardStartEnd(int id, unsigned int roomNum, const AEVec2& start, const AEVec2& end, bool isIdle, float speed)
 {
-	guards[id]->GetComponent<GuardMovement>()->SetStartEndPos(start, end);
+	guards[id]->GetComponent<Guard>()->SetRoomNum(roomNum);
+	guards[id]->GetComponent<GuardMovement>()->SetSpeed(speed);
+	guards[id]->GetComponent<GuardMovement>()->SetStartEndPos(start, end, isIdle);
 
 	if (isIdle)
-		guards[id]->GetComponent<Guard>()->SetState(Guard::GUARD_STATE::STATE_IDLE);
-
-	guards[id]->GetComponent<GuardMovement>()->SetSpeed(speed);
+	{
+		guards[id]->GetComponent<Guard>()->ChangeState(Guard::GUARD_STATE::STATE_IDLE);
+	}
 }
 
-void GuardManager::InitSecurityCam(int id, const AEVec2& pos, float min, float max, float speed)
+void GuardManager::SetGuardWaypoints(int id, unsigned int roomNum, const std::vector<AEVec2>& waypoints, float speed)
+{
+	guards[id]->GetComponent<Guard>()->SetRoomNum(roomNum);
+	guards[id]->GetComponent<GuardMovement>()->SetSpeed(speed);
+	guards[id]->GetComponent<GuardMovement>()->SetWaypoints(waypoints);
+	guards[id]->SetPos(waypoints.front());
+}
+
+void GuardManager::InitSecurityCam(int id, unsigned int roomNum, const AEVec2& pos, float min, float max, float speed)
 {
 	cameras[id]->SetPos(pos);
+	cameras[id]->GetComponent<SecurityCamera>()->SetRoomNum(roomNum);
 	cameras[id]->GetComponent<SecurityCamera>()->SetRotationMinMax(min, max);
 	cameras[id]->GetComponent<SecurityCamera>()->SetRotSpeed(speed);
 }

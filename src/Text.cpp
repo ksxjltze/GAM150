@@ -4,7 +4,12 @@
 using namespace StarBangBang;
 
 
-Text::Text(GameObject* gameObject) : Component(gameObject), position{ AEVec2{0,0} }, textbox{ TextBox() }, fontID{-1}, text{ std::string("HELO") }
+Text::Text(GameObject* gameObject) : Component(gameObject), textbox{ TextBox() }, fontID{ -1 }, text{ std::string("HELO") }, scale{ 1.0f }
+{
+
+}
+
+StarBangBang::Text::Text(GameObject* gameObject, const std::string& s, s8 fontId, float scale) : Component(gameObject), textbox{ TextBox() }, fontID{ fontId }, text{ s }, scale{ scale }
 {
 
 }
@@ -27,20 +32,33 @@ void Text::Draw()
 
 	AEMtx33 camera = GRAPHICS::GetCameraMatrix();
 
-	position = gameObject->GetPos();
+	AEVec2 position = gameObject->GetPos();
 	AEMtx33MultVec(&position, &camera, &position );
 
 	AEGfxSetBlendMode(AE_GFX_BM_BLEND);
-	const float f_scale = 2.0f;
-
-	float y_offset = 0.3f;
 
 	f32 TextWidth, TextHeight;
 	s8* str = (s8*)text.c_str();
-	AEGfxGetPrintSize(fontID, str, f_scale, TextWidth, TextHeight);
-	AEGfxPrint(fontID, str, position.x - TextWidth / 2, position.y + y_offset - TextHeight / 2, f_scale, 1.0f, 1.0f ,1.0f);
 
+	//float wWidth = AEGetWindowWidth();
+	//float wHeight = AEGetWindowHeight();
+	float wWidth = static_cast<float>(AEGetWindowWidth());
+	float wHeight = static_cast<float>(AEGetWindowHeight());
 
-	//float c_w = 12.0f/ AEGetWindowWidth() * f_scale * 0.5f * 4;
-	//AEGfxPrint(fontID, (s8*)text.c_str(), position.x -c_w , position.y + 0.2f, f_scale, 1.0f, 1.0f ,1.0f);
+	float textScale = scale;
+	AEVec2 screenScale = GRAPHICS::GetScreenScale();
+
+	textScale *= screenScale.x / screenScale.y;
+
+	AEGfxGetPrintSize(fontID, str, textScale, TextWidth, TextHeight);
+	//AEGfxPrint
+	//(fontID, str, 0.0f - TextWidth / 2, 0.0f - TextHeight / 2,
+	//	scale, 1.0f, 1.0f, 1.0f
+	//);
+	AEGfxPrint
+	(fontID, str, 
+		position.x / wWidth * 2 - TextWidth / 2, 
+		position.y / wHeight * 2 - TextHeight / 2, 
+		textScale, 1.0f, 1.0f ,1.0f
+	);
 }
