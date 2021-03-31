@@ -46,6 +46,7 @@ namespace StarBangBang
 	void StarBangBang::Main_Menu::Init()
 	{
 		GRAPHICS::SetZoom(1.0f);
+		GRAPHICS::SetBackgroundColor(Black);
 		//logo 
 		logo_obj = objectManager.NewGameObject();
 		objectManager.AddImage(logo_obj, logo);
