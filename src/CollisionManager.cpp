@@ -21,6 +21,7 @@ CollisionData::CollisionData()
 CollisionPair::CollisionPair(BoxCollider& A, BoxCollider& B, CollisionData data) : A{ A }, B{ B }, data{ data }
 {
 }
+
 namespace
 {
 
@@ -30,6 +31,7 @@ namespace
 	std::vector<BoxCollider*> collider_list;
 
 }
+
 bool LineContainsPoint(const Ray& line, AEVec2 pt)
 {
 	AEVec2 p0 {line.start.x - pt.x , line.start.y - pt.y } ;
@@ -526,6 +528,9 @@ void CollisionManager::ResolverUpdate()
 	//timer -= AEFrameRateControllerGetFrameTime();
 #pragma endregion
 
+	if (!debug)
+		return;
+
 	for (BoxCollider* col : collider_list)
 	{
 		assert(col);
@@ -537,6 +542,11 @@ void CollisionManager::ResolverUpdate()
 
 }
 
+
+void StarBangBang::CollisionManager::SetDebugVisible(bool b)
+{
+	debug = b;
+}
 
 //check for static aabb
 bool CollisionManager::StaticAABB_Check(const BoxCollider& A, const BoxCollider& B)

@@ -42,6 +42,8 @@ namespace StarBangBang
 		void ResolverUpdate();
 		void AddToResolveQueue(CollisionPair);
 
+		void SetDebugVisible(bool);
+
 		bool StaticAABB_Check(const BoxCollider& A, const BoxCollider& B);
 		bool Dynamic_AABB(const BoxCollider& A, const AEVec2& vel1, const BoxCollider& B, const AEVec2& vel2);
 	
@@ -64,7 +66,7 @@ namespace StarBangBang
 		BoxCollider* CreateBoxColliderInstance(GameObject* gameObject,bool is_static = true);
 
 		bool ContainsPoint(const BoxCollider& box,AEVec2 pt);
-
+		static bool debug = false;
 
 		
 

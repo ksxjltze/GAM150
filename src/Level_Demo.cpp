@@ -116,7 +116,7 @@ namespace StarBangBang
 	//Initialization of game objects, components and scripts.
 	void StarBangBang::Level_Demo::Init()
 	{
-
+		paused = false;
 		PathFinder::PathFinderInit();
 		PathFinder::ShowGrid(false);
 
@@ -128,6 +128,7 @@ namespace StarBangBang
 		tilemap.Load(RESOURCES::LEVELS::LEVEL_TEST_PATH);
 
 		tilemap.SetGrid(PathFinder::GetWorldGrid());
+		CollisionManager::SetDebugVisible(false);
 		//tilemap.SetVisible(false);
 
 		//Movement controller
@@ -492,6 +493,7 @@ namespace StarBangBang
 
 	void Level_Demo::DisplayPauseMenu()
 	{
+		GRAPHICS::DrawOverlay(graphicsManager.GetMesh(), { 20, 20 }, { 0, 0 }, { 0, 0, 0, 0.7f }, AEGfxBlendMode::AE_GFX_BM_BLEND);
 		pauseMenu.exitBtn->GetComponent<ImageComponent>()->Draw();
 	}
 
