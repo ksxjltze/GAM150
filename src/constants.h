@@ -4,7 +4,7 @@
 
 namespace StarBangBang
 {
-	enum SceneID {DEMO, EDITOR, SAMPLE, GAME, MAIN_MENU, GAME_OVER, CREDITS};
+	enum SceneID {DEMO, EDITOR, SAMPLE, TUTORIAL, GAME, MAIN_MENU, GAME_OVER, CREDITS};
 
 	namespace KEYBIND
 	{
@@ -91,6 +91,7 @@ namespace StarBangBang
 			extern const std::string&& LEVEL_TEST_PATH;
 			extern const std::string&& LEVEL_MAIN_MENU_TEST_PATH;
 			extern const std::string&& COLLISION_TEST;
+			extern const std::string&& LEVEL_TUTORIAL;
 		}
 								
 

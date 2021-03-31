@@ -25,6 +25,7 @@ namespace StarBangBang
 			const std::string&& LEVEL_TEST_PATH = LEVELS_PATH + "test.txt";
 			const std::string&& LEVEL_MAIN_MENU_TEST_PATH = LEVELS_PATH + "title.csv";
 			const std::string&& COLLISION_TEST = LEVELS_PATH + "collision.csv";
+			const std::string&& LEVEL_TUTORIAL = LEVELS_PATH + "tutorial.csv";
 		}
 		
 		//Images path
