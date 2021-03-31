@@ -138,6 +138,7 @@ void GuardManager::onNotify(Event e)
 		std::cout << "Distraction Room Num: " << distraction.roomNum << std::endl;
 		std::cout << "GUARD DISTRACTED! GUARD ID: " << guard->GetComponent<Guard>()->GetID() << std::endl;
 		guard->GetComponent<GuardMovement>()->SetTargetPos(distractPos);
+		guard->GetComponent<GuardMovement>()->SetDistractionDuration(distraction.duration);
 		guard->GetComponent<Guard>()->ChangeState(Guard::GUARD_STATE::STATE_DISTRACTED);
 	}
 }

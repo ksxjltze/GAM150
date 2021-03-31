@@ -60,6 +60,21 @@ void Guard::ChangeState(GUARD_STATE _state)
 {
 	prevState = state;
 
+	switch (prevState)
+	{
+	case Guard::GUARD_STATE::STATE_IDLE:
+		break;
+	case Guard::GUARD_STATE::STATE_PATROL:
+		break;
+	case Guard::GUARD_STATE::STATE_DISTRACTED:
+		movement->OnExitDistracted();
+		break;
+	case Guard::GUARD_STATE::STATE_CHASE:
+		break;
+	default:
+		break;
+	}
+
 	switch (_state)
 	{
 	case Guard::GUARD_STATE::STATE_IDLE:
