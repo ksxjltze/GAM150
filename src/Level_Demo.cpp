@@ -224,6 +224,7 @@ namespace StarBangBang
 				TogglePause();
 				return;
 			}
+			pauseMenu.Update();
 			return;
 		}
 
@@ -520,12 +521,14 @@ namespace StarBangBang
 		objectManager.AddComponent<UIComponent>(pauseMenu.exitBtn, exitBtnSprite);
 		pauseMenu.exitBtn->transform.position.y = -100;
 		pauseMenu.exitBtn->transform.scale = { 3, 3 };
+		pauseMenu.exitBtn->active = false;
 
 		pauseMenu.continueBtn = objectManager.NewGameObject();
 		objectManager.AddComponent<Click<Level_Demo>>(pauseMenu.continueBtn, true).setCallback(*this, &Level_Demo::TogglePause);
 		objectManager.AddComponent<UIComponent>(pauseMenu.continueBtn, boiSprite);
 		pauseMenu.continueBtn->transform.position.y = 100;
 		pauseMenu.continueBtn->transform.scale = { 3, 3 };
+		pauseMenu.continueBtn->active = false;
 	}
 
 }

@@ -20,7 +20,8 @@ namespace StarBangBang
 
 	void UIComponent::Draw()
 	{
-		GRAPHICS::DrawOverlay(sprite.mesh, sprite.texture, gameObject->transform.scale, gameObject->transform.position, sprite.color);
+		if(gameObject->active)
+			GRAPHICS::DrawOverlay(sprite.mesh, sprite.texture, gameObject->transform.scale, gameObject->transform.position, sprite.color);
 	}
 
 }
