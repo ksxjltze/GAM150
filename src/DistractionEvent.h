@@ -9,10 +9,12 @@ namespace StarBangBang
 	{
 		GameObject* gameObject;
 		unsigned int roomNum = 0;
+		float duration;
 
 		void SendEvent()
 		{
 			roomNum = gameObject->GetComponent<Distractor>()->GetRoomNum();
+			duration = gameObject->GetComponent<Distractor>()->GetDuration();
 			Event e;
 			e.id = EventId::DISTRACTION;
 			e.context = *this;
