@@ -167,6 +167,13 @@ namespace StarBangBang
 		CaptainStealth::SpawnKey(objectManager, door, keySprite, tilemap.GetPositionAtIndex(8, 14));
 		door->Link({ door2, door3 });
 
+		door = CaptainStealth::SpawnDoor(objectManager, doorSprite, tilemap.GetPositionAtIndex(35, 20));
+		door2 = CaptainStealth::SpawnDoor(objectManager, doorSprite, tilemap.GetPositionAtIndex(36, 20));
+		door3 = CaptainStealth::SpawnDoor(objectManager, doorSprite, tilemap.GetPositionAtIndex(37, 20));
+
+		CaptainStealth::SpawnKey(objectManager, door, keySprite, tilemap.GetPositionAtIndex(8, 14));
+		door->Link({ door2, door3 });
+
 
 		GameObject* distract2 = objectManager.NewGameObject();
 		//temp
