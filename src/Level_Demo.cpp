@@ -225,8 +225,8 @@ namespace StarBangBang
 			}
 
 			AEVec2 pos = player->GetComponent<CameraComponent>()->GetTarget()->transform.position;
-			pauseMenu.continueBtn->transform.position = { pos.x, pos.y + 50 };
-			pauseMenu.exitBtn->transform.position = { pos.x, pos.y - 50 };
+			pauseMenu.continueBtn->transform.position = { pos.x, pos.y + 70 };
+			pauseMenu.exitBtn->transform.position = { pos.x, pos.y - 70 };
 
 			pauseMenu.Update();
 
@@ -461,6 +461,8 @@ namespace StarBangBang
 	void Level_Demo::DisplayPauseMenu()
 	{
 		GRAPHICS::DrawOverlay(graphicsManager.GetMesh(), { 20, 20 }, { 0, 0 }, { 0, 0, 0, 0.7f }, AEGfxBlendMode::AE_GFX_BM_BLEND);
+		pauseMenu.exitBtn->transform.scale = { AEGetWindowWidth() / 50.0f * 0.2f, AEGetWindowHeight() / 50.0f * 0.2f };
+		pauseMenu.continueBtn->transform.scale = { AEGetWindowWidth() / 50.0f * 0.2f, AEGetWindowHeight() / 50.0f * 0.2f };
 		pauseMenu.exitBtn->GetComponent<ImageComponent>()->Draw();
 		pauseMenu.continueBtn->GetComponent<ImageComponent>()->Draw();
 	}
