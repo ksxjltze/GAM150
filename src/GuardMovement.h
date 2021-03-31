@@ -7,6 +7,8 @@
 
 namespace StarBangBang
 {
+	class Guard;
+
 	class GuardMovement : public Script
 	{
 	public:
@@ -17,10 +19,13 @@ namespace StarBangBang
 
 		void Idle();
 		void Patrol();
+
+		void OnEnterDistracted();
 		void Distracted();
 
 		void LookForPath(const AEVec2& pos);
-		void SetStartEndPos(const AEVec2& start, const AEVec2& end);
+		void SetStartEndPos(const AEVec2& start, const AEVec2& end, bool _idleForever = false);
+		void UnblockPreviousPath();
 
 		inline const AEVec2& GetNextPos() const { return nextPos; }
 		inline bool IsMoving() const { return isMoving; }
@@ -30,23 +35,32 @@ namespace StarBangBang
 		inline void SetTurning(bool _turning) { turning = _turning; }
 		inline bool IsTurning() const { return turning; }
 
+		inline void SetTargetPos(const AEVec2 pos) { targetPos = pos; }
+
+		void SetWaypoints(std::vector<AEVec2>& _waypoints);
+
 	private:
 		void MoveAlongPath();
 		bool MoveTo(AEVec2 pos);
 		bool ReachedPos(AEVec2 pos);
-		void SetWaypoints();
 
 		bool isMoving;
 		bool lookForPath;
 		bool foundPath;
 		bool reachedEndOfPath;
 		bool changedTargetPos;
+		bool idleForever;
 
 		bool turning;
+		bool usingWaypoints;
+		bool movingToLastWaypoint;
 
 		float speed;
+		float idleTimer;
 
 		unsigned int nodeIndex;
+		unsigned int waypointIndex;
+		size_t pathSize;
 
 		AEVec2 targetPos;
 		AEVec2 startPos;
@@ -54,11 +68,15 @@ namespace StarBangBang
 
 		AEVec2 nextPos;
 
-		// Waypoints specific to this guard
-		std::vector<AEVec2> waypoints; // to use in case pathfinding causes fps drops
+		// If want to go to certain positions instead of
+		// just using a start and end pos
+		std::vector<AEVec2> waypoints;
 
 		std::vector<A_Node*> path;
 
+		Guard* guard;
+
 		RigidBody* rb;
+		A_Node* distractionNode;
 	};
 }

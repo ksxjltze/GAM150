@@ -321,6 +321,9 @@
     <ClCompile Include="src\GuardAnim.cpp">
       <Filter>Source Files\Scripts\Guard</Filter>
     </ClCompile>
+    <ClCompile Include="src\Credits.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\ImageComponent.h">
@@ -562,6 +565,9 @@
     </ClInclude>
     <ClInclude Include="src\GuardAnim.h">
       <Filter>Header Files\Scripts\Guard</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Credits.h">
+      <Filter>Header Files\Scenes</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

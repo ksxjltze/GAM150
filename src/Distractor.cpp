@@ -21,7 +21,7 @@ void StarBangBang::Distractor::Update()
 {
 	if (activated)
 	{
-		SendDistractionEvent();
+		//SendDistractionEvent();
 		timer -= g_dt;
 
 		//Test active

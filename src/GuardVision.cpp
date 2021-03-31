@@ -56,11 +56,27 @@ void GuardVision::Update()
 			if (currRot == 0)
 				currRot = 1;
 
+			if (rotation < 0.f)
+			{
+				if (targetRot > 0)
+				{
+					if ((static_cast<int>(rotation) + static_cast<int>(targetRot)) != 0)
+						rotation = -rotation;
+				}
+			}
+			else
+			{
+				if (targetRot < 0)
+				{
+					if ((static_cast<int>(rotation) + static_cast<int>(targetRot)) != 0)
+						rotation = -rotation;
+				}
+			}
 
 			prevRot = currRot;
 			turn = true;
 			movement->SetTurning(true);
-			//PRINT("target rot: %d, curr rot: %f\n", currRot, rotation);
+			//PRINT("target rot: %f, rotation: %f\n", targetRot, rotation);
 		}
 
 		if (turn)

@@ -18,7 +18,7 @@ namespace StarBangBang
 	{
 	public:
 		Text(GameObject* gameObject);
-		AEVec2 position;
+		Text(GameObject* gameObject, const std::string& s, s8 fontId, float scale = 1.0f);
 		TextBox textbox;
 		s8 fontID;
 		void SetText(const std::string& s);
@@ -26,6 +26,7 @@ namespace StarBangBang
 		void Draw();
 	private:
 		std::string text;
+		float scale;
 
 
 	};
