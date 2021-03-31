@@ -24,6 +24,8 @@
 #include "CaptainStealth.h"
 #include "DebugText.h"
 
+#include "Click.h"
+
 static bool god = false;
 static float app_time = 0.0f;
 static int animation_counter = 0;
@@ -39,6 +41,20 @@ namespace StarBangBang
 	Sprite computerSprite;
 	Sprite doorSprite;
 	Sprite keySprite;
+	Sprite boiSprite;
+	Sprite exitBtnSprite;
+
+	struct Pause
+	{
+		GameObject* exitBtn{ nullptr };
+		void Update() 
+		{
+			for (auto& component : exitBtn->GetComponents())
+			{
+				component->Update();
+			}
+		}
+	}pauseMenu;
 
 	StarBangBang::BoxCollider* playerCol;
 	StarBangBang::BoxCollider* clientCol;
@@ -92,6 +108,9 @@ namespace StarBangBang
 
 		//indicator sprite
 		indicator = graphicsManager.CreateSprite(RESOURCES::INDICATOR_PATH);
+		boiSprite = graphicsManager.CreateSprite(RESOURCES::SPRITE_PLAYER_PATH);
+
+		exitBtnSprite = graphicsManager.CreateSprite(RESOURCES::EXIT1_BUTTON_PATH);
 	}
 
 	//Initialization of game objects, components and scripts.
@@ -153,13 +172,13 @@ namespace StarBangBang
 		playerCol = player->GetComponent<BoxCollider>();
 		clientCol = player2->GetComponent<BoxCollider>();
 
-		////Level Exit
-		//GameObject* exit = objectManager.NewGameObject();
-		////temp
-		//exit->transform.position = tilemap.GetPositionAtIndex(10, 14);
-		//exit->name = "EXIT";
-		//objectManager.AddImage(exit, vendingMachineSprite);
-		//objectManager.AddCollider(exit, true).isTrigger = true;
+		//Level Exit
+		GameObject* exit = objectManager.NewGameObject();
+		//temp
+		exit->transform.position = tilemap.GetPositionAtIndex(1, 34);
+		exit->name = "EXIT";
+		objectManager.AddImage(exit, boiSprite);
+		objectManager.AddCollider(exit, true).isTrigger = true;
 
 		//////////////////////////////////////////////////////////////////////////////////////////////////////////
 		// Door
@@ -203,6 +222,12 @@ namespace StarBangBang
 		door->Link({ door2, door3 });
 		//////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+		///Pause
+		pauseMenu.exitBtn = objectManager.NewGameObject();
+		objectManager.AddComponent<Click<Level_Demo>>(pauseMenu.exitBtn).setCallback(*this, &Level_Demo::Exit);
+		objectManager.AddImage(pauseMenu.exitBtn, exitBtnSprite);
+		pauseMenu.exitBtn->active = false;
+
 		GameObject* distract2 = objectManager.NewGameObject();
 		//temp
 		distract2->transform.position = tilemap.GetPositionAtIndex(8, 12);
@@ -222,6 +247,24 @@ namespace StarBangBang
 
 	void StarBangBang::Level_Demo::Update()
 	{
+		if (AEInputCheckTriggered(AEVK_ESCAPE))
+		{
+			TogglePause();
+			//gameStateManager.SetNextGameState(MAIN_MENU);
+		}
+
+		if (paused)
+		{
+			pauseMenu.exitBtn->active = true;
+			pauseMenu.exitBtn->transform.position = player->transform.position;
+
+			pauseMenu.Update();
+
+			return;
+		}
+		else
+			pauseMenu.exitBtn->active = false;
+
 		Scene::Update();
 
 		//indicator update
@@ -378,11 +421,6 @@ namespace StarBangBang
 			MessageBus::Notify({ EventId::PRINT_TEXT, std::string("Find the Exit!") });
 		}
 
-		if (AEInputCheckTriggered(AEVK_ESCAPE))
-		{
-			gameStateManager.SetNextGameState(MAIN_MENU);
-		}
-
 		PlayerScript* playerScript = player->GetComponent<PlayerScript>();
 		if (AEInputCheckTriggered(AEVK_G))
 		{
@@ -425,6 +463,9 @@ namespace StarBangBang
 		// draw occupied pathfinding nodes for debugging
 		PathFinder::GridDraw();
 
+		if (paused)
+			DisplayPauseMenu();
+
 		//Color dark = { 0, 0, 0, 0.5f };
 		//Color light = { 1.0f, 1.0f, 1.0f, 0.5f };
 		//GRAPHICS::DrawOverlay(graphicsManager.GetMesh(), { 20, 20 }, { 0, 0 }, dark, AE_GFX_BM_BLEND);
@@ -442,6 +483,21 @@ namespace StarBangBang
 	{
 		tilemap.Unload();
 		Scene::Unload();
+	}
+
+	void Level_Demo::Exit()
+	{
+		gameStateManager.SetNextGameState(MAIN_MENU);
+	}
+
+	void Level_Demo::DisplayPauseMenu()
+	{
+		pauseMenu.exitBtn->GetComponent<ImageComponent>()->Draw();
+	}
+
+	void Level_Demo::TogglePause()
+	{
+		paused = !paused;
 	}
 
 }
