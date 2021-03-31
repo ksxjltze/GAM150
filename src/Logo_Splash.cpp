@@ -2,7 +2,7 @@
 #include "GraphicsManager.h"
 #include "globals.h"
 #include <queue>
-#include <Functional>
+
 using namespace StarBangBang;
 
 struct FadeObj
@@ -26,7 +26,10 @@ FadeObj fmod_logo;
 void DrawFmod(GameStateManager& gsm)
 {
 
-	AEVec2 scale{ 1.0f * 5.0f ,1.0f * 2.0f };
+	AEVec2 screenScale = GRAPHICS::GetScreenScale();
+
+
+	AEVec2 scale{ 1.0f * 5.0f / screenScale.x ,1.0f * 2.0f  / screenScale.y};
 	GRAPHICS::SetBackgroundColor(Black);
 
 	
@@ -46,7 +49,10 @@ void DrawFmod(GameStateManager& gsm)
 
 void DrawDigipen(GameStateManager& gsm)
 {
-	AEVec2 scale{ 1.0f * 5.0f ,1.0f * 2.0f };
+	AEVec2 screenScale = GRAPHICS::GetScreenScale();
+
+
+	AEVec2 scale{ 1.0f * 5.0f / screenScale.x ,1.0f * 2.0f / screenScale.y };
 
 	GRAPHICS::SetBackgroundColor(Black);
 
