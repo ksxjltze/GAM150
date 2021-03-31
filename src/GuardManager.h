@@ -14,7 +14,7 @@ namespace StarBangBang
 	{
 	private:
 		const unsigned int NUM_GUARDS = 23; // to be read from file
-		const unsigned int NUM_CAMERAS = 1;
+		const unsigned int NUM_CAMERAS = 5;
 
 	public:
 		GuardManager(GameObject* gameObject);

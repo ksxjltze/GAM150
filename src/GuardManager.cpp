@@ -70,7 +70,8 @@ void GuardManager::Init(ObjectManager* objManager, Sprite* sprite, GameObject* p
 	SetGuardStartEnd(id++, { -469, 382 }, { -469, 100 });
 	SetGuardStartEnd(id++, { -617, 175 }, { -617, 459 });
 	SetGuardStartEnd(id++, { -817, 47 }, { -1024, 47 });
-	SetGuardStartEnd(id++, { -757, -250 }, { -1003, -250 });
+	//SetGuardStartEnd(id++, { -1050, -1051 }, { -850, -1051 });
+	SetGuardStartEnd(id++, { -1001, -100 }, { -1001, -300 });
 
 	//SetGuardWaypoints(id++, { 1070, 1011 }, { -733, -1060 }, false, 20.f); // patrol level kinda
 	//SetGuardWaypoints(id++, { 1055, 145 }, { 1055, -950 }, false, 40.f); // patrol level kinda
@@ -89,7 +90,11 @@ void GuardManager::CreateSecurityCameras(ObjectManager* objManager, Sprite* spri
 		objManager->AddComponent<Detector>(cameras[i]).Init(50.f, 300.f, player, client);
 	}
 
-	InitSecurityCam(id++, {1157, -1205},	-250.f, -150.f);
+	InitSecurityCam(id++, { -300, -1200 }, 90.0f, -90.0f);
+	InitSecurityCam(id++, {650, -100},	90.0f, -90.0f);
+	InitSecurityCam(id++, { -100, -1200 }, 90.0f, -90.0f);
+	InitSecurityCam(id++, { 1150, -1200 }, 90.0f, -90.0f);
+	InitSecurityCam(id++, { 200, 700 }, 90.0f, -90.0f);
 	//InitSecurityCam(id++, { -250, -520 },	-270.f, -130.f);
 	//InitSecurityCam(id++, { -620, 190 },	-200.f,  -80.f,		60.f);
 	//InitSecurityCam(id++, { 470, -480 },	   0.f,   90.f);
