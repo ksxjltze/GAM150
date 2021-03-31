@@ -22,6 +22,7 @@ namespace StarBangBang
 		void MainMenu();
 
 		Sprite movementSprite;
+		Sprite tabSprite;
 		Sprite distractSprite;
 		Sprite backSprite;
 		TileMap tilemap;

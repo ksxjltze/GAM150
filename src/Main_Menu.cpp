@@ -33,7 +33,7 @@ namespace StarBangBang
 		settingsbutton1 = graphicsManager.CreateSprite(RESOURCES::SETTING1_BUTTON_PATH);
 		creditsbutton1 = graphicsManager.CreateSprite(RESOURCES::CREDIT1_BUTTON_PATH);
 		exitbutton1 = graphicsManager.CreateSprite(RESOURCES::EXIT1_BUTTON_PATH);
-		tutorialButton1 = graphicsManager.CreateSprite(RESOURCES::EXIT1_BUTTON_PATH);
+		tutorialButton1 = graphicsManager.CreateSprite(RESOURCES::TUTORIAL_BUTTON_PATH);
 
 		playbutton2 = graphicsManager.CreateSprite(RESOURCES::PLAY2_BUTTON_PATH);
 		settingsbutton2 = graphicsManager.CreateSprite(RESOURCES::SETTING2_BUTTON_PATH);
