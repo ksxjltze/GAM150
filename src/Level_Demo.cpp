@@ -282,6 +282,9 @@ namespace StarBangBang
 
 	void StarBangBang::Level_Demo::Update()
 	{
+		if (IsIconic(AESysGetWindowHandle()))
+			TogglePause();
+
 		if (AEInputCheckTriggered(AEVK_ESCAPE))
 		{
 			TogglePause();

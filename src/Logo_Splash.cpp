@@ -78,14 +78,7 @@ StarBangBang::LogoSplash::LogoSplash(int id, GameStateManager& gsm) : Scene(id, 
 void StarBangBang::LogoSplash::Load()
 {
 	digipen_logo.sprite = graphicsManager.CreateSprite("Resources/Logos/DigiPen_WHITE.png");
-	fmod_logo.sprite = graphicsManager.CreateSprite("Resources/Logos/FMOD_Logo.png");
-	assert(digipen_logo.texture);
-	assert(digipen_logo.mesh);
-	assert(fmod_logo.texture);
-	assert(fmod_logo.mesh);
-
-
-	
+	fmod_logo.sprite = graphicsManager.CreateSprite("Resources/Logos/FMOD_Logo.png");	
 }
 
 void StarBangBang::LogoSplash::Init()
