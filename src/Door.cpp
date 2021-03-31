@@ -22,12 +22,27 @@ namespace StarBangBang
 
 	void Door::Update()
 	{
-		for (auto k : keys)
+		std::set<Key*> keyList = keys;
+		if (parent)
+		{
+			keyList = parent->keys;
+		}
+
+		for (auto k : keyList)
 		{
 			if (!k->isCollected())
 				return;
 		}
 
 		gameObject->active = false;
+
+	}
+
+	void Door::Link(std::initializer_list<Door*> doorList)
+	{
+		for (auto door : doorList)
+		{
+			door->parent = this;
+		}
 	}
 }

@@ -160,8 +160,13 @@ namespace StarBangBang
 		//objectManager.AddImage(exit, vendingMachineSprite);
 		//objectManager.AddCollider(exit, true).isTrigger = true;
 
-		Door* door = CaptainStealth::SpawnDoor(objectManager, doorSprite, tilemap.GetPositionAtIndex(10, 14));
+		Door* door = CaptainStealth::SpawnDoor(objectManager, doorSprite, tilemap.GetPositionAtIndex(35,  20));
+		Door* door2 = CaptainStealth::SpawnDoor(objectManager, doorSprite, tilemap.GetPositionAtIndex(36, 20));
+		Door* door3 = CaptainStealth::SpawnDoor(objectManager, doorSprite, tilemap.GetPositionAtIndex(37, 20));
+
 		CaptainStealth::SpawnKey(objectManager, door, keySprite, tilemap.GetPositionAtIndex(8, 14));
+		door->Link({ door2, door3 });
+
 
 		GameObject* distract2 = objectManager.NewGameObject();
 		//temp
