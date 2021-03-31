@@ -12,7 +12,7 @@ namespace StarBangBang
 		BRICK_BLACK,
 		FLOOR_PRISON,
 		FLOOR_PRISON2,
-		FLOOR_OFFICE,
+		BRICK_RED,
 		END,
 		TEST = 11
 	};

@@ -166,6 +166,7 @@ xcopy /y /d /i /s "$(SolutionDir)\Resources" "$(OutDir)\Resources"</Command>
     <ClCompile Include="src\Text.cpp" />
     <ClCompile Include="src\TileMap.cpp" />
     <ClCompile Include="src\TileSet.cpp" />
+    <ClCompile Include="src\UIComponent.cpp" />
     <ClCompile Include="src\Utils.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -248,6 +249,8 @@ xcopy /y /d /i /s "$(SolutionDir)\Resources" "$(OutDir)\Resources"</Command>
     <ClInclude Include="src\TileMap.h" />
     <ClInclude Include="src\TileSet.h" />
     <ClInclude Include="src\Transform.h" />
+    <ClInclude Include="src\UIComponent.h" />
+    <ClInclude Include="src\UniqueQueue.h" />
     <ClInclude Include="src\Utils.h" />
   </ItemGroup>
   <ItemGroup>
@@ -311,6 +314,7 @@ xcopy /y /d /i /s "$(SolutionDir)\Resources" "$(OutDir)\Resources"</Command>
     <Image Include="Resources\InteractableObj\VendingMachineLeft1.png" />
     <Image Include="Resources\InteractableObj\VendingMachineRight.png" />
     <Image Include="Resources\InteractableObj\VendingMachineRight1.png" />
+    <Image Include="Resources\MainMenu\BackButton.png" />
     <Image Include="Resources\MainMenu\Credit1.png" />
     <Image Include="Resources\MainMenu\Credit2.png" />
     <Image Include="Resources\MainMenu\Exit1.png" />
@@ -320,7 +324,10 @@ xcopy /y /d /i /s "$(SolutionDir)\Resources" "$(OutDir)\Resources"</Command>
     <Image Include="Resources\MainMenu\Play2.png" />
     <Image Include="Resources\MainMenu\Setting1.png" />
     <Image Include="Resources\MainMenu\Setting2.png" />
+    <Image Include="Resources\MainMenu\TutorialButton.png" />
     <Image Include="Resources\Misc\Indicator.png" />
+    <Image Include="Resources\Misc\TabButton.png" />
+    <Image Include="Resources\Misc\UpDownLeftRight.png" />
     <Image Include="Resources\PlanetTexture.png" />
     <Image Include="Resources\YellowTexture.png" />
   </ItemGroup>

@@ -1,9 +1,23 @@
 #pragma once
 #include <string>
+#include "AEEngine.h"
 
 namespace StarBangBang
 {
 	enum SceneID {DEMO, EDITOR, SAMPLE, GAME, MAIN_MENU, GAME_OVER, CREDITS};
+
+	namespace KEYBIND
+	{
+		static const int MOVEMENT_UP = AEVK_UP;
+		static const int MOVEMENT_DOWN = AEVK_DOWN;
+		static const int MOVEMENT_LEFT = AEVK_LEFT;
+		static const int MOVEMENT_RIGHT = AEVK_RIGHT;
+
+		//static const int MOVEMENT_UP = AEVK_W;
+		//static const int MOVEMENT_DOWN = AEVK_A;
+		//static const int MOVEMENT_LEFT = AEVK_S;
+		//static const int MOVEMENT_RIGHT = AEVK_D;
+	}
 
 	namespace TILEMAP
 	{
@@ -90,6 +104,8 @@ namespace StarBangBang
 		extern const std::string&& EXIT1_BUTTON_PATH;
 		extern const std::string&& EXIT2_BUTTON_PATH;
 		extern const std::string&& LOGO_PATH;
+		extern const std::string&& BACK_BUTTON_PATH;
+		extern const std::string&& TUTORIAL_BUTTON_PATH;
 
 		//Character sprites
 		extern const std::string&& CAPTAINSTEALTH_F1_PATH;
@@ -172,6 +188,9 @@ namespace StarBangBang
 
 		//misc objects
 		extern const std::string&& INDICATOR_PATH;
+		extern const std::string&& TABBUTTON_PATH;
+		extern const std::string&& ARROWKEYS_PATH;
+
 
 
 

@@ -106,11 +106,11 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 	Scene* sampleScene		= gameStateManager.AddGameState<Sample_Scene>(SceneID::SAMPLE);
 	Scene* gameScene		= gameStateManager.AddGameState<CaptainStealth>(SceneID::GAME);
 	Scene* ggScene			= gameStateManager.AddGameState<Scene_GameOver>(GAME_OVER);
+	Scene* credits			= gameStateManager.AddGameState<Credits>(CREDITS);
 	Scene* logoScene 		= gameStateManager.AddGameState<LogoSplash>();
 
 	Scene* engineProof		= gameStateManager.AddGameState<EngineProof>();
 	Scene* testScene		= gameStateManager.AddGameState<TestScene>();
-	Scene* credits			= gameStateManager.AddGameState<Credits>(CREDITS);
 
 	Scene* door			= gameStateManager.AddGameState<DoorTest>();
 	
@@ -133,8 +133,6 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 	AESysInit(hInstance, nCmdShow, (s32)GRAPHICS::TARGET_WINDOW_WIDTH, (s32)GRAPHICS::TARGET_WINDOW_HEIGHT, 1, 60, true, NULL);
 	StarBangBang::InitBasicMesh();
 	
-	
-
 	//Full screen
 	//AESysInit(hInstance, nCmdShow, 1920, 1080, 1, 60, true, NULL);
 	AEToogleFullScreen(false);
