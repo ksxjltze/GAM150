@@ -19,6 +19,7 @@
 
 #include "TestScene.h"
 #include "Scene_GameOver.h"
+#include "Logo_Splash.h"
 #include "Credits.h"
 #include "Tutorial.h"
 
@@ -108,6 +109,10 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 	Scene* gameScene		= gameStateManager.AddGameState<CaptainStealth>(SceneID::GAME);
 	Scene* ggScene			= gameStateManager.AddGameState<Scene_GameOver>(GAME_OVER);
 	Scene* credits			= gameStateManager.AddGameState<Credits>(CREDITS);
+	Scene* logoScene 		= gameStateManager.AddGameState<LogoSplash>();
+
+	Scene* engineProof		= gameStateManager.AddGameState<EngineProof>();
+	Scene* testScene		= gameStateManager.AddGameState<TestScene>();
 
 	Scene* door			= gameStateManager.AddGameState<DoorTest>();
 	
@@ -124,15 +129,13 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 	sceneList.push_back(door);
 
 	// Set Initial State
-	gameStateManager.SetInitialState(mainMenuScene);
+	gameStateManager.SetInitialState(logoScene);
 
 
 	//// Using custom window procedure
 	AESysInit(hInstance, nCmdShow, (s32)GRAPHICS::TARGET_WINDOW_WIDTH, (s32)GRAPHICS::TARGET_WINDOW_HEIGHT, 1, 60, true, NULL);
 	StarBangBang::InitBasicMesh();
 	
-	
-
 	//Full screen
 	//AESysInit(hInstance, nCmdShow, 1920, 1080, 1, 60, true, NULL);
 	AEToogleFullScreen(false);

@@ -93,7 +93,7 @@ namespace StarBangBang
 		tutorialbutton_obj->transform.position = { 0.f, -200.f };
 		tutorialbutton_obj->transform.scale = { 3,3 };
 
-		objectManager.AddComponent<Click<Main_Menu>>(tutorialbutton_obj).setCallback(*this, &Main_Menu::LoadLevel);
+		objectManager.AddComponent<Click<Main_Menu>>(tutorialbutton_obj).setCallback(*this, &Main_Menu::LoadTutorial);
 
 		//MessageBus::Notify({ EventId::PLAY_MUSIC, "BGM" });
 
