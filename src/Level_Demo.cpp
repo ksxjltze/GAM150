@@ -419,23 +419,23 @@ namespace StarBangBang
 			}
 		}
 
-		if (!(AEInputCheckCurr(AEVK_W) || AEInputCheckCurr(AEVK_S) || AEInputCheckCurr(AEVK_A) || AEInputCheckCurr(AEVK_D)))
+		if (!(AEInputCheckCurr(KEYBIND::MOVEMENT_UP) || AEInputCheckCurr(KEYBIND::MOVEMENT_DOWN) || AEInputCheckCurr(KEYBIND::MOVEMENT_LEFT) || AEInputCheckCurr(KEYBIND::MOVEMENT_RIGHT)))
 		{
 			animation_counter = 3;
 		}
 
-		if (AEInputCheckCurr(AEVK_D))
+		if (AEInputCheckCurr(KEYBIND::MOVEMENT_RIGHT))
 		{
 			dir = direction::right;
 			app_time = app_time + g_dt;
 		}
-		else if (AEInputCheckCurr(AEVK_A))
+		else if (AEInputCheckCurr(KEYBIND::MOVEMENT_LEFT))
 		{
 			dir = direction::left;
 			app_time = app_time + g_dt;
 		}
 
-		else if (AEInputCheckCurr(AEVK_W) || AEInputCheckCurr(AEVK_S))
+		else if (AEInputCheckCurr(KEYBIND::MOVEMENT_UP) || AEInputCheckCurr(KEYBIND::MOVEMENT_DOWN))
 		{
 			app_time = app_time + g_dt;
 		}
