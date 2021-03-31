@@ -13,10 +13,10 @@ namespace StarBangBang
 		void AddKey(Key* k);
 		void Start();
 		void Update();
-
 		void Link(std::initializer_list<Door*> doorList);
 	private:
 		Door* parent;
 		std::set<Key*> keys;
+		void Debug_Disable();
 	};
 }

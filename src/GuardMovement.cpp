@@ -25,6 +25,11 @@ GuardMovement::GuardMovement(GameObject* gameObject)
 	, guard(nullptr)
 	, rb(nullptr)
 	, distractionNode(nullptr)
+	, startPos{ 0, 0 }
+	, targetPos{ 0, 0 }
+	, endPos{ 0, 0 }
+	, nextPos{ 0, 0 }
+	, reachedEndOfPath{ false }
 {
 	//std::cout << waypoints.size() << "\n";
 
@@ -113,7 +118,7 @@ void GuardMovement::Patrol()
 			if (waypointIndex >= waypoints.size())
 			{
 				movingToLastWaypoint = false; // now guard will go to waypoints in reverse order
-				waypointIndex = waypoints.size() - 1;
+				waypointIndex = static_cast<unsigned int>(waypoints.size() - 1);
 			}
 		}
 		else

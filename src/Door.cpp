@@ -2,7 +2,7 @@
 
 namespace StarBangBang
 {
-	Door::Door(GameObject* obj) : Script(obj)
+	Door::Door(GameObject* obj) : Script(obj), parent{ nullptr }
 	{
 
 	}
@@ -22,6 +22,8 @@ namespace StarBangBang
 
 	void Door::Update()
 	{
+		Debug_Disable();
+
 		std::set<Key*> keyList = keys;
 		if (parent)
 		{
@@ -43,6 +45,14 @@ namespace StarBangBang
 		for (auto door : doorList)
 		{
 			door->parent = this;
+		}
+	}
+
+	void Door::Debug_Disable()
+	{
+		if (AEInputCheckTriggered(AEVK_K))
+		{
+			gameObject->active = false;
 		}
 	}
 }

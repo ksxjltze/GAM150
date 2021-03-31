@@ -72,6 +72,7 @@ namespace StarBangBang
 	{
 		GameObject* key = objMgr.NewGameObject();
 		objMgr.AddImage(key, image);
+		key->transform.scale = { 0.5f, 0.5f };
 
 		objMgr.AddComponent<Key>(key, door);
 		key->transform.position = position;
