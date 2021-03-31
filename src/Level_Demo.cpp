@@ -116,7 +116,6 @@ namespace StarBangBang
 	//Initialization of game objects, components and scripts.
 	void StarBangBang::Level_Demo::Init()
 	{
-
 		PathFinder::PathFinderInit();
 		PathFinder::ShowGrid(false);
 

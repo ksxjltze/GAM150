@@ -172,6 +172,7 @@ xcopy /y /d /i /s "$(SolutionDir)\Resources" "$(OutDir)\Resources"</Command>
     <ClInclude Include="src\AudioEngine.h" />
     <ClInclude Include="src\CameraComponent.h" />
     <ClInclude Include="src\CaptainStealth.h" />
+    <ClInclude Include="src\CaughtByCameraEvent.h" />
     <ClInclude Include="src\Click.h" />
     <ClInclude Include="src\Collider.h" />
     <ClInclude Include="src\CollisionEvent.h" />
