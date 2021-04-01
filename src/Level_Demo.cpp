@@ -418,20 +418,20 @@ namespace StarBangBang
 		}
 
 		PlayerScript* playerScript = player->GetComponent<PlayerScript>();
-		if (AEInputCheckTriggered(AEVK_G))
-		{
-			playerScript->Debug_Reset();
-			if (!god)
-			{
-				god = true;
-				MessageBus::Notify({ EventId::PRINT_TEXT, std::string("God Mode Enabled!") });
-			}
-			else
-			{
-				god = false;
-				MessageBus::Notify({ EventId::PRINT_TEXT, std::string("God Mode Disabled!") });
-			}
-		}
+		//if (AEInputCheckTriggered(AEVK_G))
+		//{
+		//	playerScript->Debug_Reset();
+		//	if (!god)
+		//	{
+		//		god = true;
+		//		MessageBus::Notify({ EventId::PRINT_TEXT, std::string("God Mode Enabled!") });
+		//	}
+		//	else
+		//	{
+		//		god = false;
+		//		MessageBus::Notify({ EventId::PRINT_TEXT, std::string("God Mode Disabled!") });
+		//	}
+		//}
 
 		if (playerScript->isGameOver())
 		{
