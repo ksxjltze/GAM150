@@ -17,7 +17,7 @@ Guard::Guard(GameObject* gameObject)
 void Guard::Start()
 {
 	// display guard id for debugging
-	gameObject->GetComponent<Text>()->SetText(std::to_string(id));
+	//gameObject->GetComponent<Text>()->SetText(std::to_string(id));
 
 	movement = gameObject->GetComponent<GuardMovement>();
 	vision = gameObject->GetComponent<GuardVision>();

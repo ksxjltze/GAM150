@@ -203,7 +203,6 @@ namespace StarBangBang
 		CreateDistraction(roomNum, 40, 10, computerSprite);
 
 		roomNum = 3;
-		CreateDistraction(roomNum, 31, 7, computerSprite);
 		CreateDistraction(roomNum, 41, 43, computerSprite);
 		CreateDistraction(roomNum, 39, 37, vendingMachineSprite);
 

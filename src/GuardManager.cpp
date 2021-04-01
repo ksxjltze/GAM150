@@ -37,7 +37,7 @@ void GuardManager::Init(ObjectManager* objManager, Sprite* sprite, GameObject* p
 		objManager->AddComponent<GuardMovement>(guards[i]);
 		objManager->AddComponent<GuardVision>(guards[i]);
 		objManager->AddComponent<Detector>(guards[i]).Init(50.f, 250.f, player, client);
-		objManager->AddComponent<Text>(guards[i]).fontID = StarBangBang::fontId;
+		//objManager->AddComponent<Text>(guards[i]).fontID = StarBangBang::fontId;
 		objManager->AddComponent<RigidBody>(guards[i]);
 		objManager->AddComponent<GuardAnim>(guards[i]);
 		objManager->AddCollider(guards[i], false);
@@ -58,7 +58,7 @@ void GuardManager::Init(ObjectManager* objManager, Sprite* sprite, GameObject* p
 	roomNum = 3;
 	SetGuardStartEnd(id++, roomNum, { 945, -93 }, { 198, -93 });
 	SetGuardStartEnd(id++, roomNum, { -225, -42 }, { -225, 296 });
-	SetGuardStartEnd(id++, roomNum, { 0.1, 850 }, { 0.1, 500 });
+	SetGuardStartEnd(id++, roomNum, { 0.1f, 850 }, { 0.1f, 500 });
 	SetGuardStartEnd(id++, roomNum, { -13, 889 }, { 754, 895 });
 	SetGuardStartEnd(id++, roomNum, { 1118, 68 }, { 1118, 671 });
 	SetGuardStartEnd(id++, roomNum, { 330, 282 }, { 893, 282 });
