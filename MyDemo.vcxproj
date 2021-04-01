@@ -241,6 +241,7 @@ xcopy /y /d /i /s "$(SolutionDir)\Resources" "$(OutDir)\Resources"</Command>
     <ClInclude Include="src\SecurityCamera.h" />
     <ClInclude Include="src\Serialization.h" />
     <ClInclude Include="src\SerializeTest.h" />
+    <ClInclude Include="src\SoundEvent.h" />
     <ClInclude Include="src\Sprite.h" />
     <ClInclude Include="src\State.h" />
     <ClInclude Include="src\TagManager.h" />

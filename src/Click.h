@@ -2,6 +2,7 @@
 #include "ScriptComponent.h"
 #include "IClickable.h"
 #include "Utils.h"
+#include "SoundEvent.h"
 
 namespace StarBangBang
 {
@@ -32,6 +33,9 @@ namespace StarBangBang
 
 		virtual void onClick()
 		{
+
+			SoundEvent("sfxBtnClick").SendEvent();
+
 			if (callback)
 				callback();
 
