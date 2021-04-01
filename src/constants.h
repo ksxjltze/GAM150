@@ -13,10 +13,10 @@ namespace StarBangBang
 		static const int MOVEMENT_LEFT = AEVK_LEFT;
 		static const int MOVEMENT_RIGHT = AEVK_RIGHT;
 
-		//static const int MOVEMENT_UP = AEVK_W;
-		//static const int MOVEMENT_DOWN = AEVK_A;
-		//static const int MOVEMENT_LEFT = AEVK_S;
-		//static const int MOVEMENT_RIGHT = AEVK_D;
+		static const int MOVEMENT_UP_ALT = AEVK_W;
+		static const int MOVEMENT_DOWN_ALT = AEVK_S;
+		static const int MOVEMENT_LEFT_ALT = AEVK_A;
+		static const int MOVEMENT_RIGHT_ALT = AEVK_D;
 	}
 
 	namespace TILEMAP
