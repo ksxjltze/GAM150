@@ -26,6 +26,7 @@
 
 #include "Click.h"
 #include "UIComponent.h"
+#include "SoundEvent.h"
 
 static bool god = false;
 static float app_time = 0.0f;
@@ -217,7 +218,7 @@ namespace StarBangBang
 
 		//Floating text
 		MessageBus::Notify({ EventId::PRINT_TEXT, std::string("Find the Vending Machine!") });
-		MessageBus::Notify({ EventId::PLAY_SOUND, "Test"});
+		MessageBus::Notify({ EventId::PLAY_SOUND, SoundEvent("Test") });
 
 		character = current_char::fei_ge;
 	}

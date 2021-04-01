@@ -32,6 +32,7 @@ namespace StarBangBang
 
 		virtual void onClick()
 		{
+
 			if (callback)
 				callback();
 

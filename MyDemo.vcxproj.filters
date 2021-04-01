@@ -611,6 +611,9 @@
     <ClInclude Include="src\ConeVision.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\SoundEvent.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Resources\PlanetTexture.png">

@@ -1,4 +1,5 @@
 #include "AudioEngine.h"
+#include "SoundEvent.h"
 
 StarBangBang::AudioEngine::AudioEngine()
 {
@@ -32,9 +33,9 @@ void StarBangBang::AudioEngine::onNotify(Event e)
 	{
 		try
 		{
-			std::string s = std::any_cast<const char*>(e.context);
-			std::cout << "Playing sound: " << s << std::endl;
-			playSound(s);
+			SoundEvent soundEvent = std::any_cast<SoundEvent>(e.context);
+			std::cout << "Playing sound: " << soundEvent.name << std::endl;
+			playSound(soundEvent.name);
 		}
 		catch (const std::exception&)
 		{
