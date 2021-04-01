@@ -73,14 +73,17 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 	AudioEngine audioEngine;
 	FMOD::Sound* sound = nullptr;
 	FMOD::Sound* btnSound = nullptr;
+	FMOD::Sound* keyPickupSound = nullptr;
 	FMOD::Sound* music = nullptr;
 
 	audioEngine.CreateSound(&sound, "./Resources/drumloop.wav"); //CHANGE THIS (copyright and stuff)
 	audioEngine.CreateSound(&btnSound, "./Resources/SFX/buttonSFX.wav");
+	audioEngine.CreateSound(&keyPickupSound, "./Resources/SFX/keys.wav");
 	audioEngine.CreateSound(&music, "./Resources/Music/bgm.wav");
 
 	audioEngine.AddSound("Test", sound); 
 	audioEngine.AddSound("sfxBtnClick", btnSound);
+	audioEngine.AddSound("sfxKeyPickup", keyPickupSound);
 	audioEngine.AddSound("BGM", music); 
 
 	MessageBus::RegisterGlobalListener(&audioEngine);
