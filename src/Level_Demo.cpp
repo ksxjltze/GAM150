@@ -285,6 +285,16 @@ namespace StarBangBang
 		if (IsIconic(AESysGetWindowHandle()))
 			TogglePause();
 
+		CameraComponent* camera = player->GetComponent<CameraComponent>();
+		if (!GRAPHICS::IsFullscreen())
+		{
+			camera->scale = GRAPHICS::DEFAULT_ZOOM / 1.5;
+		}
+		else
+		{
+			camera->scale = GRAPHICS::DEFAULT_ZOOM;
+		}
+
 		if (AEInputCheckTriggered(AEVK_ESCAPE))
 		{
 			TogglePause();

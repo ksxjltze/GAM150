@@ -74,7 +74,9 @@ namespace StarBangBang
 
 		//Camera Object
 		camera = objectManager.NewGameObject();
-		objectManager.AddComponent<CameraComponent>(camera).scale = 0.75f;
+		CameraComponent& cam = objectManager.AddComponent<CameraComponent>(camera);
+		cam.scale = 0.75f;
+		cam.EnableZoom(true);
 		objectManager.AddComponent<Movement>(camera);
 
 		debugText = objectManager.NewGameObject();

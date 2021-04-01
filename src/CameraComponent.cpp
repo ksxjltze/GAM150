@@ -12,17 +12,21 @@ StarBangBang::CameraComponent::CameraComponent(GameObject* gameObject) : Compone
 void StarBangBang::CameraComponent::LateUpdate()
 {
 	float dt = static_cast<float>(AEFrameRateControllerGetFrameTime());
-	if (AEInputCheckCurr(AEVK_MINUS))
+	if (isZoom)
 	{
-		scale -= scaleFactor * dt;
-		if (scale < GRAPHICS::CAMERA_SCALE_MIN)
-			scale = GRAPHICS::CAMERA_SCALE_MIN;
-	}
-	else if (AEInputCheckCurr(AEVK_EQUAL))
-	{
-		scale += scaleFactor * dt;
-		if (scale > GRAPHICS::CAMERA_SCALE_MAX)
-			scale = GRAPHICS::CAMERA_SCALE_MAX;
+		if (AEInputCheckCurr(AEVK_MINUS))
+		{
+			scale -= scaleFactor * dt;
+			if (scale < GRAPHICS::CAMERA_SCALE_MIN)
+				scale = GRAPHICS::CAMERA_SCALE_MIN;
+		}
+		else if (AEInputCheckCurr(AEVK_EQUAL))
+		{
+			scale += scaleFactor * dt;
+			if (scale > GRAPHICS::CAMERA_SCALE_MAX)
+				scale = GRAPHICS::CAMERA_SCALE_MAX;
+		}
+
 	}
 
 	//position = gameObject->transform.position;
@@ -43,6 +47,11 @@ void StarBangBang::CameraComponent::LateUpdate()
 void StarBangBang::CameraComponent::SetTarget(GameObject* obj)
 {
 	target = obj;
+}
+
+void StarBangBang::CameraComponent::EnableZoom(bool zoom)
+{
+	isZoom = zoom;
 }
 
 StarBangBang::GameObject* StarBangBang::CameraComponent::GetTarget()
