@@ -26,6 +26,7 @@ namespace StarBangBang
 
 		void SpawnDoors();
 		void InitPause();
+		void CreateDistraction(unsigned int roomNum, int tileX, int tileY, const Sprite& sprite);
 
 		//player stuffs
 		Sprite playerImage;
