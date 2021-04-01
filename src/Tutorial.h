@@ -21,9 +21,11 @@ namespace StarBangBang
 		GameObject* end{ nullptr };
 		void MainMenu();
 
+		Sprite tutorialSprite;
 		Sprite movementSprite;
 		Sprite tabSprite;
 		Sprite distractSprite;
+		Sprite distractSprite2;
 		Sprite backSprite;
 		TileMap tilemap;
 	};

@@ -18,10 +18,12 @@ Tutorial::Tutorial(int id, GameStateManager& gsm) : Scene(id, gsm), tilemap{ obj
 void Tutorial::Load()
 {
 	tilemap.Load(RESOURCES::LEVELS::LEVEL_TUTORIAL);
-	movementSprite = graphicsManager.CreateSprite(RESOURCES::ARROWKEYS_PATH);
-	tabSprite      = graphicsManager.CreateSprite(RESOURCES::TABBUTTON_PATH);
-	distractSprite = graphicsManager.CreateSprite(RESOURCES::VENDING_LEFT_PATH);
-	backSprite     = graphicsManager.CreateSprite(RESOURCES::BACK_BUTTON_PATH);
+	tutorialSprite  = graphicsManager.CreateSprite(RESOURCES::TUTORIAL_BUTTON_PATH);
+	movementSprite  = graphicsManager.CreateSprite(RESOURCES::ARROWKEYS_PATH);
+	tabSprite       = graphicsManager.CreateSprite(RESOURCES::TABBUTTON_PATH);
+	distractSprite  = graphicsManager.CreateSprite(RESOURCES::VENDING_LEFT_PATH);
+	distractSprite2 = graphicsManager.CreateSprite(RESOURCES::COMPUTER_PATH);
+	backSprite      = graphicsManager.CreateSprite(RESOURCES::BACK_BUTTON_PATH);
 }
 
 void Tutorial::Init()
@@ -40,7 +42,9 @@ void Tutorial::Init()
 
 	GRAPHICS::SetBackgroundColor(Black);
 
-	NewTextObject({0, 120}, "Tutorial", 1.0f);
+	ImageComponent* tutorialImg = objectManager.AddImage(objectManager.NewGameObject(), tutorialSprite);
+	tutorialImg->gameObject->SetPos({ 0, 120 });
+	tutorialImg->gameObject->transform.scale = { 2.f, 2.f };
 
 	ImageComponent* movementImg = objectManager.AddImage(objectManager.NewGameObject(), movementSprite);
 	movementImg->gameObject->SetPos({-140 - offset, 50});
@@ -51,7 +55,9 @@ void Tutorial::Init()
 	NewTextObject({ 0, 0 }, "Use [tab] to change characters", 0.3f);
 
 	ImageComponent* distractImg = objectManager.AddImage(objectManager.NewGameObject(), distractSprite);
-	distractImg->gameObject->SetPos({ 140 + offset, 50 });
+	distractImg->gameObject->SetPos({ 100 + offset, 50 });
+	ImageComponent* distractImg2 = objectManager.AddImage(objectManager.NewGameObject(), distractSprite2);
+	distractImg2->gameObject->SetPos({ 170 + offset, 50 });
 	NewTextObject({ 140 + offset, 0 }, "Touch objects to distract guards", 0.3f);
 
 	NewTextObject({ 0, -60 }, "Objective:", 0.5f);
