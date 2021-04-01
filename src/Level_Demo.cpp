@@ -434,23 +434,29 @@ namespace StarBangBang
 			}
 		}
 
-		if (!(AEInputCheckCurr(KEYBIND::MOVEMENT_UP) || AEInputCheckCurr(KEYBIND::MOVEMENT_DOWN) || AEInputCheckCurr(KEYBIND::MOVEMENT_LEFT) || AEInputCheckCurr(KEYBIND::MOVEMENT_RIGHT)))
+		if (!(AEInputCheckCurr(KEYBIND::MOVEMENT_UP) || AEInputCheckCurr(KEYBIND::MOVEMENT_DOWN)		|| 
+			AEInputCheckCurr(KEYBIND::MOVEMENT_LEFT) || AEInputCheckCurr(KEYBIND::MOVEMENT_RIGHT)		||
+			AEInputCheckCurr(KEYBIND::MOVEMENT_UP_ALT) || AEInputCheckCurr(KEYBIND::MOVEMENT_DOWN_ALT)	||
+			AEInputCheckCurr(KEYBIND::MOVEMENT_LEFT_ALT) || AEInputCheckCurr(KEYBIND::MOVEMENT_RIGHT_ALT)))
 		{
 			animation_counter = 3;
 		}
 
-		if (AEInputCheckCurr(KEYBIND::MOVEMENT_RIGHT))
+		if (AEInputCheckCurr(KEYBIND::MOVEMENT_RIGHT) || AEInputCheckCurr(KEYBIND::MOVEMENT_RIGHT_ALT))
 		{
 			dir = direction::right;
 			app_time = app_time + g_dt;
 		}
-		else if (AEInputCheckCurr(KEYBIND::MOVEMENT_LEFT))
+		else if (AEInputCheckCurr(KEYBIND::MOVEMENT_LEFT) || AEInputCheckCurr(KEYBIND::MOVEMENT_LEFT_ALT))
 		{
 			dir = direction::left;
 			app_time = app_time + g_dt;
 		}
 
-		else if (AEInputCheckCurr(KEYBIND::MOVEMENT_UP) || AEInputCheckCurr(KEYBIND::MOVEMENT_DOWN))
+		else if (AEInputCheckCurr(KEYBIND::MOVEMENT_UP)	|| 
+		AEInputCheckCurr(KEYBIND::MOVEMENT_DOWN)		||
+			AEInputCheckCurr(KEYBIND::MOVEMENT_UP_ALT)	||
+				AEInputCheckCurr(KEYBIND::MOVEMENT_DOWN_ALT))
 		{
 			app_time = app_time + g_dt;
 		}

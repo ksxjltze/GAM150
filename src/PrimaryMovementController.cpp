@@ -19,16 +19,16 @@ void StarBangBang::PrimaryMovementController::Update()
 	float speed = 50.0f;
 	float h = 0.0f, v = 0.0f;
 
-	if (AEInputCheckCurr(MOVEMENT_UP))
+	if (AEInputCheckCurr(MOVEMENT_UP) || AEInputCheckCurr(MOVEMENT_UP_ALT))
 		v = 1;
 	
-	if (AEInputCheckCurr(MOVEMENT_DOWN))
+	if (AEInputCheckCurr(MOVEMENT_DOWN) || AEInputCheckCurr(MOVEMENT_DOWN_ALT))
 		v = -1;
 
-	if (AEInputCheckCurr(MOVEMENT_LEFT))
+	if (AEInputCheckCurr(MOVEMENT_LEFT) || AEInputCheckCurr(MOVEMENT_LEFT_ALT))
 		h = -1;
 	
-	if (AEInputCheckCurr(MOVEMENT_RIGHT))
+	if (AEInputCheckCurr(MOVEMENT_RIGHT) || AEInputCheckCurr(MOVEMENT_RIGHT_ALT))
 		h = 1;
 	
 	movement.x = h * speed;
