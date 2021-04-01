@@ -78,15 +78,15 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 	FMOD::Sound* music = nullptr;
 
 	audioEngine.CreateSound(&sound, "./Resources/drumloop.wav"); //CHANGE THIS (copyright and stuff)
-	audioEngine.CreateSound(&btnSound, "./Resources/SFX/buttonSFX.wav");
-	audioEngine.CreateSound(&keyPickupSound, "./Resources/SFX/keys.wav");
-	audioEngine.CreateSound(&guardAlert, "./Resources/SFX/erhg2.wav");
+	audioEngine.CreateSound(&btnSound, RESOURCES::SFX::SFX_BUTTON_CLICK_PATH);
+	audioEngine.CreateSound(&keyPickupSound, RESOURCES::SFX::SFX_KEY_PICKUP_PATH);
+	audioEngine.CreateSound(&guardAlert, RESOURCES::SFX::SFX_DETECTED_PATH);
 	audioEngine.CreateSound(&music, "./Resources/Music/bgm.wav");
 
 	audioEngine.AddSound("Test", sound); 
-	audioEngine.AddSound("sfxBtnClick", btnSound);
-	audioEngine.AddSound("sfxKeyPickup", keyPickupSound);
-	audioEngine.AddSound(SFX::sfxDetected, guardAlert);
+	audioEngine.AddSound(SFX::BUTTON_CLICK, btnSound);
+	audioEngine.AddSound(SFX::KEY_PICKUP, keyPickupSound);
+	audioEngine.AddSound(SFX::DETECTED, guardAlert);
 	audioEngine.AddSound("BGM", music); 
 
 	MessageBus::RegisterGlobalListener(&audioEngine);
@@ -115,11 +115,6 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 	Scene* ggScene			= gameStateManager.AddGameState<Scene_GameOver>(GAME_OVER);
 	Scene* credits			= gameStateManager.AddGameState<Credits>(CREDITS);
 	Scene* logoScene 		= gameStateManager.AddGameState<LogoSplash>();
-
-	Scene* engineProof		= gameStateManager.AddGameState<EngineProof>();
-	Scene* testScene		= gameStateManager.AddGameState<TestScene>();
-
-	Scene* door			= gameStateManager.AddGameState<DoorTest>();
 	
 	// Hack to remove unreferenced local variable warning
 	sceneList.push_back(sceneDemo);
@@ -130,8 +125,6 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 	sceneList.push_back(mainMenuScene);
 	sceneList.push_back(ggScene);
 	sceneList.push_back(credits);
-
-	sceneList.push_back(door);
 
 	// Set Initial State
 	gameStateManager.SetInitialState(logoScene);

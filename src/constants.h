@@ -8,7 +8,9 @@ namespace StarBangBang
 
 	namespace SFX
 	{
-		static const char* sfxDetected = "sfxGuardAlert";
+		extern const std::string&& DETECTED;
+		extern const std::string&& BUTTON_CLICK;
+		extern const std::string&& KEY_PICKUP;
 	}
 
 	namespace KEYBIND
@@ -90,6 +92,13 @@ namespace StarBangBang
 		extern const std::string&& PROTOTYPE_SPRITE_GRASS_PATH;
 		extern const std::string&& PROTOTYPE_SPRITE_STONE_PATH;
 		extern const std::string&& SPRITE_PLAYER_PATH;
+
+		namespace SFX
+		{
+			extern const std::string&& SFX_KEY_PICKUP_PATH;
+			extern const std::string&& SFX_BUTTON_CLICK_PATH;
+			extern const std::string&& SFX_DETECTED_PATH;
+		}
 
 		namespace LEVELS
 		{

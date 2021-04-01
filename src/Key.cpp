@@ -18,7 +18,7 @@ namespace StarBangBang
 
 	void Key::Pickup()
 	{
-		SoundEvent("sfxKeyPickup").SendEvent();
+		SoundEvent(SFX::KEY_PICKUP).SendEvent();
 		gameObject->active = false;
 		collected = true;
 	}

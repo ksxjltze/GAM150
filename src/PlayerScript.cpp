@@ -44,7 +44,7 @@ void StarBangBang::PlayerScript::onNotify(Event e)
 	if (e.id == EventId::DETECTED)
 	{
 		if (!detected)
-			SoundEvent(std::string(SFX::sfxDetected)).SendEvent();
+			SoundEvent(std::string(SFX::DETECTED)).SendEvent();
 
 		GameObject* detectedObj = std::any_cast<GameObject*>(e.context);
 		if (detectedObj->active)

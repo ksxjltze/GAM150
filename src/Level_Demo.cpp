@@ -231,7 +231,7 @@ namespace StarBangBang
 		CameraComponent* camera = player->GetComponent<CameraComponent>();
 		if (!GRAPHICS::IsFullscreen())
 		{
-			camera->scale = GRAPHICS::DEFAULT_ZOOM / 1.5;
+			camera->scale = GRAPHICS::DEFAULT_ZOOM / 1.5f;
 		}
 		else
 		{

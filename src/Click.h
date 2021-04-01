@@ -33,8 +33,7 @@ namespace StarBangBang
 
 		virtual void onClick()
 		{
-
-			SoundEvent("sfxBtnClick").SendEvent();
+			SoundEvent(SFX::BUTTON_CLICK).SendEvent();
 
 			if (callback)
 				callback();
