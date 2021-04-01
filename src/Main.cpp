@@ -72,16 +72,15 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 
 	AudioEngine audioEngine;
 	FMOD::Sound* sound = nullptr;
-	FMOD::Sound* sound2 = nullptr;
-	FMOD::Sound* sound3 = nullptr;
+	FMOD::Sound* btnSound = nullptr;
 	FMOD::Sound* music = nullptr;
 
 	audioEngine.CreateSound(&sound, "./Resources/drumloop.wav"); //CHANGE THIS (copyright and stuff)
-	audioEngine.CreateSound(&sound2, "./Resources/Music/wab.wav");
-	audioEngine.CreateSound(&sound3, "./Resources/Music/wab2.wav");
+	audioEngine.CreateSound(&btnSound, "./Resources/SFX/buttonSFX.wav");
 	audioEngine.CreateSound(&music, "./Resources/Music/bgm.wav");
 
 	audioEngine.AddSound("Test", sound); 
+	audioEngine.AddSound("sfxBtnClick", btnSound);
 	audioEngine.AddSound("BGM", music); 
 
 	MessageBus::RegisterGlobalListener(&audioEngine);
