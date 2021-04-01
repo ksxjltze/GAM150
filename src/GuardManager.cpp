@@ -47,8 +47,7 @@ void GuardManager::Init(ObjectManager* objManager, Sprite* sprite, GameObject* p
 	int roomNum = 1;
 	SetGuardStartEnd(id++, roomNum, { -322, -1163 }, { -322, -596 });
 
-	//ROOM2
-	roomNum = 2; // TEMP
+	roomNum = 2;
 	SetGuardStartEnd(id++, roomNum, { -72, -1162}, { -72, -385 });
 	SetGuardStartEnd(id++, roomNum, { -42, -1203 }, { 1069, -1203 });
 	SetGuardStartEnd(id++, roomNum, { 900, -1009 }, { 906, -456 });
@@ -56,7 +55,6 @@ void GuardManager::Init(ObjectManager* objManager, Sprite* sprite, GameObject* p
 	SetGuardStartEnd(id++, roomNum, { 314, -461 }, { 314, -954 });
 	SetGuardStartEnd(id++, roomNum, { 751, -835 }, { 491, -853 });
 
-	//ROOM3
 	roomNum = 3;
 	SetGuardStartEnd(id++, roomNum, { 945, -93 }, { 198, -93 });
 	SetGuardStartEnd(id++, roomNum, { -225, -42 }, { -225, 296 });
@@ -66,7 +64,6 @@ void GuardManager::Init(ObjectManager* objManager, Sprite* sprite, GameObject* p
 	SetGuardStartEnd(id++, roomNum, { 330, 282 }, { 893, 282 });
 	SetGuardStartEnd(id++, roomNum, { 783, 551 }, { 428, 551 });
 	
-	//ROOM 4
 	roomNum = 4;
 	SetGuardStartEnd(id++, roomNum,{ -667, 1015 }, { -911, 1015 });
 	SetGuardStartEnd(id++, roomNum,{ -849, 806 }, { -849, 949 });

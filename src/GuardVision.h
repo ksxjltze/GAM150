@@ -26,6 +26,7 @@ namespace StarBangBang
 		Detector* detector;
 
 		float rotation;
+		float rotSpeed;
 		int prevRot, currRot;
 
 		bool turn;
