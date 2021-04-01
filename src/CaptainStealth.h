@@ -5,7 +5,6 @@
 #include "MessageBus.h"
 #include "PlayerScript.h"
 #include "CameraComponent.h"
-#include "RigidBody.h"
 #include "PrimaryMovementController.h"
 #include "DetectionListener.h"
 #include "Text.h"

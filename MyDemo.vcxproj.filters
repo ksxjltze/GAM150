@@ -608,6 +608,9 @@
     <ClInclude Include="src\Logo_Splash.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\ConeVision.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Resources\PlanetTexture.png">
