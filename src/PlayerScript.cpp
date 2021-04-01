@@ -3,6 +3,8 @@
 #include "Collider.h"
 #include "ObjectManager.h"
 #include "CollisionEvent.h"
+#include "SoundEvent.h"
+#include "constants.h"
 
 StarBangBang::PlayerScript::PlayerScript(GameObject* obj) : Script(obj)
 {
@@ -41,6 +43,9 @@ void StarBangBang::PlayerScript::onNotify(Event e)
 
 	if (e.id == EventId::DETECTED)
 	{
+		if (!detected)
+			SoundEvent(std::string(SFX::sfxDetected)).SendEvent();
+
 		GameObject* detectedObj = std::any_cast<GameObject*>(e.context);
 		if (detectedObj->active)
 		{

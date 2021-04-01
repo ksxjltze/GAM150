@@ -6,6 +6,11 @@ namespace StarBangBang
 {
 	enum SceneID {DEMO, EDITOR, SAMPLE, TUTORIAL, GAME, MAIN_MENU, GAME_OVER, CREDITS};
 
+	namespace SFX
+	{
+		static const char* sfxDetected = "sfxGuardAlert";
+	}
+
 	namespace KEYBIND
 	{
 		static const int MOVEMENT_UP = AEVK_UP;
