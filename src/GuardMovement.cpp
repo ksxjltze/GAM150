@@ -306,7 +306,9 @@ void GuardMovement::LookForPath(const AEVec2& pos)
 			nodeIndex = 0;
 		}
 
-		path = PathFinder::SearchForPath(gameObject->transform.position, pos);
+		//path = PathFinder::SearchForPath(gameObject->transform.position, pos , path);
+
+		PathFinder::SearchForPath(gameObject->transform.position, pos, path);
 		foundPath = (path.size() > 0);
 		lookForPath = false;
 		reachedEndOfPath = false;
