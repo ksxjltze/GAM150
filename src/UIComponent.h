@@ -10,6 +10,7 @@ namespace StarBangBang
 	public:
 		UIComponent(GameObject* gameObject, GraphicsManager&);
 		UIComponent(GameObject* gameObject, Sprite s, GraphicsManager&);
+		void SetColor(Color c);
 		void Start();
 		void Update();
 		void Draw();

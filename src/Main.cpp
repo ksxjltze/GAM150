@@ -136,8 +136,8 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 	
 	//Full screen
 	//AESysInit(hInstance, nCmdShow, 1920, 1080, 1, 60, true, NULL);
-	AEToogleFullScreen(false);
-	GRAPHICS::ToggleFullscreen();
+	//AEToogleFullScreen(false);
+	//GRAPHICS::ToggleFullscreen();
 
 	// Changing the window title
 	AESysSetWindowTitle("Captain Stealth");

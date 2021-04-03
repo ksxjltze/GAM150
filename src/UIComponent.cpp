@@ -16,6 +16,11 @@ namespace StarBangBang
 
 	}
 
+	void UIComponent::SetColor(Color c)
+	{
+		sprite.color = c;
+	}
+
 	void UIComponent::Start()
 	{
 

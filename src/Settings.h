@@ -4,15 +4,16 @@
 
 namespace StarBangBang
 {
-	class Settings : Script
+	class SettingsMenu : public Script
 	{
 	public:
-		Settings(GameObject* gameObject, GraphicsManager& gfx);
+		SettingsMenu(GameObject* gameObject, GraphicsManager& gfx);
 		void Start();
 		void Update();
+		void Toggle();
 	private:
-		GameObject* muteBtn;
-		GameObject* fullscreenBtn;
+		GameObject* muteBtn{ nullptr };
+		GameObject* fullscreenBtn{ nullptr };
 		GraphicsManager& gfxMgr;
 	};
 }

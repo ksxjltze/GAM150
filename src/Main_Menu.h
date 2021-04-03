@@ -25,6 +25,8 @@ namespace StarBangBang
 		void Credits();
 		void ExitGame();
 
+		void Settings();
+
 	private:
 		TileMap tilemap;
 		Sprite logo;
@@ -45,6 +47,7 @@ namespace StarBangBang
 		GameObject* creditsbutton_obj;
 		GameObject* exitbutton_obj;
 		GameObject* tutorialbutton_obj;
+		GameObject* settingsObj{ nullptr };
 
 		bool tf;
 	};

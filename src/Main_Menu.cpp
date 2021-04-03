@@ -2,6 +2,7 @@
 #include "constants.h"
 #include "Click.h"
 #include "CollisionEvent.h"
+#include "Settings.h"
 
 static const float x_scale = 5.0f;
 static const float y_scale = 5.0f;
@@ -70,6 +71,7 @@ namespace StarBangBang
 		objectManager.AddImage(settingsbutton_obj, settingsbutton1);
 		settingsbutton_obj->transform.position = { (float)AEGetWindowWidth() / 8, (float)AEGetWindowHeight() / 8 };
 		settingsbutton_obj->transform.scale = { 3, 3 };
+		objectManager.AddComponent<Click<Main_Menu>>(settingsbutton_obj).setCallback(*this, &Main_Menu::Settings);
 
 		//credits button
 		creditsbutton_obj = objectManager.NewGameObject();
@@ -102,6 +104,9 @@ namespace StarBangBang
 		editorBtn->transform.position = { (float)AEGetWindowWidth() * 0.35f, (float)AEGetWindowHeight() / 8, };
 
 		objectManager.AddComponent<Click<Main_Menu>>(editorBtn).setCallback(*this, &Main_Menu::LoadEditor);
+
+		settingsObj = objectManager.NewGameObject();
+		objectManager.AddComponent<SettingsMenu>(settingsObj, graphicsManager);
 	}
 
 	void StarBangBang::Main_Menu::Update()
@@ -170,6 +175,11 @@ namespace StarBangBang
 	void Main_Menu::ExitGame()
 	{
 		gameStateManager.ExitGame();
+	}
+
+	void Main_Menu::Settings()
+	{
+		settingsObj->GetComponent<SettingsMenu>()->Toggle();
 	}
 }
 
