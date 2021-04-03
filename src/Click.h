@@ -16,6 +16,9 @@ namespace StarBangBang
 		void Start() {  }
 		void Update()
 		{
+			if (!gameObject->active)
+				return;
+
 			if (AEInputCheckTriggered(AEVK_LBUTTON))
 			{
 				Transform& transform = gameObject->transform;

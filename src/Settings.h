@@ -11,6 +11,7 @@ namespace StarBangBang
 		void Start();
 		void Update();
 		void Toggle();
+		void SetStatus(bool);
 	private:
 		GameObject* muteBtn{ nullptr };
 		GameObject* fullscreenBtn{ nullptr };
