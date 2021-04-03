@@ -372,6 +372,9 @@
     <ClCompile Include="src\TileSet.cpp">
       <Filter>Source Files\Engine\FileSystem</Filter>
     </ClCompile>
+    <ClCompile Include="src\Settings.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\ImageComponent.h">
@@ -643,6 +646,9 @@
     </ClInclude>
     <ClInclude Include="src\Click.h">
       <Filter>Header Files\Scripts\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Settings.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
