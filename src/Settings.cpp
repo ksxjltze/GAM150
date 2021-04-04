@@ -32,6 +32,7 @@ void StarBangBang::SettingsMenu::Start()
 
 	objMgr->AddComponent<UIComponent>(fullscreenBtn, gfxMgr).SetColor(White);
 	objMgr->AddComponent<Text>(fullscreenBtn, "Fullscreen", fontId2, Black);
+	objMgr->AddComponent<Click<SettingsMenu>>(fullscreenBtn, true).setCallback(*this, &SettingsMenu::Fullscreen);
 
 	fullscreenBtn->transform.position = { 0.2f * gameObject->transform.scale.x * GRAPHICS::MESH_WIDTH, 0 };
 	fullscreenBtn->transform.scale.x = 0.4f * gameObject->transform.scale.x;
@@ -63,4 +64,9 @@ void StarBangBang::SettingsMenu::SetStatus(bool status)
 void StarBangBang::SettingsMenu::Mute()
 {
 	MessageBus::Notify({ EventId::MUTE });
+}
+
+void StarBangBang::SettingsMenu::Fullscreen()
+{
+	GRAPHICS::ToggleFullscreen();
 }

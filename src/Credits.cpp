@@ -28,8 +28,8 @@ namespace StarBangBang
 	void StarBangBang::Credits::Init()
 	{
 		float spacing = -35.0f;
-		float role_spacing = -55.0f;
-		float section_spacing = -100.0f;
+		float role_spacing = -40.0f;
+		float section_spacing = -60.0f;
 
 		AEVec2 pos = { 0.0f, 210.0f };
 
@@ -84,7 +84,7 @@ namespace StarBangBang
 		NewTextObject({ pos.x, pos.y += spacing }, "All content © 2021 DigiPen Institute of Technology Singapore.", 0.4f);
 		NewTextObject({ pos.x, pos.y += spacing }, "All Rights Reserved", 0.4f);
 
-		NewTextObject({ pos.x, pos.y += role_spacing }, "FMOD Sound System © FireLight Technologies Pty Ltd (1998 - 2020)", 0.4f);
+		NewTextObject({ pos.x, pos.y += role_spacing + 10 }, "FMOD Sound System © FireLight Technologies Pty Ltd (1998 - 2020)", 0.4f);
 
 		cameraObject->transform.position.y = 100.0f;
 		end->transform.position = { pos.x, pos.y };
