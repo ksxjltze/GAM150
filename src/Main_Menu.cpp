@@ -97,7 +97,7 @@ namespace StarBangBang
 
 		objectManager.AddComponent<Click<Main_Menu>>(exitbutton_obj).setCallback(*this, &Main_Menu::ExitGame);
 
-		//MessageBus::Notify({ EventId::PLAY_MUSIC, "BGM" });
+		MessageBus::Notify({ EventId::PLAY_MUSIC, "BGM" });
 
 		GameObject* editorBtn = objectManager.NewGameObject();
 		objectManager.AddImage(editorBtn, vending_machine_sprite);

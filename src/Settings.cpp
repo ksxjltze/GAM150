@@ -3,6 +3,7 @@
 #include "UIComponent.h"
 #include "Text.h"
 #include "globals.h"
+#include "Click.h"
 
 StarBangBang::SettingsMenu::SettingsMenu(GameObject* gameObject, GraphicsManager& gfx) : Script(gameObject), gfxMgr{ gfx }
 {
@@ -23,6 +24,7 @@ void StarBangBang::SettingsMenu::Start()
 
 	objMgr->AddComponent<UIComponent>(muteBtn, gfxMgr).SetColor(White);
 	objMgr->AddComponent<Text>(muteBtn, "Mute", fontId2, Black);
+	objMgr->AddComponent<Click<SettingsMenu>>(muteBtn, true).setCallback(*this, &SettingsMenu::Mute);
 
 	muteBtn->transform.position = { -0.3f * gameObject->transform.scale.x * GRAPHICS::MESH_WIDTH, 0 };
 	muteBtn->transform.scale.x = 0.2f * gameObject->transform.scale.x;
@@ -56,4 +58,9 @@ void StarBangBang::SettingsMenu::SetStatus(bool status)
 	gameObject->active = status;
 	muteBtn->active = status;
 	fullscreenBtn->active = status;
+}
+
+void StarBangBang::SettingsMenu::Mute()
+{
+	MessageBus::Notify({ EventId::MUTE });
 }
