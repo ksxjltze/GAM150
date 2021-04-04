@@ -20,6 +20,7 @@
 #include "Distractor.h"
 #include "time.h"
 #include "GuardAnim.h"
+#include "Disappear.h"
 
 #include "CaptainStealth.h"
 #include "DebugText.h"
@@ -110,10 +111,13 @@ namespace StarBangBang
 
 		guardImage = graphicsManager.CreateSprite(RESOURCES::SECURITYGUARD_F1_PATH);
 		securityCamImage = graphicsManager.CreateSprite(RESOURCES::CAMERA_PATH);
+
+		//interactable objs
 		vendingMachineSprite = graphicsManager.CreateSprite(RESOURCES::VENDING_LEFT_PATH);
 		computerSprite = graphicsManager.CreateSprite(RESOURCES::COMPUTER_PATH);
 		doorSprite = graphicsManager.CreateSprite(RESOURCES::DOOR_PATH);
 		keySprite = graphicsManager.CreateSprite(RESOURCES::KEY_PATH);
+		ventSprite = graphicsManager.CreateSprite(RESOURCES::BIN_RED_PATH);
 
 		//indicator sprite
 		indicator = graphicsManager.CreateSprite(RESOURCES::INDICATOR_PATH);
@@ -213,6 +217,8 @@ namespace StarBangBang
 		CreateDistraction(roomNum, 16, 27, vendingMachineSprite);
 		CreateDistraction(roomNum, 5, 47, vendingMachineSprite);
 
+		CreateVent(11, 12, ventSprite);
+
 		//Notification Text
 		objectManager.AddComponent<DebugText>(objectManager.NewGameObject(), fontId);
 
@@ -231,7 +237,7 @@ namespace StarBangBang
 		CameraComponent* camera = player->GetComponent<CameraComponent>();
 		if (!GRAPHICS::IsFullscreen())
 		{
-			camera->scale = GRAPHICS::DEFAULT_ZOOM / 1.5;
+			camera->scale = GRAPHICS::DEFAULT_ZOOM / 1.5f;
 		}
 		else
 		{
@@ -418,20 +424,20 @@ namespace StarBangBang
 		}
 
 		PlayerScript* playerScript = player->GetComponent<PlayerScript>();
-		if (AEInputCheckTriggered(AEVK_G))
-		{
-			playerScript->Debug_Reset();
-			if (!god)
-			{
-				god = true;
-				MessageBus::Notify({ EventId::PRINT_TEXT, std::string("God Mode Enabled!") });
-			}
-			else
-			{
-				god = false;
-				MessageBus::Notify({ EventId::PRINT_TEXT, std::string("God Mode Disabled!") });
-			}
-		}
+		//if (AEInputCheckTriggered(AEVK_G))
+		//{
+		//	playerScript->Debug_Reset();
+		//	if (!god)
+		//	{
+		//		god = true;
+		//		MessageBus::Notify({ EventId::PRINT_TEXT, std::string("God Mode Enabled!") });
+		//	}
+		//	else
+		//	{
+		//		god = false;
+		//		MessageBus::Notify({ EventId::PRINT_TEXT, std::string("God Mode Disabled!") });
+		//	}
+		//}
 
 		if (playerScript->isGameOver())
 		{
@@ -551,14 +557,14 @@ namespace StarBangBang
 		///Pause
 		pauseMenu.exitBtn = objectManager.NewGameObject();
 		objectManager.AddComponent<Click<Level_Demo>>(pauseMenu.exitBtn, true).setCallback(*this, &Level_Demo::Exit);
-		objectManager.AddComponent<UIComponent>(pauseMenu.exitBtn, exitBtnSprite);
+		objectManager.AddComponent<UIComponent>(pauseMenu.exitBtn, exitBtnSprite, graphicsManager);
 		pauseMenu.exitBtn->transform.position.y = -100;
 		pauseMenu.exitBtn->transform.scale = { 3, 3 };
 		pauseMenu.exitBtn->active = false;
 
 		pauseMenu.continueBtn = objectManager.NewGameObject();
 		objectManager.AddComponent<Click<Level_Demo>>(pauseMenu.continueBtn, true).setCallback(*this, &Level_Demo::TogglePause);
-		objectManager.AddComponent<UIComponent>(pauseMenu.continueBtn, continueBtnSprite);
+		objectManager.AddComponent<UIComponent>(pauseMenu.continueBtn, continueBtnSprite, graphicsManager);
 		pauseMenu.continueBtn->transform.position.y = 100;
 		pauseMenu.continueBtn->transform.scale = { 3, 3 };
 		pauseMenu.continueBtn->active = false;
@@ -571,5 +577,14 @@ namespace StarBangBang
 		objectManager.AddComponent<Distractor>(distraction).SetRoomNum(roomNum);
 		objectManager.AddImage(distraction, sprite);
 		objectManager.AddCollider(distraction, true).isTrigger = true;
+	}
+
+	void Level_Demo::CreateVent(int tileX, int tileY, const Sprite& sprite)
+	{
+		GameObject* vent = objectManager.NewGameObject();
+		vent->transform.position = tilemap.GetPositionAtIndex(tileX, tileY);
+		objectManager.AddComponent<Disappear>(vent);
+		objectManager.AddImage(vent, sprite);
+		objectManager.AddCollider(vent, true).isTrigger = true;
 	}
 }

@@ -10,13 +10,14 @@ void StarBangBang::MovementManager::AddController(GameObject* obj)
 	{
 		controllers.push_back(controller);
 		controller->SetActive(false);
+		SetCamera(obj);
 	}
-	SetCamera(obj);
 }
 
 void StarBangBang::MovementManager::Start()
 {
-	SetActiveController(0);
+	controllerId = 0;
+	SetActiveController(controllerId);
 }
 
 void StarBangBang::MovementManager::Update()
@@ -32,13 +33,12 @@ void StarBangBang::MovementManager::Update()
 
 	if (AEInputCheckTriggered(AEVK_TAB))
 	{
-		static int id = 0;
-		if (++id >= controllers.size())
+		if (++controllerId >= controllers.size())
 		{
-			id = 0;
+			controllerId = 0;
 		}
 
-		SetActiveController(id);
+		SetActiveController(controllerId);
 	}
 	else if (AEInputCheckTriggered(AEVK_SPACE))
 	{

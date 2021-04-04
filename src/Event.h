@@ -4,6 +4,7 @@
 
 enum class EventId 
 { 
+	DISAPPEAR,
 	DISTRACTION, 
 	COMPUTER_CLICK, 
 	DETECTED, 

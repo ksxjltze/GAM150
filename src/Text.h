@@ -1,7 +1,7 @@
 #pragma once
 #include "ComponentCRTP.h"
 #include <cstring>
-
+#include "Color.h"
 
 namespace StarBangBang
 {
@@ -18,16 +18,17 @@ namespace StarBangBang
 	{
 	public:
 		Text(GameObject* gameObject);
-		Text(GameObject* gameObject, const std::string& s, s8 fontId, float scale = 1.0f);
+		Text(GameObject* gameObject, const std::string& s, s8 fontId, Color c = White, float scale = 1.0f);
 		TextBox textbox;
 		s8 fontID;
 		void SetText(const std::string& s);
 		void SetTextBox(float width, float height);
 		void Draw();
+		void SetColor(Color c);
 	private:
 		std::string text;
 		float scale;
-
+		Color color;
 
 	};
 }

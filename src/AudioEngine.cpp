@@ -22,6 +22,11 @@ StarBangBang::AudioEngine::AudioEngine()
 
 }
 
+void StarBangBang::AudioEngine::CreateSound(FMOD::Sound** sound, const std::string& file)
+{
+	CreateSound(sound, file.c_str());
+}
+
 void StarBangBang::AudioEngine::CreateSound(FMOD::Sound** sound, const char* file)
 {
 	system->createSound(file, FMOD_DEFAULT, 0, sound);

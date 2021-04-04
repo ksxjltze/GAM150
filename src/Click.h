@@ -16,6 +16,9 @@ namespace StarBangBang
 		void Start() {  }
 		void Update()
 		{
+			if (!gameObject->active)
+				return;
+
 			if (AEInputCheckTriggered(AEVK_LBUTTON))
 			{
 				Transform& transform = gameObject->transform;
@@ -33,8 +36,7 @@ namespace StarBangBang
 
 		virtual void onClick()
 		{
-
-			SoundEvent("sfxBtnClick").SendEvent();
+			SoundEvent(SFX::BUTTON_CLICK).SendEvent();
 
 			if (callback)
 				callback();

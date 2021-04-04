@@ -133,6 +133,36 @@
     <Filter Include="Resource Files\Misc">
       <UniqueIdentifier>{d1903ab2-a47e-499d-9cad-c0397db65ebd}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Events">
+      <UniqueIdentifier>{751a4ea2-3560-4fc8-aa38-e82aabd99d33}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Scripts\Listeners">
+      <UniqueIdentifier>{22f0d2af-9f0d-4a64-b327-068d9d85f5be}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Scripts\Movement">
+      <UniqueIdentifier>{72b50393-6752-43b0-af5a-3004ac04c9d9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Scripts\Listeners">
+      <UniqueIdentifier>{1268b6c8-3920-4dcf-9229-5ba01b03f310}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Scripts\Movement">
+      <UniqueIdentifier>{d7949a14-7745-4176-8edb-e7f12c0eea14}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Scripts\Interactables">
+      <UniqueIdentifier>{d61923ca-3688-4009-a4cb-a5ed2a1bf1d8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Scripts\Interactables">
+      <UniqueIdentifier>{7a12f510-7a60-4b69-8772-452f44185b9f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Scripts\UI">
+      <UniqueIdentifier>{65fbb236-0c23-4c9e-a055-84e07a4b50a7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Deprecated">
+      <UniqueIdentifier>{5115726a-3230-4894-a84c-dd6538229b56}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Engine\FileSystem">
+      <UniqueIdentifier>{a868ca64-f0b2-4347-aa0f-fea6d50a1469}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Main.cpp">
@@ -147,14 +177,8 @@
     <ClCompile Include="src\ImageComponent.cpp">
       <Filter>Source Files\Engine\Components</Filter>
     </ClCompile>
-    <ClCompile Include="src\DragComponent.cpp">
-      <Filter>Source Files\Engine\Components</Filter>
-    </ClCompile>
     <ClCompile Include="src\Utils.cpp">
       <Filter>Source Files\Engine</Filter>
-    </ClCompile>
-    <ClCompile Include="src\SecondaryMovementController.cpp">
-      <Filter>Source Files\Scripts</Filter>
     </ClCompile>
     <ClCompile Include="src\CameraComponent.cpp">
       <Filter>Source Files\Engine\Components</Filter>
@@ -186,12 +210,6 @@
     <ClCompile Include="src\AudioEngine.cpp">
       <Filter>Source Files\Engine\Audio</Filter>
     </ClCompile>
-    <ClCompile Include="src\InteractableComponent.cpp">
-      <Filter>Source Files\Scripts</Filter>
-    </ClCompile>
-    <ClCompile Include="src\MovementManager.cpp">
-      <Filter>Source Files\Scripts</Filter>
-    </ClCompile>
     <ClCompile Include="src\Sample_Scene.cpp">
       <Filter>Source Files\Scenes</Filter>
     </ClCompile>
@@ -207,32 +225,14 @@
     <ClCompile Include="src\GuardManager.cpp">
       <Filter>Source Files\Scripts\Guard</Filter>
     </ClCompile>
-    <ClCompile Include="src\BasicMeshShape.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Grid.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\PathFinder.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Physics.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\CaptainStealth.cpp">
       <Filter>Source Files\Scenes</Filter>
     </ClCompile>
     <ClCompile Include="src\SerializeTest.cpp">
       <Filter>Source Files\Scripts\Testing</Filter>
     </ClCompile>
-    <ClCompile Include="src\Serialization.cpp">
-      <Filter>Source Files\Engine</Filter>
-    </ClCompile>
     <ClCompile Include="src\Main_Menu.cpp">
       <Filter>Source Files\Scenes</Filter>
-    </ClCompile>
-    <ClCompile Include="src\TileMap.cpp">
-      <Filter>Source Files\Engine</Filter>
     </ClCompile>
     <ClCompile Include="src\Detector.cpp">
       <Filter>Source Files\Scripts\Guard</Filter>
@@ -245,9 +245,6 @@
     </ClCompile>
     <ClCompile Include="src\EngineProof.cpp">
       <Filter>Source Files\Scenes</Filter>
-    </ClCompile>
-    <ClCompile Include="src\PrimaryMovementController.cpp">
-      <Filter>Source Files\Scripts</Filter>
     </ClCompile>
     <ClCompile Include="src\PrimaryMovementController.cpp">
       <Filter>Source Files</Filter>
@@ -264,18 +261,6 @@
     <ClCompile Include="src\TestScene.cpp">
       <Filter>Source Files\Test</Filter>
     </ClCompile>
-    <ClCompile Include="src\ComputerListener.cpp">
-      <Filter>Source Files\Scripts</Filter>
-    </ClCompile>
-    <ClCompile Include="src\CollisionListener.cpp">
-      <Filter>Source Files\Scripts</Filter>
-    </ClCompile>
-    <ClCompile Include="src\ComputerScript.cpp">
-      <Filter>Source Files\Scripts</Filter>
-    </ClCompile>
-    <ClCompile Include="src\DetectionListener.cpp">
-      <Filter>Source Files\Scripts</Filter>
-    </ClCompile>
     <ClCompile Include="src\MessageBus.cpp">
       <Filter>Source Files\Engine\EventSystem</Filter>
     </ClCompile>
@@ -291,14 +276,8 @@
     <ClCompile Include="src\PathFinder.cpp">
       <Filter>Source Files\Engine\Game Logic</Filter>
     </ClCompile>
-    <ClCompile Include="src\TileSet.cpp">
-      <Filter>Source Files\Engine\Game Logic</Filter>
-    </ClCompile>
     <ClCompile Include="src\TileMap.cpp">
       <Filter>Source Files\Engine\Game Logic</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Movement.cpp">
-      <Filter>Source Files\Scripts</Filter>
     </ClCompile>
     <ClCompile Include="src\Text.cpp">
       <Filter>Source Files\Scripts</Filter>
@@ -309,38 +288,95 @@
     <ClCompile Include="src\Physics.cpp">
       <Filter>Source Files\Engine\Collision</Filter>
     </ClCompile>
-    <ClCompile Include="src\PlayerScript.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Scene_GameOver.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Distractor.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\GuardAnim.cpp">
       <Filter>Source Files\Scripts\Guard</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Credits.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Door.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Key.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\DoorTest.cpp">
-      <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\Tutorial.cpp">
       <Filter>Source Files\Scenes</Filter>
     </ClCompile>
-    <ClCompile Include="src\UIComponent.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="src\Scene_GameOver.cpp">
+      <Filter>Source Files\Scenes</Filter>
     </ClCompile>
     <ClCompile Include="src\Logo_Splash.cpp">
+      <Filter>Source Files\Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="src\DoorTest.cpp">
+      <Filter>Source Files\Test</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Grid.cpp">
+      <Filter>Source Files\Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="src\BasicMeshShape.cpp">
+      <Filter>Source Files\Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="src\PlayerScript.cpp">
+      <Filter>Source Files\Scripts</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Credits.cpp">
+      <Filter>Source Files\Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="src\PathFinder.cpp">
+      <Filter>Source Files\Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Physics.cpp">
+      <Filter>Source Files\Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="src\UIComponent.cpp">
+      <Filter>Source Files\Engine\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="src\CollisionListener.cpp">
+      <Filter>Source Files\Scripts\Listeners</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ComputerListener.cpp">
+      <Filter>Source Files\Scripts\Listeners</Filter>
+    </ClCompile>
+    <ClCompile Include="src\DetectionListener.cpp">
+      <Filter>Source Files\Scripts\Listeners</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Movement.cpp">
+      <Filter>Source Files\Scripts\Movement</Filter>
+    </ClCompile>
+    <ClCompile Include="src\MovementManager.cpp">
+      <Filter>Source Files\Scripts\Movement</Filter>
+    </ClCompile>
+    <ClCompile Include="src\PrimaryMovementController.cpp">
+      <Filter>Source Files\Scripts\Movement</Filter>
+    </ClCompile>
+    <ClCompile Include="src\SecondaryMovementController.cpp">
+      <Filter>Source Files\Scripts\Movement</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Key.cpp">
+      <Filter>Source Files\Scripts\Interactables</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Door.cpp">
+      <Filter>Source Files\Scripts\Interactables</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ComputerScript.cpp">
+      <Filter>Source Files\Scripts\Interactables</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Distractor.cpp">
+      <Filter>Source Files\Scripts\Interactables</Filter>
+    </ClCompile>
+    <ClCompile Include="src\InteractableComponent.cpp">
+      <Filter>Source Files\Deprecated</Filter>
+    </ClCompile>
+    <ClCompile Include="src\DragComponent.cpp">
+      <Filter>Source Files\Deprecated</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Serialization.cpp">
+      <Filter>Source Files\Engine\FileSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="src\TileMap.cpp">
+      <Filter>Source Files\Engine\FileSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="src\TileSet.cpp">
+      <Filter>Source Files\Engine\FileSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Settings.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Disappear.cpp">
+      <Filter>Source Files\Scripts\Interactables</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -361,12 +397,6 @@
     </ClInclude>
     <ClInclude Include="src\constants.h">
       <Filter>Header Files\Globals</Filter>
-    </ClInclude>
-    <ClInclude Include="src\PrimaryMovementController.h">
-      <Filter>Header Files\Scripts</Filter>
-    </ClInclude>
-    <ClInclude Include="src\SecondaryMovementController.h">
-      <Filter>Header Files\Scripts</Filter>
     </ClInclude>
     <ClInclude Include="src\Collider.h">
       <Filter>Header Files\Engine\Collision</Filter>
@@ -413,14 +443,8 @@
     <ClInclude Include="src\AudioEngine.h">
       <Filter>Header Files\Engine\Audio</Filter>
     </ClInclude>
-    <ClInclude Include="src\InteractableComponent.h">
-      <Filter>Header Files\Scripts</Filter>
-    </ClInclude>
     <ClInclude Include="src\DragComponent.h">
       <Filter>Header Files\Deprecated</Filter>
-    </ClInclude>
-    <ClInclude Include="src\MovementManager.h">
-      <Filter>Header Files\Scripts</Filter>
     </ClInclude>
     <ClInclude Include="src\ComponentCRTP.h">
       <Filter>Header Files\Engine\Game Logic</Filter>
@@ -439,21 +463,6 @@
     </ClInclude>
     <ClInclude Include="src\GuardVision.h">
       <Filter>Header Files\Scripts\Guard</Filter>
-    </ClInclude>
-    <ClInclude Include="src\BasicMeshShape.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\CollisionTest.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Grid.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\PathFinder.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Physics.h">
-      <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\CaptainStealth.h">
       <Filter>Header Files\Scenes</Filter>
@@ -475,15 +484,6 @@
     </ClInclude>
     <ClInclude Include="src\TestScene.h">
       <Filter>Header Files\Test</Filter>
-    </ClInclude>
-    <ClInclude Include="src\CollisionListener.h">
-      <Filter>Header Files\Scripts</Filter>
-    </ClInclude>
-    <ClInclude Include="src\ComputerListener.h">
-      <Filter>Header Files\Scripts</Filter>
-    </ClInclude>
-    <ClInclude Include="src\DetectionListener.h">
-      <Filter>Header Files\Scripts</Filter>
     </ClInclude>
     <ClInclude Include="src\globals.h">
       <Filter>Header Files\Globals</Filter>
@@ -512,9 +512,6 @@
     <ClInclude Include="src\Physics.h">
       <Filter>Header Files\Engine\Collision</Filter>
     </ClInclude>
-    <ClInclude Include="src\ComputerScript.h">
-      <Filter>Header Files\Scripts</Filter>
-    </ClInclude>
     <ClInclude Include="src\BasicMeshShape.h">
       <Filter>Header Files\Engine\Graphics</Filter>
     </ClInclude>
@@ -536,9 +533,6 @@
     <ClInclude Include="src\Color.h">
       <Filter>Header Files\Engine\Graphics</Filter>
     </ClInclude>
-    <ClInclude Include="src\Click.h">
-      <Filter>Header Files\Scripts</Filter>
-    </ClInclude>
     <ClInclude Include="src\Grid.h">
       <Filter>Header Files\Engine\Game Logic</Filter>
     </ClInclude>
@@ -554,32 +548,11 @@
     <ClInclude Include="src\Serialization.h">
       <Filter>Header Files\Engine\Game State</Filter>
     </ClInclude>
-    <ClInclude Include="src\Movement.h">
-      <Filter>Header Files\Scripts</Filter>
-    </ClInclude>
     <ClInclude Include="src\TileMap.h">
       <Filter>Header Files\Engine\Game Logic</Filter>
     </ClInclude>
     <ClInclude Include="src\TileSet.h">
       <Filter>Header Files\Engine\Game Logic</Filter>
-    </ClInclude>
-    <ClInclude Include="src\PlayerScript.h">
-      <Filter>Header Files\Scripts</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Scene_GameOver.h">
-      <Filter>Source Files\Scenes</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Distractor.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\CollisionEvent.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\DistractionEvent.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Heap.hpp">
-      <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\GuardAnim.h">
       <Filter>Header Files\Scripts\Guard</Filter>
@@ -587,32 +560,101 @@
     <ClInclude Include="src\Credits.h">
       <Filter>Header Files\Scenes</Filter>
     </ClInclude>
-    <ClInclude Include="src\Door.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Key.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\DoorTest.h">
-      <Filter>Source Files\Test</Filter>
-    </ClInclude>
-    <ClInclude Include="src\CaughtByCameraEvent.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="src\Tutorial.h">
       <Filter>Header Files\Scenes</Filter>
     </ClInclude>
-    <ClInclude Include="src\UIComponent.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="src\Scene_GameOver.h">
+      <Filter>Header Files\Scenes</Filter>
     </ClInclude>
-    <ClInclude Include="src\Logo_Splash.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="src\DoorTest.h">
+      <Filter>Header Files\Test</Filter>
     </ClInclude>
-    <ClInclude Include="src\ConeVision.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="src\CollisionEvent.h">
+      <Filter>Header Files\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="src\DistractionEvent.h">
+      <Filter>Header Files\Events</Filter>
     </ClInclude>
     <ClInclude Include="src\SoundEvent.h">
+      <Filter>Header Files\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Logo_Splash.h">
+      <Filter>Header Files\Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="src\CollisionListener.h">
+      <Filter>Header Files\Scripts\Listeners</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ComputerListener.h">
+      <Filter>Header Files\Scripts\Listeners</Filter>
+    </ClInclude>
+    <ClInclude Include="src\DetectionListener.h">
+      <Filter>Header Files\Scripts\Listeners</Filter>
+    </ClInclude>
+    <ClInclude Include="src\SecondaryMovementController.h">
+      <Filter>Header Files\Scripts\Movement</Filter>
+    </ClInclude>
+    <ClInclude Include="src\PrimaryMovementController.h">
+      <Filter>Header Files\Scripts\Movement</Filter>
+    </ClInclude>
+    <ClInclude Include="src\MovementManager.h">
+      <Filter>Header Files\Scripts\Movement</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Movement.h">
+      <Filter>Header Files\Scripts\Movement</Filter>
+    </ClInclude>
+    <ClInclude Include="src\UIComponent.h">
+      <Filter>Header Files\Engine\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="src\CaughtByCameraEvent.h">
+      <Filter>Header Files\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ConeVision.h">
+      <Filter>Header Files\Scripts</Filter>
+    </ClInclude>
+    <ClInclude Include="src\CollisionTest.h">
+      <Filter>Header Files\Test</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Physics.h">
+      <Filter>Header Files\Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="src\PathFinder.h">
+      <Filter>Header Files\Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Heap.hpp">
+      <Filter>Header Files\Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Grid.h">
+      <Filter>Header Files\Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="src\BasicMeshShape.h">
+      <Filter>Header Files\Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Door.h">
+      <Filter>Header Files\Scripts\Interactables</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Key.h">
+      <Filter>Header Files\Scripts\Interactables</Filter>
+    </ClInclude>
+    <ClInclude Include="src\InteractableComponent.h">
+      <Filter>Header Files\Deprecated</Filter>
+    </ClInclude>
+    <ClInclude Include="src\PlayerScript.h">
+      <Filter>Header Files\Scripts\Interactables</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Distractor.h">
+      <Filter>Header Files\Scripts\Interactables</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ComputerScript.h">
+      <Filter>Header Files\Scripts\Interactables</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Click.h">
+      <Filter>Header Files\Scripts\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Settings.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Disappear.h">
+      <Filter>Header Files\Scripts\Interactables</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
