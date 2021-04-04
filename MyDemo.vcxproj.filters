@@ -375,6 +375,9 @@
     <ClCompile Include="src\Settings.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\Disappear.cpp">
+      <Filter>Source Files\Scripts\Interactables</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\ImageComponent.h">
@@ -649,6 +652,9 @@
     </ClInclude>
     <ClInclude Include="src\Settings.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Disappear.h">
+      <Filter>Header Files\Scripts\Interactables</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
