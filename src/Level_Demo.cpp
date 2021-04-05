@@ -117,7 +117,7 @@ namespace StarBangBang
 		computerSprite = graphicsManager.CreateSprite(RESOURCES::COMPUTER_PATH);
 		doorSprite = graphicsManager.CreateSprite(RESOURCES::DOOR_PATH);
 		keySprite = graphicsManager.CreateSprite(RESOURCES::KEY_PATH);
-		ventSprite = graphicsManager.CreateSprite(RESOURCES::BIN_RED_PATH);
+		ventSprite = graphicsManager.CreateSprite(RESOURCES::VENT_OPEN_PATH);
 
 		//indicator sprite
 		indicator = graphicsManager.CreateSprite(RESOURCES::INDICATOR_PATH);

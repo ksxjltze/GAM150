@@ -322,6 +322,8 @@ xcopy /y /d /i /s "$(SolutionDir)\Resources" "$(OutDir)\Resources"</Command>
     <Image Include="Resources\InteractableObj\VendingMachineLeft1.png" />
     <Image Include="Resources\InteractableObj\VendingMachineRight.png" />
     <Image Include="Resources\InteractableObj\VendingMachineRight1.png" />
+    <Image Include="Resources\InteractableObj\VentClose.png" />
+    <Image Include="Resources\InteractableObj\VentOpen.png" />
     <Image Include="Resources\MainMenu\BackButton.png" />
     <Image Include="Resources\MainMenu\Credit1.png" />
     <Image Include="Resources\MainMenu\Credit2.png" />

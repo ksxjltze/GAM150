@@ -892,6 +892,12 @@
     <Image Include="Resources\MainMenu\MuteButton.png">
       <Filter>Resource Files\MainMenu</Filter>
     </Image>
+    <Image Include="Resources\InteractableObj\VentClose.png">
+      <Filter>Resource Files\InteractableObj</Filter>
+    </Image>
+    <Image Include="Resources\InteractableObj\VentOpen.png">
+      <Filter>Resource Files\InteractableObj</Filter>
+    </Image>
   </ItemGroup>
   <ItemGroup>
     <Font Include="Resources\Roboto-Regular.ttf">
