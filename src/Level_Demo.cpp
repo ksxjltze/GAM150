@@ -29,6 +29,8 @@
 #include "UIComponent.h"
 #include "SoundEvent.h"
 
+#include "Settings.h"
+
 static bool god = false;
 static float app_time = 0.0f;
 static int animation_counter = 0;
@@ -46,14 +48,49 @@ namespace StarBangBang
 	Sprite keySprite;
 	Sprite boiSprite;
 	Sprite exitBtnSprite;
+	Sprite settingsBtnSprite;
 	Sprite continueBtnSprite;
 
 	struct Pause
 	{
 		GameObject* exitBtn{ nullptr };
+		GameObject* settingsBtn{ nullptr };
 		GameObject* continueBtn{ nullptr };
+		GameObject* settingsObj{ nullptr };
+
+		std::queue<GameObject*> windowQueue;
+
+		bool active{ false };
+
+		void DisplaySettings()
+		{
+			if (windowQueue.empty())
+			{
+				exitBtn->active = false;
+				settingsBtn->active = false;
+				continueBtn->active = false;
+				settingsObj->GetComponent<SettingsMenu>()->SetStatus(true);
+				windowQueue.push(settingsObj);
+			}
+		}
+
+		bool CloseWindow()
+		{
+			if (!windowQueue.empty())
+			{
+				exitBtn->active = true;
+				settingsBtn->active = true;
+				continueBtn->active = true;
+				windowQueue.front()->SetActive(false);
+				windowQueue.pop();
+				return false;
+			}
+			return true;
+		}
+
 		void Update() 
 		{
+			settingsObj->GetComponent<SettingsMenu>()->ForceUpdate();
 			for (auto& component : exitBtn->GetComponents())
 			{
 				component->Update();
@@ -63,6 +100,12 @@ namespace StarBangBang
 			{
 				component->Update();
 			}
+
+			for (auto& component : settingsBtn->GetComponents())
+			{
+				component->Update();
+			}
+
 		}
 	}pauseMenu;
 
@@ -126,6 +169,7 @@ namespace StarBangBang
 
 		exitBtnSprite = graphicsManager.CreateSprite(RESOURCES::EXIT1_BUTTON_PATH);
 		continueBtnSprite = graphicsManager.CreateSprite(RESOURCES::PLAY1_BUTTON_PATH);
+		settingsBtnSprite = graphicsManager.CreateSprite(RESOURCES::SETTING1_BUTTON_PATH);
 	}
 
 	//Initialization of game objects, components and scripts.
@@ -228,6 +272,9 @@ namespace StarBangBang
 		MessageBus::Notify({ EventId::PLAY_SOUND, SoundEvent("Test") });
 
 		character = current_char::fei_ge;
+
+		pauseMenu.settingsObj = objectManager.NewGameObject();
+		objectManager.AddComponent<SettingsMenu>(pauseMenu.settingsObj, graphicsManager).Init();
 	}
 
 	void StarBangBang::Level_Demo::Update()
@@ -498,14 +545,25 @@ namespace StarBangBang
 		GRAPHICS::DrawOverlay(graphicsManager.GetMesh(), nullptr, { 20, 20 }, { 0, 0 }, { 0, 0, 0, 0.7f });
 		pauseMenu.exitBtn->GetComponent<UIComponent>()->Draw();
 		pauseMenu.continueBtn->GetComponent<UIComponent>()->Draw();
+		pauseMenu.settingsBtn->GetComponent<UIComponent>()->Draw();
+		pauseMenu.settingsObj->GetComponent<SettingsMenu>()->Draw();
 	}
 
 	void Level_Demo::TogglePause()
 	{
-		paused = !paused;
+		if (pauseMenu.CloseWindow())
+		{
+			paused = !paused;
+			pauseMenu.exitBtn->active = paused;
+			pauseMenu.settingsBtn->active = paused;
+			pauseMenu.continueBtn->active = paused;
+			pauseMenu.settingsObj->active = false;
+		}
+	}
 
-		pauseMenu.continueBtn->active = paused;
-		pauseMenu.exitBtn->active = paused;
+	void Level_Demo::ToggleSettings()
+	{
+		pauseMenu.DisplaySettings();
 	}
 
 	void Level_Demo::SpawnDoors()
@@ -558,17 +616,24 @@ namespace StarBangBang
 		///Pause
 		pauseMenu.exitBtn = objectManager.NewGameObject();
 		objectManager.AddComponent<Click<Level_Demo>>(pauseMenu.exitBtn, true).setCallback(*this, &Level_Demo::Exit);
-		objectManager.AddComponent<UIComponent>(pauseMenu.exitBtn, exitBtnSprite, graphicsManager);
+		objectManager.AddComponent<UIComponent>(pauseMenu.exitBtn, exitBtnSprite, graphicsManager).active = false;
 		pauseMenu.exitBtn->transform.position.y = -100;
 		pauseMenu.exitBtn->transform.scale = { 3, 3 };
 		pauseMenu.exitBtn->active = false;
 
 		pauseMenu.continueBtn = objectManager.NewGameObject();
 		objectManager.AddComponent<Click<Level_Demo>>(pauseMenu.continueBtn, true).setCallback(*this, &Level_Demo::TogglePause);
-		objectManager.AddComponent<UIComponent>(pauseMenu.continueBtn, continueBtnSprite, graphicsManager);
+		objectManager.AddComponent<UIComponent>(pauseMenu.continueBtn, continueBtnSprite, graphicsManager).active = false;
 		pauseMenu.continueBtn->transform.position.y = 100;
 		pauseMenu.continueBtn->transform.scale = { 3, 3 };
 		pauseMenu.continueBtn->active = false;
+
+		pauseMenu.settingsBtn = objectManager.NewGameObject();
+		objectManager.AddComponent<Click<Level_Demo>>(pauseMenu.settingsBtn, true).setCallback(*this, &Level_Demo::ToggleSettings);
+		objectManager.AddComponent<UIComponent>(pauseMenu.settingsBtn, settingsBtnSprite, graphicsManager).active = false;
+		pauseMenu.settingsBtn->transform.position.y = 0;
+		pauseMenu.settingsBtn->transform.scale = { 3, 3 };
+		pauseMenu.settingsBtn->active = false;
 	}
 
 	void Level_Demo::CreateDistraction(unsigned int roomNum, int tileX, int tileY, const Sprite& sprite)

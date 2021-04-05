@@ -70,6 +70,23 @@ void StarBangBang::AudioEngine::onNotify(Event e)
 		StopMasterChannel();
 	}
 
+	if (e.id == EventId::MUTE)
+	{
+		muted = !muted;
+
+		FMOD::Channel* channel;
+		FMOD::ChannelGroup* channelGroup;
+
+		system->getMasterChannelGroup(&channelGroup);
+		channelGroup->setMute(muted);
+		
+	}
+
+}
+
+void StarBangBang::AudioEngine::Mute()
+{
+
 }
 
 void StarBangBang::AudioEngine::AddSound(const std::string& name, FMOD::Sound* sound)

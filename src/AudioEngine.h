@@ -28,9 +28,11 @@ namespace StarBangBang
 		void playSound(const std::string& name, bool loop = false);
 		void ReleaseSound(FMOD::Sound* sound);
 		void StopMasterChannel();
+		void Mute();
 		void Update();
 		void Exit();
 	private:
+		bool muted{ false };
 		FMOD::System* system;
 		std::vector<Sound> soundList;
 	};

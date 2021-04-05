@@ -31,7 +31,10 @@ namespace StarBangBang
 			if (colEvent.second->gameObject != gameObject)
 				return;
 
-			if (colEvent.first->gameObject->name == "Player" || colEvent.first->gameObject->name == "Client")
+			//if (colEvent.first->gameObject->name == "Player" || colEvent.first->gameObject->name == "Client")
+			//	Pickup();
+
+			if (colEvent.first->gameObject->name == "Client")
 				Pickup();
 
 		}

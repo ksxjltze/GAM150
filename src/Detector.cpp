@@ -37,8 +37,9 @@ void Detector::Init(float fov, float dist, GameObject* player, GameObject* clien
 
 void Detector::Update()
 {
-	if (target1->active)
-		CheckForTargets(target1->GetPos());
+	//Disable player detection
+	//if (target1->active)
+	//	CheckForTargets(target1->GetPos());
 	if (target2->active)
 		CheckForTargets(target2->GetPos(), false);
 }

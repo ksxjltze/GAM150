@@ -271,9 +271,14 @@ namespace StarBangBang
 		else
 			AEGfxSetRenderMode(AE_GFX_RM_COLOR);
 		AEMtx33 s, t, trans;
+		
 		AEMtx33Scale(&s, scale.x, scale.y);
 		AEMtx33Trans(&t, pos.x, pos.y);
 		AEMtx33Concat(&trans, &t, &s);
+
+		AEVec2 screenScale = GetScreenScale();
+		AEMtx33Scale(&s, screenScale.x, screenScale.y);
+		AEMtx33Concat(&trans, &s, &trans);
 
 		AEGfxSetTransform(trans.m);
 		AEGfxSetTintColor(c.R(), c.G(), c.B(), c.A());

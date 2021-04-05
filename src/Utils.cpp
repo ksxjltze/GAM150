@@ -19,8 +19,8 @@ namespace StarBangBang
 			float zoom = GRAPHICS::GetZoom();
 
 			AEMtx33ScaleApply(&mtx, &mtx, 1 / zoom, 1 / zoom);
-			GRAPHICS::InverseScaleFullscreen(mtx);
 		}
+		GRAPHICS::InverseScaleFullscreen(mtx);
 
 		AEMtx33MultVec(&pos, &mtx, &pos);
 		return pos;
