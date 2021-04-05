@@ -45,6 +45,9 @@ void StarBangBang::SettingsMenu::Start()
 	fullscreenBtn->transform.scale.x = 0.4f * gameObject->transform.scale.x;
 	fullscreenBtn->transform.scale.y = 0.2f * gameObject->transform.scale.y;
 
+	buttonList.push_back(muteBtn);
+	buttonList.push_back(fullscreenBtn);
+
 	SetStatus(false);
 }
 
@@ -61,6 +64,20 @@ void StarBangBang::SettingsMenu::Draw()
 		gameObject->GetComponent<UIComponent>()->Draw();
 		muteBtn->GetComponent<UIComponent>()->Draw();
 		fullscreenBtn->GetComponent<UIComponent>()->Draw();
+	}
+}
+
+void StarBangBang::SettingsMenu::ForceUpdate()
+{
+	if (!gameObject->active)
+		return;
+
+	for (auto& btnObj : buttonList)
+	{
+		for (auto& component : btnObj->GetComponents())
+		{
+			component->Update();
+		}
 	}
 }
 

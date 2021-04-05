@@ -90,6 +90,8 @@ namespace StarBangBang
 
 		void Update() 
 		{
+			settingsObj->GetComponent<SettingsMenu>()->ForceUpdate();
+
 			for (auto& component : exitBtn->GetComponents())
 			{
 				component->Update();
@@ -105,13 +107,6 @@ namespace StarBangBang
 				component->Update();
 			}
 
-			for (auto& component : settingsObj->GetComponents())
-			{
-				if (component->gameObject->parent)
-					component->gameObject->active = component->gameObject->parent->active;
-
-				component->Update();
-			}
 		}
 	}pauseMenu;
 
