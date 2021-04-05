@@ -12,6 +12,9 @@ StarBangBang::SettingsMenu::SettingsMenu(GameObject* gameObject, GraphicsManager
 
 void StarBangBang::SettingsMenu::Start()
 {
+	Sprite fullscreenBtnSprite = gfxMgr.CreateSprite(RESOURCES::FULLSCREEN_BUTTON_PATH);
+	Sprite muteBtnSprite = gfxMgr.CreateSprite(RESOURCES::MUTE_BUTTON_PATH);
+
 	muteBtn = objMgr->NewGameObject();
 	fullscreenBtn = objMgr->NewGameObject();
 
@@ -24,7 +27,7 @@ void StarBangBang::SettingsMenu::Start()
 	gameObject->transform.scale.x = AEGetWindowWidth() * 0.8 / GRAPHICS::MESH_WIDTH;
 	gameObject->transform.scale.y = AEGetWindowHeight() * 0.8 / GRAPHICS::MESH_HEIGHT;
 
-	objMgr->AddComponent<UIComponent>(muteBtn, gfxMgr).SetColor(White);
+	objMgr->AddComponent<UIComponent>(muteBtn, muteBtnSprite, gfxMgr);
 	objMgr->AddComponent<Text>(muteBtn, "Mute", fontId2, Black);
 	objMgr->AddComponent<Click<SettingsMenu>>(muteBtn, true).setCallback(*this, &SettingsMenu::Mute);
 
@@ -33,7 +36,7 @@ void StarBangBang::SettingsMenu::Start()
 	muteBtn->transform.scale.y = 0.2f * gameObject->transform.scale.y;
 	muteBtn->visible = false;
 
-	objMgr->AddComponent<UIComponent>(fullscreenBtn, gfxMgr).SetColor(White);
+	objMgr->AddComponent<UIComponent>(fullscreenBtn, fullscreenBtnSprite, gfxMgr);
 	objMgr->AddComponent<Text>(fullscreenBtn, "Fullscreen", fontId2, Black);
 	objMgr->AddComponent<Click<SettingsMenu>>(fullscreenBtn, true).setCallback(*this, &SettingsMenu::Fullscreen);
 	fullscreenBtn->visible = false;
