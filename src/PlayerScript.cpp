@@ -7,6 +7,8 @@
 #include "constants.h"
 #include "globals.h"
 #include "Text.h"
+#include <iomanip>
+#include <sstream>
 
 StarBangBang::PlayerScript::PlayerScript(GameObject* obj) : Script(obj)
 {
@@ -102,7 +104,18 @@ void StarBangBang::PlayerScript::onNotify(Event e)
 
 void StarBangBang::PlayerScript::Update()
 {	
-	text->SetText(std::to_string(stealth->GetTimer()));
+	float timer = stealth->GetTimer();
+	if (timer >= EPSILON)
+	{
+		std::stringstream stream;
+		stream << std::fixed << std::setprecision(2) << timer;
+		std::string s = stream.str();
+		text->SetText(s);
+	}
+	else
+	{
+		text->SetText("");
+	}
 
 	/*AEVec2 myPos = gameObject->transform.position;
 	AEVec2 clientPos = client->GetPos();

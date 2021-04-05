@@ -19,15 +19,21 @@ namespace StarBangBang
 			if (!gameObject->active)
 				return;
 
-			if (AEInputCheckReleased(AEVK_LBUTTON))
+			Transform& transform = gameObject->transform;
+			if (PointRectTest(GetMouseWorldPos(!isOverlay), transform.position, transform.scale.x * GRAPHICS::MESH_WIDTH, transform.scale.y * GRAPHICS::MESH_HEIGHT))
 			{
-				Transform& transform = gameObject->transform;
-				if (PointRectTest(GetMouseWorldPos(!isOverlay), transform.position, transform.scale.x * GRAPHICS::MESH_WIDTH, transform.scale.y * GRAPHICS::MESH_HEIGHT))
+				if (AEInputCheckTriggered(AEVK_LBUTTON))
+				{
+					clicked = true;
+				}
+				else if (clicked && AEInputCheckReleased(AEVK_LBUTTON))
 				{
 					onClick();
+					clicked = false;
 				}
-		
 			}
+			else if (clicked)
+				clicked = false;
 			
 		}
 
@@ -48,6 +54,7 @@ namespace StarBangBang
 		}
 
 	private:
+		bool clicked{ false };
 		bool isOverlay{ false };
 		void (*callback)(void) { nullptr };
 		std::vector<std::pair<ClassType&, void (ClassType::*)(void)>> callbackList;

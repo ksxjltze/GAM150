@@ -39,7 +39,7 @@ namespace StarBangBang
 
 	void HighLightGridNode(Grid& grid)
 	{
-		AEVec2 mousePos = GetMouseWorldPos();
+		AEVec2 mousePos = GetMouseWorldPos(true);
 		A_Node* n = grid.GetNodeFromPosition(mousePos);
 		if (n)
 			DrawCircle(grid.GetNodeSize() / 2, n->nodePos);

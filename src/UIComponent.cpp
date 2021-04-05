@@ -6,12 +6,12 @@ namespace StarBangBang
 
 
 
-	UIComponent::UIComponent(GameObject* gameObject, GraphicsManager& gfx) : Component(gameObject), gfxMgr{ gfx }
+	UIComponent::UIComponent(GameObject* gameObject, GraphicsManager& gfx, bool rescale) : Component(gameObject), gfxMgr{ gfx }, rescale{ rescale }
 	{
 
 	}
 
-	UIComponent::UIComponent(GameObject* gameObject, Sprite s, GraphicsManager& gfx) : Component(gameObject), sprite{ s }, gfxMgr{ gfx }
+	UIComponent::UIComponent(GameObject* gameObject, Sprite s, GraphicsManager& gfx, bool rescale) : Component(gameObject), sprite{ s }, gfxMgr{ gfx }, rescale{ rescale }
 	{
 
 	}
@@ -38,9 +38,9 @@ namespace StarBangBang
 			AEVec2 scale = gameObject->transform.scale;
 
 			if (sprite.mesh)
-				GRAPHICS::DrawOverlay(sprite.mesh, sprite.texture, scale, gameObject->transform.position, sprite.color);
+				GRAPHICS::DrawOverlay(sprite.mesh, sprite.texture, scale, gameObject->transform.position, sprite.color, rescale);
 			else
-				GRAPHICS::DrawOverlay(gfxMgr.GetMesh(), nullptr, scale, gameObject->transform.position, sprite.color);
+				GRAPHICS::DrawOverlay(gfxMgr.GetMesh(), nullptr, scale, gameObject->transform.position, sprite.color, rescale);
 
 		}
 	}
