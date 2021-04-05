@@ -3,6 +3,7 @@
 #include "Listener.h"
 #include "PrimaryMovementController.h"
 #include "ImageComponent.h"
+#include "StealthWalk.h"
 
 namespace StarBangBang
 {
@@ -15,7 +16,7 @@ namespace StarBangBang
 		bool isGameOver();
 		bool isWin();
 		void Start();
-		bool isInvisible() { return invisible; }
+		bool isInvisible();
 
 		void Debug_Reset();
 
@@ -24,13 +25,9 @@ namespace StarBangBang
 	private:
 		GameObject* client = nullptr;
 		PrimaryMovementController* rb_controller;
-		ImageComponent* image;
-
-		float timer;
-		float cooldown;
+		StealthWalk* stealth;
 
 		float range;
-		bool invisible = false;
 		bool gameover = false;
 		bool playerEscaped = false;
 		bool clientEscaped = false;

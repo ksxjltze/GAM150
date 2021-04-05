@@ -161,6 +161,7 @@ xcopy /y /d /i /s "$(SolutionDir)\Resources" "$(OutDir)\Resources"</Command>
     <ClCompile Include="src\Serialization.cpp" />
     <ClCompile Include="src\SerializeTest.cpp" />
     <ClCompile Include="src\Settings.cpp" />
+    <ClCompile Include="src\StealthWalk.cpp" />
     <ClCompile Include="src\TagManager.cpp" />
     <ClCompile Include="src\TestInteractable.cpp" />
     <ClCompile Include="src\TestListener.cpp" />
@@ -248,6 +249,7 @@ xcopy /y /d /i /s "$(SolutionDir)\Resources" "$(OutDir)\Resources"</Command>
     <ClInclude Include="src\SoundEvent.h" />
     <ClInclude Include="src\Sprite.h" />
     <ClInclude Include="src\State.h" />
+    <ClInclude Include="src\StealthWalk.h" />
     <ClInclude Include="src\TagManager.h" />
     <ClInclude Include="src\TestInteractable.h" />
     <ClInclude Include="src\TestListener.h" />

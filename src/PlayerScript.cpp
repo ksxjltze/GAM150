@@ -15,18 +15,25 @@ StarBangBang::PlayerScript::PlayerScript(GameObject* obj) : Script(obj)
 	gameover = false;
 	playerEscaped = false;
 	clientEscaped = false;
+	stealth = nullptr;
 }
 void StarBangBang::PlayerScript::Start()
 {
 
 	rb_controller = gameObject->GetComponent<PrimaryMovementController>();
-	image = gameObject->GetComponent<ImageComponent>();
+	stealth = &objMgr->AddComponent<StealthWalk>(gameObject);
+	stealth->Start();
 	client = objMgr->Find("Client");
 
 	assert(client);
 	assert(rb_controller);
 	range *= range;
 
+}
+
+bool StarBangBang::PlayerScript::isInvisible()
+{
+	return stealth->IsInvisible();
 }
 
 void StarBangBang::PlayerScript::Debug_Reset()
@@ -88,30 +95,7 @@ void StarBangBang::PlayerScript::onNotify(Event e)
 }
 
 void StarBangBang::PlayerScript::Update()
-{
-
-	if (AEInputCheckTriggered(AEVK_Q) && cooldown <= EPSILON)
-	{
-		invisible = true;
-		image->SetTransparency(0.4f);
-		timer = 10.0f;
-		cooldown = 10.0f;
-	}
-
-	if (timer > EPSILON)
-	{
-		timer -= g_dt;
-		if (timer <= EPSILON)
-		{
-			invisible = false;
-			image->SetTransparency(1.0f);
-		}
-	}
-	else if (cooldown > EPSILON)
-	{
-		cooldown -= g_dt;
-	}
-	
+{	
 	/*AEVec2 myPos = gameObject->transform.position;
 	AEVec2 clientPos = client->GetPos();
 	float real_sqrDis = AEVec2SquareDistance(&myPos, &clientPos);*/
