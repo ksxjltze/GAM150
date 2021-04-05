@@ -231,7 +231,7 @@ namespace StarBangBang
 		CameraComponent* camera = player->GetComponent<CameraComponent>();
 		if (!GRAPHICS::IsFullscreen())
 		{
-			camera->scale = GRAPHICS::DEFAULT_ZOOM / 1.5;
+			camera->scale = GRAPHICS::DEFAULT_ZOOM / 1.5f;
 		}
 		else
 		{
@@ -418,20 +418,20 @@ namespace StarBangBang
 		}
 
 		PlayerScript* playerScript = player->GetComponent<PlayerScript>();
-		if (AEInputCheckTriggered(AEVK_G))
-		{
-			playerScript->Debug_Reset();
-			if (!god)
-			{
-				god = true;
-				MessageBus::Notify({ EventId::PRINT_TEXT, std::string("God Mode Enabled!") });
-			}
-			else
-			{
-				god = false;
-				MessageBus::Notify({ EventId::PRINT_TEXT, std::string("God Mode Disabled!") });
-			}
-		}
+		//if (AEInputCheckTriggered(AEVK_G))
+		//{
+		//	playerScript->Debug_Reset();
+		//	if (!god)
+		//	{
+		//		god = true;
+		//		MessageBus::Notify({ EventId::PRINT_TEXT, std::string("God Mode Enabled!") });
+		//	}
+		//	else
+		//	{
+		//		god = false;
+		//		MessageBus::Notify({ EventId::PRINT_TEXT, std::string("God Mode Disabled!") });
+		//	}
+		//}
 
 		if (playerScript->isGameOver())
 		{
@@ -551,14 +551,14 @@ namespace StarBangBang
 		///Pause
 		pauseMenu.exitBtn = objectManager.NewGameObject();
 		objectManager.AddComponent<Click<Level_Demo>>(pauseMenu.exitBtn, true).setCallback(*this, &Level_Demo::Exit);
-		objectManager.AddComponent<UIComponent>(pauseMenu.exitBtn, exitBtnSprite);
+		objectManager.AddComponent<UIComponent>(pauseMenu.exitBtn, exitBtnSprite, graphicsManager);
 		pauseMenu.exitBtn->transform.position.y = -100;
 		pauseMenu.exitBtn->transform.scale = { 3, 3 };
 		pauseMenu.exitBtn->active = false;
 
 		pauseMenu.continueBtn = objectManager.NewGameObject();
 		objectManager.AddComponent<Click<Level_Demo>>(pauseMenu.continueBtn, true).setCallback(*this, &Level_Demo::TogglePause);
-		objectManager.AddComponent<UIComponent>(pauseMenu.continueBtn, continueBtnSprite);
+		objectManager.AddComponent<UIComponent>(pauseMenu.continueBtn, continueBtnSprite, graphicsManager);
 		pauseMenu.continueBtn->transform.position.y = 100;
 		pauseMenu.continueBtn->transform.scale = { 3, 3 };
 		pauseMenu.continueBtn->active = false;

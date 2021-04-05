@@ -24,7 +24,7 @@ void StarBangBang::Scene_GameOver::Init()
 
 void StarBangBang::Scene_GameOver::Update()
 {
-	if (AEInputCheckTriggered(AEVK_ESCAPE) || AEInputCheckTriggered(AEVK_RETURN))
+	if (AEInputCheckTriggered(AEVK_ESCAPE) || AEInputCheckTriggered(AEVK_RETURN) || AEInputCheckTriggered(AEVK_LBUTTON))
 	{
 		gameStateManager.SetNextGameState(MAIN_MENU);
 	}

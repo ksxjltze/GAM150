@@ -9,7 +9,7 @@ Text::Text(GameObject* gameObject) : Component(gameObject), textbox{ TextBox() }
 
 }
 
-StarBangBang::Text::Text(GameObject* gameObject, const std::string& s, s8 fontId, float scale) : Component(gameObject), textbox{ TextBox() }, fontID{ fontId }, text{ s }, scale{ scale }
+StarBangBang::Text::Text(GameObject* gameObject, const std::string& s, s8 fontId, Color c, float scale) : Component(gameObject), textbox{ TextBox() }, fontID{ fontId }, text{ s }, scale{ scale }, color{ c }
 {
 
 }
@@ -28,6 +28,9 @@ void StarBangBang::Text::SetTextBox(float width, float height)
 void Text::Draw()
 {
 	if (fontID == -1)
+		return;
+
+	if (!gameObject->active)
 		return;
 
 	AEMtx33 camera = GRAPHICS::GetCameraMatrix();
@@ -59,6 +62,11 @@ void Text::Draw()
 	(fontID, str, 
 		position.x / wWidth * 2 - TextWidth / 2, 
 		position.y / wHeight * 2 - TextHeight / 2, 
-		textScale, 1.0f, 1.0f ,1.0f
+		textScale, color.R(), color.G(), color.B()
 	);
+}
+
+void StarBangBang::Text::SetColor(Color c)
+{
+	color = c;
 }

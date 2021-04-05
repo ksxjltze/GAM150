@@ -21,6 +21,7 @@ namespace StarBangBang
 	public:
 		AudioEngine();
 		void CreateSound(FMOD::Sound** sound, const char* file);
+		void CreateSound(FMOD::Sound** sound, const std::string&);
 		void onNotify(Event e);
 		void AddSound(const std::string& name, FMOD::Sound* sound);
 		void playSound(FMOD::Sound* sound, bool loop = false);
