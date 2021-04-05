@@ -29,6 +29,7 @@ void StarBangBang::Disappear::Update()
 		objMgr->Find("Player")->GetComponent<ImageComponent>()->active = true;
 		objMgr->Find("Client")->GetComponent<ImageComponent>()->active = true;
 	}
+
 }
 
 void StarBangBang::Disappear::onNotify(Event e)
@@ -36,15 +37,19 @@ void StarBangBang::Disappear::onNotify(Event e)
 	if (e.id == EventId::COLLISION && !disappeared)
 	{
 		CollisionEvent data = std::any_cast<CollisionEvent>(e.context);
-		if (data.first->gameObject->name == "Player")
+		if (data.second->gameObject == gameObject)
 		{
-			data.first->gameObject->GetComponent<ImageComponent>()->active = false;
-			disappeared = true;
-		}
-		else if (data.second->gameObject->name == "Client")
-		{
-			data.second->gameObject->GetComponent<ImageComponent>()->active = false;
-			disappeared = true;
+			if (data.first->gameObject->name == "Player")
+			{
+				data.first->gameObject->GetComponent<ImageComponent>()->active = false;
+				disappeared = true;
+			}
+			else if (data.first->gameObject->name == "Client")
+			{
+				data.second->gameObject->GetComponent<ImageComponent>()->active = false;
+				disappeared = true;
+			}
+
 		}
 	}
 }
