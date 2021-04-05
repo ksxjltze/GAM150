@@ -40,7 +40,7 @@ void Detector::Update()
 	//Disable player detection
 	//if (target1->active)
 	//	CheckForTargets(target1->GetPos());
-	if (target2->active)
+	if (target2->active && target2->visible)
 		CheckForTargets(target2->GetPos(), false);
 }
 
