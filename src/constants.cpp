@@ -63,6 +63,8 @@ namespace StarBangBang
 		const std::string&& LOGO_PATH					= MAINMENU_PATH + "Logo.png";
 		const std::string&& BACK_BUTTON_PATH			= MAINMENU_PATH + "BackButton.png";
 		const std::string&& TUTORIAL_BUTTON_PATH		= MAINMENU_PATH + "TutorialButton.png";
+		const std::string&& FULLSCREEN_BUTTON_PATH		= MAINMENU_PATH + "FullScreenButton.png";
+		const std::string&& MUTE_BUTTON_PATH			= MAINMENU_PATH + "MuteButton.png";
 
 		//Character sprites
 		const std::string&& CAPTAINSTEALTH_F1_PATH			= CHARACTERS_PATH + "CaptainStealthForward1.png";
@@ -141,7 +143,9 @@ namespace StarBangBang
 		const std::string&& VENDING_RIGHT_PATH				= INTERACTABLE_PATH + "VendingMachineRight.png";
 		const std::string&& VENDING_RIGHT_RED_PATH			= INTERACTABLE_PATH + "VendingMachineRight1.png";
 		const std::string&& COMPUTER_PATH					= INTERACTABLE_PATH + "Computer.png";
-		const  std::string&& KEY_PATH						= INTERACTABLE_PATH + "keys.png";
+		const std::string&& KEY_PATH						= INTERACTABLE_PATH + "keys.png";
+		const std::string&& VENT_CLOSE_PATH					= INTERACTABLE_PATH + "VentClose.png";
+		const std::string&& VENT_OPEN_PATH					= INTERACTABLE_PATH + "VentOpen.png";
 
 		//misc objects
 		const std::string&& INDICATOR_PATH					= MISC_PATH + "Indicator.png";

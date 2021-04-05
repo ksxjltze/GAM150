@@ -28,6 +28,7 @@ namespace StarBangBang
 		void SpawnDoors();
 		void InitPause();
 		void CreateDistraction(unsigned int roomNum, int tileX, int tileY, const Sprite& sprite);
+		void CreateVent(int tileX, int tileY, const Sprite& sprite);
 
 		//player stuffs
 		Sprite playerImage;
@@ -63,6 +64,10 @@ namespace StarBangBang
 		GameObject* player2;
 		GameObject* guardManager;
 		GameObject* indicatorObj;
+
+		//Vents
+		Sprite ventSprite;
+
 
 		TileMap tilemap;
 	};

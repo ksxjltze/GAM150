@@ -122,6 +122,7 @@ xcopy /y /d /i /s "$(SolutionDir)\Resources" "$(OutDir)\Resources"</Command>
     <ClCompile Include="src\DebugText.cpp" />
     <ClCompile Include="src\DetectionListener.cpp" />
     <ClCompile Include="src\Detector.cpp" />
+    <ClCompile Include="src\Disappear.cpp" />
     <ClCompile Include="src\Distractor.cpp" />
     <ClCompile Include="src\Door.cpp" />
     <ClCompile Include="src\DoorTest.cpp" />
@@ -194,6 +195,7 @@ xcopy /y /d /i /s "$(SolutionDir)\Resources" "$(OutDir)\Resources"</Command>
     <ClInclude Include="src\DebugText.h" />
     <ClInclude Include="src\DetectionListener.h" />
     <ClInclude Include="src\Detector.h" />
+    <ClInclude Include="src\Disappear.h" />
     <ClInclude Include="src\DistractionEvent.h" />
     <ClInclude Include="src\Distractor.h" />
     <ClInclude Include="src\Door.h" />
@@ -320,12 +322,16 @@ xcopy /y /d /i /s "$(SolutionDir)\Resources" "$(OutDir)\Resources"</Command>
     <Image Include="Resources\InteractableObj\VendingMachineLeft1.png" />
     <Image Include="Resources\InteractableObj\VendingMachineRight.png" />
     <Image Include="Resources\InteractableObj\VendingMachineRight1.png" />
+    <Image Include="Resources\InteractableObj\VentClose.png" />
+    <Image Include="Resources\InteractableObj\VentOpen.png" />
     <Image Include="Resources\MainMenu\BackButton.png" />
     <Image Include="Resources\MainMenu\Credit1.png" />
     <Image Include="Resources\MainMenu\Credit2.png" />
     <Image Include="Resources\MainMenu\Exit1.png" />
     <Image Include="Resources\MainMenu\Exit2.png" />
+    <Image Include="Resources\MainMenu\FullScreenButton.png" />
     <Image Include="Resources\MainMenu\Logo.png" />
+    <Image Include="Resources\MainMenu\MuteButton.png" />
     <Image Include="Resources\MainMenu\Play1.png" />
     <Image Include="Resources\MainMenu\Play2.png" />
     <Image Include="Resources\MainMenu\Setting1.png" />

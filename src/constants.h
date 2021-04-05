@@ -121,6 +121,8 @@ namespace StarBangBang
 		extern const std::string&& LOGO_PATH;
 		extern const std::string&& BACK_BUTTON_PATH;
 		extern const std::string&& TUTORIAL_BUTTON_PATH;
+		extern const std::string&& FULLSCREEN_BUTTON_PATH;
+		extern const std::string&& MUTE_BUTTON_PATH;
 
 		//Character sprites
 		extern const std::string&& CAPTAINSTEALTH_F1_PATH;
@@ -200,6 +202,8 @@ namespace StarBangBang
 		extern const std::string&& VENDING_RIGHT_RED_PATH;
 		extern const std::string&& COMPUTER_PATH;
 		extern const std::string&& KEY_PATH;
+		extern const std::string&& VENT_CLOSE_PATH;
+		extern const std::string&& VENT_OPEN_PATH;
 
 		//misc objects
 		extern const std::string&& INDICATOR_PATH;
