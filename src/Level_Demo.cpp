@@ -542,7 +542,7 @@ namespace StarBangBang
 
 	void Level_Demo::DisplayPauseMenu()
 	{
-		GRAPHICS::DrawOverlay(graphicsManager.GetMesh(), nullptr, { 20, 20 }, { 0, 0 }, { 0, 0, 0, 0.7f });
+		GRAPHICS::DrawOverlay(graphicsManager.GetMesh(), nullptr, { 40, 40 }, { 0, 0 }, { 0, 0, 0, 0.7f });
 		pauseMenu.exitBtn->GetComponent<UIComponent>()->Draw();
 		pauseMenu.continueBtn->GetComponent<UIComponent>()->Draw();
 		pauseMenu.settingsBtn->GetComponent<UIComponent>()->Draw();
