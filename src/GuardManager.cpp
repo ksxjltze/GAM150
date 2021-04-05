@@ -113,18 +113,6 @@ void GuardManager::CreateSecurityCameras(ObjectManager* objManager, Sprite* spri
 void GuardManager::Update()
 {
 	//PRINT("x: %f, y: %f\n", GetMouseWorldPos().x, GetMouseWorldPos().y);
-
-	if (AEInputCheckTriggered(VK_LBUTTON))
-	{
-		//guards[0]->GetComponent<GuardMovement>()->SetEndPos(GetMouseWorldPos());
-		//guards[0]->GetComponent<Guard>()->ChangeState(Guard::GUARD_STATE::STATE_PATROL);
-	}
-
-	if (AEInputCheckTriggered(VK_RBUTTON))
-	{
-		//guards[1]->GetComponent<GuardMovement>()->LookForPath(GetMouseWorldPos());
-		//guards[0]->GetComponent<Guard>()->ChangeState(Guard::GUARD_STATE::STATE_IDLE);
-	}
 }
 
 void GuardManager::onNotify(Event e)

@@ -51,16 +51,19 @@ void GuardVision::Update()
 		float dpResult = AEVec2DotProduct(&defaultForward, &targetDir);
 		float targetRot = AERadToDeg(AEACos(dpResult));
 
-		float dp = AEVec2DotProduct(&defaultLeft, &targetDir);
-		if (dp < 0.f)
-			targetRot = -targetRot;
+		if (gameObject->GetComponent<Guard>()->GetState() == Guard::GUARD_STATE::STATE_PATROL)
+		{
+			float dp = AEVec2DotProduct(&defaultLeft, &targetDir);
+			if (dp < 0.f)
+				targetRot = -targetRot;
+		}
 
 		currRot = static_cast<int>(rint(targetRot));
 
 		if (currRot != prevRot)
 		{
-			if (currRot == 0)
-				currRot = 1;
+			/*if (currRot == 0)
+				currRot = 1;*/
 
 			if (targetRot > 0 && rotation < 0.f)
 			{
