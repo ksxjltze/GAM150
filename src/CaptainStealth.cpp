@@ -86,7 +86,7 @@ namespace StarBangBang
 		player->transform.scale = { 0.7f, 0.7f };
 
 		objMgr.AddComponent<DetectionListener>(player);
-		objMgr.AddImage(player, playerImage)->SetTransparency(0.4f);
+		objMgr.AddImage(player, playerImage);
 
 		objMgr.AddComponent<CameraComponent>(player);
 

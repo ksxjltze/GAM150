@@ -1,6 +1,7 @@
 #pragma once
 #include "ScriptComponent.h"
 #include "Color.h"
+#include "PlayerScript.h"
 
 namespace StarBangBang
 {
@@ -11,7 +12,7 @@ namespace StarBangBang
 	public:
 		Detector(GameObject* gameObject);
 
-		void Start() {}
+		void Start();
 		void Update();
 		void Draw();
 
@@ -44,6 +45,8 @@ namespace StarBangBang
 		GameObject* target1, *target2;
 		BoxCollider* target1Col, *target2Col;
 		BoxCollider* myCollider;
+
+		PlayerScript* player{ nullptr };
 
 		Color color;
 	};

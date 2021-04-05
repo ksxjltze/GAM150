@@ -5,6 +5,7 @@
 #include "CollisionEvent.h"
 #include "SoundEvent.h"
 #include "constants.h"
+#include "globals.h"
 
 StarBangBang::PlayerScript::PlayerScript(GameObject* obj) : Script(obj)
 {
@@ -19,6 +20,7 @@ void StarBangBang::PlayerScript::Start()
 {
 
 	rb_controller = gameObject->GetComponent<PrimaryMovementController>();
+	image = gameObject->GetComponent<ImageComponent>();
 	client = objMgr->Find("Client");
 
 	assert(client);
@@ -87,6 +89,28 @@ void StarBangBang::PlayerScript::onNotify(Event e)
 
 void StarBangBang::PlayerScript::Update()
 {
+
+	if (AEInputCheckTriggered(AEVK_Q) && cooldown <= EPSILON)
+	{
+		invisible = true;
+		image->SetTransparency(0.4f);
+		timer = 10.0f;
+		cooldown = 10.0f;
+	}
+
+	if (timer > EPSILON)
+	{
+		timer -= g_dt;
+		if (timer <= EPSILON)
+		{
+			invisible = false;
+			image->SetTransparency(1.0f);
+		}
+	}
+	else if (cooldown > EPSILON)
+	{
+		cooldown -= g_dt;
+	}
 	
 	/*AEVec2 myPos = gameObject->transform.position;
 	AEVec2 clientPos = client->GetPos();

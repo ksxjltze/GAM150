@@ -2,6 +2,8 @@
 #include "ScriptComponent.h"
 #include "Listener.h"
 #include "PrimaryMovementController.h"
+#include "ImageComponent.h"
+
 namespace StarBangBang
 {
 	class PlayerScript : public Script, public Listener
@@ -13,6 +15,7 @@ namespace StarBangBang
 		bool isGameOver();
 		bool isWin();
 		void Start();
+		bool isInvisible() { return invisible; }
 
 		void Debug_Reset();
 
@@ -21,7 +24,13 @@ namespace StarBangBang
 	private:
 		GameObject* client = nullptr;
 		PrimaryMovementController* rb_controller;
+		ImageComponent* image;
+
+		float timer;
+		float cooldown;
+
 		float range;
+		bool invisible = false;
 		bool gameover = false;
 		bool playerEscaped = false;
 		bool clientEscaped = false;
