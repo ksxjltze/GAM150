@@ -117,7 +117,8 @@ namespace StarBangBang
 		computerSprite = graphicsManager.CreateSprite(RESOURCES::COMPUTER_PATH);
 		doorSprite = graphicsManager.CreateSprite(RESOURCES::DOOR_PATH);
 		keySprite = graphicsManager.CreateSprite(RESOURCES::KEY_PATH);
-		ventSprite = graphicsManager.CreateSprite(RESOURCES::VENT_OPEN_PATH);
+		ventOpenSprite = graphicsManager.CreateSprite(RESOURCES::VENT_OPEN_PATH);
+		ventCloseSprite = graphicsManager.CreateSprite(RESOURCES::VENT_CLOSE_PATH);
 
 		//indicator sprite
 		indicator = graphicsManager.CreateSprite(RESOURCES::INDICATOR_PATH);
@@ -217,7 +218,7 @@ namespace StarBangBang
 		CreateDistraction(roomNum, 16, 27, vendingMachineSprite);
 		CreateDistraction(roomNum, 5, 47, vendingMachineSprite);
 
-		CreateVent(11, 12, ventSprite);
+		CreateVent(11, 12, ventOpenSprite, ventCloseSprite);
 
 		//Notification Text
 		objectManager.AddComponent<DebugText>(objectManager.NewGameObject(), fontId);
@@ -579,12 +580,12 @@ namespace StarBangBang
 		objectManager.AddCollider(distraction, true).isTrigger = true;
 	}
 
-	void Level_Demo::CreateVent(int tileX, int tileY, const Sprite& sprite)
+	void Level_Demo::CreateVent(int tileX, int tileY, Sprite& spriteOpen,  Sprite& spriteClose)
 	{
 		GameObject* vent = objectManager.NewGameObject();
 		vent->transform.position = tilemap.GetPositionAtIndex(tileX, tileY);
-		objectManager.AddComponent<Disappear>(vent);
-		objectManager.AddImage(vent, sprite);
+		objectManager.AddComponent<Disappear>(vent, spriteOpen, spriteClose);
+		objectManager.AddImage(vent, spriteOpen);
 		objectManager.AddCollider(vent, true).isTrigger = true;
 	}
 }
