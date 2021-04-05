@@ -378,6 +378,9 @@
     <ClCompile Include="src\Disappear.cpp">
       <Filter>Source Files\Scripts\Interactables</Filter>
     </ClCompile>
+    <ClCompile Include="src\StealthWalk.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\ImageComponent.h">
@@ -655,6 +658,9 @@
     </ClInclude>
     <ClInclude Include="src\Disappear.h">
       <Filter>Header Files\Scripts\Interactables</Filter>
+    </ClInclude>
+    <ClInclude Include="src\StealthWalk.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

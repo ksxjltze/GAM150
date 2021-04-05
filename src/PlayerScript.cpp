@@ -5,6 +5,8 @@
 #include "CollisionEvent.h"
 #include "SoundEvent.h"
 #include "constants.h"
+#include "globals.h"
+#include "Text.h"
 
 StarBangBang::PlayerScript::PlayerScript(GameObject* obj) : Script(obj)
 {
@@ -14,17 +16,30 @@ StarBangBang::PlayerScript::PlayerScript(GameObject* obj) : Script(obj)
 	gameover = false;
 	playerEscaped = false;
 	clientEscaped = false;
+	stealth = nullptr;
 }
 void StarBangBang::PlayerScript::Start()
 {
 
 	rb_controller = gameObject->GetComponent<PrimaryMovementController>();
+
+	stealth = &objMgr->AddComponent<StealthWalk>(gameObject);
+	stealth->Start();
+
+	text = &objMgr->AddComponent<Text>(gameObject, "", fontId2);
+	text->SetOffset({ 0, -30 });
+
 	client = objMgr->Find("Client");
+	range *= range;
 
 	assert(client);
 	assert(rb_controller);
-	range *= range;
 
+}
+
+bool StarBangBang::PlayerScript::isInvisible()
+{
+	return stealth->IsInvisible();
 }
 
 void StarBangBang::PlayerScript::Debug_Reset()
@@ -86,8 +101,9 @@ void StarBangBang::PlayerScript::onNotify(Event e)
 }
 
 void StarBangBang::PlayerScript::Update()
-{
-	
+{	
+	text->SetText(std::to_string(stealth->GetTimer()));
+
 	/*AEVec2 myPos = gameObject->transform.position;
 	AEVec2 clientPos = client->GetPos();
 	float real_sqrDis = AEVec2SquareDistance(&myPos, &clientPos);*/
