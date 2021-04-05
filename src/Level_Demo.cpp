@@ -91,7 +91,6 @@ namespace StarBangBang
 		void Update() 
 		{
 			settingsObj->GetComponent<SettingsMenu>()->ForceUpdate();
-
 			for (auto& component : exitBtn->GetComponents())
 			{
 				component->Update();
@@ -274,7 +273,7 @@ namespace StarBangBang
 		character = current_char::fei_ge;
 
 		pauseMenu.settingsObj = objectManager.NewGameObject();
-		objectManager.AddComponent<SettingsMenu>(pauseMenu.settingsObj, graphicsManager).active = false;
+		objectManager.AddComponent<SettingsMenu>(pauseMenu.settingsObj, graphicsManager).Init();
 	}
 
 	void StarBangBang::Level_Demo::Update()

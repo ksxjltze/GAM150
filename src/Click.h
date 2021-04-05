@@ -19,7 +19,7 @@ namespace StarBangBang
 			if (!gameObject->active)
 				return;
 
-			if (AEInputCheckTriggered(AEVK_LBUTTON))
+			if (AEInputCheckReleased(AEVK_LBUTTON))
 			{
 				Transform& transform = gameObject->transform;
 				if (PointRectTest(GetMouseWorldPos(!isOverlay), transform.position, transform.scale.x * GRAPHICS::MESH_WIDTH, transform.scale.y * GRAPHICS::MESH_HEIGHT))

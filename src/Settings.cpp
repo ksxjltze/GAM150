@@ -10,7 +10,7 @@ StarBangBang::SettingsMenu::SettingsMenu(GameObject* gameObject, GraphicsManager
 
 }
 
-void StarBangBang::SettingsMenu::Start()
+void StarBangBang::SettingsMenu::Init()
 {
 	Sprite fullscreenBtnSprite = gfxMgr.CreateSprite(RESOURCES::FULLSCREEN_BUTTON_PATH);
 	Sprite muteBtnSprite = gfxMgr.CreateSprite(RESOURCES::MUTE_BUTTON_PATH);
@@ -48,6 +48,10 @@ void StarBangBang::SettingsMenu::Start()
 	buttonList.push_back(muteBtn);
 	buttonList.push_back(fullscreenBtn);
 
+}
+
+void StarBangBang::SettingsMenu::Start()
+{
 	SetStatus(false);
 }
 
@@ -60,7 +64,6 @@ void StarBangBang::SettingsMenu::Draw()
 {
 	if (gameObject->active)
 	{
-		printf("d"); 
 		gameObject->GetComponent<UIComponent>()->Draw();
 		muteBtn->GetComponent<UIComponent>()->Draw();
 		fullscreenBtn->GetComponent<UIComponent>()->Draw();

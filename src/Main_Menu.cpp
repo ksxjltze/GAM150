@@ -54,6 +54,8 @@ namespace StarBangBang
 		logo_obj->transform.position = { 0, (float)AEGetWindowHeight() / 3 };
 		logo_obj->transform.scale = { 1.5,1.5};
 
+		settingsObj = objectManager.NewGameObject();
+		objectManager.AddComponent<SettingsMenu>(settingsObj, graphicsManager).Init();
 
 		//start game button
 		playbutton_obj = objectManager.NewGameObject();
@@ -104,9 +106,6 @@ namespace StarBangBang
 		editorBtn->transform.position = { (float)AEGetWindowWidth() * 0.35f, (float)AEGetWindowHeight() / 8, };
 
 		objectManager.AddComponent<Click<Main_Menu>>(editorBtn).setCallback(*this, &Main_Menu::LoadEditor);
-
-		settingsObj = objectManager.NewGameObject();
-		objectManager.AddComponent<SettingsMenu>(settingsObj, graphicsManager);
 	}
 
 	void StarBangBang::Main_Menu::Update()
