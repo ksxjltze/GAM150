@@ -5,6 +5,8 @@
 #include "globals.h"
 #include "ImageComponent.h"
 #include "ObjectManager.h"
+#include "GraphicsManager.h"
+#include "Level_Demo.h"
 
 const static float DISTRACT_DURATION = 30.0f;
 
@@ -46,7 +48,7 @@ void StarBangBang::Disappear::onNotify(Event e)
 			}
 			else if (data.first->gameObject->name == "Client")
 			{
-				data.second->gameObject->GetComponent<ImageComponent>()->active = false;
+				data.first->gameObject->GetComponent<ImageComponent>()->active = false;
 				disappeared = true;
 			}
 

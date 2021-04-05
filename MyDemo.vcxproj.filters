@@ -886,6 +886,12 @@
     <Image Include="Resources\Misc\UpDownLeftRight.png">
       <Filter>Resource Files\Misc</Filter>
     </Image>
+    <Image Include="Resources\MainMenu\FullScreenButton.png">
+      <Filter>Resource Files\MainMenu</Filter>
+    </Image>
+    <Image Include="Resources\MainMenu\MuteButton.png">
+      <Filter>Resource Files\MainMenu</Filter>
+    </Image>
   </ItemGroup>
   <ItemGroup>
     <Font Include="Resources\Roboto-Regular.ttf">
