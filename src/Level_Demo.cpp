@@ -204,6 +204,11 @@ namespace StarBangBang
 		CaptainStealth::SpawnPlayer(objectManager, player, playerImage);
 		player->transform.position = tilemap.GetPositionAtIndex(6, 3);
 
+		//UI
+		//GameObject* UI = objectManager.NewGameObject();
+		//objectManager.AddComponent<UIComponent>(UI, graphicsManager);
+		//UI->transform.position = {-AEGetWindowWidth()/2 + 0.8f * AEGetWindowWidth(), -AEGetWindowHeight()/2 + 0.9f * AEGetWindowHeight() };
+
 		//character indicator
 		indicatorObj = objectManager.NewGameObject();
 		objectManager.AddComponent<ImageComponent>(indicatorObj, indicator);

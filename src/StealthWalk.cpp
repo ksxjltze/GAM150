@@ -37,4 +37,5 @@ namespace StarBangBang
 			cooldown -= g_dt;
 		}
 	}
+
 }

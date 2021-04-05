@@ -14,6 +14,11 @@ StarBangBang::Text::Text(GameObject* gameObject, const std::string& s, s8 fontId
 
 }
 
+void StarBangBang::Text::SetOffset(AEVec2 newOffset)
+{
+	offset = newOffset;
+}
+
 void StarBangBang::Text::SetText(const std::string& s)
 {
 	text = s;
@@ -36,6 +41,8 @@ void Text::Draw()
 	AEMtx33 camera = GRAPHICS::GetCameraMatrix();
 
 	AEVec2 position = gameObject->GetPos();
+	position.x += offset.x;
+	position.y += offset.y;
 	AEMtx33MultVec(&position, &camera, &position );
 
 	AEGfxSetBlendMode(AE_GFX_BM_BLEND);

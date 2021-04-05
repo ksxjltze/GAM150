@@ -6,6 +6,7 @@
 #include "SoundEvent.h"
 #include "constants.h"
 #include "globals.h"
+#include "Text.h"
 
 StarBangBang::PlayerScript::PlayerScript(GameObject* obj) : Script(obj)
 {
@@ -21,13 +22,17 @@ void StarBangBang::PlayerScript::Start()
 {
 
 	rb_controller = gameObject->GetComponent<PrimaryMovementController>();
+
 	stealth = &objMgr->AddComponent<StealthWalk>(gameObject);
 	stealth->Start();
+
+	objMgr->AddComponent<Text>(gameObject, "TEST", fontId2).SetOffset({ 0, -30 });
+
 	client = objMgr->Find("Client");
+	range *= range;
 
 	assert(client);
 	assert(rb_controller);
-	range *= range;
 
 }
 

@@ -11,6 +11,8 @@ namespace StarBangBang
 		void Start();
 		void Update();
 		bool IsInvisible() { return invisible; }
+		float GetTimer() { return timer; }
+		float GetCooldown() { return cooldown; }
 	private:
 		ImageComponent* image;
 
