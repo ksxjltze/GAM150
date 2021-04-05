@@ -15,11 +15,13 @@ namespace StarBangBang
 		if (isWorld)
 		{
 			CameraPos = GRAPHICS::GetCameraPosition();
-			AEMtx33Trans(&mtx, -AEGetWindowWidth() / 2 + CameraPos.x, AEGetWindowHeight() / 2 + CameraPos.y);
 			float zoom = GRAPHICS::GetZoom();
 
+			AEMtx33Trans(&mtx, -AEGetWindowWidth() / 2 + CameraPos.x, AEGetWindowHeight() / 2 + CameraPos.y);
 			AEMtx33ScaleApply(&mtx, &mtx, 1 / zoom, 1 / zoom);
 		}
+		else
+			AEMtx33Trans(&mtx, -AEGetWindowWidth() / 2, AEGetWindowHeight() / 2);
 		GRAPHICS::InverseScaleFullscreen(mtx);
 
 		AEMtx33MultVec(&pos, &mtx, &pos);
