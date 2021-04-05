@@ -28,7 +28,7 @@ namespace StarBangBang
 		void SpawnDoors();
 		void InitPause();
 		void CreateDistraction(unsigned int roomNum, int tileX, int tileY, const Sprite& sprite);
-		void CreateVent(int tileX, int tileY, Sprite& spriteClose, Sprite& spriteOpen);
+		void CreateVent(int tileX, int tileY);
 
 		//player stuffs
 		Sprite playerImage;

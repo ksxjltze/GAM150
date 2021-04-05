@@ -262,7 +262,7 @@ namespace StarBangBang
 		CreateDistraction(roomNum, 16, 27, vendingMachineSprite);
 		CreateDistraction(roomNum, 5, 47, vendingMachineSprite);
 
-		CreateVent(11, 12, ventOpenSprite, ventCloseSprite);
+		CreateVent(11, 12);
 
 		//Notification Text
 		objectManager.AddComponent<DebugText>(objectManager.NewGameObject(), fontId);
@@ -645,12 +645,12 @@ namespace StarBangBang
 		objectManager.AddCollider(distraction, true).isTrigger = true;
 	}
 
-	void Level_Demo::CreateVent(int tileX, int tileY, Sprite& spriteOpen,  Sprite& spriteClose)
+	void Level_Demo::CreateVent(int tileX, int tileY)
 	{
 		GameObject* vent = objectManager.NewGameObject();
 		vent->transform.position = tilemap.GetPositionAtIndex(tileX, tileY);
-		objectManager.AddComponent<Disappear>(vent, spriteOpen, spriteClose);
-		objectManager.AddImage(vent, spriteOpen);
+		objectManager.AddComponent<Disappear>(vent, ventOpenSprite, ventCloseSprite);
+		objectManager.AddImage(vent, ventOpenSprite);
 		objectManager.AddCollider(vent, true).isTrigger = true;
 	}
 }
