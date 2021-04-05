@@ -24,15 +24,15 @@ void StarBangBang::SettingsMenu::Start()
 
 	objMgr->AddComponent<UIComponent>(gameObject, gfxMgr).SetColor(Blue);
 	gameObject->GetComponent<UIComponent>()->active = false;
-	gameObject->transform.scale.x = AEGetWindowWidth() * 0.8 / GRAPHICS::MESH_WIDTH;
-	gameObject->transform.scale.y = AEGetWindowHeight() * 0.8 / GRAPHICS::MESH_HEIGHT;
+	gameObject->transform.scale.x = AEGetWindowWidth() * 0.85 / GRAPHICS::MESH_WIDTH;
+	gameObject->transform.scale.y = AEGetWindowHeight() * 0.85 / GRAPHICS::MESH_HEIGHT;
 
 	objMgr->AddComponent<UIComponent>(muteBtn, muteBtnSprite, gfxMgr);
 	objMgr->AddComponent<Text>(muteBtn, "Mute", fontId2, Black);
 	objMgr->AddComponent<Click<SettingsMenu>>(muteBtn, true).setCallback(*this, &SettingsMenu::Mute);
 
-	muteBtn->transform.position = { -0.3f * gameObject->transform.scale.x * GRAPHICS::MESH_WIDTH, 0 };
-	muteBtn->transform.scale.x = 0.2f * gameObject->transform.scale.x;
+	muteBtn->transform.position = { -0.2f * gameObject->transform.scale.x * GRAPHICS::MESH_WIDTH, 0 };
+	muteBtn->transform.scale.x = 0.3f * gameObject->transform.scale.x;
 	muteBtn->transform.scale.y = 0.2f * gameObject->transform.scale.y;
 	muteBtn->visible = false;
 
@@ -42,7 +42,7 @@ void StarBangBang::SettingsMenu::Start()
 	fullscreenBtn->visible = false;
 
 	fullscreenBtn->transform.position = { 0.2f * gameObject->transform.scale.x * GRAPHICS::MESH_WIDTH, 0 };
-	fullscreenBtn->transform.scale.x = 0.4f * gameObject->transform.scale.x;
+	fullscreenBtn->transform.scale.x = 0.3f * gameObject->transform.scale.x;
 	fullscreenBtn->transform.scale.y = 0.2f * gameObject->transform.scale.y;
 
 	buttonList.push_back(muteBtn);

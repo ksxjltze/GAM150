@@ -37,14 +37,6 @@ namespace StarBangBang
 		{
 			AEVec2 scale = gameObject->transform.scale;
 
-			if (GRAPHICS::IsFullscreen())
-			{
-				AEVec2 screenRatio = GRAPHICS::GetScreenScale();
-
-				scale.x *= screenRatio.x * FULLSCREEN_SCALE;
-				scale.y *= screenRatio.y * FULLSCREEN_SCALE;
-			}
-
 			if (sprite.mesh)
 				GRAPHICS::DrawOverlay(sprite.mesh, sprite.texture, scale, gameObject->transform.position, sprite.color);
 			else
