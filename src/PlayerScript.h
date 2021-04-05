@@ -4,6 +4,7 @@
 #include "PrimaryMovementController.h"
 #include "ImageComponent.h"
 #include "StealthWalk.h"
+#include "Text.h"
 
 namespace StarBangBang
 {
@@ -26,6 +27,7 @@ namespace StarBangBang
 		GameObject* client = nullptr;
 		PrimaryMovementController* rb_controller;
 		StealthWalk* stealth;
+		Text* text;
 
 		float range;
 		bool gameover = false;

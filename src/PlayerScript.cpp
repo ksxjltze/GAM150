@@ -26,7 +26,8 @@ void StarBangBang::PlayerScript::Start()
 	stealth = &objMgr->AddComponent<StealthWalk>(gameObject);
 	stealth->Start();
 
-	objMgr->AddComponent<Text>(gameObject, "TEST", fontId2).SetOffset({ 0, -30 });
+	text = &objMgr->AddComponent<Text>(gameObject, "", fontId2);
+	text->SetOffset({ 0, -30 });
 
 	client = objMgr->Find("Client");
 	range *= range;
@@ -101,6 +102,8 @@ void StarBangBang::PlayerScript::onNotify(Event e)
 
 void StarBangBang::PlayerScript::Update()
 {	
+	text->SetText(std::to_string(stealth->GetTimer()));
+
 	/*AEVec2 myPos = gameObject->transform.position;
 	AEVec2 clientPos = client->GetPos();
 	float real_sqrDis = AEVec2SquareDistance(&myPos, &clientPos);*/
