@@ -24,6 +24,11 @@ void StarBangBang::Disappear::Start()
 
 void StarBangBang::Disappear::Update()
 {
+	if (clientHidden == false && playerHidden == false)
+	{
+		gameObject->GetComponent<ImageComponent>()->SetSprite(ventOpen);
+	}
+
 	if (playerHidden)
 	{
 		playerHidden = false;
@@ -32,7 +37,9 @@ void StarBangBang::Disappear::Update()
 	{
 		GameObject* player = objMgr->Find("Player");
 		if (!player->visible)
+		{
 			player->visible = true;
+		}
 	}
 
 	if (clientHidden)
@@ -43,7 +50,9 @@ void StarBangBang::Disappear::Update()
 	{
 		GameObject* client = objMgr->Find("Client");
 		if (!client->visible)
+		{
 			client->visible = true;
+		}
 	}
 
 }
@@ -58,11 +67,13 @@ void StarBangBang::Disappear::onNotify(Event e)
 			if (data.first->gameObject->name == "Player")
 			{
 				data.first->gameObject->visible = false;
+				data.second->gameObject->GetComponent<ImageComponent>()->SetSprite(ventClose);
 				playerHidden = true;
 			}
 			if (data.first->gameObject->name == "Client")
 			{
 				data.first->gameObject->visible = false;
+				data.second->gameObject->GetComponent<ImageComponent>()->SetSprite(ventClose);
 				clientHidden = true;
 			}
 
