@@ -14,6 +14,7 @@ namespace StarBangBang
 		Transform transform;
 		GameObject* parent = nullptr;
 		bool active = true;
+		bool visible = true;
 		
 		std::string name;
 

@@ -22,6 +22,7 @@ namespace StarBangBang
 		void Exit();
 		void DisplayPauseMenu();
 		void TogglePause();
+		void ToggleSettings();
 		bool paused{ false };
 
 		void SpawnDoors();

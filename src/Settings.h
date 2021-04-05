@@ -9,6 +9,7 @@ namespace StarBangBang
 	public:
 		SettingsMenu(GameObject* gameObject, GraphicsManager& gfx);
 		void Start();
+		void Draw();
 		void Update();
 		void Toggle();
 		void SetStatus(bool);

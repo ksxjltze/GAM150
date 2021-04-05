@@ -17,8 +17,10 @@ void StarBangBang::SettingsMenu::Start()
 
 	muteBtn->parent = gameObject;
 	fullscreenBtn->parent = gameObject;
+	//gameObject->visible = false;
 
-	objMgr->AddComponent<UIComponent>(gameObject, gfxMgr).SetColor(Black);
+	objMgr->AddComponent<UIComponent>(gameObject, gfxMgr).SetColor(Blue);
+	gameObject->GetComponent<UIComponent>()->active = false;
 	gameObject->transform.scale.x = AEGetWindowWidth() * 0.8 / GRAPHICS::MESH_WIDTH;
 	gameObject->transform.scale.y = AEGetWindowHeight() * 0.8 / GRAPHICS::MESH_HEIGHT;
 
@@ -29,10 +31,12 @@ void StarBangBang::SettingsMenu::Start()
 	muteBtn->transform.position = { -0.3f * gameObject->transform.scale.x * GRAPHICS::MESH_WIDTH, 0 };
 	muteBtn->transform.scale.x = 0.2f * gameObject->transform.scale.x;
 	muteBtn->transform.scale.y = 0.2f * gameObject->transform.scale.y;
+	muteBtn->visible = false;
 
 	objMgr->AddComponent<UIComponent>(fullscreenBtn, gfxMgr).SetColor(White);
 	objMgr->AddComponent<Text>(fullscreenBtn, "Fullscreen", fontId2, Black);
 	objMgr->AddComponent<Click<SettingsMenu>>(fullscreenBtn, true).setCallback(*this, &SettingsMenu::Fullscreen);
+	fullscreenBtn->visible = false;
 
 	fullscreenBtn->transform.position = { 0.2f * gameObject->transform.scale.x * GRAPHICS::MESH_WIDTH, 0 };
 	fullscreenBtn->transform.scale.x = 0.4f * gameObject->transform.scale.x;
@@ -44,6 +48,17 @@ void StarBangBang::SettingsMenu::Start()
 void StarBangBang::SettingsMenu::Update()
 {
 
+}
+
+void StarBangBang::SettingsMenu::Draw()
+{
+	if (gameObject->active)
+	{
+		printf("d"); 
+		gameObject->GetComponent<UIComponent>()->Draw();
+		muteBtn->GetComponent<UIComponent>()->Draw();
+		fullscreenBtn->GetComponent<UIComponent>()->Draw();
+	}
 }
 
 void StarBangBang::SettingsMenu::Toggle()

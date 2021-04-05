@@ -223,7 +223,7 @@ void StarBangBang::ObjectManager::Draw()
 {
 	for (_Component* component : componentList)
 	{
-		if (component->active)
+		if (component->gameObject->visible && component->active)
 			component->Draw();
 	}
 }
