@@ -205,9 +205,9 @@ namespace StarBangBang
 		player->transform.position = tilemap.GetPositionAtIndex(6, 3);
 
 		//UI
-		GameObject* UI = objectManager.NewGameObject();
+		/*GameObject* UI = objectManager.NewGameObject();
 		objectManager.AddComponent<UIComponent>(UI, graphicsManager);
-		UI->transform.position = {-AEGetWindowWidth()/2 + 0.05f * AEGetWindowWidth(), -AEGetWindowHeight()/2 + 0.95f * AEGetWindowHeight() };
+		UI->transform.position = {-AEGetWindowWidth()/2 + 0.05f * AEGetWindowWidth(), -AEGetWindowHeight()/2 + 0.95f * AEGetWindowHeight() };*/
 
 		//character indicator
 		indicatorObj = objectManager.NewGameObject();

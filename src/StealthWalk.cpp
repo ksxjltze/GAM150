@@ -1,5 +1,6 @@
 #include "StealthWalk.h"
 #include "globals.h"
+#include "Collider.h"
 
 namespace StarBangBang
 {

@@ -39,6 +39,7 @@ void StarBangBang::Disappear::Update()
 		if (!player->visible)
 		{
 			player->visible = true;
+			player->GetComponent<BoxCollider>()->isTrigger = false;
 		}
 	}
 
@@ -52,6 +53,7 @@ void StarBangBang::Disappear::Update()
 		if (!client->visible)
 		{
 			client->visible = true;
+			client->GetComponent<BoxCollider>()->isTrigger = false;
 		}
 	}
 
@@ -67,12 +69,14 @@ void StarBangBang::Disappear::onNotify(Event e)
 			if (data.first->gameObject->name == "Player")
 			{
 				data.first->gameObject->visible = false;
+				data.first->gameObject->GetComponent<BoxCollider>()->isTrigger = true;
 				data.second->gameObject->GetComponent<ImageComponent>()->SetSprite(ventClose);
 				playerHidden = true;
 			}
 			if (data.first->gameObject->name == "Client")
 			{
 				data.first->gameObject->visible = false;
+				data.first->gameObject->GetComponent<BoxCollider>()->isTrigger = true;
 				data.second->gameObject->GetComponent<ImageComponent>()->SetSprite(ventClose);
 				clientHidden = true;
 			}
