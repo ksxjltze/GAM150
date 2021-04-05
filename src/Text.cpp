@@ -43,7 +43,6 @@ void Text::Draw()
 	AEVec2 position = gameObject->GetPos();
 	position.x += offset.x;
 	position.y += offset.y;
-	AEMtx33MultVec(&position, &camera, &position );
 
 	AEGfxSetBlendMode(AE_GFX_BM_BLEND);
 
@@ -57,6 +56,7 @@ void Text::Draw()
 
 	if (isWorld)
 	{
+		AEMtx33MultVec(&position, &camera, &position);
 		float textScale = scale / 2;
 		AEVec2 screenScale = GRAPHICS::GetScreenScale();
 

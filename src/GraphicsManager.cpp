@@ -259,7 +259,7 @@ namespace StarBangBang
 		AEGfxMeshDraw(mesh, AE_GFX_MDM_TRIANGLES);
 	}
 
-	void GRAPHICS::DrawOverlay(AEGfxVertexList* mesh, AEGfxTexture* texture, AEVec2 scale, AEVec2 pos, Color c)
+	void GRAPHICS::DrawOverlay(AEGfxVertexList* mesh, AEGfxTexture* texture, AEVec2 scale, AEVec2 pos, Color c, bool rescale)
 	{
 		AEGfxSetBlendMode(AE_GFX_BM_BLEND);
 
@@ -276,9 +276,12 @@ namespace StarBangBang
 		AEMtx33Trans(&t, pos.x, pos.y);
 		AEMtx33Concat(&trans, &t, &s);
 
-		AEVec2 screenScale = GetScreenScale();
-		AEMtx33Scale(&s, screenScale.x, screenScale.y);
-		AEMtx33Concat(&trans, &s, &trans);
+		if (rescale)
+		{
+			AEVec2 screenScale = GetScreenScale();
+			AEMtx33Scale(&s, screenScale.x, screenScale.y);
+			AEMtx33Concat(&trans, &s, &trans);
+		}
 
 		AEGfxSetTransform(trans.m);
 		AEGfxSetTintColor(c.R(), c.G(), c.B(), c.A());
