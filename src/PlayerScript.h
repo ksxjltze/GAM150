@@ -31,6 +31,8 @@ namespace StarBangBang
 
 		float range;
 		bool gameover = false;
+		bool playerHidden = false;
+		bool clientHidden = false;
 		bool playerEscaped = false;
 		bool clientEscaped = false;
 		bool detected = false;
