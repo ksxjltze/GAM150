@@ -84,10 +84,10 @@ namespace StarBangBang
 		NewTextObject({ pos.x, pos.y += spacing }, "MELVIN GONSALVEZ", 0.6f);
 
 		NewTextObject({ pos.x, pos.y += section_spacing }, "WWW.DIGIPEN.EDU", 0.8f);
-		NewTextObject({ pos.x, pos.y += role_spacing + 10 }, "All content © 2021 DigiPen Institute of Technology Singapore.", 0.8f);
-		NewTextObject({ pos.x, pos.y += role_spacing + 10 }, "All Rights Reserved", 0.8f);
+		NewTextObject({ pos.x, pos.y += spacing }, "All content 2021 DigiPen Institute of Technology Singapore.", 0.8f);
+		NewTextObject({ pos.x, pos.y += spacing }, "All Rights Reserved", 0.8f);
 
-		NewTextObject({ pos.x, pos.y += role_spacing + 10 }, "FMOD Sound System © FireLight Technologies Pty Ltd (1998 - 2020)", 0.8f);
+		NewTextObject({ pos.x, pos.y += section_spacing }, "FMOD Sound System FireLight Technologies Pty Ltd (1998 - 2020)", 0.8f);
 
 		cameraObject->transform.position.y = 100.0f;
 		end->transform.position = { pos.x, pos.y };
