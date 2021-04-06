@@ -214,14 +214,16 @@ namespace StarBangBang
 
 		//UI
 		GameObject* UI = objectManager.NewGameObject();
-		objectManager.AddComponent<UIComponent>(UI, graphicsManager).rescale = false;
-		UIComponent& cooldownOverlayUI = objectManager.AddComponent<UIComponent>(UI, graphicsManager);
-		cooldownOverlayUI.rescale = false;
-		cooldownOverlayUI.SetColor({ 0.0f, 0.0f, 0.0f, 0.8f });
-		Text& uiText = objectManager.AddComponent<Text>(objectManager.NewGameObject(), "Q", fontId, Black, 1.0f, false);
-		uiText.gameObject->transform.position = { 0.10f, 0.90f };
-		uiText.SetOffset({ -1.0f, 0 });
-		UI->transform.position = {-AEGetWindowWidth()/2 + 0.05f * AEGetWindowWidth(), -AEGetWindowHeight()/2 + 0.95f * AEGetWindowHeight() };
+		UIComponent& UICom = objectManager.AddComponent<UIComponent>(UI, stealth_icon,graphicsManager);
+		UICom.rescale = false;
+		UICom.SetColor(Color{1.0f,1.0f,1.0f,0.7f});
+		Text& uiText = objectManager.AddComponent<Text>(objectManager.NewGameObject(), "Q", fontId, White, 1.0f, false);
+		uiText.gameObject->transform.position = { 0.05f, 0.28f };
+		uiText.SetOffset({ -1.0f, -1.0f });
+		UI->transform.position = {-AEGetWindowWidth()/2 + 0.05f * AEGetWindowWidth(), -AEGetWindowHeight()/2 + 0.1f * AEGetWindowHeight() };
+		uiText.gameObject->name = "Stealth_Txt";
+		UI->name = "Stealth_UI";
+
 
 		//character indicator
 		indicatorObj = objectManager.NewGameObject();
@@ -281,29 +283,7 @@ namespace StarBangBang
 		CreateDistraction(roomNum, 16, 27, vendingMachineSprite);
 		CreateDistraction(roomNum, 5, 47, vendingMachineSprite);
 
-		//room1
 		CreateVent(11, 12);
-		CreateVent(18, 7);
-		
-		//room 2
-		CreateVent(30, 10);
-		CreateVent(45, 13);
-		CreateVent(42, 4);
-
-		//room 3
-		CreateVent(21, 26);
-		CreateVent(40, 24);
-		CreateVent(45, 39);
-		CreateVent(35, 36);
-		CreateVent(26, 43);
-
-
-		//room 4
-		CreateVent(15, 41);
-		CreateVent(15, 33);
-		CreateVent(7, 45);
-		CreateVent(5, 27);
-
 
 		//Notification Text
 		objectManager.AddComponent<DebugText>(objectManager.NewGameObject(), fontId);
@@ -313,6 +293,10 @@ namespace StarBangBang
 		MessageBus::Notify({ EventId::PLAY_SOUND, SoundEvent("Test") });
 
 		character = current_char::fei_ge;
+
+	
+
+
 		pauseMenu.settingsObj = objectManager.NewGameObject();
 		objectManager.AddComponent<SettingsMenu>(pauseMenu.settingsObj, graphicsManager).Init();
 	}
