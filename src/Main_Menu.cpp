@@ -112,11 +112,7 @@ namespace StarBangBang
 
 		if (AEInputCheckTriggered(AEVK_ESCAPE))
 		{
-			if (!windowOpen)
-			{
-				gameStateManager.ExitGame();
-			}
-			else
+			if (windowOpen)
 			{
 				if (!windowQueue.empty())
 				{
