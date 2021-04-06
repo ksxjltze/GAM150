@@ -311,10 +311,6 @@ namespace StarBangBang
 		MessageBus::Notify({ EventId::PLAY_SOUND, SoundEvent("Test") });
 
 		character = current_char::fei_ge;
-
-	
-
-
 		pauseMenu.settingsObj = objectManager.NewGameObject();
 		objectManager.AddComponent<SettingsMenu>(pauseMenu.settingsObj, graphicsManager).Init();
 	}

@@ -63,33 +63,28 @@ namespace StarBangBang
 		objectManager.AddComponent<ImageComponent>(playbutton_obj, playbutton1);
 		playbutton_obj->transform.position = { (float)AEGetWindowWidth() / -8, (float)AEGetWindowHeight() / 8 };
 		playbutton_obj->transform.scale = { 3, 3 };
-
-		//auto d = []() {printf("MAIN MENU: TEST\n"); };
 		objectManager.AddComponent<Click<Main_Menu>>(playbutton_obj).setCallback(*this, &Main_Menu::LoadLevel);
 		
+		//tutorial button
+		tutorialbutton_obj = objectManager.NewGameObject();
+		objectManager.AddImage(tutorialbutton_obj, tutorialButton1);
+		tutorialbutton_obj->transform.position = { (float)AEGetWindowWidth() / 8, (float)AEGetWindowHeight() / 8 };
+		tutorialbutton_obj->transform.scale = { 3,3 };
+		objectManager.AddComponent<Click<Main_Menu>>(tutorialbutton_obj).setCallback(*this, &Main_Menu::LoadTutorial);
 
 		//settings button
 		settingsbutton_obj = objectManager.NewGameObject();
 		objectManager.AddImage(settingsbutton_obj, settingsbutton1);
-		settingsbutton_obj->transform.position = { (float)AEGetWindowWidth() / 8, (float)AEGetWindowHeight() / 8 };
+		settingsbutton_obj->transform.position = { (float)AEGetWindowWidth() / -8, (float)AEGetWindowHeight() / -8 };
 		settingsbutton_obj->transform.scale = { 3, 3 };
 		objectManager.AddComponent<Click<Main_Menu>>(settingsbutton_obj).setCallback(*this, &Main_Menu::Settings);
 
 		//credits button
 		creditsbutton_obj = objectManager.NewGameObject();
 		objectManager.AddImage(creditsbutton_obj, creditsbutton1);
-		creditsbutton_obj->transform.position = { (float)AEGetWindowWidth() / -8, (float)AEGetWindowHeight() / -8 };
+		creditsbutton_obj->transform.position = { (float)AEGetWindowWidth() / 8, (float)AEGetWindowHeight() / -8 };
 		creditsbutton_obj->transform.scale = { 3, 3 };
-
 		objectManager.AddComponent<Click<Main_Menu>>(creditsbutton_obj).setCallback(*this, &Main_Menu::Credits);
-
-		//tutorial button
-		tutorialbutton_obj = objectManager.NewGameObject();
-		objectManager.AddImage(tutorialbutton_obj, tutorialButton1);
-		tutorialbutton_obj->transform.position = { (float)AEGetWindowWidth() / 8, (float)AEGetWindowHeight() / -8 };
-		tutorialbutton_obj->transform.scale = { 3,3 };
-
-		objectManager.AddComponent<Click<Main_Menu>>(tutorialbutton_obj).setCallback(*this, &Main_Menu::LoadTutorial);
 
 		//exit game button
 		exitbutton_obj = objectManager.NewGameObject();
