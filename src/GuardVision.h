@@ -1,11 +1,10 @@
 #pragma once
 #include "ScriptComponent.h"
-#include "Detector.h"
 
 namespace StarBangBang
 {
 	class GuardMovement;
-	//class Detector;
+	class Detector;
 
 	class GuardVision : public Script
 	{
@@ -27,6 +26,7 @@ namespace StarBangBang
 
 		float rotation;
 		float rotSpeed;
+		float idleDuration;
 		int prevRot, currRot;
 
 		bool turn;

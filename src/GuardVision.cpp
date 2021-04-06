@@ -13,7 +13,8 @@ GuardVision::GuardVision(GameObject* gameObject)
 	, movement(nullptr)
 	, detector(nullptr)
 	, rotation(0.f)
-	, rotSpeed(150.f)
+	, rotSpeed(90.f)
+	, idleDuration(1.5f)
 	, prevRot(-1)
 	, currRot(0)
 	, turn(false)
@@ -62,6 +63,7 @@ void GuardVision::Update()
 
 		if (currRot != prevRot)
 		{
+			//PRINT("TURNING, %d\n", (prevRot - currRot));
 			/*if (currRot == 0)
 				currRot = 1;*/
 
@@ -84,6 +86,10 @@ void GuardVision::Update()
 
 		if (turn)
 		{
+			idleDuration -= g_dt;
+			if (idleDuration > 0.f)
+				return;
+
 			if (rotation + 3.f < targetRot)
 			{
 				rotation += rotSpeed * g_dt;
@@ -100,6 +106,7 @@ void GuardVision::Update()
 				movement->SetTurning(false);
 				turn = false;
 				rotation = targetRot;
+				idleDuration = 1.5f;
 				detector->SetFacingDir(targetDir);
 			}
 			

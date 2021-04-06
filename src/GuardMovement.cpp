@@ -1,7 +1,5 @@
 #include "GuardMovement.h"
 #include "Guard.h"
-#include <iostream>
-
 #include "BasicMeshShape.h"
 #include "globals.h"
 
@@ -31,11 +29,6 @@ GuardMovement::GuardMovement(GameObject* gameObject)
 	, nextPos{ 0, 0 }
 	, reachedEndOfPath{ false }
 {
-	//std::cout << waypoints.size() << "\n";
-
-	//std::string text = "Guard ID: " + std::to_string(gameObject->GetComponent<Guard>()->GetID()) + "\n";
-	//PRINT(text.c_str());
-	//targetPos = waypoints.front();
 }
 
 void GuardMovement::Start()
@@ -48,8 +41,6 @@ void GuardMovement::Start()
 
 void GuardMovement::Idle()
 {
-	//std::cout << "GUARD: IDLE" << "\n";
-
 	// rotate between left, front, right, back sprites
 	// ...
 
@@ -73,17 +64,6 @@ void GuardMovement::Idle()
 
 void GuardMovement::Patrol()
 {
-	//std::cout << "GUARD: PATROL" << "\n";
-
-	/*AEVec2 target = { 0, 0 }, dir = { 0, 0 };
-	AEVec2 test = { 100, 10 };
-
-	AEVec2Sub(&target, &test, &gameObject->transform.position);
-	AEVec2Scale(&dir, &waypoints.front(), dt);
-	AEVec2Normalize(&dir, &dir);
-	AEVec2Add(&gameObject->transform.position, &gameObject->transform.position, &dir);*/
-
-
 	if (!usingWaypoints)
 	{
 		if (!changedTargetPos)
