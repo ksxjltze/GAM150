@@ -227,9 +227,12 @@ void StarBangBang::ObjectManager::Init()
 	for (_Component* component : componentList)
 	{
 		component->Start();
-		layerMap.at(component->gameObject->layer).push_back(component);
 	}
 
+	for (_Component* component : componentList)
+	{
+		layerMap.at(component->gameObject->layer).push_back(component);
+	}
 
 }
 
