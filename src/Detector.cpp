@@ -25,11 +25,11 @@ Detector::Detector(GameObject* gameObject)
 {
 }
 
-void Detector::Init(float fov, float dist, GameObject* player, GameObject* client)
+void Detector::Init(float fov, float dist, GameObject* _player, GameObject* client)
 {
 	fieldOfView = fov;
 	viewDist = dist;
-	target1 = player;
+	target1 = _player;
 	target2 = client;
 	target1Col = target1->GetComponent<BoxCollider>();
 	target2Col = target2->GetComponent<BoxCollider>();
