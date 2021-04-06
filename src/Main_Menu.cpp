@@ -101,7 +101,7 @@ namespace StarBangBang
 
 		//MessageBus::Notify({ EventId::PLAY_MUSIC, "BGM" });
 
-		GameObject* editorBtn = objectManager.NewGameObject();
+		editorBtn = objectManager.NewGameObject();
 		objectManager.AddImage(editorBtn, vending_machine_sprite);
 		editorBtn->transform.position = { (float)AEGetWindowWidth() * 0.35f, (float)AEGetWindowHeight() / 8, };
 
@@ -136,21 +136,9 @@ namespace StarBangBang
 			}
 		}
 
-		logo_obj->active = !windowOpen;
-		playbutton_obj->active = !windowOpen;
-		settingsbutton_obj->active = !windowOpen;
-		creditsbutton_obj->active = !windowOpen;
-		exitbutton_obj->active = !windowOpen;
-		tutorialbutton_obj->active = !windowOpen;
+		HideMenu();
 
 		Scene::Update();
-
-		//Sound test
-		if (AEInputCheckTriggered(AEVK_T))
-		{
-			MessageBus::Notify({ EventId::STOP_SOUND });
-			MessageBus::Notify({ EventId::PLAY_SOUND, "Test" });
-		}
 
 	}
 
@@ -201,6 +189,17 @@ namespace StarBangBang
 		windowOpen = true;
 		settingsObj->SetActive(true);
 		windowQueue.push(settingsObj);
+	}
+
+	void Main_Menu::HideMenu()
+	{
+		logo_obj->active = !windowOpen;
+		playbutton_obj->active = !windowOpen;
+		settingsbutton_obj->active = !windowOpen;
+		creditsbutton_obj->active = !windowOpen;
+		exitbutton_obj->active = !windowOpen;
+		tutorialbutton_obj->active = !windowOpen;
+		editorBtn->active = !windowOpen;
 	}
 }
 

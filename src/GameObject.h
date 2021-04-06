@@ -46,10 +46,13 @@ namespace StarBangBang
 
 
 		AEVec2 GetPos();
+		int GetLayer() { return layer; }
+		void SetLayer(int l) { layer = l; }
 		void SetPos(AEVec2 newPos);
 		void SetActive(bool);
 
 	private:
+		int layer{ 0 };
 		friend class ObjectManager;
 		inline void AddComponent(_Component* component)
 		{
