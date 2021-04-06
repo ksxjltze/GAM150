@@ -43,7 +43,7 @@ void StarBangBang::ImageComponent::Draw()
 
 void StarBangBang::ImageComponent::Draw(AEVec2 pos)
 {
-	if (gameObject->active)
+	if (gameObject->active && gameObject->visible)
 	{
 		if (sprite.mesh && sprite.texture)
 		{

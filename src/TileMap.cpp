@@ -298,6 +298,7 @@ namespace StarBangBang
 				tile.collidable = true;
 
 				GameObject* gameObject = tile.spriteObject->gameObject;
+				//gameObject->SetLayer(1);
 				objMgr.AddComponent<RigidBody>(gameObject);
 				gameObject->GetComponent<RigidBody>()->SetMass(0);
 				objMgr.AddCollider(gameObject, true);

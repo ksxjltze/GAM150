@@ -15,12 +15,12 @@ namespace StarBangBang
 	void PathFinderTest()
 	{
 		//set occupied nodes
-		if (AEInputCheckTriggered(VK_RBUTTON))
-		{
-			A_Node* n = PathFinder::GetWorldGrid().GetNodeFromPosition(GetMouseWorldPos());
-			if (n)
-				n->occupied = true;
-		}
+		//if (AEInputCheckTriggered(VK_RBUTTON))
+		//{
+		//	A_Node* n = PathFinder::GetWorldGrid().GetNodeFromPosition(GetMouseWorldPos());
+		//	if (n)
+		//		n->occupied = true;
+		//}
 			
 		//place static collider (they cannot move)
 		if (AEInputCheckTriggered(AEVK_Q))

@@ -285,9 +285,10 @@ namespace StarBangBang
 			AEMtx33Scale(&s, screenScale.x, screenScale.y);
 			AEMtx33Concat(&trans, &s, &trans);
 		}
-
+		
 		AEGfxSetTransform(trans.m);
 		AEGfxSetTintColor(c.R(), c.G(), c.B(), c.A());
+		AEGfxSetTransparency(1.0f);
 		AEGfxMeshDraw(mesh, AE_GFX_MDM_TRIANGLES);
 	}
 

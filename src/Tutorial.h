@@ -24,6 +24,7 @@ namespace StarBangBang
 		Sprite tutorialSprite;
 		Sprite movementSprite;
 		Sprite tabSprite;
+		Sprite ventSprite;
 		Sprite distractSprite;
 		Sprite distractSprite2;
 		Sprite backSprite;

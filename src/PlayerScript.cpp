@@ -84,18 +84,35 @@ void StarBangBang::PlayerScript::onNotify(Event e)
 	if (e.id == EventId::COLLISION)
 	{
 		CollisionEvent data = std::any_cast<CollisionEvent>(e.context);
+		GameObject* obj = data.second->gameObject;
 
-		if (data.first->gameObject->name == "EXIT" && data.second->gameObject->name == "Player")
+		if (data.first->gameObject->name == "EXIT")
 		{
-			printf("PLAYER ESCAPED\n");
-			data.second->active = false;
-			playerEscaped = true;
+			if (obj->name == "Player")
+			{
+				data.second->active = false;
+				playerEscaped = true;
+			}
+			else if (obj->name == "Client")
+			{
+				data.second->active = false;
+				clientEscaped = true;
+			}
 		}
-		if (data.first->gameObject->name == "EXIT" && data.second->gameObject->name == "Client")
+		else if (data.first->gameObject->name == "Vent")
 		{
-			data.second->active = false;
-			clientEscaped = true;
+			if (obj->name == "Player" || obj->name == "Client")
+			{
+				if (obj->name == "Player")
+					playerHidden = true;
+				else
+					clientHidden = true;
+
+				obj->visible = false;
+				obj->GetComponent<BoxCollider>()->isTrigger = true;
+			}
 		}
+
 
 	}
 }
@@ -113,6 +130,22 @@ void StarBangBang::PlayerScript::Update()
 	else
 	{
 		text->SetText("");
+	}
+
+	if (playerHidden)
+		playerHidden = false;
+	else
+	{
+		gameObject->visible = true;
+		gameObject->GetComponent<BoxCollider>()->isTrigger = false;
+	}
+
+	if (clientHidden)
+		clientHidden = false;
+	else
+	{
+		client->visible = true;
+		client->GetComponent<BoxCollider>()->isTrigger = false;
 	}
 
 }

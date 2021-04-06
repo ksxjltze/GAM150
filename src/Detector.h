@@ -15,7 +15,7 @@ namespace StarBangBang
 		void Start();
 		void Update();
 
-		void Init(float fov, float dist, GameObject* player, GameObject* client);
+		void Init(float fov, float dist, GameObject* _player, GameObject* client);
 		void Rotate(float angle);
 
 		void SpanVision(float minRot, float maxRot, float speed);

@@ -63,33 +63,28 @@ namespace StarBangBang
 		objectManager.AddComponent<ImageComponent>(playbutton_obj, playbutton1);
 		playbutton_obj->transform.position = { (float)AEGetWindowWidth() / -8, (float)AEGetWindowHeight() / 8 };
 		playbutton_obj->transform.scale = { 3, 3 };
-
-		//auto d = []() {printf("MAIN MENU: TEST\n"); };
 		objectManager.AddComponent<Click<Main_Menu>>(playbutton_obj).setCallback(*this, &Main_Menu::LoadLevel);
 		
+		//tutorial button
+		tutorialbutton_obj = objectManager.NewGameObject();
+		objectManager.AddImage(tutorialbutton_obj, tutorialButton1);
+		tutorialbutton_obj->transform.position = { (float)AEGetWindowWidth() / 8, (float)AEGetWindowHeight() / 8 };
+		tutorialbutton_obj->transform.scale = { 3,3 };
+		objectManager.AddComponent<Click<Main_Menu>>(tutorialbutton_obj).setCallback(*this, &Main_Menu::LoadTutorial);
 
 		//settings button
 		settingsbutton_obj = objectManager.NewGameObject();
 		objectManager.AddImage(settingsbutton_obj, settingsbutton1);
-		settingsbutton_obj->transform.position = { (float)AEGetWindowWidth() / 8, (float)AEGetWindowHeight() / 8 };
+		settingsbutton_obj->transform.position = { (float)AEGetWindowWidth() / -8, (float)AEGetWindowHeight() / -8 };
 		settingsbutton_obj->transform.scale = { 3, 3 };
 		objectManager.AddComponent<Click<Main_Menu>>(settingsbutton_obj).setCallback(*this, &Main_Menu::Settings);
 
 		//credits button
 		creditsbutton_obj = objectManager.NewGameObject();
 		objectManager.AddImage(creditsbutton_obj, creditsbutton1);
-		creditsbutton_obj->transform.position = { (float)AEGetWindowWidth() / -8, (float)AEGetWindowHeight() / -8 };
+		creditsbutton_obj->transform.position = { (float)AEGetWindowWidth() / 8, (float)AEGetWindowHeight() / -8 };
 		creditsbutton_obj->transform.scale = { 3, 3 };
-
 		objectManager.AddComponent<Click<Main_Menu>>(creditsbutton_obj).setCallback(*this, &Main_Menu::Credits);
-
-		//tutorial button
-		tutorialbutton_obj = objectManager.NewGameObject();
-		objectManager.AddImage(tutorialbutton_obj, tutorialButton1);
-		tutorialbutton_obj->transform.position = { (float)AEGetWindowWidth() / 8, (float)AEGetWindowHeight() / -8 };
-		tutorialbutton_obj->transform.scale = { 3,3 };
-
-		objectManager.AddComponent<Click<Main_Menu>>(tutorialbutton_obj).setCallback(*this, &Main_Menu::LoadTutorial);
 
 		//exit game button
 		exitbutton_obj = objectManager.NewGameObject();
@@ -101,7 +96,7 @@ namespace StarBangBang
 
 		//MessageBus::Notify({ EventId::PLAY_MUSIC, "BGM" });
 
-		GameObject* editorBtn = objectManager.NewGameObject();
+		editorBtn = objectManager.NewGameObject();
 		objectManager.AddImage(editorBtn, vending_machine_sprite);
 		editorBtn->transform.position = { (float)AEGetWindowWidth() * 0.35f, (float)AEGetWindowHeight() / 8, };
 
@@ -136,21 +131,9 @@ namespace StarBangBang
 			}
 		}
 
-		logo_obj->active = !windowOpen;
-		playbutton_obj->active = !windowOpen;
-		settingsbutton_obj->active = !windowOpen;
-		creditsbutton_obj->active = !windowOpen;
-		exitbutton_obj->active = !windowOpen;
-		tutorialbutton_obj->active = !windowOpen;
+		HideMenu();
 
 		Scene::Update();
-
-		//Sound test
-		if (AEInputCheckTriggered(AEVK_T))
-		{
-			MessageBus::Notify({ EventId::STOP_SOUND });
-			MessageBus::Notify({ EventId::PLAY_SOUND, "Test" });
-		}
 
 	}
 
@@ -201,6 +184,17 @@ namespace StarBangBang
 		windowOpen = true;
 		settingsObj->SetActive(true);
 		windowQueue.push(settingsObj);
+	}
+
+	void Main_Menu::HideMenu()
+	{
+		logo_obj->active = !windowOpen;
+		playbutton_obj->active = !windowOpen;
+		settingsbutton_obj->active = !windowOpen;
+		creditsbutton_obj->active = !windowOpen;
+		exitbutton_obj->active = !windowOpen;
+		tutorialbutton_obj->active = !windowOpen;
+		editorBtn->active = !windowOpen;
 	}
 }
 

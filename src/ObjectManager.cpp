@@ -3,6 +3,11 @@
 #include <typeinfo>
 #include <fstream>
 
+namespace StarBangBang
+{
+	static const int NUM_MAX_LAYERS = 2;
+}
+
 StarBangBang::GameObject* StarBangBang::ObjectManager::Find(const std::string& name)
 {
 	for (auto gameObject : gameObjectList)
@@ -107,10 +112,14 @@ void StarBangBang::ObjectManager::DestroyGameObject(GameObject* gameObject)
 		auto component_it = componentList.begin();
 		while(component_it != componentList.end())
 		{
-			_Component* component = *component_it;
+			_Component*& component = *component_it;
+			if (!component)
+				continue;
+
 			if (component->gameObject == gameObject)
 			{
 				delete component;
+				component = nullptr;
 				component_it = componentList.erase(component_it);
 			}
 			else
@@ -213,19 +222,41 @@ void StarBangBang::ObjectManager::FreeComponents()
 
 void StarBangBang::ObjectManager::Init()
 {
+	layerMap.clear();
+	for (int i = 0; i < NUM_MAX_LAYERS; ++i)
+	{
+		layerMap.insert({ i, std::vector<_Component**>() });
+	}
+
 	for (_Component* component : componentList)
 	{
 		component->Start();
 	}
+
+	for (_Component*& component : componentList)
+	{
+		layerMap.at(component->gameObject->layer).push_back(&component);
+	}
+
 }
 
 void StarBangBang::ObjectManager::Draw()
 {
-	for (_Component* component : componentList)
+	for (int i = 0; i < NUM_MAX_LAYERS; ++i)
 	{
-		if (component->gameObject->visible && component->active)
-			component->Draw();
+		for (_Component** component : layerMap.at(i))
+		{
+			if (*component)
+				(*component)->Draw();
+		}
+
 	}
+
+	//for (_Component* component : componentList)
+	//{
+	//	if (component->gameObject->visible && component->active)
+	//		component->Draw();
+	//}
 }
 
 void StarBangBang::ObjectManager::Update()

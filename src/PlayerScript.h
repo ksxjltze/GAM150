@@ -30,6 +30,8 @@ namespace StarBangBang
 		Text* text;
 
 		bool gameover = false;
+		bool playerHidden = false;
+		bool clientHidden = false;
 		bool playerEscaped = false;
 		bool clientEscaped = false;
 		bool detected = false;

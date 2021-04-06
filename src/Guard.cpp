@@ -1,4 +1,5 @@
 #include "Guard.h"
+#include "Detector.h"
 #include "Text.h"
 
 using namespace StarBangBang;
