@@ -27,7 +27,7 @@ void StarBangBang::SettingsMenu::Init()
 	fullscreenBtn->parent = gameObject;
 	//gameObject->visible = false;
 
-	objMgr->AddComponent<UIComponent>(gameObject, gfxMgr).SetColor(Gray);
+	objMgr->AddComponent<UIComponent>(gameObject, gfxMgr).SetColor({ 0.0f, 0.0f, 0.0f, 0.3f });
 	gameObject->GetComponent<UIComponent>()->active = false;
 	gameObject->transform.scale.x = AEGetWindowWidth() * 0.85 / GRAPHICS::MESH_WIDTH;
 	gameObject->transform.scale.y = AEGetWindowHeight() * 0.85 / GRAPHICS::MESH_HEIGHT;
