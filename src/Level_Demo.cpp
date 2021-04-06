@@ -281,8 +281,6 @@ namespace StarBangBang
 		
 		//room 2
 		CreateVent(30, 10);
-		//CreateVent(30, 16);
-		//CreateVent(35, 13);
 		CreateVent(45, 13);
 		CreateVent(42, 4);
 
@@ -292,15 +290,13 @@ namespace StarBangBang
 		CreateVent(45, 39);
 		CreateVent(35, 36);
 		CreateVent(26, 43);
-		//CreateVent(41, 43);
+
 
 		//room 4
 		CreateVent(15, 41);
 		CreateVent(15, 33);
-		CreateVent(8, 20);
-		//CreateVent(7, 37);
 		CreateVent(7, 45);
-		//CreateVent(6, 26);
+		CreateVent(5, 27);
 
 
 		//Notification Text
