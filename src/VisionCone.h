@@ -24,7 +24,7 @@ namespace StarBangBang
 		void Update();
 		void Draw();
 	
-		VisionCone(GameObject* gameObject,float angle,float range, Color color);
+		VisionCone(GameObject* gameObject,float angle,float range);
 
 		~VisionCone();
 

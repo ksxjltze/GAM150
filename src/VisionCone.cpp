@@ -89,8 +89,8 @@ void StarBangBang::VisionCone::Draw()
 	AEGfxMeshDraw(mesh, AE_GFX_MDM_TRIANGLES);
 }
 
-StarBangBang::VisionCone::VisionCone(GameObject* gameObject , float angle, float range, Color color)
-	: Component(gameObject), detector{ nullptr }, mesh{ nullptr }, trans{AEMtx33()}, angle{ angle }, range{ range }, color{ color }
+StarBangBang::VisionCone::VisionCone(GameObject* gameObject , float angle, float range)
+	: Component(gameObject), detector{ nullptr }, mesh{ nullptr }, trans{AEMtx33()}, angle{ angle }, range{ range }
 {
 }
 

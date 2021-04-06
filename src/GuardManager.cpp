@@ -42,7 +42,7 @@ void GuardManager::Init(ObjectManager* objManager, Sprite* sprite, GameObject* p
 		objManager->AddComponent<RigidBody>(guards[i]);
 		objManager->AddComponent<GuardAnim>(guards[i]);
 		objManager->AddCollider(guards[i], false);
-		objManager->AddComponent<VisionCone>(guards[i], 50.f, 250.f, White);
+		objManager->AddComponent<VisionCone>(guards[i], 50.f, 250.f);
 	}
 
 	// temp, will change to read from file laterz
@@ -93,6 +93,7 @@ void GuardManager::CreateSecurityCameras(ObjectManager* objManager, Sprite* spri
 		objManager->AddImage(cameras[i], *sprite);
 		objManager->AddComponent<SecurityCamera>(cameras[i]);
 		objManager->AddComponent<Detector>(cameras[i]).Init(50.f, 300.f, player, client);
+		objManager->AddComponent<VisionCone>(cameras[i], 50.f, 300.f);
 	}
 
 	int roomNum = 1;
