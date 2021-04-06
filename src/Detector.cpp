@@ -38,6 +38,11 @@ void Detector::Init(float fov, float dist, GameObject* player, GameObject* clien
 
 void Detector::Update()
 {
+	if (detectedTarget1 || detectedTarget2)
+		color = Red;
+	//else if (!detectedTarget1 && !detectedTarget2)
+	//	color = White;
+
 	if (!player->isInvisible())
 	{
 		if (target1->active && target1->visible)
@@ -51,17 +56,6 @@ void Detector::Update()
 void Detector::Start()
 {
 	player = target1->GetComponent<PlayerScript>();
-}
-
-void Detector::Draw()
-{
-	if (detectedTarget1 || detectedTarget2)
-		color = Red;
-	//else if (!detectedTarget1 && !detectedTarget2)
-	//	color = White;
-
-	DrawLine(viewDist, gameObject->GetPos(), (fieldOfView * 0.5f) + rotationAngle, color);
-	DrawLine(viewDist, gameObject->GetPos(), (-fieldOfView * 0.5f) + rotationAngle, color);
 }
 
 void Detector::Rotate(float angle)
