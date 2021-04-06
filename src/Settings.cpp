@@ -5,6 +5,11 @@
 #include "globals.h"
 #include "Click.h"
 
+namespace StarBangBang
+{
+	const static AEVec2 btnScale{0.2f, 0.1f};
+}
+
 StarBangBang::SettingsMenu::SettingsMenu(GameObject* gameObject, GraphicsManager& gfx) : Script(gameObject), gfxMgr{ gfx }
 {
 
@@ -22,7 +27,7 @@ void StarBangBang::SettingsMenu::Init()
 	fullscreenBtn->parent = gameObject;
 	//gameObject->visible = false;
 
-	objMgr->AddComponent<UIComponent>(gameObject, gfxMgr).SetColor(Blue);
+	objMgr->AddComponent<UIComponent>(gameObject, gfxMgr).SetColor(Gray);
 	gameObject->GetComponent<UIComponent>()->active = false;
 	gameObject->transform.scale.x = AEGetWindowWidth() * 0.85 / GRAPHICS::MESH_WIDTH;
 	gameObject->transform.scale.y = AEGetWindowHeight() * 0.85 / GRAPHICS::MESH_HEIGHT;
@@ -32,8 +37,8 @@ void StarBangBang::SettingsMenu::Init()
 	objMgr->AddComponent<Click<SettingsMenu>>(muteBtn, true).setCallback(*this, &SettingsMenu::Mute);
 
 	muteBtn->transform.position = { -0.2f * gameObject->transform.scale.x * GRAPHICS::MESH_WIDTH, 0 };
-	muteBtn->transform.scale.x = 0.3f * gameObject->transform.scale.x;
-	muteBtn->transform.scale.y = 0.2f * gameObject->transform.scale.y;
+	muteBtn->transform.scale.x = btnScale.x * gameObject->transform.scale.x;
+	muteBtn->transform.scale.y = btnScale.y * gameObject->transform.scale.y;
 	muteBtn->visible = false;
 
 	objMgr->AddComponent<UIComponent>(fullscreenBtn, fullscreenBtnSprite, gfxMgr);
@@ -42,8 +47,8 @@ void StarBangBang::SettingsMenu::Init()
 	fullscreenBtn->visible = false;
 
 	fullscreenBtn->transform.position = { 0.2f * gameObject->transform.scale.x * GRAPHICS::MESH_WIDTH, 0 };
-	fullscreenBtn->transform.scale.x = 0.3f * gameObject->transform.scale.x;
-	fullscreenBtn->transform.scale.y = 0.2f * gameObject->transform.scale.y;
+	fullscreenBtn->transform.scale.x = btnScale.x * gameObject->transform.scale.x;
+	fullscreenBtn->transform.scale.y = btnScale.y * gameObject->transform.scale.y;
 
 	buttonList.push_back(muteBtn);
 	buttonList.push_back(fullscreenBtn);

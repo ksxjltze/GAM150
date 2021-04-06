@@ -207,6 +207,9 @@ namespace StarBangBang
 		//UI
 		GameObject* UI = objectManager.NewGameObject();
 		objectManager.AddComponent<UIComponent>(UI, graphicsManager).rescale = false;
+		UIComponent& cooldownOverlayUI = objectManager.AddComponent<UIComponent>(UI, graphicsManager);
+		cooldownOverlayUI.rescale = false;
+		cooldownOverlayUI.SetColor({ 0.0f, 0.0f, 0.0f, 0.8f });
 		Text& uiText = objectManager.AddComponent<Text>(objectManager.NewGameObject(), "Q", fontId, Black, 1.0f, false);
 		uiText.gameObject->transform.position = { 0.10f, 0.90f };
 		uiText.SetOffset({ -1.0f, 0 });
