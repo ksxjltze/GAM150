@@ -15,6 +15,7 @@ namespace StarBangBang
 		AEGfxVertexList* mesh;
 		Detector* detector;
 		AEMtx33 trans;
+		size_t segments;
 	public:
 		float angle;
 		float range;
@@ -24,7 +25,7 @@ namespace StarBangBang
 		void Update();
 		void Draw();
 	
-		VisionCone(GameObject* gameObject,float angle,float range);
+		VisionCone(GameObject* gameObject,float angle,float range , size_t segments);
 
 		~VisionCone();
 
