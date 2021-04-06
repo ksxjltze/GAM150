@@ -342,6 +342,9 @@
     <ClCompile Include="src\Logo_Splash.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\VisionCone.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\ImageComponent.h">
@@ -608,7 +611,7 @@
     <ClInclude Include="src\Logo_Splash.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\ConeVision.h">
+    <ClInclude Include="src\VisionCone.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -26,6 +26,7 @@
 
 #include "Click.h"
 #include "UIComponent.h"
+#include "VisionCone.h"
 
 static bool god = false;
 static float app_time = 0.0f;
@@ -153,7 +154,7 @@ namespace StarBangBang
 		//Player components and scripts
 		CaptainStealth::SpawnPlayer(objectManager, player, playerImage);
 		player->transform.position = tilemap.GetPositionAtIndex(6, 3);
-
+		
 		//character indicator
 		indicatorObj = objectManager.NewGameObject();
 		objectManager.AddComponent<ImageComponent>(indicatorObj, indicator);
@@ -278,6 +279,10 @@ namespace StarBangBang
 		MessageBus::Notify({ EventId::PLAY_SOUND, "Test"});
 
 		character = current_char::fei_ge;
+
+	
+
+
 	}
 
 	void StarBangBang::Level_Demo::Update()

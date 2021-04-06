@@ -13,6 +13,7 @@
 
 #include "Text.h"
 #include "globals.h"
+#include "VisionCone.h"
 
 using namespace StarBangBang;
 
@@ -41,6 +42,7 @@ void GuardManager::Init(ObjectManager* objManager, Sprite* sprite, GameObject* p
 		objManager->AddComponent<RigidBody>(guards[i]);
 		objManager->AddComponent<GuardAnim>(guards[i]);
 		objManager->AddCollider(guards[i], false);
+		objManager->AddComponent<VisionCone>(guards[i], 50.f, 250.f, White);
 	}
 
 	// temp, will change to read from file laterz
