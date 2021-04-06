@@ -33,7 +33,7 @@ void StarBangBang::SettingsMenu::Init()
 	gameObject->transform.scale.y = AEGetWindowHeight() * 0.85 / GRAPHICS::MESH_HEIGHT;
 
 	objMgr->AddComponent<UIComponent>(muteBtn, muteBtnSprite, gfxMgr);
-	objMgr->AddComponent<Text>(muteBtn, "Mute", fontId2, Black);
+	//objMgr->AddComponent<Text>(muteBtn, "Mute", fontId2, Black);
 	objMgr->AddComponent<Click<SettingsMenu>>(muteBtn, true).setCallback(*this, &SettingsMenu::Mute);
 
 	muteBtn->transform.position = { -0.2f * gameObject->transform.scale.x * GRAPHICS::MESH_WIDTH, 0 };
@@ -42,7 +42,7 @@ void StarBangBang::SettingsMenu::Init()
 	muteBtn->visible = false;
 
 	objMgr->AddComponent<UIComponent>(fullscreenBtn, fullscreenBtnSprite, gfxMgr);
-	objMgr->AddComponent<Text>(fullscreenBtn, "Fullscreen", fontId2, Black);
+	//objMgr->AddComponent<Text>(fullscreenBtn, "Fullscreen", fontId2, Black);
 	objMgr->AddComponent<Click<SettingsMenu>>(fullscreenBtn, true).setCallback(*this, &SettingsMenu::Fullscreen);
 	fullscreenBtn->visible = false;
 

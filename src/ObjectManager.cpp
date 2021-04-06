@@ -3,6 +3,11 @@
 #include <typeinfo>
 #include <fstream>
 
+namespace StarBangBang
+{
+	static const int NUM_MAX_LAYERS = 2;
+}
+
 StarBangBang::GameObject* StarBangBang::ObjectManager::Find(const std::string& name)
 {
 	for (auto gameObject : gameObjectList)
@@ -213,19 +218,37 @@ void StarBangBang::ObjectManager::FreeComponents()
 
 void StarBangBang::ObjectManager::Init()
 {
+	layerMap.clear();
+	for (int i = 0; i < NUM_MAX_LAYERS; ++i)
+	{
+		layerMap.insert({ i, std::vector<_Component*>() });
+	}
+
 	for (_Component* component : componentList)
 	{
 		component->Start();
+		layerMap.at(component->gameObject->layer).push_back(component);
 	}
+
+
 }
 
 void StarBangBang::ObjectManager::Draw()
 {
-	for (_Component* component : componentList)
+	for (int i = 0; i < NUM_MAX_LAYERS; ++i)
 	{
-		if (component->gameObject->visible && component->active)
+		for (_Component* component : layerMap.at(i))
+		{
 			component->Draw();
+		}
+
 	}
+
+	//for (_Component* component : componentList)
+	//{
+	//	if (component->gameObject->visible && component->active)
+	//		component->Draw();
+	//}
 }
 
 void StarBangBang::ObjectManager::Update()

@@ -17,6 +17,7 @@ namespace StarBangBang
 		virtual void LateUpdate() {};
 		GameObject* gameObject { nullptr };
 		virtual ~_Component() {}
+		bool drawable{ false };
 		bool active { true };
 		ObjectManager* objMgr{ nullptr };
 

@@ -6,6 +6,7 @@
 #include "Sprite.h"
 #include <vector>
 #include <typeinfo>
+#include <map>
 
 namespace StarBangBang
 {
@@ -56,5 +57,7 @@ namespace StarBangBang
 		friend class Scene;
 		std::vector<GameObject*> gameObjectList;
 		std::vector<_Component*> componentList;
+
+		std::map<int, std::vector<_Component*>> layerMap;
 	};
 }
