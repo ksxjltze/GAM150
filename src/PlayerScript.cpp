@@ -14,7 +14,6 @@ StarBangBang::PlayerScript::PlayerScript(GameObject* obj) : Script(obj)
 {
 	client = nullptr;
 	rb_controller = nullptr;
-	range = 500.0f;
 	gameover = false;
 	playerEscaped = false;
 	clientEscaped = false;
@@ -32,7 +31,6 @@ void StarBangBang::PlayerScript::Start()
 	text->SetOffset({ 0, -30 });
 
 	client = objMgr->Find("Client");
-	range *= range;
 
 	assert(client);
 	assert(rb_controller);

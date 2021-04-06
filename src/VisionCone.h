@@ -4,6 +4,7 @@
 #include "Color.h"
 
 
+
 namespace StarBangBang 
 {
 	class Detector;

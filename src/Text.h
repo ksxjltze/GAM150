@@ -24,6 +24,7 @@ namespace StarBangBang
 		void SetOffset(AEVec2 offset);
 		void SetText(const std::string& s);
 		void SetTextBox(float width, float height);
+		void SetScale(float scale);
 		void Draw();
 		void SetColor(Color c);
 	private:
