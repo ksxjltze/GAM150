@@ -17,10 +17,12 @@ void StarBangBang::VisionCone::BuildMesh()
 	
 	AEVec2 forward{0.0f,1.0f};
 	float h_angle = angle * 0.5f * (PI/180) ;
-	float segment = h_angle / 20;
 	AEVec2 pt1{ 0,0 }, pt2{ 0,1 }, pt3{ 0,1 };
 
-	for (size_t i = 0; i < 20; ++i)
+	size_t h_segment = (size_t)ceil((double)segments / 2.0);
+	float segment = h_angle / h_segment;
+
+	for (size_t i = 0; i < h_segment; ++i)
 	{
 		float a = segment* i;
 	
@@ -38,7 +40,7 @@ void StarBangBang::VisionCone::BuildMesh()
 	}
 
 	pt2 = { 0,1 }, pt3 = { 0,1 };
-	for (size_t i = 0; i < 20; ++i)
+	for (size_t i = 0; i < h_segment; ++i)
 	{
 		float a = -segment * i;
 
@@ -89,8 +91,9 @@ void StarBangBang::VisionCone::Draw()
 	AEGfxMeshDraw(mesh, AE_GFX_MDM_TRIANGLES);
 }
 
-StarBangBang::VisionCone::VisionCone(GameObject* gameObject , float angle, float range)
-	: Component(gameObject), detector{ nullptr }, mesh{ nullptr }, trans{AEMtx33()}, angle{ angle }, range{ range }
+StarBangBang::VisionCone::VisionCone(GameObject* gameObject , float angle, float range , size_t segments)
+:	Component(gameObject), detector{ nullptr }, mesh{ nullptr }, trans{ AEMtx33() }, 
+	segments{ segments }, angle{ angle }, range{ range }
 {
 }
 
