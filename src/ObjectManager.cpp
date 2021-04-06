@@ -113,6 +113,9 @@ void StarBangBang::ObjectManager::DestroyGameObject(GameObject* gameObject)
 		while(component_it != componentList.end())
 		{
 			_Component*& component = *component_it;
+			if (!component)
+				continue;
+
 			if (component->gameObject == gameObject)
 			{
 				delete component;

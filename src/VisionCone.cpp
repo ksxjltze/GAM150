@@ -89,6 +89,8 @@ void StarBangBang::VisionCone::Draw()
 
 	// Drawing the mesh (list of triangles)
 	AEGfxMeshDraw(mesh, AE_GFX_MDM_TRIANGLES);
+
+	AEGfxSetTransparency(1.0f);
 }
 
 StarBangBang::VisionCone::VisionCone(GameObject* gameObject , float angle, float range , size_t segments)
