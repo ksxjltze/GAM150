@@ -1,4 +1,5 @@
 #include "GraphicsManager.h"
+#include "GraphicsManager.h"
 #include "constants.h"
 
 namespace StarBangBang
@@ -257,6 +258,8 @@ namespace StarBangBang
 
 		// Drawing the mesh (list of triangles)
 		AEGfxMeshDraw(mesh, AE_GFX_MDM_TRIANGLES);
+
+		AEGfxSetTransparency(1.0f);
 	}
 
 	void GRAPHICS::DrawOverlay(AEGfxVertexList* mesh, AEGfxTexture* texture, AEVec2 scale, AEVec2 pos, Color c, bool rescale)

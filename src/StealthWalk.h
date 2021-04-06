@@ -1,9 +1,12 @@
 #pragma once
 #include "ScriptComponent.h"
 #include "ImageComponent.h"
+#include "UIComponent.h"
+#include "Text.h"
 
 namespace StarBangBang
 {
+	
 	class StealthWalk : public Script
 	{
 	public:
@@ -15,9 +18,11 @@ namespace StarBangBang
 		float GetCooldown() { return cooldown; }
 	private:
 		ImageComponent* image;
-
+		UIComponent* icon_image;
+		Text* cd_txt;
 		float timer;
 		float cooldown;
 		bool invisible = false;
+		
 	};
 }

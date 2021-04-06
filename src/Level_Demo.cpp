@@ -36,6 +36,8 @@ static bool god = false;
 static float app_time = 0.0f;
 static int animation_counter = 0;
 
+
+
 enum class direction {idle = 0, left, right};
 direction dir;
 
@@ -51,6 +53,7 @@ namespace StarBangBang
 	Sprite exitBtnSprite;
 	Sprite settingsBtnSprite;
 	Sprite continueBtnSprite;
+	Sprite stealth_icon;
 
 	struct Pause
 	{
@@ -171,6 +174,9 @@ namespace StarBangBang
 		exitBtnSprite = graphicsManager.CreateSprite(RESOURCES::EXIT1_BUTTON_PATH);
 		continueBtnSprite = graphicsManager.CreateSprite(RESOURCES::PLAY1_BUTTON_PATH);
 		settingsBtnSprite = graphicsManager.CreateSprite(RESOURCES::SETTING1_BUTTON_PATH);
+
+
+		stealth_icon = graphicsManager.CreateSprite("Resources/stealth_icon.png");
 	}
 
 	//Initialization of game objects, components and scripts.
@@ -208,12 +214,15 @@ namespace StarBangBang
 
 		//UI
 		GameObject* UI = objectManager.NewGameObject();
-		objectManager.AddComponent<UIComponent>(UI, graphicsManager).rescale = false;
-		Text& uiText = objectManager.AddComponent<Text>(objectManager.NewGameObject(), "Q", fontId, Black, 1.0f, false);
-		uiText.gameObject->transform.position = { 0.10f, 0.90f };
-		uiText.SetOffset({ -1.0f, 0 });
-		UI->transform.position = {-AEGetWindowWidth()/2 + 0.05f * AEGetWindowWidth(), -AEGetWindowHeight()/2 + 0.95f * AEGetWindowHeight() };
-
+		UIComponent& UICom = objectManager.AddComponent<UIComponent>(UI, stealth_icon,graphicsManager);
+		UICom.rescale = false;
+		UICom.SetColor(Color{1.0f,1.0f,1.0f,0.7f});
+		Text& uiText = objectManager.AddComponent<Text>(objectManager.NewGameObject(), "Q", fontId, White, 1.0f, false);
+		uiText.gameObject->transform.position = { 0.05f, 0.28f };
+		uiText.SetOffset({ -1.0f, -1.0f });
+		UI->transform.position = {-AEGetWindowWidth()/2 + 0.05f * AEGetWindowWidth(), -AEGetWindowHeight()/2 + 0.1f * AEGetWindowHeight() };
+		uiText.gameObject->name = "Stealth_Txt";
+		UI->name = "Stealth_UI";
 		//character indicator
 		indicatorObj = objectManager.NewGameObject();
 		objectManager.AddComponent<ImageComponent>(indicatorObj, indicator);

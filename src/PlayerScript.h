@@ -29,7 +29,6 @@ namespace StarBangBang
 		StealthWalk* stealth;
 		Text* text;
 
-		float range;
 		bool gameover = false;
 		bool playerEscaped = false;
 		bool clientEscaped = false;

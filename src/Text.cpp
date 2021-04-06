@@ -30,6 +30,11 @@ void StarBangBang::Text::SetTextBox(float width, float height)
 	textbox.height = height;
 }
 
+void StarBangBang::Text::SetScale(float scale)
+{
+	this->scale = scale;
+}
+
 void Text::Draw()
 {
 	if (fontID == -1)

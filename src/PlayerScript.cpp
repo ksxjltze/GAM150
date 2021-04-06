@@ -14,7 +14,6 @@ StarBangBang::PlayerScript::PlayerScript(GameObject* obj) : Script(obj)
 {
 	client = nullptr;
 	rb_controller = nullptr;
-	range = 500.0f;
 	gameover = false;
 	playerEscaped = false;
 	clientEscaped = false;
@@ -32,7 +31,6 @@ void StarBangBang::PlayerScript::Start()
 	text->SetOffset({ 0, -30 });
 
 	client = objMgr->Find("Client");
-	range *= range;
 
 	assert(client);
 	assert(rb_controller);
@@ -116,22 +114,6 @@ void StarBangBang::PlayerScript::Update()
 	{
 		text->SetText("");
 	}
-
-	/*AEVec2 myPos = gameObject->transform.position;
-	AEVec2 clientPos = client->GetPos();
-	float real_sqrDis = AEVec2SquareDistance(&myPos, &clientPos);*/
-
-	/*if (myPos.x > AEGfxGetWinMaxX() || myPos.x < AEGfxGetWinMinX()
-		|| myPos.y > AEGfxGetWinMaxY() || myPos.y < AEGfxGetWinMinY())
-	{
-		rb_controller->active = false;
-	}*/
-		
-	/*if (real_sqrDis > range )
-	{
-		rb_controller->active = false;
-	}*/
-
 
 }
 
