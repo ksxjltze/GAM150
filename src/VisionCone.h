@@ -14,6 +14,7 @@ namespace StarBangBang
 	private:
 		AEGfxVertexList* mesh;
 		Detector* detector;
+		AEMtx33 trans;
 	public:
 		float angle;
 		float range;

@@ -66,7 +66,20 @@ void StarBangBang::VisionCone::BuildMesh()
 
 void StarBangBang::VisionCone::Update()
 {
+	
+	// Set Rotation
+	AEMtx33 rot, scale;
+	AEMtx33RotDeg(&rot, detector->GetRotation());
 
+	AEMtx33Scale(&scale, range, range);
+
+	//scale
+	AEMtx33Concat(&trans, &scale, &rot);
+	// Set Transform
+	AEMtx33TransApply(&trans, &trans, gameObject->transform.position.x, gameObject->transform.position.y);
+
+	AEMtx33 cameraMtx = GRAPHICS::GetCameraMatrix();
+	AEMtx33Concat(&trans, &cameraMtx, &trans);
 
 }
 
@@ -77,22 +90,7 @@ void StarBangBang::VisionCone::Draw()
 
 	AEGfxSetRenderMode(AE_GFX_RM_COLOR);
 
-	// Transform matrix
-	AEMtx33 trans;
-
-	// Set Rotation
-	AEMtx33 rot,scale;
-	AEMtx33RotDeg(&rot, detector->GetRotation() );
-
-	AEMtx33Scale(&scale, range, range);
 	
-	//scale
-	AEMtx33Concat(&trans, &scale, &rot);
-	// Set Transform
-	AEMtx33TransApply(&trans, &trans, gameObject->transform.position.x, gameObject->transform.position.y);
-
-	AEMtx33 cameraMtx = GRAPHICS::GetCameraMatrix();
-	AEMtx33Concat(&trans, &cameraMtx, &trans);
 
 
 	AEGfxSetTransform(trans.m);
@@ -109,7 +107,7 @@ void StarBangBang::VisionCone::Draw()
 }
 
 StarBangBang::VisionCone::VisionCone(GameObject* gameObject , float angle, float range, Color color)
-	: Component(gameObject), detector{nullptr}, mesh{ nullptr }, angle{ angle }, range{ range }, color{ color }
+	: Component(gameObject), detector{ nullptr }, mesh{ nullptr }, trans{AEMtx33()}, angle{ angle }, range{ range }, color{ color }
 {
 
 }
