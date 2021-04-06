@@ -58,6 +58,9 @@ namespace StarBangBang
 
 		BoxCollider* LineCast(const Ray& ray, BoxCollider* ignore);
 
+		
+
+
 		void ClearPartitionGridCells();
 
 		void RemoveCollider(Collider* pCollider);

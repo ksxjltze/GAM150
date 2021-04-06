@@ -14,7 +14,6 @@ namespace StarBangBang
 
 		void Start();
 		void Update();
-		void Draw();
 
 		void Init(float fov, float dist, GameObject* player, GameObject* client);
 		void Rotate(float angle);
@@ -26,6 +25,8 @@ namespace StarBangBang
 		inline float GetRotation() const { return rotationAngle; }
 
 		bool GetDetected(AEVec2& targetPos) const;
+		
+		inline const Color& GetColor() const { return color; }
 
 	private:
 		void CheckForTargets(const AEVec2& _targetPos, bool checkForPlayer = true);

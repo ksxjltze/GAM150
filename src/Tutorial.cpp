@@ -46,9 +46,11 @@ void Tutorial::Init()
 	tutorialImg->gameObject->SetPos({ 0, 180 });
 	tutorialImg->gameObject->transform.scale = { 2.f, 2.f };
 
-	NewTextObject({ 0, 80 }, "Objective:", 0.5f);
+	NewTextObject({ 0, 100 }, "Objective:", 0.8f);
+	NewTextObject({ 0, 80 }, "Collect keys in each room to proceed!", 0.3f);
 	NewTextObject({ 0, 50 }, "Break out of the prison while avoiding guards and security cameras!", 0.3f);
 
+	NewTextObject({ -250, 0 }, "Controls", 1.f);
 	ImageComponent* movementImg = objectManager.AddImage(objectManager.NewGameObject(), movementSprite);
 	movementImg->gameObject->SetPos({-140 - offset, -50});
 	NewTextObject({ -140 - offset, -100 }, "Use arrow keys to move", 0.3f);
@@ -57,6 +59,11 @@ void Tutorial::Init()
 	tabImg->gameObject->SetPos({ 0, -50 });
 	NewTextObject({ 0, -100 }, "Use [Tab] to change characters", 0.3f);
 
+	ImageComponent* qImg = objectManager.AddImage(objectManager.NewGameObject(), tabSprite);
+	tabImg->gameObject->SetPos({ 0, -50 });
+	NewTextObject({ 0, -100 }, "Use [Tab] to change characters", 0.3f);
+
+	NewTextObject({ 250, 0 }, "Interactables", 1.f);
 	ImageComponent* distractImg = objectManager.AddImage(objectManager.NewGameObject(), distractSprite);
 	distractImg->gameObject->SetPos({ 100 + offset, -50 });
 	ImageComponent* distractImg2 = objectManager.AddImage(objectManager.NewGameObject(), distractSprite2);

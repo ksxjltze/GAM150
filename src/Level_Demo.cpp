@@ -27,6 +27,7 @@
 
 #include "Click.h"
 #include "UIComponent.h"
+#include "VisionCone.h"
 #include "SoundEvent.h"
 
 #include "Settings.h"
@@ -203,6 +204,7 @@ namespace StarBangBang
 		//Player components and scripts
 		CaptainStealth::SpawnPlayer(objectManager, player, playerImage);
 		player->transform.position = tilemap.GetPositionAtIndex(6, 3);
+		
 
 		//UI
 		GameObject* UI = objectManager.NewGameObject();
@@ -283,6 +285,9 @@ namespace StarBangBang
 		MessageBus::Notify({ EventId::PLAY_SOUND, SoundEvent("Test") });
 
 		character = current_char::fei_ge;
+
+	
+
 
 		pauseMenu.settingsObj = objectManager.NewGameObject();
 		objectManager.AddComponent<SettingsMenu>(pauseMenu.settingsObj, graphicsManager).Init();

@@ -2,7 +2,6 @@
 #include "BasicMeshShape.h"
 #include "Grid.h"
 #include <cmath>
-#include <iostream>
 #include "MessageBus.h"
 #include "CollisionEvent.h"
 
@@ -31,6 +30,8 @@ namespace
 	std::vector<BoxCollider*> collider_list;
 
 }
+
+
 
 bool LineContainsPoint(const Ray& line, AEVec2 pt)
 {

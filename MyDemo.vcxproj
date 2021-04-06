@@ -172,6 +172,7 @@ xcopy /y /d /i /s "$(SolutionDir)\Resources" "$(OutDir)\Resources"</Command>
     <ClCompile Include="src\Tutorial.cpp" />
     <ClCompile Include="src\UIComponent.cpp" />
     <ClCompile Include="src\Utils.cpp" />
+    <ClCompile Include="src\VisionCone.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\BasicMeshShape.h" />
@@ -190,7 +191,7 @@ xcopy /y /d /i /s "$(SolutionDir)\Resources" "$(OutDir)\Resources"</Command>
     <ClInclude Include="src\ComponentCRTP.h" />
     <ClInclude Include="src\ComputerListener.h" />
     <ClInclude Include="src\ComputerScript.h" />
-    <ClInclude Include="src\ConeVision.h" />
+    <ClInclude Include="src\VisionCone.h" />
     <ClInclude Include="src\constants.h" />
     <ClInclude Include="src\Credits.h" />
     <ClInclude Include="src\DebugText.h" />
