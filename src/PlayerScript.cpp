@@ -3,6 +3,12 @@
 #include "Collider.h"
 #include "ObjectManager.h"
 #include "CollisionEvent.h"
+#include "SoundEvent.h"
+#include "constants.h"
+#include "globals.h"
+#include "Text.h"
+#include <iomanip>
+#include <sstream>
 
 StarBangBang::PlayerScript::PlayerScript(GameObject* obj) : Script(obj)
 {
@@ -12,17 +18,30 @@ StarBangBang::PlayerScript::PlayerScript(GameObject* obj) : Script(obj)
 	gameover = false;
 	playerEscaped = false;
 	clientEscaped = false;
+	stealth = nullptr;
 }
 void StarBangBang::PlayerScript::Start()
 {
 
 	rb_controller = gameObject->GetComponent<PrimaryMovementController>();
+
+	stealth = &objMgr->AddComponent<StealthWalk>(gameObject);
+	stealth->Start();
+
+	text = &objMgr->AddComponent<Text>(gameObject, "", fontId2);
+	text->SetOffset({ 0, -30 });
+
 	client = objMgr->Find("Client");
+	range *= range;
 
 	assert(client);
 	assert(rb_controller);
-	range *= range;
 
+}
+
+bool StarBangBang::PlayerScript::isInvisible()
+{
+	return stealth->IsInvisible();
 }
 
 void StarBangBang::PlayerScript::Debug_Reset()
@@ -41,14 +60,17 @@ void StarBangBang::PlayerScript::onNotify(Event e)
 
 	if (e.id == EventId::DETECTED)
 	{
+		if (!detected)
+			SoundEvent(std::string(SFX::DETECTED)).SendEvent();
+
 		GameObject* detectedObj = std::any_cast<GameObject*>(e.context);
 		if (detectedObj->active)
 		{
 			detected = true;
 
 			// Don't allow player to move when detected
-			//gameObject->GetComponent<PrimaryMovementController>()->SetActive(false);
-			//client->GetComponent<PrimaryMovementController>()->SetActive(false);
+			gameObject->GetComponent<PrimaryMovementController>()->SetActive(false);
+			client->GetComponent<PrimaryMovementController>()->SetActive(false);
 		}
 	}
 
@@ -81,8 +103,20 @@ void StarBangBang::PlayerScript::onNotify(Event e)
 }
 
 void StarBangBang::PlayerScript::Update()
-{
-	
+{	
+	float timer = stealth->GetTimer();
+	if (timer >= EPSILON)
+	{
+		std::stringstream stream;
+		stream << std::fixed << std::setprecision(2) << timer;
+		std::string s = stream.str();
+		text->SetText(s);
+	}
+	else
+	{
+		text->SetText("");
+	}
+
 	/*AEVec2 myPos = gameObject->transform.position;
 	AEVec2 clientPos = client->GetPos();
 	float real_sqrDis = AEVec2SquareDistance(&myPos, &clientPos);*/

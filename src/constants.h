@@ -6,6 +6,13 @@ namespace StarBangBang
 {
 	enum SceneID {DEMO, EDITOR, SAMPLE, TUTORIAL, GAME, MAIN_MENU, GAME_OVER, CREDITS};
 
+	namespace SFX
+	{
+		extern const std::string&& DETECTED;
+		extern const std::string&& BUTTON_CLICK;
+		extern const std::string&& KEY_PICKUP;
+	}
+
 	namespace KEYBIND
 	{
 		static const int MOVEMENT_UP = AEVK_UP;
@@ -13,10 +20,10 @@ namespace StarBangBang
 		static const int MOVEMENT_LEFT = AEVK_LEFT;
 		static const int MOVEMENT_RIGHT = AEVK_RIGHT;
 
-		//static const int MOVEMENT_UP = AEVK_W;
-		//static const int MOVEMENT_DOWN = AEVK_A;
-		//static const int MOVEMENT_LEFT = AEVK_S;
-		//static const int MOVEMENT_RIGHT = AEVK_D;
+		static const int MOVEMENT_UP_ALT = AEVK_W;
+		static const int MOVEMENT_DOWN_ALT = AEVK_S;
+		static const int MOVEMENT_LEFT_ALT = AEVK_A;
+		static const int MOVEMENT_RIGHT_ALT = AEVK_D;
 	}
 
 	namespace TILEMAP
@@ -86,6 +93,13 @@ namespace StarBangBang
 		extern const std::string&& PROTOTYPE_SPRITE_STONE_PATH;
 		extern const std::string&& SPRITE_PLAYER_PATH;
 
+		namespace SFX
+		{
+			extern const std::string&& SFX_KEY_PICKUP_PATH;
+			extern const std::string&& SFX_BUTTON_CLICK_PATH;
+			extern const std::string&& SFX_DETECTED_PATH;
+		}
+
 		namespace LEVELS
 		{
 			extern const std::string&& LEVEL_TEST_PATH;
@@ -107,6 +121,8 @@ namespace StarBangBang
 		extern const std::string&& LOGO_PATH;
 		extern const std::string&& BACK_BUTTON_PATH;
 		extern const std::string&& TUTORIAL_BUTTON_PATH;
+		extern const std::string&& FULLSCREEN_BUTTON_PATH;
+		extern const std::string&& MUTE_BUTTON_PATH;
 
 		//Character sprites
 		extern const std::string&& CAPTAINSTEALTH_F1_PATH;
@@ -186,6 +202,8 @@ namespace StarBangBang
 		extern const std::string&& VENDING_RIGHT_RED_PATH;
 		extern const std::string&& COMPUTER_PATH;
 		extern const std::string&& KEY_PATH;
+		extern const std::string&& VENT_CLOSE_PATH;
+		extern const std::string&& VENT_OPEN_PATH;
 
 		//misc objects
 		extern const std::string&& INDICATOR_PATH;

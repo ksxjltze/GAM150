@@ -13,6 +13,7 @@ GuardVision::GuardVision(GameObject* gameObject)
 	, movement(nullptr)
 	, detector(nullptr)
 	, rotation(0.f)
+	, rotSpeed(150.f)
 	, prevRot(-1)
 	, currRot(0)
 	, turn(false)
@@ -30,6 +31,11 @@ void GuardVision::Update()
 	// only update if player or client in same partition grid as guard
 	// ...
 
+	if (gameObject->GetComponent<Guard>()->GetState() == Guard::GUARD_STATE::STATE_CHASE)
+	{
+		rotSpeed = 350.f;
+	}
+
 	AEVec2 defaultForward = { 0, 1 };
 
 	if (movement->IsMoving())
@@ -45,33 +51,30 @@ void GuardVision::Update()
 		float dpResult = AEVec2DotProduct(&defaultForward, &targetDir);
 		float targetRot = AERadToDeg(AEACos(dpResult));
 
-		float dp = AEVec2DotProduct(&defaultLeft, &targetDir);
-		if (dp < 0.f)
-			targetRot = -targetRot;
+		if (gameObject->GetComponent<Guard>()->GetState() == Guard::GUARD_STATE::STATE_PATROL)
+		{
+			float dp = AEVec2DotProduct(&defaultLeft, &targetDir);
+			if (dp < 0.f)
+				targetRot = -targetRot;
+		}
 
 		currRot = static_cast<int>(rint(targetRot));
 
 		if (currRot != prevRot)
 		{
-			if (currRot == 0)
-				currRot = 1;
+			/*if (currRot == 0)
+				currRot = 1;*/
 
-			/*if (rotation < 0.f)
+			if (targetRot > 0 && rotation < 0.f)
 			{
-				if (targetRot > 0)
-				{
-					if ((static_cast<int>(rotation) + static_cast<int>(targetRot)) != 0)
-						rotation = -rotation;
-				}
+				if ((static_cast<int>(rotation) + static_cast<int>(targetRot)) != 0)
+					targetRot = -targetRot; //rotation = -rotation;
 			}
-			else
+			else if (targetRot < 0 && rotation > 0.f)
 			{
-				if (targetRot < 0)
-				{
-					if ((static_cast<int>(rotation) + static_cast<int>(targetRot)) != 0)
-						rotation = -rotation;
-				}
-			}*/
+				if ((static_cast<int>(rotation) + static_cast<int>(targetRot)) != 0)
+					targetRot = -targetRot; //rotation = -rotation;
+			}
 
 			prevRot = currRot;
 			turn = true;
@@ -83,12 +86,12 @@ void GuardVision::Update()
 		{
 			if (rotation + 3.f < targetRot)
 			{
-				rotation += 150.f * g_dt;
+				rotation += rotSpeed * g_dt;
 				FaceTowardsRotation();
 			}
 			else if (rotation - 3.f > targetRot)
 			{
-				rotation -= 150.f * g_dt;
+				rotation -= rotSpeed * g_dt;
 				FaceTowardsRotation();
 			}
 			
@@ -117,7 +120,7 @@ void GuardVision::Idle()
 		AEVec2 defaultForward = { 0, 1 };
 		AEVec2 targetDir, targetPos, goPos;
 		AEVec2 defaultLeft = { -1, 0 };
-		targetPos = movement->GetTargetPos(); // movement->GetNextPos();
+		targetPos = movement->GetTargetPos(); // look at distraction object
 		goPos = gameObject->GetPos();
 
 		AEVec2Sub(&targetDir, &targetPos, &goPos);

@@ -2,6 +2,7 @@
 #include "constants.h"
 #include "Click.h"
 #include "CollisionEvent.h"
+#include "Settings.h"
 
 static const float x_scale = 5.0f;
 static const float y_scale = 5.0f;
@@ -53,6 +54,8 @@ namespace StarBangBang
 		logo_obj->transform.position = { 0, (float)AEGetWindowHeight() / 3 };
 		logo_obj->transform.scale = { 1.5,1.5};
 
+		settingsObj = objectManager.NewGameObject();
+		objectManager.AddComponent<SettingsMenu>(settingsObj, graphicsManager).Init();
 
 		//start game button
 		playbutton_obj = objectManager.NewGameObject();
@@ -70,6 +73,7 @@ namespace StarBangBang
 		objectManager.AddImage(settingsbutton_obj, settingsbutton1);
 		settingsbutton_obj->transform.position = { (float)AEGetWindowWidth() / 8, (float)AEGetWindowHeight() / 8 };
 		settingsbutton_obj->transform.scale = { 3, 3 };
+		objectManager.AddComponent<Click<Main_Menu>>(settingsbutton_obj).setCallback(*this, &Main_Menu::Settings);
 
 		//credits button
 		creditsbutton_obj = objectManager.NewGameObject();
@@ -111,15 +115,35 @@ namespace StarBangBang
 		else
 			GRAPHICS::SetZoom(1.0f);
 
+		if (AEInputCheckTriggered(AEVK_ESCAPE))
+		{
+			if (!windowOpen)
+			{
+				gameStateManager.ExitGame();
+			}
+			else
+			{
+				if (!windowQueue.empty())
+				{
+					windowQueue.front()->SetActive(false);
+					windowQueue.pop();
+				}
+				
+				if (windowQueue.empty())
+				{
+					windowOpen = false;
+				}
+			}
+		}
+
+		logo_obj->active = !windowOpen;
+		playbutton_obj->active = !windowOpen;
+		settingsbutton_obj->active = !windowOpen;
+		creditsbutton_obj->active = !windowOpen;
+		exitbutton_obj->active = !windowOpen;
+		tutorialbutton_obj->active = !windowOpen;
+
 		Scene::Update();
-		if (AEInputCheckTriggered(AEVK_SPACE))
-		{
-			LoadLevel();
-		}
-		else if (AEInputCheckTriggered(AEVK_ESCAPE))
-		{
-			gameStateManager.ExitGame();
-		}
 
 		//Sound test
 		if (AEInputCheckTriggered(AEVK_T))
@@ -170,6 +194,13 @@ namespace StarBangBang
 	void Main_Menu::ExitGame()
 	{
 		gameStateManager.ExitGame();
+	}
+
+	void Main_Menu::Settings()
+	{
+		windowOpen = true;
+		settingsObj->SetActive(true);
+		windowQueue.push(settingsObj);
 	}
 }
 

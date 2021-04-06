@@ -11,16 +11,18 @@ namespace StarBangBang
 		AEInputGetCursorPosition(&mouseX, &mouseY);
 		AEVec2 pos = { (float)mouseX, (float)-mouseY };
 		AEMtx33 mtx;
-		AEMtx33Trans(&mtx, -AEGetWindowWidth() / 2 + CameraPos.x, AEGetWindowHeight() / 2 + CameraPos.y);
 
 		if (isWorld)
 		{
 			CameraPos = GRAPHICS::GetCameraPosition();
 			float zoom = GRAPHICS::GetZoom();
 
+			AEMtx33Trans(&mtx, -AEGetWindowWidth() / 2 + CameraPos.x, AEGetWindowHeight() / 2 + CameraPos.y);
 			AEMtx33ScaleApply(&mtx, &mtx, 1 / zoom, 1 / zoom);
-			GRAPHICS::InverseScaleFullscreen(mtx);
 		}
+		else
+			AEMtx33Trans(&mtx, -AEGetWindowWidth() / 2, AEGetWindowHeight() / 2);
+		GRAPHICS::InverseScaleFullscreen(mtx);
 
 		AEMtx33MultVec(&pos, &mtx, &pos);
 		return pos;

@@ -1,4 +1,5 @@
 #include "AudioEngine.h"
+#include "SoundEvent.h"
 
 StarBangBang::AudioEngine::AudioEngine()
 {
@@ -21,6 +22,11 @@ StarBangBang::AudioEngine::AudioEngine()
 
 }
 
+void StarBangBang::AudioEngine::CreateSound(FMOD::Sound** sound, const std::string& file)
+{
+	CreateSound(sound, file.c_str());
+}
+
 void StarBangBang::AudioEngine::CreateSound(FMOD::Sound** sound, const char* file)
 {
 	system->createSound(file, FMOD_DEFAULT, 0, sound);
@@ -32,9 +38,9 @@ void StarBangBang::AudioEngine::onNotify(Event e)
 	{
 		try
 		{
-			std::string s = std::any_cast<const char*>(e.context);
-			std::cout << "Playing sound: " << s << std::endl;
-			playSound(s);
+			SoundEvent soundEvent = std::any_cast<SoundEvent>(e.context);
+			std::cout << "Playing sound: " << soundEvent.name << std::endl;
+			playSound(soundEvent.name);
 		}
 		catch (const std::exception&)
 		{
@@ -63,6 +69,23 @@ void StarBangBang::AudioEngine::onNotify(Event e)
 	{
 		StopMasterChannel();
 	}
+
+	if (e.id == EventId::MUTE)
+	{
+		muted = !muted;
+
+		FMOD::Channel* channel;
+		FMOD::ChannelGroup* channelGroup;
+
+		system->getMasterChannelGroup(&channelGroup);
+		channelGroup->setMute(muted);
+		
+	}
+
+}
+
+void StarBangBang::AudioEngine::Mute()
+{
 
 }
 

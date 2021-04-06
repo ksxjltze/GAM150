@@ -38,7 +38,7 @@ void GuardManager::Init(ObjectManager* objManager, Sprite* sprite, GameObject* p
 		objManager->AddComponent<GuardMovement>(guards[i]);
 		objManager->AddComponent<GuardVision>(guards[i]);
 		objManager->AddComponent<Detector>(guards[i]).Init(50.f, 250.f, player, client);
-		objManager->AddComponent<Text>(guards[i]).fontID = StarBangBang::fontId;
+		//objManager->AddComponent<Text>(guards[i]).fontID = StarBangBang::fontId;
 		objManager->AddComponent<RigidBody>(guards[i]);
 		objManager->AddComponent<GuardAnim>(guards[i]);
 		objManager->AddCollider(guards[i], false);
@@ -49,8 +49,7 @@ void GuardManager::Init(ObjectManager* objManager, Sprite* sprite, GameObject* p
 	int roomNum = 1;
 	SetGuardStartEnd(id++, roomNum, { -322, -1163 }, { -322, -596 });
 
-	//ROOM2
-	roomNum = 2; // TEMP
+	roomNum = 2;
 	SetGuardStartEnd(id++, roomNum, { -72, -1162}, { -72, -385 });
 	SetGuardStartEnd(id++, roomNum, { -42, -1203 }, { 1069, -1203 });
 	SetGuardStartEnd(id++, roomNum, { 900, -1009 }, { 906, -456 });
@@ -58,17 +57,15 @@ void GuardManager::Init(ObjectManager* objManager, Sprite* sprite, GameObject* p
 	SetGuardStartEnd(id++, roomNum, { 314, -461 }, { 314, -954 });
 	SetGuardStartEnd(id++, roomNum, { 751, -835 }, { 491, -853 });
 
-	//ROOM3
 	roomNum = 3;
 	SetGuardStartEnd(id++, roomNum, { 945, -93 }, { 198, -93 });
 	SetGuardStartEnd(id++, roomNum, { -225, -42 }, { -225, 296 });
-	SetGuardStartEnd(id++, roomNum, { 0.1, 850 }, { 0.1, 500 });
+	SetGuardStartEnd(id++, roomNum, { 0.1f, 850 }, { 0.1f, 500 });
 	SetGuardStartEnd(id++, roomNum, { -13, 889 }, { 754, 895 });
 	SetGuardStartEnd(id++, roomNum, { 1118, 68 }, { 1118, 671 });
 	SetGuardStartEnd(id++, roomNum, { 330, 282 }, { 893, 282 });
 	SetGuardStartEnd(id++, roomNum, { 783, 551 }, { 428, 551 });
 	
-	//ROOM 4
 	roomNum = 4;
 	SetGuardStartEnd(id++, roomNum,{ -667, 1015 }, { -911, 1015 });
 	SetGuardStartEnd(id++, roomNum,{ -849, 806 }, { -849, 949 });
@@ -118,18 +115,6 @@ void GuardManager::CreateSecurityCameras(ObjectManager* objManager, Sprite* spri
 void GuardManager::Update()
 {
 	//PRINT("x: %f, y: %f\n", GetMouseWorldPos().x, GetMouseWorldPos().y);
-
-	if (AEInputCheckTriggered(VK_LBUTTON))
-	{
-		//guards[0]->GetComponent<GuardMovement>()->SetEndPos(GetMouseWorldPos());
-		//guards[0]->GetComponent<Guard>()->ChangeState(Guard::GUARD_STATE::STATE_PATROL);
-	}
-
-	if (AEInputCheckTriggered(VK_RBUTTON))
-	{
-		//guards[1]->GetComponent<GuardMovement>()->LookForPath(GetMouseWorldPos());
-		//guards[0]->GetComponent<Guard>()->ChangeState(Guard::GUARD_STATE::STATE_IDLE);
-	}
 }
 
 void GuardManager::onNotify(Event e)

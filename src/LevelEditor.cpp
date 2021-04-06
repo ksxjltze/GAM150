@@ -39,7 +39,7 @@ namespace StarBangBang
 
 	void HighLightGridNode(Grid& grid)
 	{
-		AEVec2 mousePos = GetMouseWorldPos();
+		AEVec2 mousePos = GetMouseWorldPos(true);
 		A_Node* n = grid.GetNodeFromPosition(mousePos);
 		if (n)
 			DrawCircle(grid.GetNodeSize() / 2, n->nodePos);
@@ -74,7 +74,9 @@ namespace StarBangBang
 
 		//Camera Object
 		camera = objectManager.NewGameObject();
-		objectManager.AddComponent<CameraComponent>(camera).scale = 0.75f;
+		CameraComponent& cam = objectManager.AddComponent<CameraComponent>(camera);
+		cam.scale = 0.75f;
+		cam.EnableZoom(true);
 		objectManager.AddComponent<Movement>(camera);
 
 		debugText = objectManager.NewGameObject();

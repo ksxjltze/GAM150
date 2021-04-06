@@ -72,16 +72,21 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 
 	AudioEngine audioEngine;
 	FMOD::Sound* sound = nullptr;
-	FMOD::Sound* sound2 = nullptr;
-	FMOD::Sound* sound3 = nullptr;
+	FMOD::Sound* btnSound = nullptr;
+	FMOD::Sound* keyPickupSound = nullptr;
+	FMOD::Sound* guardAlert = nullptr;
 	FMOD::Sound* music = nullptr;
 
 	audioEngine.CreateSound(&sound, "./Resources/drumloop.wav"); //CHANGE THIS (copyright and stuff)
-	audioEngine.CreateSound(&sound2, "./Resources/Music/wab.wav");
-	audioEngine.CreateSound(&sound3, "./Resources/Music/wab2.wav");
+	audioEngine.CreateSound(&btnSound, RESOURCES::SFX::SFX_BUTTON_CLICK_PATH);
+	audioEngine.CreateSound(&keyPickupSound, RESOURCES::SFX::SFX_KEY_PICKUP_PATH);
+	audioEngine.CreateSound(&guardAlert, RESOURCES::SFX::SFX_DETECTED_PATH);
 	audioEngine.CreateSound(&music, "./Resources/Music/bgm.wav");
 
 	audioEngine.AddSound("Test", sound); 
+	audioEngine.AddSound(SFX::BUTTON_CLICK, btnSound);
+	audioEngine.AddSound(SFX::KEY_PICKUP, keyPickupSound);
+	audioEngine.AddSound(SFX::DETECTED, guardAlert);
 	audioEngine.AddSound("BGM", music); 
 
 	MessageBus::RegisterGlobalListener(&audioEngine);
@@ -110,11 +115,6 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 	Scene* ggScene			= gameStateManager.AddGameState<Scene_GameOver>(GAME_OVER);
 	Scene* credits			= gameStateManager.AddGameState<Credits>(CREDITS);
 	Scene* logoScene 		= gameStateManager.AddGameState<LogoSplash>();
-
-	Scene* engineProof		= gameStateManager.AddGameState<EngineProof>();
-	Scene* testScene		= gameStateManager.AddGameState<TestScene>();
-
-	Scene* door			= gameStateManager.AddGameState<DoorTest>();
 	
 	// Hack to remove unreferenced local variable warning
 	sceneList.push_back(sceneDemo);
@@ -126,8 +126,6 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 	sceneList.push_back(ggScene);
 	sceneList.push_back(credits);
 
-	sceneList.push_back(door);
-
 	// Set Initial State
 	gameStateManager.SetInitialState(logoScene);
 
@@ -138,7 +136,8 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 	
 	//Full screen
 	//AESysInit(hInstance, nCmdShow, 1920, 1080, 1, 60, true, NULL);
-	AEToogleFullScreen(false);
+	//AEToogleFullScreen(false);
+	//GRAPHICS::ToggleFullscreen();
 
 	// Changing the window title
 	AESysSetWindowTitle("Captain Stealth");

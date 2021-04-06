@@ -20,6 +20,7 @@
 #include "Distractor.h"
 #include "time.h"
 #include "GuardAnim.h"
+#include "Disappear.h"
 
 #include "CaptainStealth.h"
 #include "DebugText.h"
@@ -27,6 +28,9 @@
 #include "Click.h"
 #include "UIComponent.h"
 #include "VisionCone.h"
+#include "SoundEvent.h"
+
+#include "Settings.h"
 
 static bool god = false;
 static float app_time = 0.0f;
@@ -45,14 +49,49 @@ namespace StarBangBang
 	Sprite keySprite;
 	Sprite boiSprite;
 	Sprite exitBtnSprite;
+	Sprite settingsBtnSprite;
 	Sprite continueBtnSprite;
 
 	struct Pause
 	{
 		GameObject* exitBtn{ nullptr };
+		GameObject* settingsBtn{ nullptr };
 		GameObject* continueBtn{ nullptr };
+		GameObject* settingsObj{ nullptr };
+
+		std::queue<GameObject*> windowQueue;
+
+		bool active{ false };
+
+		void DisplaySettings()
+		{
+			if (windowQueue.empty())
+			{
+				exitBtn->active = false;
+				settingsBtn->active = false;
+				continueBtn->active = false;
+				settingsObj->GetComponent<SettingsMenu>()->SetStatus(true);
+				windowQueue.push(settingsObj);
+			}
+		}
+
+		bool CloseWindow()
+		{
+			if (!windowQueue.empty())
+			{
+				exitBtn->active = true;
+				settingsBtn->active = true;
+				continueBtn->active = true;
+				windowQueue.front()->SetActive(false);
+				windowQueue.pop();
+				return false;
+			}
+			return true;
+		}
+
 		void Update() 
 		{
+			settingsObj->GetComponent<SettingsMenu>()->ForceUpdate();
 			for (auto& component : exitBtn->GetComponents())
 			{
 				component->Update();
@@ -62,6 +101,12 @@ namespace StarBangBang
 			{
 				component->Update();
 			}
+
+			for (auto& component : settingsBtn->GetComponents())
+			{
+				component->Update();
+			}
+
 		}
 	}pauseMenu;
 
@@ -110,10 +155,14 @@ namespace StarBangBang
 
 		guardImage = graphicsManager.CreateSprite(RESOURCES::SECURITYGUARD_F1_PATH);
 		securityCamImage = graphicsManager.CreateSprite(RESOURCES::CAMERA_PATH);
+
+		//interactable objs
 		vendingMachineSprite = graphicsManager.CreateSprite(RESOURCES::VENDING_LEFT_PATH);
 		computerSprite = graphicsManager.CreateSprite(RESOURCES::COMPUTER_PATH);
 		doorSprite = graphicsManager.CreateSprite(RESOURCES::DOOR_PATH);
 		keySprite = graphicsManager.CreateSprite(RESOURCES::KEY_PATH);
+		ventOpenSprite = graphicsManager.CreateSprite(RESOURCES::VENT_OPEN_PATH);
+		ventCloseSprite = graphicsManager.CreateSprite(RESOURCES::VENT_CLOSE_PATH);
 
 		//indicator sprite
 		indicator = graphicsManager.CreateSprite(RESOURCES::INDICATOR_PATH);
@@ -121,6 +170,7 @@ namespace StarBangBang
 
 		exitBtnSprite = graphicsManager.CreateSprite(RESOURCES::EXIT1_BUTTON_PATH);
 		continueBtnSprite = graphicsManager.CreateSprite(RESOURCES::PLAY1_BUTTON_PATH);
+		settingsBtnSprite = graphicsManager.CreateSprite(RESOURCES::SETTING1_BUTTON_PATH);
 	}
 
 	//Initialization of game objects, components and scripts.
@@ -155,6 +205,15 @@ namespace StarBangBang
 		CaptainStealth::SpawnPlayer(objectManager, player, playerImage);
 		player->transform.position = tilemap.GetPositionAtIndex(6, 3);
 		
+
+		//UI
+		GameObject* UI = objectManager.NewGameObject();
+		objectManager.AddComponent<UIComponent>(UI, graphicsManager).rescale = false;
+		Text& uiText = objectManager.AddComponent<Text>(objectManager.NewGameObject(), "Q", fontId, Black, 1.0f, false);
+		uiText.gameObject->transform.position = { 0.10f, 0.90f };
+		uiText.SetOffset({ -1.0f, 0 });
+		UI->transform.position = {-AEGetWindowWidth()/2 + 0.05f * AEGetWindowWidth(), -AEGetWindowHeight()/2 + 0.95f * AEGetWindowHeight() };
+
 		//character indicator
 		indicatorObj = objectManager.NewGameObject();
 		objectManager.AddComponent<ImageComponent>(indicatorObj, indicator);
@@ -195,100 +254,56 @@ namespace StarBangBang
 
 		InitPause();
 
-		//room 1 distractor
-		GameObject* distract2 = objectManager.NewGameObject();
-		//temp
-		distract2->transform.position = tilemap.GetPositionAtIndex(8, 12);
-		objectManager.AddComponent<Distractor>(distract2).SetRoomNum(1);
-		objectManager.AddImage(distract2, vendingMachineSprite);
-		objectManager.AddCollider(distract2, true).isTrigger = true;
+		// Create distractions
+		int roomNum = 1;
+		CreateDistraction(roomNum, 8, 12, vendingMachineSprite);
 
-		//room 2 distractor
-		GameObject* distract10 = objectManager.NewGameObject();
-		//temp
-		distract10->transform.position = tilemap.GetPositionAtIndex(30, 6);
-		objectManager.AddComponent<Distractor>(distract10).SetRoomNum(2);
-		objectManager.AddImage(distract10, vendingMachineSprite);
-		objectManager.AddCollider(distract10, true).isTrigger = true;
+		roomNum = 2;
+		CreateDistraction(roomNum, 30, 6, vendingMachineSprite);
+		CreateDistraction(roomNum, 40, 10, computerSprite);
 
-		GameObject* distract11 = objectManager.NewGameObject();
-		//temp
-		distract11->transform.position = tilemap.GetPositionAtIndex(40, 10);
-		objectManager.AddComponent<Distractor>(distract11).SetRoomNum(2);
-		objectManager.AddImage(distract11, computerSprite);
-		objectManager.AddCollider(distract11, true).isTrigger = true;
+		roomNum = 3;
+		CreateDistraction(roomNum, 41, 43, computerSprite);
+		CreateDistraction(roomNum, 39, 37, vendingMachineSprite);
 
-		//room 3 distractor
-		GameObject* distract3 = objectManager.NewGameObject();
-		//temp
-		distract3->transform.position = tilemap.GetPositionAtIndex(31, 7);
-		objectManager.AddComponent<Distractor>(distract3).SetRoomNum(3);
-		objectManager.AddImage(distract3, computerSprite);
-		objectManager.AddCollider(distract3, true).isTrigger = true;
-		
-		GameObject* distract8 = objectManager.NewGameObject();
-		//temp
-		distract8->transform.position = tilemap.GetPositionAtIndex(41, 43);
-		objectManager.AddComponent<Distractor>(distract8).SetRoomNum(3);
-		objectManager.AddImage(distract8, computerSprite);
-		objectManager.AddCollider(distract8, true).isTrigger = true;
+		roomNum = 4;
+		CreateDistraction(roomNum, 15, 42, computerSprite);
+		CreateDistraction(roomNum, 5, 21, computerSprite);
+		CreateDistraction(roomNum, 16, 27, vendingMachineSprite);
+		CreateDistraction(roomNum, 5, 47, vendingMachineSprite);
 
-		GameObject* distract9 = objectManager.NewGameObject();
-		//temp
-		distract9->transform.position = tilemap.GetPositionAtIndex(39, 37);
-		objectManager.AddComponent<Distractor>(distract9).SetRoomNum(3);
-		objectManager.AddImage(distract9, vendingMachineSprite);
-		objectManager.AddCollider(distract9, true).isTrigger = true;
-
-
-
-		//room 4 distractor
-		GameObject* distract4 = objectManager.NewGameObject();
-		//temp
-		distract3->transform.position = tilemap.GetPositionAtIndex(15, 42);
-		objectManager.AddComponent<Distractor>(distract4).SetRoomNum(4);
-		objectManager.AddImage(distract4, computerSprite);
-		objectManager.AddCollider(distract4, true).isTrigger = true;
-
-		GameObject* distract5 = objectManager.NewGameObject();
-		//temp
-		distract5->transform.position = tilemap.GetPositionAtIndex(5, 21);
-		objectManager.AddComponent<Distractor>(distract5).SetRoomNum(4);
-		objectManager.AddImage(distract5, computerSprite);
-		objectManager.AddCollider(distract5, true).isTrigger = true;
-
-		GameObject* distract6 = objectManager.NewGameObject();
-		//temp
-		distract6->transform.position = tilemap.GetPositionAtIndex(16, 27);
-		objectManager.AddComponent<Distractor>(distract6).SetRoomNum(4);
-		objectManager.AddImage(distract6, vendingMachineSprite);
-		objectManager.AddCollider(distract6, true).isTrigger = true;
-
-		GameObject* distract7 = objectManager.NewGameObject();
-		//temp
-		distract7->transform.position = tilemap.GetPositionAtIndex(5, 47);
-		objectManager.AddComponent<Distractor>(distract7).SetRoomNum(4);
-		objectManager.AddImage(distract7, vendingMachineSprite);
-		objectManager.AddCollider(distract7, true).isTrigger = true;
+		CreateVent(11, 12);
 
 		//Notification Text
 		objectManager.AddComponent<DebugText>(objectManager.NewGameObject(), fontId);
 
 		//Floating text
 		MessageBus::Notify({ EventId::PRINT_TEXT, std::string("Find the Vending Machine!") });
-		MessageBus::Notify({ EventId::PLAY_SOUND, "Test"});
+		MessageBus::Notify({ EventId::PLAY_SOUND, SoundEvent("Test") });
 
 		character = current_char::fei_ge;
 
 	
 
 
+		pauseMenu.settingsObj = objectManager.NewGameObject();
+		objectManager.AddComponent<SettingsMenu>(pauseMenu.settingsObj, graphicsManager).Init();
 	}
 
 	void StarBangBang::Level_Demo::Update()
 	{
 		if (IsIconic(AESysGetWindowHandle()))
 			TogglePause();
+
+		CameraComponent* camera = player->GetComponent<CameraComponent>();
+		if (!GRAPHICS::IsFullscreen())
+		{
+			camera->scale = GRAPHICS::DEFAULT_ZOOM / 1.5f;
+		}
+		else
+		{
+			camera->scale = GRAPHICS::DEFAULT_ZOOM;
+		}
 
 		if (AEInputCheckTriggered(AEVK_ESCAPE))
 		{
@@ -429,23 +444,29 @@ namespace StarBangBang
 			}
 		}
 
-		if (!(AEInputCheckCurr(KEYBIND::MOVEMENT_UP) || AEInputCheckCurr(KEYBIND::MOVEMENT_DOWN) || AEInputCheckCurr(KEYBIND::MOVEMENT_LEFT) || AEInputCheckCurr(KEYBIND::MOVEMENT_RIGHT)))
+		if (!(AEInputCheckCurr(KEYBIND::MOVEMENT_UP) || AEInputCheckCurr(KEYBIND::MOVEMENT_DOWN)		|| 
+			AEInputCheckCurr(KEYBIND::MOVEMENT_LEFT) || AEInputCheckCurr(KEYBIND::MOVEMENT_RIGHT)		||
+			AEInputCheckCurr(KEYBIND::MOVEMENT_UP_ALT) || AEInputCheckCurr(KEYBIND::MOVEMENT_DOWN_ALT)	||
+			AEInputCheckCurr(KEYBIND::MOVEMENT_LEFT_ALT) || AEInputCheckCurr(KEYBIND::MOVEMENT_RIGHT_ALT)))
 		{
 			animation_counter = 3;
 		}
 
-		if (AEInputCheckCurr(KEYBIND::MOVEMENT_RIGHT))
+		if (AEInputCheckCurr(KEYBIND::MOVEMENT_RIGHT) || AEInputCheckCurr(KEYBIND::MOVEMENT_RIGHT_ALT))
 		{
 			dir = direction::right;
 			app_time = app_time + g_dt;
 		}
-		else if (AEInputCheckCurr(KEYBIND::MOVEMENT_LEFT))
+		else if (AEInputCheckCurr(KEYBIND::MOVEMENT_LEFT) || AEInputCheckCurr(KEYBIND::MOVEMENT_LEFT_ALT))
 		{
 			dir = direction::left;
 			app_time = app_time + g_dt;
 		}
 
-		else if (AEInputCheckCurr(KEYBIND::MOVEMENT_UP) || AEInputCheckCurr(KEYBIND::MOVEMENT_DOWN))
+		else if (AEInputCheckCurr(KEYBIND::MOVEMENT_UP)	|| 
+		AEInputCheckCurr(KEYBIND::MOVEMENT_DOWN)		||
+			AEInputCheckCurr(KEYBIND::MOVEMENT_UP_ALT)	||
+				AEInputCheckCurr(KEYBIND::MOVEMENT_DOWN_ALT))
 		{
 			app_time = app_time + g_dt;
 		}
@@ -464,20 +485,20 @@ namespace StarBangBang
 		}
 
 		PlayerScript* playerScript = player->GetComponent<PlayerScript>();
-		if (AEInputCheckTriggered(AEVK_G))
-		{
-			playerScript->Debug_Reset();
-			if (!god)
-			{
-				god = true;
-				MessageBus::Notify({ EventId::PRINT_TEXT, std::string("God Mode Enabled!") });
-			}
-			else
-			{
-				god = false;
-				MessageBus::Notify({ EventId::PRINT_TEXT, std::string("God Mode Disabled!") });
-			}
-		}
+		//if (AEInputCheckTriggered(AEVK_G))
+		//{
+		//	playerScript->Debug_Reset();
+		//	if (!god)
+		//	{
+		//		god = true;
+		//		MessageBus::Notify({ EventId::PRINT_TEXT, std::string("God Mode Enabled!") });
+		//	}
+		//	else
+		//	{
+		//		god = false;
+		//		MessageBus::Notify({ EventId::PRINT_TEXT, std::string("God Mode Disabled!") });
+		//	}
+		//}
 
 		if (playerScript->isGameOver())
 		{
@@ -534,17 +555,28 @@ namespace StarBangBang
 
 	void Level_Demo::DisplayPauseMenu()
 	{
-		GRAPHICS::DrawOverlay(graphicsManager.GetMesh(), nullptr, { 20, 20 }, { 0, 0 }, { 0, 0, 0, 0.7f });
+		GRAPHICS::DrawOverlay(graphicsManager.GetMesh(), nullptr, { 40, 40 }, { 0, 0 }, { 0, 0, 0, 0.7f });
 		pauseMenu.exitBtn->GetComponent<UIComponent>()->Draw();
 		pauseMenu.continueBtn->GetComponent<UIComponent>()->Draw();
+		pauseMenu.settingsBtn->GetComponent<UIComponent>()->Draw();
+		pauseMenu.settingsObj->GetComponent<SettingsMenu>()->Draw();
 	}
 
 	void Level_Demo::TogglePause()
 	{
-		paused = !paused;
+		if (pauseMenu.CloseWindow())
+		{
+			paused = !paused;
+			pauseMenu.exitBtn->active = paused;
+			pauseMenu.settingsBtn->active = paused;
+			pauseMenu.continueBtn->active = paused;
+			pauseMenu.settingsObj->active = false;
+		}
+	}
 
-		pauseMenu.continueBtn->active = paused;
-		pauseMenu.exitBtn->active = paused;
+	void Level_Demo::ToggleSettings()
+	{
+		pauseMenu.DisplaySettings();
 	}
 
 	void Level_Demo::SpawnDoors()
@@ -597,17 +629,41 @@ namespace StarBangBang
 		///Pause
 		pauseMenu.exitBtn = objectManager.NewGameObject();
 		objectManager.AddComponent<Click<Level_Demo>>(pauseMenu.exitBtn, true).setCallback(*this, &Level_Demo::Exit);
-		objectManager.AddComponent<UIComponent>(pauseMenu.exitBtn, exitBtnSprite);
+		objectManager.AddComponent<UIComponent>(pauseMenu.exitBtn, exitBtnSprite, graphicsManager).active = false;
 		pauseMenu.exitBtn->transform.position.y = -100;
 		pauseMenu.exitBtn->transform.scale = { 3, 3 };
 		pauseMenu.exitBtn->active = false;
 
 		pauseMenu.continueBtn = objectManager.NewGameObject();
 		objectManager.AddComponent<Click<Level_Demo>>(pauseMenu.continueBtn, true).setCallback(*this, &Level_Demo::TogglePause);
-		objectManager.AddComponent<UIComponent>(pauseMenu.continueBtn, continueBtnSprite);
+		objectManager.AddComponent<UIComponent>(pauseMenu.continueBtn, continueBtnSprite, graphicsManager).active = false;
 		pauseMenu.continueBtn->transform.position.y = 100;
 		pauseMenu.continueBtn->transform.scale = { 3, 3 };
 		pauseMenu.continueBtn->active = false;
+
+		pauseMenu.settingsBtn = objectManager.NewGameObject();
+		objectManager.AddComponent<Click<Level_Demo>>(pauseMenu.settingsBtn, true).setCallback(*this, &Level_Demo::ToggleSettings);
+		objectManager.AddComponent<UIComponent>(pauseMenu.settingsBtn, settingsBtnSprite, graphicsManager).active = false;
+		pauseMenu.settingsBtn->transform.position.y = 0;
+		pauseMenu.settingsBtn->transform.scale = { 3, 3 };
+		pauseMenu.settingsBtn->active = false;
 	}
 
+	void Level_Demo::CreateDistraction(unsigned int roomNum, int tileX, int tileY, const Sprite& sprite)
+	{
+		GameObject* distraction = objectManager.NewGameObject();
+		distraction->transform.position = tilemap.GetPositionAtIndex(tileX, tileY);
+		objectManager.AddComponent<Distractor>(distraction).SetRoomNum(roomNum);
+		objectManager.AddImage(distraction, sprite);
+		objectManager.AddCollider(distraction, true).isTrigger = true;
+	}
+
+	void Level_Demo::CreateVent(int tileX, int tileY)
+	{
+		GameObject* vent = objectManager.NewGameObject();
+		vent->transform.position = tilemap.GetPositionAtIndex(tileX, tileY);
+		objectManager.AddComponent<Disappear>(vent, ventOpenSprite, ventCloseSprite);
+		objectManager.AddImage(vent, ventOpenSprite);
+		objectManager.AddCollider(vent, true).isTrigger = true;
+	}
 }

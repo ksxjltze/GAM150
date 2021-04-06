@@ -3,6 +3,7 @@
 #include "globals.h"
 #include "MessageBus.h"
 #include "CollisionManager.h"
+#include "PlayerScript.h"
 
 using namespace StarBangBang;
 
@@ -37,10 +38,19 @@ void Detector::Init(float fov, float dist, GameObject* player, GameObject* clien
 
 void Detector::Update()
 {
-	if (target1->active)
-		CheckForTargets(target1->GetPos());
-	if (target2->active)
+	if (!player->isInvisible())
+	{
+		if (target1->active && target1->visible)
+			CheckForTargets(target1->GetPos());
+
+	}
+	if (target2->active && target2->visible)
 		CheckForTargets(target2->GetPos(), false);
+}
+
+void Detector::Start()
+{
+	player = target1->GetComponent<PlayerScript>();
 }
 
 void Detector::Draw()

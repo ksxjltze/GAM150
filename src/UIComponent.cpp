@@ -1,13 +1,24 @@
 #include "UIComponent.h"
-#include "GraphicsManager.h"
 
 namespace StarBangBang
 {
 	const static float FULLSCREEN_SCALE = 2.0f;
 
-	UIComponent::UIComponent(GameObject* gameObject, Sprite s) : Component(gameObject), sprite{ s }
+
+
+	UIComponent::UIComponent(GameObject* gameObject, GraphicsManager& gfx, bool rescale) : Component(gameObject), gfxMgr{ gfx }, rescale{ rescale }
 	{
 
+	}
+
+	UIComponent::UIComponent(GameObject* gameObject, Sprite s, GraphicsManager& gfx, bool rescale) : Component(gameObject), sprite{ s }, gfxMgr{ gfx }, rescale{ rescale }
+	{
+
+	}
+
+	void UIComponent::SetColor(Color c)
+	{
+		sprite.color = c;
 	}
 
 	void UIComponent::Start()
@@ -26,15 +37,10 @@ namespace StarBangBang
 		{
 			AEVec2 scale = gameObject->transform.scale;
 
-			if (GRAPHICS::IsFullscreen())
-			{
-				AEVec2 screenRatio = GRAPHICS::GetScreenScale();
-
-				scale.x *= screenRatio.x * FULLSCREEN_SCALE;
-				scale.y *= screenRatio.y * FULLSCREEN_SCALE;
-			}
-
-			GRAPHICS::DrawOverlay(sprite.mesh, sprite.texture, scale, gameObject->transform.position, sprite.color);
+			if (sprite.mesh)
+				GRAPHICS::DrawOverlay(sprite.mesh, sprite.texture, scale, gameObject->transform.position, sprite.color, rescale);
+			else
+				GRAPHICS::DrawOverlay(gfxMgr.GetMesh(), nullptr, scale, gameObject->transform.position, sprite.color, rescale);
 
 		}
 	}

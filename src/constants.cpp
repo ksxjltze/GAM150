@@ -2,6 +2,13 @@
 
 namespace StarBangBang
 {
+	namespace SFX
+	{
+		const std::string&& DETECTED = "sfxGuardAlert";
+		const std::string&& BUTTON_CLICK = "sfxBtnClick";
+		const std::string&& KEY_PICKUP = "sfxKeyPickup";
+	}
+	
 	namespace STRING_TAGS
 	{
 		const std::string&& NUMERALS_STRING				= "0123456789";
@@ -19,6 +26,15 @@ namespace StarBangBang
 		const std::string&& CHARACTERS_PATH				= ROOT_PATH + "Characters/";
 		const std::string&& FLOORTILES_PATH				= ROOT_PATH + "FloorTiles/";
 		const std::string&& MISC_PATH					= ROOT_PATH + "Misc/";
+		const std::string&& SFX_PATH					= ROOT_PATH + "SFX/";
+		const std::string&& BGM_PATH					= ROOT_PATH + "BGM/";
+
+		namespace SFX
+		{
+			const std::string&& SFX_KEY_PICKUP_PATH		= SFX_PATH + "keys.wav";
+			const std::string&& SFX_BUTTON_CLICK_PATH	= SFX_PATH + "buttonSFX.wav";
+			const std::string&& SFX_DETECTED_PATH		= SFX_PATH + "erhg2.wav";
+		}
 
 		namespace LEVELS
 		{
@@ -47,6 +63,8 @@ namespace StarBangBang
 		const std::string&& LOGO_PATH					= MAINMENU_PATH + "Logo.png";
 		const std::string&& BACK_BUTTON_PATH			= MAINMENU_PATH + "BackButton.png";
 		const std::string&& TUTORIAL_BUTTON_PATH		= MAINMENU_PATH + "TutorialButton.png";
+		const std::string&& FULLSCREEN_BUTTON_PATH		= MAINMENU_PATH + "FullScreenButton.png";
+		const std::string&& MUTE_BUTTON_PATH			= MAINMENU_PATH + "MuteButton.png";
 
 		//Character sprites
 		const std::string&& CAPTAINSTEALTH_F1_PATH			= CHARACTERS_PATH + "CaptainStealthForward1.png";
@@ -125,7 +143,9 @@ namespace StarBangBang
 		const std::string&& VENDING_RIGHT_PATH				= INTERACTABLE_PATH + "VendingMachineRight.png";
 		const std::string&& VENDING_RIGHT_RED_PATH			= INTERACTABLE_PATH + "VendingMachineRight1.png";
 		const std::string&& COMPUTER_PATH					= INTERACTABLE_PATH + "Computer.png";
-		const  std::string&& KEY_PATH						= INTERACTABLE_PATH + "keys.png";
+		const std::string&& KEY_PATH						= INTERACTABLE_PATH + "keys.png";
+		const std::string&& VENT_CLOSE_PATH					= INTERACTABLE_PATH + "VentClose.png";
+		const std::string&& VENT_OPEN_PATH					= INTERACTABLE_PATH + "VentOpen.png";
 
 		//misc objects
 		const std::string&& INDICATOR_PATH					= MISC_PATH + "Indicator.png";

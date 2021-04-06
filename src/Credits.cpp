@@ -28,8 +28,8 @@ namespace StarBangBang
 	void StarBangBang::Credits::Init()
 	{
 		float spacing = -35.0f;
-		float role_spacing = -55.0f;
-		float section_spacing = -100.0f;
+		float role_spacing = -40.0f;
+		float section_spacing = -60.0f;
 
 		AEVec2 pos = { 0.0f, 210.0f };
 
@@ -43,8 +43,8 @@ namespace StarBangBang
 		logoImg->gameObject->transform.scale.y = 1.5f;
 
 		end = objectManager.NewGameObject();
-		end->transform.scale = { EPSILON, EPSILON };
-		objectManager.AddImage(end, logoSprite);
+		cameraObject->transform.scale = { EPSILON, EPSILON };
+		objectManager.AddImage(cameraObject, logoSprite);
 
 		NewTextObject(pos, "StarBangBang", 1.0f);
 		NewTextObject({ pos.x, pos.y += spacing }, "Presents", 0.8f);
@@ -68,6 +68,24 @@ namespace StarBangBang
 		NewTextObject({ pos.x, pos.y += spacing }, "Tomas Arce-Gil", 1.0f);
 		NewTextObject({ pos.x, pos.y += spacing }, "Wong Han Feng, Gerald", 1.0f);
 
+		NewTextObject({ pos.x, pos.y += section_spacing }, "Created At", 0.5f);
+		NewTextObject({ pos.x, pos.y += spacing }, "DigiPen Institute of Technology Singapore", 0.5f);
+
+		NewTextObject({ pos.x, pos.y += role_spacing }, "PRESIDENT", 1.0f);
+		NewTextObject({ pos.x, pos.y += spacing }, "CLAUDE COMAIR", 0.8f);
+
+		NewTextObject({ pos.x, pos.y += role_spacing }, "EXECUTIVES", 1.0f);
+		NewTextObject({ pos.x, pos.y += spacing }, "JASON CHU   SAMIR ABOU SAMRA", 0.8f);
+		NewTextObject({ pos.x, pos.y += spacing }, "MICHELE COMAIR", 0.8f);
+		NewTextObject({ pos.x, pos.y += spacing }, "ANGELA KUGLER   ERIK MOHRMANN", 0.8f);
+		NewTextObject({ pos.x, pos.y += spacing }, "BENJAMIN ELLINGER   MELVIN GONSALVEZ", 0.8f);
+
+		NewTextObject({ pos.x, pos.y += section_spacing }, "WWW.DIGIPEN.EDU", 0.4f);
+		NewTextObject({ pos.x, pos.y += spacing }, "All content © 2021 DigiPen Institute of Technology Singapore.", 0.4f);
+		NewTextObject({ pos.x, pos.y += spacing }, "All Rights Reserved", 0.4f);
+
+		NewTextObject({ pos.x, pos.y += role_spacing + 10 }, "FMOD Sound System © FireLight Technologies Pty Ltd (1998 - 2020)", 0.4f);
+
 		cameraObject->transform.position.y = 100.0f;
 		end->transform.position = { pos.x, pos.y };
 	}
@@ -88,7 +106,7 @@ namespace StarBangBang
 
 		cameraObject->transform.position.y -= speed * g_dt;
 
-		if (cameraObject->GetPos().y < end->GetPos().y - AEGetWindowHeight() / 2 + END_OFFSET)
+		if (cameraObject->GetPos().y < end->GetPos().y - AEGetWindowHeight() / 2)
 		{
 			gameStateManager.SetNextGameState(MAIN_MENU);
 			return;

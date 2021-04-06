@@ -122,6 +122,7 @@ namespace StarBangBang
 					currentState->Unload();
 					prevState = currentState;
 					currentState = nextState;
+					AEInputReset();
 				}
 
 				GRAPHICS::ResetCamera();

@@ -2,6 +2,7 @@
 #include "ScriptComponent.h"
 #include "IClickable.h"
 #include "Utils.h"
+#include "SoundEvent.h"
 
 namespace StarBangBang
 {
@@ -15,15 +16,24 @@ namespace StarBangBang
 		void Start() {  }
 		void Update()
 		{
-			if (AEInputCheckTriggered(AEVK_LBUTTON))
+			if (!gameObject->active)
+				return;
+
+			Transform& transform = gameObject->transform;
+			if (PointRectTest(GetMouseWorldPos(!isOverlay), transform.position, transform.scale.x * GRAPHICS::MESH_WIDTH, transform.scale.y * GRAPHICS::MESH_HEIGHT))
 			{
-				Transform& transform = gameObject->transform;
-				if (PointRectTest(GetMouseWorldPos(!isOverlay), transform.position, transform.scale.x * GRAPHICS::MESH_WIDTH, transform.scale.y * GRAPHICS::MESH_HEIGHT))
+				if (AEInputCheckTriggered(AEVK_LBUTTON))
+				{
+					clicked = true;
+				}
+				else if (clicked && AEInputCheckReleased(AEVK_LBUTTON))
 				{
 					onClick();
+					clicked = false;
 				}
-		
 			}
+			else if (clicked)
+				clicked = false;
 			
 		}
 
@@ -32,6 +42,8 @@ namespace StarBangBang
 
 		virtual void onClick()
 		{
+			SoundEvent(SFX::BUTTON_CLICK).SendEvent();
+
 			if (callback)
 				callback();
 
@@ -42,6 +54,7 @@ namespace StarBangBang
 		}
 
 	private:
+		bool clicked{ false };
 		bool isOverlay{ false };
 		void (*callback)(void) { nullptr };
 		std::vector<std::pair<ClassType&, void (ClassType::*)(void)>> callbackList;

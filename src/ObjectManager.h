@@ -13,7 +13,7 @@ namespace StarBangBang
 	{
 	public:
 		template <class T, class ...Args>
-		T& AddComponent(GameObject* gameObject, Args... args)
+		T& AddComponent(GameObject* gameObject, Args&&... args)
 		{
 			T* component = new T(gameObject, args...);
 			AddComponent(gameObject, component);

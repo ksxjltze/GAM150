@@ -12,8 +12,10 @@ namespace StarBangBang
 		float scale;
 		float scaleFactor;
 		void SetTarget(GameObject* obj);
+		void EnableZoom(bool zoom);
 		GameObject* GetTarget();
 	private:
+		bool isZoom{ false };
 		GameObject* target;
 
 	};

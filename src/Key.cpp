@@ -2,6 +2,7 @@
 #include "CollisionEvent.h"
 #include "Door.h"
 #include "globals.h"
+#include "SoundEvent.h"
 
 namespace StarBangBang
 {
@@ -17,6 +18,7 @@ namespace StarBangBang
 
 	void Key::Pickup()
 	{
+		SoundEvent(SFX::KEY_PICKUP).SendEvent();
 		gameObject->active = false;
 		collected = true;
 	}
@@ -29,9 +31,10 @@ namespace StarBangBang
 			if (colEvent.second->gameObject != gameObject)
 				return;
 
-			if (colEvent.first->gameObject->name != "Player")
-				return;
-			else
+			//if (colEvent.first->gameObject->name == "Player" || colEvent.first->gameObject->name == "Client")
+			//	Pickup();
+
+			if (colEvent.first->gameObject->name == "Client")
 				Pickup();
 
 		}
