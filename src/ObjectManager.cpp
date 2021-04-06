@@ -112,10 +112,11 @@ void StarBangBang::ObjectManager::DestroyGameObject(GameObject* gameObject)
 		auto component_it = componentList.begin();
 		while(component_it != componentList.end())
 		{
-			_Component* component = *component_it;
+			_Component*& component = *component_it;
 			if (component->gameObject == gameObject)
 			{
 				delete component;
+				component = nullptr;
 				component_it = componentList.erase(component_it);
 			}
 			else
@@ -221,7 +222,7 @@ void StarBangBang::ObjectManager::Init()
 	layerMap.clear();
 	for (int i = 0; i < NUM_MAX_LAYERS; ++i)
 	{
-		layerMap.insert({ i, std::vector<_Component*>() });
+		layerMap.insert({ i, std::vector<_Component**>() });
 	}
 
 	for (_Component* component : componentList)
@@ -229,9 +230,9 @@ void StarBangBang::ObjectManager::Init()
 		component->Start();
 	}
 
-	for (_Component* component : componentList)
+	for (_Component*& component : componentList)
 	{
-		layerMap.at(component->gameObject->layer).push_back(component);
+		layerMap.at(component->gameObject->layer).push_back(&component);
 	}
 
 }
@@ -240,9 +241,10 @@ void StarBangBang::ObjectManager::Draw()
 {
 	for (int i = 0; i < NUM_MAX_LAYERS; ++i)
 	{
-		for (_Component* component : layerMap.at(i))
+		for (_Component** component : layerMap.at(i))
 		{
-			component->Draw();
+			if (*component)
+				(*component)->Draw();
 		}
 
 	}

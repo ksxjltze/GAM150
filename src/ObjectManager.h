@@ -58,6 +58,6 @@ namespace StarBangBang
 		std::vector<GameObject*> gameObjectList;
 		std::vector<_Component*> componentList;
 
-		std::map<int, std::vector<_Component*>> layerMap;
+		std::map<int, std::vector<_Component**>> layerMap;
 	};
 }
