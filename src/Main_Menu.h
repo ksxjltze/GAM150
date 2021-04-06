@@ -28,6 +28,8 @@ namespace StarBangBang
 		void Settings();
 
 	private:
+		void HideMenu();
+
 		TileMap tilemap;
 		Sprite logo;
 		Sprite playbutton1;
@@ -48,6 +50,8 @@ namespace StarBangBang
 		GameObject* exitbutton_obj;
 		GameObject* tutorialbutton_obj;
 		GameObject* settingsObj{ nullptr };
+
+		GameObject* editorBtn{ nullptr };
 
 		bool windowOpen{ false };
 		std::queue<GameObject*> windowQueue;
