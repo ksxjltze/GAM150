@@ -382,7 +382,7 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\VisionCone.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Scripts\Guard</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -614,9 +614,6 @@
     <ClInclude Include="src\CaughtByCameraEvent.h">
       <Filter>Header Files\Events</Filter>
     </ClInclude>
-    <ClInclude Include="src\ConeVision.h">
-      <Filter>Header Files\Scripts</Filter>
-    </ClInclude>
     <ClInclude Include="src\CollisionTest.h">
       <Filter>Header Files\Test</Filter>
     </ClInclude>
@@ -659,14 +656,14 @@
     <ClInclude Include="src\Settings.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\VisionCone.h">
-      <Filter>Header Files</Filter>
-     </ClInclude>
     <ClInclude Include="src\Disappear.h">
       <Filter>Header Files\Scripts\Interactables</Filter>
     </ClInclude>
     <ClInclude Include="src\StealthWalk.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\VisionCone.h">
+      <Filter>Header Files\Scripts\Guard</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

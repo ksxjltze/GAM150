@@ -3,8 +3,6 @@
 #include "GraphicsManager.h"
 #include "Detector.h"
 
-
-
 void StarBangBang::VisionCone::Start()
 {
 	detector = gameObject->GetComponent<Detector>();
@@ -15,12 +13,9 @@ void StarBangBang::VisionCone::Start()
 
 void StarBangBang::VisionCone::BuildMesh()
 {
-
 	AEGfxMeshStart();
 	
 	AEVec2 forward{0.0f,1.0f};
-
-
 	float h_angle = angle * 0.5f * (PI/180) ;
 	float segment = h_angle / 20;
 	AEVec2 pt1{ 0,0 }, pt2{ 0,1 }, pt3{ 0,1 };
@@ -60,13 +55,11 @@ void StarBangBang::VisionCone::BuildMesh()
 		pt2 = pt3;
 	}
 
-
 	mesh = AEGfxMeshEnd();
 }
 
 void StarBangBang::VisionCone::Update()
 {
-	
 	// Set Rotation
 	AEMtx33 rot, scale;
 	AEMtx33RotDeg(&rot, detector->GetRotation());
@@ -80,39 +73,26 @@ void StarBangBang::VisionCone::Update()
 
 	AEMtx33 cameraMtx = GRAPHICS::GetCameraMatrix();
 	AEMtx33Concat(&trans, &cameraMtx, &trans);
-
 }
 
 void StarBangBang::VisionCone::Draw()
 {
-
-
-
 	AEGfxSetRenderMode(AE_GFX_RM_COLOR);
-
-	
-
-
 	AEGfxSetTransform(trans.m);
 
-	AEGfxSetTintColor(color.R(), color.G(), color.B(), color.A());
+	AEGfxSetTintColor(detector->GetColor().R(), detector->GetColor().G(), detector->GetColor().B(), detector->GetColor().A());
 
-	
 	// Set Transparency
 	AEGfxSetTransparency(0.5f);
 
 	// Drawing the mesh (list of triangles)
 	AEGfxMeshDraw(mesh, AE_GFX_MDM_TRIANGLES);
-
 }
 
 StarBangBang::VisionCone::VisionCone(GameObject* gameObject , float angle, float range, Color color)
 	: Component(gameObject), detector{ nullptr }, mesh{ nullptr }, trans{AEMtx33()}, angle{ angle }, range{ range }, color{ color }
 {
-
 }
-
-
 
 StarBangBang::VisionCone::~VisionCone()
 {

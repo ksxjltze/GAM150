@@ -18,8 +18,6 @@ namespace StarBangBang
 	public:
 		float angle;
 		float range;
-		Color color;
-		
 
 		void Start();
 		void BuildMesh();
