@@ -276,6 +276,13 @@ namespace StarBangBang
 		CreateDistraction(roomNum, 5, 47, vendingMachineSprite);
 
 		CreateVent(11, 12);
+		CreateVent(18, 7);
+		CreateVent(30, 10);
+		CreateVent(30, 16);
+		CreateVent(35, 13);
+		CreateVent(45, 13);
+		CreateVent(42, 4);
+
 
 		//Notification Text
 		objectManager.AddComponent<DebugText>(objectManager.NewGameObject(), fontId);
