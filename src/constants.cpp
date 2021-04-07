@@ -7,6 +7,9 @@ namespace StarBangBang
 		const std::string&& DETECTED = "sfxGuardAlert";
 		const std::string&& BUTTON_CLICK = "sfxBtnClick";
 		const std::string&& KEY_PICKUP = "sfxKeyPickup";
+		const std::string&& DOOR_OPEN = "sfxDoorOpen";
+		const std::string&& VENT_OPEN = "sfxVentOpen";
+		const std::string&& FOOTSTEPS = "sfxFootsteps";
 	}
 	
 	namespace STRING_TAGS
@@ -34,6 +37,9 @@ namespace StarBangBang
 			const std::string&& SFX_KEY_PICKUP_PATH		= SFX_PATH + "keys.wav";
 			const std::string&& SFX_BUTTON_CLICK_PATH	= SFX_PATH + "buttonSFX.wav";
 			const std::string&& SFX_DETECTED_PATH		= SFX_PATH + "erhg2.wav";
+			const std::string&& SFX_DOOR_OPEN_PATH		= SFX_PATH + "DoorSound.wav";
+			const std::string&& SFX_VENT_OPEN_PATH		= SFX_PATH + "VentSound.wav";
+			const std::string&& SFX_WALK_FOOTSTEPS_PATH	= SFX_PATH + "WalkingSound.wav";
 		}
 
 		namespace LEVELS

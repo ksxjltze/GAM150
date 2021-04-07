@@ -14,6 +14,9 @@ namespace StarBangBang
 		extern const std::string&& DETECTED;
 		extern const std::string&& BUTTON_CLICK;
 		extern const std::string&& KEY_PICKUP;
+		extern const std::string&& DOOR_OPEN;
+		extern const std::string&& VENT_OPEN;
+		extern const std::string&& FOOTSTEPS;
 	}
 
 	namespace KEYBIND
@@ -103,6 +106,9 @@ namespace StarBangBang
 			extern const std::string&& SFX_KEY_PICKUP_PATH;
 			extern const std::string&& SFX_BUTTON_CLICK_PATH;
 			extern const std::string&& SFX_DETECTED_PATH;
+			extern const std::string&& SFX_DOOR_OPEN_PATH;
+			extern const std::string&& SFX_VENT_OPEN_PATH;
+			extern const std::string&& SFX_WALK_FOOTSTEPS_PATH;
 		}
 
 		namespace LEVELS
