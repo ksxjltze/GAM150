@@ -31,6 +31,7 @@ namespace StarBangBang
 	float g_dt = 0;
 	s8 fontId = -1;
 	s8 fontId2 = -1;
+	static bool debug = false;
 }
 
 // ---------------------------------------------------------------------------
@@ -60,6 +61,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 
 #if defined(DEBUG) | defined(_DEBUG)
 	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
+	StarBangBang::debug = true;
 #endif
 
 	UNREFERENCED_PARAMETER(hPrevInstance);
@@ -77,13 +79,11 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 	FMOD::Sound* guardAlert = nullptr;
 	FMOD::Sound* music = nullptr;
 
-	audioEngine.CreateSound(&sound, "./Resources/drumloop.wav"); //CHANGE THIS (copyright and stuff)
 	audioEngine.CreateSound(&btnSound, RESOURCES::SFX::SFX_BUTTON_CLICK_PATH);
 	audioEngine.CreateSound(&keyPickupSound, RESOURCES::SFX::SFX_KEY_PICKUP_PATH);
 	audioEngine.CreateSound(&guardAlert, RESOURCES::SFX::SFX_DETECTED_PATH);
 	audioEngine.CreateSound(&music, "./Resources/Music/bgm.wav");
 
-	audioEngine.AddSound("Test", sound); 
 	audioEngine.AddSound(SFX::BUTTON_CLICK, btnSound);
 	audioEngine.AddSound(SFX::KEY_PICKUP, keyPickupSound);
 	audioEngine.AddSound(SFX::DETECTED, guardAlert);
@@ -131,7 +131,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 
 
 	//// Using custom window procedure
-	AESysInit(hInstance, nCmdShow, (s32)GRAPHICS::TARGET_WINDOW_WIDTH, (s32)GRAPHICS::TARGET_WINDOW_HEIGHT, 1, 60, true, NULL);
+	AESysInit(hInstance, nCmdShow, (s32)GRAPHICS::TARGET_WINDOW_WIDTH, (s32)GRAPHICS::TARGET_WINDOW_HEIGHT, debug, 60, true, NULL);
 	StarBangBang::InitBasicMesh();
 	
 	//Full screen
