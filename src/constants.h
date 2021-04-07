@@ -94,6 +94,7 @@ namespace StarBangBang
 		extern const std::string&& PROTOTYPE_SPRITE_GRASS_PATH;
 		extern const std::string&& PROTOTYPE_SPRITE_STONE_PATH;
 		extern const std::string&& SPRITE_PLAYER_PATH;
+		extern const std::string&& CREDITS_PATH;
 
 		namespace SFX
 		{

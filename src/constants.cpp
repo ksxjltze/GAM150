@@ -65,6 +65,7 @@ namespace StarBangBang
 		const std::string&& TUTORIAL_BUTTON_PATH		= MAINMENU_PATH + "TutorialButton.png";
 		const std::string&& FULLSCREEN_BUTTON_PATH		= MAINMENU_PATH + "FullScreenButton.png";
 		const std::string&& MUTE_BUTTON_PATH			= MAINMENU_PATH + "MuteButton.png";
+		const std::string&& CREDITS_PATH				= ROOT_PATH + "credits.png";
 
 		//Character sprites
 		const std::string&& CAPTAINSTEALTH_F1_PATH			= CHARACTERS_PATH + "CaptainStealthForward1.png";
