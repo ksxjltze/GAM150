@@ -2,6 +2,7 @@
 #include "CollisionManager.h"
 #include "GraphicsManager.h"
 #include "Detector.h"
+#include "constants.h"
 
 void StarBangBang::VisionCone::Start()
 {
@@ -9,7 +10,7 @@ void StarBangBang::VisionCone::Start()
 
 	assert(detector);
 	BuildMesh();
-	gameObject->SetLayer(1);
+	gameObject->SetLayer(LAYER::FOREGROUND);
 }
 
 void StarBangBang::VisionCone::BuildMesh()

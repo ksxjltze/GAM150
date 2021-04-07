@@ -227,6 +227,7 @@ namespace StarBangBang
 		GameObject* UI = objectManager.NewGameObject();
 		UIComponent& UICom = objectManager.AddComponent<UIComponent>(UI, stealth_icon,graphicsManager);
 		UICom.rescale = false;
+		UICom.gameObject->SetLayer(LAYER::UI);
 		UICom.SetColor(Color{1.0f,1.0f,1.0f,0.7f});
 		Text& uiText = objectManager.AddComponent<Text>(objectManager.NewGameObject(), "Q", fontId, White, 1.0f, false);
 		uiText.gameObject->transform.position = { 0.05f, 0.28f };
