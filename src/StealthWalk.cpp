@@ -14,14 +14,12 @@ namespace StarBangBang
 	StealthWalk::StealthWalk(GameObject* gameObject) : Script(gameObject), 
 		image{ nullptr }, cd_txt{nullptr}, timer{ 0.0f }, cooldown{ 0.0f }
 	{
-
+		icon_image = nullptr;
 	}
 
 	void StealthWalk::Start()
 	{
-
-	
-
+		
 		cd_txt = objMgr->Find("Stealth_Txt")->GetComponent<Text>();
 		assert(cd_txt);
 

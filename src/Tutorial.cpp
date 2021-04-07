@@ -7,18 +7,21 @@
 #include "PrimaryMovementController.h"
 #include "PlayerAnimation.h"
 #include "MovementManager.h"
+#include "Disappear.h"
+#include "CaptainStealth.h"
 
 static int animation_counter = 0;
 static float app_time = 0.0f;
 
 using namespace StarBangBang;
-Sprite eyeSprite;
+Sprite stealth_icon;
 Sprite playerImageR1;
 Sprite playerImageR2;
 Sprite playerImageR3;
 Sprite playerImageL1;
 Sprite playerImageL2;
 Sprite playerImageL3;
+Sprite vent_close;
 
 static StarBangBang::AnimationSprites animSprites;
 
@@ -40,10 +43,11 @@ void Tutorial::Load()
 	movementSprite  = graphicsManager.CreateSprite(RESOURCES::ARROWKEYS_PATH);
 	tabSprite       = graphicsManager.CreateSprite(RESOURCES::TABBUTTON_PATH);
 	ventSprite		= graphicsManager.CreateSprite(RESOURCES::VENT_OPEN_PATH);
+	vent_close = graphicsManager.CreateSprite(RESOURCES::VENT_CLOSE_PATH);
 	distractSprite  = graphicsManager.CreateSprite(RESOURCES::VENDING_LEFT_PATH);
 	distractSprite2 = graphicsManager.CreateSprite(RESOURCES::COMPUTER_PATH);
 	backSprite      = graphicsManager.CreateSprite(RESOURCES::BACK_BUTTON_PATH);
-	eyeSprite		= graphicsManager.CreateSprite(RESOURCES::EYE_SPRITE_PATH);
+	stealth_icon		= graphicsManager.CreateSprite(RESOURCES::EYE_SPRITE_PATH);
 
 	animSprites.Load(graphicsManager);
 }
@@ -56,20 +60,23 @@ void Tutorial::Init()
 	obj->transform.scale = { 0.00001f, 0.00001f };
 	objectManager.AddImage(obj, graphicsManager.CreateSprite(RESOURCES::BIN_PATH));
 
-	player = objectManager.NewGameObject();
-	player2 = objectManager.NewGameObject();
-	player->transform.scale = { 0.7f, 0.7f };
-	player->transform.position = { -100.0f, 0.0f};
-	player2->transform.scale = { 0.7f, 0.7f };
-	player2->transform.position = { 100.0f, 0.0f };
-	objectManager.AddImage(player, graphicsManager.CreateSprite(RESOURCES::CAPTAINSTEALTH_F1_PATH));
-	objectManager.AddImage(player2, graphicsManager.CreateSprite(RESOURCES::PRISONER_F1_PATH));
-	objectManager.AddComponent<RigidBody>(player);
-	objectManager.AddComponent<PrimaryMovementController>(player);
-	objectManager.AddComponent<CameraComponent>(player);
-	objectManager.AddComponent<RigidBody>(player2);
-	objectManager.AddComponent<PrimaryMovementController>(player2);
-	objectManager.AddComponent<CameraComponent>(player2);
+	CaptainStealth::SpawnClient(objectManager, player2, graphicsManager.CreateSprite(RESOURCES::PRISONER_F1_PATH));
+	CaptainStealth::SpawnPlayer(objectManager, player, graphicsManager.CreateSprite(RESOURCES::CAPTAINSTEALTH_F1_PATH));
+
+	//player = objectManager.NewGameObject();
+	//player2 = objectManager.NewGameObject();
+	//player->transform.scale = { 0.7f, 0.7f };
+	//player->transform.position = { -100.0f, 0.0f};
+	//player2->transform.scale = { 0.7f, 0.7f };
+	//player2->transform.position = { 100.0f, 0.0f };
+	//objectManager.AddImage(player, graphicsManager.CreateSprite(RESOURCES::CAPTAINSTEALTH_F1_PATH));
+	//objectManager.AddImage(player2, graphicsManager.CreateSprite(RESOURCES::PRISONER_F1_PATH));
+	//objectManager.AddComponent<RigidBody>(player);
+	//objectManager.AddComponent<PrimaryMovementController>(player);
+	//objectManager.AddComponent<CameraComponent>(player);
+	//objectManager.AddComponent<RigidBody>(player2);
+	//objectManager.AddComponent<PrimaryMovementController>(player2);
+	//objectManager.AddComponent<CameraComponent>(player2);
 	MovementManager& movementMgr = objectManager.AddComponent<MovementManager>(player);
 	movementMgr.AddController(player);
 	movementMgr.AddController(player2);
@@ -103,13 +110,27 @@ void Tutorial::Init()
 	NewTextObject({ -150, -100 }, "Use [TAB] to change characters", 0.3f);
 
 	GameObject* UI = objectManager.NewGameObject();
-	objectManager.AddComponent<ImageComponent>(UI, eyeSprite);
+	objectManager.AddComponent<ImageComponent>(UI, stealth_icon);
 	UI->transform.position = { -240, -170 };
+
+	UI = objectManager.NewGameObject();
 	NewTextObject({ -240, -210 }, "Use [Q] to enter stealth mode", 0.3f);
+	UIComponent& UICom = objectManager.AddComponent<UIComponent>(UI, stealth_icon, graphicsManager);
+	UICom.rescale = false;
+	UICom.gameObject->SetLayer(LAYER::UI);
+	UICom.SetColor(Color{ 1.0f,1.0f,1.0f,0.7f });
+	Text& uiText = objectManager.AddComponent<Text>(objectManager.NewGameObject(), "Q", fontId, White, 1.0f, false);
+	uiText.gameObject->transform.position = { 0.05f, 0.28f };
+	uiText.SetOffset({ -1.0f, -1.0f });
+	UI->transform.position = { -AEGetWindowWidth() / 2 + 0.05f * AEGetWindowWidth(), -AEGetWindowHeight() / 2 + 0.1f * AEGetWindowHeight() };
+	uiText.gameObject->name = "Stealth_Txt";
+	UI->name = "Stealth_UI";
 
 	NewTextObject({ 230, 0 }, "<INTERACTABLES>", 1.f);
 	ImageComponent* ventImg = objectManager.AddImage(objectManager.NewGameObject(), ventSprite);
 	ventImg->gameObject->SetPos({ 130 + offset, -50 });
+	objectManager.AddCollider(ventImg->gameObject, true).isTrigger = true;
+	objectManager.AddComponent<Disappear>(ventImg->gameObject, ventSprite, vent_close);
 	NewTextObject({ 120 + offset, -100 }, "Enter vents to hide from guards", 0.3f);
 
 	ImageComponent* distractImg = objectManager.AddImage(objectManager.NewGameObject(), distractSprite);

@@ -18,6 +18,7 @@ StarBangBang::PlayerScript::PlayerScript(GameObject* obj) : Script(obj)
 	playerEscaped = false;
 	clientEscaped = false;
 	stealth = nullptr;
+	text = nullptr;
 }
 void StarBangBang::PlayerScript::Start()
 {
