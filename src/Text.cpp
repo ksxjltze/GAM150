@@ -1,17 +1,18 @@
 #include "Text.h"
 #include "GraphicsManager.h"
+#include "constants.h"
 
 using namespace StarBangBang;
 
 
 Text::Text(GameObject* gameObject) : Component(gameObject), textbox{ TextBox() }, fontID{ -1 }, text{ std::string("HELO") }, scale{ 1.0f }
 {
-
+	gameObject->SetLayer(LAYER::UI);
 }
 
 StarBangBang::Text::Text(GameObject* gameObject, const std::string& s, s8 fontId, Color c, float scale, bool isWorld) : Component(gameObject), textbox{ TextBox() }, fontID{ fontId }, text{ s }, scale{ scale }, color{ c }, isWorld{ isWorld }
 {
-
+	gameObject->SetLayer(LAYER::UI);
 }
 
 void StarBangBang::Text::SetOffset(AEVec2 newOffset)
@@ -30,9 +31,14 @@ void StarBangBang::Text::SetTextBox(float width, float height)
 	textbox.height = height;
 }
 
-void StarBangBang::Text::SetScale(float scale)
+void StarBangBang::Text::SetScale(float newScale)
 {
-	this->scale = scale;
+	scale = newScale;
+}
+
+void StarBangBang::Text::Start()
+{
+
 }
 
 void Text::Draw()

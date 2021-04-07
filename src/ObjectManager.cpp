@@ -5,7 +5,7 @@
 
 namespace StarBangBang
 {
-	static const int NUM_MAX_LAYERS = 2;
+	static const int NUM_MAX_LAYERS = 3;
 }
 
 StarBangBang::GameObject* StarBangBang::ObjectManager::Find(const std::string& name)

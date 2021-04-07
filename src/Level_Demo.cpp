@@ -227,6 +227,7 @@ namespace StarBangBang
 		GameObject* UI = objectManager.NewGameObject();
 		UIComponent& UICom = objectManager.AddComponent<UIComponent>(UI, stealth_icon,graphicsManager);
 		UICom.rescale = false;
+		UICom.gameObject->SetLayer(LAYER::UI);
 		UICom.SetColor(Color{1.0f,1.0f,1.0f,0.7f});
 		Text& uiText = objectManager.AddComponent<Text>(objectManager.NewGameObject(), "Q", fontId, White, 1.0f, false);
 		uiText.gameObject->transform.position = { 0.05f, 0.28f };
@@ -294,7 +295,32 @@ namespace StarBangBang
 		CreateDistraction(roomNum, 16, 27, vendingMachineSprite);
 		CreateDistraction(roomNum, 5, 47, vendingMachineSprite);
 
+		//room1
 		CreateVent(11, 12);
+		CreateVent(18, 7);
+
+		//room 2
+		CreateVent(30, 10);
+		//CreateVent(30, 16);
+		//CreateVent(35, 13);
+		CreateVent(45, 13);
+		CreateVent(42, 4);
+
+		//room 3
+		CreateVent(21, 26);
+		CreateVent(40, 24);
+		CreateVent(45, 39);
+		CreateVent(35, 36);
+		CreateVent(26, 43);
+		//CreateVent(41, 43);
+
+		//room 4
+		CreateVent(15, 41);
+		CreateVent(15, 33);
+		CreateVent(8, 20);
+		//CreateVent(7, 37);
+		CreateVent(7, 45);
+		//CreateVent(6, 26);
 
 		//Notification Text
 		objectManager.AddComponent<DebugText>(objectManager.NewGameObject(), fontId);
@@ -501,10 +527,10 @@ namespace StarBangBang
 		}
 
 
-		if (AEInputCheckTriggered(VK_SPACE))
-		{
-			MessageBus::Notify({ EventId::PRINT_TEXT, std::string("Find the Exit!") });
-		}
+		//if (AEInputCheckTriggered(VK_SPACE))
+		//{
+		//	MessageBus::Notify({ EventId::PRINT_TEXT, std::string("Find the Exit!") });
+		//}
 
 		PlayerScript* playerScript = player->GetComponent<PlayerScript>();
 		//if (AEInputCheckTriggered(AEVK_G))

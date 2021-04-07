@@ -1,3 +1,11 @@
+/*****************************************************************//**
+ * \file   GraphicsManager.cpp
+ * \brief  Graphics
+ * 
+ * \author Lee Jia Keat
+ * \date   April 2021
+ *********************************************************************/
+
 #include "GraphicsManager.h"
 #include "GraphicsManager.h"
 #include "constants.h"
@@ -14,6 +22,7 @@ namespace StarBangBang
 		static AEVec2 screenScaleRatio = {  TARGET_WINDOW_WIDTH / RESOLUTION_X, TARGET_WINDOW_HEIGHT / RESOLUTION_Y };
 	}
 
+	
 	AEGfxTexture* StarBangBang::GraphicsManager::LoadTexture(const char* filePath)
 	{
 		AEGfxTexture* texture = AEGfxTextureLoad(filePath);

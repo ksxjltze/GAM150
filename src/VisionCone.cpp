@@ -2,6 +2,7 @@
 #include "CollisionManager.h"
 #include "GraphicsManager.h"
 #include "Detector.h"
+#include "constants.h"
 
 void StarBangBang::VisionCone::Start()
 {
@@ -9,13 +10,14 @@ void StarBangBang::VisionCone::Start()
 
 	assert(detector);
 	BuildMesh();
+	gameObject->SetLayer(LAYER::FOREGROUND);
 }
 
 void StarBangBang::VisionCone::BuildMesh()
 {
 	AEGfxMeshStart();
 	
-	AEVec2 forward{0.0f,1.0f};
+	AEVec2 forward{0.0f, 1.0f};
 	float h_angle = angle * 0.5f * (PI/180) ;
 	AEVec2 pt1{ 0,0 }, pt2{ 0,1 }, pt3{ 0,1 };
 

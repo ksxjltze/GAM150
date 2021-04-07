@@ -25,6 +25,7 @@ namespace StarBangBang
 		void SetText(const std::string& s);
 		void SetTextBox(float width, float height);
 		void SetScale(float scale);
+		void Start();
 		void Draw();
 		void SetColor(Color c);
 	private:
