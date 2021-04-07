@@ -24,7 +24,7 @@ namespace StarBangBang
 
 	void Door::Update()
 	{
-		Debug_Disable();
+		//Debug_Disable();
 
 		std::set<Key*> keyList = keys;
 		if (parent)

@@ -316,7 +316,7 @@ namespace StarBangBang
 
 		//TEST
 		//player->transform.position = tilemap.GetPositionAtIndex(5, 34);
-		player2->transform.position = tilemap.GetPositionAtIndex(5, 34);
+		//player2->transform.position = tilemap.GetPositionAtIndex(6, 34);
 
 		pauseMenu.settingsObj = objectManager.NewGameObject();
 		objectManager.AddComponent<SettingsMenu>(pauseMenu.settingsObj, graphicsManager).Init();

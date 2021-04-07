@@ -89,7 +89,9 @@ void StarBangBang::MovementManager::RemoveController(GameObject* obj)
 		{
 			(*it)->active = false;
 			controllers.erase(it);
-			SetActiveController(controllers.front()->gameObject);
+
+			if (!controllers.empty())
+				SetActiveController(controllers.front()->gameObject);
 			return;
 		}
 	}

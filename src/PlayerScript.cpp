@@ -93,11 +93,17 @@ void StarBangBang::PlayerScript::onNotify(Event e)
 			if (obj->name == "Player")
 			{
 				objMgr->Find("MovementManager")->GetComponent<MovementManager>()->RemoveController(gameObject);
+				BoxCollider* collider = gameObject->GetComponent<BoxCollider>();
+				collider->isTrigger = true;
+				collider->isStatic = true;
 				playerEscaped = true;
 			}
 			else if (obj->name == "Client")
 			{
 				objMgr->Find("MovementManager")->GetComponent<MovementManager>()->RemoveController(client);
+				BoxCollider* collider = client->GetComponent<BoxCollider>();
+				collider->isTrigger = true;
+				collider->isStatic = true;
 				clientEscaped = true;
 			}
 		}
