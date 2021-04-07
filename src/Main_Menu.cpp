@@ -101,10 +101,17 @@ namespace StarBangBang
 		editorBtn->transform.position = { (float)AEGetWindowWidth() * 0.35f, (float)AEGetWindowHeight() / 8, };
 
 		objectManager.AddComponent<Click<Main_Menu>>(editorBtn).setCallback(*this, &Main_Menu::LoadEditor);
+		frameSkip = true;
 	}
 
 	void StarBangBang::Main_Menu::Update()
 	{
+		if (frameSkip)
+		{
+			frameSkip = false;
+			return;
+		}
+
 		if (GRAPHICS::IsFullscreen())
 			GRAPHICS::SetZoom(1.5f);
 		else
