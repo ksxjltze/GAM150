@@ -40,14 +40,14 @@ namespace StarBangBang
 	{
 		if (gameObject->active)
 		{
-			AEGfxSetTransparency(transparency);
+			//AEGfxSetTransparency(transparency);
 
 			AEVec2 scale = gameObject->transform.scale;
 
 			if (sprite.texture)
-				GRAPHICS::DrawOverlay(gfxMgr.GetMesh(), sprite.texture, scale, gameObject->transform.position, sprite.color, rescale);
+				GRAPHICS::DrawOverlay(gfxMgr.GetMesh(), sprite.texture, scale, gameObject->transform.position, sprite.color, rescale, transparency);
 			else
-				GRAPHICS::DrawOverlay(gfxMgr.GetMesh(), nullptr, scale, gameObject->transform.position, sprite.color, rescale);
+				GRAPHICS::DrawOverlay(gfxMgr.GetMesh(), nullptr, scale, gameObject->transform.position, sprite.color, rescale, transparency);
 			AEGfxSetTransparency(1.0f);
 
 		}

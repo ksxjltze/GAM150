@@ -271,7 +271,7 @@ namespace StarBangBang
 		AEGfxSetTransparency(1.0f);
 	}
 
-	void GRAPHICS::DrawOverlay(AEGfxVertexList* mesh, AEGfxTexture* texture, AEVec2 scale, AEVec2 pos, Color c, bool rescale)
+	void GRAPHICS::DrawOverlay(AEGfxVertexList* mesh, AEGfxTexture* texture, AEVec2 scale, AEVec2 pos, Color c, bool rescale, float transparency)
 	{
 		AEGfxSetBlendMode(AE_GFX_BM_BLEND);
 
@@ -297,8 +297,9 @@ namespace StarBangBang
 		
 		AEGfxSetTransform(trans.m);
 		AEGfxSetTintColor(c.R(), c.G(), c.B(), c.A());
-		AEGfxSetTransparency(1.0f);
+		AEGfxSetTransparency(transparency);
 		AEGfxMeshDraw(mesh, AE_GFX_MDM_TRIANGLES);
+		AEGfxSetTransparency(1.0f);
 	}
 
 	void GRAPHICS::SetBackgroundColor(Color c)
