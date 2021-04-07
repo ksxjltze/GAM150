@@ -1,4 +1,5 @@
 #include "Door.h"
+#include "SoundEvent.h"
 
 namespace StarBangBang
 {
@@ -18,6 +19,7 @@ namespace StarBangBang
 		{
 			k->gameObject->active = true;
 		}
+		open = false;
 	}
 
 	void Door::Update()
@@ -36,7 +38,17 @@ namespace StarBangBang
 				return;
 		}
 
-		gameObject->active = false;
+		if (!open)
+		{
+			gameObject->active = false;
+			open = true;
+			
+			if (!parent)
+			{
+				SoundEvent doorOpenSound(SFX::DOOR_OPEN);
+				doorOpenSound.SendEvent();
+			}
+		}
 
 	}
 
