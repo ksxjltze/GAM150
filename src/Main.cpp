@@ -94,7 +94,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 	audioEngine.AddSound(SFX::KEY_PICKUP, keyPickupSound);
 	audioEngine.AddSound(SFX::DETECTED, guardAlert);
 	audioEngine.AddSound(SFX::DOOR_OPEN, doorSound);
-	audioEngine.AddSound(SFX::VENT_OPEN, ventSound);
+	audioEngine.AddSound(SFX::VENT_CLOSE, ventSound);
 	audioEngine.AddSound(SFX::FOOTSTEPS, walkSound);
 	audioEngine.AddSound("BGM", music); 
 

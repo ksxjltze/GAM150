@@ -8,7 +8,7 @@ namespace StarBangBang
 		const std::string&& BUTTON_CLICK = "sfxBtnClick";
 		const std::string&& KEY_PICKUP = "sfxKeyPickup";
 		const std::string&& DOOR_OPEN = "sfxDoorOpen";
-		const std::string&& VENT_OPEN = "sfxVentOpen";
+		const std::string&& VENT_CLOSE = "sfxVentOpen";
 		const std::string&& FOOTSTEPS = "sfxFootsteps";
 	}
 	

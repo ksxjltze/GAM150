@@ -29,8 +29,6 @@ void StarBangBang::Disappear::Update()
 	if (!hidden && ventClosed)
 	{
 		gameObject->GetComponent<ImageComponent>()->SetSprite(ventOpen);
-		SoundEvent eventVentOpen(SFX::VENT_OPEN);
-		eventVentOpen.SendEvent();
 		ventClosed = false;
 	}
 
@@ -52,6 +50,11 @@ void StarBangBang::Disappear::onNotify(Event e)
 			{
 				if (data.first->gameObject->name == "Player" || data.first->gameObject->name == "Client")
 				{
+					if (!ventClosed)
+					{
+						SoundEvent eventVentOpen(SFX::VENT_CLOSE);
+						eventVentOpen.SendEvent();
+					}
 					hidden = true;
 					ventClosed = true;
 					data.second->gameObject->GetComponent<ImageComponent>()->SetSprite(ventClose);

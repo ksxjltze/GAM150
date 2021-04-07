@@ -15,7 +15,7 @@ namespace StarBangBang
 		extern const std::string&& BUTTON_CLICK;
 		extern const std::string&& KEY_PICKUP;
 		extern const std::string&& DOOR_OPEN;
-		extern const std::string&& VENT_OPEN;
+		extern const std::string&& VENT_CLOSE;
 		extern const std::string&& FOOTSTEPS;
 	}
 
