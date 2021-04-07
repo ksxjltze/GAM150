@@ -5,6 +5,8 @@
 #include "Click.h"
 #include "UIComponent.h"
 #include "PrimaryMovementController.h"
+#include "PlayerAnimation.h"
+#include "MovementManager.h"
 
 static int animation_counter = 0;
 static float app_time = 0.0f;
@@ -17,6 +19,8 @@ Sprite playerImageR3;
 Sprite playerImageL1;
 Sprite playerImageL2;
 Sprite playerImageL3;
+
+static StarBangBang::AnimationSprites animSprites;
 
 void Tutorial::NewTextObject(AEVec2 position, const std::string& s, float scale)
 {
@@ -41,15 +45,7 @@ void Tutorial::Load()
 	backSprite      = graphicsManager.CreateSprite(RESOURCES::BACK_BUTTON_PATH);
 	eyeSprite		= graphicsManager.CreateSprite(RESOURCES::EYE_SPRITE_PATH);
 
-	//right animation player 1
-	playerImageR1 = graphicsManager.CreateSprite(RESOURCES::CAPTAINSTEALTH_R1_PATH);
-	playerImageR2 = graphicsManager.CreateSprite(RESOURCES::CAPTAINSTEALTH_R2_PATH);
-	playerImageR3 = graphicsManager.CreateSprite(RESOURCES::CAPTAINSTEALTH_R3_PATH);
-
-	//left animation for player 1 
-	playerImageL1 = graphicsManager.CreateSprite(RESOURCES::CAPTAINSTEALTH_L1_PATH);
-	playerImageL2 = graphicsManager.CreateSprite(RESOURCES::CAPTAINSTEALTH_L2_PATH);
-	playerImageL3 = graphicsManager.CreateSprite(RESOURCES::CAPTAINSTEALTH_L3_PATH);
+	animSprites.Load(graphicsManager);
 }
 
 void Tutorial::Init()
@@ -61,11 +57,22 @@ void Tutorial::Init()
 	objectManager.AddImage(obj, graphicsManager.CreateSprite(RESOURCES::BIN_PATH));
 
 	player = objectManager.NewGameObject();
-	obj->transform.scale = { 0.7f, 0.7f };
+	player2 = objectManager.NewGameObject();
+	player->transform.scale = { 0.7f, 0.7f };
+	player->transform.position = { -100.0f, 0.0f};
+	player2->transform.scale = { 0.7f, 0.7f };
+	player2->transform.position = { 100.0f, 0.0f };
 	objectManager.AddImage(player, graphicsManager.CreateSprite(RESOURCES::CAPTAINSTEALTH_F1_PATH));
+	objectManager.AddImage(player2, graphicsManager.CreateSprite(RESOURCES::PRISONER_F1_PATH));
 	objectManager.AddComponent<RigidBody>(player);
 	objectManager.AddComponent<PrimaryMovementController>(player);
 	objectManager.AddComponent<CameraComponent>(player);
+	objectManager.AddComponent<RigidBody>(player2);
+	objectManager.AddComponent<PrimaryMovementController>(player2);
+	objectManager.AddComponent<CameraComponent>(player2);
+	MovementManager& movementMgr = objectManager.AddComponent<MovementManager>(player);
+	movementMgr.AddController(player);
+	movementMgr.AddController(player2);
 
 	float spacing = 100.f;
 	float offset = 0.f;
@@ -121,7 +128,61 @@ void Tutorial::Init()
 
 void Tutorial::Update()
 {
-	
+	if (AEInputCheckTriggered(AEVK_ESCAPE))
+	{
+		gameStateManager.SetNextGameState(MAIN_MENU);
+		return;
+	}
+
+	PlayerAnimator::PlayerAnimation(dir, character, player, player2, animSprites, animation_counter);
+	//this is to switch characters
+	if (AEInputCheckTriggered(AEVK_TAB))
+	{
+		if (character == current_char::fei_ge)
+		{
+			character = current_char::prisoner;
+		}
+
+		else if (character == current_char::prisoner)
+		{
+			character = current_char::fei_ge;
+		}
+	}
+
+	if (!(AEInputCheckCurr(KEYBIND::MOVEMENT_UP) || AEInputCheckCurr(KEYBIND::MOVEMENT_DOWN) ||
+		AEInputCheckCurr(KEYBIND::MOVEMENT_LEFT) || AEInputCheckCurr(KEYBIND::MOVEMENT_RIGHT) ||
+		AEInputCheckCurr(KEYBIND::MOVEMENT_UP_ALT) || AEInputCheckCurr(KEYBIND::MOVEMENT_DOWN_ALT) ||
+		AEInputCheckCurr(KEYBIND::MOVEMENT_LEFT_ALT) || AEInputCheckCurr(KEYBIND::MOVEMENT_RIGHT_ALT)))
+	{
+		animation_counter = 3;
+	}
+
+	if (AEInputCheckCurr(KEYBIND::MOVEMENT_RIGHT) || AEInputCheckCurr(KEYBIND::MOVEMENT_RIGHT_ALT))
+	{
+		dir = direction::right;
+		app_time = app_time + g_dt;
+	}
+	else if (AEInputCheckCurr(KEYBIND::MOVEMENT_LEFT) || AEInputCheckCurr(KEYBIND::MOVEMENT_LEFT_ALT))
+	{
+		dir = direction::left;
+		app_time = app_time + g_dt;
+	}
+
+	else if (AEInputCheckCurr(KEYBIND::MOVEMENT_UP) ||
+		AEInputCheckCurr(KEYBIND::MOVEMENT_DOWN) ||
+		AEInputCheckCurr(KEYBIND::MOVEMENT_UP_ALT) ||
+		AEInputCheckCurr(KEYBIND::MOVEMENT_DOWN_ALT))
+	{
+		app_time = app_time + g_dt;
+	}
+
+	if (app_time >= 0.1f)
+	{
+		animation_counter++;
+		app_time = 0.0f;
+		if (animation_counter > 2) animation_counter = 0;
+	}
+
 	Scene::Update();
 }
 

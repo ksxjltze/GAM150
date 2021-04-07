@@ -20,6 +20,7 @@ namespace StarBangBang
 		GameObject* cameraObject{ nullptr };
 		GameObject* end{ nullptr };
 		GameObject* player{ nullptr };
+		GameObject* player2{ nullptr };
 		void MainMenu();
 
 		direction dir;
