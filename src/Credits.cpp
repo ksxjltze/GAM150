@@ -83,6 +83,7 @@ namespace StarBangBang
 		NewTextObject({ pos.x, pos.y += spacing }, "BENJAMIN ELLINGER", 0.6f);
 		NewTextObject({ pos.x, pos.y += spacing }, "MELVIN GONSALVEZ", 0.6f);
 
+		spacing += 10;
 		NewTextObject({ pos.x, pos.y += section_spacing }, "WWW.DIGIPEN.EDU", 0.8f);
 		NewTextObject({ pos.x, pos.y += spacing }, "All content 2021 DigiPen Institute of Technology Singapore.", 0.8f);
 		NewTextObject({ pos.x, pos.y += spacing }, "All Rights Reserved", 0.8f);
