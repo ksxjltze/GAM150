@@ -50,6 +50,7 @@ namespace StarBangBang
 		const std::string&& PROTOTYPE_SPRITE_GRASS_PATH = ROOT_PATH + "grass.png";
 		const std::string&& PROTOTYPE_SPRITE_STONE_PATH = ROOT_PATH + "stone.png";
 		const std::string&& SPRITE_PLAYER_PATH = ROOT_PATH + "player.png";
+		const std::string&& EYE_SPRITE_PATH = ROOT_PATH + "stealth_icon.png";
 
 		//main menu buttons sprites
 		const std::string&& PLAY1_BUTTON_PATH			= MAINMENU_PATH + "Play1.png";

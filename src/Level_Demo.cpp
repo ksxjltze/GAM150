@@ -187,7 +187,7 @@ namespace StarBangBang
 		settingsBtnSprite = graphicsManager.CreateSprite(RESOURCES::SETTING1_BUTTON_PATH);
 
 
-		stealth_icon = graphicsManager.CreateSprite("Resources/stealth_icon.png");
+		stealth_icon = graphicsManager.CreateSprite(RESOURCES::EYE_SPRITE_PATH);
 	}
 
 	//Initialization of game objects, components and scripts.

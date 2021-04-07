@@ -6,6 +6,7 @@
 #include "UIComponent.h"
 
 using namespace StarBangBang;
+Sprite eyeSprite;
 
 void Tutorial::NewTextObject(AEVec2 position, const std::string& s, float scale)
 {
@@ -22,10 +23,11 @@ void Tutorial::Load()
 	tutorialSprite  = graphicsManager.CreateSprite(RESOURCES::TUTORIAL_BUTTON_PATH);
 	movementSprite  = graphicsManager.CreateSprite(RESOURCES::ARROWKEYS_PATH);
 	tabSprite       = graphicsManager.CreateSprite(RESOURCES::TABBUTTON_PATH);
-	ventSprite = graphicsManager.CreateSprite(RESOURCES::VENT_OPEN_PATH);
+	ventSprite		= graphicsManager.CreateSprite(RESOURCES::VENT_OPEN_PATH);
 	distractSprite  = graphicsManager.CreateSprite(RESOURCES::VENDING_LEFT_PATH);
 	distractSprite2 = graphicsManager.CreateSprite(RESOURCES::COMPUTER_PATH);
 	backSprite      = graphicsManager.CreateSprite(RESOURCES::BACK_BUTTON_PATH);
+	eyeSprite		= graphicsManager.CreateSprite(RESOURCES::EYE_SPRITE_PATH);
 }
 
 void Tutorial::Init()
@@ -37,8 +39,8 @@ void Tutorial::Init()
 	float spacing = 100.f;
 	float offset = 0.f;
 
-	if (GRAPHICS::IsFullscreen())
-		offset = spacing;
+	//if (GRAPHICS::IsFullscreen())
+	offset = spacing;
 
 	AEVec2 pos = { 0.0f, 120.0f };
 
@@ -63,11 +65,9 @@ void Tutorial::Init()
 	NewTextObject({ -150, -100 }, "Use [TAB] to change characters", 0.3f);
 
 	GameObject* UI = objectManager.NewGameObject();
-	objectManager.AddComponent<UIComponent>(UI, graphicsManager).rescale = false;
-	UI->transform.position = { -200, -180 };
-	Text& uiText = objectManager.AddComponent<Text>(objectManager.NewGameObject(), "Q", fontId, Black, 1.0f, false);
-	uiText.gameObject->transform.position = { 0.5f, -0.6f };
-	uiText.SetOffset({ -1.0f, 0 });
+	objectManager.AddComponent<UIComponent>(UI, eyeSprite, graphicsManager);
+	UI->transform.position = { -500, -340 };
+	UI->transform.scale = { 2.0f, 2.0f};
 	NewTextObject({ -240, -210 }, "Use [Q] to enter stealth mode", 0.3f);
 
 	NewTextObject({ 230, 0 }, "<INTERACTABLES>", 1.f);
