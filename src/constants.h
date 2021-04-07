@@ -16,6 +16,7 @@ namespace StarBangBang
 		extern const std::string&& KEY_PICKUP;
 		extern const std::string&& DOOR_OPEN;
 		extern const std::string&& VENT_CLOSE;
+		extern const std::string&& VENT_OPEN;
 		extern const std::string&& FOOTSTEPS;
 	}
 
@@ -108,6 +109,7 @@ namespace StarBangBang
 			extern const std::string&& SFX_DETECTED_PATH;
 			extern const std::string&& SFX_DOOR_OPEN_PATH;
 			extern const std::string&& SFX_VENT_OPEN_PATH;
+			extern const std::string&& SFX_VENT_CLOSE_PATH;
 			extern const std::string&& SFX_WALK_FOOTSTEPS_PATH;
 		}
 

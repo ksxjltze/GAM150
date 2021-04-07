@@ -8,7 +8,8 @@ namespace StarBangBang
 		const std::string&& BUTTON_CLICK = "sfxBtnClick";
 		const std::string&& KEY_PICKUP = "sfxKeyPickup";
 		const std::string&& DOOR_OPEN = "sfxDoorOpen";
-		const std::string&& VENT_CLOSE = "sfxVentOpen";
+		const std::string&& VENT_CLOSE = "sfxVentClose";
+		const std::string&& VENT_OPEN = "sfxVentOpen";
 		const std::string&& FOOTSTEPS = "sfxFootsteps";
 	}
 	
@@ -38,7 +39,8 @@ namespace StarBangBang
 			const std::string&& SFX_BUTTON_CLICK_PATH	= SFX_PATH + "buttonSFX.wav";
 			const std::string&& SFX_DETECTED_PATH		= SFX_PATH + "erhg2.wav";
 			const std::string&& SFX_DOOR_OPEN_PATH		= SFX_PATH + "DoorSound.wav";
-			const std::string&& SFX_VENT_OPEN_PATH		= SFX_PATH + "VentSound.wav";
+			const std::string&& SFX_VENT_OPEN_PATH		= SFX_PATH + "VentOpen.wav";
+			const std::string&& SFX_VENT_CLOSE_PATH		= SFX_PATH + "VentClose.wav";
 			const std::string&& SFX_WALK_FOOTSTEPS_PATH	= SFX_PATH + "WalkingSound.wav";
 		}
 

@@ -78,7 +78,8 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 	FMOD::Sound* keyPickupSound = nullptr;
 	FMOD::Sound* guardAlert = nullptr;
 	FMOD::Sound* doorSound = nullptr;
-	FMOD::Sound* ventSound = nullptr;
+	FMOD::Sound* ventOpenSound = nullptr;
+	FMOD::Sound* ventCloseSound = nullptr;
 	FMOD::Sound* walkSound = nullptr;
 	FMOD::Sound* music = nullptr;
 
@@ -86,7 +87,8 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 	audioEngine.CreateSound(&keyPickupSound, RESOURCES::SFX::SFX_KEY_PICKUP_PATH);
 	audioEngine.CreateSound(&guardAlert, RESOURCES::SFX::SFX_DETECTED_PATH);
 	audioEngine.CreateSound(&doorSound, RESOURCES::SFX::SFX_DOOR_OPEN_PATH);
-	audioEngine.CreateSound(&ventSound, RESOURCES::SFX::SFX_VENT_OPEN_PATH);
+	audioEngine.CreateSound(&ventOpenSound, RESOURCES::SFX::SFX_VENT_OPEN_PATH);
+	audioEngine.CreateSound(&ventCloseSound, RESOURCES::SFX::SFX_VENT_CLOSE_PATH);
 	audioEngine.CreateSound(&walkSound, RESOURCES::SFX::SFX_WALK_FOOTSTEPS_PATH);
 	audioEngine.CreateSound(&music, "./Resources/Music/bgm.wav");
 
@@ -94,7 +96,8 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 	audioEngine.AddSound(SFX::KEY_PICKUP, keyPickupSound);
 	audioEngine.AddSound(SFX::DETECTED, guardAlert);
 	audioEngine.AddSound(SFX::DOOR_OPEN, doorSound);
-	audioEngine.AddSound(SFX::VENT_CLOSE, ventSound);
+	audioEngine.AddSound(SFX::VENT_CLOSE, ventCloseSound);
+	audioEngine.AddSound(SFX::VENT_OPEN, ventOpenSound);
 	audioEngine.AddSound(SFX::FOOTSTEPS, walkSound);
 	audioEngine.AddSound("BGM", music); 
 
