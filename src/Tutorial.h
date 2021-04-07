@@ -22,6 +22,9 @@ namespace StarBangBang
 		GameObject* player{ nullptr };
 		void MainMenu();
 
+		direction dir;
+		current_char character;
+
 		Sprite tutorialSprite;
 		Sprite movementSprite;
 		Sprite tabSprite;

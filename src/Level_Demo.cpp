@@ -31,18 +31,13 @@
 #include "SoundEvent.h"
 
 #include "Settings.h"
+#include "PlayerAnimation.h"
 
 static bool god = false;
 static float app_time = 0.0f;
 static int animation_counter = 0;
 
-
-
-enum class direction {idle = 0, left, right};
-direction dir;
-
-enum class current_char { fei_ge, prisoner };
-current_char character;
+static StarBangBang::AnimationSprites animSprites;
 
 namespace StarBangBang
 {
@@ -134,6 +129,8 @@ namespace StarBangBang
 		movementController = nullptr;
 		guardManager = nullptr;
 		indicatorObj = nullptr;
+		dir = direction::idle;
+		character = current_char::fei_ge;
 	}
 
 	void StarBangBang::Level_Demo::Load()
@@ -141,31 +138,11 @@ namespace StarBangBang
 		//forward player 1
 		playerImage = graphicsManager.CreateSprite(RESOURCES::CAPTAINSTEALTH_F1_PATH);
 
-
-		GuardAnim::Load(graphicsManager);
-
-		//right animation player 1
-		playerImageR1 = graphicsManager.CreateSprite(RESOURCES::CAPTAINSTEALTH_R1_PATH);
-		playerImageR2 = graphicsManager.CreateSprite(RESOURCES::CAPTAINSTEALTH_R2_PATH);
-		playerImageR3 = graphicsManager.CreateSprite(RESOURCES::CAPTAINSTEALTH_R3_PATH);
-
-		//left animation for player 1 
-		playerImageL1 = graphicsManager.CreateSprite(RESOURCES::CAPTAINSTEALTH_L1_PATH);
-		playerImageL2 = graphicsManager.CreateSprite(RESOURCES::CAPTAINSTEALTH_L2_PATH);
-		playerImageL3 = graphicsManager.CreateSprite(RESOURCES::CAPTAINSTEALTH_L3_PATH);
-
 		//player 2
 		player2Image = graphicsManager.CreateSprite(RESOURCES::PRISONER_F1_PATH);
 
-		//right animation player 2
-		playerImage2R1 = graphicsManager.CreateSprite(RESOURCES::PRISONER_R1_PATH);
-		playerImage2R2 = graphicsManager.CreateSprite(RESOURCES::PRISONER_R2_PATH);
-		playerImage2R3 = graphicsManager.CreateSprite(RESOURCES::PRISONER_R3_PATH);
-
-		//left animation for player 2 
-		playerImage2L1 = graphicsManager.CreateSprite(RESOURCES::PRISONER_L1_PATH);
-		playerImage2L2 = graphicsManager.CreateSprite(RESOURCES::PRISONER_L2_PATH);
-		playerImage2L3 = graphicsManager.CreateSprite(RESOURCES::PRISONER_L3_PATH);
+		animSprites.Load(graphicsManager);
+		GuardAnim::Load(graphicsManager);
 
 		guardImage = graphicsManager.CreateSprite(RESOURCES::SECURITYGUARD_F1_PATH);
 		securityCamImage = graphicsManager.CreateSprite(RESOURCES::CAMERA_PATH);
@@ -383,100 +360,8 @@ namespace StarBangBang
 			indicatorObj->SetPos(player2->GetPos());
 			indicatorObj->transform.position.y += 30.0f;
 		}
-
-
-		//update animation for prisoner and client
-		switch (character)
-		{
-		case current_char::fei_ge:
-
-			switch (dir)
-			{//fei ge's animation
-
-			case direction::right:
-
-				switch (animation_counter)
-				{
-				case 1:
-					player->GetComponent<ImageComponent>()->SetSprite(playerImageR2);
-					break;
-				case 2:
-					player->GetComponent<ImageComponent>()->SetSprite(playerImageR3);
-					break;
-
-				case 3:
-					player->GetComponent<ImageComponent>()->SetSprite(playerImageR1);
-					break;
-				}
-
-				break;
-
-			case direction::left:
-
-				switch (animation_counter)
-				{
-				case 1:
-					player->GetComponent<ImageComponent>()->SetSprite(playerImageL2);
-					break;
-				case 2:
-					player->GetComponent<ImageComponent>()->SetSprite(playerImageL3);
-					break;
-				case 3:
-					player->GetComponent<ImageComponent>()->SetSprite(playerImageL1);
-					break;
-				}
-
-				break;
-			}
-
-			break;
-
-		case current_char::prisoner:
-			switch (dir)
-			{
-				//prisoner's animation
-			
-			case direction::right:
-
-				switch (animation_counter)
-				{
-				case 1:
-					player2->GetComponent<ImageComponent>()->SetSprite(playerImage2R2);
-					break;
-				case 2:
-					player2->GetComponent<ImageComponent>()->SetSprite(playerImage2R3);
-					break;
-				case 3:
-					player2->GetComponent<ImageComponent>()->SetSprite(playerImage2R1);
-					break;
-				}
-
-				break;
-
-			case direction::left:
-
-				switch (animation_counter)
-				{
-				case 1:
-					player2->GetComponent<ImageComponent>()->SetSprite(playerImage2L2);
-					break;
-				case 2:
-					player2->GetComponent<ImageComponent>()->SetSprite(playerImage2L3);
-					break;
-
-				case 3:
-					player2->GetComponent<ImageComponent>()->SetSprite(playerImage2L1);
-					break;
-				}
-
-				break;
-
-			}
-			break;
-			
-		}
-
-		//ANIMATION ~~~
+		
+		PlayerAnimator::PlayerAnimation(dir, character, player, player2, animSprites, animation_counter);
 
 		//this is to switch characters
 		if (AEInputCheckTriggered(AEVK_TAB))
