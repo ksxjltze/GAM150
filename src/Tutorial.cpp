@@ -103,9 +103,8 @@ void Tutorial::Init()
 	NewTextObject({ -150, -100 }, "Use [TAB] to change characters", 0.3f);
 
 	GameObject* UI = objectManager.NewGameObject();
-	objectManager.AddComponent<UIComponent>(UI, eyeSprite, graphicsManager);
-	UI->transform.position = { -500, -340 };
-	UI->transform.scale = { 2.0f, 2.0f};
+	objectManager.AddComponent<ImageComponent>(UI, eyeSprite);
+	UI->transform.position = { -240, -170 };
 	NewTextObject({ -240, -210 }, "Use [Q] to enter stealth mode", 0.3f);
 
 	NewTextObject({ 230, 0 }, "<INTERACTABLES>", 1.f);
