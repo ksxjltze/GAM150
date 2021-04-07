@@ -110,22 +110,24 @@ namespace StarBangBang
 		else
 			GRAPHICS::SetZoom(1.0f);
 
-		if (AEInputCheckTriggered(AEVK_ESCAPE))
+		if (windowOpen && !windowQueue.empty())
 		{
-			if (windowOpen)
+			if (windowQueue.front()->active)
 			{
-				if (!windowQueue.empty())
+				if (AEInputCheckTriggered(AEVK_ESCAPE))
 				{
 					windowQueue.front()->SetActive(false);
 					windowQueue.pop();
 				}
-				
-				if (windowQueue.empty())
-				{
-					windowOpen = false;
-				}
+
+			}
+			else
+			{
+				windowQueue.pop();
 			}
 		}
+		else
+			windowOpen = false;
 
 		HideMenu();
 
