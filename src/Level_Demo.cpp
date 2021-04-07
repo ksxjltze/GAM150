@@ -50,6 +50,8 @@ namespace StarBangBang
 	Sprite continueBtnSprite;
 	Sprite stealth_icon;
 
+	std::map<GameObject*, current_char> charMap;
+	
 	struct Pause
 	{
 		GameObject* exitBtn{ nullptr };
@@ -188,6 +190,7 @@ namespace StarBangBang
 		//Movement controller
 		movementController = objectManager.NewGameObject();
 		MovementManager& moveMgr = objectManager.AddComponent<MovementManager>(movementController);
+		moveMgr.gameObject->name = "MovementManager";
 
 
 		//Client
@@ -198,6 +201,9 @@ namespace StarBangBang
 		//Player components and scripts
 		CaptainStealth::SpawnPlayer(objectManager, player, playerImage);
 		player->transform.position = tilemap.GetPositionAtIndex(6, 3);
+
+		charMap.insert({ player, current_char::fei_ge});
+		charMap.insert({ player2, current_char::prisoner});
 		
 
 		//UI
@@ -308,8 +314,9 @@ namespace StarBangBang
 
 		character = current_char::fei_ge;
 
-	
-
+		//TEST
+		//player->transform.position = tilemap.GetPositionAtIndex(5, 34);
+		player2->transform.position = tilemap.GetPositionAtIndex(5, 34);
 
 		pauseMenu.settingsObj = objectManager.NewGameObject();
 		objectManager.AddComponent<SettingsMenu>(pauseMenu.settingsObj, graphicsManager).Init();
@@ -348,6 +355,9 @@ namespace StarBangBang
 		}
 
 		Scene::Update();
+
+		GameObject* activeCharacter = objectManager.Find("MovementManager")->GetComponent<MovementManager>()->GetActiveController();
+		character = charMap.at(activeCharacter);
 
 		//indicator update
 		if (character == current_char::fei_ge)

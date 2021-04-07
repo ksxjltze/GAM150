@@ -65,6 +65,7 @@ void Tutorial::Init()
 	player->transform.position = { -250.0f, -110.0f };
 	player2->transform.position = { 0.0f, 0.0f };
 	MovementManager& movementMgr = objectManager.AddComponent<MovementManager>(player);
+	movementMgr.gameObject->name = "MovementManager";
 	movementMgr.AddController(player);
 	movementMgr.AddController(player2);
 
@@ -135,11 +136,6 @@ void Tutorial::Init()
 
 void Tutorial::Update()
 {
-	//if (AEInputCheckTriggered(AEVK_SPACE))
-	//{
-	//	objectManager.Find("Player")->GetComponent<MovementManager>()->RemoveController(player2);
-	//}
-
 	if (AEInputCheckTriggered(AEVK_ESCAPE))
 	{
 		gameStateManager.SetNextGameState(MAIN_MENU);

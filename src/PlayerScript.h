@@ -12,12 +12,14 @@ namespace StarBangBang
 	{
 	public:
 		PlayerScript(GameObject* obj);
+		void Start();
 		void Update();
 		void onNotify(Event e);
 		bool isGameOver();
 		bool isWin();
-		void Start();
 		bool isInvisible();
+		bool isPlayerEscaped() { return playerEscaped; }
+		bool isClientEscaped() { return clientEscaped; }
 
 		void Debug_Reset();
 
