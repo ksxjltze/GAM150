@@ -21,6 +21,20 @@ void StarBangBang::MessageBus::RegisterGlobalListener(Listener* listener)
 	globalListenerList.push_back(listener);
 }
 
+bool StarBangBang::MessageBus::IsEventInQueue(EventId id)
+{
+	std::queue<Event> copyQueue;
+	copyQueue = eventQueue;
+
+	while (!eventQueue.empty())
+	{
+		if (copyQueue.front().id == id)
+			return true;
+	}
+	return false;
+
+}
+
 void StarBangBang::MessageBus::Update()
 {
 	//Event loop
