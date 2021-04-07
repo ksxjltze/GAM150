@@ -65,7 +65,6 @@ void Tutorial::Init()
 	player->transform.position = { -250.0f, -110.0f };
 	player2->transform.position = { 0.0f, 0.0f };
 	MovementManager& movementMgr = objectManager.AddComponent<MovementManager>(player);
-	movementMgr.gameObject->name = "MovementManager";
 	movementMgr.AddController(player);
 	movementMgr.AddController(player2);
 
