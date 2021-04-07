@@ -62,21 +62,8 @@ void Tutorial::Init()
 
 	CaptainStealth::SpawnClient(objectManager, player2, graphicsManager.CreateSprite(RESOURCES::PRISONER_F1_PATH));
 	CaptainStealth::SpawnPlayer(objectManager, player, graphicsManager.CreateSprite(RESOURCES::CAPTAINSTEALTH_F1_PATH));
-
-	//player = objectManager.NewGameObject();
-	//player2 = objectManager.NewGameObject();
-	//player->transform.scale = { 0.7f, 0.7f };
-	//player->transform.position = { -100.0f, 0.0f};
-	//player2->transform.scale = { 0.7f, 0.7f };
-	//player2->transform.position = { 100.0f, 0.0f };
-	//objectManager.AddImage(player, graphicsManager.CreateSprite(RESOURCES::CAPTAINSTEALTH_F1_PATH));
-	//objectManager.AddImage(player2, graphicsManager.CreateSprite(RESOURCES::PRISONER_F1_PATH));
-	//objectManager.AddComponent<RigidBody>(player);
-	//objectManager.AddComponent<PrimaryMovementController>(player);
-	//objectManager.AddComponent<CameraComponent>(player);
-	//objectManager.AddComponent<RigidBody>(player2);
-	//objectManager.AddComponent<PrimaryMovementController>(player2);
-	//objectManager.AddComponent<CameraComponent>(player2);
+	player->transform.position = { -250.0f, -110.0f };
+	player2->transform.position = { 0.0f, 0.0f };
 	MovementManager& movementMgr = objectManager.AddComponent<MovementManager>(player);
 	movementMgr.AddController(player);
 	movementMgr.AddController(player2);
