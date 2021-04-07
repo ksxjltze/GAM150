@@ -55,6 +55,8 @@ void StarBangBang::SettingsMenu::Init()
 
 	objMgr->AddComponent<UIComponent>(backBtn, backBtnSprite, gfxMgr);
 	objMgr->AddComponent<Click<SettingsMenu>>(backBtn, true).setCallback(*this, &SettingsMenu::Back);
+	backBtn->transform.scale.x = btnScale.x * gameObject->transform.scale.x;
+	backBtn->transform.scale.y = 0.2f * gameObject->transform.scale.y;
 	backBtn->visible = false;
 
 	buttonList.push_back(muteBtn);
