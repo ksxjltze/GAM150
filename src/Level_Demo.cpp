@@ -94,10 +94,16 @@ namespace StarBangBang
 
 		void Update() 
 		{
-			settingsObj->GetComponent<SettingsMenu>()->ForceUpdate();
+			SettingsMenu* settings = settingsObj->GetComponent<SettingsMenu>();
+			settings->ForceUpdate();
+
 			if (windowQueue.empty())
 			{
-				settingsObj->GetComponent<SettingsMenu>()->SetStatus(false);
+				settings->SetStatus(false);
+			}
+			else if (!windowQueue.front()->active)
+			{
+				CloseWindow();
 			}
 
 			for (auto& component : exitBtn->GetComponents())

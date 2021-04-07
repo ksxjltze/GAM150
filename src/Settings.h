@@ -15,7 +15,7 @@ namespace StarBangBang
 		void Update();
 		void Toggle();
 		void SetStatus(bool);
-		bool GetStatus();
+		bool GetStatus() {return status;}
 	private:
 		bool status{ false };
 		void Back();

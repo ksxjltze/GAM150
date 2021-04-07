@@ -77,9 +77,13 @@ void StarBangBang::SettingsMenu::Draw()
 {
 	if (gameObject->active)
 	{
-		gameObject->GetComponent<UIComponent>()->Draw();
-		muteBtn->GetComponent<UIComponent>()->Draw();
-		fullscreenBtn->GetComponent<UIComponent>()->Draw();
+		for (auto& btnObj : buttonList)
+		{
+			for (auto& component : btnObj->GetComponents())
+			{
+				component->Draw();
+			}
+		}
 	}
 }
 
@@ -109,8 +113,10 @@ void StarBangBang::SettingsMenu::SetStatus(bool s)
 {
 	status = s;
 	gameObject->active = status;
-	muteBtn->active = status;
-	fullscreenBtn->active = status;
+	for (auto& btnObj : buttonList)
+	{
+		btnObj->active = status;
+	}
 }
 
 void StarBangBang::SettingsMenu::Back()
