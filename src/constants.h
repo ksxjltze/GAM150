@@ -6,6 +6,8 @@ namespace StarBangBang
 {
 	enum SceneID {DEMO, EDITOR, SAMPLE, TUTORIAL, GAME, MAIN_MENU, GAME_OVER, CREDITS};
 
+	enum LAYER { BACKGROUND, FOREGROUND, UI};
+
 	namespace SFX
 	{
 		extern const std::string&& DETECTED;

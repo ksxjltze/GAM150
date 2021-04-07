@@ -9,6 +9,7 @@ void StarBangBang::VisionCone::Start()
 
 	assert(detector);
 	BuildMesh();
+	gameObject->SetLayer(1);
 }
 
 void StarBangBang::VisionCone::BuildMesh()
