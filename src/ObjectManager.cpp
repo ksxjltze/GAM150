@@ -34,7 +34,7 @@ StarBangBang::BoxCollider& StarBangBang::ObjectManager::AddCollider(GameObject* 
 	
 }
 
-void StarBangBang::ObjectManager::AddComponent(GameObject* gameObject, _Component* component)
+void StarBangBang::ObjectManager::AddComponent(GameObject* gameObject, GameComponent* component)
 {
 	componentList.push_back(component);
 	gameObject->AddComponent(component);
@@ -86,12 +86,12 @@ StarBangBang::GameObject* StarBangBang::ObjectManager::CloneGameObject(GameObjec
 {
 	if (gameObject)
 	{
-		std::vector<_Component*> components = gameObject->GetComponents();
+		std::vector<GameComponent*> components = gameObject->GetComponents();
 		GameObject* newObject = new GameObject(*gameObject);
-		for (_Component* component : components)
+		for (GameComponent* component : components)
 		{
-			//_Component* newComponent = new _Component(newObject, component->id);
-			_Component* newComponent = component->Clone(newObject, component);
+			//GameComponent* newComponent = new GameComponent(newObject, component->id);
+			GameComponent* newComponent = component->Clone(newObject, component);
 			newObject->AddComponent(newComponent);
 			componentList.push_back(newComponent);	
 		}
@@ -112,7 +112,7 @@ void StarBangBang::ObjectManager::DestroyGameObject(GameObject* gameObject)
 		auto component_it = componentList.begin();
 		while(component_it != componentList.end())
 		{
-			_Component*& component = *component_it;
+			GameComponent*& component = *component_it;
 			if (!component)
 				continue;
 
@@ -150,7 +150,7 @@ void StarBangBang::ObjectManager::SaveGameObject(GameObject& gameObject)
 		ofs.write(reinterpret_cast<const char*>(&gameObject.transform), sizeof(gameObject.transform));
 
 		//Write Components
-		for (_Component* c : (&gameObject)->GetComponents())
+		for (GameComponent* c : (&gameObject)->GetComponents())
 		{
 			char test[64];
 			memset(test, 0, 64);
@@ -212,7 +212,7 @@ void StarBangBang::ObjectManager::FreeObjects()
 
 void StarBangBang::ObjectManager::FreeComponents()
 {
-	for (_Component* component : componentList)
+	for (GameComponent* component : componentList)
 	{
 		delete component;
 	}
@@ -225,15 +225,15 @@ void StarBangBang::ObjectManager::Init()
 	layerMap.clear();
 	for (int i = 0; i < NUM_MAX_LAYERS; ++i)
 	{
-		layerMap.insert({ i, std::vector<_Component**>() });
+		layerMap.insert({ i, std::vector<GameComponent**>() });
 	}
 
-	for (_Component* component : componentList)
+	for (GameComponent* component : componentList)
 	{
 		component->Start();
 	}
 
-	for (_Component*& component : componentList)
+	for (GameComponent*& component : componentList)
 	{
 		layerMap.at(component->gameObject->layer).push_back(&component);
 	}
@@ -244,7 +244,7 @@ void StarBangBang::ObjectManager::Draw()
 {
 	for (int i = 0; i < NUM_MAX_LAYERS; ++i)
 	{
-		for (_Component** component : layerMap.at(i))
+		for (GameComponent** component : layerMap.at(i))
 		{
 			if (*component)
 				(*component)->Draw();
@@ -252,7 +252,7 @@ void StarBangBang::ObjectManager::Draw()
 
 	}
 
-	//for (_Component* component : componentList)
+	//for (GameComponent* component : componentList)
 	//{
 	//	if (component->gameObject->visible && component->active)
 	//		component->Draw();
@@ -261,7 +261,7 @@ void StarBangBang::ObjectManager::Draw()
 
 void StarBangBang::ObjectManager::Update()
 {
-	for (_Component* component : componentList)
+	for (GameComponent* component : componentList)
 	{
 		if (component->gameObject->parent)
 			component->gameObject->active = component->gameObject->parent->active;
@@ -273,7 +273,7 @@ void StarBangBang::ObjectManager::Update()
 
 void StarBangBang::ObjectManager::LateUpdate()
 {
-	for (_Component* component : componentList)
+	for (GameComponent* component : componentList)
 	{
 		if (component->active)
 			component->LateUpdate();

@@ -6,17 +6,17 @@ namespace StarBangBang
 {
 	class ObjectManager;
 
-	class _Component
+	class GameComponent
 	{
 	public:
-		_Component(GameObject* gameObject) { this->gameObject = gameObject; }
-		virtual _Component* Clone(GameObject* obj, _Component*) const { return new _Component(obj); }
+		GameComponent(GameObject* gameObject) { this->gameObject = gameObject; }
+		virtual GameComponent* Clone(GameObject* obj, GameComponent*) const { return new GameComponent(obj); }
 		virtual void Start() {};
 		virtual void Update() {};
 		virtual void Draw() {};
 		virtual void LateUpdate() {};
 		GameObject* gameObject { nullptr };
-		virtual ~_Component() {}
+		virtual ~GameComponent() {}
 		bool drawable{ false };
 		bool active { true };
 		ObjectManager* objMgr{ nullptr };
