@@ -275,7 +275,6 @@ namespace StarBangBang
 		SpawnDoors();
 
 		InitPause();
-
 		// Create distractions
 		int roomNum = 1;
 		CreateDistraction(roomNum, 8, 12, vendingMachineSprite);
