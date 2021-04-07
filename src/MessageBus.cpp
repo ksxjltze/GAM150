@@ -30,6 +30,7 @@ bool StarBangBang::MessageBus::IsEventInQueue(EventId id)
 	{
 		if (copyQueue.front().id == id)
 			return true;
+		copyQueue.pop();
 	}
 	return false;
 
