@@ -527,10 +527,10 @@ namespace StarBangBang
 		}
 
 
-		if (AEInputCheckTriggered(VK_SPACE))
-		{
-			MessageBus::Notify({ EventId::PRINT_TEXT, std::string("Find the Exit!") });
-		}
+		//if (AEInputCheckTriggered(VK_SPACE))
+		//{
+		//	MessageBus::Notify({ EventId::PRINT_TEXT, std::string("Find the Exit!") });
+		//}
 
 		PlayerScript* playerScript = player->GetComponent<PlayerScript>();
 		//if (AEInputCheckTriggered(AEVK_G))
