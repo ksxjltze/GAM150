@@ -91,7 +91,7 @@ void StarBangBang::PlayerScript::onNotify(Event e)
 		{
 			if (obj->name == "Player")
 			{
-				data.second->active = false;
+				
 				playerEscaped = true;
 			}
 			else if (obj->name == "Client")

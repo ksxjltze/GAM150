@@ -74,3 +74,17 @@ void StarBangBang::MovementManager::SetActiveController(GameObject* obj)
 	if (cam)
 		cam->SetTarget(obj);
 }
+
+void StarBangBang::MovementManager::RemoveController(GameObject* obj)
+{
+	for (auto it = controllers.begin(); it != controllers.end(); ++it)
+	{
+		if ((*it)->gameObject == obj)
+		{
+			(*it)->active = false;
+			controllers.erase(it);
+			SetActiveController(controllers.front()->gameObject);
+			return;
+		}
+	}
+}

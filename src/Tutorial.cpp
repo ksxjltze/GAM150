@@ -135,6 +135,11 @@ void Tutorial::Init()
 
 void Tutorial::Update()
 {
+	//if (AEInputCheckTriggered(AEVK_SPACE))
+	//{
+	//	objectManager.Find("Player")->GetComponent<MovementManager>()->RemoveController(player2);
+	//}
+
 	if (AEInputCheckTriggered(AEVK_ESCAPE))
 	{
 		gameStateManager.SetNextGameState(MAIN_MENU);
