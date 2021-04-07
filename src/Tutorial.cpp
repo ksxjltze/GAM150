@@ -4,6 +4,7 @@
 #include "CameraComponent.h"
 #include "Click.h"
 #include "UIComponent.h"
+#include "PrimaryMovementController.h"
 
 using namespace StarBangBang;
 Sprite eyeSprite;
@@ -35,6 +36,13 @@ void Tutorial::Init()
 	GameObject* obj = objectManager.NewGameObject();
 	obj->transform.scale = { 0.00001f, 0.00001f };
 	objectManager.AddImage(obj, graphicsManager.CreateSprite(RESOURCES::BIN_PATH));
+
+	GameObject* player = objectManager.NewGameObject();
+	obj->transform.scale = { 0.7f, 0.7f };
+	objectManager.AddImage(player, graphicsManager.CreateSprite(RESOURCES::CAPTAINSTEALTH_F1_PATH));
+	objectManager.AddComponent<RigidBody>(player);
+	objectManager.AddComponent<PrimaryMovementController>(player);
+	objectManager.AddComponent<CameraComponent>(player);
 
 	float spacing = 100.f;
 	float offset = 0.f;
