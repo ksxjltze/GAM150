@@ -31,9 +31,9 @@ void StarBangBang::Text::SetTextBox(float width, float height)
 	textbox.height = height;
 }
 
-void StarBangBang::Text::SetScale(float scale)
+void StarBangBang::Text::SetScale(float newScale)
 {
-	this->scale = scale;
+	scale = newScale;
 }
 
 void StarBangBang::Text::Start()

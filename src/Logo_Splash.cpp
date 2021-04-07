@@ -58,7 +58,7 @@ void DrawFmod(GameStateManager& gsm)
 
 }
 
-void DrawDigipen(GameStateManager& gsm)
+void DrawDigipen(GameStateManager&)
 {
 
 	digipen_logo.alpha = EaseInOutCurve(time_past * digipen_logo.fadeSpeed);
