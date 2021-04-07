@@ -19,6 +19,7 @@ namespace StarBangBang
 		void NewTextObject(AEVec2 position, const std::string& s, float scale = 1.0f);
 		GameObject* cameraObject{ nullptr };
 		GameObject* end{ nullptr };
+		GameObject* player{ nullptr };
 		void MainMenu();
 
 		Sprite tutorialSprite;

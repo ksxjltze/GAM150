@@ -6,8 +6,18 @@
 #include "UIComponent.h"
 #include "PrimaryMovementController.h"
 
+static enum class direction { idle = 0, left, right } dir;
+static int animation_counter = 0;
+static float app_time = 0.0f;
+
 using namespace StarBangBang;
 Sprite eyeSprite;
+Sprite playerImageR1;
+Sprite playerImageR2;
+Sprite playerImageR3;
+Sprite playerImageL1;
+Sprite playerImageL2;
+Sprite playerImageL3;
 
 void Tutorial::NewTextObject(AEVec2 position, const std::string& s, float scale)
 {
@@ -29,15 +39,27 @@ void Tutorial::Load()
 	distractSprite2 = graphicsManager.CreateSprite(RESOURCES::COMPUTER_PATH);
 	backSprite      = graphicsManager.CreateSprite(RESOURCES::BACK_BUTTON_PATH);
 	eyeSprite		= graphicsManager.CreateSprite(RESOURCES::EYE_SPRITE_PATH);
+
+	//right animation player 1
+	playerImageR1 = graphicsManager.CreateSprite(RESOURCES::CAPTAINSTEALTH_R1_PATH);
+	playerImageR2 = graphicsManager.CreateSprite(RESOURCES::CAPTAINSTEALTH_R2_PATH);
+	playerImageR3 = graphicsManager.CreateSprite(RESOURCES::CAPTAINSTEALTH_R3_PATH);
+
+	//left animation for player 1 
+	playerImageL1 = graphicsManager.CreateSprite(RESOURCES::CAPTAINSTEALTH_L1_PATH);
+	playerImageL2 = graphicsManager.CreateSprite(RESOURCES::CAPTAINSTEALTH_L2_PATH);
+	playerImageL3 = graphicsManager.CreateSprite(RESOURCES::CAPTAINSTEALTH_L3_PATH);
 }
 
 void Tutorial::Init()
 {
+	animation_counter = 0;
+	app_time = 0.0f;
 	GameObject* obj = objectManager.NewGameObject();
 	obj->transform.scale = { 0.00001f, 0.00001f };
 	objectManager.AddImage(obj, graphicsManager.CreateSprite(RESOURCES::BIN_PATH));
 
-	GameObject* player = objectManager.NewGameObject();
+	player = objectManager.NewGameObject();
 	obj->transform.scale = { 0.7f, 0.7f };
 	objectManager.AddImage(player, graphicsManager.CreateSprite(RESOURCES::CAPTAINSTEALTH_F1_PATH));
 	objectManager.AddComponent<RigidBody>(player);
@@ -98,10 +120,81 @@ void Tutorial::Init()
 
 void Tutorial::Update()
 {
+	switch (dir)
+	{
+
+	case direction::right:
+
+		switch (animation_counter)
+		{
+		case 1:
+			player->GetComponent<ImageComponent>()->SetSprite(playerImageR2);
+			break;
+		case 2:
+			player->GetComponent<ImageComponent>()->SetSprite(playerImageR3);
+			break;
+
+		case 3:
+			player->GetComponent<ImageComponent>()->SetSprite(playerImageR1);
+			break;
+		}
+
+		break;
+
+	case direction::left:
+
+		switch (animation_counter)
+		{
+		case 1:
+			player->GetComponent<ImageComponent>()->SetSprite(playerImageL2);
+			break;
+		case 2:
+			player->GetComponent<ImageComponent>()->SetSprite(playerImageL3);
+			break;
+		case 3:
+			player->GetComponent<ImageComponent>()->SetSprite(playerImageL1);
+			break;
+		}
+	}
+
 	if (AEInputCheckTriggered(AEVK_ESCAPE))
 	{
 		gameStateManager.SetNextGameState(MAIN_MENU);
 		return;
+	}
+
+	if (!(AEInputCheckCurr(KEYBIND::MOVEMENT_UP) || AEInputCheckCurr(KEYBIND::MOVEMENT_DOWN) ||
+		AEInputCheckCurr(KEYBIND::MOVEMENT_LEFT) || AEInputCheckCurr(KEYBIND::MOVEMENT_RIGHT) ||
+		AEInputCheckCurr(KEYBIND::MOVEMENT_UP_ALT) || AEInputCheckCurr(KEYBIND::MOVEMENT_DOWN_ALT) ||
+		AEInputCheckCurr(KEYBIND::MOVEMENT_LEFT_ALT) || AEInputCheckCurr(KEYBIND::MOVEMENT_RIGHT_ALT)))
+	{
+		animation_counter = 3;
+	}
+
+	if (AEInputCheckCurr(KEYBIND::MOVEMENT_RIGHT) || AEInputCheckCurr(KEYBIND::MOVEMENT_RIGHT_ALT))
+	{
+		dir = direction::right;
+		app_time = app_time + g_dt;
+	}
+	else if (AEInputCheckCurr(KEYBIND::MOVEMENT_LEFT) || AEInputCheckCurr(KEYBIND::MOVEMENT_LEFT_ALT))
+	{
+		dir = direction::left;
+		app_time = app_time + g_dt;
+	}
+
+	else if (AEInputCheckCurr(KEYBIND::MOVEMENT_UP) ||
+		AEInputCheckCurr(KEYBIND::MOVEMENT_DOWN) ||
+		AEInputCheckCurr(KEYBIND::MOVEMENT_UP_ALT) ||
+		AEInputCheckCurr(KEYBIND::MOVEMENT_DOWN_ALT))
+	{
+		app_time = app_time + g_dt;
+	}
+
+	if (app_time >= 0.1f)
+	{
+		animation_counter++;
+		app_time = 0.0f;
+		if (animation_counter > 2) animation_counter = 0;
 	}
 
 	Scene::Update();
