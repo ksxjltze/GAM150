@@ -20,6 +20,7 @@ GuardMovement::GuardMovement(GameObject* gameObject)
 	, turning(false)
 	, usingWaypoints(false)
 	, movingToLastWaypoint(true)
+	, goingToPatrolPoint(false)
 	, guard(nullptr)
 	, rb(nullptr)
 	, distractionNode(nullptr)
@@ -49,12 +50,13 @@ void GuardMovement::Idle()
 	if (idleForever)
 		return;
 
-	// Return to patrol state
+	// Return to patrol state if previous state before idle was distracted
 	if (guard->GetPrevState() == Guard::GUARD_STATE::STATE_DISTRACTED)
 	{
 		distractedDuration -= g_dt;
 		if (distractedDuration <= 0.f)
 		{
+			goingToPatrolPoint = true;
 			guard->ChangeState(Guard::GUARD_STATE::STATE_PATROL);
 			foundPath = false;
 			distractedDuration = 0.f;
@@ -114,12 +116,16 @@ void GuardMovement::Patrol()
 			}
 		}
 	}
+	else if (reachedEndOfPath)
+	{
+		goingToPatrolPoint = false;
+	}
 }
 
 void GuardMovement::OnEnterDistracted()
 {
 	isMoving = false;
-	speed = GUARD::GUARD_SPEED + 15.f;
+	speed = GUARD::GUARD_SPEED + 35.f;
 	UnblockPreviousPath();
 	LookForPath(targetPos);
 

@@ -44,6 +44,8 @@ namespace StarBangBang
 
 		inline void SetDistractionDuration(float duration) { distractedDuration = duration; }
 
+		inline bool GetGoingToPatrolPoint() const { return goingToPatrolPoint; }
+
 		void SetWaypoints(const std::vector<AEVec2>& _waypoints);
 
 	private:
@@ -61,6 +63,7 @@ namespace StarBangBang
 		bool turning;
 		bool usingWaypoints;
 		bool movingToLastWaypoint;
+		bool goingToPatrolPoint;
 
 		float speed;
 		float distractedDuration;

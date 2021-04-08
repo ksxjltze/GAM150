@@ -7,14 +7,12 @@
 
 const static float DISTRACT_DURATION = 20.0f;
 
-StarBangBang::Distractor::Distractor(GameObject* gameObject) : Script(gameObject), activated{ false }, duration{ DISTRACT_DURATION}, timer{duration}, roomNum(0)
+StarBangBang::Distractor::Distractor(GameObject* gameObject) : Script(gameObject), activated{ false }, duration{ DISTRACT_DURATION}, timer{duration}, scaleTimer(0.f), roomNum(0)
 {
-	
 }
 
 void StarBangBang::Distractor::Start()
 {
-
 }
 
 void StarBangBang::Distractor::Update()
@@ -23,14 +21,28 @@ void StarBangBang::Distractor::Update()
 	{
 		//SendDistractionEvent();
 		timer -= g_dt;
+		scaleTimer += g_dt;
+		scaleTimerY += g_dt;
 
 		//Test active
-		gameObject->transform.rotation += 90.0f * g_dt;
+		gameObject->transform.scale.x += cos(scaleTimer * PI) * 0.02f;
+		gameObject->transform.scale.y += sin(scaleTimerY * PI) * 0.02f;
+
+		if (gameObject->transform.scale.x <= 0.8f)
+			scaleTimer = 0.f;
+		else if (gameObject->transform.scale.x >= 1.2f)
+				scaleTimer = 15.f;
+
+		if (gameObject->transform.scale.y <= 0.8f)
+			scaleTimerY = 15.f;
+		else if (gameObject->transform.scale.y >= 1.8f)
+			scaleTimerY = 0.f;
 
 		if (timer <= 0)
 		{
 			activated = false;
 			timer = duration;
+			gameObject->transform.scale = { 1.f, 1.f };
 		}
 	}
 }
