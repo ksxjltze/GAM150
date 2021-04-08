@@ -62,7 +62,7 @@ void StarBangBang::Sample_Scene::Update()
 {
 	if (AEInputCheckTriggered(AEVK_SPACE))
 	{
-		gameStateManager.SetNextGameState(SceneID::DEMO);
+		gameStateManager.SetNextGameState(SceneID::GAME);
 	}
 	Scene::Update();
 }

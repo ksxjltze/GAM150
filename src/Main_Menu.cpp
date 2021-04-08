@@ -177,7 +177,7 @@ namespace StarBangBang
 
 	void Main_Menu::LoadLevel()
 	{
-		gameStateManager.SetNextGameState(SceneID::DEMO);
+		gameStateManager.SetNextGameState(SceneID::GAME);
 	}
 
 	void Main_Menu::Credits()
