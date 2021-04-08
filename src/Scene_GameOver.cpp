@@ -54,6 +54,8 @@ void StarBangBang::Scene_GameOver::Update()
 		Quit();
 	else if (AEInputCheckTriggered(AEVK_RETURN))
 		Restart();
+
+	Scene::Update();
 }
 
 void StarBangBang::Scene_GameOver::Draw()
