@@ -312,7 +312,7 @@ namespace StarBangBang
 		//Floating text
 		MessageBus::Notify({ EventId::PRINT_TEXT, std::string("Find the Vending Machine!") });
 		
-		MessageBus::Notify({ EventId::PAUSE_SOUND, false });
+		MessageBus::Notify({ EventId::PAUSE_MUSIC, false });
 		MusicEvent bgm{ BGM::GAME};
 		bgm.SendEvent();
 
@@ -493,7 +493,7 @@ namespace StarBangBang
 		tilemap.Unload();
 		Scene::Unload();
 		MessageBus::Notify({ EventId::STOP_SOUND });
-		MessageBus::Notify({ EventId::PAUSE_SOUND, false });
+		MessageBus::Notify({ EventId::PAUSE_MUSIC, false });
 	}
 
 	void Level_Demo::DisplayExitConfirmation()
@@ -521,7 +521,7 @@ namespace StarBangBang
 		if (pauseMenu.CloseWindow())
 		{
 			paused = !paused;
-			MessageBus::Notify({EventId::PAUSE_SOUND, paused});
+			MessageBus::Notify({EventId::PAUSE_MUSIC, paused});
 			ShowCursor(paused);
 			pauseMenu.exitBtn->active = paused;
 			pauseMenu.settingsBtn->active = paused;
