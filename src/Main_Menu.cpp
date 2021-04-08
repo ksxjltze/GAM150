@@ -4,6 +4,7 @@
 #include "CollisionEvent.h"
 #include "Settings.h"
 #include "MusicEvent.h"
+#include "globals.h"
 
 static const float x_scale = 5.0f;
 static const float y_scale = 5.0f;
@@ -101,11 +102,14 @@ namespace StarBangBang
 		MusicEvent bgm{ BGM::MENU };
 		bgm.SendEvent();
 
-		editorBtn = objectManager.NewGameObject();
-		objectManager.AddImage(editorBtn, vending_machine_sprite);
-		editorBtn->transform.position = { (float)AEGetWindowWidth() * 0.35f, (float)AEGetWindowHeight() / 8, };
+		if (debug)
+		{
+			editorBtn = objectManager.NewGameObject();
+			objectManager.AddImage(editorBtn, vending_machine_sprite);
+			editorBtn->transform.position = { (float)AEGetWindowWidth() * 0.35f, (float)AEGetWindowHeight() / 8, };
 
-		objectManager.AddComponent<Click<Main_Menu>>(editorBtn).setCallback(*this, &Main_Menu::LoadEditor);
+			objectManager.AddComponent<Click<Main_Menu>>(editorBtn).setCallback(*this, &Main_Menu::LoadEditor);
+		}
 		frameSkip = true;
 	}
 
