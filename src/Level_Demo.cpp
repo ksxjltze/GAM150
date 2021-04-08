@@ -574,21 +574,21 @@ namespace StarBangBang
 		objectManager.AddComponent<Click<Level_Demo>>(pauseMenu.exitBtn, true).setCallback(*this, &Level_Demo::Exit);
 		objectManager.AddComponent<UIComponent>(pauseMenu.exitBtn, exitBtnSprite, graphicsManager).active = false;
 		pauseMenu.exitBtn->transform.position.y = -100;
-		pauseMenu.exitBtn->transform.scale = { 3, 3 };
+		pauseMenu.exitBtn->transform.scale = { 3, 1.5f };
 		pauseMenu.exitBtn->active = false;
 
 		pauseMenu.continueBtn = objectManager.NewGameObject();
 		objectManager.AddComponent<Click<Level_Demo>>(pauseMenu.continueBtn, true).setCallback(*this, &Level_Demo::TogglePause);
 		objectManager.AddComponent<UIComponent>(pauseMenu.continueBtn, continueBtnSprite, graphicsManager).active = false;
 		pauseMenu.continueBtn->transform.position.y = 100;
-		pauseMenu.continueBtn->transform.scale = { 3, 3 };
+		pauseMenu.continueBtn->transform.scale = { 3, 1.5f };
 		pauseMenu.continueBtn->active = false;
 
 		pauseMenu.settingsBtn = objectManager.NewGameObject();
 		objectManager.AddComponent<Click<Level_Demo>>(pauseMenu.settingsBtn, true).setCallback(*this, &Level_Demo::ToggleSettings);
 		objectManager.AddComponent<UIComponent>(pauseMenu.settingsBtn, settingsBtnSprite, graphicsManager).active = false;
 		pauseMenu.settingsBtn->transform.position.y = 0;
-		pauseMenu.settingsBtn->transform.scale = { 3, 3 };
+		pauseMenu.settingsBtn->transform.scale = { 3, 1.5f };
 		pauseMenu.settingsBtn->active = false;
 	}
 

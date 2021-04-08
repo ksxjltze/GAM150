@@ -7,7 +7,7 @@
 
 namespace StarBangBang
 {
-	const static AEVec2 btnScale{0.2f, 0.1f};
+	const static AEVec2 btnScale{0.2f, 0.12f};
 }
 
 StarBangBang::SettingsMenu::SettingsMenu(GameObject* gameObject, GraphicsManager& gfx) : Script(gameObject), gfxMgr{ gfx }
