@@ -86,7 +86,7 @@ void GuardVision::Update()
 
 		if (turn)
 		{
-			if (gameObject->GetComponent<Guard>()->GetState() != Guard::GUARD_STATE::STATE_CHASE)
+			if (gameObject->GetComponent<Guard>()->GetState() == Guard::GUARD_STATE::STATE_PATROL)
 			{
 				idleDuration -= g_dt;
 				if (idleDuration > 0.f)
