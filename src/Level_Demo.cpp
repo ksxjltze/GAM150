@@ -313,7 +313,7 @@ namespace StarBangBang
 		MessageBus::Notify({ EventId::PRINT_TEXT, std::string("Find the Vending Machine!") });
 		
 		MessageBus::Notify({ EventId::PAUSE_SOUND, false });
-		MusicEvent bgm{ BGM::GAME }; 
+		MusicEvent bgm{ BGM::GAME};
 		bgm.SendEvent();
 
 		character = current_char::fei_ge;
@@ -493,6 +493,7 @@ namespace StarBangBang
 		tilemap.Unload();
 		Scene::Unload();
 		MessageBus::Notify({ EventId::STOP_SOUND });
+		MessageBus::Notify({ EventId::PAUSE_SOUND, false });
 	}
 
 	void Level_Demo::Exit()
