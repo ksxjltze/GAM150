@@ -173,6 +173,7 @@ namespace StarBangBang
 	void StarBangBang::Level_Demo::Init()
 	{
 		paused = false;
+		ShowCursor(FALSE);
 		PathFinder::PathFinderInit();
 		PathFinder::ShowGrid(false);
 
@@ -509,6 +510,7 @@ namespace StarBangBang
 		if (pauseMenu.CloseWindow())
 		{
 			paused = !paused;
+			ShowCursor(paused);
 			pauseMenu.exitBtn->active = paused;
 			pauseMenu.settingsBtn->active = paused;
 			pauseMenu.continueBtn->active = paused;
