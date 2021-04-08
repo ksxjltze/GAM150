@@ -2,6 +2,7 @@
 #include "globals.h"
 #include "PathFinder.h"
 #include "GraphicsManager.h"
+#include "UIComponent.h"
 
 StarBangBang::Scene_GameOver::Scene_GameOver(int id, GameStateManager& gsm) : Scene(id, gsm)
 {
