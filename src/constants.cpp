@@ -17,7 +17,6 @@ namespace StarBangBang
 	{
 		const std::string&& MENU = "bgmMenu";
 		const std::string&& GAME = "bgmGame";
-		const std::string&& GAMEOVER = "bgmGameOver";
 	}
 	
 	namespace STRING_TAGS
@@ -63,7 +62,6 @@ namespace StarBangBang
 		{
 			const std::string&& BGM_MENU_PATH = BGM_PATH + "menuBGM.wav";
 			const std::string&& BGM_GAME_PATH = BGM_PATH + "gameBGM.wav";
-			const std::string&& BGM_GAMEOVER_PATH = BGM_PATH + "ggBGM.wav";
 		}
 		
 		//Images path

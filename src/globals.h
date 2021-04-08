@@ -5,5 +5,4 @@ namespace StarBangBang
 	extern float g_dt;
 	extern s8 fontId;
 	extern s8 fontId2;
-	extern bool debug;
 }

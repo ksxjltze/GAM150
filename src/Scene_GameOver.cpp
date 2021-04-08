@@ -5,7 +5,6 @@
 #include "UIComponent.h"
 #include "Sprite.h"
 #include "Click.h"
-#include "MusicEvent.h"
 
 namespace StarBangBang
 {
@@ -47,8 +46,6 @@ void StarBangBang::Scene_GameOver::Init()
 	restartBtn->transform.position = { -50.0f, -25.0f };
 
 	PathFinder::ShowGrid(false);
-
-	(MusicEvent{ BGM::GAMEOVER, 1.0f, false }).SendEvent();
 }
 
 void StarBangBang::Scene_GameOver::Update()
@@ -85,7 +82,6 @@ void StarBangBang::Scene_GameOver::Free()
 void StarBangBang::Scene_GameOver::Unload()
 {
 	Scene::Unload();
-	MessageBus::Notify({ EventId::STOP_SOUND });
 }
 
 void StarBangBang::Scene_GameOver::Quit()

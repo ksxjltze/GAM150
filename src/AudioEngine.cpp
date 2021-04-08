@@ -63,7 +63,7 @@ void StarBangBang::AudioEngine::onNotify(Event e)
 		{
 			MusicEvent musicEvent = std::any_cast<MusicEvent>(e.context);
 			std::cout << "Playing sound: " << musicEvent.name << std::endl;
-			playSound(musicEvent.name, musicEvent.loop, ChannelGroupId::BGM);
+			playSound(musicEvent.name, true, ChannelGroupId::BGM);
 		}
 		catch (const std::exception&)
 		{

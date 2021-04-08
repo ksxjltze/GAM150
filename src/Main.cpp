@@ -31,7 +31,7 @@ namespace StarBangBang
 	float g_dt = 0;
 	s8 fontId = -1;
 	s8 fontId2 = -1;
-	bool debug = false;
+	static bool debug = false;
 }
 
 // ---------------------------------------------------------------------------
@@ -83,7 +83,6 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 	FMOD::Sound* walkSound = nullptr;
 	FMOD::Sound* menuBgm = nullptr;
 	FMOD::Sound* gameBgm = nullptr;
-	FMOD::Sound* ggBgm = nullptr;
 
 	//SFX
 	audioEngine.CreateSound(&btnSound, RESOURCES::SFX::SFX_BUTTON_CLICK_PATH);
@@ -97,7 +96,6 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 	//BGM
 	audioEngine.CreateSound(&menuBgm, RESOURCES::BGM::BGM_MENU_PATH);
 	audioEngine.CreateSound(&gameBgm, RESOURCES::BGM::BGM_GAME_PATH);
-	audioEngine.CreateSound(&ggBgm, RESOURCES::BGM::BGM_GAMEOVER_PATH);
 
 	audioEngine.AddSound(SFX::BUTTON_CLICK, btnSound);
 	audioEngine.AddSound(SFX::KEY_PICKUP, keyPickupSound);
@@ -108,7 +106,6 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 	audioEngine.AddSound(SFX::FOOTSTEPS, walkSound);
 	audioEngine.AddSound(BGM::MENU, menuBgm);
 	audioEngine.AddSound(BGM::GAME, gameBgm);
-	audioEngine.AddSound(BGM::GAMEOVER, ggBgm);
 
 	MessageBus::RegisterGlobalListener(&audioEngine);
 	//audioEngine.playSound("Test", false);
@@ -156,7 +153,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 	if (!debug)
 	{
 		//Full screen
-		//GRAPHICS::ToggleFullscreen();
+		GRAPHICS::ToggleFullscreen();
 	}
 
 	// Changing the window title

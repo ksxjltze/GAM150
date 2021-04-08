@@ -25,7 +25,6 @@ namespace StarBangBang
 	{
 		extern const std::string&& MENU;
 		extern const std::string&& GAME;
-		extern const std::string&& GAMEOVER;
 	}
 
 	namespace KEYBIND
@@ -125,7 +124,6 @@ namespace StarBangBang
 		{
 			extern const std::string&& BGM_MENU_PATH;
 			extern const std::string&& BGM_GAME_PATH;
-			extern const std::string&& BGM_GAMEOVER_PATH;
 		}
 
 		namespace LEVELS
