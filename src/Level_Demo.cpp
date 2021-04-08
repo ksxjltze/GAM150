@@ -448,6 +448,7 @@ namespace StarBangBang
 			if (!god)
 			{
 				std::cout << "LOSE\n" << std::endl;
+				ShowCursor(TRUE);
 				gameStateManager.SetNextGameState(GAME_OVER);
 
 			}
