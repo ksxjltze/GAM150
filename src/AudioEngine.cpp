@@ -87,13 +87,12 @@ void StarBangBang::AudioEngine::onNotify(Event e)
 
 	if (e.id == EventId::MUTE)
 	{
-		muted = !muted;
-
-		//FMOD::Channel* channel;
 		FMOD::ChannelGroup* channelGroup;
 		channelGroup = channelGroupMap.at(ChannelGroupId::BGM);
-		//system->getMasterChannelGroup(&channelGroup);
-		channelGroup->setMute(muted);
+
+		bool muted;
+		channelGroup->getMute(&muted);
+		channelGroup->setMute(!muted);
 		
 	}
 

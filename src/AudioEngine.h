@@ -34,7 +34,6 @@ namespace StarBangBang
 		void Update();
 		void Exit();
 	private:
-		bool muted{ false };
 		bool paused{ false };
 		FMOD::System* system;
 		std::map<ChannelGroupId, FMOD::ChannelGroup*> channelGroupMap;
