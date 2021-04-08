@@ -312,6 +312,7 @@ namespace StarBangBang
 		//Floating text
 		MessageBus::Notify({ EventId::PRINT_TEXT, std::string("Find the Vending Machine!") });
 		
+		MessageBus::Notify({ EventId::PAUSE_SOUND, false });
 		MusicEvent bgm{ BGM::GAME }; 
 		bgm.SendEvent();
 
@@ -513,6 +514,7 @@ namespace StarBangBang
 		if (pauseMenu.CloseWindow())
 		{
 			paused = !paused;
+			MessageBus::Notify({EventId::PAUSE_SOUND, paused});
 			ShowCursor(paused);
 			pauseMenu.exitBtn->active = paused;
 			pauseMenu.settingsBtn->active = paused;

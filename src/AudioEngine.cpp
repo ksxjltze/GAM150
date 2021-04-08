@@ -70,6 +70,13 @@ void StarBangBang::AudioEngine::onNotify(Event e)
 	{
 		StopMasterChannel();
 	}
+	else if (e.id == EventId::PAUSE_SOUND)
+	{
+		paused = std::any_cast<bool>(e.context);
+		FMOD::ChannelGroup* channelGroup;
+		system->getMasterChannelGroup(&channelGroup);
+		channelGroup->setPaused(paused);
+	}
 
 	if (e.id == EventId::MUTE)
 	{

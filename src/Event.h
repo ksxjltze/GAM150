@@ -11,6 +11,7 @@ enum class EventId
 	PLAY_SOUND, 
 	PLAY_MUSIC, 
 	STOP_SOUND,
+	PAUSE_SOUND,
 	MUTE,
 	TEST, 
 	PRINT_TEXT, 

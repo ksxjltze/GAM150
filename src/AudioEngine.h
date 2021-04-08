@@ -33,6 +33,7 @@ namespace StarBangBang
 		void Exit();
 	private:
 		bool muted{ false };
+		bool paused{ false };
 		FMOD::System* system;
 		std::vector<Sound> soundList;
 	};
