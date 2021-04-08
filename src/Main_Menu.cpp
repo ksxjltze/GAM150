@@ -46,13 +46,16 @@ namespace StarBangBang
 
 	void StarBangBang::Main_Menu::Init()
 	{
+
+		AEVec2 btnScale = { 3.0f, 1.6f};
+
 		GRAPHICS::SetZoom(1.0f);
 		GRAPHICS::SetBackgroundColor(Black);
 		//logo 
 		logo_obj = objectManager.NewGameObject();
 		objectManager.AddImage(logo_obj, logo);
 		logo_obj->transform.position = { 0, (float)AEGetWindowHeight() / 3 };
-		logo_obj->transform.scale = { 1.5,1.5};
+		logo_obj->transform.scale = { 1.5, 1.5};
 
 		settingsObj = objectManager.NewGameObject();
 		objectManager.AddComponent<SettingsMenu>(settingsObj, graphicsManager).Init();
@@ -62,35 +65,35 @@ namespace StarBangBang
 		//objectManager.AddImage(playbutton_obj, playbutton1);
 		objectManager.AddComponent<ImageComponent>(playbutton_obj, playbutton1);
 		playbutton_obj->transform.position = { (float)AEGetWindowWidth() / -8, (float)AEGetWindowHeight() / 8 };
-		playbutton_obj->transform.scale = { 3, 3 };
+		playbutton_obj->transform.scale = btnScale;
 		objectManager.AddComponent<Click<Main_Menu>>(playbutton_obj).setCallback(*this, &Main_Menu::LoadLevel);
 		
 		//tutorial button
 		tutorialbutton_obj = objectManager.NewGameObject();
 		objectManager.AddImage(tutorialbutton_obj, tutorialButton1);
 		tutorialbutton_obj->transform.position = { (float)AEGetWindowWidth() / 8, (float)AEGetWindowHeight() / 8 };
-		tutorialbutton_obj->transform.scale = { 3,3 };
+		tutorialbutton_obj->transform.scale = btnScale;
 		objectManager.AddComponent<Click<Main_Menu>>(tutorialbutton_obj).setCallback(*this, &Main_Menu::LoadTutorial);
 
 		//settings button
 		settingsbutton_obj = objectManager.NewGameObject();
 		objectManager.AddImage(settingsbutton_obj, settingsbutton1);
 		settingsbutton_obj->transform.position = { (float)AEGetWindowWidth() / -8, (float)AEGetWindowHeight() / -8 };
-		settingsbutton_obj->transform.scale = { 3, 3 };
+		settingsbutton_obj->transform.scale = btnScale;
 		objectManager.AddComponent<Click<Main_Menu>>(settingsbutton_obj).setCallback(*this, &Main_Menu::Settings);
 
 		//credits button
 		creditsbutton_obj = objectManager.NewGameObject();
 		objectManager.AddImage(creditsbutton_obj, creditsbutton1);
 		creditsbutton_obj->transform.position = { (float)AEGetWindowWidth() / 8, (float)AEGetWindowHeight() / -8 };
-		creditsbutton_obj->transform.scale = { 3, 3 };
+		creditsbutton_obj->transform.scale = btnScale;
 		objectManager.AddComponent<Click<Main_Menu>>(creditsbutton_obj).setCallback(*this, &Main_Menu::Credits);
 
 		//exit game button
 		exitbutton_obj = objectManager.NewGameObject();
 		objectManager.AddImage(exitbutton_obj, exitbutton1);
 		exitbutton_obj->transform.position = { 0, -200 };
-		exitbutton_obj->transform.scale = { 3,3 };
+		exitbutton_obj->transform.scale = btnScale;
 
 		objectManager.AddComponent<Click<Main_Menu>>(exitbutton_obj).setCallback(*this, &Main_Menu::ExitGame);
 
