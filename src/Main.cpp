@@ -95,7 +95,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 
 	//BGM
 	audioEngine.CreateSound(&menuBgm, RESOURCES::BGM::BGM_MENU_PATH);
-	audioEngine.CreateSound(&menuBgm, RESOURCES::BGM::BGM_GAME_PATH);
+	audioEngine.CreateSound(&gameBgm, RESOURCES::BGM::BGM_GAME_PATH);
 
 	audioEngine.AddSound(SFX::BUTTON_CLICK, btnSound);
 	audioEngine.AddSound(SFX::KEY_PICKUP, keyPickupSound);
