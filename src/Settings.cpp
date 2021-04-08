@@ -39,7 +39,7 @@ void StarBangBang::SettingsMenu::Init()
 	//objMgr->AddComponent<Text>(muteBtn, "Mute", fontId2, Black);
 	objMgr->AddComponent<Click<SettingsMenu>>(muteBtn, true).setCallback(*this, &SettingsMenu::Mute);
 
-	muteBtn->transform.position = { -0.2f * gameObject->transform.scale.x * GRAPHICS::MESH_WIDTH, 0 };
+	muteBtn->transform.position = { 0.0f, 0.15f * gameObject->transform.scale.x * GRAPHICS::MESH_HEIGHT };
 	muteBtn->transform.scale.x = btnScale.x * gameObject->transform.scale.x;
 	muteBtn->transform.scale.y = btnScale.y * gameObject->transform.scale.y;
 	muteBtn->visible = false;
@@ -49,14 +49,15 @@ void StarBangBang::SettingsMenu::Init()
 	objMgr->AddComponent<Click<SettingsMenu>>(fullscreenBtn, true).setCallback(*this, &SettingsMenu::Fullscreen);
 	fullscreenBtn->visible = false;
 
-	fullscreenBtn->transform.position = { 0.2f * gameObject->transform.scale.x * GRAPHICS::MESH_WIDTH, 0 };
+	fullscreenBtn->transform.position = { 0.0f, 0.0f };
 	fullscreenBtn->transform.scale.x = btnScale.x * gameObject->transform.scale.x;
 	fullscreenBtn->transform.scale.y = btnScale.y * gameObject->transform.scale.y;
 
 	objMgr->AddComponent<UIComponent>(backBtn, backBtnSprite, gfxMgr);
 	objMgr->AddComponent<Click<SettingsMenu>>(backBtn, true).setCallback(*this, &SettingsMenu::Back);
+	backBtn->transform.position = { 0.0f, -0.15f * gameObject->transform.scale.x * GRAPHICS::MESH_HEIGHT };
 	backBtn->transform.scale.x = btnScale.x * gameObject->transform.scale.x;
-	backBtn->transform.scale.y = 0.2f * gameObject->transform.scale.y;
+	backBtn->transform.scale.y = btnScale.y * gameObject->transform.scale.y;
 	backBtn->visible = false;
 
 	buttonList.push_back(muteBtn);

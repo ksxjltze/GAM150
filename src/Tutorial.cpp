@@ -129,7 +129,7 @@ void Tutorial::Init()
 	GameObject* backButton = objectManager.NewGameObject();
 	objectManager.AddImage(backButton, backSprite);
 	backButton->transform.position = { 0, -230 };
-	backButton->transform.scale = { 1, 1 };
+	backButton->transform.scale = { 1, 0.5f };
 	objectManager.AddComponent<Click<Tutorial>>(backButton).setCallback(*this, &Tutorial::MainMenu);
 }
 
