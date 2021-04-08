@@ -81,7 +81,7 @@ void StarBangBang::SettingsMenu::Back()
 
 void StarBangBang::SettingsMenu::Mute()
 {
-	MessageBus::Notify({ EventId::MUTE });
+	MessageBus::Notify({ EventId::MUTE, ChannelGroupId::ALL });
 }
 
 void StarBangBang::SettingsMenu::Fullscreen()

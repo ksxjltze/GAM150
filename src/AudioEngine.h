@@ -26,12 +26,12 @@ namespace StarBangBang
 		void CreateSound(FMOD::Sound** sound, const std::string&);
 		void onNotify(Event e);
 		void AddSound(const std::string& name, FMOD::Sound* sound);
-		void playSound(FMOD::Sound* sound, bool loop = false);
-		void playSound(const std::string& name, bool loop = false);
+		void playSound(FMOD::Sound* sound, bool loop = false, ChannelGroupId cgId = ChannelGroupId::SFX);
+		void playSound(const std::string& name, bool loop = false, ChannelGroupId cgId = ChannelGroupId::SFX);
 		void ReleaseSound(FMOD::Sound* sound);
 		void StopMasterChannel();
-		void Mute();
 		void Update();
+		void Mute(ChannelGroupId cgId);
 		void Exit();
 	private:
 		bool paused{ false };
