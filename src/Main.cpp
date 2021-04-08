@@ -183,11 +183,23 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 		// Handling Input
 		AEInputUpdate();
 
+		HWND hWnd = AESysGetWindowHandle();
+
+	if (AEInputCheckCurr(AEVK_LALT) && AEInputCheckTriggered(AEVK_TAB))
+	{
+		if (GRAPHICS::IsFullscreen())
+			ShowWindow(hWnd, SW_MINIMIZE);
+	}
 
 		if (AEInputCheckCurr(AEVK_LALT))
 		{
 			if (AEInputCheckTriggered(AEVK_RETURN))
 				GRAPHICS::ToggleFullscreen();
+			else if (AEInputCheckTriggered(AEVK_TAB))
+			{
+				if (GRAPHICS::IsFullscreen())
+					ShowWindow(hWnd, SW_MINIMIZE);
+			}
 		}
 
 		// Events
