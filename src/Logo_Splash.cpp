@@ -125,7 +125,7 @@ void StarBangBang::LogoSplash::Update()
 {
 
 	time_past += g_dt;
-	if ( AEInputCheckTriggered(VK_ESCAPE)  || AEInputCheckTriggered(VK_SPACE) ||
+	if ( AEInputCheckTriggered(VK_ESCAPE)  || AEInputCheckTriggered(VK_SPACE) || AEInputCheckTriggered(AEVK_RETURN) ||
 		 AEInputCheckTriggered(VK_RBUTTON) || AEInputCheckTriggered(VK_LBUTTON) )
 	{
 		skipCurrent = true;

@@ -104,7 +104,7 @@ namespace StarBangBang
 			speed *= CREDITS_SPEED_UP_FACTOR;
 		}
 
-		if (AEInputCheckTriggered(AEVK_ESCAPE))
+		if (AEInputCheckTriggered(AEVK_ESCAPE) || AEInputCheckTriggered(AEVK_RETURN))
 		{
 			gameStateManager.SetNextGameState(MAIN_MENU);
 			return;
