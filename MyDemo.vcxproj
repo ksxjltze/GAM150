@@ -147,6 +147,7 @@ xcopy /y /d /i /s "$(SolutionDir)\Resources" "$(OutDir)\Resources"</Command>
     <ClCompile Include="src\Main.cpp" />
     <ClCompile Include="src\Main_Menu.cpp" />
     <ClCompile Include="src\MemoryManager.cpp" />
+    <ClCompile Include="src\Menu.cpp" />
     <ClCompile Include="src\MessageBus.cpp" />
     <ClCompile Include="src\Movement.cpp" />
     <ClCompile Include="src\MovementManager.cpp" />
@@ -194,6 +195,7 @@ xcopy /y /d /i /s "$(SolutionDir)\Resources" "$(OutDir)\Resources"</Command>
     <ClInclude Include="src\ComputerListener.h" />
     <ClInclude Include="src\ComputerScript.h" />
     <ClInclude Include="src\ConfirmationMenu.h" />
+    <ClInclude Include="src\Menu.h" />
     <ClInclude Include="src\MusicEvent.h" />
     <ClInclude Include="src\PlayerAnimation.h" />
     <ClInclude Include="src\VisionCone.h" />

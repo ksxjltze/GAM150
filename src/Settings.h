@@ -1,27 +1,18 @@
 #pragma once
 #include "ScriptComponent.h"
 #include "GraphicsManager.h"
+#include "Menu.h"
 
 namespace StarBangBang
 {
-	class SettingsMenu : public Script
+	class SettingsMenu : public Menu
 	{
 	public:
 		SettingsMenu(GameObject* gameObject, GraphicsManager& gfx);
-		virtual void Init();
-		void Start();
-		void Draw();
-		void ForceUpdate();
-		void Update();
-		virtual void Toggle();
-		void SetStatus(bool);
-		bool GetStatus() {return status;}
-	protected:
-		virtual void Back();
-		std::vector<GameObject*> buttonList;
-		GraphicsManager& gfxMgr;
+		void Init();
+		void Toggle();
 	private:
-		bool status{ false };
+		void Back();
 		void Mute();
 		void Fullscreen();
 
