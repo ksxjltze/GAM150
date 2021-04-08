@@ -26,17 +26,24 @@ void StarBangBang::Scene_GameOver::Load()
 
 void StarBangBang::Scene_GameOver::Init()
 {
+	GRAPHICS::SetZoom(3.0f);
+
 	quitBtn = objectManager.NewGameObject();
 	restartBtn = objectManager.NewGameObject();
 
 	objectManager.AddImage(quitBtn, quitSprite);
 	objectManager.AddImage(restartBtn, restartSprite);
 
+	quitBtn->transform.scale.x = 1.5f;
+	quitBtn->transform.scale.y = 0.75f;
+	restartBtn->transform.scale.x = 1.5f;
+	restartBtn->transform.scale.y = 0.75f;
+
 	objectManager.AddComponent<Click<Scene_GameOver>>(quitBtn).setCallback(*this, &Scene_GameOver::Quit);
 	objectManager.AddComponent<Click<Scene_GameOver>>(restartBtn).setCallback(*this, &Scene_GameOver::Restart);
 
-	quitBtn->transform.position = { 100.0f, 0.0f };
-	restartBtn->transform.position = { -100.0f, 0.0f };
+	quitBtn->transform.position = { 50.0f, -25.0f };
+	restartBtn->transform.position = { -50.0f, -25.0f };
 
 	PathFinder::ShowGrid(false);
 }
@@ -55,14 +62,14 @@ void StarBangBang::Scene_GameOver::Draw()
 	AEGfxSetBackgroundColor(0.0f, 0.0f, 0.0f);
 
 	f32 TextWidth, TextHeight;
-	float fontScale = 3.0f;
+	float fontScale = 1.0f;
 
 	std::string ggText = "GAME OVER";
 	s8* str = const_cast<s8*>(ggText.c_str());
 
 	AEGfxSetBlendMode(AE_GFX_BM_BLEND);
-	AEGfxGetPrintSize(fontId, str, fontScale, TextWidth, TextHeight);
-	AEGfxPrint(fontId, str, -TextWidth / 2, -TextHeight / 2 , fontScale, 1.0f, 1.0f, 1.0f);
+	AEGfxGetPrintSize(fontId2, str, fontScale, TextWidth, TextHeight);
+	AEGfxPrint(fontId2, str, -TextWidth / 2, 0.6f - TextHeight / 2 , fontScale, 1.0f, 1.0f, 1.0f);
 }
 
 void StarBangBang::Scene_GameOver::Free()
