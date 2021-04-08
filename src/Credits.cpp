@@ -10,9 +10,9 @@ namespace StarBangBang
 	const static float END_OFFSET = 50.0f;
 	static Sprite logoSprite;
 
-	void Credits::NewTextObject(AEVec2 position, const std::string& s, float scale)
+	void Credits::NewTextObject(AEVec2 position, const std::string& s, float scale, Color c)
 	{
-		objectManager.AddComponent<Text>(objectManager.NewGameObject(), s, fontId2, Cyan, scale).gameObject->transform.position = position;
+		objectManager.AddComponent<Text>(objectManager.NewGameObject(), s, fontId2, c, scale).gameObject->transform.position = position;
 	}
 
 	StarBangBang::Credits::Credits(int id, GameStateManager& gsm) : Scene(id, gsm)
@@ -46,35 +46,37 @@ namespace StarBangBang
 		cameraObject->transform.scale = { EPSILON, EPSILON };
 		objectManager.AddImage(cameraObject, logoSprite);
 
-		NewTextObject(pos, "StarBangBang", 1.0f);
+		NewTextObject(pos, "StarBangBang", 1.5f, Yellow);
 		NewTextObject({ pos.x, pos.y += spacing }, "Presents", 0.8f);
 
-		pos = { 0, 0 };
+		pos = { 0, 20 };
 
-		NewTextObject(pos, "Producer", 0.9f);
+		Color roleColor = Cyan;
+
+		NewTextObject(pos, "Producer", 0.9f, roleColor);
 		NewTextObject({pos.x, pos.y += spacing}, "Ho Yi Guan", 1.0f);
 
-		NewTextObject({ pos.x, pos.y += role_spacing }, "Technical Director", 0.9f);
+		NewTextObject({ pos.x, pos.y += role_spacing }, "Technical Director", 0.9f, roleColor);
 		NewTextObject({ pos.x, pos.y += spacing}, "Lee Jia Keat", 1.0f);
 
-		NewTextObject({ pos.x, pos.y += role_spacing }, "Design Lead", 0.9f);
+		NewTextObject({ pos.x, pos.y += role_spacing }, "Design Lead", 0.9f, roleColor);
 		NewTextObject({ pos.x, pos.y += spacing }, "Rayner Liew", 1.0f);
 
-		NewTextObject({ pos.x, pos.y += role_spacing }, "Testing Lead", 0.9f);
+		NewTextObject({ pos.x, pos.y += role_spacing }, "Testing Lead", 0.9f, roleColor);
 		NewTextObject({ pos.x, pos.y += spacing }, "Sim Chin Hin", 1.0f);
 
-		NewTextObject({ pos.x, pos.y += section_spacing }, "Lecturers", 0.9f);
+		NewTextObject({ pos.x, pos.y += section_spacing }, "Lecturers", 0.9f, roleColor);
 		NewTextObject({ pos.x, pos.y += spacing }, "Cheng Ding Xiang", 1.0f);
 		NewTextObject({ pos.x, pos.y += spacing }, "Tomas Arce-Gil", 1.0f);
 		NewTextObject({ pos.x, pos.y += spacing }, "Wong Han Feng, Gerald", 1.0f);
 
-		NewTextObject({ pos.x, pos.y += section_spacing }, "Created At", 0.9f);
+		NewTextObject({ pos.x, pos.y += section_spacing }, "Created At", 0.9f, roleColor);
 		NewTextObject({ pos.x, pos.y += spacing }, "DigiPen Institute of Technology Singapore", 0.9f);
 
-		NewTextObject({ pos.x, pos.y += role_spacing }, "PRESIDENT", 1.0f);
+		NewTextObject({ pos.x, pos.y += role_spacing }, "PRESIDENT", 1.0f, roleColor);
 		NewTextObject({ pos.x, pos.y += spacing }, "CLAUDE COMAIR", 0.9f);
 
-		NewTextObject({ pos.x, pos.y += section_spacing }, "EXECUTIVES", 1.0f);
+		NewTextObject({ pos.x, pos.y += section_spacing }, "EXECUTIVES", 1.0f, roleColor);
 		NewTextObject({ pos.x, pos.y += spacing }, "JASON CHU", 0.6f);
 		NewTextObject({ pos.x, pos.y += spacing }, "SAMIR ABOU SAMRA", 0.6f);
 		NewTextObject({ pos.x, pos.y += spacing }, "MICHELE COMAIR", 0.6f);
@@ -85,10 +87,10 @@ namespace StarBangBang
 
 		spacing += 20;
 		NewTextObject({ pos.x, pos.y += section_spacing }, "www.digipen.edu", 0.8f);
-		NewTextObject({ pos.x, pos.y += spacing }, "All content © 2021 DigiPen Institute of Technology Singapore.", 0.8f);
-		NewTextObject({ pos.x, pos.y += spacing }, "All Rights Reserved", 0.8f);
+		NewTextObject({ pos.x, pos.y += section_spacing / 2 }, "All content Copyright 2021 DigiPen Institute of Technology Singapore.", 0.7f);
+		NewTextObject({ pos.x, pos.y += section_spacing / 2 }, "All Rights Reserved", 0.8f);
 
-		NewTextObject({ pos.x, pos.y += section_spacing }, "FMOD Sound System © FireLight Technologies Pty Ltd (1998 - 2020)", 0.8f);
+		NewTextObject({ pos.x, pos.y += section_spacing }, "FMOD Sound System Copyright FireLight Technologies Pty Ltd (1998 - 2021)", 0.8f);
 
 		cameraObject->transform.position.y = 100.0f;
 		end->transform.position = { pos.x, pos.y };

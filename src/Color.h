@@ -32,6 +32,7 @@ namespace StarBangBang
 	static const Color Green{ 0.0f, 1.0f, 0.0f, 1.0f };
 	static const Color Black{ 0.0f, 0.0f, 0.0f, 1.0f };
 	static const Color Cyan{ 0.0f, 1.0f, 1.0f, 1.0f };
+	static const Color Yellow{ 1.0f, 1.0f, 0.0f, 1.0f };
 	static const Color Purple{ 1.0f, 0.0f, 1.0f, 1.0f };
 	static const Color Gray { 0.5f, 0.5f, 0.5f ,1.0f};
 	static const Color LightGreen{ 0.5f, 0.65f, 0.0f, 1.0f};
