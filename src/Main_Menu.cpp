@@ -9,7 +9,6 @@ static const float y_scale = 5.0f;
 static const float WinWidth = (float)AEGetWindowWidth();
 static const float WinHeight = (float)AEGetWindowHeight();
 
-
 namespace StarBangBang
 {
 	Sprite vending_machine_sprite;
@@ -22,6 +21,7 @@ namespace StarBangBang
 		settingsbutton_obj = nullptr;
 		creditsbutton_obj = nullptr;
 		exitbutton_obj = nullptr;
+		tutorialbutton_obj = nullptr;
 	}
 
 	void StarBangBang::Main_Menu::Load()
@@ -101,35 +101,41 @@ namespace StarBangBang
 		editorBtn->transform.position = { (float)AEGetWindowWidth() * 0.35f, (float)AEGetWindowHeight() / 8, };
 
 		objectManager.AddComponent<Click<Main_Menu>>(editorBtn).setCallback(*this, &Main_Menu::LoadEditor);
+		frameSkip = true;
 	}
 
 	void StarBangBang::Main_Menu::Update()
 	{
+		//Hack to prevent input from being carried forward from previous scenes
+		if (frameSkip)
+		{
+			frameSkip = false;
+			return;
+		}
+
 		if (GRAPHICS::IsFullscreen())
 			GRAPHICS::SetZoom(1.5f);
 		else
 			GRAPHICS::SetZoom(1.0f);
 
-		if (AEInputCheckTriggered(AEVK_ESCAPE))
+		if (windowOpen && !windowQueue.empty())
 		{
-			if (!windowOpen)
+			if (windowQueue.front()->active)
 			{
-				gameStateManager.ExitGame();
-			}
-			else
-			{
-				if (!windowQueue.empty())
+				if (AEInputCheckTriggered(AEVK_ESCAPE))
 				{
 					windowQueue.front()->SetActive(false);
 					windowQueue.pop();
 				}
-				
-				if (windowQueue.empty())
-				{
-					windowOpen = false;
-				}
+
+			}
+			else
+			{
+				windowQueue.pop();
 			}
 		}
+		else
+			windowOpen = false;
 
 		HideMenu();
 

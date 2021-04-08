@@ -74,7 +74,7 @@ void StarBangBang::AudioEngine::onNotify(Event e)
 	{
 		muted = !muted;
 
-		FMOD::Channel* channel;
+		//FMOD::Channel* channel;
 		FMOD::ChannelGroup* channelGroup;
 
 		system->getMasterChannelGroup(&channelGroup);

@@ -13,9 +13,11 @@ namespace StarBangBang
 		void SetColor(Color c);
 		void Start();
 		void Update();
+		void SetTransparency(float a);
 		void Draw();
 		bool rescale;
 	private:
+		float transparency{ 1.0f };
 		Sprite sprite;
 		GraphicsManager& gfxMgr;
 	};

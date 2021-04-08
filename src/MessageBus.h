@@ -12,6 +12,7 @@ namespace StarBangBang
 	public:
 		static void Reset();
 		static void RegisterGlobalListener(Listener* listener);
+		static bool IsEventInQueue(EventId id);
 		static void Update();
 		static void Notify(Event e);
 		friend class Listener;

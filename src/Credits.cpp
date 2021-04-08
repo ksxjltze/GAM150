@@ -12,7 +12,7 @@ namespace StarBangBang
 
 	void Credits::NewTextObject(AEVec2 position, const std::string& s, float scale)
 	{
-		objectManager.AddComponent<Text>(objectManager.NewGameObject(), s, fontId2, scale).gameObject->transform.position = position;
+		objectManager.AddComponent<Text>(objectManager.NewGameObject(), s, fontId2, Cyan, scale).gameObject->transform.position = position;
 	}
 
 	StarBangBang::Credits::Credits(int id, GameStateManager& gsm) : Scene(id, gsm)
@@ -51,40 +51,44 @@ namespace StarBangBang
 
 		pos = { 0, 0 };
 
-		NewTextObject(pos, "Producer", 0.5f);
+		NewTextObject(pos, "Producer", 0.9f);
 		NewTextObject({pos.x, pos.y += spacing}, "Ho Yi Guan", 1.0f);
 
-		NewTextObject({ pos.x, pos.y += role_spacing }, "Technical Director", 0.5f);
+		NewTextObject({ pos.x, pos.y += role_spacing }, "Technical Director", 0.9f);
 		NewTextObject({ pos.x, pos.y += spacing}, "Lee Jia Keat", 1.0f);
 
-		NewTextObject({ pos.x, pos.y += role_spacing }, "Design Lead", 0.5f);
+		NewTextObject({ pos.x, pos.y += role_spacing }, "Design Lead", 0.9f);
 		NewTextObject({ pos.x, pos.y += spacing }, "Rayner Liew", 1.0f);
 
-		NewTextObject({ pos.x, pos.y += role_spacing }, "Testing Lead", 0.5f);
+		NewTextObject({ pos.x, pos.y += role_spacing }, "Testing Lead", 0.9f);
 		NewTextObject({ pos.x, pos.y += spacing }, "Sim Chin Hin", 1.0f);
 
-		NewTextObject({ pos.x, pos.y += section_spacing }, "Lecturers", 0.5f);
+		NewTextObject({ pos.x, pos.y += section_spacing }, "Lecturers", 0.9f);
 		NewTextObject({ pos.x, pos.y += spacing }, "Cheng Ding Xiang", 1.0f);
 		NewTextObject({ pos.x, pos.y += spacing }, "Tomas Arce-Gil", 1.0f);
 		NewTextObject({ pos.x, pos.y += spacing }, "Wong Han Feng, Gerald", 1.0f);
 
-		NewTextObject({ pos.x, pos.y += section_spacing }, "Created At", 0.5f);
-		NewTextObject({ pos.x, pos.y += spacing }, "DigiPen Institute of Technology Singapore", 0.5f);
+		NewTextObject({ pos.x, pos.y += section_spacing }, "Created At", 0.9f);
+		NewTextObject({ pos.x, pos.y += spacing }, "DigiPen Institute of Technology Singapore", 0.9f);
 
 		NewTextObject({ pos.x, pos.y += role_spacing }, "PRESIDENT", 1.0f);
-		NewTextObject({ pos.x, pos.y += spacing }, "CLAUDE COMAIR", 0.8f);
+		NewTextObject({ pos.x, pos.y += spacing }, "CLAUDE COMAIR", 0.9f);
 
-		NewTextObject({ pos.x, pos.y += role_spacing }, "EXECUTIVES", 1.0f);
-		NewTextObject({ pos.x, pos.y += spacing }, "JASON CHU   SAMIR ABOU SAMRA", 0.8f);
-		NewTextObject({ pos.x, pos.y += spacing }, "MICHELE COMAIR", 0.8f);
-		NewTextObject({ pos.x, pos.y += spacing }, "ANGELA KUGLER   ERIK MOHRMANN", 0.8f);
-		NewTextObject({ pos.x, pos.y += spacing }, "BENJAMIN ELLINGER   MELVIN GONSALVEZ", 0.8f);
+		NewTextObject({ pos.x, pos.y += section_spacing }, "EXECUTIVES", 1.0f);
+		NewTextObject({ pos.x, pos.y += spacing }, "JASON CHU", 0.6f);
+		NewTextObject({ pos.x, pos.y += spacing }, "SAMIR ABOU SAMRA", 0.6f);
+		NewTextObject({ pos.x, pos.y += spacing }, "MICHELE COMAIR", 0.6f);
+		NewTextObject({ pos.x, pos.y += spacing }, "ANGELA KUGLER", 0.6f);
+		NewTextObject({ pos.x, pos.y += spacing }, "ERIK MOHRMANN", 0.6f);
+		NewTextObject({ pos.x, pos.y += spacing }, "BENJAMIN ELLINGER", 0.6f);
+		NewTextObject({ pos.x, pos.y += spacing }, "MELVIN GONSALVEZ", 0.6f);
 
-		NewTextObject({ pos.x, pos.y += section_spacing }, "WWW.DIGIPEN.EDU", 0.4f);
-		NewTextObject({ pos.x, pos.y += spacing }, "All content © 2021 DigiPen Institute of Technology Singapore.", 0.4f);
-		NewTextObject({ pos.x, pos.y += spacing }, "All Rights Reserved", 0.4f);
+		spacing += 10;
+		NewTextObject({ pos.x, pos.y += section_spacing }, "WWW.DIGIPEN.EDU", 0.8f);
+		NewTextObject({ pos.x, pos.y += spacing }, "All content 2021 DigiPen Institute of Technology Singapore.", 0.8f);
+		NewTextObject({ pos.x, pos.y += spacing }, "All Rights Reserved", 0.8f);
 
-		NewTextObject({ pos.x, pos.y += role_spacing + 10 }, "FMOD Sound System © FireLight Technologies Pty Ltd (1998 - 2020)", 0.4f);
+		NewTextObject({ pos.x, pos.y += section_spacing }, "FMOD Sound System FireLight Technologies Pty Ltd (1998 - 2020)", 0.8f);
 
 		cameraObject->transform.position.y = 100.0f;
 		end->transform.position = { pos.x, pos.y };

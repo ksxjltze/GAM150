@@ -31,16 +31,13 @@
 #include "SoundEvent.h"
 
 #include "Settings.h"
+#include "PlayerAnimation.h"
 
 static bool god = false;
 static float app_time = 0.0f;
 static int animation_counter = 0;
 
-enum class direction {idle = 0, left, right};
-direction dir;
-
-enum class current_char { fei_ge, prisoner };
-current_char character;
+static StarBangBang::AnimationSprites animSprites;
 
 namespace StarBangBang
 {
@@ -51,7 +48,10 @@ namespace StarBangBang
 	Sprite exitBtnSprite;
 	Sprite settingsBtnSprite;
 	Sprite continueBtnSprite;
+	Sprite stealth_icon;
 
+	std::map<GameObject*, current_char> charMap;
+	
 	struct Pause
 	{
 		GameObject* exitBtn{ nullptr };
@@ -91,7 +91,18 @@ namespace StarBangBang
 
 		void Update() 
 		{
-			settingsObj->GetComponent<SettingsMenu>()->ForceUpdate();
+			SettingsMenu* settings = settingsObj->GetComponent<SettingsMenu>();
+			settings->ForceUpdate();
+
+			if (windowQueue.empty())
+			{
+				settings->SetStatus(false);
+			}
+			else if (!windowQueue.front()->active)
+			{
+				CloseWindow();
+			}
+
 			for (auto& component : exitBtn->GetComponents())
 			{
 				component->Update();
@@ -120,6 +131,8 @@ namespace StarBangBang
 		movementController = nullptr;
 		guardManager = nullptr;
 		indicatorObj = nullptr;
+		dir = direction::idle;
+		character = current_char::fei_ge;
 	}
 
 	void StarBangBang::Level_Demo::Load()
@@ -127,31 +140,11 @@ namespace StarBangBang
 		//forward player 1
 		playerImage = graphicsManager.CreateSprite(RESOURCES::CAPTAINSTEALTH_F1_PATH);
 
-
-		GuardAnim::Load(graphicsManager);
-
-		//right animation player 1
-		playerImageR1 = graphicsManager.CreateSprite(RESOURCES::CAPTAINSTEALTH_R1_PATH);
-		playerImageR2 = graphicsManager.CreateSprite(RESOURCES::CAPTAINSTEALTH_R2_PATH);
-		playerImageR3 = graphicsManager.CreateSprite(RESOURCES::CAPTAINSTEALTH_R3_PATH);
-
-		//left animation for player 1 
-		playerImageL1 = graphicsManager.CreateSprite(RESOURCES::CAPTAINSTEALTH_L1_PATH);
-		playerImageL2 = graphicsManager.CreateSprite(RESOURCES::CAPTAINSTEALTH_L2_PATH);
-		playerImageL3 = graphicsManager.CreateSprite(RESOURCES::CAPTAINSTEALTH_L3_PATH);
-
 		//player 2
 		player2Image = graphicsManager.CreateSprite(RESOURCES::PRISONER_F1_PATH);
 
-		//right animation player 2
-		playerImage2R1 = graphicsManager.CreateSprite(RESOURCES::PRISONER_R1_PATH);
-		playerImage2R2 = graphicsManager.CreateSprite(RESOURCES::PRISONER_R2_PATH);
-		playerImage2R3 = graphicsManager.CreateSprite(RESOURCES::PRISONER_R3_PATH);
-
-		//left animation for player 2 
-		playerImage2L1 = graphicsManager.CreateSprite(RESOURCES::PRISONER_L1_PATH);
-		playerImage2L2 = graphicsManager.CreateSprite(RESOURCES::PRISONER_L2_PATH);
-		playerImage2L3 = graphicsManager.CreateSprite(RESOURCES::PRISONER_L3_PATH);
+		animSprites.Load(graphicsManager);
+		GuardAnim::Load(graphicsManager);
 
 		guardImage = graphicsManager.CreateSprite(RESOURCES::SECURITYGUARD_F1_PATH);
 		securityCamImage = graphicsManager.CreateSprite(RESOURCES::CAMERA_PATH);
@@ -171,6 +164,9 @@ namespace StarBangBang
 		exitBtnSprite = graphicsManager.CreateSprite(RESOURCES::EXIT1_BUTTON_PATH);
 		continueBtnSprite = graphicsManager.CreateSprite(RESOURCES::PLAY1_BUTTON_PATH);
 		settingsBtnSprite = graphicsManager.CreateSprite(RESOURCES::SETTING1_BUTTON_PATH);
+
+
+		stealth_icon = graphicsManager.CreateSprite(RESOURCES::EYE_SPRITE_PATH);
 	}
 
 	//Initialization of game objects, components and scripts.
@@ -194,6 +190,7 @@ namespace StarBangBang
 		//Movement controller
 		movementController = objectManager.NewGameObject();
 		MovementManager& moveMgr = objectManager.AddComponent<MovementManager>(movementController);
+		moveMgr.gameObject->name = "MovementManager";
 
 
 		//Client
@@ -204,18 +201,24 @@ namespace StarBangBang
 		//Player components and scripts
 		CaptainStealth::SpawnPlayer(objectManager, player, playerImage);
 		player->transform.position = tilemap.GetPositionAtIndex(6, 3);
+
+		charMap.insert({ player, current_char::fei_ge});
+		charMap.insert({ player2, current_char::prisoner});
 		
 
 		//UI
 		GameObject* UI = objectManager.NewGameObject();
-		objectManager.AddComponent<UIComponent>(UI, graphicsManager).rescale = false;
-		UIComponent& cooldownOverlayUI = objectManager.AddComponent<UIComponent>(UI, graphicsManager);
-		cooldownOverlayUI.rescale = false;
-		cooldownOverlayUI.SetColor({ 0.0f, 0.0f, 0.0f, 0.8f });
-		Text& uiText = objectManager.AddComponent<Text>(objectManager.NewGameObject(), "Q", fontId, Black, 1.0f, false);
-		uiText.gameObject->transform.position = { 0.10f, 0.90f };
-		uiText.SetOffset({ -1.0f, 0 });
-		UI->transform.position = {-AEGetWindowWidth()/2 + 0.05f * AEGetWindowWidth(), -AEGetWindowHeight()/2 + 0.95f * AEGetWindowHeight() };
+		UIComponent& UICom = objectManager.AddComponent<UIComponent>(UI, stealth_icon,graphicsManager);
+		UICom.rescale = false;
+		UICom.gameObject->SetLayer(LAYER::UI);
+		UICom.SetColor(Color{1.0f,1.0f,1.0f,0.7f});
+		Text& uiText = objectManager.AddComponent<Text>(objectManager.NewGameObject(), "Q", fontId, White, 1.0f, false);
+		uiText.gameObject->transform.position = { 0.05f, 0.28f };
+		uiText.SetOffset({ -1.0f, -1.0f });
+		UI->transform.position = {-AEGetWindowWidth()/2 + 0.05f * AEGetWindowWidth(), -AEGetWindowHeight()/2 + 0.1f * AEGetWindowHeight() };
+		uiText.gameObject->name = "Stealth_Txt";
+		UI->name = "Stealth_UI";
+
 
 		//character indicator
 		indicatorObj = objectManager.NewGameObject();
@@ -256,7 +259,6 @@ namespace StarBangBang
 		SpawnDoors();
 
 		InitPause();
-
 		// Create distractions
 		int roomNum = 1;
 		CreateDistraction(roomNum, 8, 12, vendingMachineSprite);
@@ -275,14 +277,32 @@ namespace StarBangBang
 		CreateDistraction(roomNum, 16, 27, vendingMachineSprite);
 		CreateDistraction(roomNum, 5, 47, vendingMachineSprite);
 
+		//room1
 		CreateVent(11, 12);
 		CreateVent(18, 7);
+
+		//room 2
 		CreateVent(30, 10);
-		CreateVent(30, 16);
-		CreateVent(35, 13);
+		//CreateVent(30, 16);
+		//CreateVent(35, 13);
 		CreateVent(45, 13);
 		CreateVent(42, 4);
 
+		//room 3
+		CreateVent(21, 26);
+		CreateVent(40, 24);
+		CreateVent(45, 39);
+		CreateVent(35, 36);
+		CreateVent(26, 43);
+		//CreateVent(41, 43);
+
+		//room 4
+		CreateVent(15, 41);
+		CreateVent(15, 33);
+		CreateVent(8, 20);
+		//CreateVent(7, 37);
+		CreateVent(7, 45);
+		//CreateVent(6, 26);
 
 		//Notification Text
 		objectManager.AddComponent<DebugText>(objectManager.NewGameObject(), fontId);
@@ -292,6 +312,11 @@ namespace StarBangBang
 		MessageBus::Notify({ EventId::PLAY_SOUND, SoundEvent("Test") });
 
 		character = current_char::fei_ge;
+
+		//TEST
+		//player->transform.position = tilemap.GetPositionAtIndex(5, 34);
+		//player2->transform.position = tilemap.GetPositionAtIndex(6, 34);
+
 		pauseMenu.settingsObj = objectManager.NewGameObject();
 		objectManager.AddComponent<SettingsMenu>(pauseMenu.settingsObj, graphicsManager).Init();
 	}
@@ -330,6 +355,9 @@ namespace StarBangBang
 
 		Scene::Update();
 
+		GameObject* activeCharacter = objectManager.Find("MovementManager")->GetComponent<MovementManager>()->GetActiveController();
+		character = charMap.at(activeCharacter);
+
 		//indicator update
 		if (character == current_char::fei_ge)
 		{
@@ -341,100 +369,8 @@ namespace StarBangBang
 			indicatorObj->SetPos(player2->GetPos());
 			indicatorObj->transform.position.y += 30.0f;
 		}
-
-
-		//update animation for prisoner and client
-		switch (character)
-		{
-		case current_char::fei_ge:
-
-			switch (dir)
-			{//fei ge's animation
-
-			case direction::right:
-
-				switch (animation_counter)
-				{
-				case 1:
-					player->GetComponent<ImageComponent>()->SetSprite(playerImageR2);
-					break;
-				case 2:
-					player->GetComponent<ImageComponent>()->SetSprite(playerImageR3);
-					break;
-
-				case 3:
-					player->GetComponent<ImageComponent>()->SetSprite(playerImageR1);
-					break;
-				}
-
-				break;
-
-			case direction::left:
-
-				switch (animation_counter)
-				{
-				case 1:
-					player->GetComponent<ImageComponent>()->SetSprite(playerImageL2);
-					break;
-				case 2:
-					player->GetComponent<ImageComponent>()->SetSprite(playerImageL3);
-					break;
-				case 3:
-					player->GetComponent<ImageComponent>()->SetSprite(playerImageL1);
-					break;
-				}
-
-				break;
-			}
-
-			break;
-
-		case current_char::prisoner:
-			switch (dir)
-			{
-				//prisoner's animation
-			
-			case direction::right:
-
-				switch (animation_counter)
-				{
-				case 1:
-					player2->GetComponent<ImageComponent>()->SetSprite(playerImage2R2);
-					break;
-				case 2:
-					player2->GetComponent<ImageComponent>()->SetSprite(playerImage2R3);
-					break;
-				case 3:
-					player2->GetComponent<ImageComponent>()->SetSprite(playerImage2R1);
-					break;
-				}
-
-				break;
-
-			case direction::left:
-
-				switch (animation_counter)
-				{
-				case 1:
-					player2->GetComponent<ImageComponent>()->SetSprite(playerImage2L2);
-					break;
-				case 2:
-					player2->GetComponent<ImageComponent>()->SetSprite(playerImage2L3);
-					break;
-
-				case 3:
-					player2->GetComponent<ImageComponent>()->SetSprite(playerImage2L1);
-					break;
-				}
-
-				break;
-
-			}
-			break;
-			
-		}
-
-		//ANIMATION ~~~
+		
+		PlayerAnimator::PlayerAnimation(dir, character, player, player2, animSprites, animation_counter);
 
 		//this is to switch characters
 		if (AEInputCheckTriggered(AEVK_TAB))
@@ -485,10 +421,10 @@ namespace StarBangBang
 		}
 
 
-		if (AEInputCheckTriggered(VK_SPACE))
-		{
-			MessageBus::Notify({ EventId::PRINT_TEXT, std::string("Find the Exit!") });
-		}
+		//if (AEInputCheckTriggered(VK_SPACE))
+		//{
+		//	MessageBus::Notify({ EventId::PRINT_TEXT, std::string("Find the Exit!") });
+		//}
 
 		PlayerScript* playerScript = player->GetComponent<PlayerScript>();
 		//if (AEInputCheckTriggered(AEVK_G))

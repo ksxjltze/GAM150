@@ -503,7 +503,6 @@ void CollisionManager::ResolverUpdate()
 
 							if (col->gameObject->name == "Player" || col->gameObject->name == "Client")
 							{
-								//printf("%d\n", col->isTrigger);
 								Event e{ EventId::PLAYER_COLLISION, CollisionEvent{col, col2} };
 								MessageBus::Notify(e);
 							}

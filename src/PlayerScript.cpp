@@ -9,16 +9,17 @@
 #include "Text.h"
 #include <iomanip>
 #include <sstream>
+#include "MovementManager.h"
 
 StarBangBang::PlayerScript::PlayerScript(GameObject* obj) : Script(obj)
 {
 	client = nullptr;
 	rb_controller = nullptr;
-	range = 500.0f;
 	gameover = false;
 	playerEscaped = false;
 	clientEscaped = false;
 	stealth = nullptr;
+	text = nullptr;
 }
 void StarBangBang::PlayerScript::Start()
 {
@@ -32,7 +33,6 @@ void StarBangBang::PlayerScript::Start()
 	text->SetOffset({ 0, -30 });
 
 	client = objMgr->Find("Client");
-	range *= range;
 
 	assert(client);
 	assert(rb_controller);
@@ -86,18 +86,41 @@ void StarBangBang::PlayerScript::onNotify(Event e)
 	if (e.id == EventId::COLLISION)
 	{
 		CollisionEvent data = std::any_cast<CollisionEvent>(e.context);
+		GameObject* obj = data.second->gameObject;
 
-		if (data.first->gameObject->name == "EXIT" && data.second->gameObject->name == "Player")
+		if (data.first->gameObject->name == "EXIT")
 		{
-			printf("PLAYER ESCAPED\n");
-			data.second->active = false;
-			playerEscaped = true;
+			if (obj->name == "Player")
+			{
+				objMgr->Find("MovementManager")->GetComponent<MovementManager>()->RemoveController(gameObject);
+				BoxCollider* collider = gameObject->GetComponent<BoxCollider>();
+				collider->isTrigger = true;
+				collider->isStatic = true;
+				playerEscaped = true;
+			}
+			else if (obj->name == "Client")
+			{
+				objMgr->Find("MovementManager")->GetComponent<MovementManager>()->RemoveController(client);
+				BoxCollider* collider = client->GetComponent<BoxCollider>();
+				collider->isTrigger = true;
+				collider->isStatic = true;
+				clientEscaped = true;
+			}
 		}
-		if (data.first->gameObject->name == "EXIT" && data.second->gameObject->name == "Client")
+		else if (data.first->gameObject->name == "Vent")
 		{
-			data.second->active = false;
-			clientEscaped = true;
+			if (obj->name == "Player" || obj->name == "Client")
+			{
+				if (obj->name == "Player")
+					playerHidden = true;
+				else
+					clientHidden = true;
+
+				obj->visible = false;
+				obj->GetComponent<BoxCollider>()->isTrigger = true;
+			}
 		}
+
 
 	}
 }
@@ -117,21 +140,21 @@ void StarBangBang::PlayerScript::Update()
 		text->SetText("");
 	}
 
-	/*AEVec2 myPos = gameObject->transform.position;
-	AEVec2 clientPos = client->GetPos();
-	float real_sqrDis = AEVec2SquareDistance(&myPos, &clientPos);*/
-
-	/*if (myPos.x > AEGfxGetWinMaxX() || myPos.x < AEGfxGetWinMinX()
-		|| myPos.y > AEGfxGetWinMaxY() || myPos.y < AEGfxGetWinMinY())
+	if (playerHidden)
+		playerHidden = false;
+	else
 	{
-		rb_controller->active = false;
-	}*/
-		
-	/*if (real_sqrDis > range )
-	{
-		rb_controller->active = false;
-	}*/
+		gameObject->visible = true;
+		gameObject->GetComponent<BoxCollider>()->isTrigger = false;
+	}
 
+	if (clientHidden)
+		clientHidden = false;
+	else
+	{
+		client->visible = true;
+		client->GetComponent<BoxCollider>()->isTrigger = false;
+	}
 
 }
 

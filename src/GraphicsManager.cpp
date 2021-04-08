@@ -1,3 +1,12 @@
+/*****************************************************************//**
+ * \file   GraphicsManager.cpp
+ * \brief  Graphics
+ * 
+ * \author Lee Jia Keat
+ * \date   April 2021
+ *********************************************************************/
+
+#include "GraphicsManager.h"
 #include "GraphicsManager.h"
 #include "constants.h"
 
@@ -13,6 +22,7 @@ namespace StarBangBang
 		static AEVec2 screenScaleRatio = {  TARGET_WINDOW_WIDTH / RESOLUTION_X, TARGET_WINDOW_HEIGHT / RESOLUTION_Y };
 	}
 
+	
 	AEGfxTexture* StarBangBang::GraphicsManager::LoadTexture(const char* filePath)
 	{
 		AEGfxTexture* texture = AEGfxTextureLoad(filePath);
@@ -257,9 +267,11 @@ namespace StarBangBang
 
 		// Drawing the mesh (list of triangles)
 		AEGfxMeshDraw(mesh, AE_GFX_MDM_TRIANGLES);
+
+		AEGfxSetTransparency(1.0f);
 	}
 
-	void GRAPHICS::DrawOverlay(AEGfxVertexList* mesh, AEGfxTexture* texture, AEVec2 scale, AEVec2 pos, Color c, bool rescale)
+	void GRAPHICS::DrawOverlay(AEGfxVertexList* mesh, AEGfxTexture* texture, AEVec2 scale, AEVec2 pos, Color c, bool rescale, float transparency)
 	{
 		AEGfxSetBlendMode(AE_GFX_BM_BLEND);
 
@@ -282,10 +294,12 @@ namespace StarBangBang
 			AEMtx33Scale(&s, screenScale.x, screenScale.y);
 			AEMtx33Concat(&trans, &s, &trans);
 		}
-
+		
 		AEGfxSetTransform(trans.m);
 		AEGfxSetTintColor(c.R(), c.G(), c.B(), c.A());
+		AEGfxSetTransparency(transparency);
 		AEGfxMeshDraw(mesh, AE_GFX_MDM_TRIANGLES);
+		AEGfxSetTransparency(1.0f);
 	}
 
 	void GRAPHICS::SetBackgroundColor(Color c)

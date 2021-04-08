@@ -19,18 +19,21 @@ void StarBangBang::SettingsMenu::Init()
 {
 	Sprite fullscreenBtnSprite = gfxMgr.CreateSprite(RESOURCES::FULLSCREEN_BUTTON_PATH);
 	Sprite muteBtnSprite = gfxMgr.CreateSprite(RESOURCES::MUTE_BUTTON_PATH);
+	Sprite backBtnSprite = gfxMgr.CreateSprite(RESOURCES::BACK_BUTTON_PATH);
 
 	muteBtn = objMgr->NewGameObject();
 	fullscreenBtn = objMgr->NewGameObject();
+	backBtn = objMgr->NewGameObject();
 
 	muteBtn->parent = gameObject;
 	fullscreenBtn->parent = gameObject;
+	backBtn->parent = gameObject;
 	//gameObject->visible = false;
 
-	objMgr->AddComponent<UIComponent>(gameObject, gfxMgr).SetColor(Gray);
+	objMgr->AddComponent<UIComponent>(gameObject, gfxMgr).SetColor({ 0.0f, 0.0f, 0.0f, 0.3f });
 	gameObject->GetComponent<UIComponent>()->active = false;
-	gameObject->transform.scale.x = AEGetWindowWidth() * 0.85 / GRAPHICS::MESH_WIDTH;
-	gameObject->transform.scale.y = AEGetWindowHeight() * 0.85 / GRAPHICS::MESH_HEIGHT;
+	gameObject->transform.scale.x = AEGetWindowWidth() * 0.85f / GRAPHICS::MESH_WIDTH;
+	gameObject->transform.scale.y = AEGetWindowHeight() * 0.85f / GRAPHICS::MESH_HEIGHT;
 
 	objMgr->AddComponent<UIComponent>(muteBtn, muteBtnSprite, gfxMgr);
 	//objMgr->AddComponent<Text>(muteBtn, "Mute", fontId2, Black);
@@ -50,8 +53,15 @@ void StarBangBang::SettingsMenu::Init()
 	fullscreenBtn->transform.scale.x = btnScale.x * gameObject->transform.scale.x;
 	fullscreenBtn->transform.scale.y = btnScale.y * gameObject->transform.scale.y;
 
+	objMgr->AddComponent<UIComponent>(backBtn, backBtnSprite, gfxMgr);
+	objMgr->AddComponent<Click<SettingsMenu>>(backBtn, true).setCallback(*this, &SettingsMenu::Back);
+	backBtn->transform.scale.x = btnScale.x * gameObject->transform.scale.x;
+	backBtn->transform.scale.y = 0.2f * gameObject->transform.scale.y;
+	backBtn->visible = false;
+
 	buttonList.push_back(muteBtn);
 	buttonList.push_back(fullscreenBtn);
+	buttonList.push_back(backBtn);
 
 }
 
@@ -69,9 +79,13 @@ void StarBangBang::SettingsMenu::Draw()
 {
 	if (gameObject->active)
 	{
-		gameObject->GetComponent<UIComponent>()->Draw();
-		muteBtn->GetComponent<UIComponent>()->Draw();
-		fullscreenBtn->GetComponent<UIComponent>()->Draw();
+		for (auto& btnObj : buttonList)
+		{
+			for (auto& component : btnObj->GetComponents())
+			{
+				component->Draw();
+			}
+		}
 	}
 }
 
@@ -97,11 +111,19 @@ void StarBangBang::SettingsMenu::Toggle()
 	fullscreenBtn->active = active;
 }
 
-void StarBangBang::SettingsMenu::SetStatus(bool status)
+void StarBangBang::SettingsMenu::SetStatus(bool s)
 {
+	status = s;
 	gameObject->active = status;
-	muteBtn->active = status;
-	fullscreenBtn->active = status;
+	for (auto& btnObj : buttonList)
+	{
+		btnObj->active = status;
+	}
+}
+
+void StarBangBang::SettingsMenu::Back()
+{
+	SetStatus(false);
 }
 
 void StarBangBang::SettingsMenu::Mute()

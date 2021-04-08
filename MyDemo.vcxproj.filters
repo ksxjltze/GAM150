@@ -384,6 +384,9 @@
     <ClCompile Include="src\VisionCone.cpp">
       <Filter>Source Files\Scripts\Guard</Filter>
     </ClCompile>
+    <ClCompile Include="src\PlayerAnimation.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\ImageComponent.h">
@@ -664,6 +667,9 @@
     </ClInclude>
     <ClInclude Include="src\VisionCone.h">
       <Filter>Header Files\Scripts\Guard</Filter>
+    </ClInclude>
+    <ClInclude Include="src\PlayerAnimation.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

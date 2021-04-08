@@ -63,6 +63,11 @@ void StarBangBang::MovementManager::SetActiveController(int id)
 
 }
 
+StarBangBang::GameObject* StarBangBang::MovementManager::GetActiveController()
+{
+	return activeCharacter;
+}
+
 void StarBangBang::MovementManager::SetActiveController(GameObject* obj)
 {
 	for (PrimaryMovementController* controller : controllers)
@@ -70,7 +75,24 @@ void StarBangBang::MovementManager::SetActiveController(GameObject* obj)
 		controller->SetActive(false);
 	}
 	obj->GetComponent<PrimaryMovementController>()->SetActive(true);
+	activeCharacter = obj;
 
 	if (cam)
 		cam->SetTarget(obj);
+}
+
+void StarBangBang::MovementManager::RemoveController(GameObject* obj)
+{
+	for (auto it = controllers.begin(); it != controllers.end(); ++it)
+	{
+		if ((*it)->gameObject == obj)
+		{
+			(*it)->active = false;
+			controllers.erase(it);
+
+			if (!controllers.empty())
+				SetActiveController(controllers.front()->gameObject);
+			return;
+		}
+	}
 }
