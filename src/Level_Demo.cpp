@@ -310,7 +310,7 @@ namespace StarBangBang
 		objectManager.AddComponent<DebugText>(objectManager.NewGameObject(), fontId);
 
 		//Floating text
-		MessageBus::Notify({ EventId::PRINT_TEXT, std::string("Escape The Facility!") });
+		MessageBus::Notify({ EventId::PRINT_TEXT, std::string("Find the Vending Machine!") });
 		
 		MessageBus::Notify({ EventId::PAUSE_MUSIC, false });
 		MusicEvent bgm{ BGM::GAME};
