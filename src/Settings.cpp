@@ -10,7 +10,7 @@ namespace StarBangBang
 	const static AEVec2 btnScale{0.2f, 0.12f};
 }
 
-StarBangBang::SettingsMenu::SettingsMenu(GameObject* gameObject, GraphicsManager& gfx) : Script(gameObject), gfxMgr{ gfx }
+StarBangBang::SettingsMenu::SettingsMenu(GameObject* gameObject, GraphicsManager& gfx) : Menu(gameObject, gfx)
 {
 
 }
@@ -66,60 +66,12 @@ void StarBangBang::SettingsMenu::Init()
 
 }
 
-void StarBangBang::SettingsMenu::Start()
-{
-	SetStatus(false);
-}
-
-void StarBangBang::SettingsMenu::Update()
-{
-
-}
-
-void StarBangBang::SettingsMenu::Draw()
-{
-	if (gameObject->active)
-	{
-		for (auto& btnObj : buttonList)
-		{
-			for (auto& component : btnObj->GetComponents())
-			{
-				component->Draw();
-			}
-		}
-	}
-}
-
-void StarBangBang::SettingsMenu::ForceUpdate()
-{
-	if (!gameObject->active)
-		return;
-
-	for (auto& btnObj : buttonList)
-	{
-		for (auto& component : btnObj->GetComponents())
-		{
-			component->Update();
-		}
-	}
-}
-
 void StarBangBang::SettingsMenu::Toggle()
 {
 	active = !active;
 	gameObject->active = active;
 	muteBtn->active = active;
 	fullscreenBtn->active = active;
-}
-
-void StarBangBang::SettingsMenu::SetStatus(bool s)
-{
-	status = s;
-	gameObject->active = status;
-	for (auto& btnObj : buttonList)
-	{
-		btnObj->active = status;
-	}
 }
 
 void StarBangBang::SettingsMenu::Back()
@@ -129,7 +81,7 @@ void StarBangBang::SettingsMenu::Back()
 
 void StarBangBang::SettingsMenu::Mute()
 {
-	MessageBus::Notify({ EventId::MUTE });
+	MessageBus::Notify({ EventId::MUTE, ChannelGroupId::ALL });
 }
 
 void StarBangBang::SettingsMenu::Fullscreen()

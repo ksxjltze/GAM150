@@ -75,12 +75,14 @@ namespace StarBangBang
 		//main menu buttons sprites
 		const std::string&& PLAY1_BUTTON_PATH			= MAINMENU_PATH + "Play1.png";
 		const std::string&& PLAY2_BUTTON_PATH			= MAINMENU_PATH + "Play2.png";
+		const std::string&& RESUME_BUTTON_PATH			= MAINMENU_PATH + "ResumeGame.png";
 		const std::string&& SETTING1_BUTTON_PATH		= MAINMENU_PATH + "Setting1.png";
 		const std::string&& SETTING2_BUTTON_PATH		= MAINMENU_PATH + "Setting2.png";
 		const std::string&& CREDIT1_BUTTON_PATH			= MAINMENU_PATH + "Credit1.png";
 		const std::string&& CREDIT2_BUTTON_PATH			= MAINMENU_PATH + "Credit2.png";
 		const std::string&& EXIT1_BUTTON_PATH			= MAINMENU_PATH + "Exit1.png";
 		const std::string&& EXIT2_BUTTON_PATH			= MAINMENU_PATH + "Exit2.png";
+		const std::string&& RESTART_BUTTON_PATH			= MAINMENU_PATH + "Restart.png";
 		const std::string&& LOGO_PATH					= MAINMENU_PATH + "Logo.png";
 		const std::string&& BACK_BUTTON_PATH			= MAINMENU_PATH + "BackButton.png";
 		const std::string&& TUTORIAL_BUTTON_PATH		= MAINMENU_PATH + "TutorialButton.png";

@@ -21,6 +21,13 @@ StarBangBang::AudioEngine::AudioEngine()
 
 	system->init(36, FMOD_INIT_NORMAL, 0);
 
+	FMOD::ChannelGroup* channelGroupBGM;
+	FMOD::ChannelGroup* channelGroupSFX;
+	system->createChannelGroup("BGM", &channelGroupBGM);
+	system->createChannelGroup("SFX", &channelGroupSFX);
+	channelGroupMap.insert({ ChannelGroupId::BGM, channelGroupBGM });
+	channelGroupMap.insert({ ChannelGroupId::SFX, channelGroupSFX });
+
 }
 
 void StarBangBang::AudioEngine::CreateSound(FMOD::Sound** sound, const std::string& file)
@@ -41,7 +48,7 @@ void StarBangBang::AudioEngine::onNotify(Event e)
 		{
 			SoundEvent soundEvent = std::any_cast<SoundEvent>(e.context);
 			std::cout << "Playing sound: " << soundEvent.name << std::endl;
-			playSound(soundEvent.name);
+			playSound(soundEvent.name, false, ChannelGroupId::SFX);
 		}
 		catch (const std::exception&)
 		{
@@ -56,7 +63,7 @@ void StarBangBang::AudioEngine::onNotify(Event e)
 		{
 			MusicEvent musicEvent = std::any_cast<MusicEvent>(e.context);
 			std::cout << "Playing sound: " << musicEvent.name << std::endl;
-			playSound(musicEvent.name, true);
+			playSound(musicEvent.name, true, ChannelGroupId::BGM);
 		}
 		catch (const std::exception&)
 		{
@@ -70,23 +77,25 @@ void StarBangBang::AudioEngine::onNotify(Event e)
 	{
 		StopMasterChannel();
 	}
+	else if (e.id == EventId::PAUSE_MUSIC)
+	{
+		paused = std::any_cast<bool>(e.context);
+		channelGroupMap.at(ChannelGroupId::BGM)->setPaused(paused);
+	}
 
 	if (e.id == EventId::MUTE)
 	{
-		muted = !muted;
-
-		//FMOD::Channel* channel;
-		FMOD::ChannelGroup* channelGroup;
-
-		system->getMasterChannelGroup(&channelGroup);
-		channelGroup->setMute(muted);
-		
+		ChannelGroupId cgId = std::any_cast<ChannelGroupId>(e.context);
+		if (cgId == ChannelGroupId::ALL)
+		{
+			for (const auto& cgPair : channelGroupMap)
+			{
+				Mute(cgPair.first);
+			}
+		}
+		else
+			Mute(cgId);
 	}
-
-}
-
-void StarBangBang::AudioEngine::Mute()
-{
 
 }
 
@@ -95,7 +104,7 @@ void StarBangBang::AudioEngine::AddSound(const std::string& name, FMOD::Sound* s
 	soundList.push_back({name, sound});
 }
 
-void StarBangBang::AudioEngine::playSound(FMOD::Sound* sound, bool loop)
+void StarBangBang::AudioEngine::playSound(FMOD::Sound* sound, bool loop, ChannelGroupId cgId)
 {
 	if (!loop)
 	{
@@ -109,18 +118,19 @@ void StarBangBang::AudioEngine::playSound(FMOD::Sound* sound, bool loop)
 	FMOD::Channel* channel;
 	FMOD::ChannelGroup* channelGroup;
 
-	system->getMasterChannelGroup(&channelGroup);
+	channelGroup = channelGroupMap.at(cgId);
 	system->getChannel(0, &channel);
+	channel->setChannelGroup(channelGroup);
 	system->playSound(sound, channelGroup, false, &channel);
 }
 
-void StarBangBang::AudioEngine::playSound(const std::string& name, bool loop)
+void StarBangBang::AudioEngine::playSound(const std::string& name, bool loop, ChannelGroupId cgId)
 {
 	for (auto sound : soundList)
 	{
 		if (sound.name == name)
 		{
-			playSound(sound.sound, loop);
+			playSound(sound.sound, loop, cgId);
 		}
 	}
 }
@@ -140,6 +150,16 @@ void StarBangBang::AudioEngine::StopMasterChannel()
 void StarBangBang::AudioEngine::Update()
 {
 	system->update();
+}
+
+void StarBangBang::AudioEngine::Mute(ChannelGroupId cgId)
+{
+	FMOD::ChannelGroup* channelGroup;
+	channelGroup = channelGroupMap.at(cgId);
+
+	bool muted;
+	channelGroup->getMute(&muted);
+	channelGroup->setMute(!muted);
 }
 
 void StarBangBang::AudioEngine::Exit()

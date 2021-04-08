@@ -4,8 +4,9 @@
 
 namespace StarBangBang
 {
-	enum SceneID {DEMO, EDITOR, SAMPLE, TUTORIAL, GAME, MAIN_MENU, GAME_OVER, CREDITS};
+	enum SceneID {GAME, EDITOR, SAMPLE, TUTORIAL, MAIN_MENU, GAME_OVER, CREDITS};
 	enum LAYER { BACKGROUND, FOREGROUND, UI};
+	enum class ChannelGroupId { SFX, BGM, ALL };
 	enum class direction { idle = 0, left, right };
 	enum class current_char { fei_ge, prisoner };
 
@@ -137,12 +138,14 @@ namespace StarBangBang
 		//main menu buttons sprites
 		extern const std::string&& PLAY1_BUTTON_PATH;
 		extern const std::string&& PLAY2_BUTTON_PATH;
+		extern const std::string&& RESUME_BUTTON_PATH;
 		extern const std::string&& SETTING1_BUTTON_PATH;
 		extern const std::string&& SETTING2_BUTTON_PATH;
 		extern const std::string&& CREDIT1_BUTTON_PATH;
 		extern const std::string&& CREDIT2_BUTTON_PATH;
 		extern const std::string&& EXIT1_BUTTON_PATH;
 		extern const std::string&& EXIT2_BUTTON_PATH;
+		extern const std::string&& RESTART_BUTTON_PATH;
 		extern const std::string&& LOGO_PATH;
 		extern const std::string&& BACK_BUTTON_PATH;
 		extern const std::string&& TUTORIAL_BUTTON_PATH;
