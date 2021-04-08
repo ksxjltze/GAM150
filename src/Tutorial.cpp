@@ -56,14 +56,12 @@ void Tutorial::Init()
 {
 	animation_counter = 0;
 	app_time = 0.0f;
-	GameObject* obj = objectManager.NewGameObject();
-	obj->transform.scale = { 0.00001f, 0.00001f };
-	objectManager.AddImage(obj, graphicsManager.CreateSprite(RESOURCES::BIN_PATH));
 
 	CaptainStealth::SpawnClient(objectManager, player2, graphicsManager.CreateSprite(RESOURCES::PRISONER_F1_PATH));
 	CaptainStealth::SpawnPlayer(objectManager, player, graphicsManager.CreateSprite(RESOURCES::CAPTAINSTEALTH_F1_PATH));
 	player->transform.position = { -250.0f, -110.0f };
 	player2->transform.position = { 0.0f, 0.0f };
+	player2->SetLayer(FOREGROUND);
 	MovementManager& movementMgr = objectManager.AddComponent<MovementManager>(player);
 	movementMgr.AddController(player);
 	movementMgr.AddController(player2);
@@ -80,7 +78,7 @@ void Tutorial::Init()
 
 	ImageComponent* tutorialImg = objectManager.AddImage(objectManager.NewGameObject(), tutorialSprite);
 	tutorialImg->gameObject->SetPos({ 0, 230 });
-	tutorialImg->gameObject->transform.scale = { 2.f, 2.f };
+	tutorialImg->gameObject->transform.scale = { 2.0f, 1.0f };
 
 	NewTextObject({ 0, 160 }, "<OBJECTIVE>", 1.f);
 	NewTextObject({ 0, 120 }, "Collect keys in each room to proceed!", 0.5f);
