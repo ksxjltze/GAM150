@@ -32,6 +32,7 @@
 
 #include "Settings.h"
 #include "PlayerAnimation.h"
+#include "MusicEvent.h"
 
 static bool god = false;
 static float app_time = 0.0f;
@@ -310,7 +311,9 @@ namespace StarBangBang
 
 		//Floating text
 		MessageBus::Notify({ EventId::PRINT_TEXT, std::string("Find the Vending Machine!") });
-		MessageBus::Notify({ EventId::PLAY_SOUND, SoundEvent("Test") });
+		
+		MusicEvent bgm{ BGM::GAME }; 
+		bgm.SendEvent();
 
 		character = current_char::fei_ge;
 
@@ -482,14 +485,13 @@ namespace StarBangBang
 	{
 		PathFinder::Free();
 		Scene::Free();
-		
-
 	}
 
 	void StarBangBang::Level_Demo::Unload()
 	{
 		tilemap.Unload();
 		Scene::Unload();
+		MessageBus::Notify({ EventId::STOP_SOUND });
 	}
 
 	void Level_Demo::Exit()
