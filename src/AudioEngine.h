@@ -7,6 +7,8 @@
 #include "Listener.h"
 #include <vector>
 #include <string>
+#include <map>
+#include "constants.h"
 
 namespace StarBangBang
 {
@@ -35,6 +37,7 @@ namespace StarBangBang
 		bool muted{ false };
 		bool paused{ false };
 		FMOD::System* system;
+		std::map<ChannelGroupId, FMOD::ChannelGroup*> channelGroupMap;
 		std::vector<Sound> soundList;
 	};
 }

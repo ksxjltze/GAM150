@@ -21,6 +21,13 @@ StarBangBang::AudioEngine::AudioEngine()
 
 	system->init(36, FMOD_INIT_NORMAL, 0);
 
+	FMOD::ChannelGroup* channelGroupBGM;
+	FMOD::ChannelGroup* channelGroupSFX;
+	system->createChannelGroup("BGM", &channelGroupBGM);
+	system->createChannelGroup("SFX", &channelGroupSFX);
+	channelGroupMap.insert({ ChannelGroupId::BGM, channelGroupBGM });
+	channelGroupMap.insert({ ChannelGroupId::SFX, channelGroupSFX });
+
 }
 
 void StarBangBang::AudioEngine::CreateSound(FMOD::Sound** sound, const std::string& file)
@@ -84,8 +91,8 @@ void StarBangBang::AudioEngine::onNotify(Event e)
 
 		//FMOD::Channel* channel;
 		FMOD::ChannelGroup* channelGroup;
-
-		system->getMasterChannelGroup(&channelGroup);
+		channelGroup = channelGroupMap.at(ChannelGroupId::BGM);
+		//system->getMasterChannelGroup(&channelGroup);
 		channelGroup->setMute(muted);
 		
 	}
@@ -116,8 +123,9 @@ void StarBangBang::AudioEngine::playSound(FMOD::Sound* sound, bool loop)
 	FMOD::Channel* channel;
 	FMOD::ChannelGroup* channelGroup;
 
-	system->getMasterChannelGroup(&channelGroup);
+	channelGroup = channelGroupMap.at(ChannelGroupId::BGM);
 	system->getChannel(0, &channel);
+	channel->setChannelGroup(channelGroup);
 	system->playSound(sound, channelGroup, false, &channel);
 }
 

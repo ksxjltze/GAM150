@@ -6,6 +6,7 @@ namespace StarBangBang
 {
 	enum SceneID {DEMO, EDITOR, SAMPLE, TUTORIAL, GAME, MAIN_MENU, GAME_OVER, CREDITS};
 	enum LAYER { BACKGROUND, FOREGROUND, UI};
+	enum class ChannelGroupId { SFX, BGM };
 	enum class direction { idle = 0, left, right };
 	enum class current_char { fei_ge, prisoner };
 
