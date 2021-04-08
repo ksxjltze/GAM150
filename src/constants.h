@@ -5,12 +5,19 @@
 namespace StarBangBang
 {
 	enum SceneID {DEMO, EDITOR, SAMPLE, TUTORIAL, GAME, MAIN_MENU, GAME_OVER, CREDITS};
+	enum LAYER { BACKGROUND, FOREGROUND, UI};
+	enum class direction { idle = 0, left, right };
+	enum class current_char { fei_ge, prisoner };
 
 	namespace SFX
 	{
 		extern const std::string&& DETECTED;
 		extern const std::string&& BUTTON_CLICK;
 		extern const std::string&& KEY_PICKUP;
+		extern const std::string&& DOOR_OPEN;
+		extern const std::string&& VENT_CLOSE;
+		extern const std::string&& VENT_OPEN;
+		extern const std::string&& FOOTSTEPS;
 	}
 
 	namespace KEYBIND
@@ -92,12 +99,18 @@ namespace StarBangBang
 		extern const std::string&& PROTOTYPE_SPRITE_GRASS_PATH;
 		extern const std::string&& PROTOTYPE_SPRITE_STONE_PATH;
 		extern const std::string&& SPRITE_PLAYER_PATH;
+		extern const std::string&& CREDITS_PATH;
+		extern const std::string&& EYE_SPRITE_PATH;
 
 		namespace SFX
 		{
 			extern const std::string&& SFX_KEY_PICKUP_PATH;
 			extern const std::string&& SFX_BUTTON_CLICK_PATH;
 			extern const std::string&& SFX_DETECTED_PATH;
+			extern const std::string&& SFX_DOOR_OPEN_PATH;
+			extern const std::string&& SFX_VENT_OPEN_PATH;
+			extern const std::string&& SFX_VENT_CLOSE_PATH;
+			extern const std::string&& SFX_WALK_FOOTSTEPS_PATH;
 		}
 
 		namespace LEVELS

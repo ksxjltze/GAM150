@@ -7,6 +7,10 @@ namespace StarBangBang
 		const std::string&& DETECTED = "sfxGuardAlert";
 		const std::string&& BUTTON_CLICK = "sfxBtnClick";
 		const std::string&& KEY_PICKUP = "sfxKeyPickup";
+		const std::string&& DOOR_OPEN = "sfxDoorOpen";
+		const std::string&& VENT_CLOSE = "sfxVentClose";
+		const std::string&& VENT_OPEN = "sfxVentOpen";
+		const std::string&& FOOTSTEPS = "sfxFootsteps";
 	}
 	
 	namespace STRING_TAGS
@@ -34,6 +38,10 @@ namespace StarBangBang
 			const std::string&& SFX_KEY_PICKUP_PATH		= SFX_PATH + "keys.wav";
 			const std::string&& SFX_BUTTON_CLICK_PATH	= SFX_PATH + "buttonSFX.wav";
 			const std::string&& SFX_DETECTED_PATH		= SFX_PATH + "erhg2.wav";
+			const std::string&& SFX_DOOR_OPEN_PATH		= SFX_PATH + "DoorSound.wav";
+			const std::string&& SFX_VENT_OPEN_PATH		= SFX_PATH + "VentOpen.wav";
+			const std::string&& SFX_VENT_CLOSE_PATH		= SFX_PATH + "VentClose.wav";
+			const std::string&& SFX_WALK_FOOTSTEPS_PATH	= SFX_PATH + "WalkingSound.wav";
 		}
 
 		namespace LEVELS
@@ -50,6 +58,7 @@ namespace StarBangBang
 		const std::string&& PROTOTYPE_SPRITE_GRASS_PATH = ROOT_PATH + "grass.png";
 		const std::string&& PROTOTYPE_SPRITE_STONE_PATH = ROOT_PATH + "stone.png";
 		const std::string&& SPRITE_PLAYER_PATH = ROOT_PATH + "player.png";
+		const std::string&& EYE_SPRITE_PATH = ROOT_PATH + "stealth_icon.png";
 
 		//main menu buttons sprites
 		const std::string&& PLAY1_BUTTON_PATH			= MAINMENU_PATH + "Play1.png";
@@ -65,6 +74,7 @@ namespace StarBangBang
 		const std::string&& TUTORIAL_BUTTON_PATH		= MAINMENU_PATH + "TutorialButton.png";
 		const std::string&& FULLSCREEN_BUTTON_PATH		= MAINMENU_PATH + "FullScreenButton.png";
 		const std::string&& MUTE_BUTTON_PATH			= MAINMENU_PATH + "MuteButton.png";
+		const std::string&& CREDITS_PATH				= ROOT_PATH + "credits.png";
 
 		//Character sprites
 		const std::string&& CAPTAINSTEALTH_F1_PATH			= CHARACTERS_PATH + "CaptainStealthForward1.png";

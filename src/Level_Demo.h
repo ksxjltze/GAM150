@@ -5,6 +5,7 @@
 #include "MemoryManager.h"
 #include "GameStateManager.h"
 #include "TileMap.h"
+#include "constants.h"
 
 namespace StarBangBang
 {
@@ -19,6 +20,8 @@ namespace StarBangBang
 		void Free();
 		void Unload();
 	private:
+		direction dir;
+		current_char character;
 		void Exit();
 		void DisplayPauseMenu();
 		void TogglePause();

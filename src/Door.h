@@ -15,6 +15,7 @@ namespace StarBangBang
 		void Update();
 		void Link(std::initializer_list<Door*> doorList);
 	private:
+		bool open{ false };
 		Door* parent;
 		std::set<Key*> keys;
 		void Debug_Disable();

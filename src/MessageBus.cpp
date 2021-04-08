@@ -26,7 +26,7 @@ bool StarBangBang::MessageBus::IsEventInQueue(EventId id)
 	std::queue<Event> copyQueue;
 	copyQueue = eventQueue;
 
-	while (!eventQueue.empty())
+	while (!copyQueue.empty())
 	{
 		if (copyQueue.front().id == id)
 			return true;

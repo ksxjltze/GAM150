@@ -31,6 +31,7 @@ namespace StarBangBang
 	float g_dt = 0;
 	s8 fontId = -1;
 	s8 fontId2 = -1;
+	static bool debug = false;
 }
 
 // ---------------------------------------------------------------------------
@@ -60,6 +61,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 
 #if defined(DEBUG) | defined(_DEBUG)
 	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
+	StarBangBang::debug = true;
 #endif
 
 	UNREFERENCED_PARAMETER(hPrevInstance);
@@ -75,18 +77,28 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 	FMOD::Sound* btnSound = nullptr;
 	FMOD::Sound* keyPickupSound = nullptr;
 	FMOD::Sound* guardAlert = nullptr;
+	FMOD::Sound* doorSound = nullptr;
+	FMOD::Sound* ventOpenSound = nullptr;
+	FMOD::Sound* ventCloseSound = nullptr;
+	FMOD::Sound* walkSound = nullptr;
 	FMOD::Sound* music = nullptr;
 
-	audioEngine.CreateSound(&sound, "./Resources/drumloop.wav"); //CHANGE THIS (copyright and stuff)
 	audioEngine.CreateSound(&btnSound, RESOURCES::SFX::SFX_BUTTON_CLICK_PATH);
 	audioEngine.CreateSound(&keyPickupSound, RESOURCES::SFX::SFX_KEY_PICKUP_PATH);
 	audioEngine.CreateSound(&guardAlert, RESOURCES::SFX::SFX_DETECTED_PATH);
+	audioEngine.CreateSound(&doorSound, RESOURCES::SFX::SFX_DOOR_OPEN_PATH);
+	audioEngine.CreateSound(&ventOpenSound, RESOURCES::SFX::SFX_VENT_OPEN_PATH);
+	audioEngine.CreateSound(&ventCloseSound, RESOURCES::SFX::SFX_VENT_CLOSE_PATH);
+	audioEngine.CreateSound(&walkSound, RESOURCES::SFX::SFX_WALK_FOOTSTEPS_PATH);
 	audioEngine.CreateSound(&music, "./Resources/Music/bgm.wav");
 
-	audioEngine.AddSound("Test", sound); 
 	audioEngine.AddSound(SFX::BUTTON_CLICK, btnSound);
 	audioEngine.AddSound(SFX::KEY_PICKUP, keyPickupSound);
 	audioEngine.AddSound(SFX::DETECTED, guardAlert);
+	audioEngine.AddSound(SFX::DOOR_OPEN, doorSound);
+	audioEngine.AddSound(SFX::VENT_CLOSE, ventCloseSound);
+	audioEngine.AddSound(SFX::VENT_OPEN, ventOpenSound);
+	audioEngine.AddSound(SFX::FOOTSTEPS, walkSound);
 	audioEngine.AddSound("BGM", music); 
 
 	MessageBus::RegisterGlobalListener(&audioEngine);
@@ -131,13 +143,14 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 
 
 	//// Using custom window procedure
-	AESysInit(hInstance, nCmdShow, (s32)GRAPHICS::TARGET_WINDOW_WIDTH, (s32)GRAPHICS::TARGET_WINDOW_HEIGHT, 1, 60, true, NULL);
+	AESysInit(hInstance, nCmdShow, (s32)GRAPHICS::TARGET_WINDOW_WIDTH, (s32)GRAPHICS::TARGET_WINDOW_HEIGHT, debug, 60, true, NULL);
 	StarBangBang::InitBasicMesh();
 	
-	//Full screen
-	//AESysInit(hInstance, nCmdShow, 1920, 1080, 1, 60, true, NULL);
-	//AEToogleFullScreen(false);
-	//GRAPHICS::ToggleFullscreen();
+	if (!debug)
+	{
+		//Full screen
+		GRAPHICS::ToggleFullscreen();
+	}
 
 	// Changing the window title
 	AESysSetWindowTitle("Captain Stealth");

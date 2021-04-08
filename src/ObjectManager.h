@@ -35,7 +35,7 @@ namespace StarBangBang
 
 		BoxCollider& AddCollider(GameObject* gameObject, bool isStatic);
 
-		void AddComponent(GameObject* gameObject, _Component* component);
+		void AddComponent(GameObject* gameObject, GameComponent* component);
 		StarBangBang::ImageComponent* AddImage(GameObject* gameObject, Sprite sprite);
 		void AddChildGameObject(GameObject* child, GameObject* parent);
 
@@ -56,8 +56,8 @@ namespace StarBangBang
 	private:
 		friend class Scene;
 		std::vector<GameObject*> gameObjectList;
-		std::vector<_Component*> componentList;
+		std::vector<GameComponent*> componentList;
 
-		std::map<int, std::vector<_Component**>> layerMap;
+		std::map<int, std::vector<GameComponent**>> layerMap;
 	};
 }

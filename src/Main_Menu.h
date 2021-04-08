@@ -56,5 +56,6 @@ namespace StarBangBang
 		bool windowOpen{ false };
 		std::queue<GameObject*> windowQueue;
 		bool tf;
+		bool frameSkip{ false };
 	};
 }

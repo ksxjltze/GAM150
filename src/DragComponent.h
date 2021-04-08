@@ -4,11 +4,11 @@
 //Change to script
 namespace StarBangBang
 {
-	class DragComponent : public _Component
+	class DragComponent : public GameComponent
 	{
 	public:
 		DragComponent(GameObject* gameObject);
-		_Component* Clone(GameObject* gameObject, _Component* component);
+		GameComponent* Clone(GameObject* gameObject, GameComponent* component);
 		void Update();
 	private:
 		bool enabled;

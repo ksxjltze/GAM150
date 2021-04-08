@@ -32,8 +32,8 @@ void StarBangBang::SettingsMenu::Init()
 
 	objMgr->AddComponent<UIComponent>(gameObject, gfxMgr).SetColor({ 0.0f, 0.0f, 0.0f, 0.3f });
 	gameObject->GetComponent<UIComponent>()->active = false;
-	gameObject->transform.scale.x = AEGetWindowWidth() * 0.85 / GRAPHICS::MESH_WIDTH;
-	gameObject->transform.scale.y = AEGetWindowHeight() * 0.85 / GRAPHICS::MESH_HEIGHT;
+	gameObject->transform.scale.x = AEGetWindowWidth() * 0.85f / GRAPHICS::MESH_WIDTH;
+	gameObject->transform.scale.y = AEGetWindowHeight() * 0.85f / GRAPHICS::MESH_HEIGHT;
 
 	objMgr->AddComponent<UIComponent>(muteBtn, muteBtnSprite, gfxMgr);
 	//objMgr->AddComponent<Text>(muteBtn, "Mute", fontId2, Black);

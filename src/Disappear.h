@@ -14,7 +14,7 @@ namespace StarBangBang
 		void onNotify(Event e);
 
 	private:
-		bool hidden;
+		bool hidden, ventClosed;
 		Sprite& ventOpen;
 		Sprite& ventClose;
 	};

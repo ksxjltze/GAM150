@@ -13,9 +13,12 @@ namespace StarBangBang
 		void Start();
 		void Update();
 		void SetActiveController(int id);
+		GameObject* GetActiveController();
 		void SetActiveController(GameObject* obj);
+		void RemoveController(GameObject* obj);
 		void SetCamera(GameObject* obj);
 	private:
+		GameObject* activeCharacter{ nullptr };
 		std::vector<PrimaryMovementController*> controllers;
 		int controllerId;
 		CameraComponent* cam;

@@ -9,6 +9,7 @@
 #include "Text.h"
 #include <iomanip>
 #include <sstream>
+#include "MovementManager.h"
 
 StarBangBang::PlayerScript::PlayerScript(GameObject* obj) : Script(obj)
 {
@@ -18,6 +19,7 @@ StarBangBang::PlayerScript::PlayerScript(GameObject* obj) : Script(obj)
 	playerEscaped = false;
 	clientEscaped = false;
 	stealth = nullptr;
+	text = nullptr;
 }
 void StarBangBang::PlayerScript::Start()
 {
@@ -90,12 +92,18 @@ void StarBangBang::PlayerScript::onNotify(Event e)
 		{
 			if (obj->name == "Player")
 			{
-				data.second->active = false;
+				objMgr->Find("MovementManager")->GetComponent<MovementManager>()->RemoveController(gameObject);
+				BoxCollider* collider = gameObject->GetComponent<BoxCollider>();
+				collider->isTrigger = true;
+				collider->isStatic = true;
 				playerEscaped = true;
 			}
 			else if (obj->name == "Client")
 			{
-				data.second->active = false;
+				objMgr->Find("MovementManager")->GetComponent<MovementManager>()->RemoveController(client);
+				BoxCollider* collider = client->GetComponent<BoxCollider>();
+				collider->isTrigger = true;
+				collider->isStatic = true;
 				clientEscaped = true;
 			}
 		}
