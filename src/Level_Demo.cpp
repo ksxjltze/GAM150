@@ -163,7 +163,7 @@ namespace StarBangBang
 		boiSprite = graphicsManager.CreateSprite(RESOURCES::SPRITE_PLAYER_PATH);
 
 		exitBtnSprite = graphicsManager.CreateSprite(RESOURCES::EXIT1_BUTTON_PATH);
-		continueBtnSprite = graphicsManager.CreateSprite(RESOURCES::PLAY1_BUTTON_PATH);
+		continueBtnSprite = graphicsManager.CreateSprite(RESOURCES::RESUME_BUTTON_PATH);
 		settingsBtnSprite = graphicsManager.CreateSprite(RESOURCES::SETTING1_BUTTON_PATH);
 
 
