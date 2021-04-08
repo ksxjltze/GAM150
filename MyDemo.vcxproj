@@ -117,6 +117,7 @@ xcopy /y /d /i /s "$(SolutionDir)\Resources" "$(OutDir)\Resources"</Command>
     <ClCompile Include="src\CollisionManager.cpp" />
     <ClCompile Include="src\ComputerListener.cpp" />
     <ClCompile Include="src\ComputerScript.cpp" />
+    <ClCompile Include="src\ConfirmationMenu.cpp" />
     <ClCompile Include="src\constants.cpp" />
     <ClCompile Include="src\Credits.cpp" />
     <ClCompile Include="src\DebugText.cpp" />
@@ -192,6 +193,7 @@ xcopy /y /d /i /s "$(SolutionDir)\Resources" "$(OutDir)\Resources"</Command>
     <ClInclude Include="src\ComponentCRTP.h" />
     <ClInclude Include="src\ComputerListener.h" />
     <ClInclude Include="src\ComputerScript.h" />
+    <ClInclude Include="src\ConfirmationMenu.h" />
     <ClInclude Include="src\MusicEvent.h" />
     <ClInclude Include="src\PlayerAnimation.h" />
     <ClInclude Include="src\VisionCone.h" />

@@ -8,25 +8,25 @@ namespace StarBangBang
 	{
 	public:
 		SettingsMenu(GameObject* gameObject, GraphicsManager& gfx);
-		void Init();
+		virtual void Init();
 		void Start();
 		void Draw();
 		void ForceUpdate();
 		void Update();
-		void Toggle();
+		virtual void Toggle();
 		void SetStatus(bool);
 		bool GetStatus() {return status;}
+	protected:
+		virtual void Back();
+		std::vector<GameObject*> buttonList;
+		GraphicsManager& gfxMgr;
 	private:
 		bool status{ false };
-		void Back();
 		void Mute();
 		void Fullscreen();
-
-		std::vector<GameObject*> buttonList;
 
 		GameObject* muteBtn{ nullptr };
 		GameObject* fullscreenBtn{ nullptr };
 		GameObject* backBtn{ nullptr };
-		GraphicsManager& gfxMgr;
 	};
 }

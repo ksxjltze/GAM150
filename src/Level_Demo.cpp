@@ -496,8 +496,14 @@ namespace StarBangBang
 		MessageBus::Notify({ EventId::PAUSE_SOUND, false });
 	}
 
+	void Level_Demo::DisplayExitConfirmation()
+	{
+
+	}
+
 	void Level_Demo::Exit()
 	{
+		DisplayExitConfirmation();
 		gameStateManager.SetNextGameState(MAIN_MENU);
 	}
 
