@@ -3,6 +3,7 @@
 #include "Click.h"
 #include "CollisionEvent.h"
 #include "Settings.h"
+#include "MusicEvent.h"
 
 static const float x_scale = 5.0f;
 static const float y_scale = 5.0f;
@@ -97,7 +98,8 @@ namespace StarBangBang
 
 		objectManager.AddComponent<Click<Main_Menu>>(exitbutton_obj).setCallback(*this, &Main_Menu::ExitGame);
 
-		//MessageBus::Notify({ EventId::PLAY_MUSIC, "BGM" });
+		MusicEvent bgm{ BGM::MENU };
+		bgm.SendEvent();
 
 		editorBtn = objectManager.NewGameObject();
 		objectManager.AddImage(editorBtn, vending_machine_sprite);

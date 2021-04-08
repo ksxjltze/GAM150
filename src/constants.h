@@ -20,6 +20,12 @@ namespace StarBangBang
 		extern const std::string&& FOOTSTEPS;
 	}
 
+	namespace BGM
+	{
+		extern const std::string&& MENU;
+		extern const std::string&& GAME;
+	}
+
 	namespace KEYBIND
 	{
 		static const int MOVEMENT_UP = AEVK_UP;
@@ -111,6 +117,12 @@ namespace StarBangBang
 			extern const std::string&& SFX_VENT_OPEN_PATH;
 			extern const std::string&& SFX_VENT_CLOSE_PATH;
 			extern const std::string&& SFX_WALK_FOOTSTEPS_PATH;
+		}
+
+		namespace BGM
+		{
+			extern const std::string&& BGM_MENU_PATH;
+			extern const std::string&& BGM_GAME_PATH;
 		}
 
 		namespace LEVELS

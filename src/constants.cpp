@@ -12,6 +12,12 @@ namespace StarBangBang
 		const std::string&& VENT_OPEN = "sfxVentOpen";
 		const std::string&& FOOTSTEPS = "sfxFootsteps";
 	}
+
+	namespace BGM
+	{
+		const std::string&& MENU = "bgmMenu";
+		const std::string&& GAME = "bgmGame";
+	}
 	
 	namespace STRING_TAGS
 	{
@@ -50,6 +56,12 @@ namespace StarBangBang
 			const std::string&& LEVEL_MAIN_MENU_TEST_PATH = LEVELS_PATH + "title.csv";
 			const std::string&& COLLISION_TEST = LEVELS_PATH + "collision.csv";
 			const std::string&& LEVEL_TUTORIAL = LEVELS_PATH + "tutorial.csv";
+		}
+
+		namespace BGM
+		{
+			const std::string&& BGM_MENU_PATH = BGM_PATH + "menuBGM.wav";
+			const std::string&& BGM_GAME_PATH = BGM_PATH + "gameBGM.wav";
 		}
 		
 		//Images path
