@@ -3,6 +3,8 @@
 #include "UIComponent.h"
 #include "Click.h"
 #include "GameStateManager.h"
+#include "Text.h"
+#include "globals.h"
 
 namespace StarBangBang
 {
@@ -17,6 +19,9 @@ StarBangBang::ConfirmationMenu::ConfirmationMenu(GameObject* gameObject, Graphic
 
 void StarBangBang::ConfirmationMenu::Init()
 {
+	confirmBtnSprite = gfxMgr.CreateSprite(RESOURCES::COMPUTER_PATH);
+	backBtnSprite = gfxMgr.CreateSprite(RESOURCES::BACK_BUTTON_PATH);;
+
 	const static AEVec2 btnScale{ 0.2f, 0.12f };
 
 	confirmBtn = objMgr->NewGameObject();
@@ -46,6 +51,12 @@ void StarBangBang::ConfirmationMenu::Init()
 
 	buttonList.push_back(confirmBtn);
 	buttonList.push_back(backBtn);
+
+	Text& text = objMgr->AddComponent<Text>(gameObject, "Exit the game?", fontId2);
+	text.SetOffset({ 0.0f, 100.0f });
+	text.SetScale(2.0f);
+	backBtn->SetLayer(UI);
+	confirmBtn->SetLayer(UI);
 
 }
 
