@@ -128,7 +128,8 @@ void StarBangBang::LogoSplash::Update()
 	if ( AEInputCheckTriggered(VK_ESCAPE)  || AEInputCheckTriggered(VK_SPACE) || AEInputCheckTriggered(AEVK_RETURN) ||
 		 AEInputCheckTriggered(VK_RBUTTON) || AEInputCheckTriggered(VK_LBUTTON) )
 	{
-		skipCurrent = true;
+		//skipCurrent = true;
+		gameStateManager.SetNextGameState(SceneID::MAIN_MENU);
 	}
 }
 
