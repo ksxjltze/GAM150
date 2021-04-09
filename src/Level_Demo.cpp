@@ -90,6 +90,12 @@ namespace StarBangBang
 			}
 		}
 
+		void Reset()
+		{
+			while (!windowQueue.empty())
+				windowQueue.pop();
+		}
+
 		bool CloseWindow()
 		{
 			if (!windowQueue.empty())
@@ -515,6 +521,7 @@ namespace StarBangBang
 		Scene::Unload();
 		MessageBus::Notify({ EventId::STOP_SOUND });
 		MessageBus::Notify({ EventId::PAUSE_MUSIC, false });
+		pauseMenu.Reset();
 	}
 
 	void Level_Demo::DisplayExitConfirmation()
