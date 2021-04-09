@@ -4,6 +4,7 @@
 #include "CollisionEvent.h"
 #include "Settings.h"
 #include "MusicEvent.h"
+#include "ConfirmationMenu.h"
 
 static const float x_scale = 5.0f;
 static const float y_scale = 5.0f;
@@ -60,6 +61,9 @@ namespace StarBangBang
 
 		settingsObj = objectManager.NewGameObject();
 		objectManager.AddComponent<SettingsMenu>(settingsObj, graphicsManager).Init();
+
+		confirmationObj = objectManager.NewGameObject();
+		objectManager.AddComponent<ConfirmationMenu>(confirmationObj, graphicsManager, gameStateManager).Init();
 
 		//start game button
 		playbutton_obj = objectManager.NewGameObject();
@@ -187,7 +191,8 @@ namespace StarBangBang
 
 	void Main_Menu::ExitGame()
 	{
-		gameStateManager.ExitGame();
+		DisplayConfirmationMenu();
+		//gameStateManager.ExitGame();
 	}
 
 	void Main_Menu::Settings()
@@ -195,6 +200,13 @@ namespace StarBangBang
 		windowOpen = true;
 		settingsObj->SetActive(true);
 		windowQueue.push(settingsObj);
+	}
+
+	void Main_Menu::DisplayConfirmationMenu()
+	{
+		windowOpen = true;
+		confirmationObj->SetActive(true);
+		windowQueue.push(confirmationObj);
 	}
 
 	void Main_Menu::HideMenu()

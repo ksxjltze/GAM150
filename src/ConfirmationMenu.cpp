@@ -2,6 +2,7 @@
 #include "ObjectManager.h"
 #include "UIComponent.h"
 #include "Click.h"
+#include "GameStateManager.h"
 
 namespace StarBangBang
 {
@@ -9,7 +10,7 @@ namespace StarBangBang
 	Sprite backBtnSprite;
 }
 
-StarBangBang::ConfirmationMenu::ConfirmationMenu(GameObject* gameObject, GraphicsManager& gfx) : SettingsMenu{gameObject, gfx}
+StarBangBang::ConfirmationMenu::ConfirmationMenu(GameObject* gameObject, GraphicsManager& gfx, GameStateManager& gsm) : Menu{ gameObject, gfx }, gsm{ gsm }
 {
 
 }
@@ -21,6 +22,9 @@ void StarBangBang::ConfirmationMenu::Init()
 	confirmBtn = objMgr->NewGameObject();
 	backBtn = objMgr->NewGameObject();
 
+	confirmBtn->parent = gameObject;
+	backBtn->parent = gameObject;
+
 	objMgr->AddComponent<UIComponent>(gameObject, gfxMgr).SetColor({ 0.0f, 0.0f, 0.0f, 0.3f });
 	gameObject->GetComponent<UIComponent>()->active = false;
 	gameObject->transform.scale.x = AEGetWindowWidth() * 0.85f / GRAPHICS::MESH_WIDTH;
@@ -28,14 +32,14 @@ void StarBangBang::ConfirmationMenu::Init()
 
 	objMgr->AddComponent<UIComponent>(backBtn, backBtnSprite, gfxMgr);
 	objMgr->AddComponent<Click<ConfirmationMenu>>(backBtn, true).setCallback(*this, &ConfirmationMenu::Back);
-	backBtn->transform.position = { -0.15f * gameObject->transform.scale.y * GRAPHICS::MESH_HEIGHT, 0.0f };
+	backBtn->transform.position = { 0.15f * gameObject->transform.scale.y * GRAPHICS::MESH_HEIGHT, 0.0f };
 	backBtn->transform.scale.x = btnScale.x * gameObject->transform.scale.x;
 	backBtn->transform.scale.y = btnScale.y * gameObject->transform.scale.y;
 	backBtn->visible = false;
 
 	objMgr->AddComponent<UIComponent>(confirmBtn, confirmBtnSprite, gfxMgr);
 	objMgr->AddComponent<Click<ConfirmationMenu>>(confirmBtn, true).setCallback(*this, &ConfirmationMenu::Confirm);
-	confirmBtn->transform.position = { 0.15f * gameObject->transform.scale.y * GRAPHICS::MESH_HEIGHT, 0.0f };
+	confirmBtn->transform.position = { -0.15f * gameObject->transform.scale.y * GRAPHICS::MESH_HEIGHT, 0.0f };
 	confirmBtn->transform.scale.x = btnScale.x * gameObject->transform.scale.x;
 	confirmBtn->transform.scale.y = btnScale.y * gameObject->transform.scale.y;
 	confirmBtn->visible = false;
@@ -47,12 +51,18 @@ void StarBangBang::ConfirmationMenu::Init()
 
 void StarBangBang::ConfirmationMenu::Toggle()
 {
+	active = !active;
+	gameObject->active = active;
+	confirmBtn->active = active;
+	backBtn->active = active;
 }
 
 void StarBangBang::ConfirmationMenu::Confirm()
 {
+	gsm.ExitGame();
 }
 
 void StarBangBang::ConfirmationMenu::Back()
 {
+	SetStatus(false);
 }
