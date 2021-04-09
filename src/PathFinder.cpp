@@ -58,10 +58,7 @@ void PathFinder::GridDraw()
 {
 	if (isVisible)
 	{
-		/*AEVec2 mousePos = GetMouseWorldPos();
-		A_Node* n = worldGrid.GetNodeFromPosition(mousePos);
-		if (n)
-			StarBangBang::DrawCircle(10.0f, n->nodePos);*/
+	
 		worldGrid.DrawGrid();
 
 	}

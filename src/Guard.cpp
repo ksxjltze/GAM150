@@ -79,14 +79,18 @@ void Guard::ChangeState(GUARD_STATE _state)
 	switch (_state)
 	{
 	case Guard::GUARD_STATE::STATE_IDLE:
+		vision->OnEnterIdle();
 		break;
 	case Guard::GUARD_STATE::STATE_PATROL:
+		vision->OnEnterPatrol();
 		break;
 	case Guard::GUARD_STATE::STATE_DISTRACTED:
 		movement->OnEnterDistracted();
+		vision->OnEnterDistracted();
 		break;
 	case Guard::GUARD_STATE::STATE_CHASE:
 		movement->OnEnterChase();
+		vision->OnEnterChase();
 		break;
 	default:
 		break;

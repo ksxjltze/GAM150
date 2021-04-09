@@ -1,3 +1,13 @@
+/*!*********************************************************************
+\file     Tutorial.cpp
+\author   Liew Ruiheng Rayner
+\par      DP email: r.liew\@digipen.edu
+\date     08/04/2021
+
+\brief
+  This file contains the Tutorial scene class
+***********************************************************************/
+
 #include "Tutorial.h"
 #include "Text.h"
 #include "globals.h"
@@ -30,7 +40,11 @@ void Tutorial::NewTextObject(AEVec2 position, const std::string& s, float scale)
 	objectManager.AddComponent<Text>(objectManager.NewGameObject(), s, fontId2, scale).gameObject->transform.position = position;
 }
 
-Tutorial::Tutorial(int id, GameStateManager& gsm) : Scene(id, gsm), tilemap{ objectManager, graphicsManager }
+Tutorial::Tutorial(int id, GameStateManager& gsm) 
+	: Scene(id, gsm)
+	, cameraObject(nullptr)
+	, end(nullptr)
+	, tilemap{ objectManager, graphicsManager }
 {
 	dir = direction::idle;
 	character = current_char::fei_ge;

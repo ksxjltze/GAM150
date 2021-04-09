@@ -213,7 +213,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 		StarBangBang::PathFinderTest();
 		CollisionManager::ResolverUpdate();
 		
-		DisplayFps();
+		//DisplayFps();
 		audioEngine.Update();
 
 		//StarBangBang::Test_BoxUpdate();
