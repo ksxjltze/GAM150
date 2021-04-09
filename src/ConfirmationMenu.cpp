@@ -26,9 +26,11 @@ void StarBangBang::ConfirmationMenu::Init()
 
 	confirmBtn = objMgr->NewGameObject();
 	backBtn = objMgr->NewGameObject();
+	textObject = objMgr->NewGameObject();
 
 	confirmBtn->parent = gameObject;
 	backBtn->parent = gameObject;
+	textObject->parent = gameObject;
 
 	objMgr->AddComponent<UIComponent>(gameObject, gfxMgr).SetColor({ 0.0f, 0.0f, 0.0f, 0.3f });
 	gameObject->GetComponent<UIComponent>()->active = false;
@@ -37,27 +39,26 @@ void StarBangBang::ConfirmationMenu::Init()
 
 	objMgr->AddComponent<UIComponent>(backBtn, backBtnSprite, gfxMgr);
 	objMgr->AddComponent<Click<ConfirmationMenu>>(backBtn, true).setCallback(*this, &ConfirmationMenu::Back);
-	backBtn->transform.position = { 0.15f * gameObject->transform.scale.y * GRAPHICS::MESH_HEIGHT, 0.0f };
+	backBtn->transform.position = { 0.25f * gameObject->transform.scale.y * GRAPHICS::MESH_HEIGHT, -50.0f };
 	backBtn->transform.scale.x = btnScale.x * gameObject->transform.scale.x;
 	backBtn->transform.scale.y = btnScale.y * gameObject->transform.scale.y;
 	backBtn->visible = false;
 
 	objMgr->AddComponent<UIComponent>(confirmBtn, confirmBtnSprite, gfxMgr);
 	objMgr->AddComponent<Click<ConfirmationMenu>>(confirmBtn, true).setCallback(*this, &ConfirmationMenu::Confirm);
-	confirmBtn->transform.position = { -0.15f * gameObject->transform.scale.y * GRAPHICS::MESH_HEIGHT, 0.0f };
+	confirmBtn->transform.position = { -0.25f * gameObject->transform.scale.y * GRAPHICS::MESH_HEIGHT, -50.0f };
 	confirmBtn->transform.scale.x = btnScale.x * gameObject->transform.scale.x;
 	confirmBtn->transform.scale.y = btnScale.y * gameObject->transform.scale.y;
 	confirmBtn->visible = false;
 
-	buttonList.push_back(confirmBtn);
-	buttonList.push_back(backBtn);
-
-	Text& text = objMgr->AddComponent<Text>(gameObject, "Are you sure?", fontId2, White, true);
-	text.SetOffset({ 0.0f, 100.0f });
-	text.SetScale(2.0f);
+	Text& text = objMgr->AddComponent<Text>(textObject, "Are you sure?", fontId2, White, 1.0f, false);
+	text.SetOffset({ 0.0f, 0.3f });
 	backBtn->SetLayer(UI);
 	confirmBtn->SetLayer(UI);
 
+	buttonList.push_back(confirmBtn);
+	buttonList.push_back(backBtn);
+	buttonList.push_back(textObject);
 }
 
 void StarBangBang::ConfirmationMenu::Toggle()
@@ -66,11 +67,12 @@ void StarBangBang::ConfirmationMenu::Toggle()
 	gameObject->active = active;
 	confirmBtn->active = active;
 	backBtn->active = active;
+	textObject->active = active;
 }
 
-void StarBangBang::ConfirmationMenu::SetText(std::string s)
+void StarBangBang::ConfirmationMenu::SetText(const std::string& s)
 {
-	gameObject->GetComponent<Text>()->SetText(s);
+	textObject->GetComponent<Text>()->SetText(s);
 }
 
 void StarBangBang::ConfirmationMenu::Confirm()

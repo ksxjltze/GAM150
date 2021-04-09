@@ -65,7 +65,7 @@ namespace StarBangBang
 		confirmationObj = objectManager.NewGameObject();
 		ConfirmationMenu& confirm = objectManager.AddComponent<ConfirmationMenu>(confirmationObj, graphicsManager, gameStateManager);
 		confirm.Init();
-		confirm.SetText("Quit the game?");
+		confirm.SetText(std::string("Quit the game?"));
 
 		//start game button
 		playbutton_obj = objectManager.NewGameObject();
