@@ -12,7 +12,7 @@ namespace StarBangBang
 	Sprite backBtnSprite;
 }
 
-StarBangBang::ConfirmationMenu::ConfirmationMenu(GameObject* gameObject, GraphicsManager& gfx, GameStateManager& gsm) : Menu{ gameObject, gfx }, gsm{ gsm }
+StarBangBang::ConfirmationMenu::ConfirmationMenu(GameObject* gameObject, GraphicsManager& gfx, GameStateManager& gsm, int type) : Menu{ gameObject, gfx }, gsm{ gsm }, type{ type }
 {
 
 }
@@ -52,7 +52,7 @@ void StarBangBang::ConfirmationMenu::Init()
 	buttonList.push_back(confirmBtn);
 	buttonList.push_back(backBtn);
 
-	Text& text = objMgr->AddComponent<Text>(gameObject, "Exit the game?", fontId2);
+	Text& text = objMgr->AddComponent<Text>(gameObject, "Are you sure?", fontId2, White, true);
 	text.SetOffset({ 0.0f, 100.0f });
 	text.SetScale(2.0f);
 	backBtn->SetLayer(UI);
@@ -68,9 +68,22 @@ void StarBangBang::ConfirmationMenu::Toggle()
 	backBtn->active = active;
 }
 
+void StarBangBang::ConfirmationMenu::SetText(std::string s)
+{
+	gameObject->GetComponent<Text>()->SetText(s);
+}
+
 void StarBangBang::ConfirmationMenu::Confirm()
 {
-	gsm.ExitGame();
+	switch (type)
+	{
+	case 0:
+		gsm.ExitGame();
+		break;
+	case 1:
+		gsm.SetNextGameState(MAIN_MENU);
+		break;
+	}
 }
 
 void StarBangBang::ConfirmationMenu::Back()

@@ -33,6 +33,7 @@
 #include "Settings.h"
 #include "PlayerAnimation.h"
 #include "MusicEvent.h"
+#include "ConfirmationMenu.h"
 
 static bool god = false;
 static float app_time = 0.0f;
@@ -59,6 +60,7 @@ namespace StarBangBang
 		GameObject* settingsBtn{ nullptr };
 		GameObject* continueBtn{ nullptr };
 		GameObject* settingsObj{ nullptr };
+		GameObject* confirmationObj{ nullptr };
 
 		std::queue<GameObject*> windowQueue;
 
@@ -73,6 +75,18 @@ namespace StarBangBang
 				continueBtn->active = false;
 				settingsObj->GetComponent<SettingsMenu>()->SetStatus(true);
 				windowQueue.push(settingsObj);
+			}
+		}
+
+		void DisplayConfirmation()
+		{
+			if (windowQueue.empty())
+			{
+				exitBtn->active = false;
+				settingsBtn->active = false;
+				continueBtn->active = false;
+				confirmationObj->GetComponent<ConfirmationMenu>()->SetStatus(true);
+				windowQueue.push(confirmationObj);
 			}
 		}
 
@@ -93,11 +107,14 @@ namespace StarBangBang
 		void Update() 
 		{
 			SettingsMenu* settings = settingsObj->GetComponent<SettingsMenu>();
+			ConfirmationMenu* confirm = confirmationObj->GetComponent<ConfirmationMenu>();
 			settings->ForceUpdate();
+			confirm->ForceUpdate();
 
 			if (windowQueue.empty())
 			{
 				settings->SetStatus(false);
+				confirm->SetStatus(false);
 			}
 			else if (!windowQueue.front()->active)
 			{
@@ -323,7 +340,11 @@ namespace StarBangBang
 		//player2->transform.position = tilemap.GetPositionAtIndex(6, 34);
 
 		pauseMenu.settingsObj = objectManager.NewGameObject();
+		pauseMenu.confirmationObj = objectManager.NewGameObject();
 		objectManager.AddComponent<SettingsMenu>(pauseMenu.settingsObj, graphicsManager).Init();
+		ConfirmationMenu& confirm = objectManager.AddComponent<ConfirmationMenu>(pauseMenu.confirmationObj, graphicsManager, gameStateManager, 1);
+		confirm.Init();
+		confirm.SetText("Exit to title screen?");
 	}
 
 	void StarBangBang::Level_Demo::Update()
@@ -498,13 +519,13 @@ namespace StarBangBang
 
 	void Level_Demo::DisplayExitConfirmation()
 	{
-
+		pauseMenu.DisplayConfirmation();
 	}
 
 	void Level_Demo::Exit()
 	{
 		DisplayExitConfirmation();
-		gameStateManager.SetNextGameState(MAIN_MENU);
+		//gameStateManager.SetNextGameState(MAIN_MENU);
 	}
 
 	void Level_Demo::DisplayPauseMenu()
@@ -514,6 +535,7 @@ namespace StarBangBang
 		pauseMenu.continueBtn->GetComponent<UIComponent>()->Draw();
 		pauseMenu.settingsBtn->GetComponent<UIComponent>()->Draw();
 		pauseMenu.settingsObj->GetComponent<SettingsMenu>()->Draw();
+		pauseMenu.confirmationObj->GetComponent<ConfirmationMenu>()->Draw();
 	}
 
 	void Level_Demo::TogglePause()
@@ -527,6 +549,7 @@ namespace StarBangBang
 			pauseMenu.settingsBtn->active = paused;
 			pauseMenu.continueBtn->active = paused;
 			pauseMenu.settingsObj->active = false;
+			pauseMenu.confirmationObj->active = false;
 		}
 	}
 

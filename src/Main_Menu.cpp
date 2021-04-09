@@ -63,7 +63,9 @@ namespace StarBangBang
 		objectManager.AddComponent<SettingsMenu>(settingsObj, graphicsManager).Init();
 
 		confirmationObj = objectManager.NewGameObject();
-		objectManager.AddComponent<ConfirmationMenu>(confirmationObj, graphicsManager, gameStateManager).Init();
+		ConfirmationMenu& confirm = objectManager.AddComponent<ConfirmationMenu>(confirmationObj, graphicsManager, gameStateManager);
+		confirm.Init();
+		confirm.SetText("Quit the game?");
 
 		//start game button
 		playbutton_obj = objectManager.NewGameObject();
