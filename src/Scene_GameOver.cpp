@@ -85,6 +85,7 @@ void StarBangBang::Scene_GameOver::Free()
 void StarBangBang::Scene_GameOver::Unload()
 {
 	Scene::Unload();
+	MessageBus::Notify({ EventId::STOP_SOUND });
 }
 
 void StarBangBang::Scene_GameOver::Quit()
