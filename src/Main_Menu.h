@@ -51,7 +51,7 @@ namespace StarBangBang
 		GameObject* tutorialbutton_obj;
 		GameObject* settingsObj{ nullptr };
 
-		GameObject* editorBtn{ nullptr };
+		//GameObject* editorBtn{ nullptr };
 
 		bool windowOpen{ false };
 		std::queue<GameObject*> windowQueue;
