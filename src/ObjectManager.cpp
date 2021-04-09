@@ -1,3 +1,20 @@
+/******************************************************************************/
+/*!
+\title		Captain Stealth
+\file		ObjectManager.cpp
+\author 	Lee Jia Keat
+\par    	email: l.jiakeat@digipen.edu
+\date   	April 09, 2021
+\brief		Object Manager class.
+			Is responsible for the creation of game objects and adding components to them.
+			Manages the lifetime of game objects and frees them when the scene is exited.
+
+Copyright (C) 2021 DigiPen Institute of Technology.
+Reproduction or disclosure of this file or its contents without the
+prior written consent of DigiPen Institute of Technology is prohibited.
+*/
+/******************************************************************************/
+
 #include "ObjectManager.h"
 #include "Utils.h"
 #include <typeinfo>
