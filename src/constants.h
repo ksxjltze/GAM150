@@ -153,6 +153,7 @@ namespace StarBangBang
 		extern const std::string&& TUTORIAL_BUTTON_PATH;
 		extern const std::string&& FULLSCREEN_BUTTON_PATH;
 		extern const std::string&& MUTE_BUTTON_PATH;
+		extern const std::string&& CONFIRM_BUTTON_PATH;
 
 		//Character sprites
 		extern const std::string&& CAPTAINSTEALTH_F1_PATH;

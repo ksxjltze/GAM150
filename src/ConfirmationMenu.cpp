@@ -19,7 +19,7 @@ StarBangBang::ConfirmationMenu::ConfirmationMenu(GameObject* gameObject, Graphic
 
 void StarBangBang::ConfirmationMenu::Init()
 {
-	confirmBtnSprite = gfxMgr.CreateSprite(RESOURCES::COMPUTER_PATH);
+	confirmBtnSprite = gfxMgr.CreateSprite(RESOURCES::CONFIRM_BUTTON_PATH);
 	backBtnSprite = gfxMgr.CreateSprite(RESOURCES::BACK_BUTTON_PATH);;
 
 	const static AEVec2 btnScale{ 0.2f, 0.12f };
@@ -51,7 +51,7 @@ void StarBangBang::ConfirmationMenu::Init()
 	confirmBtn->transform.scale.y = btnScale.y * gameObject->transform.scale.y;
 	confirmBtn->visible = false;
 
-	Text& text = objMgr->AddComponent<Text>(textObject, "Are you sure?", fontId2, White, 1.0f, false);
+	Text& text = objMgr->AddComponent<Text>(textObject, "Are you sure?", fontId2, White, 0.8f, false);
 	text.SetOffset({ 0.0f, 0.3f });
 	backBtn->SetLayer(UI);
 	confirmBtn->SetLayer(UI);
