@@ -123,8 +123,6 @@ void StarBangBang::LogoSplash::Update()
 
 	if (time_past > delay)
 	{
-		//skipCurrent = true;
-		gameStateManager.SetNextGameState(SceneID::MAIN_MENU);
 		if (AEInputCheckTriggered(VK_ESCAPE) || AEInputCheckTriggered(VK_SPACE) || AEInputCheckTriggered(AEVK_RETURN) ||
 			AEInputCheckTriggered(VK_RBUTTON) || AEInputCheckTriggered(VK_LBUTTON))
 		{
