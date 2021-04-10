@@ -17,15 +17,6 @@
 #include "globals.h"
 #include "MessageBus.h"
 
-#include "TestScene.h"
-#include "Scene_GameOver.h"
-#include "Logo_Splash.h"
-#include "Credits.h"
-#include "Tutorial.h"
-
-//Test scenes
-#include "DoorTest.h"
-
 namespace StarBangBang
 {
 	float g_dt = 0;

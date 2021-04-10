@@ -4,4 +4,7 @@
 #include "LevelEditor.h"
 #include "CaptainStealth.h"
 #include "Main_Menu.h"
-#include "EngineProof.h"
+#include "Credits.h"
+#include "Logo_Splash.h"
+#include "Tutorial.h"
+#include "Scene_GameOver.h"

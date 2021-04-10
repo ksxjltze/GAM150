@@ -126,7 +126,6 @@ xcopy /y /d /i /s "$(SolutionDir)\Resources" "$(OutDir)\Resources"</Command>
     <ClCompile Include="src\Disappear.cpp" />
     <ClCompile Include="src\Distractor.cpp" />
     <ClCompile Include="src\Door.cpp" />
-    <ClCompile Include="src\EngineProof.cpp" />
     <ClCompile Include="src\GameObject.cpp" />
     <ClCompile Include="src\GameStateManager.cpp" />
     <ClCompile Include="src\GraphicsManager.cpp" />
@@ -158,7 +157,6 @@ xcopy /y /d /i /s "$(SolutionDir)\Resources" "$(OutDir)\Resources"</Command>
     <ClCompile Include="src\Scene_GameOver.cpp" />
     <ClCompile Include="src\SecondaryMovementController.cpp" />
     <ClCompile Include="src\SecurityCamera.cpp" />
-    <ClCompile Include="src\Serialization.cpp" />
     <ClCompile Include="src\SerializeTest.cpp" />
     <ClCompile Include="src\Settings.cpp" />
     <ClCompile Include="src\StealthWalk.cpp" />
@@ -200,7 +198,6 @@ xcopy /y /d /i /s "$(SolutionDir)\Resources" "$(OutDir)\Resources"</Command>
     <ClInclude Include="src\DistractionEvent.h" />
     <ClInclude Include="src\Distractor.h" />
     <ClInclude Include="src\Door.h" />
-    <ClInclude Include="src\EngineProof.h" />
     <ClInclude Include="src\Event.h" />
     <ClInclude Include="src\GameObject.h" />
     <ClInclude Include="src\GameStateManager.h" />
@@ -231,14 +228,12 @@ xcopy /y /d /i /s "$(SolutionDir)\Resources" "$(OutDir)\Resources"</Command>
     <ClInclude Include="src\PathFinder.h" />
     <ClInclude Include="src\Physics.h" />
     <ClInclude Include="src\Observer.h" />
-    <ClInclude Include="src\ObserverTest.h" />
     <ClInclude Include="src\PlayerScript.h" />
     <ClInclude Include="src\PrimaryMovementController.h" />
     <ClInclude Include="src\Sample_Scene.h" />
     <ClInclude Include="src\SceneList.h" />
     <ClInclude Include="src\Scene_GameOver.h" />
     <ClInclude Include="src\ScriptComponent.h" />
-    <ClInclude Include="src\SecondaryMovementController.h" />
     <ClInclude Include="src\SecurityCamera.h" />
     <ClInclude Include="src\Settings.h" />
     <ClInclude Include="src\SoundEvent.h" />

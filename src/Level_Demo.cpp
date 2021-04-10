@@ -13,7 +13,6 @@
 #include <iostream>
 #include "constants.h"
 
-#include "ObserverTest.h"
 #include "Text.h"
 #include "globals.h"
 
