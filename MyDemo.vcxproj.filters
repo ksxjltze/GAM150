@@ -437,12 +437,6 @@
     <ClInclude Include="src\Event.h">
       <Filter>Header Files\Engine\EventSystem</Filter>
     </ClInclude>
-    <ClInclude Include="src\ISerializable.h">
-      <Filter>Header Files\Engine\Interfaces</Filter>
-    </ClInclude>
-    <ClInclude Include="src\IClickable.h">
-      <Filter>Header Files\Engine\Interfaces</Filter>
-    </ClInclude>
     <ClInclude Include="src\Listener.h">
       <Filter>Header Files\Engine\Interfaces</Filter>
     </ClInclude>
@@ -472,9 +466,6 @@
     </ClInclude>
     <ClInclude Include="src\PathFinder.h">
       <Filter>Header Files\Engine\Game Logic</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Observer.h">
-      <Filter>Header Files\Engine\Interfaces</Filter>
     </ClInclude>
     <ClInclude Include="src\TileMap.h">
       <Filter>Header Files\Engine\Game Logic</Filter>
