@@ -527,9 +527,6 @@
     <ClInclude Include="src\Text.h">
       <Filter>Header Files\Engine\Components</Filter>
     </ClInclude>
-    <ClInclude Include="src\SerializeTest.h">
-      <Filter>Header Files\Test</Filter>
-    </ClInclude>
     <ClInclude Include="src\ListenerComponent.h">
       <Filter>Header Files\Engine\Components</Filter>
     </ClInclude>
@@ -550,9 +547,6 @@
     </ClInclude>
     <ClInclude Include="src\Observer.h">
       <Filter>Header Files\Engine\Interfaces</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Serialization.h">
-      <Filter>Header Files\Engine\Game State</Filter>
     </ClInclude>
     <ClInclude Include="src\TileMap.h">
       <Filter>Header Files\Engine\Game Logic</Filter>
