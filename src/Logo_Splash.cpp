@@ -1,9 +1,28 @@
+/******************************************************************************/
+/*!
+\title		Captain Stealth
+\file		Logo_Splash.cpp
+\author 	Ho Yi Guan
+\par    	email: Yiguan.ho@digipen.edu
+\date   	April 08, 2021
+\brief
+			Contains the definition for Logo_Splash.h
+			Implements a Logo splash scene
+
+Copyright (C) 2021 DigiPen Institute of Technology.
+Reproduction or disclosure of this file or its contents without the
+prior written consent of DigiPen Institute of Technology is prohibited.
+*/
+/******************************************************************************/
+
+
 #include "Logo_Splash.h"
 #include "GraphicsManager.h"
 #include "globals.h"
 
 using namespace StarBangBang;
 
+//fade object struct for logos
 struct FadeObj
 {
 
@@ -15,22 +34,49 @@ struct FadeObj
 	AEVec2 aspect = AEVec2{ 1,1 };
 };
 
+
 using DrawFunc = void (*)(GameStateManager& gsm);
+
+//minimum input delay for skip
 const float delay = 0.5f;
 
+//the current draw function
 DrawFunc current;
 FadeObj digipen_logo;
 FadeObj fmod_logo;
+
+//skip current scene
 bool skipCurrent = false;
 
 float time_past = 0.0f;
 
+
+
+/*!*************************************************************************
+****
+	\brief
+		A ease curve function that returns a corresponding value given a time
+	\param t
+		The time value
+	\return
+		The resulting value
+****************************************************************************
+***/
 float EaseInOutCurve(float t)
 {
 	return -(cos(PI * t) - 1) / 2;
 }
 
-
+/*!*************************************************************************
+****
+	\brief
+		Handles the drawing of FMOD logo
+	\param gsm
+		The gamestate manager reference
+	\return
+		void
+****************************************************************************
+***/
 void DrawFmod(GameStateManager& gsm)
 {
 
@@ -59,6 +105,16 @@ void DrawFmod(GameStateManager& gsm)
 
 }
 
+/*!*************************************************************************
+****
+	\brief
+		Handles the drawing of Digipen logo
+	\param gsm
+		The gamestate manager reference
+	\return
+		void
+****************************************************************************
+***/
 void DrawDigipen(GameStateManager&)
 {
 
@@ -87,11 +143,33 @@ void DrawDigipen(GameStateManager&)
 
 }
 
+/*!*************************************************************************
+****
+	\brief
+		LogoSplash constructor
+	\param int
+		The scene id
+	\param gsm
+		The gamestate manager reference
+	\return
+		void
+****************************************************************************
+***/
 StarBangBang::LogoSplash::LogoSplash(int id, GameStateManager& gsm) : Scene(id, gsm)
 {
 
 }
 
+/*!*************************************************************************
+****
+	\brief
+		Gamestate load function
+	\param none
+
+	\return
+		void
+****************************************************************************
+***/
 void StarBangBang::LogoSplash::Load()
 {
 	digipen_logo.sprite = graphicsManager.CreateSprite("Resources/Logos/DigiPen_Singapore_WEB_WHITE.png");
@@ -103,6 +181,16 @@ void StarBangBang::LogoSplash::Load()
 	assert(fmod_logo.sprite.mesh);
 }
 
+/*!*************************************************************************
+****
+	\brief
+		Gamestate initialize function
+	\param none
+
+	\return
+		void
+****************************************************************************
+***/
 void StarBangBang::LogoSplash::Init()
 {
 	time_past = 0.0f;
@@ -116,6 +204,16 @@ void StarBangBang::LogoSplash::Init()
 	current = DrawDigipen;
 }
 
+/*!*************************************************************************
+****
+	\brief
+		Gamestate update function
+	\param none
+
+	\return
+		void
+****************************************************************************
+***/
 void StarBangBang::LogoSplash::Update()
 {
 
@@ -132,6 +230,16 @@ void StarBangBang::LogoSplash::Update()
 	
 }
 
+/*!*************************************************************************
+****
+	\brief
+		Gamestate draw function
+	\param none
+
+	\return
+		void
+****************************************************************************
+***/
 void StarBangBang::LogoSplash::Draw()
 {
 	current(gameStateManager);

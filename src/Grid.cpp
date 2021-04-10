@@ -348,7 +348,7 @@ using namespace StarBangBang;
 		\param pos
 			The position of the world
 		\return
-			A 
+			The node* calculated base on world position
 
 	****************************************************************************
 	***/
@@ -373,6 +373,19 @@ using namespace StarBangBang;
 			return nullptr;
 	}
 
+	/*!*************************************************************************
+	****
+		\brief
+			Gets a node object from the grid using param x & y
+		\param x
+			The second index of the grid (Width)
+		\param y
+			The first index of the grid (Height)
+		\return
+			The node* of grid[y]+x
+
+	****************************************************************************
+	***/
 	A_Node* StarBangBang::Grid::GetNode(int x, int y) const
 	{
 		if (x >= 0 && x < size_x && y >= 0 && y < size_y)
@@ -381,6 +394,17 @@ using namespace StarBangBang;
 			return nullptr;
 	}
 
+	/*!*************************************************************************
+	****
+		\brief
+			Set the world grid nodes to all occupied  (debug purpose)
+		\param none
+	
+		\return
+			void
+
+	****************************************************************************
+	***/
 	void StarBangBang::Grid::SetAllOccupied()
 	{
 		for (size_t y = 0; y < size_y; y++)
@@ -392,11 +416,34 @@ using namespace StarBangBang;
 		}
 	}
 
+	/*!*************************************************************************
+	****
+		\brief
+			Toggle the visibility of the world grid
+		\param none
+
+		\return
+			void
+
+	****************************************************************************
+	***/
 	void StarBangBang::Grid::ToggleVisible()
 	{
 		visible = !visible;
 	}
 
+
+	/*!*************************************************************************
+	****
+		\brief
+			Get a random non-occupied node
+		\param none
+			
+		\return
+			A random node copy object
+
+	****************************************************************************
+	***/
 	A_Node StarBangBang::Grid::GetRandomFreeNode()
 	{
 		int rand_x = static_cast<int>(AERandFloat() * size_x), rand_y = static_cast<int>(AERandFloat()* size_y);
@@ -411,12 +458,36 @@ using namespace StarBangBang;
 		return n;
 	}
 
+	/*!*************************************************************************
+	****
+		\brief
+			Sets a node base on param x & y occupied flag to param occupied 
+		\param x
+			The second index of the grid (Width)
+		\param y
+			The first index of the grid (Height)
+		\return
+			void
+
+	****************************************************************************
+	***/
 	void StarBangBang::Grid::SetOccupied(int x, int y, bool occupied)
 	{
 		if (x < size_x && y < size_y)
 			grid[y][x].occupied = occupied;
 	}
 
+	/*!*************************************************************************
+	****
+		\brief
+			Draws the world grid
+		\param color
+			The outline color used to draw the grid
+		\return
+			void
+
+	****************************************************************************
+	***/
 	void Grid::DrawGrid(Color color)
 	{
 		if (!visible)
@@ -426,12 +497,12 @@ using namespace StarBangBang;
 		{
 			for (size_t x = 0; x < size_x; x++)
 			{
-				if (grid[y][x].occupied)
-				{
-					//Disable for now
-					/*StarBangBang::DrawBox(AEVec2{ nodeSize,nodeSize }, grid[y][x].nodePos, Red);*/
-				}
-				else
+				//if (grid[y][x].occupied)
+				//{
+				//	//Disable for now
+				//	/*StarBangBang::DrawBox(AEVec2{ nodeSize,nodeSize }, grid[y][x].nodePos, Red);*/
+				//}
+				//else
 					StarBangBang::DrawBoxWired(AEVec2{ nodeSize,nodeSize }, grid[y][x].nodePos, color);
 			}
 		}

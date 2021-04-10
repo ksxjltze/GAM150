@@ -1,3 +1,22 @@
+/******************************************************************************/
+/*!
+\title		Captain Stealth
+\file		Physics.h
+\author 	Ho Yi Guan
+\par    	email: Yiguan.ho@digipen.edu
+\date   	April 08, 2021
+\brief
+			Contains the declaration for Physics.cpp
+			Contains basic physics function
+			-Rigibody & Rays 
+
+Copyright (C) 2021 DigiPen Institute of Technology.
+Reproduction or disclosure of this file or its contents without the
+prior written consent of DigiPen Institute of Technology is prohibited.
+*/
+/******************************************************************************/
+
+
 #pragma once
 #include "../Extern/AlphaEngine_V3.08/include/AEEngine.h"
 #include "ComponentCRTP.h"
