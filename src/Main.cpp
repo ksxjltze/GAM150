@@ -128,7 +128,6 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 	Scene* mainMenuScene	= gameStateManager.AddGameState<Main_Menu>(SceneID::MAIN_MENU);
 	Scene* sceneDemo		= gameStateManager.AddGameState<Level_Demo>(SceneID::GAME);
 	Scene* sceneEditor		= gameStateManager.AddGameState<LevelEditor>(SceneID::EDITOR);
-	Scene* sampleScene		= gameStateManager.AddGameState<Sample_Scene>(SceneID::SAMPLE);
 	Scene* tutorialScene	= gameStateManager.AddGameState<Tutorial>(TUTORIAL);
 	Scene* ggScene			= gameStateManager.AddGameState<Scene_GameOver>(GAME_OVER);
 	Scene* credits			= gameStateManager.AddGameState<Credits>(CREDITS);
@@ -137,7 +136,6 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 	// Hack to remove unreferenced local variable warning
 	sceneList.push_back(sceneDemo);
 	sceneList.push_back(sceneEditor);
-	sceneList.push_back(sampleScene);
 	sceneList.push_back(tutorialScene);
 	sceneList.push_back(mainMenuScene);
 	sceneList.push_back(ggScene);

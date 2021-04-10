@@ -180,9 +180,6 @@
     <ClCompile Include="src\AudioEngine.cpp">
       <Filter>Source Files\Engine\Audio</Filter>
     </ClCompile>
-    <ClCompile Include="src\Sample_Scene.cpp">
-      <Filter>Source Files\Scenes</Filter>
-    </ClCompile>
     <ClCompile Include="src\Guard.cpp">
       <Filter>Source Files\Scripts\Guard</Filter>
     </ClCompile>
@@ -379,9 +376,6 @@
     </ClInclude>
     <ClInclude Include="src\ComponentCRTP.h">
       <Filter>Header Files\Engine\Game Logic</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Sample_Scene.h">
-      <Filter>Header Files\Scenes</Filter>
     </ClInclude>
     <ClInclude Include="src\Guard.h">
       <Filter>Header Files\Scripts\Guard</Filter>
