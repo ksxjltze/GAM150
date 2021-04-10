@@ -328,17 +328,13 @@ namespace StarBangBang
 		objectManager.AddComponent<DebugText>(objectManager.NewGameObject(), fontId);
 
 		//Floating text
-		MessageBus::Notify({ EventId::PRINT_TEXT, std::string("Find the Vending Machine!") });
+		MessageBus::Notify({ EventId::PRINT_TEXT, std::string("Escape the Facility!") });
 		
 		MessageBus::Notify({ EventId::PAUSE_MUSIC, false });
 		MusicEvent bgm{ BGM::GAME};
 		bgm.SendEvent();
 
 		character = current_char::fei_ge;
-
-		//TEST
-		//player->transform.position = tilemap.GetPositionAtIndex(5, 34);
-		//player2->transform.position = tilemap.GetPositionAtIndex(6, 34);
 
 		pauseMenu.settingsObj = objectManager.NewGameObject();
 		pauseMenu.confirmationObj = objectManager.NewGameObject();
@@ -447,27 +443,25 @@ namespace StarBangBang
 			if (animation_counter > 2) animation_counter = 0;
 		}
 
-
-		//if (AEInputCheckTriggered(VK_SPACE))
-		//{
-		//	MessageBus::Notify({ EventId::PRINT_TEXT, std::string("Find the Exit!") });
-		//}
-
 		PlayerScript* playerScript = player->GetComponent<PlayerScript>();
-		//if (AEInputCheckTriggered(AEVK_G))
-		//{
-		//	playerScript->Debug_Reset();
-		//	if (!god)
-		//	{
-		//		god = true;
-		//		MessageBus::Notify({ EventId::PRINT_TEXT, std::string("God Mode Enabled!") });
-		//	}
-		//	else
-		//	{
-		//		god = false;
-		//		MessageBus::Notify({ EventId::PRINT_TEXT, std::string("God Mode Disabled!") });
-		//	}
-		//}
+		if (IsDebug())
+		{
+			if (AEInputCheckTriggered(AEVK_G))
+			{
+				playerScript->Debug_Reset();
+				if (!god)
+				{
+					god = true;
+					MessageBus::Notify({ EventId::PRINT_TEXT, std::string("God Mode Enabled!") });
+				}
+				else
+				{
+					god = false;
+					MessageBus::Notify({ EventId::PRINT_TEXT, std::string("God Mode Disabled!") });
+				}
+			}
+
+		}
 
 		if (playerScript->isGameOver())
 		{
@@ -498,10 +492,6 @@ namespace StarBangBang
 
 		if (paused)
 			DisplayPauseMenu();
-
-		//Color dark = { 0, 0, 0, 0.5f };
-		//Color light = { 1.0f, 1.0f, 1.0f, 0.5f };
-		//GRAPHICS::DrawOverlay(graphicsManager.GetMesh(), { 20, 20 }, { 0, 0 }, dark, AE_GFX_BM_BLEND);
 	}
 
 	void StarBangBang::Level_Demo::Free()
@@ -527,7 +517,6 @@ namespace StarBangBang
 	void Level_Demo::Exit()
 	{
 		DisplayExitConfirmation();
-		//gameStateManager.SetNextGameState(MAIN_MENU);
 	}
 
 	void Level_Demo::DisplayPauseMenu()
