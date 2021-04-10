@@ -18,7 +18,6 @@ namespace StarBangBang
 		LoadTileSprite(gfxMgr,	TileType::FLOOR_PRISON,		RESOURCES::PRISONFLOOR_PATH);
 		LoadTileSprite(gfxMgr,	TileType::BRICK_RED,		RESOURCES::REDBRICK_PATH);
 		LoadTileSprite(gfxMgr,	TileType::FLOOR_PRISON2,	RESOURCES::PRISONFLOOR_PATH);
-		LoadTileSprite(gfxMgr,	TileType::TEST,				RESOURCES::SPRITE_PLAYER_PATH);
 
 		RegisterTileType(TileType::GRASS,			"GRASS");
 		RegisterTileType(TileType::STONE,			"STONE");
