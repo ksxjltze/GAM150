@@ -143,8 +143,11 @@ void GuardManager::CreateSecurityCameras(ObjectManager* objManager, Sprite* spri
 
 	int roomNum = 1;
 	InitSecurityCam(id++, roomNum,{ -300, -1200 }, 0.0f, 90.0f);
+	roomNum = 2;
+	InitSecurityCam(id++, roomNum, { 1150, -1200 }, -0.0f, 90.0f);
+	roomNum = 3;
 	InitSecurityCam(id++, roomNum,{450, -100},	0.0f, 90.0f);
-	InitSecurityCam(id++, roomNum,{ 1150, -1200 }, -0.0f, 90.0f);
+	roomNum = 4;
 	InitSecurityCam(id++, roomNum,{ 200, 700 }, -180.0f, -90.0f);
 }
 
