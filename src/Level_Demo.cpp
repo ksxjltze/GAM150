@@ -1,7 +1,6 @@
 #include "Level_Demo.h"
 #include "CameraComponent.h"
 
-#include "InteractableComponent.h"
 #include "Guard.h"
 #include "GuardManager.h"
 #include "SecurityCamera.h"
@@ -13,7 +12,6 @@
 #include <iostream>
 #include "constants.h"
 
-#include "ObserverTest.h"
 #include "Text.h"
 #include "globals.h"
 

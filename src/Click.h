@@ -1,13 +1,12 @@
 #pragma once
 #include "ScriptComponent.h"
-#include "IClickable.h"
 #include "Utils.h"
 #include "SoundEvent.h"
 
 namespace StarBangBang
 {
 	template <typename ClassType>
-	class Click : public Script, public IClickable
+	class Click : public Script
 	{
 	public:
 		Click(GameObject* obj, bool overlay = false) : Script(obj), isOverlay{ overlay } {}

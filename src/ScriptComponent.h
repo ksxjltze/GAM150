@@ -18,7 +18,6 @@ prior written consent of DigiPen Institute of Technology is prohibited.
 
 #pragma once
 #include "ComponentCRTP.h"
-#include "Observer.h"
 
 namespace StarBangBang
 {
