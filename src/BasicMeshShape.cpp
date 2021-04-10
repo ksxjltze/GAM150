@@ -1,15 +1,49 @@
+/******************************************************************************/
+/*!
+\title		Captain Stealth
+\file		BasicMeshShape.cpp
+\author 	Ho Yi Guan
+\par    	email: Yiguan.ho@digipen.edu
+\date   	April 08, 2021
+\brief
+			Contains the definition for BasicMeshShape.h
+			Utilis for basic mesh shape for rendering
+			Also for line rendering
+
+Copyright (C) 2021 DigiPen Institute of Technology.
+Reproduction or disclosure of this file or its contents without the
+prior written consent of DigiPen Institute of Technology is prohibited.
+*/
+/******************************************************************************/
+
 #include "BasicMeshShape.h"
 #include "GraphicsManager.h"
 
 using namespace StarBangBang;
+//number of points use for circle rendering
 const unsigned int sides = 30;
 
+//unit box mesh
 static AEGfxVertexList* unitboxMesh;
+//unit box wired mesh
 static AEGfxVertexList* unitboxWiredMesh;
+//unit circle mesh
 static AEGfxVertexList* unitcircleMesh;
+//unit line 
 static AEGfxVertexList* lineMesh;
 //static AEGfxVertexList* unitboxMesh;
 
+
+/*!*************************************************************************
+****
+	\brief
+		Builds and init basic meshes
+	\param none
+
+	\return
+		void
+****************************************************************************
+***/
 void StarBangBang::InitBasicMesh()
 {
 	//build unit box wired mesh
@@ -64,6 +98,22 @@ void StarBangBang::InitBasicMesh()
 	lineMesh = AEGfxMeshEnd();
 	AE_ASSERT_MESG(lineMesh, "Failed to create line mesh!!");
 }
+
+
+/*!*************************************************************************
+****
+	\brief
+		Draws a wired box
+	\param size
+		The size of the box
+	\param pos
+		The position of the box
+	\param color
+		The color used to render the box
+	\return
+		void
+****************************************************************************
+***/
 void StarBangBang::DrawBoxWired(AEVec2 size,AEVec2 pos , Color color)
 {
 	
@@ -76,6 +126,21 @@ void StarBangBang::DrawBoxWired(AEVec2 size,AEVec2 pos , Color color)
 	AEGfxMeshDraw(unitboxWiredMesh, AEGfxMeshDrawMode::AE_GFX_MDM_LINES_STRIP);
 }
 
+
+/*!*************************************************************************
+****
+	\brief
+		Draws a box
+	\param size
+		The size of the box
+	\param pos
+		The position of the box
+	\param color
+		The color used to render the box
+	\return
+		void
+****************************************************************************
+***/
 void StarBangBang::DrawBox(AEVec2 size, AEVec2 pos, Color color)
 {
 	AEMtx33 scale = AEMtx33();
@@ -90,7 +155,20 @@ void StarBangBang::DrawBox(AEVec2 size, AEVec2 pos, Color color)
 	AEGfxMeshDraw(unitboxMesh, AEGfxMeshDrawMode::AE_GFX_MDM_TRIANGLES);
 }
 
-
+/*!*************************************************************************
+****
+	\brief
+		Draws a circle
+	\param radius
+		The radius of the circle
+	\param pos
+		The position of the circle
+	\param color
+		The color used to render the circle
+	\return
+		void
+****************************************************************************
+***/
 void StarBangBang::DrawCircle(float radius, AEVec2 pos,Color color)
 {
 	AEMtx33 scale = AEMtx33();
@@ -104,6 +182,23 @@ void StarBangBang::DrawCircle(float radius, AEVec2 pos,Color color)
 	AEGfxMeshDraw(unitcircleMesh, AEGfxMeshDrawMode::AE_GFX_MDM_LINES_STRIP);
 }
 
+
+/*!*************************************************************************
+****
+	\brief
+		Draws a line
+	\param length
+		The length of the line
+	\param pos
+		The position of the line
+	\param angle
+		The angle of the line
+	\param color
+		The color used to render the line
+	\return
+		void
+****************************************************************************
+***/
 void StarBangBang::DrawLine(float length, AEVec2 pos, float angle, Color color)
 {
 	AEMtx33 scale = AEMtx33();
@@ -129,6 +224,17 @@ void StarBangBang::DrawLine(float length, AEVec2 pos, float angle, Color color)
 	AEGfxMeshDraw(lineMesh, AEGfxMeshDrawMode::AE_GFX_MDM_LINES_STRIP);
 }
 
+
+/*!*************************************************************************
+****
+	\brief
+		Free all the pre-builted unit meshes
+	\param none
+
+	\return
+		void
+****************************************************************************
+***/
 void StarBangBang::FreeUnitMeshes(void)
 {
 	AEGfxMeshFree(unitboxMesh);
@@ -137,6 +243,18 @@ void StarBangBang::FreeUnitMeshes(void)
 	AEGfxMeshFree(lineMesh);
 }
 
+/*!*************************************************************************
+****
+	\brief
+		Applies the camera transformation to the meshes
+	\param size
+		The size of the object
+	\param pos
+		The position of the object
+	\return
+		Whether the object will be outside of the viewport
+****************************************************************************
+***/
 bool StarBangBang::BasicMeshShape::ApplyTransform(AEVec2 size, AEVec2 pos)
 {
 	AEMtx33 scale;

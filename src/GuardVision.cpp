@@ -32,11 +32,6 @@ void GuardVision::Update()
 	// only update if player or client in same partition grid as guard
 	// ...
 
-	if (gameObject->GetComponent<Guard>()->GetState() == Guard::GUARD_STATE::STATE_CHASE)
-	{
-		rotSpeed = 350.f;
-	}
-
 	AEVec2 defaultForward = { 0, 1 };
 
 	if (movement->IsMoving())
@@ -86,7 +81,8 @@ void GuardVision::Update()
 
 		if (turn)
 		{
-			if (gameObject->GetComponent<Guard>()->GetState() != Guard::GUARD_STATE::STATE_CHASE)
+			if (gameObject->GetComponent<Guard>()->GetState() == Guard::GUARD_STATE::STATE_PATROL
+				&& !movement->GetGoingToPatrolPoint())
 			{
 				idleDuration -= g_dt;
 				if (idleDuration > 0.f)
@@ -145,6 +141,26 @@ void GuardVision::Idle()
 
 		detector->SpanVision(targetRot - 90.f, targetRot + 90.f, 50.f);
 	}
+}
+
+void GuardVision::OnEnterIdle()
+{
+	rotSpeed = 90.f;
+}
+
+void GuardVision::OnEnterPatrol()
+{
+	rotSpeed = 90.f;
+}
+
+void GuardVision::OnEnterDistracted()
+{
+	rotSpeed = 350.f;
+}
+
+void GuardVision::OnEnterChase()
+{
+	rotSpeed = 350.f;
 }
 
 void GuardVision::FaceTowardsRotation()

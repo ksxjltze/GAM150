@@ -3,6 +3,8 @@
 #include "Click.h"
 #include "CollisionEvent.h"
 #include "Settings.h"
+#include "MusicEvent.h"
+#include "ConfirmationMenu.h"
 
 static const float x_scale = 5.0f;
 static const float y_scale = 5.0f;
@@ -46,61 +48,70 @@ namespace StarBangBang
 
 	void StarBangBang::Main_Menu::Init()
 	{
+
+		AEVec2 btnScale = { 3.0f, 1.6f};
+
 		GRAPHICS::SetZoom(1.0f);
 		GRAPHICS::SetBackgroundColor(Black);
 		//logo 
 		logo_obj = objectManager.NewGameObject();
 		objectManager.AddImage(logo_obj, logo);
 		logo_obj->transform.position = { 0, (float)AEGetWindowHeight() / 3 };
-		logo_obj->transform.scale = { 1.5,1.5};
+		logo_obj->transform.scale = { 1.5, 1.5};
 
 		settingsObj = objectManager.NewGameObject();
 		objectManager.AddComponent<SettingsMenu>(settingsObj, graphicsManager).Init();
+
+		confirmationObj = objectManager.NewGameObject();
+		ConfirmationMenu& confirm = objectManager.AddComponent<ConfirmationMenu>(confirmationObj, graphicsManager, gameStateManager);
+		confirm.Init();
+		confirm.SetText(std::string("Quit the game?"));
 
 		//start game button
 		playbutton_obj = objectManager.NewGameObject();
 		//objectManager.AddImage(playbutton_obj, playbutton1);
 		objectManager.AddComponent<ImageComponent>(playbutton_obj, playbutton1);
 		playbutton_obj->transform.position = { (float)AEGetWindowWidth() / -8, (float)AEGetWindowHeight() / 8 };
-		playbutton_obj->transform.scale = { 3, 3 };
+		playbutton_obj->transform.scale = btnScale;
 		objectManager.AddComponent<Click<Main_Menu>>(playbutton_obj).setCallback(*this, &Main_Menu::LoadLevel);
 		
 		//tutorial button
 		tutorialbutton_obj = objectManager.NewGameObject();
 		objectManager.AddImage(tutorialbutton_obj, tutorialButton1);
 		tutorialbutton_obj->transform.position = { (float)AEGetWindowWidth() / 8, (float)AEGetWindowHeight() / 8 };
-		tutorialbutton_obj->transform.scale = { 3,3 };
+		tutorialbutton_obj->transform.scale = btnScale;
 		objectManager.AddComponent<Click<Main_Menu>>(tutorialbutton_obj).setCallback(*this, &Main_Menu::LoadTutorial);
 
 		//settings button
 		settingsbutton_obj = objectManager.NewGameObject();
 		objectManager.AddImage(settingsbutton_obj, settingsbutton1);
 		settingsbutton_obj->transform.position = { (float)AEGetWindowWidth() / -8, (float)AEGetWindowHeight() / -8 };
-		settingsbutton_obj->transform.scale = { 3, 3 };
+		settingsbutton_obj->transform.scale = btnScale;
 		objectManager.AddComponent<Click<Main_Menu>>(settingsbutton_obj).setCallback(*this, &Main_Menu::Settings);
 
 		//credits button
 		creditsbutton_obj = objectManager.NewGameObject();
 		objectManager.AddImage(creditsbutton_obj, creditsbutton1);
 		creditsbutton_obj->transform.position = { (float)AEGetWindowWidth() / 8, (float)AEGetWindowHeight() / -8 };
-		creditsbutton_obj->transform.scale = { 3, 3 };
+		creditsbutton_obj->transform.scale = btnScale;
 		objectManager.AddComponent<Click<Main_Menu>>(creditsbutton_obj).setCallback(*this, &Main_Menu::Credits);
 
 		//exit game button
 		exitbutton_obj = objectManager.NewGameObject();
 		objectManager.AddImage(exitbutton_obj, exitbutton1);
 		exitbutton_obj->transform.position = { 0, -200 };
-		exitbutton_obj->transform.scale = { 3,3 };
+		exitbutton_obj->transform.scale = btnScale;
 
 		objectManager.AddComponent<Click<Main_Menu>>(exitbutton_obj).setCallback(*this, &Main_Menu::ExitGame);
 
-		//MessageBus::Notify({ EventId::PLAY_MUSIC, "BGM" });
+		MusicEvent bgm{ BGM::MENU };
+		bgm.SendEvent();
 
-		editorBtn = objectManager.NewGameObject();
-		objectManager.AddImage(editorBtn, vending_machine_sprite);
-		editorBtn->transform.position = { (float)AEGetWindowWidth() * 0.35f, (float)AEGetWindowHeight() / 8, };
+		//editorBtn = objectManager.NewGameObject();
+		//objectManager.AddImage(editorBtn, vending_machine_sprite);
+		//editorBtn->transform.position = { (float)AEGetWindowWidth() * 0.35f, (float)AEGetWindowHeight() / 8, };
 
-		objectManager.AddComponent<Click<Main_Menu>>(editorBtn).setCallback(*this, &Main_Menu::LoadEditor);
+		//objectManager.AddComponent<Click<Main_Menu>>(editorBtn).setCallback(*this, &Main_Menu::LoadEditor);
 		frameSkip = true;
 	}
 
@@ -172,7 +183,7 @@ namespace StarBangBang
 
 	void Main_Menu::LoadLevel()
 	{
-		gameStateManager.SetNextGameState(SceneID::DEMO);
+		gameStateManager.SetNextGameState(SceneID::GAME);
 	}
 
 	void Main_Menu::Credits()
@@ -182,7 +193,8 @@ namespace StarBangBang
 
 	void Main_Menu::ExitGame()
 	{
-		gameStateManager.ExitGame();
+		DisplayConfirmationMenu();
+		//gameStateManager.ExitGame();
 	}
 
 	void Main_Menu::Settings()
@@ -190,6 +202,13 @@ namespace StarBangBang
 		windowOpen = true;
 		settingsObj->SetActive(true);
 		windowQueue.push(settingsObj);
+	}
+
+	void Main_Menu::DisplayConfirmationMenu()
+	{
+		windowOpen = true;
+		confirmationObj->SetActive(true);
+		windowQueue.push(confirmationObj);
 	}
 
 	void Main_Menu::HideMenu()
@@ -200,7 +219,7 @@ namespace StarBangBang
 		creditsbutton_obj->active = !windowOpen;
 		exitbutton_obj->active = !windowOpen;
 		tutorialbutton_obj->active = !windowOpen;
-		editorBtn->active = !windowOpen;
+		//editorBtn->active = !windowOpen;
 	}
 }
 

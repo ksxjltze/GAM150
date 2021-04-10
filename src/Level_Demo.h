@@ -22,6 +22,7 @@ namespace StarBangBang
 	private:
 		direction dir;
 		current_char character;
+		void DisplayExitConfirmation();
 		void Exit();
 		void DisplayPauseMenu();
 		void TogglePause();

@@ -1,3 +1,22 @@
+/******************************************************************************/
+/*!
+\title		Captain Stealth
+\file		CollisionManager.cpp
+\author 	Ho Yi Guan
+\par    	email: Yiguan.ho@digipen.edu
+\date   	April 08, 2021
+\brief
+			Contains the definition for CollisionManager.h
+			Handles collision responds and detection
+
+Copyright (C) 2021 DigiPen Institute of Technology.
+Reproduction or disclosure of this file or its contents without the
+prior written consent of DigiPen Institute of Technology is prohibited.
+*/
+/******************************************************************************/
+
+
+
 #include "CollisionManager.h"
 #include "BasicMeshShape.h"
 #include "Grid.h"
@@ -7,23 +26,46 @@
 
 using namespace StarBangBang;
 
-const unsigned int sides = 30;
 
 const float EPILSION = 0.0001f;
 
 
 
-
+/*!*************************************************************************
+****
+	\brief
+		CollisionData constructor
+	\param none
+	
+	\return
+		void
+****************************************************************************
+***/
 CollisionData::CollisionData()
 	:pen_depth{ 0.0f }, col_normal{ 0.0f, 0.0f } {}
 
+
+/*!*************************************************************************
+****
+	\brief
+		CollisionPair constructor
+	\param A
+		The first collider
+	\param B
+		The second collider
+	\param data
+		The resulting collision data 
+	\return
+		void
+****************************************************************************
+***/
 CollisionPair::CollisionPair(BoxCollider& A, BoxCollider& B, CollisionData data) : A{ A }, B{ B }, data{ data }
 {
 }
 
 namespace
 {
-
+	//the partitioning grid
 	PartitionGrid p_grid;
 	
 	//all colliders created
@@ -32,7 +74,18 @@ namespace
 }
 
 
-
+/*!*************************************************************************
+****
+	\brief
+		Whether a point lies within the ray(line segment) 
+	\param line
+		The ray
+	\param pt
+		The point to check against
+	\return
+		Whether the param pt lies within the ray(line segment) 
+****************************************************************************
+***/
 bool LineContainsPoint(const Ray& line, AEVec2 pt)
 {
 	AEVec2 p0 {line.start.x - pt.x , line.start.y - pt.y } ;
@@ -49,6 +102,24 @@ bool LineContainsPoint(const Ray& line, AEVec2 pt)
 
 }
 
+
+/*!*************************************************************************
+****
+	\brief
+		Calculate the orientation of the a point with respect
+		to a line segment
+	\param start
+		The starting point of the line
+	\param end
+		The ending point of the line
+	\param ptToTest
+		The point use to calculate orientation
+	\return
+		0	- Collinear
+		1	- Clockwise
+		-1	- Anti-Clockwise
+****************************************************************************
+***/
 int LineOrientation(AEVec2 start, AEVec2 end, AEVec2 ptToTest)
 {
 	//wedge product
@@ -60,6 +131,22 @@ int LineOrientation(AEVec2 start, AEVec2 end, AEVec2 ptToTest)
 
 	return (ori > 0) ? 1 : -1;
 }
+
+/*!*************************************************************************
+****
+	\brief
+		Checks whether a ray intersects another ray
+	\param l1
+		The first ray
+	\param l2
+		The second ray
+
+	\return
+		Whether ray l1 intersects ray l2
+		true if ray intersects each other
+		otherwise returns false
+****************************************************************************
+***/
 
 bool LineIntersect(const Ray& l1, const Ray& l2)
 {
@@ -84,6 +171,20 @@ bool LineIntersect(const Ray& l1, const Ray& l2)
 	return false;
 }
 
+/*!*************************************************************************
+****
+	\brief
+		Cast a ray and returns the collider it intersects
+	\param ray
+		The ray object
+	\param ignore
+		The boxcollider* to ignore 
+
+	\return
+		returns the boxcollider* that the ray intersects
+		nullptr if no intersection
+****************************************************************************
+***/
 BoxCollider* CollisionManager::LineCast(const Ray& ray, BoxCollider* ignore)
 {
 	const int c_sides = 4;
@@ -127,18 +228,54 @@ BoxCollider* CollisionManager::LineCast(const Ray& ray, BoxCollider* ignore)
 }
 
 
+/*!*************************************************************************
+****
+	\brief
+		Clears a partition grid cell's bucket
+	\param index
+		The index to the bucket cell 
+
+	\return
+		void
+
+****************************************************************************
+***/
 void CollisionManager::ClearPartitionGridCell(int index)
 {
 	p_grid.ClearABucketCell(index);
 }
+
+/*!*************************************************************************
+****
+	\brief
+		Clears all partition grid cell's bucket
+	\return
+		void
+
+****************************************************************************
+***/
 
 void CollisionManager::ClearPartitionGridCells()
 {
 	p_grid.ClearAllBucketCell();
 }
 
+
+/*!*************************************************************************
+****
+	\brief
+		Removes a collider for the collsion list
+	\param pCollider
+		The ptr to the collider to remove
+		
+	\return
+		void
+
+****************************************************************************
+***/
 void StarBangBang::CollisionManager::RemoveCollider(Collider* pCollider)
 {
+
 	for (auto it = collider_list.begin(); it != collider_list.end(); it++)
 	{
 		if (*it == pCollider)
@@ -149,6 +286,19 @@ void StarBangBang::CollisionManager::RemoveCollider(Collider* pCollider)
 	}
 }
 
+
+/*!*************************************************************************
+****
+	\brief
+		Creates a box collider instance
+	\param gameObject
+		The gameObject* to initialize a component
+
+	\return
+		The boxcollider ptr created
+
+****************************************************************************
+***/
 BoxCollider* CollisionManager::CreateBoxColliderInstance(GameObject* gameObject, bool is_static)
 {
 
@@ -200,6 +350,22 @@ BoxCollider* CollisionManager::CreateBoxColliderInstance(GameObject* gameObject,
 	return collider_list[index];
 }
 
+
+/*!*************************************************************************
+****
+	\brief
+		Calculate the collision data when 2 collider intersects
+	\param b1
+		The first of the pair of intersect colliders
+	\param b2
+		The second of the pair of intersect colliders
+	\param col
+		The collision data reference to store calculation result
+	\return
+		void
+
+****************************************************************************
+***/
 void CalculateCollisionData(const BoxCollider& b1, const BoxCollider& b2, CollisionData& col)
 {
 	AEVec2 dist = AEVec2{ b2.GetCenter().x - b1.GetCenter().x , b2.GetCenter().y - b1.GetCenter().y };
@@ -232,6 +398,21 @@ void CalculateCollisionData(const BoxCollider& b1, const BoxCollider& b2, Collis
 
 }
 
+
+/*!*************************************************************************
+****
+	\brief
+		Whether a boxcollider contains a point
+	\param box
+		The boxcollider object reference
+	\param pt
+		The point to test
+	\return
+		true if box contains the point
+		otherwise return false
+
+****************************************************************************
+***/
 bool CollisionManager::ContainsPoint(const BoxCollider& box, AEVec2 pt)
 {
 	if (pt.x < box.Min().x || pt.y < box.Min().x)
@@ -242,32 +423,21 @@ bool CollisionManager::ContainsPoint(const BoxCollider& box, AEVec2 pt)
 
 }
 
+
+/*!*************************************************************************
+****
+	\brief
+		Caculates all the parition cell a collider occupies
+	\param c
+		The boxcollider object reference
+	\param list
+		The vector cell* list to restore the result
+	\return
+		void
+****************************************************************************
+***/
 void FetchAllColliderCells(const BoxCollider& c, std::vector<Cell*>& list)
 {
-
-	/*Cell& maxCell = p_grid.grid[p_grid.GetHashCellIndex(c.Max())];
-	Cell& minCell = p_grid.grid[p_grid.GetHashCellIndex(c.Min())];
-	AEVec2 dimension{ c.GetWidth(),c.GetHeight() };
-	int x_limit = (int)ceil(dimension.x / p_grid.GetCellSize()) ;
-	int y_limit = (int)ceil(dimension.y / p_grid.GetCellSize()) ;
-
-	for (int y = -1; y < y_limit; ++y)
-	{
-		for (int x = -1; x < x_limit; ++x)
-		{
-			AEVec2 v{ c.Min().x + x * p_grid.GetCellSize() , c.Min().y + y * p_grid.GetCellSize() };
-
-
-			int cellIndex = p_grid.GetHashCellIndex(v);
-			Cell& cell = p_grid.grid[cellIndex];
-			cell.cellIndex = cellIndex;
-			list.push_back(&cell);
-
-
-
-
-		}
-	}*/
 
 	std::vector<AEVec2> points;
 	points.reserve(8);
@@ -308,6 +478,19 @@ void FetchAllColliderCells(const BoxCollider& c, std::vector<Cell*>& list)
 	}
 
 }
+
+
+/*!*************************************************************************
+****
+	\brief
+		Recalculates a collider's partitioning cells 
+		when it moves
+	\param col
+		The boxcollider object reference
+	\return
+		void
+****************************************************************************
+***/
 void CollisionManager::RecalculateColliderCells(BoxCollider& col)
 {
 	//clear the cells collider occupies
@@ -342,17 +525,17 @@ void CollisionManager::RecalculateColliderCells(BoxCollider& col)
 
 }
 
-void DrawParition()
-{
-	for (int y = 0; y < 32; ++y)
-	{
-		for (int x = 0; x < 32; ++x)
-		{
-			AEVec2 pos{ x * p_grid.GetCellSize(),y * p_grid.GetCellSize() };
-			DrawBoxWired(AEVec2{ p_grid.GetCellSize(),p_grid.GetCellSize() }, pos);
-		}
-	}
-}
+/*!*************************************************************************
+****
+	\brief
+		Resolve the velocity of 2 rigibodies
+	\param pair
+		The collisionpair reference containing
+		the collided colliders and data
+	\return
+		void
+****************************************************************************
+***/
 void ResolveVelocity(const CollisionPair& pair)
 {
 	AEVec2 normal = pair.data.col_normal;
@@ -379,6 +562,19 @@ void ResolveVelocity(const CollisionPair& pair)
 		pair.B.rb->AddVelocity(impulse, -pair.B.rb->inv_mass());
 	}
 }
+
+/*!*************************************************************************
+****
+	\brief
+		Resolve penetration of intersecting collider pairs
+	\param pair
+		The collisionpair reference containing
+		the collided colliders and data
+	\return
+		void
+****************************************************************************
+***/
+
 void ResolvePenetration(const CollisionPair& pair)
 {
 	float total = pair.A.rb->inv_mass() + pair.B.rb->inv_mass();
@@ -401,13 +597,35 @@ void ResolvePenetration(const CollisionPair& pair)
 
 }
 
+
+/*!*************************************************************************
+****
+	\brief
+		Reset/free the collision manager data
+	\param none
+	
+	\return
+		void
+****************************************************************************
+***/
 void StarBangBang::CollisionManager::Free()
 {
 	collider_list.clear();
 	CollisionManager::ClearPartitionGridCells();
 }
 
-//wip
+/*!*************************************************************************
+****
+	\brief
+		The update function of the manager
+		Handles collisoin checks and resolving
+		Recalculate moved colliders for partition grid
+	\param none
+
+	\return
+		void
+****************************************************************************
+***/
 void CollisionManager::ResolverUpdate()
 {
 	/*static size_t collision_check = 0;
@@ -530,7 +748,8 @@ void CollisionManager::ResolverUpdate()
 	//timer -= AEFrameRateControllerGetFrameTime();
 #pragma endregion
 
-	if (!debug)
+	//drawing of colliders
+	/*if (!debug)
 		return;
 
 	for (BoxCollider* col : collider_list)
@@ -540,7 +759,7 @@ void CollisionManager::ResolverUpdate()
 			DebugCollider(*col, Red);
 		else
 			DebugCollider(*col, Green);
-	}
+	}*/
 
 }
 
@@ -550,7 +769,19 @@ void StarBangBang::CollisionManager::SetDebugVisible(bool b)
 	debug = b;
 }
 
-//check for static aabb
+/*!*************************************************************************
+****
+	\brief
+		Checks for static boxcollider(aabb) collision
+	\param A
+		First collider reference
+	\param B
+		Second collider reference
+	\return
+		true if the boxcollider intersects
+		otherwise false
+****************************************************************************
+***/
 bool CollisionManager::StaticAABB_Check(const BoxCollider& A, const BoxCollider& B)
 {
 
@@ -571,7 +802,23 @@ bool CollisionManager::StaticAABB_Check(const BoxCollider& A, const BoxCollider&
 	return true;
 }
 
-//check for moving aabbs
+/*!*************************************************************************
+****
+	\brief
+		Checks for dynamic moving boxcollider (aabb) collision
+	\param A
+		First collider reference
+	\param vel1
+		Velocity of first collider A
+	\param B
+		Second collider reference
+	\param vel2
+		Velocity of second collider B
+	\return
+		true if the boxcollider intersects
+		otherwise false
+****************************************************************************
+***/
 bool CollisionManager::Dynamic_AABB(const BoxCollider& A, const AEVec2& vel1,
 	const BoxCollider& B, const AEVec2& vel2)
 {
@@ -699,6 +946,19 @@ bool CollisionManager::Dynamic_AABB(const BoxCollider& A, const AEVec2& vel1,
 
 }
 
+
+/*!*************************************************************************
+****
+	\brief
+		Draw a boxcollider for debugging
+	\param c
+		The boxcollider to draw
+	\param color
+		The color used to render the boxcollider
+	\return
+		void
+****************************************************************************
+***/
 void CollisionManager::DebugCollider(BoxCollider b, Color c)
 {
 
@@ -707,27 +967,7 @@ void CollisionManager::DebugCollider(BoxCollider b, Color c)
 
 }
 
-void CollisionManager::DebugCollider(CircleCollider c)
-{
-	float interval = roundf(2.0f * PI / sides / 10.0f) * 10.0f;
-	for (unsigned int i = 0; i < sides; i++)
-	{
-		float radian = interval * i;
-		if (i + 1 < sides)
-		{
-			float x = c.GetRadius() * asinf(radian);
-			float y = c.GetRadius() * acosf(radian);
-			float x1 = c.GetRadius() * asinf(radian + interval);
-			float y1 = c.GetRadius() * acosf(radian + interval);
 
-			AEGfxLine(c.GetCenter().x + x, c.GetCenter().y + y, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f,
-				c.GetCenter().x + x1, c.GetCenter().y + y1, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f
-
-			);
-		}
-	}
-
-}
 
 
 

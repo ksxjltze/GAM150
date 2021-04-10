@@ -387,6 +387,12 @@
     <ClCompile Include="src\PlayerAnimation.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\ConfirmationMenu.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Menu.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\ImageComponent.h">
@@ -548,9 +554,6 @@
     <ClInclude Include="src\PathFinder.h">
       <Filter>Header Files\Engine\Game Logic</Filter>
     </ClInclude>
-    <ClInclude Include="src\UniqueQueue.h">
-      <Filter>Header Files\Engine\Game Logic</Filter>
-    </ClInclude>
     <ClInclude Include="src\Observer.h">
       <Filter>Header Files\Engine\Interfaces</Filter>
     </ClInclude>
@@ -669,6 +672,15 @@
       <Filter>Header Files\Scripts\Guard</Filter>
     </ClInclude>
     <ClInclude Include="src\PlayerAnimation.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\MusicEvent.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ConfirmationMenu.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Menu.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

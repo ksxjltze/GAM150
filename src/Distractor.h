@@ -23,6 +23,8 @@ namespace StarBangBang
 		bool activated;
 		float duration;
 		float timer;
+		float scaleTimer;
+		float scaleTimerY = 0.f;
 		unsigned int roomNum;
 	};
 }

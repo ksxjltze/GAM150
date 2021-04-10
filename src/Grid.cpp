@@ -1,29 +1,93 @@
+/******************************************************************************/
+/*!
+\title		Captain Stealth
+\file		Grid.cpp
+\author 	Ho Yi Guan
+\par    	email: Yiguan.ho@digipen.edu
+\date   	April 08, 2021
+\brief
+			Contains the definition for Grid.h
+			Contains the grid and node class for pathfinding
+			and spatial partitiioning
+
+Copyright (C) 2021 DigiPen Institute of Technology.
+Reproduction or disclosure of this file or its contents without the
+prior written consent of DigiPen Institute of Technology is prohibited.
+*/
+/******************************************************************************/
+
+
+
 #include "Grid.h"
 #include <cmath>
 #include <iostream>
 #include "BasicMeshShape.h"
 #include "Collider.h"
+#include "GraphicsManager.h"
 
 using namespace StarBangBang;
 
 
 
 #pragma region Partition Grid
+	
+	/*!*************************************************************************
+	****
+		\brief
+			The parition grid constructor 
+		\param cellSize
+			The size of a partition cells
+		\param buckets
+			The maximum number of elements in the partition grid
+		\return
+			void
 
+	****************************************************************************
+	***/
 	PartitionGrid::PartitionGrid(float cellSize, int buckets) 
 	: cellSize{ cellSize }, buckets{ buckets },
 	grid{ new Cell[buckets]} {}
 
+
+	/*!*************************************************************************
+	****
+		\brief
+			The parition grid destructor
+		\return
+			void
+
+	****************************************************************************
+	***/
 	PartitionGrid::~PartitionGrid()
 	{
 		delete[] grid;
 	}
 
+	/*!*************************************************************************
+	****
+		\brief
+			Clears a bucket cell's colliders in the grid
+		\param index
+			The index to the bucket cell
+		\return
+			void
+
+	****************************************************************************
+	***/
 	void PartitionGrid::ClearABucketCell(int index)
 	{
 		grid[index].cell_colliders.clear();
 	}
 
+	/*!*************************************************************************
+	****
+		\brief
+			Clears all the bucket cell in the grid
+		\return
+			void
+
+	****************************************************************************
+	***/
 	void PartitionGrid::ClearAllBucketCell()
 	{
 		for (int i = 0; i < buckets; i++)
@@ -32,6 +96,18 @@ using namespace StarBangBang;
 		}
 	}
 
+	/*!*************************************************************************
+	****
+		\brief
+			A simple hash function that returns the index to the grid
+			based on a position in the world
+		\param pos
+			The position in the world
+		\return
+			The hash index base on the given param pos
+
+	****************************************************************************
+	***/
 	int PartitionGrid::GetHashCellIndex(AEVec2 pos)
 	{
 		//static int counter = 0;
@@ -61,7 +137,15 @@ using namespace StarBangBang;
 
 #pragma region A* grid
 	
-	//Change to destructor some time
+	/*!*************************************************************************
+	****
+		\brief
+			Frees the A* grid
+		\return
+			void
+
+	****************************************************************************
+	***/
 	void Grid::FreeGrid()
 	{
 		if (!grid)
@@ -76,6 +160,23 @@ using namespace StarBangBang;
 		grid = nullptr;
 	}
 	
+	/*!*************************************************************************
+	****
+		\brief
+			Grid object constructor
+		\param _nodeSize
+			The size of each node
+		\param sizeX
+			The number of nodes along x-axis
+		\param sizeY
+			The number of nodes along y-axis
+		\param _offset
+			The position to place the grid
+		\return
+			void
+
+	****************************************************************************
+	***/
 	Grid::Grid(float _nodeSize, int sizeX, int sizeY, AEVec2 _offset)
 	{
 		this->nodeSize = _nodeSize;
@@ -83,6 +184,25 @@ using namespace StarBangBang;
 		CreateGrid(_nodeSize, sizeX , sizeY, AEVec2{ 0,0 });
 	}
 
+
+	/*!*************************************************************************
+	****
+		\brief
+			The function that creates a new grid
+			called by the constructor
+		\param _nodeSize
+			The size of each node
+		\param sizeX
+			The number of nodes along x-axis
+		\param sizeY
+			The number of nodes along y-axis
+		\param _offset
+			The position to place the grid
+		\return
+			void
+
+	****************************************************************************
+	***/
 	void Grid::CreateGrid(float _nodeSize, int sizeX , int sizeY, AEVec2 _offset)
 	{
 
@@ -108,9 +228,15 @@ using namespace StarBangBang;
 		catch (const std::bad_alloc& exp)
 		{
 			std::cout << "Allocation failed for grid object:" << exp.what() << std::endl;
+			
+			GRAPHICS::ToggleFullscreen();
+			MessageBox(AESysGetWindowHandle(), "Fail to allocate memory on your machine! Please close some program!", "Error!", MB_OK);
+			//quit
 		}
-		std::cout << "X:" << size_x << std::endl;
-		std::cout << "Y:" << size_y << std::endl;
+	
+	
+	/*	std::cout << "X:" << size_x << std::endl;
+		std::cout << "Y:" << size_y << std::endl;*/
 		AEVec2 extend = GetGridExtend();
 		float half_node = nodeSize * 0.5f;
 
@@ -123,12 +249,25 @@ using namespace StarBangBang;
 				grid[y][x].index_x = x;
 				grid[y][x].index_y = y;
 				grid[y][x].nodePos = AEVec2{ btmNode.x + x * nodeSize , btmNode.y + nodeSize * y };
-				//check if occupied
-
+				
 			}
 
 		}
 	}
+
+
+	/*!*************************************************************************
+	****
+		\brief
+			Get the 4 surrounding neighbours (up,down,left and right)
+			of the param node
+		\param node
+			The center node
+		\return
+			A vector container of 4 surrounding neighbours
+
+	****************************************************************************
+	***/
 	std::vector<A_Node*> Grid::Get4_NodeNeighbours(const A_Node* node)
 	{
 		std::vector<A_Node*> n;
@@ -165,6 +304,19 @@ using namespace StarBangBang;
 		
 		return n;
 	}
+
+	/*!*************************************************************************
+	****
+		\brief
+			Get the 8 surrounding neighbours (up,down,left,right and the diagonals)
+			of the param node
+		\param node
+			The center node
+		\return
+			A vector container of 8 surrounding neighbours
+
+	****************************************************************************
+	***/
 	std::vector<A_Node*> Grid::Get8_NodeNeighbours(const A_Node* node)
 	{
 		std::vector<A_Node*> n;
@@ -186,6 +338,20 @@ using namespace StarBangBang;
 
 		return n;
 	}
+
+
+	/*!*************************************************************************
+	****
+		\brief
+			Gets a node object calculated base on the param pos
+			The relevant node object 
+		\param pos
+			The position of the world
+		\return
+			The node* calculated base on world position
+
+	****************************************************************************
+	***/
 	A_Node* Grid::GetNodeFromPosition(AEVec2 pos)
 	{
 		AEVec2 result;
@@ -207,6 +373,19 @@ using namespace StarBangBang;
 			return nullptr;
 	}
 
+	/*!*************************************************************************
+	****
+		\brief
+			Gets a node object from the grid using param x & y
+		\param x
+			The second index of the grid (Width)
+		\param y
+			The first index of the grid (Height)
+		\return
+			The node* of grid[y]+x
+
+	****************************************************************************
+	***/
 	A_Node* StarBangBang::Grid::GetNode(int x, int y) const
 	{
 		if (x >= 0 && x < size_x && y >= 0 && y < size_y)
@@ -215,6 +394,17 @@ using namespace StarBangBang;
 			return nullptr;
 	}
 
+	/*!*************************************************************************
+	****
+		\brief
+			Set the world grid nodes to all occupied  (debug purpose)
+		\param none
+	
+		\return
+			void
+
+	****************************************************************************
+	***/
 	void StarBangBang::Grid::SetAllOccupied()
 	{
 		for (size_t y = 0; y < size_y; y++)
@@ -226,11 +416,34 @@ using namespace StarBangBang;
 		}
 	}
 
+	/*!*************************************************************************
+	****
+		\brief
+			Toggle the visibility of the world grid
+		\param none
+
+		\return
+			void
+
+	****************************************************************************
+	***/
 	void StarBangBang::Grid::ToggleVisible()
 	{
 		visible = !visible;
 	}
 
+
+	/*!*************************************************************************
+	****
+		\brief
+			Get a random non-occupied node
+		\param none
+			
+		\return
+			A random node copy object
+
+	****************************************************************************
+	***/
 	A_Node StarBangBang::Grid::GetRandomFreeNode()
 	{
 		int rand_x = static_cast<int>(AERandFloat() * size_x), rand_y = static_cast<int>(AERandFloat()* size_y);
@@ -245,12 +458,36 @@ using namespace StarBangBang;
 		return n;
 	}
 
+	/*!*************************************************************************
+	****
+		\brief
+			Sets a node base on param x & y occupied flag to param occupied 
+		\param x
+			The second index of the grid (Width)
+		\param y
+			The first index of the grid (Height)
+		\return
+			void
+
+	****************************************************************************
+	***/
 	void StarBangBang::Grid::SetOccupied(int x, int y, bool occupied)
 	{
 		if (x < size_x && y < size_y)
 			grid[y][x].occupied = occupied;
 	}
 
+	/*!*************************************************************************
+	****
+		\brief
+			Draws the world grid
+		\param color
+			The outline color used to draw the grid
+		\return
+			void
+
+	****************************************************************************
+	***/
 	void Grid::DrawGrid(Color color)
 	{
 		if (!visible)
@@ -260,12 +497,12 @@ using namespace StarBangBang;
 		{
 			for (size_t x = 0; x < size_x; x++)
 			{
-				if (grid[y][x].occupied)
-				{
-					//Disable for now
-					/*StarBangBang::DrawBox(AEVec2{ nodeSize,nodeSize }, grid[y][x].nodePos, Red);*/
-				}
-				else
+				//if (grid[y][x].occupied)
+				//{
+				//	//Disable for now
+				//	/*StarBangBang::DrawBox(AEVec2{ nodeSize,nodeSize }, grid[y][x].nodePos, Red);*/
+				//}
+				//else
 					StarBangBang::DrawBoxWired(AEVec2{ nodeSize,nodeSize }, grid[y][x].nodePos, color);
 			}
 		}

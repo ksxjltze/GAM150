@@ -1,18 +1,19 @@
 /******************************************************************************/
 /*!
+\title		Captain Stealth
 \file		PathFinder.h
 \author 	Ho Yi Guan
 \par    	email: Yiguan.ho@digipen.edu
 \date   	April 08, 2021
 \brief
-			Contains the declaration for PathFinder.h
+			Contains the declaration for PathFinder.cpp
 			Contains functions for pathfinding and grid object
 
 Copyright (C) 2021 DigiPen Institute of Technology.
 Reproduction or disclosure of this file or its contents without the
 prior written consent of DigiPen Institute of Technology is prohibited.
- */
- /******************************************************************************/
+*/
+/******************************************************************************/
 
 
 
@@ -78,7 +79,7 @@ namespace StarBangBang
 			\param target
 				The target position to reach
 			\param pathing
-				
+				The reference vector container to store the found path nodes
 			\return
 				void
 		****************************************************************************
@@ -86,7 +87,25 @@ namespace StarBangBang
 		void SearchForPath(AEVec2 start, AEVec2 target, std::vector<A_Node*>& pathing);
 	
 		
+
+		/*!*************************************************************************
+		****
+			\brief
+				Draws the world grid
+			\return
+				void
+		****************************************************************************
+		***/
 		void GridDraw();
+
+		/*!*************************************************************************
+		****
+			\brief
+				Get a reference to the world grid data
+			\return
+				The world grid data reference
+		****************************************************************************
+		***/
 		Grid& GetWorldGrid();
 
 	}

@@ -14,9 +14,15 @@ namespace StarBangBang
 		void Start();
 		void Update();
 
+		void OnEnterIdle();
 		void Idle();
 
+		void OnEnterPatrol();
+		void OnEnterDistracted();
+		void OnEnterChase();
+
 		inline Detector* GetDetector() { return detector; }
+		inline void SetRotationSpeed(float speed) { rotSpeed = speed; }
 
 	private:
 		void FaceTowardsRotation();

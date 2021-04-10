@@ -81,8 +81,11 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 	FMOD::Sound* ventOpenSound = nullptr;
 	FMOD::Sound* ventCloseSound = nullptr;
 	FMOD::Sound* walkSound = nullptr;
-	FMOD::Sound* music = nullptr;
+	FMOD::Sound* menuBgm = nullptr;
+	FMOD::Sound* gameBgm = nullptr;
+	FMOD::Sound* ggBgm = nullptr;
 
+	//SFX
 	audioEngine.CreateSound(&btnSound, RESOURCES::SFX::SFX_BUTTON_CLICK_PATH);
 	audioEngine.CreateSound(&keyPickupSound, RESOURCES::SFX::SFX_KEY_PICKUP_PATH);
 	audioEngine.CreateSound(&guardAlert, RESOURCES::SFX::SFX_DETECTED_PATH);
@@ -90,7 +93,11 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 	audioEngine.CreateSound(&ventOpenSound, RESOURCES::SFX::SFX_VENT_OPEN_PATH);
 	audioEngine.CreateSound(&ventCloseSound, RESOURCES::SFX::SFX_VENT_CLOSE_PATH);
 	audioEngine.CreateSound(&walkSound, RESOURCES::SFX::SFX_WALK_FOOTSTEPS_PATH);
-	audioEngine.CreateSound(&music, "./Resources/Music/bgm.wav");
+
+	//BGM
+	audioEngine.CreateSound(&menuBgm, RESOURCES::BGM::BGM_MENU_PATH);
+	audioEngine.CreateSound(&gameBgm, RESOURCES::BGM::BGM_GAME_PATH);
+	audioEngine.CreateSound(&ggBgm, RESOURCES::BGM::BGM_GAMEOVER_PATH);
 
 	audioEngine.AddSound(SFX::BUTTON_CLICK, btnSound);
 	audioEngine.AddSound(SFX::KEY_PICKUP, keyPickupSound);
@@ -99,7 +106,9 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 	audioEngine.AddSound(SFX::VENT_CLOSE, ventCloseSound);
 	audioEngine.AddSound(SFX::VENT_OPEN, ventOpenSound);
 	audioEngine.AddSound(SFX::FOOTSTEPS, walkSound);
-	audioEngine.AddSound("BGM", music); 
+	audioEngine.AddSound(BGM::MENU, menuBgm);
+	audioEngine.AddSound(BGM::GAME, gameBgm);
+	audioEngine.AddSound(BGM::GAMEOVER, ggBgm);
 
 	MessageBus::RegisterGlobalListener(&audioEngine);
 	//audioEngine.playSound("Test", false);
@@ -119,11 +128,10 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 	std::vector<Scene*> sceneList;
 
 	Scene* mainMenuScene	= gameStateManager.AddGameState<Main_Menu>(SceneID::MAIN_MENU);
-	Scene* sceneDemo		= gameStateManager.AddGameState<Level_Demo>(SceneID::DEMO);
+	Scene* sceneDemo		= gameStateManager.AddGameState<Level_Demo>(SceneID::GAME);
 	Scene* sceneEditor		= gameStateManager.AddGameState<LevelEditor>(SceneID::EDITOR);
 	Scene* sampleScene		= gameStateManager.AddGameState<Sample_Scene>(SceneID::SAMPLE);
 	Scene* tutorialScene	= gameStateManager.AddGameState<Tutorial>(TUTORIAL);
-	Scene* gameScene		= gameStateManager.AddGameState<CaptainStealth>(SceneID::GAME);
 	Scene* ggScene			= gameStateManager.AddGameState<Scene_GameOver>(GAME_OVER);
 	Scene* credits			= gameStateManager.AddGameState<Credits>(CREDITS);
 	Scene* logoScene 		= gameStateManager.AddGameState<LogoSplash>();
@@ -133,7 +141,6 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 	sceneList.push_back(sceneEditor);
 	sceneList.push_back(sampleScene);
 	sceneList.push_back(tutorialScene);
-	sceneList.push_back(gameScene);
 	sceneList.push_back(mainMenuScene);
 	sceneList.push_back(ggScene);
 	sceneList.push_back(credits);
@@ -183,11 +190,16 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 		// Handling Input
 		AEInputUpdate();
 
-
-		if (AEInputCheckCurr(AEVK_LALT))
+		HWND hWnd = AESysGetWindowHandle();
+		if (AEInputCheckPrev(AEVK_LALT))
 		{
 			if (AEInputCheckTriggered(AEVK_RETURN))
 				GRAPHICS::ToggleFullscreen();
+			else if (AEInputCheckTriggered(AEVK_TAB))
+			{
+				if (GRAPHICS::IsFullscreen())
+					ShowWindow(hWnd, SW_MINIMIZE);
+			}
 		}
 
 		// Events
@@ -201,7 +213,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 		StarBangBang::PathFinderTest();
 		CollisionManager::ResolverUpdate();
 		
-		DisplayFps();
+		//DisplayFps();
 		audioEngine.Update();
 
 		//StarBangBang::Test_BoxUpdate();

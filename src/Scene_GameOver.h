@@ -13,6 +13,11 @@ namespace StarBangBang
 		void Draw();
 		void Free();
 		void Unload();
+	private:
+		void Quit();
+		void Restart();
+		GameObject* quitBtn;
+		GameObject* restartBtn;
 	};
 
 }

@@ -1,3 +1,13 @@
+/*!*********************************************************************
+\file     Tutorial.cpp
+\author   Liew Ruiheng Rayner
+\par      DP email: r.liew\@digipen.edu
+\date     08/04/2021
+
+\brief
+  This file contains the Tutorial scene class
+***********************************************************************/
+
 #include "Tutorial.h"
 #include "Text.h"
 #include "globals.h"
@@ -30,7 +40,11 @@ void Tutorial::NewTextObject(AEVec2 position, const std::string& s, float scale)
 	objectManager.AddComponent<Text>(objectManager.NewGameObject(), s, fontId2, scale).gameObject->transform.position = position;
 }
 
-Tutorial::Tutorial(int id, GameStateManager& gsm) : Scene(id, gsm), tilemap{ objectManager, graphicsManager }
+Tutorial::Tutorial(int id, GameStateManager& gsm) 
+	: Scene(id, gsm)
+	, cameraObject(nullptr)
+	, end(nullptr)
+	, tilemap{ objectManager, graphicsManager }
 {
 	dir = direction::idle;
 	character = current_char::fei_ge;
@@ -56,14 +70,12 @@ void Tutorial::Init()
 {
 	animation_counter = 0;
 	app_time = 0.0f;
-	GameObject* obj = objectManager.NewGameObject();
-	obj->transform.scale = { 0.00001f, 0.00001f };
-	objectManager.AddImage(obj, graphicsManager.CreateSprite(RESOURCES::BIN_PATH));
 
 	CaptainStealth::SpawnClient(objectManager, player2, graphicsManager.CreateSprite(RESOURCES::PRISONER_F1_PATH));
 	CaptainStealth::SpawnPlayer(objectManager, player, graphicsManager.CreateSprite(RESOURCES::CAPTAINSTEALTH_F1_PATH));
 	player->transform.position = { -250.0f, -110.0f };
 	player2->transform.position = { 0.0f, 0.0f };
+	player2->SetLayer(FOREGROUND);
 	MovementManager& movementMgr = objectManager.AddComponent<MovementManager>(player);
 	movementMgr.AddController(player);
 	movementMgr.AddController(player2);
@@ -80,7 +92,7 @@ void Tutorial::Init()
 
 	ImageComponent* tutorialImg = objectManager.AddImage(objectManager.NewGameObject(), tutorialSprite);
 	tutorialImg->gameObject->SetPos({ 0, 230 });
-	tutorialImg->gameObject->transform.scale = { 2.f, 2.f };
+	tutorialImg->gameObject->transform.scale = { 2.0f, 1.0f };
 
 	NewTextObject({ 0, 160 }, "<OBJECTIVE>", 1.f);
 	NewTextObject({ 0, 120 }, "Collect keys in each room to proceed!", 0.5f);
@@ -129,7 +141,7 @@ void Tutorial::Init()
 	GameObject* backButton = objectManager.NewGameObject();
 	objectManager.AddImage(backButton, backSprite);
 	backButton->transform.position = { 0, -230 };
-	backButton->transform.scale = { 1, 1 };
+	backButton->transform.scale = { 1, 0.5f };
 	objectManager.AddComponent<Click<Tutorial>>(backButton).setCallback(*this, &Tutorial::MainMenu);
 }
 

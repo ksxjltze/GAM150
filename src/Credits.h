@@ -14,7 +14,7 @@ namespace StarBangBang
 		void Free();
 		void Unload();
 	private:
-		void NewTextObject(AEVec2 position, const std::string& s, float scale = 1.0f);
+		void NewTextObject(AEVec2 position, const std::string& s, float scale = 1.0f, Color c = White);
 		GameObject* cameraObject{ nullptr };
 		GameObject* end{ nullptr };
 	};
