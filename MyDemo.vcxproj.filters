@@ -136,6 +136,12 @@
     <Filter Include="Header Files\Scripts\UI">
       <UniqueIdentifier>{65fbb236-0c23-4c9e-a055-84e07a4b50a7}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\UI">
+      <UniqueIdentifier>{af824b8e-2ba1-465e-8731-eb476f1af42c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\UI">
+      <UniqueIdentifier>{2e35b223-480a-4cb5-bd16-f1abec29ede2}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Main.cpp">
@@ -203,9 +209,6 @@
     </ClCompile>
     <ClCompile Include="src\MovementManager.cpp">
       <Filter>Source Files\Scripts\Movement</Filter>
-    </ClCompile>
-    <ClCompile Include="src\PrimaryMovementController.cpp">
-      <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\SecurityCamera.cpp">
       <Filter>Source Files\Scripts\Guard</Filter>
@@ -291,29 +294,32 @@
     <ClCompile Include="src\TileMap.cpp">
       <Filter>Source Files\Engine\FileSystem</Filter>
     </ClCompile>
-    <ClCompile Include="src\Settings.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\Disappear.cpp">
       <Filter>Source Files\Scripts\Interactables</Filter>
-    </ClCompile>
-    <ClCompile Include="src\StealthWalk.cpp">
-      <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\VisionCone.cpp">
       <Filter>Source Files\Scripts\Guard</Filter>
     </ClCompile>
-    <ClCompile Include="src\PlayerAnimation.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\ConfirmationMenu.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Menu.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\TileSet.cpp">
       <Filter>Source Files\Engine\Game Logic</Filter>
+    </ClCompile>
+    <ClCompile Include="src\PrimaryMovementController.cpp">
+      <Filter>Source Files\Scripts\Movement</Filter>
+    </ClCompile>
+    <ClCompile Include="src\PlayerAnimation.cpp">
+      <Filter>Source Files\Scripts</Filter>
+    </ClCompile>
+    <ClCompile Include="src\StealthWalk.cpp">
+      <Filter>Source Files\Scripts</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ConfirmationMenu.cpp">
+      <Filter>Source Files\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Menu.cpp">
+      <Filter>Source Files\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Settings.cpp">
+      <Filter>Source Files\UI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -515,29 +521,29 @@
     <ClInclude Include="src\Click.h">
       <Filter>Header Files\Scripts\UI</Filter>
     </ClInclude>
-    <ClInclude Include="src\Settings.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="src\Disappear.h">
       <Filter>Header Files\Scripts\Interactables</Filter>
-    </ClInclude>
-    <ClInclude Include="src\StealthWalk.h">
-      <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\VisionCone.h">
       <Filter>Header Files\Scripts\Guard</Filter>
     </ClInclude>
-    <ClInclude Include="src\PlayerAnimation.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\MusicEvent.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="src\ConfirmationMenu.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Settings.h">
+      <Filter>Header Files\UI</Filter>
     </ClInclude>
     <ClInclude Include="src\Menu.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="src\PlayerAnimation.h">
+      <Filter>Header Files\Scripts</Filter>
+    </ClInclude>
+    <ClInclude Include="src\StealthWalk.h">
+      <Filter>Header Files\Scripts</Filter>
+    </ClInclude>
+    <ClInclude Include="src\MusicEvent.h">
+      <Filter>Header Files\Events</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
