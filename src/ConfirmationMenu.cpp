@@ -34,24 +34,24 @@ void StarBangBang::ConfirmationMenu::Init()
 
 	objMgr->AddComponent<UIComponent>(gameObject, gfxMgr).SetColor({ 0.0f, 0.0f, 0.0f, 0.3f });
 	gameObject->GetComponent<UIComponent>()->active = false;
-	gameObject->transform.scale.x = AEGetWindowWidth() * 0.85f / GRAPHICS::MESH_WIDTH;
-	gameObject->transform.scale.y = AEGetWindowHeight() * 0.85f / GRAPHICS::MESH_HEIGHT;
+	gameObject->transform.scale.x = 1.5f * AEGetWindowWidth() / GRAPHICS::MESH_WIDTH;
+	gameObject->transform.scale.y = 2 * AEGetWindowHeight() / GRAPHICS::MESH_HEIGHT;
 
 	objMgr->AddComponent<UIComponent>(backBtn, backBtnSprite, gfxMgr);
 	objMgr->AddComponent<Click<ConfirmationMenu>>(backBtn, true).setCallback(*this, &ConfirmationMenu::Back);
-	backBtn->transform.position = { 0.25f * gameObject->transform.scale.y * GRAPHICS::MESH_HEIGHT, -50.0f };
+	backBtn->transform.position = { 0.15f * gameObject->transform.scale.y * GRAPHICS::MESH_HEIGHT, -100.0f };
 	backBtn->transform.scale.x = btnScale.x * gameObject->transform.scale.x;
 	backBtn->transform.scale.y = btnScale.y * gameObject->transform.scale.y;
 	backBtn->visible = false;
 
 	objMgr->AddComponent<UIComponent>(confirmBtn, confirmBtnSprite, gfxMgr);
 	objMgr->AddComponent<Click<ConfirmationMenu>>(confirmBtn, true).setCallback(*this, &ConfirmationMenu::Confirm);
-	confirmBtn->transform.position = { -0.25f * gameObject->transform.scale.y * GRAPHICS::MESH_HEIGHT, -50.0f };
+	confirmBtn->transform.position = { -0.15f * gameObject->transform.scale.y * GRAPHICS::MESH_HEIGHT, -100.0f };
 	confirmBtn->transform.scale.x = btnScale.x * gameObject->transform.scale.x;
 	confirmBtn->transform.scale.y = btnScale.y * gameObject->transform.scale.y;
 	confirmBtn->visible = false;
 
-	Text& text = objMgr->AddComponent<Text>(textObject, "Are you sure?", fontId2, White, 0.8f, false);
+	Text& text = objMgr->AddComponent<Text>(textObject, "Are you sure?", fontId2, White, 1.0f, false);
 	text.SetOffset({ 0.0f, 0.3f });
 	backBtn->SetLayer(UI);
 	confirmBtn->SetLayer(UI);
