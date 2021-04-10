@@ -39,6 +39,11 @@ namespace StarBangBang
 
 namespace StarBangBang
 {
+	bool IsDebug()
+	{
+		return debug;
+	}
+
 	void DisplayFps()
 	{
 		char strBuffer[100];
