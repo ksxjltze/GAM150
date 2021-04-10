@@ -77,6 +77,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 	using namespace StarBangBang;
 	int gGameRunning = 1;
 
+	//Audio Initialization
 	AudioEngine audioEngine;
 	FMOD::Sound* sound = nullptr;
 	FMOD::Sound* btnSound = nullptr;
@@ -104,6 +105,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 	audioEngine.CreateSound(&gameBgm, RESOURCES::BGM::BGM_GAME_PATH);
 	audioEngine.CreateSound(&ggBgm, RESOURCES::BGM::BGM_GAMEOVER_PATH);
 
+	//Register sound names
 	audioEngine.AddSound(SFX::BUTTON_CLICK, btnSound);
 	audioEngine.AddSound(SFX::KEY_PICKUP, keyPickupSound);
 	audioEngine.AddSound(SFX::DETECTED, guardAlert);
@@ -213,16 +215,13 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 		// Update State
 		gameStateManager.Update();
 
-		//Moved to gsm draw
-		//StarBangBang::TestGrid();
 		StarBangBang::PathFinderTest();
 		CollisionManager::ResolverUpdate();
 		
-		//DisplayFps();
+		if (debug)
+			DisplayFps();
 		audioEngine.Update();
 
-		//StarBangBang::Test_BoxUpdate();
-		//StarbangBang::Test_CircleUpdate();
 		// Informing the system about the loop's end
 		AESysFrameEnd();
 
@@ -232,7 +231,6 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 	}
 
 	FreeUnitMeshes();
-	//Audio Engine (temp implementation)
 	audioEngine.ReleaseSound(sound);
 	audioEngine.Exit();
 
