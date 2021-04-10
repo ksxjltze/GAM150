@@ -1,3 +1,21 @@
+
+/******************************************************************************/
+/*!
+\title		Captain Stealth
+\file		Color.h
+\author 	Ho Yi Guan
+\par    	email: Yiguan.ho@digipen.edu
+\date   	April 08, 2021
+\brief
+			Implments a color class
+			Contain common color definitions
+
+Copyright (C) 2021 DigiPen Institute of Technology.
+Reproduction or disclosure of this file or its contents without the
+prior written consent of DigiPen Institute of Technology is prohibited.
+*/
+/******************************************************************************/
+
 #pragma once
 namespace StarBangBang
 {

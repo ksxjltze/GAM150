@@ -45,8 +45,6 @@ DrawFunc current;
 FadeObj digipen_logo;
 FadeObj fmod_logo;
 
-//skip current scene
-bool skipCurrent = false;
 
 float time_past = 0.0f;
 
@@ -96,11 +94,10 @@ void DrawFmod(GameStateManager& gsm)
 
 	fmod_logo.duration -= StarBangBang::g_dt;
 
-	if (fmod_logo.duration < 0.0f || skipCurrent)
+	if (fmod_logo.duration < 0.0f )
 	{
 		time_past = 0.0f;
 		gsm.SetNextGameState(SceneID::MAIN_MENU);
-		skipCurrent = false;
 	}
 
 }
@@ -134,11 +131,10 @@ void DrawDigipen(GameStateManager&)
 	digipen_logo.duration -= StarBangBang::g_dt;
 	
 
-	if (digipen_logo.duration < 0.0f || skipCurrent)
+	if (digipen_logo.duration < 0.0f )
 	{
 		time_past = 0.0f;
 		current = DrawFmod;
-		skipCurrent = false;
 	}
 
 }
@@ -224,7 +220,7 @@ void StarBangBang::LogoSplash::Update()
 		if (AEInputCheckTriggered(VK_ESCAPE) || AEInputCheckTriggered(VK_SPACE) || AEInputCheckTriggered(AEVK_RETURN) ||
 			AEInputCheckTriggered(VK_RBUTTON) || AEInputCheckTriggered(VK_LBUTTON))
 		{
-			skipCurrent = true;
+			gameStateManager.SetNextGameState(SceneID::MAIN_MENU);
 		}
 	}
 	

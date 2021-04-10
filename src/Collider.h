@@ -1,3 +1,21 @@
+/******************************************************************************/
+/*!
+\title		Captain Stealth
+\file		Collider.h
+\author 	Ho Yi Guan
+\par    	email: Yiguan.ho@digipen.edu
+\date   	April 08, 2021
+\brief
+			Contains the declaration for Collider.cpp
+			Contains collider class and functions
+			for collision
+
+Copyright (C) 2021 DigiPen Institute of Technology.
+Reproduction or disclosure of this file or its contents without the
+prior written consent of DigiPen Institute of Technology is prohibited.
+*/
+/******************************************************************************/
+
 #pragma once
 #include "GameObject.h"
 #include "ComponentCRTP.h"
@@ -23,25 +41,6 @@ namespace StarBangBang
 		Collider() :Component(gameObject) { isTrigger = false, isStatic = false, offset = AEVec2{ 0,0 }; gameObject = nullptr; };
 	};
 			
-
-	class CircleCollider : public Collider 
-	{
-		private : 
-			float radius;
-			AEVec2 center = { 0,0 };
-		public:
-			inline float GetRadius() const
-			{
-				return radius;
-			}
-			inline AEVec2 GetCenter() const
-			{
-				return center;
-			}
-			CircleCollider( AEVec2 _center, float _rad = 1.0f);
-			//void Update();
-		
-	};
 
 	//AABB only
 	class BoxCollider : public Collider 
@@ -106,7 +105,6 @@ namespace StarBangBang
 
 			
 			//parition cell functions
-		
 			void ClearCellList();
 			size_t GetCellListSize() const;
 			void AddToCellList(int);
