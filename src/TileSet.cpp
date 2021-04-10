@@ -1,3 +1,24 @@
+/******************************************************************************/
+/*!
+\title		Captain Stealth
+\file		TileSet.h
+\author 	Lee Jia Keat
+\par    	email: l.jiakeat@digipen.edu
+\date   	April 09, 2021
+\brief		TileSet class:
+			Is used to determine the type of each Tile and loading
+			their respective sprites.
+
+			TileType enum:
+			Represents the types of available tiles.
+			Used to correctly load the correct tiles from the level data file.
+
+Copyright (C) 2021 DigiPen Institute of Technology.
+Reproduction or disclosure of this file or its contents without the
+prior written consent of DigiPen Institute of Technology is prohibited.
+*/
+/******************************************************************************/
+
 #include "TileSet.h"
 #include "constants.h"
 
@@ -5,6 +26,12 @@ namespace StarBangBang
 {
 	static std::map<TileType, const std::string> tileTypeNames;
 
+	/**
+	 * Maps a tile type to a name and inserts it into the map object.
+	 * 
+	 * \param type Type of tile.
+	 * \param name Name of the tile type.
+	 */
 	void RegisterTileType(TileType type, const std::string&& name)
 	{
 		tileTypeNames.insert({ type, name });
@@ -18,7 +45,6 @@ namespace StarBangBang
 		LoadTileSprite(gfxMgr,	TileType::FLOOR_PRISON,		RESOURCES::PRISONFLOOR_PATH);
 		LoadTileSprite(gfxMgr,	TileType::BRICK_RED,		RESOURCES::REDBRICK_PATH);
 		LoadTileSprite(gfxMgr,	TileType::FLOOR_PRISON2,	RESOURCES::PRISONFLOOR_PATH);
-		LoadTileSprite(gfxMgr,	TileType::TEST,				RESOURCES::SPRITE_PLAYER_PATH);
 
 		RegisterTileType(TileType::GRASS,			"GRASS");
 		RegisterTileType(TileType::STONE,			"STONE");
@@ -50,6 +76,15 @@ namespace StarBangBang
 		return set.at(t);
 	}
 
+	/**
+	 * TileType Pre-increment operator.
+	 * Mainly used in the level editor to switch between tile types.
+	 * 
+	 * \param tileType 
+	 * Previous Tile Type.
+	 * \return 
+	 * Next Tile Type.
+	 */
 	TileType& operator++(TileType& tileType)
 	{
 		TileType type = TileType(static_cast<int>(tileType) + 1);
@@ -62,6 +97,15 @@ namespace StarBangBang
 		return tileType;
 	}
 
+	/**
+	 * TileType Post-increment operator.
+	 * Mainly used in the level editor to switch between tile types.
+	 *
+	 * \param tileType
+	 * Previous Tile Type.
+	 * \return
+	 * Next Tile Type.
+	 */
 	TileType operator++(TileType& tileType, int)
 	{
 		TileType temp = tileType;

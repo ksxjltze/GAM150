@@ -1,3 +1,20 @@
+/******************************************************************************/
+/*!
+\title		Captain Stealth
+\file		ObjectManager.h
+\author 	Lee Jia Keat
+\par    	email: l.jiakeat@digipen.edu
+\date   	April 09, 2021
+\brief		Object Manager class.
+			Is responsible for the creation of game objects and adding components to them.
+			Manages the lifetime of game objects and frees them when the scene is exited.
+
+Copyright (C) 2021 DigiPen Institute of Technology.
+Reproduction or disclosure of this file or its contents without the
+prior written consent of DigiPen Institute of Technology is prohibited.
+*/
+/******************************************************************************/
+
 #pragma once
 #include "GraphicsManager.h"
 #include "GameObject.h"
@@ -58,6 +75,7 @@ namespace StarBangBang
 		std::vector<GameObject*> gameObjectList;
 		std::vector<GameComponent*> componentList;
 
+		//For draw order
 		std::map<int, std::vector<GameComponent**>> layerMap;
 	};
 }

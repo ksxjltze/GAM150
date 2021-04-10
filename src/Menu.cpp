@@ -1,3 +1,19 @@
+/******************************************************************************/
+/*!
+\title		Captain Stealth
+\file		Menu.cpp
+\author 	Lee Jia Keat
+\par    	email: l.jiakeat@digipen.edu
+\date   	April 09, 2021
+\brief		Menu class.
+			Displays a menu overlay.
+
+Copyright (C) 2021 DigiPen Institute of Technology.
+Reproduction or disclosure of this file or its contents without the
+prior written consent of DigiPen Institute of Technology is prohibited.
+*/
+/******************************************************************************/
+
 #include "Menu.h"
 
 StarBangBang::Menu::Menu(GameObject* gameObject, GraphicsManager& gfx) : Script(gameObject), gfxMgr{ gfx }
@@ -24,6 +40,10 @@ void StarBangBang::Menu::Draw()
 	}
 }
 
+/*!*************************************************************************
+ * \brief 
+ * Workaround hack for updating game objects when game is paused.
+***************************************************************************/
 void StarBangBang::Menu::ForceUpdate()
 {
 	if (!gameObject->active)

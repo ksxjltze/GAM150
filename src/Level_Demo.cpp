@@ -206,7 +206,7 @@ namespace StarBangBang
 
 		//Load tilemap
 		tilemap.SetCollidableTypes({ TileType::BRICK_BLACK });
-		tilemap.Load(RESOURCES::LEVELS::LEVEL_TEST_PATH);
+		tilemap.Load(RESOURCES::LEVELS::LEVEL_GAME_PATH);
 
 		tilemap.SetGrid(PathFinder::GetWorldGrid());
 		CollisionManager::SetDebugVisible(false);
