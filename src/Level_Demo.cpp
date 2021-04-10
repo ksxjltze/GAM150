@@ -266,7 +266,7 @@ namespace StarBangBang
 		//Guards and security cameras
 		guardManager = objectManager.NewGameObject();
 		GuardManager& mgr = objectManager.AddComponent<GuardManager>(guardManager);
-		mgr.Init(&objectManager, &guardImage, player, player2);
+		mgr.CreateGuards(&objectManager, &guardImage, player, player2);
 		guardManager->GetComponent<GuardManager>()->CreateSecurityCameras(&objectManager, &securityCamImage, player, player2);
 
 		//serve as references parameter for raycast ignore
