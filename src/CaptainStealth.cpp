@@ -1,3 +1,22 @@
+/******************************************************************************/
+/*!
+\title		Captain Stealth
+\file		CaptainStealth.cpp
+\author 	Lee Jia Keat
+\par    	email: l.jiakeat\@digipen.edu
+\date   	April 09, 2021
+\brief		Captain Stealth scene.
+			Currently not in use (as a scene).
+
+			Contains functions for spawning gameplay elements.
+			E.g. Player, Client, Key, Door
+
+Copyright (C) 2021 DigiPen Institute of Technology.
+Reproduction or disclosure of this file or its contents without the
+prior written consent of DigiPen Institute of Technology is prohibited.
+*/
+/******************************************************************************/
+
 #include "CaptainStealth.h"
 #include "globals.h"
 #include "constants.h"
