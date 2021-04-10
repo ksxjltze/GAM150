@@ -1,8 +1,27 @@
+/******************************************************************************/
+/*!
+\title		Captain Stealth
+\file		Physics.cpp
+\author 	Ho Yi Guan
+\par    	email: Yiguan.ho@digipen.edu
+\date   	April 08, 2021
+\brief
+			Contains the definition for Physics.h
+			Contains basic physics function
+			-Rigibody & Rays
+
+Copyright (C) 2021 DigiPen Institute of Technology.
+Reproduction or disclosure of this file or its contents without the
+prior written consent of DigiPen Institute of Technology is prohibited.
+*/
+/******************************************************************************/
+
+
 #include "Physics.h"
+#include "globals.h"
 using namespace StarBangBang;
 
-const float EPILISON = 0.0000000001f;
-f32 dt;
+const float EPILISON = 0.000001f;
 
 RigidBody::RigidBody(GameObject* gameObject) :Component(gameObject), acceleration{ AEVec2{ 0,0 } }, 
 inverse_mass{ 1.0f }, mass{1.0f}, drag{ 0.1f }, velocity{ AEVec2{ 0,0 } }
@@ -41,9 +60,8 @@ void RigidBody::SetMass(float m)
 
 void StarBangBang::RigidBody::Update()
 {
-	dt = static_cast<f32>(AEFrameRateControllerGetFrameTime());
-	velocity.x += acceleration.x  * dt;
-	velocity.y += acceleration.y  * dt;
+	velocity.x += acceleration.x * g_dt;
+	velocity.y += acceleration.y  * g_dt;
 
 	/*float realDrag = 0.5f * MagVelocity() +  drag * SqrVelocity();
 	AEVec2 n = GetNormalizedVelocity();
@@ -64,8 +82,8 @@ void StarBangBang::RigidBody::Update()
 		velocity.y = 0;
 	}
 	
-	gameObject->transform.position.x += velocity.x * dt ;
-	gameObject->transform.position.y += velocity.y * dt;
+	gameObject->transform.position.x += velocity.x * g_dt;
+	gameObject->transform.position.y += velocity.y * g_dt;
 
 	//PRINT("V:(%0.4f,%0.4f)\n", velocity.x, velocity.y);
 }

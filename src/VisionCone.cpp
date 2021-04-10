@@ -1,9 +1,39 @@
+/******************************************************************************/
+/*!
+\title		Captain Stealth
+\file		VisionCone.cpp
+\author 	Ho Yi Guan
+\par    	email: Yiguan.ho@digipen.edu
+\date   	April 08, 2021
+\brief
+			Contains the definition for VisionCone.h
+			Contains a vision cone class that handles building
+			rendering of the vision cone
+
+Copyright (C) 2021 DigiPen Institute of Technology.
+Reproduction or disclosure of this file or its contents without the
+prior written consent of DigiPen Institute of Technology is prohibited.
+*/
+/******************************************************************************/
+
+
 #include "VisionCone.h"
 #include "CollisionManager.h"
 #include "GraphicsManager.h"
 #include "Detector.h"
 #include "constants.h"
 
+
+
+/*!*************************************************************************
+****
+	\brief
+		The initialise function for vision cone
+	\return
+		void
+
+****************************************************************************
+***/
 void StarBangBang::VisionCone::Start()
 {
 	detector = gameObject->GetComponent<Detector>();
@@ -13,6 +43,16 @@ void StarBangBang::VisionCone::Start()
 	gameObject->SetLayer(LAYER::FOREGROUND);
 }
 
+
+/*!*************************************************************************
+****
+	\brief
+		Build a cone mesh with unit range vision 
+	\return
+		void
+
+****************************************************************************
+***/
 void StarBangBang::VisionCone::BuildMesh()
 {
 	AEGfxMeshStart();
@@ -62,6 +102,18 @@ void StarBangBang::VisionCone::BuildMesh()
 	mesh = AEGfxMeshEnd();
 }
 
+
+/*!*************************************************************************
+****
+	\brief
+		Update function for vision cone
+		Mainly handles the calculation of the transform 
+		matrix
+	\return
+		void
+
+****************************************************************************
+***/
 void StarBangBang::VisionCone::Update()
 {
 	// Set Rotation
@@ -79,6 +131,17 @@ void StarBangBang::VisionCone::Update()
 	AEMtx33Concat(&trans, &cameraMtx, &trans);
 }
 
+
+/*!*************************************************************************
+****
+	\brief
+		Render function
+		Handles all the drawing (graphics)
+	\return
+		void
+
+****************************************************************************
+***/
 void StarBangBang::VisionCone::Draw()
 {
 	AEGfxSetRenderMode(AE_GFX_RM_COLOR);
@@ -86,21 +149,37 @@ void StarBangBang::VisionCone::Draw()
 
 	AEGfxSetTintColor(detector->GetColor().R(), detector->GetColor().G(), detector->GetColor().B(), detector->GetColor().A());
 
-	// Set Transparency
 	AEGfxSetTransparency(0.5f);
 
-	// Drawing the mesh (list of triangles)
 	AEGfxMeshDraw(mesh, AE_GFX_MDM_TRIANGLES);
 
 	AEGfxSetTransparency(1.0f);
 }
 
+/*!*************************************************************************
+****
+	\brief
+		Visioncone class constructor
+	\return
+		void
+
+****************************************************************************
+***/
 StarBangBang::VisionCone::VisionCone(GameObject* gameObject , float angle, float range , size_t segments)
 :	Component(gameObject), detector{ nullptr }, mesh{ nullptr }, trans{ AEMtx33() }, 
 	segments{ segments }, angle{ angle }, range{ range }
 {
 }
 
+/*!*************************************************************************
+****
+	\brief
+		Visioncone class destructor
+	\return
+		void
+
+****************************************************************************
+***/
 StarBangBang::VisionCone::~VisionCone()
 {
 	if(mesh)

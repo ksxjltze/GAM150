@@ -6,7 +6,7 @@
 \par    	email: Yiguan.ho@digipen.edu
 \date   	April 08, 2021
 \brief
-			Contains the declaration for PathFinder.h
+			Contains the declaration for PathFinder.cpp
 			Contains functions for pathfinding and grid object
 
 Copyright (C) 2021 DigiPen Institute of Technology.
