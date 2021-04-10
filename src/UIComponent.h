@@ -3,7 +3,7 @@
 \title		Captain Stealth
 \file		UIComponent.h
 \author 	Lee Jia Keat
-\par    	email: l.jiakeat@digipen.edu
+\par    	email: l.jiakeat\@digipen.edu
 \date   	April 09, 2021
 \brief		UIComponent class.
 			Is responsible for drawing UI objects onto the screen.

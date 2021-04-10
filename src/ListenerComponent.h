@@ -3,7 +3,7 @@
 \title		Captain Stealth
 \file		ListenerComponent.h
 \author 	Lee Jia Keat
-\par    	email: l.jiakeat@digipen.edu
+\par    	email: l.jiakeat\@digipen.edu
 \date   	April 09, 2021
 \brief		ListenerComponent virtual component class.
 			Implements the Listener interface.

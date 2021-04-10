@@ -3,7 +3,7 @@
 \title		Captain Stealth
 \file		State.h
 \author 	Lee Jia Keat
-\par    	email: l.jiakeat@digipen.edu
+\par    	email: l.jiakeat\@digipen.edu
 \date   	April 09, 2021
 \brief		State class. Represents one scene/state of the game.
 			Is responsible for facilitating game behavior.

@@ -3,7 +3,7 @@
 \title		Captain Stealth
 \file		Text.h
 \author 	Lee Jia Keat
-\par    	email: l.jiakeat@digipen.edu
+\par    	email: l.jiakeat\@digipen.edu
 \date   	April 09, 2021
 \brief		Text component.
 			Draws text on the screen,

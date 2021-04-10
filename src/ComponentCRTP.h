@@ -3,7 +3,7 @@
 \title		Captain Stealth
 \file		ComponentCRTP
 \author 	Lee Jia Keat
-\par    	email: l.jiakeat@digipen.edu
+\par    	email: l.jiakeat\@digipen.edu
 \date   	April 10, 2021
 \brief		Template wrapper around Component class.
 			Enables (type) cloning of derived objects through use of the

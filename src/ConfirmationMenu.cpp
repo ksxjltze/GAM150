@@ -3,7 +3,7 @@
 \title		Captain Stealth
 \file		ConfirmationMenu.cpp
 \author 	Lee Jia Keat
-\par    	email: l.jiakeat@digipen.edu
+\par    	email: l.jiakeat\@digipen.edu
 \date   	April 09, 2021
 \brief		Confirmation Menu.
 			Displays a confirmation menu for destructive actions.
