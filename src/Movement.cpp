@@ -13,8 +13,8 @@ void StarBangBang::Movement::Start()
 
 void StarBangBang::Movement::Update()
 {
-	float dt = static_cast<float>(g_dt);
-	float speed = PLAYER::PLAYER_SPEED * dt;
+	
+	float speed = PLAYER::PLAYER_SPEED * g_dt;
 	if (AEInputCheckCurr(AEVK_W))
 	{
 		gameObject->transform.position.y += speed;
