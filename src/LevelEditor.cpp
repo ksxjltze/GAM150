@@ -1,10 +1,25 @@
+/******************************************************************************/
+/*!
+\title		Captain Stealth
+\file		LevelEditor.cpp
+\author 	Lee Jia Keat
+\par    	email: l.jiakeat@digipen.edu
+\date   	April 09, 2021
+\brief		Level Editor scene.
+			Load and Save levels (tilemap).
+
+Copyright (C) 2021 DigiPen Institute of Technology.
+Reproduction or disclosure of this file or its contents without the
+prior written consent of DigiPen Institute of Technology is prohibited.
+*/
+/******************************************************************************/
+
 #include "LevelEditor.h"
 #include "BasicMeshShape.h"
 #include "Utils.h"
 #include <iostream>
 #include <fstream>
 #include "Movement.h"
-#include "Serialization.h"
 #include "PathFinder.h"
 #include "globals.h"
 #include <sstream>
@@ -62,14 +77,11 @@ namespace StarBangBang
 
 	void LevelEditor::Init()
 	{		
-		filepath = RESOURCES::LEVELS::LEVEL_TEST_PATH;
-		//filepath = RESOURCES::LEVELS::COLLISION_TEST;
+		filepath = RESOURCES::LEVELS::LEVEL_GAME_PATH;
 
-		//TODO: Optimize tile drawing (Low FPS on 100 x 100 tile map)
 		if (!LoadLevel(filepath))
 		{
 			CreateLevel(TILEMAP::DEFAULT_WIDTH, TILEMAP::DEFAULT_WIDTH, TILEMAP::DEFAULT_TILE_SIZE, TileType::FLOOR_PRISON);
-			//CreateLevel(30, 30, TILEMAP::DEFAULT_TILE_SIZE, TileType::FLOOR_PRISON);
 		}
 
 		//Camera Object
