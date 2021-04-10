@@ -93,16 +93,13 @@ StarBangBang::LogoSplash::LogoSplash(int id, GameStateManager& gsm) : Scene(id, 
 
 void StarBangBang::LogoSplash::Load()
 {
-	digipen_logo.sprite = graphicsManager.CreateSprite("Resources/Logos/DigiPen_WHITE.png");
+	digipen_logo.sprite = graphicsManager.CreateSprite("Resources/Logos/DigiPen_Singapore_WEB_WHITE.png");
 	fmod_logo.sprite = graphicsManager.CreateSprite("Resources/Logos/FMOD_Logo.png");
 
 	assert(digipen_logo.sprite.texture);
 	assert(digipen_logo.sprite.mesh);
 	assert(fmod_logo.sprite.texture);
 	assert(fmod_logo.sprite.mesh);
-
-
-	
 }
 
 void StarBangBang::LogoSplash::Init()
@@ -112,13 +109,10 @@ void StarBangBang::LogoSplash::Init()
 	digipen_logo.alpha = 0.5f;
 	digipen_logo.aspect = AEVec2{ 5.0f , 1.5f};
 
-
 	fmod_logo.alpha = 0.5f;
 	fmod_logo.aspect = AEVec2{ 3.8f , 1.0f };
-
 	
 	current = DrawDigipen;
-	
 }
 
 void StarBangBang::LogoSplash::Update()
