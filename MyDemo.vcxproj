@@ -155,9 +155,7 @@ xcopy /y /d /i /s "$(SolutionDir)\Resources" "$(OutDir)\Resources"</Command>
     <ClCompile Include="src\PrimaryMovementController.cpp" />
     <ClCompile Include="src\Sample_Scene.cpp" />
     <ClCompile Include="src\Scene_GameOver.cpp" />
-    <ClCompile Include="src\SecondaryMovementController.cpp" />
     <ClCompile Include="src\SecurityCamera.cpp" />
-    <ClCompile Include="src\SerializeTest.cpp" />
     <ClCompile Include="src\Settings.cpp" />
     <ClCompile Include="src\StealthWalk.cpp" />
     <ClCompile Include="src\Text.cpp" />

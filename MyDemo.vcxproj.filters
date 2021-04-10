@@ -55,9 +55,6 @@
     <Filter Include="Source Files\Engine\Graphics">
       <UniqueIdentifier>{cd76ce61-9d72-4106-8afc-7ae05fdfbdca}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\Scripts\Testing">
-      <UniqueIdentifier>{aed5af73-6747-4c96-a3d0-f944b2bdb769}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Header Files\Tools">
       <UniqueIdentifier>{30161b69-e39a-417e-939e-5ca13637b658}</UniqueIdentifier>
     </Filter>
@@ -207,17 +204,11 @@
     <ClCompile Include="src\CaptainStealth.cpp">
       <Filter>Source Files\Scenes</Filter>
     </ClCompile>
-    <ClCompile Include="src\SerializeTest.cpp">
-      <Filter>Source Files\Scripts\Testing</Filter>
-    </ClCompile>
     <ClCompile Include="src\Main_Menu.cpp">
       <Filter>Source Files\Scenes</Filter>
     </ClCompile>
     <ClCompile Include="src\Detector.cpp">
       <Filter>Source Files\Scripts\Guard</Filter>
-    </ClCompile>
-    <ClCompile Include="src\SecondaryMovementController.cpp">
-      <Filter>Source Files\Scripts\Movement</Filter>
     </ClCompile>
     <ClCompile Include="src\MovementManager.cpp">
       <Filter>Source Files\Scripts\Movement</Filter>
