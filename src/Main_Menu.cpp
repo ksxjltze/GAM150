@@ -110,7 +110,7 @@ namespace StarBangBang
 
 		if (IsDebug())
 		{
-			GameObject* editorBtn = objectManager.NewGameObject();
+			editorBtn = objectManager.NewGameObject();
 			objectManager.AddImage(editorBtn, vending_machine_sprite);
 			editorBtn->transform.position = { (float)AEGetWindowWidth() * 0.35f, (float)AEGetWindowHeight() / 8, };
 
@@ -224,7 +224,9 @@ namespace StarBangBang
 		creditsbutton_obj->active = !windowOpen;
 		exitbutton_obj->active = !windowOpen;
 		tutorialbutton_obj->active = !windowOpen;
-		//editorBtn->active = !windowOpen;
+
+		if (IsDebug())
+			editorBtn->active = !windowOpen;
 	}
 }
 

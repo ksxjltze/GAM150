@@ -1,7 +1,7 @@
 /******************************************************************************/
 /*!
 \title		Captain Stealth
-\file		Credits.h
+\file		Main_Menu.h
 \author 	Sim Chin Hin
 \author2	Lee Jia Keat
 \par    	email: l.jiakeat\@digipen.edu
@@ -68,6 +68,7 @@ namespace StarBangBang
 		GameObject* tutorialbutton_obj;
 		GameObject* settingsObj{ nullptr };
 		GameObject* confirmationObj{ nullptr };
+		GameObject* editorBtn{ nullptr };
 
 		//GameObject* editorBtn{ nullptr };
 
