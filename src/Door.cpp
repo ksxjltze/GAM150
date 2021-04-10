@@ -1,5 +1,23 @@
+/******************************************************************************/
+/*!
+\title		Captain Stealth
+\file		Door.cpp
+\author 	Lee Jia Keat
+\par    	email: l.jiakeat\@digipen.edu
+\date   	April 09, 2021
+\brief		Door script.
+			Doors block player progress and can only be opened once
+			all linked keys have been collected.
+
+Copyright (C) 2021 DigiPen Institute of Technology.
+Reproduction or disclosure of this file or its contents without the
+prior written consent of DigiPen Institute of Technology is prohibited.
+*/
+/******************************************************************************/
+
 #include "Door.h"
 #include "SoundEvent.h"
+#include "globals.h"
 
 namespace StarBangBang
 {
@@ -24,7 +42,8 @@ namespace StarBangBang
 
 	void Door::Update()
 	{
-		//Debug_Disable();
+		if (IsDebug())
+			Debug_Disable();
 
 		std::set<Key*> keyList = keys;
 		if (parent)
