@@ -37,5 +37,7 @@ namespace StarBangBang
 		bool playerEscaped = false;
 		bool clientEscaped = false;
 		bool detected = false;
+
+		float gameOverTimer;
 	};
 }

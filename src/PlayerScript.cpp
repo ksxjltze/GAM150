@@ -20,6 +20,7 @@ StarBangBang::PlayerScript::PlayerScript(GameObject* obj) : Script(obj)
 	clientEscaped = false;
 	stealth = nullptr;
 	text = nullptr;
+	gameOverTimer = 0.f;
 }
 void StarBangBang::PlayerScript::Start()
 {
@@ -51,6 +52,11 @@ void StarBangBang::PlayerScript::Debug_Reset()
 
 void StarBangBang::PlayerScript::onNotify(Event e)
 {
+	if (e.id == EventId::CAUGHT_BY_CAMERA)
+	{
+		detected = true;
+	}
+
 	if (e.id == EventId::GAME_OVER)
 	{
 		GameObject* detectedObj = std::any_cast<GameObject*>(e.context);
@@ -120,13 +126,18 @@ void StarBangBang::PlayerScript::onNotify(Event e)
 				obj->GetComponent<BoxCollider>()->isTrigger = true;
 			}
 		}
-
-
 	}
 }
 
 void StarBangBang::PlayerScript::Update()
 {	
+	if (detected)
+	{
+		gameOverTimer += g_dt;
+		if (gameOverTimer >= 10.f)
+			gameover = true;
+	}
+
 	float timer = stealth->GetTimer();
 	if (timer >= EPSILON)
 	{
@@ -155,7 +166,6 @@ void StarBangBang::PlayerScript::Update()
 		client->visible = true;
 		client->GetComponent<BoxCollider>()->isTrigger = false;
 	}
-
 }
 
 bool StarBangBang::PlayerScript::isGameOver()
