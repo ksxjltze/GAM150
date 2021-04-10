@@ -4,6 +4,7 @@
 #include "CollisionEvent.h"
 #include "Settings.h"
 #include "MusicEvent.h"
+#include "ConfirmationMenu.h"
 
 static const float x_scale = 5.0f;
 static const float y_scale = 5.0f;
@@ -61,6 +62,11 @@ namespace StarBangBang
 		settingsObj = objectManager.NewGameObject();
 		objectManager.AddComponent<SettingsMenu>(settingsObj, graphicsManager).Init();
 
+		confirmationObj = objectManager.NewGameObject();
+		ConfirmationMenu& confirm = objectManager.AddComponent<ConfirmationMenu>(confirmationObj, graphicsManager, gameStateManager);
+		confirm.Init();
+		confirm.SetText(std::string("Quit the game?"));
+
 		//start game button
 		playbutton_obj = objectManager.NewGameObject();
 		//objectManager.AddImage(playbutton_obj, playbutton1);
@@ -101,11 +107,11 @@ namespace StarBangBang
 		MusicEvent bgm{ BGM::MENU };
 		bgm.SendEvent();
 
-		editorBtn = objectManager.NewGameObject();
-		objectManager.AddImage(editorBtn, vending_machine_sprite);
-		editorBtn->transform.position = { (float)AEGetWindowWidth() * 0.35f, (float)AEGetWindowHeight() / 8, };
+		//editorBtn = objectManager.NewGameObject();
+		//objectManager.AddImage(editorBtn, vending_machine_sprite);
+		//editorBtn->transform.position = { (float)AEGetWindowWidth() * 0.35f, (float)AEGetWindowHeight() / 8, };
 
-		objectManager.AddComponent<Click<Main_Menu>>(editorBtn).setCallback(*this, &Main_Menu::LoadEditor);
+		//objectManager.AddComponent<Click<Main_Menu>>(editorBtn).setCallback(*this, &Main_Menu::LoadEditor);
 		frameSkip = true;
 	}
 
@@ -187,7 +193,8 @@ namespace StarBangBang
 
 	void Main_Menu::ExitGame()
 	{
-		gameStateManager.ExitGame();
+		DisplayConfirmationMenu();
+		//gameStateManager.ExitGame();
 	}
 
 	void Main_Menu::Settings()
@@ -195,6 +202,13 @@ namespace StarBangBang
 		windowOpen = true;
 		settingsObj->SetActive(true);
 		windowQueue.push(settingsObj);
+	}
+
+	void Main_Menu::DisplayConfirmationMenu()
+	{
+		windowOpen = true;
+		confirmationObj->SetActive(true);
+		windowQueue.push(confirmationObj);
 	}
 
 	void Main_Menu::HideMenu()
@@ -205,7 +219,7 @@ namespace StarBangBang
 		creditsbutton_obj->active = !windowOpen;
 		exitbutton_obj->active = !windowOpen;
 		tutorialbutton_obj->active = !windowOpen;
-		editorBtn->active = !windowOpen;
+		//editorBtn->active = !windowOpen;
 	}
 }
 
