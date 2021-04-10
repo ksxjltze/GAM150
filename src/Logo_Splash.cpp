@@ -11,11 +11,12 @@ struct FadeObj
 	Sprite sprite = Sprite();
 	float fadeSpeed = 0.3f;
 	float duration = 6.0f;
+	
 	AEVec2 aspect = AEVec2{ 1,1 };
 };
 
 using DrawFunc = void (*)(GameStateManager& gsm);
-
+const float delay = 0.5f;
 
 DrawFunc current;
 FadeObj digipen_logo;
@@ -119,12 +120,18 @@ void StarBangBang::LogoSplash::Update()
 {
 
 	time_past += g_dt;
-	if ( AEInputCheckTriggered(VK_ESCAPE)  || AEInputCheckTriggered(VK_SPACE) || AEInputCheckTriggered(AEVK_RETURN) ||
-		 AEInputCheckTriggered(VK_RBUTTON) || AEInputCheckTriggered(VK_LBUTTON) )
+
+	if (time_past > delay)
 	{
 		//skipCurrent = true;
 		gameStateManager.SetNextGameState(SceneID::MAIN_MENU);
+		if (AEInputCheckTriggered(VK_ESCAPE) || AEInputCheckTriggered(VK_SPACE) || AEInputCheckTriggered(AEVK_RETURN) ||
+			AEInputCheckTriggered(VK_RBUTTON) || AEInputCheckTriggered(VK_LBUTTON))
+		{
+			skipCurrent = true;
+		}
 	}
+	
 }
 
 void StarBangBang::LogoSplash::Draw()
