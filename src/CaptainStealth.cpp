@@ -42,20 +42,6 @@ namespace StarBangBang
 		Scene::Unload();
 	}
 
-	void CaptainStealth::SpawnComputer(ObjectManager& objMgr, Sprite computerSprite, AEVec2 position)
-	{
-		GameObject* gameObjPtr;
-		//computer obj (v machine)
-		gameObjPtr = objMgr.NewGameObject();
-		objMgr.AddComponent<ComputerScript>(gameObjPtr);
-		objMgr.AddImage(gameObjPtr, computerSprite);
-		gameObjPtr->transform.position = position;
-
-		//Add Collider
-		Collider& collider = objMgr.AddCollider(gameObjPtr, false);
-		collider.isTrigger = true;
-	}
-
 	Door* CaptainStealth::SpawnDoor(ObjectManager& objMgr, Sprite image, AEVec2 position)
 	{
 		GameObject* doorObj = objMgr.NewGameObject();

@@ -288,9 +288,6 @@
     <ClCompile Include="src\Door.cpp">
       <Filter>Source Files\Scripts\Interactables</Filter>
     </ClCompile>
-    <ClCompile Include="src\ComputerScript.cpp">
-      <Filter>Source Files\Scripts\Interactables</Filter>
-    </ClCompile>
     <ClCompile Include="src\Distractor.cpp">
       <Filter>Source Files\Scripts\Interactables</Filter>
     </ClCompile>
@@ -519,9 +516,6 @@
       <Filter>Header Files\Scripts\Interactables</Filter>
     </ClInclude>
     <ClInclude Include="src\Distractor.h">
-      <Filter>Header Files\Scripts\Interactables</Filter>
-    </ClInclude>
-    <ClInclude Include="src\ComputerScript.h">
       <Filter>Header Files\Scripts\Interactables</Filter>
     </ClInclude>
     <ClInclude Include="src\Click.h">
