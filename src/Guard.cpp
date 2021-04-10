@@ -1,7 +1,7 @@
 /*!*********************************************************************
 \title	  Captain Stealth
 \file     Guard.cpp
-\author   Liew Ruiheng Rayner
+\author   Liew Ruiheng Rayner (100%)
 \par      DP email: r.liew\@digipen.edu
 \date     10/04/2021
 

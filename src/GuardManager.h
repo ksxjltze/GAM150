@@ -1,7 +1,7 @@
 /*!*********************************************************************
 \title	  Captain Stealth
 \file     GuardManager.h
-\author   Liew Ruiheng Rayner
+\author   Liew Ruiheng Rayner (100%)
 \par      DP email: r.liew\@digipen.edu
 \date     10/04/2021
 
@@ -28,7 +28,7 @@ namespace StarBangBang
 	class GuardManager : public Script, Listener
 	{
 	private:
-		const unsigned int NUM_GUARDS = 23; // to be read from file
+		const unsigned int NUM_GUARDS = 23;
 		const unsigned int NUM_CAMERAS = 4;
 
 	public:
@@ -193,7 +193,7 @@ namespace StarBangBang
 		***********************************************************************/
 		void InitSecurityCam(int id, unsigned int roomNum, const AEVec2& pos, float min, float max, float speed = GUARD::CAM_ROT_SPEED);
 
-		std::vector<GameObject*> guards; //GameObject* guards[NUM_GUARDS];
+		std::vector<GameObject*> guards;
 		std::vector<GameObject*> cameras;
 	};
 }
