@@ -554,9 +554,6 @@
     <ClInclude Include="src\PathFinder.h">
       <Filter>Header Files\Engine\Game Logic</Filter>
     </ClInclude>
-    <ClInclude Include="src\UniqueQueue.h">
-      <Filter>Header Files\Engine\Game Logic</Filter>
-    </ClInclude>
     <ClInclude Include="src\Observer.h">
       <Filter>Header Files\Engine\Interfaces</Filter>
     </ClInclude>

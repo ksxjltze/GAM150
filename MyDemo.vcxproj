@@ -268,7 +268,6 @@ xcopy /y /d /i /s "$(SolutionDir)\Resources" "$(OutDir)\Resources"</Command>
     <ClInclude Include="src\Transform.h" />
     <ClInclude Include="src\Tutorial.h" />
     <ClInclude Include="src\UIComponent.h" />
-    <ClInclude Include="src\UniqueQueue.h" />
     <ClInclude Include="src\Utils.h" />
   </ItemGroup>
   <ItemGroup>

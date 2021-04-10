@@ -1,3 +1,20 @@
+/******************************************************************************/
+/*!
+\title		Captain Stealth
+\file		PathFinder.cpp
+\author 	Ho Yi Guan
+\par    	email: Yiguan.ho@digipen.edu
+\date   	April 08, 2021
+\brief
+			Contains the definition for PathFinder.h
+			Contains functions for pathfinding and grid object
+
+Copyright (C) 2021 DigiPen Institute of Technology.
+Reproduction or disclosure of this file or its contents without the
+prior written consent of DigiPen Institute of Technology is prohibited.
+*/
+/******************************************************************************/
+
 
 #include "PathFinder.h"
 #include <unordered_set>
@@ -5,18 +22,24 @@
 #include "Utils.h"
 #include "BasicMeshShape.h"
 #include <iostream>
-#include <queue>
 #include "constants.h"
 #include "Heap.hpp"
 using namespace StarBangBang;
 
+//diagonal movement cost
 const int diagonal_Cost = 14;
+
+//straight movement cost
 const int straight_Cost = 10;
+
+//grid visiblity flag
 static bool isVisible = true;
+
+//the world's grid object
 Grid worldGrid;
 
 
-//compare node functor
+//compare node functor for the heap
 struct A_Node_Greater
 {
 	bool operator ()(const A_Node* lhs, const A_Node* rhs) const
@@ -34,7 +57,19 @@ struct A_Node_Greater
 	}
 };
 
+/*!*************************************************************************
+****
+	\brief
+		Initialise the pathfinder grid to be used for the game world
+	\param rows
+		The number of rows of the matrix
+	\param cols
+		The number of columns of the matrix
+	\return
+		void
 
+****************************************************************************
+***/
 void PathFinder::PathFinderInit()
 {
 	//worldGrid.CreateGrid(64,50,50, AEVec2{ 0,0 });
@@ -44,16 +79,46 @@ void PathFinder::PathFinderInit()
 	worldGrid.CreateGrid(size, 50, 50, AEVec2{ -size / 2, size /2 });
 }
 
+/*!*************************************************************************
+****
+	\brief
+		Display the world grid
+	\param visible
+		Whether the grid should be drawn
+	\return
+		void
+
+****************************************************************************
+***/
 void StarBangBang::PathFinder::ShowGrid(bool visible)
 {
 	isVisible = visible;
 }
 
+/*!*************************************************************************
+****
+	\brief
+		Free the world grid
+	\param visible
+		Whether the grid should be drawn
+	\return
+		void
+****************************************************************************
+***/
 void PathFinder::Free()
 {
 	worldGrid.FreeGrid();
 }
 
+
+/*!*************************************************************************
+****
+	\brief
+		Draws the world grid
+	\return
+		void
+****************************************************************************
+***/
 void PathFinder::GridDraw()
 {
 	if (isVisible)
@@ -64,10 +129,19 @@ void PathFinder::GridDraw()
 	}
 }
 
+/*!*************************************************************************
+****
+	\brief
+		Get a reference to the world grid data
+	\return
+		The world grid data reference
+****************************************************************************
+***/
 Grid& PathFinder::GetWorldGrid()
 {
 	return worldGrid;
 }
+
 
 int NodeDistance(const A_Node* lhs, const A_Node* rhs)
 {
@@ -83,17 +157,36 @@ int NodeDistance(const A_Node* lhs, const A_Node* rhs)
 
 	
 }
+
+
+/*!*************************************************************************
+****
+	\brief
+		Retrace the nodes to get the correct pathing
+	\param start
+		The starting node
+	\param end
+		The end node
+	\param pathing
+		The reference vector container to store the found path nodes
+	\return
+		void
+****************************************************************************
+***/
 void TracePath(A_Node* start, A_Node* end , std::vector<A_Node*>& p)
 {
 	
 	A_Node* currNode = end;
+
+	//we reach our last node (stop)
 	while (currNode != start)
 	{
 		currNode->occupied = true;
 		p.push_back(currNode);
+		//trace back to prev node using its parent
 		currNode = currNode->parent;
 	}
-	p.push_back(start);
+	p.push_back(start); 
 	std::reverse(p.begin(), p.end());
 
 	////simpify path to contain turning points
@@ -111,6 +204,21 @@ void TracePath(A_Node* start, A_Node* end , std::vector<A_Node*>& p)
 	//}
 
 }
+
+/*!*************************************************************************
+****
+	\brief
+		Search for a path given a start and end position
+	\param start
+		The starting positions
+	\param target
+		The target position to reach
+	\param pathing
+		The reference vector container to store the found path nodes
+	\return
+		void
+****************************************************************************
+***/
 void PathFinder::SearchForPath(AEVec2 start, AEVec2 target, std::vector<A_Node*>& pathing)
 {
 	pathing.reserve(50);

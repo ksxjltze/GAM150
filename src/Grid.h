@@ -1,3 +1,22 @@
+/******************************************************************************/
+/*!
+\title		Captain Stealth
+\file		Grid.h
+\author 	Ho Yi Guan
+\par    	email: Yiguan.ho@digipen.edu
+\date   	April 08, 2021
+\brief
+			Contains the declaration for Grid.cpp
+			Contains the grid and node class for pathfinding
+			and spatial partitiioning
+
+Copyright (C) 2021 DigiPen Institute of Technology.
+Reproduction or disclosure of this file or its contents without the
+prior written consent of DigiPen Institute of Technology is prohibited.
+*/
+/******************************************************************************/
+
+
 #pragma once
 #include "../Extern/AlphaEngine_V3.08/include/AEEngine.h"
 #include <unordered_set>
@@ -39,7 +58,7 @@ namespace StarBangBang
 		int cellIndex;
 	
 	};
-	
+	//partitioning grid
 	class PartitionGrid
 	{
 	private:
@@ -65,26 +84,36 @@ namespace StarBangBang
 	class Grid
 	{
 	private:
+		//the 2d grid
 		A_Node** grid = nullptr;
+		//size of each node
 		float nodeSize = 0.0f;
-		AEVec2 offset = AEVec2();	// grid offset from center (ie to place it in other position)
-		int size_x = 0; // number of nodes in a row
-		int size_y = 0; // number of nodes in a column
+		// grid offset from center (ie to place it in other position)
+		AEVec2 offset = AEVec2();	
+		// number of nodes in a row
+		int size_x = 0; 
+		// number of nodes in a column
+		int size_y = 0;
 		bool visible{ true };
 
-		//Debug
+		//Debug function
+		//set all nodes to occupied
 		void SetAllOccupied();
 
 	public:
+		//the half size of the grid
 		constexpr AEVec2 GetGridExtend() const
 		{ 
 			return AEVec2{nodeSize * size_x * 0.5f, nodeSize * size_y * 0.5f};
 		}
+		//how much the grid is offset from the origin
+		//it is basically the new grid position
 		constexpr AEVec2 GetGridOffset() const { return offset; }
 		//how many nodes in x 
 		constexpr int GetGridSizeX() const { return size_x; }
 		//how many nodes in y
 		constexpr int GetGridSizeY() const { return size_y; }
+		//get node size
 		constexpr float GetNodeSize() const { return nodeSize; }
 
 		void ToggleVisible();
