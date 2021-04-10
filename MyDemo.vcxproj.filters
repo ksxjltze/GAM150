@@ -121,14 +121,8 @@
     <Filter Include="Header Files\Events">
       <UniqueIdentifier>{751a4ea2-3560-4fc8-aa38-e82aabd99d33}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\Scripts\Listeners">
-      <UniqueIdentifier>{22f0d2af-9f0d-4a64-b327-068d9d85f5be}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Header Files\Scripts\Movement">
       <UniqueIdentifier>{72b50393-6752-43b0-af5a-3004ac04c9d9}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Scripts\Listeners">
-      <UniqueIdentifier>{1268b6c8-3920-4dcf-9229-5ba01b03f310}</UniqueIdentifier>
     </Filter>
     <Filter Include="Source Files\Scripts\Movement">
       <UniqueIdentifier>{d7949a14-7745-4176-8edb-e7f12c0eea14}</UniqueIdentifier>
@@ -278,9 +272,6 @@
     </ClCompile>
     <ClCompile Include="src\UIComponent.cpp">
       <Filter>Source Files\Engine\Components</Filter>
-    </ClCompile>
-    <ClCompile Include="src\ComputerListener.cpp">
-      <Filter>Source Files\Scripts\Listeners</Filter>
     </ClCompile>
     <ClCompile Include="src\Movement.cpp">
       <Filter>Source Files\Scripts\Movement</Filter>
@@ -487,9 +478,6 @@
     </ClInclude>
     <ClInclude Include="src\Logo_Splash.h">
       <Filter>Header Files\Scenes</Filter>
-    </ClInclude>
-    <ClInclude Include="src\ComputerListener.h">
-      <Filter>Header Files\Scripts\Listeners</Filter>
     </ClInclude>
     <ClInclude Include="src\PrimaryMovementController.h">
       <Filter>Header Files\Scripts\Movement</Filter>

@@ -114,7 +114,6 @@ xcopy /y /d /i /s "$(SolutionDir)\Resources" "$(OutDir)\Resources"</Command>
     <ClCompile Include="src\CaptainStealth.cpp" />
     <ClCompile Include="src\Collider.cpp" />
     <ClCompile Include="src\CollisionManager.cpp" />
-    <ClCompile Include="src\ComputerListener.cpp" />
     <ClCompile Include="src\ComputerScript.cpp" />
     <ClCompile Include="src\ConfirmationMenu.cpp" />
     <ClCompile Include="src\constants.cpp" />
@@ -177,7 +176,6 @@ xcopy /y /d /i /s "$(SolutionDir)\Resources" "$(OutDir)\Resources"</Command>
     <ClInclude Include="src\Color.h" />
     <ClInclude Include="src\Component.h" />
     <ClInclude Include="src\ComponentCRTP.h" />
-    <ClInclude Include="src\ComputerListener.h" />
     <ClInclude Include="src\ComputerScript.h" />
     <ClInclude Include="src\ConfirmationMenu.h" />
     <ClInclude Include="src\Menu.h" />
