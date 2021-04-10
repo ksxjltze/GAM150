@@ -5,6 +5,12 @@ namespace StarBangBang
 {
 	static std::map<TileType, const std::string> tileTypeNames;
 
+	/**
+	 * Maps a tile type to a name and inserts it into the map object.
+	 * 
+	 * \param type Type of tile.
+	 * \param name Name of the tile type.
+	 */
 	void RegisterTileType(TileType type, const std::string&& name)
 	{
 		tileTypeNames.insert({ type, name });
@@ -49,6 +55,15 @@ namespace StarBangBang
 		return set.at(t);
 	}
 
+	/**
+	 * TileType Pre-increment operator.
+	 * Mainly used in the level editor to switch between tile types.
+	 * 
+	 * \param tileType 
+	 * Previous Tile Type.
+	 * \return 
+	 * Next Tile Type.
+	 */
 	TileType& operator++(TileType& tileType)
 	{
 		TileType type = TileType(static_cast<int>(tileType) + 1);
@@ -61,6 +76,15 @@ namespace StarBangBang
 		return tileType;
 	}
 
+	/**
+	 * TileType Post-increment operator.
+	 * Mainly used in the level editor to switch between tile types.
+	 *
+	 * \param tileType
+	 * Previous Tile Type.
+	 * \return
+	 * Next Tile Type.
+	 */
 	TileType operator++(TileType& tileType, int)
 	{
 		TileType temp = tileType;
