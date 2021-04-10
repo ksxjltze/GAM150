@@ -1,3 +1,24 @@
+/******************************************************************************/
+/*!
+\title		Captain Stealth
+\file		TileSet.h
+\author 	Lee Jia Keat
+\par    	email: l.jiakeat@digipen.edu
+\date   	April 09, 2021
+\brief		TileSet class:
+			Is used to determine the type of each Tile and loading
+			their respective sprites.
+
+			TileType enum:
+			Represents the types of available tiles.
+			Used to correctly load the correct tiles from the level data file.
+
+Copyright (C) 2021 DigiPen Institute of Technology.
+Reproduction or disclosure of this file or its contents without the
+prior written consent of DigiPen Institute of Technology is prohibited.
+*/
+/******************************************************************************/
+
 #include "TileSet.h"
 #include "constants.h"
 

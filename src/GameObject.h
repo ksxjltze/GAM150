@@ -35,9 +35,14 @@ namespace StarBangBang
 		std::string name;
 
 		GameObject();
-		GameObject(const GameObject& prefab);
-		GameObject operator=(const GameObject& prefab) { return GameObject(prefab); };
+		GameObject(const GameObject&);
 
+		/**
+		 * Finds a component from the game object's component list.
+		 * Compares the type of each component in the list and returns the first match.
+		 * 
+		 * \return Pointer to the first matching component in the list.
+		 */
 		template <class T>
 		inline T* GetComponent()
 		{
@@ -55,6 +60,11 @@ namespace StarBangBang
 
 		}
 
+		/**
+		 * Get the list of components for the game object.
+		 * 
+		 * \return Vector of component pointers.
+		 */
 		inline std::vector<GameComponent*> GetComponents() const
 		{
 			return componentList;
