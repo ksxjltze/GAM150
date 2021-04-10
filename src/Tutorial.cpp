@@ -1,11 +1,17 @@
 /*!*********************************************************************
+\title	  Captain Stealth
 \file     Tutorial.cpp
 \author   Liew Ruiheng Rayner
 \par      DP email: r.liew\@digipen.edu
 \date     08/04/2021
 
 \brief
-  This file contains the Tutorial scene class
+		  This file contains the function definitions of Tutorial 
+		  scene class
+
+Copyright (C) 2021 DigiPen Institute of Technology.
+Reproduction or disclosure of this file or its contents without the
+prior written consent of DigiPen Institute of Technology is prohibited.
 ***********************************************************************/
 
 #include "Tutorial.h"
@@ -33,23 +39,52 @@ Sprite playerImageL2;
 Sprite playerImageL3;
 Sprite vent_close;
 
-static StarBangBang::AnimationSprites animSprites;
+static AnimationSprites animSprites;
 
+/*!*********************************************************************
+\brief
+	Creates a text object
+
+\param position
+	The position of the text
+
+\param s
+	The text to be displayed
+
+\param scale
+	Size of the text
+***********************************************************************/
 void Tutorial::NewTextObject(AEVec2 position, const std::string& s, float scale)
 {
 	objectManager.AddComponent<Text>(objectManager.NewGameObject(), s, fontId2, scale).gameObject->transform.position = position;
 }
 
+/*!*********************************************************************
+\brief
+	Non-default constructor
+
+\param id
+	The id of the scene
+
+\param gsm
+	Reference to the game statemanager
+***********************************************************************/
 Tutorial::Tutorial(int id, GameStateManager& gsm) 
 	: Scene(id, gsm)
 	, cameraObject(nullptr)
 	, end(nullptr)
+	, player(nullptr)
+	, player2(nullptr)
 	, tilemap{ objectManager, graphicsManager }
 {
 	dir = direction::idle;
 	character = current_char::fei_ge;
 }
 
+/*!*********************************************************************
+\brief
+	Loads assets for this scene
+***********************************************************************/
 void Tutorial::Load()
 {
 	tilemap.Load(RESOURCES::LEVELS::LEVEL_TUTORIAL);
@@ -66,6 +101,10 @@ void Tutorial::Load()
 	animSprites.Load(graphicsManager);
 }
 
+/*!*********************************************************************
+\brief
+	Initializes the game objects for this scene
+***********************************************************************/
 void Tutorial::Init()
 {
 	animation_counter = 0;
@@ -145,6 +184,10 @@ void Tutorial::Init()
 	objectManager.AddComponent<Click<Tutorial>>(backButton).setCallback(*this, &Tutorial::MainMenu);
 }
 
+/*!*********************************************************************
+\brief
+	Updates this scene
+***********************************************************************/
 void Tutorial::Update()
 {
 	if (AEInputCheckTriggered(AEVK_ESCAPE))
@@ -205,22 +248,38 @@ void Tutorial::Update()
 	Scene::Update();
 }
 
+/*!*********************************************************************
+\brief
+	Draws this scene
+***********************************************************************/
 void Tutorial::Draw()
 {
 	Scene::Draw();
 }
 
+/*!*********************************************************************
+\brief
+	Frees this scene
+***********************************************************************/
 void Tutorial::Free()
 {
 	Scene::Free();
 	tilemap.Unload();
 }
 
+/*!*********************************************************************
+\brief
+	Unloads this scene
+***********************************************************************/
 void Tutorial::Unload()
 {
 	Scene::Unload();
 }
 
+/*!*********************************************************************
+\brief
+	Sets game state to main menu
+***********************************************************************/
 void Tutorial::MainMenu()
 {
 	gameStateManager.SetNextGameState(MAIN_MENU);

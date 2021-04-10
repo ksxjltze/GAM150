@@ -1,11 +1,16 @@
 /*!*********************************************************************
+\title	  Captain Stealth
 \file     Tutorial.h
 \author   Liew Ruiheng Rayner
 \par      DP email: r.liew\@digipen.edu
 \date     08/04/2021
 
 \brief
-  This file contains the Tutorial scene class
+		  This file contains the Tutorial scene class
+
+Copyright (C) 2021 DigiPen Institute of Technology.
+Reproduction or disclosure of this file or its contents without the
+prior written consent of DigiPen Institute of Technology is prohibited.
 ***********************************************************************/
 
 #pragma once
@@ -68,15 +73,29 @@ namespace StarBangBang
 	private:
 		/*!*********************************************************************
 		\brief
-			Unloads this scene
+			Creates a text object
+
+		\param position
+			The position of the text
+
+		\param s
+			The text to be displayed
+
+		\param scale
+			Size of the text
 		***********************************************************************/
 		void NewTextObject(AEVec2 position, const std::string& s, float scale = 1.0f);
 
+		/*!*********************************************************************
+		\brief
+			Sets game state to main menu
+		***********************************************************************/
+		void MainMenu();
+
 		GameObject* cameraObject;
 		GameObject* end;
-		GameObject* player{ nullptr };
-		GameObject* player2{ nullptr };
-		void MainMenu();
+		GameObject* player;
+		GameObject* player2;
 
 		direction dir;
 		current_char character;
