@@ -3,7 +3,7 @@
 \title		Captain Stealth
 \file		CameraComponent.h
 \author 	Lee Jia Keat
-\par    	email: l.jiakeat@digipen.edu
+\par    	email: l.jiakeat\@digipen.edu
 \date   	April 09, 2021
 \brief		CameraComponent component class.
 			Can be attached to a gameObject to follow it around.

@@ -3,7 +3,7 @@
 \title		Captain Stealth
 \file		ScriptComponent.h
 \author 	Lee Jia Keat
-\par    	email: l.jiakeat@digipen.edu
+\par    	email: l.jiakeat\@digipen.edu
 \date   	April 09, 2021
 \brief		ScriptComponent component class.
 			An extension (and abstraction) of the component class.

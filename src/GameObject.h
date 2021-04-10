@@ -3,7 +3,7 @@
 \title		Captain Stealth
 \file		GameObject.h
 \author 	Lee Jia Keat
-\par    	email: l.jiakeat@digipen.edu
+\par    	email: l.jiakeat\@digipen.edu
 \date   	April 09, 2021
 \brief		GameObject class. Smallest element of the game.
 			Contains a Transform struct and a list of components.

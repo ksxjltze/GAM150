@@ -3,7 +3,7 @@
 \title		Captain Stealth
 \file		ObjectManager.h
 \author 	Lee Jia Keat
-\par    	email: l.jiakeat@digipen.edu
+\par    	email: l.jiakeat\@digipen.edu
 \date   	April 09, 2021
 \brief		Object Manager class.
 			Is responsible for the creation of game objects and adding components to them.

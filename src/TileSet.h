@@ -3,7 +3,7 @@
 \title		Captain Stealth
 \file		TileSet.h
 \author 	Lee Jia Keat
-\par    	email: l.jiakeat@digipen.edu
+\par    	email: l.jiakeat\@digipen.edu
 \date   	April 09, 2021
 \brief		TileSet class:
 			Is used to determine the type of each Tile and loading

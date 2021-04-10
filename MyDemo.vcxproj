@@ -113,15 +113,11 @@ xcopy /y /d /i /s "$(SolutionDir)\Resources" "$(OutDir)\Resources"</Command>
     <ClCompile Include="src\CameraComponent.cpp" />
     <ClCompile Include="src\CaptainStealth.cpp" />
     <ClCompile Include="src\Collider.cpp" />
-    <ClCompile Include="src\CollisionListener.cpp" />
     <ClCompile Include="src\CollisionManager.cpp" />
-    <ClCompile Include="src\ComputerListener.cpp" />
-    <ClCompile Include="src\ComputerScript.cpp" />
     <ClCompile Include="src\ConfirmationMenu.cpp" />
     <ClCompile Include="src\constants.cpp" />
     <ClCompile Include="src\Credits.cpp" />
     <ClCompile Include="src\DebugText.cpp" />
-    <ClCompile Include="src\DetectionListener.cpp" />
     <ClCompile Include="src\Detector.cpp" />
     <ClCompile Include="src\Disappear.cpp" />
     <ClCompile Include="src\Distractor.cpp" />
@@ -153,7 +149,6 @@ xcopy /y /d /i /s "$(SolutionDir)\Resources" "$(OutDir)\Resources"</Command>
     <ClCompile Include="src\PlayerAnimation.cpp" />
     <ClCompile Include="src\PlayerScript.cpp" />
     <ClCompile Include="src\PrimaryMovementController.cpp" />
-    <ClCompile Include="src\Sample_Scene.cpp" />
     <ClCompile Include="src\Scene_GameOver.cpp" />
     <ClCompile Include="src\SecurityCamera.cpp" />
     <ClCompile Include="src\Settings.cpp" />
@@ -175,13 +170,10 @@ xcopy /y /d /i /s "$(SolutionDir)\Resources" "$(OutDir)\Resources"</Command>
     <ClInclude Include="src\Click.h" />
     <ClInclude Include="src\Collider.h" />
     <ClInclude Include="src\CollisionEvent.h" />
-    <ClInclude Include="src\CollisionListener.h" />
     <ClInclude Include="src\CollisionManager.h" />
     <ClInclude Include="src\Color.h" />
     <ClInclude Include="src\Component.h" />
     <ClInclude Include="src\ComponentCRTP.h" />
-    <ClInclude Include="src\ComputerListener.h" />
-    <ClInclude Include="src\ComputerScript.h" />
     <ClInclude Include="src\ConfirmationMenu.h" />
     <ClInclude Include="src\Menu.h" />
     <ClInclude Include="src\MusicEvent.h" />
@@ -190,7 +182,6 @@ xcopy /y /d /i /s "$(SolutionDir)\Resources" "$(OutDir)\Resources"</Command>
     <ClInclude Include="src\constants.h" />
     <ClInclude Include="src\Credits.h" />
     <ClInclude Include="src\DebugText.h" />
-    <ClInclude Include="src\DetectionListener.h" />
     <ClInclude Include="src\Detector.h" />
     <ClInclude Include="src\Disappear.h" />
     <ClInclude Include="src\DistractionEvent.h" />
@@ -225,7 +216,6 @@ xcopy /y /d /i /s "$(SolutionDir)\Resources" "$(OutDir)\Resources"</Command>
     <ClInclude Include="src\Physics.h" />
     <ClInclude Include="src\PlayerScript.h" />
     <ClInclude Include="src\PrimaryMovementController.h" />
-    <ClInclude Include="src\Sample_Scene.h" />
     <ClInclude Include="src\SceneList.h" />
     <ClInclude Include="src\Scene_GameOver.h" />
     <ClInclude Include="src\ScriptComponent.h" />

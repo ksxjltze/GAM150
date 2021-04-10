@@ -3,7 +3,7 @@
 \title		Captain Stealth
 \file		MessageBus.h
 \author 	Lee Jia Keat
-\par    	email: l.jiakeat@digipen.edu
+\par    	email: l.jiakeat\@digipen.edu
 \date   	April 09, 2021
 \brief		MessageBus class:
 			Static class that can be accessed globally.

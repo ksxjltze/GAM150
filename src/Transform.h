@@ -3,7 +3,7 @@
 \title		Captain Stealth
 \file		Transform.h
 \author 	Lee Jia Keat
-\par    	email: l.jiakeat@digipen.edu
+\par    	email: l.jiakeat\@digipen.edu
 \date   	April 09, 2021
 \brief		Transform struct. Contains data representing the game object's position in the world.
 			i.e. The position, scale and rotation of the game object.

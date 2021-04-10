@@ -1,3 +1,19 @@
+/******************************************************************************/
+/*!
+\title		Captain Stealth
+\file		Main_Menu.h
+\author 	Sim Chin Hin
+\author2	Lee Jia Keat
+\par    	email: l.jiakeat\@digipen.edu
+\date   	April 09, 2021
+\brief		Credits scene.
+
+Copyright (C) 2021 DigiPen Institute of Technology.
+Reproduction or disclosure of this file or its contents without the
+prior written consent of DigiPen Institute of Technology is prohibited.
+*/
+/******************************************************************************/
+
 #pragma once
 #include "State.h"
 #include "ObjectManager.h"
@@ -52,6 +68,7 @@ namespace StarBangBang
 		GameObject* tutorialbutton_obj;
 		GameObject* settingsObj{ nullptr };
 		GameObject* confirmationObj{ nullptr };
+		GameObject* editorBtn{ nullptr };
 
 		//GameObject* editorBtn{ nullptr };
 

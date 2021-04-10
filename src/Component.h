@@ -3,7 +3,7 @@
 \title		Captain Stealth
 \file		Component.h
 \author 	Lee Jia Keat
-\par    	email: l.jiakeat@digipen.edu
+\par    	email: l.jiakeat\@digipen.edu
 \date   	April 09, 2021
 \brief		Component class. Is responsible for driving game behavior.
 			Must be attached to a game object.
