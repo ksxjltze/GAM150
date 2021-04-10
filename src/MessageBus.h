@@ -1,3 +1,20 @@
+/******************************************************************************/
+/*!
+\title		Captain Stealth
+\file		MessageBus.h
+\author 	Lee Jia Keat
+\par    	email: l.jiakeat@digipen.edu
+\date   	April 09, 2021
+\brief		MessageBus class:
+			Static class that can be accessed globally.
+			Is responsible for receiving and dispatching events.
+
+Copyright (C) 2021 DigiPen Institute of Technology.
+Reproduction or disclosure of this file or its contents without the
+prior written consent of DigiPen Institute of Technology is prohibited.
+*/
+/******************************************************************************/
+
 #pragma once
 #include <vector>
 #include <queue>
@@ -10,10 +27,26 @@ namespace StarBangBang
 	class MessageBus
 	{
 	public:
+		/*!
+		 * \brief
+		 * Resets the event system, clearing all listeners from the list and events from the queue.
+		 */
 		static void Reset();
+		/**
+		 * Registers a listener that will persist throughout the whole program (e.g. AudioEngine).
+		 * 
+		 * \param listener Pointer to the listener to register.
+		 */
 		static void RegisterGlobalListener(Listener* listener);
 		static bool IsEventInQueue(EventId id);
 		static void Update();
+		/**
+		 * \brief
+		 * Adds an event to the event queue.
+		 * 
+		 * \param e
+		 * Event to add
+		 */
 		static void Notify(Event e);
 		friend class Listener;
 

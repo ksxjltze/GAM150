@@ -38,6 +38,7 @@ namespace StarBangBang
 		GameObject(const GameObject&);
 
 		/**
+		 * \brief
 		 * Finds a component from the game object's component list.
 		 * Compares the type of each component in the list and returns the first match.
 		 * 
