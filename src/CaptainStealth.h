@@ -8,7 +8,6 @@
 #include "PrimaryMovementController.h"
 #include "Text.h"
 #include "ComputerScript.h"
-#include "ComputerListener.h"
 #include "Door.h"
 
 namespace StarBangBang
