@@ -3,7 +3,7 @@
 \title		Captain Stealth
 \file		GameStateManager.h
 \author 	Lee Jia Keat
-\par    	email: l.jiakeat@digipen.edu
+\par    	email: l.jiakeat\@digipen.edu
 \date   	April 09, 2021
 \brief		Game State Manager class.
 			Is responsible for managing game states/scenes.
