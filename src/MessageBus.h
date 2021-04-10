@@ -32,14 +32,22 @@ namespace StarBangBang
 		 * Resets the event system, clearing all listeners from the list and events from the queue.
 		 */
 		static void Reset();
+
 		/**
 		 * Registers a listener that will persist throughout the whole program (e.g. AudioEngine).
-		 * 
 		 * \param listener Pointer to the listener to register.
 		 */
 		static void RegisterGlobalListener(Listener* listener);
+
 		static bool IsEventInQueue(EventId id);
+
+		/*!*************************************************************************
+		 * \brief 
+		 * Update function that is called once a frame.
+		 * Dispatches all events from the event queue to each listener.
+		***************************************************************************/
 		static void Update();
+
 		/**
 		 * \brief
 		 * Adds an event to the event queue.
@@ -48,6 +56,7 @@ namespace StarBangBang
 		 * Event to add
 		 */
 		static void Notify(Event e);
+
 		friend class Listener;
 
 	private:
