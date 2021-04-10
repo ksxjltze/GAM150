@@ -6,9 +6,6 @@
 #include "SecurityCamera.h"
 #include "Detector.h"
 
-#include "DetectionListener.h"
-#include "CollisionListener.h"
-
 #include <iostream>
 #include "constants.h"
 

@@ -279,13 +279,7 @@
     <ClCompile Include="src\UIComponent.cpp">
       <Filter>Source Files\Engine\Components</Filter>
     </ClCompile>
-    <ClCompile Include="src\CollisionListener.cpp">
-      <Filter>Source Files\Scripts\Listeners</Filter>
-    </ClCompile>
     <ClCompile Include="src\ComputerListener.cpp">
-      <Filter>Source Files\Scripts\Listeners</Filter>
-    </ClCompile>
-    <ClCompile Include="src\DetectionListener.cpp">
       <Filter>Source Files\Scripts\Listeners</Filter>
     </ClCompile>
     <ClCompile Include="src\Movement.cpp">
@@ -295,9 +289,6 @@
       <Filter>Source Files\Scripts\Movement</Filter>
     </ClCompile>
     <ClCompile Include="src\PrimaryMovementController.cpp">
-      <Filter>Source Files\Scripts\Movement</Filter>
-    </ClCompile>
-    <ClCompile Include="src\SecondaryMovementController.cpp">
       <Filter>Source Files\Scripts\Movement</Filter>
     </ClCompile>
     <ClCompile Include="src\Key.cpp">
@@ -497,13 +488,7 @@
     <ClInclude Include="src\Logo_Splash.h">
       <Filter>Header Files\Scenes</Filter>
     </ClInclude>
-    <ClInclude Include="src\CollisionListener.h">
-      <Filter>Header Files\Scripts\Listeners</Filter>
-    </ClInclude>
     <ClInclude Include="src\ComputerListener.h">
-      <Filter>Header Files\Scripts\Listeners</Filter>
-    </ClInclude>
-    <ClInclude Include="src\DetectionListener.h">
       <Filter>Header Files\Scripts\Listeners</Filter>
     </ClInclude>
     <ClInclude Include="src\PrimaryMovementController.h">

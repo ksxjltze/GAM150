@@ -113,7 +113,6 @@ xcopy /y /d /i /s "$(SolutionDir)\Resources" "$(OutDir)\Resources"</Command>
     <ClCompile Include="src\CameraComponent.cpp" />
     <ClCompile Include="src\CaptainStealth.cpp" />
     <ClCompile Include="src\Collider.cpp" />
-    <ClCompile Include="src\CollisionListener.cpp" />
     <ClCompile Include="src\CollisionManager.cpp" />
     <ClCompile Include="src\ComputerListener.cpp" />
     <ClCompile Include="src\ComputerScript.cpp" />
@@ -121,7 +120,6 @@ xcopy /y /d /i /s "$(SolutionDir)\Resources" "$(OutDir)\Resources"</Command>
     <ClCompile Include="src\constants.cpp" />
     <ClCompile Include="src\Credits.cpp" />
     <ClCompile Include="src\DebugText.cpp" />
-    <ClCompile Include="src\DetectionListener.cpp" />
     <ClCompile Include="src\Detector.cpp" />
     <ClCompile Include="src\Disappear.cpp" />
     <ClCompile Include="src\Distractor.cpp" />
@@ -175,7 +173,6 @@ xcopy /y /d /i /s "$(SolutionDir)\Resources" "$(OutDir)\Resources"</Command>
     <ClInclude Include="src\Click.h" />
     <ClInclude Include="src\Collider.h" />
     <ClInclude Include="src\CollisionEvent.h" />
-    <ClInclude Include="src\CollisionListener.h" />
     <ClInclude Include="src\CollisionManager.h" />
     <ClInclude Include="src\Color.h" />
     <ClInclude Include="src\Component.h" />
@@ -190,7 +187,6 @@ xcopy /y /d /i /s "$(SolutionDir)\Resources" "$(OutDir)\Resources"</Command>
     <ClInclude Include="src\constants.h" />
     <ClInclude Include="src\Credits.h" />
     <ClInclude Include="src\DebugText.h" />
-    <ClInclude Include="src\DetectionListener.h" />
     <ClInclude Include="src\Detector.h" />
     <ClInclude Include="src\Disappear.h" />
     <ClInclude Include="src\DistractionEvent.h" />
