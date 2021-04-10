@@ -201,9 +201,6 @@
     <ClCompile Include="src\GraphicsManager.cpp">
       <Filter>Source Files\Engine\Graphics</Filter>
     </ClCompile>
-    <ClCompile Include="src\TagManager.cpp">
-      <Filter>Source Files\Engine\Game Logic</Filter>
-    </ClCompile>
     <ClCompile Include="src\LevelEditor.cpp">
       <Filter>Source Files\Tools</Filter>
     </ClCompile>
@@ -445,9 +442,6 @@
     </ClInclude>
     <ClInclude Include="src\Sprite.h">
       <Filter>Header Files\Engine\Graphics</Filter>
-    </ClInclude>
-    <ClInclude Include="src\TagManager.h">
-      <Filter>Header Files\Engine\Game Logic</Filter>
     </ClInclude>
     <ClInclude Include="src\ObserverTest.h">
       <Filter>Header Files\Scripts\Testing</Filter>

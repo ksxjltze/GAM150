@@ -2,7 +2,6 @@
 #include "ObjectManager.h"
 #include "GraphicsManager.h"
 #include "MemoryManager.h"
-#include "TagManager.h"
 #include "GameStateManager.h"
 #include "MessageBus.h"
 
@@ -31,7 +30,6 @@ namespace StarBangBang
 		friend class GameStateManager;
 		GraphicsManager graphicsManager;
 		ObjectManager objectManager;
-		TagManager tagManager;
 		MemoryManager memoryManager{ &objectManager, &graphicsManager };
 		GameStateManager& gameStateManager;
 		const int id;
