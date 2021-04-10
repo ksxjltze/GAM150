@@ -130,7 +130,7 @@ namespace StarBangBang
 
 		namespace LEVELS
 		{
-			extern const std::string&& LEVEL_TEST_PATH;
+			extern const std::string&& LEVEL_GAME_PATH;
 			extern const std::string&& LEVEL_MAIN_MENU_TEST_PATH;
 			extern const std::string&& COLLISION_TEST;
 			extern const std::string&& LEVEL_TUTORIAL;
