@@ -29,6 +29,13 @@ prior written consent of DigiPen Institute of Technology is prohibited.
 #include <sstream>
 #include "MovementManager.h"
 
+/*!*************************************************************************
+ * \brief
+ * Script constructor.
+ * Attaches the script to a game object
+ * \param obj
+ * GameObject to attach to.
+***************************************************************************/
 StarBangBang::PlayerScript::PlayerScript(GameObject* obj) : Script(obj)
 {
 	client = nullptr;
@@ -40,6 +47,13 @@ StarBangBang::PlayerScript::PlayerScript(GameObject* obj) : Script(obj)
 	text = nullptr;
 	gameOverTimer = 0.f;
 }
+
+/*!*************************************************************************
+ * \brief
+ * Start.
+ * \return
+ * void
+***************************************************************************/
 void StarBangBang::PlayerScript::Start()
 {
 
@@ -58,16 +72,35 @@ void StarBangBang::PlayerScript::Start()
 
 }
 
+/*!*************************************************************************
+ * \brief
+ * Determines if the player is invisible.
+ * \return
+ * False if player is visible, true otherwise.
+***************************************************************************/
 bool StarBangBang::PlayerScript::isInvisible()
 {
 	return stealth->IsInvisible();
 }
 
+/*!*************************************************************************
+ * \brief
+ * Resets the game over condition.
+ * \return
+ * void
+***************************************************************************/
 void StarBangBang::PlayerScript::Debug_Reset()
 {
 	gameover = false;
 }
 
+/*!*************************************************************************
+ * \brief
+ * Listener callback. Invoked when an event is received from the Message Bus.
+ * Listens for events: CAUGHT_BY_CAMERA, GAME_OVER, DETECTED,
+ *					   PLAYER_COLLISION and COLLISION.
+ * \param e Event data.
+***************************************************************************/
 void StarBangBang::PlayerScript::onNotify(Event e)
 {
 	if (e.id == EventId::CAUGHT_BY_CAMERA)
@@ -147,6 +180,13 @@ void StarBangBang::PlayerScript::onNotify(Event e)
 	}
 }
 
+/*!*************************************************************************
+ * \brief
+ * Updates the player's cooldown and ability timers.
+ * Checks if the game is over or if the player has won.
+ * \return
+ * void
+***************************************************************************/
 void StarBangBang::PlayerScript::Update()
 {	
 	if (detected)
@@ -186,11 +226,25 @@ void StarBangBang::PlayerScript::Update()
 	}
 }
 
+/*!*************************************************************************
+ * \brief
+ * Determines if the game is over.
+ * \return
+ * True if the conditions for game over are met,
+ * false otherwise.
+***************************************************************************/
 bool StarBangBang::PlayerScript::isGameOver()
 {
 	return gameover;
 }
 
+/*!*************************************************************************
+ * \brief
+ * Determines if the game is won.
+ * \return
+ * True if the conditions for winning are met,
+ * false otherwise.
+***************************************************************************/
 bool StarBangBang::PlayerScript::isWin()
 {
 	if (playerEscaped && clientEscaped)
