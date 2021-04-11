@@ -66,6 +66,12 @@ namespace StarBangBang
 		***************************************************************************/
 		void SetText(const std::string& s);
 
+		/*!*************************************************************************
+		 * \brief 
+		 * Sets the type of confirmation.
+		 * \param confirmType
+		 * Confirmation type.
+		***************************************************************************/
 		void SetType(ConfirmationType confirmType) {type = confirmType;}
 	private:
 		/*!*************************************************************************

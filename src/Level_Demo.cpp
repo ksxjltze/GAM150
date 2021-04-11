@@ -608,6 +608,12 @@ namespace StarBangBang
 		pauseMenu.DisplayConfirmation(ConfirmationType::TITLE);
 	}
 
+	/*!*************************************************************************
+	 * \brief
+	 * Displays the restart confirmation menu.
+	 * \return
+	 * void
+	***************************************************************************/
 	void Level_Demo::DisplayRestartConfirmation()
 	{
 		pauseMenu.DisplayConfirmation(ConfirmationType::RESTART);
