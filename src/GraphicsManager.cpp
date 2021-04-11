@@ -133,17 +133,43 @@ namespace StarBangBang
 		meshList.clear();
 	}
 
+	/*!*************************************************************************
+	 * \brief
+	 * Sets the camera zoom.
+	 * \param scale
+	 * Zoom factor.
+	 * \return
+	 * void
+	***************************************************************************/
 	void StarBangBang::GRAPHICS::SetZoom(float scale)
 	{
 		zoom = scale;
 	}
 
+	/*!*************************************************************************
+	 * \brief
+	 * Sets the position of the camera.
+	 * \param x
+	 * X component.
+	 * \param x
+	 * Y component.
+	 * \return
+	 * void
+	***************************************************************************/
 	void GRAPHICS::SetCameraPosition(float x, float y)
 	{
 		cameraPos.x = x;
 		cameraPos.y = y;
 	}
 
+	/*!*************************************************************************
+	 * \brief
+	 * Checks if the object is outside of the screen (window).
+	 * \param transformMtx
+	 * Read-only reference to the matrix of the object to check.
+	 * \return
+	 * True if outside of screen, false otherwise.
+	***************************************************************************/
 	bool GRAPHICS::CheckOutOfBounds(const AEMtx33& transformMtx)
 	{
 		if (transformMtx.m[0][2] > AEGetWindowWidth() / 2 + CULL_OFFSET || transformMtx.m[1][2] > AEGetWindowHeight() / 2 + CULL_OFFSET
@@ -152,17 +178,35 @@ namespace StarBangBang
 		return false;
 	}
 
+	/*!*************************************************************************
+	 * \brief
+	 * Gets the position of the camera.
+	 * \return
+	 * Position of the camera.
+	***************************************************************************/
 	AEVec2 GRAPHICS::GetCameraPosition()
 	{
 		return cameraPos;
 	}
 
+	/*!*************************************************************************
+	 * \brief
+	 * Resets the position and zoom of the camera.
+	 * \return
+	 * void
+	***************************************************************************/
 	void GRAPHICS::ResetCamera()
 	{
 		SetZoom(DEFAULT_ZOOM);
 		SetCameraPosition(0, 0);
 	}
 
+	/*!*************************************************************************
+	 * \brief
+	 * Gets the scaling matrix of the camera.
+	 * \return
+	 * The concatenated zoom and screen scaling matrix.
+	***************************************************************************/
 	AEMtx33 GRAPHICS::GetScaleMatrix()
 	{
 		AEMtx33 mtx;
@@ -178,6 +222,12 @@ namespace StarBangBang
 		return mtx;
 	}
 
+	/*!*************************************************************************
+	 * \brief
+	 * Gets the camera matrix.
+	 * \return
+	 * The camera matrix.
+	***************************************************************************/
 	AEMtx33 GRAPHICS::GetCameraMatrix()
 	{
 		AEMtx33 mtx;
@@ -192,12 +242,25 @@ namespace StarBangBang
 		return mtx;
 	}
 
+	/*!*************************************************************************
+	 * \brief
+	 * Applies the camera matrix.
+	 * \param mtx
+	 * Matrix to apply the camera matrix on.
+	***************************************************************************/
 	void GRAPHICS::ApplyCameraMatrix(AEMtx33* mtx)
 	{
 		AEMtx33 camMtx = GetCameraMatrix();
 		AEMtx33Concat(mtx, &camMtx, mtx);
 	}
 
+	/*!*************************************************************************
+	 * \brief
+	 * Gets the ratio of the window's dimensions to the target resolution.
+	 * (For full screen)
+	 * \return
+	 * Screen Scale ratio.
+	***************************************************************************/
 	AEVec2 GRAPHICS::GetScreenScale()
 	{
 		if (isFullscreen)
@@ -206,11 +269,25 @@ namespace StarBangBang
 			return { 1, 1 };
 	}
 
+	/*!*************************************************************************
+	 * \brief
+	 * Gets the zoom factor of the camera.
+	 * \return
+	 * Zoom value of the camera.
+	***************************************************************************/
 	float StarBangBang::GRAPHICS::GetZoom()
 	{
 		return zoom;
 	}
 
+	/*!*************************************************************************
+	 * \brief
+	 * Scales the input matrix for full screen.
+	 * \param mtx
+	 * Matrix to scale.
+	 * \return
+	 * void
+	***************************************************************************/
 	void GRAPHICS::ScaleFullscreen(AEMtx33& mtx)
 	{
 		if (enableRescale && isFullscreen)
@@ -219,6 +296,16 @@ namespace StarBangBang
 		}
 	}
 
+	/*!*************************************************************************
+	 * \brief
+	 * I don't understand my code anymore.
+	 * Takes the reciprocal of the screen scale ratio and scales
+	 * the input matrix by it.
+	 * \param mtx
+	 * Matrix to scale.
+	 * \return
+	 * void
+	***************************************************************************/
 	void GRAPHICS::InverseScaleFullscreen(AEMtx33& mtx)
 	{
 		if (enableRescale && isFullscreen)
@@ -227,17 +314,50 @@ namespace StarBangBang
 		}
 	}
 
+	/*!*************************************************************************
+	 * \brief
+	 * Toggles full screen mode.
+	 * \return
+	 * void
+	***************************************************************************/
 	void StarBangBang::GRAPHICS::ToggleFullscreen()
 	{
 		isFullscreen = !isFullscreen;
 		AEToogleFullScreen(isFullscreen);
 	}
 
+	/*!*************************************************************************
+	 * \brief
+	 * Checks if the game is currently in full screen.
+	 * \return
+	 * True if full screen, false otherwise
+	***************************************************************************/
 	bool GRAPHICS::IsFullscreen()
 	{
 		return isFullscreen;
 	}
 
+	/*!*************************************************************************
+	 * \brief
+	 * Calculates the required transformations to convert from world space to screen space
+	 * then draws the image.
+	 * \param mesh
+	 * Mesh to use for drawing.
+	 * \param texture
+	 * Texture to use for drawing.
+	 * \param c
+	 * Color to tint.
+	 * \param pos
+	 * Position to draw at (World Position).
+	 * \param scale
+	 * Scale of the image.
+	 * \param rotation
+	 * Rotation of the image.
+	 * \param transparency
+	 * Transparency of the image.
+	 * \return
+	 * void
+	***************************************************************************/
 	void StarBangBang::GRAPHICS::DrawImage(AEGfxVertexList* mesh, AEGfxTexture* texture, Color color, AEVec2 pos, AEVec2 scale, float rotation, float transparency)
 	{
 		AEGfxSetBlendMode(AE_GFX_BM_BLEND);
@@ -281,6 +401,26 @@ namespace StarBangBang
 		AEGfxSetTransparency(1.0f);
 	}
 
+	/*!*************************************************************************
+	 * \brief
+	 * Draws an image as an overlay (Ignores camera).
+	 * \param mesh
+	 * Mesh to use for drawing.
+	 * \param texture
+	 * Texture to use for drawing.
+	 * \param scale
+	 * Scale of the image.
+	 * \param pos
+	 * Position to draw at.
+	 * \param c
+	 * Color to tint.
+	 * \param rescale
+	 * Whether to rescale the image in full screen mode.
+	 * \param transparency
+	 * Transparency of the image.
+	 * \return
+	 * void
+	***************************************************************************/
 	void GRAPHICS::DrawOverlay(AEGfxVertexList* mesh, AEGfxTexture* texture, AEVec2 scale, AEVec2 pos, Color c, bool rescale, float transparency)
 	{
 		AEGfxSetBlendMode(AE_GFX_BM_BLEND);
@@ -312,11 +452,29 @@ namespace StarBangBang
 		AEGfxSetTransparency(1.0f);
 	}
 
+	/*!*************************************************************************
+	 * \brief
+	 * Sets the background color to clear with.
+	 * \param c
+	 * Color of the background.
+	 * \return
+	 * void
+	***************************************************************************/
 	void GRAPHICS::SetBackgroundColor(Color c)
 	{
 		AEGfxSetBackgroundColor(c.R(), c.G(), c.B());
 	}
 
+	/*!*************************************************************************
+	 * \brief
+	 * Sets the Ratio of the window's dimensions to the screen's dimensions (resolution)
+	 * \param x
+	 * Width ratio
+	 * \param y
+	 * height ratio
+	 * \return
+	 * void
+	***************************************************************************/
 	void StarBangBang::GRAPHICS::SetScreenScaleRatio(float x, float y)
 	{
 		screenScaleRatio.x = x;
