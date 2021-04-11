@@ -21,16 +21,35 @@ prior written consent of DigiPen Institute of Technology is prohibited.
 
 namespace StarBangBang
 {
+	/*!*************************************************************************
+	 * \brief
+	 * Script constructor.
+	 * Attaches the script to a game object.
+	 * \param obj
+	 * GameObject to attach to.
+	***************************************************************************/
 	Door::Door(GameObject* obj) : Script(obj), parent{ nullptr }
 	{
 
 	}
 
+	/*!*************************************************************************
+	 * \brief
+	 * Adds a key to the door.
+	 * \param k
+	 * Key to add.
+	***************************************************************************/
 	void Door::AddKey(Key* k)
 	{
 		keys.insert(k);
 	}
 
+	/*!*************************************************************************
+	 * \brief
+	 * Start function. Called once at the start of the scene.
+	 * \return
+	 * void
+	***************************************************************************/
 	void Door::Start()
 	{
 		for (auto k : keys)
@@ -40,6 +59,12 @@ namespace StarBangBang
 		open = false;
 	}
 
+	/*!*************************************************************************
+	 * \brief
+	 * Update function. Called once every frame.
+	 * \return
+	 * void
+	***************************************************************************/
 	void Door::Update()
 	{
 		if (IsDebug())
@@ -71,6 +96,12 @@ namespace StarBangBang
 
 	}
 
+	/*!*************************************************************************
+	 * \brief
+	 * Links this door objects to other doors (Sets this as parent).
+	 * \param doorList
+	 * Initializer list of door objects to link.
+	***************************************************************************/
 	void Door::Link(std::initializer_list<Door*> doorList)
 	{
 		for (auto door : doorList)
@@ -79,6 +110,12 @@ namespace StarBangBang
 		}
 	}
 
+	/*!*************************************************************************
+	 * \brief
+	 * Debug Function.
+	 * Disables the doors.
+	 * \return void
+	***************************************************************************/
 	void Door::Debug_Disable()
 	{
 		if (AEInputCheckTriggered(AEVK_K))
