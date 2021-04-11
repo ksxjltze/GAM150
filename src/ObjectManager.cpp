@@ -25,6 +25,15 @@ namespace StarBangBang
 	static const int NUM_MAX_LAYERS = 3;
 }
 
+/*!*************************************************************************
+ * \brief
+ * Finds a game object by name.
+ * \param name
+ * Name of the game object to find.
+ * \return
+ * Pointer to the game object if found.
+ * Returns nullptr if not found.
+***************************************************************************/
 StarBangBang::GameObject* StarBangBang::ObjectManager::Find(const std::string& name)
 {
 	for (auto gameObject : gameObjectList)
@@ -37,6 +46,16 @@ StarBangBang::GameObject* StarBangBang::ObjectManager::Find(const std::string& n
 	return nullptr;
 }
 
+/*!*************************************************************************
+ * \brief
+ * Adds a collider component to the game object.
+ * \param gameObject
+ * GameObject to attach the component to.
+ * \param isStatic
+ * True to set the collider to static, false to set it to dynamic
+ * \return
+ * Reference to the BoxCollider component that was added.
+***************************************************************************/
 StarBangBang::BoxCollider& StarBangBang::ObjectManager::AddCollider(GameObject* gameObject, bool isStatic)
 {
 	if (!gameObject->GetComponent<RigidBody>())
@@ -51,12 +70,30 @@ StarBangBang::BoxCollider& StarBangBang::ObjectManager::AddCollider(GameObject* 
 	
 }
 
+/*!*************************************************************************
+ * \brief
+ * Attaches an existing component to a game object.
+ * \param gameObject
+ * GameObject to attach the component to.
+ * \param component
+ * Component to attach.
+***************************************************************************/
 void StarBangBang::ObjectManager::AddComponent(GameObject* gameObject, GameComponent* component)
 {
 	componentList.push_back(component);
 	gameObject->AddComponent(component);
 }
 
+/*!*************************************************************************
+ * \brief
+ * Adds an image component to a game object.
+ * \param gameObject
+ * GameObject to attach the component to.
+ * \param sprite
+ * Sprite to be used for drawing the game object.
+ * \return
+ * Pointer to the Image Component that was added.
+***************************************************************************/
 StarBangBang::ImageComponent* StarBangBang::ObjectManager::AddImage(GameObject* gameObject, Sprite sprite)
 {
 	if (gameObject)
@@ -73,6 +110,14 @@ StarBangBang::ImageComponent* StarBangBang::ObjectManager::AddImage(GameObject* 
 	return nullptr;
 }
 
+/*!*************************************************************************
+ * \brief
+ * Childs a game object to another game object.
+ * \param child
+ * GameObject to child
+ * \param parent
+ * GameObject to set as parent
+***************************************************************************/
 void StarBangBang::ObjectManager::AddChildGameObject(GameObject* child, GameObject* parent)
 {
 	if (child && parent)
@@ -85,6 +130,12 @@ void StarBangBang::ObjectManager::AddChildGameObject(GameObject* child, GameObje
 	}
 }
 
+/*!*************************************************************************
+ * \brief
+ * Creates a new game Object.
+ * \return
+ * Pointer to the new game object.
+***************************************************************************/
 StarBangBang::GameObject* StarBangBang::ObjectManager::NewGameObject()
 {
 	GameObject* gameObject = new GameObject();
@@ -92,6 +143,14 @@ StarBangBang::GameObject* StarBangBang::ObjectManager::NewGameObject()
 	return gameObject;
 }
 
+/*!*************************************************************************
+ * \brief
+ * Creates a new game object and attaches it to a parent game object.
+ * \param parent
+ * Parent GameObject.
+ * \return
+ * Pointer to the new game object.
+***************************************************************************/
 StarBangBang::GameObject* StarBangBang::ObjectManager::NewGameObject(GameObject* parent)
 {
 	GameObject* gameObject = NewGameObject();
@@ -99,6 +158,14 @@ StarBangBang::GameObject* StarBangBang::ObjectManager::NewGameObject(GameObject*
 	return gameObject;
 }
 
+/*!*************************************************************************
+ * \brief
+ * Clones a game object. Copies the transform and components of the game object.
+ * \param gameObject
+ * GameObject to clone.
+ * \return
+ * The newly cloned game Object
+***************************************************************************/
 StarBangBang::GameObject* StarBangBang::ObjectManager::CloneGameObject(GameObject* gameObject)
 {
 	if (gameObject)
@@ -120,6 +187,12 @@ StarBangBang::GameObject* StarBangBang::ObjectManager::CloneGameObject(GameObjec
 	return nullptr;
 }
 
+/*!*************************************************************************
+ * \brief
+ * Destroys game object, freeing the allocated memory.
+ * \param gameObject
+ * GameObject to destroy.
+***************************************************************************/
 void StarBangBang::ObjectManager::DestroyGameObject(GameObject* gameObject)
 {
 	//Could have pretty high overhead, maybe change this in the future
@@ -157,6 +230,12 @@ void StarBangBang::ObjectManager::DestroyGameObject(GameObject* gameObject)
 	}
 }
 
+/*!*************************************************************************
+ * \brief
+ * Saves a game object to a file (WIP).
+ * \param gameObject
+ * Reference to the game object to serialize.
+***************************************************************************/
 void StarBangBang::ObjectManager::SaveGameObject(GameObject& gameObject)
 {
 	std::ofstream ofs;
@@ -181,6 +260,13 @@ void StarBangBang::ObjectManager::SaveGameObject(GameObject& gameObject)
 		fprintf(stderr, "Object Manager: ERROR WRITING TO FILE");
 }
 
+/*!*************************************************************************
+ * \brief
+ * Reads a game object from a file (WIP).
+ * \param path Path of the file to read from.
+ * \return
+ * Reference to the new game object.
+***************************************************************************/
 StarBangBang::GameObject& StarBangBang::ObjectManager::ReadGameObject(const char* path)
 {
 	std::ifstream ifs;
@@ -215,6 +301,10 @@ StarBangBang::GameObject& StarBangBang::ObjectManager::ReadGameObject(const char
 	return *gameObject;
 }
 
+/*!*************************************************************************
+ * \brief
+ * Frees all game objects.
+***************************************************************************/
 void StarBangBang::ObjectManager::FreeObjects()
 {
 	for (GameObject* obj : gameObjectList)
@@ -227,6 +317,10 @@ void StarBangBang::ObjectManager::FreeObjects()
 	gameObjectList.clear();
 }
 
+/*!*************************************************************************
+ * \brief
+ * Frees all components.
+***************************************************************************/
 void StarBangBang::ObjectManager::FreeComponents()
 {
 	for (GameComponent* component : componentList)
@@ -237,6 +331,10 @@ void StarBangBang::ObjectManager::FreeComponents()
 	componentList.clear();
 }
 
+/*!*************************************************************************
+ * \brief
+ * Initializes the sorting layer and invokes Start() on all game objects.
+***************************************************************************/
 void StarBangBang::ObjectManager::Init()
 {
 	layerMap.clear();
@@ -257,6 +355,10 @@ void StarBangBang::ObjectManager::Init()
 
 }
 
+/*!*************************************************************************
+ * \brief
+ * Draw function. Called once per frame, invokes Draw() on all game objects.
+***************************************************************************/
 void StarBangBang::ObjectManager::Draw()
 {
 	for (int i = 0; i < NUM_MAX_LAYERS; ++i)
@@ -268,14 +370,12 @@ void StarBangBang::ObjectManager::Draw()
 		}
 
 	}
-
-	//for (GameComponent* component : componentList)
-	//{
-	//	if (component->gameObject->visible && component->active)
-	//		component->Draw();
-	//}
 }
 
+/*!*************************************************************************
+ * \brief
+ * Draw function. Called once per frame, invokes Update() on all game objects.
+***************************************************************************/
 void StarBangBang::ObjectManager::Update()
 {
 	for (GameComponent* component : componentList)
@@ -288,6 +388,11 @@ void StarBangBang::ObjectManager::Update()
 	}
 }
 
+/*!*************************************************************************
+ * \brief
+ * LateUodate function. Called once per frame after Update(),
+ * invokes LateUpdate() on all game objects.
+***************************************************************************/
 void StarBangBang::ObjectManager::LateUpdate()
 {
 	for (GameComponent* component : componentList)
