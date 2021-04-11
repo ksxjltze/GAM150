@@ -21,4 +21,5 @@ namespace StarBangBang
 	extern s8 fontId;
 	extern s8 fontId2;
 	bool IsDebug();
+	bool LostFocus();
 }

@@ -34,6 +34,11 @@ namespace StarBangBang
 		return debug;
 	}
 
+	bool LostFocus()
+	{
+		return IsIconic(AESysGetWindowHandle());
+	}
+
 	void DisplayFps()
 	{
 		char strBuffer[100];
@@ -178,15 +183,8 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 	//Game Loop
 	while (gGameRunning)
 	{
-		// Informing the system about the loop's start
-		AESysFrameStart();
-		g_dt = static_cast<float>(AEFrameRateControllerGetFrameTime());
-
-		// Handling Input
-		AEInputUpdate();
-
 		HWND hWnd = AESysGetWindowHandle();
-		if (AEInputCheckPrev(AEVK_LALT))
+		/*if (AEInputCheckPrev(AEVK_LALT))
 		{
 			if (AEInputCheckTriggered(AEVK_RETURN))
 				GRAPHICS::ToggleFullscreen();
@@ -195,7 +193,33 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 				if (GRAPHICS::IsFullscreen())
 					ShowWindow(hWnd, SW_MINIMIZE);
 			}
+		}*/
+
+		if (GetAsyncKeyState(AEVK_LALT))
+		{
+			if (AEInputCheckTriggered(AEVK_RETURN))
+				GRAPHICS::ToggleFullscreen();
+			else if (GetAsyncKeyState(AEVK_TAB))
+				ShowWindow(hWnd, SW_MINIMIZE);
+
+			if (GetAsyncKeyState(AEVK_LCTRL) && GetAsyncKeyState(VK_DELETE))
+			{
+				ShowWindow(hWnd, SW_MINIMIZE);
+			}
+
 		}
+
+		if (GetFocus() == NULL)
+		{
+			ShowWindow(hWnd, SW_MINIMIZE);
+		}
+
+		// Informing the system about the loop's start
+		AESysFrameStart();
+		g_dt = static_cast<float>(AEFrameRateControllerGetFrameTime());
+
+		// Handling Input
+		AEInputUpdate();
 
 		// Events
 		MessageBus::Update();

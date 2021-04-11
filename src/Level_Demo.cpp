@@ -416,7 +416,7 @@ namespace StarBangBang
 	***************************************************************************/
 	void StarBangBang::Level_Demo::Update()
 	{
-		if (IsIconic(AESysGetWindowHandle()))
+		if (!paused && LostFocus())
 			TogglePause();
 
 		CameraComponent* camera = player->GetComponent<CameraComponent>();
