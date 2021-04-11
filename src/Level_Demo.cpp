@@ -143,6 +143,14 @@ namespace StarBangBang
 	StarBangBang::BoxCollider* playerCol;
 	StarBangBang::BoxCollider* clientCol;
 
+	/*!*************************************************************************
+	 * \brief
+	 * Scene constructor.
+	 * \param id
+	 * Scene id.
+	 * \param manager
+	 * Reference to the game state manager.
+	***************************************************************************/
 	StarBangBang::Level_Demo::Level_Demo(int id, GameStateManager& manager) : Scene(id, manager), tilemap{ objectManager, graphicsManager }
 	{
 		player = nullptr;
@@ -154,6 +162,12 @@ namespace StarBangBang
 		character = current_char::fei_ge;
 	}
 
+	/*!*************************************************************************
+	 * \brief
+	 * Loads all the sprites required to draw the game objects.
+	 * \return
+	 * void
+	***************************************************************************/
 	void StarBangBang::Level_Demo::Load()
 	{
 		//forward player 1
@@ -188,6 +202,12 @@ namespace StarBangBang
 		stealth_icon = graphicsManager.CreateSprite(RESOURCES::EYE_SPRITE_PATH);
 	}
 
+	/*!*************************************************************************
+	 * \brief
+	 * Initializes and creates game objects and the tile map.
+	 * \return
+	 * void
+	***************************************************************************/
 	//Initialization of game objects, components and scripts.
 	void StarBangBang::Level_Demo::Init()
 	{
@@ -244,15 +264,6 @@ namespace StarBangBang
 		indicatorObj = objectManager.NewGameObject();
 		objectManager.AddComponent<ImageComponent>(indicatorObj, indicator);
 		indicatorObj->transform.scale = {0.65f, 0.65f};
-		
-		//Compooter
-		//srand(static_cast<unsigned int>(time(NULL)));
-		//for (int i = 0; i < CONSTANTS::COMPUTER_COUNT; ++i)
-		//{
-		//	Grid& grid = PathFinder::GetWorldGrid();
-		//	A_Node n = grid.GetRandomFreeNode();
-		//	CaptainStealth::SpawnComputer(objectManager, computerSprite, n.nodePos);
-		//}
 
 		//Movement Manager
 		moveMgr.AddController(player);
@@ -344,6 +355,13 @@ namespace StarBangBang
 		confirm.SetText("Exit to title screen?");
 	}
 
+
+	/*!*************************************************************************
+	 * \brief
+	 * Updates the game objects.
+	 * \return
+	 * void
+	***************************************************************************/
 	void StarBangBang::Level_Demo::Update()
 	{
 		if (IsIconic(AESysGetWindowHandle()))
@@ -483,6 +501,12 @@ namespace StarBangBang
 
 	}
 
+	/*!*************************************************************************
+	 * \brief
+	 * Draws the game objects.
+	 * \return
+	 * void
+	***************************************************************************/
 	void StarBangBang::Level_Demo::Draw()
 	{
 		Scene::Draw();
@@ -494,12 +518,24 @@ namespace StarBangBang
 			DisplayPauseMenu();
 	}
 
+	/*!*************************************************************************
+	 * \brief
+	 * Frees allocated memory for game objects and components.
+	 * \return
+	 * void
+	***************************************************************************/
 	void StarBangBang::Level_Demo::Free()
 	{
 		PathFinder::Free();
 		Scene::Free();
 	}
 
+	/*!*************************************************************************
+	 * \brief
+	 * Unloads sprites.
+	 * \return
+	 * void
+	***************************************************************************/
 	void StarBangBang::Level_Demo::Unload()
 	{
 		tilemap.Unload();
@@ -509,16 +545,34 @@ namespace StarBangBang
 		pauseMenu.Reset();
 	}
 
+	/*!*************************************************************************
+	 * \brief
+	 * Displays the exit confirmation menu.
+	 * \return
+	 * void
+	***************************************************************************/
 	void Level_Demo::DisplayExitConfirmation()
 	{
 		pauseMenu.DisplayConfirmation();
 	}
 
+	/*!*************************************************************************
+	 * \brief
+	 * Exits the scene (callback).
+	 * \return
+	 * void
+	***************************************************************************/
 	void Level_Demo::Exit()
 	{
 		DisplayExitConfirmation();
 	}
 
+	/*!*************************************************************************
+	 * \brief
+	 * Displays the pause menu.
+	 * \return
+	 * void
+	***************************************************************************/
 	void Level_Demo::DisplayPauseMenu()
 	{
 		GRAPHICS::DrawOverlay(graphicsManager.GetMesh(), nullptr, { 40, 40 }, { 0, 0 }, { 0, 0, 0, 0.7f });
@@ -529,6 +583,12 @@ namespace StarBangBang
 		pauseMenu.confirmationObj->GetComponent<ConfirmationMenu>()->Draw();
 	}
 
+	/*!*************************************************************************
+	 * \brief
+	 * Toggles pause state.
+	 * \return
+	 * void
+	***************************************************************************/
 	void Level_Demo::TogglePause()
 	{
 		if (pauseMenu.CloseWindow())
@@ -544,11 +604,23 @@ namespace StarBangBang
 		}
 	}
 
+	/*!*************************************************************************
+	 * \brief
+	 * Toggles the settings menu.
+	 * \return
+	 * void
+	***************************************************************************/
 	void Level_Demo::ToggleSettings()
 	{
 		pauseMenu.DisplaySettings();
 	}
 
+	/*!*************************************************************************
+	 * \brief
+	 * Spawns the door objects.
+	 * \return
+	 * void
+	***************************************************************************/
 	void Level_Demo::SpawnDoors()
 	{
 		//////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -594,6 +666,10 @@ namespace StarBangBang
 		//////////////////////////////////////////////////////////////////////////////////////////////////////////
 	}
 
+	/*!*************************************************************************
+	 * \brief
+	 * Initializes the pause menu.
+	***************************************************************************/
 	void Level_Demo::InitPause()
 	{
 		///Pause
@@ -619,6 +695,18 @@ namespace StarBangBang
 		pauseMenu.settingsBtn->active = false;
 	}
 
+	/*!*************************************************************************
+	 * \brief
+	 * Creates a distraction object.
+	 * \param roomNum
+	 * Room to assign it to.
+	 * \param tileX
+	 * X position on the tilemap.
+	 * \param tileY
+	 * Y position on the tilemap.
+	 * \param sprite
+	 * Sprite of the distraction object.
+	***************************************************************************/
 	void Level_Demo::CreateDistraction(unsigned int roomNum, int tileX, int tileY, const Sprite& sprite)
 	{
 		GameObject* distraction = objectManager.NewGameObject();
@@ -628,6 +716,14 @@ namespace StarBangBang
 		objectManager.AddCollider(distraction, true).isTrigger = true;
 	}
 
+	/*!*************************************************************************
+	 * \brief
+	 * Creates a vent object.
+	 * \param tileX
+	 * X position on the tilemap.
+	 * \param tileY
+	 * Y position on the tilemap.
+	***************************************************************************/
 	void Level_Demo::CreateVent(int tileX, int tileY)
 	{
 		GameObject* vent = objectManager.NewGameObject();
