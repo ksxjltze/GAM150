@@ -29,16 +29,34 @@ namespace StarBangBang
 
 namespace StarBangBang
 {
+	/*!*************************************************************************
+	 * \brief 
+	 * Checks if the game is in debug mode.
+	 * \return 
+	 * True if in debug mode, false otherwise.
+	***************************************************************************/
 	bool IsDebug()
 	{
 		return debug;
 	}
 
+	/*!*************************************************************************
+	 * \brief 
+	 * Checks if the game window is in focus (not iconic).
+	 * \return 
+	 * True if focused, false otherwise
+	***************************************************************************/
 	bool LostFocus()
 	{
 		return IsIconic(AESysGetWindowHandle());
 	}
 
+	/*!*************************************************************************
+	 * \brief 
+	 * Displays the current FPS.
+	 * \return
+	 * void
+	***************************************************************************/
 	void DisplayFps()
 	{
 		char strBuffer[100];
