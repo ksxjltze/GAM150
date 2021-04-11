@@ -1,3 +1,18 @@
+/******************************************************************************/
+/*!
+\title		Captain Stealth
+\file		Text.cpp
+\author 	Lee Jia Keat
+\par    	email: l.jiakeat\@digipen.edu
+\date   	April 09, 2021
+\brief		Text component.
+			Draws text on the screen,
+			based on the position of the game object it is attached to.
+
+Copyright (C) 2021 DigiPen Institute of Technology Singapore. All
+rights reserved.
+*/
+/******************************************************************************/
 #include "Text.h"
 #include "GraphicsManager.h"
 #include "constants.h"

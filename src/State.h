@@ -10,9 +10,8 @@
 			Contains an Object Manager, Graphics Manager and Memory Manager instance.
 			Contains core functions Init, Load, Update, Draw, Free and Unload.
 
-Copyright (C) 2021 DigiPen Institute of Technology.
-Reproduction or disclosure of this file or its contents without the
-prior written consent of DigiPen Institute of Technology is prohibited.
+Copyright (C) 2021 DigiPen Institute of Technology Singapore. All
+rights reserved.
 */
 /******************************************************************************/
 

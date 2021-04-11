@@ -1,5 +1,18 @@
+/******************************************************************************/
+/*!
+\title		Captain Stealth
+\file		MovementManager.cpp
+\author 	Lee Jia Keat
+\par    	email: l.jiakeat@digipen.edu
+\date   	April 09, 2021
+\brief		Movement Manager script.
+			Manages movement controllers, allowing toggling between them.
+
+Copyright (C) 2021 DigiPen Institute of Technology Singapore. All
+rights reserved.
+*/
+/******************************************************************************/
 #include "MovementManager.h"
-#include <iostream>
 #include "CameraComponent.h"
 
 /*!*************************************************************************
@@ -64,7 +77,6 @@ void StarBangBang::MovementManager::Update()
 	{
 		SetActiveController(0);
 	}
-
 }
 
 /*!*************************************************************************
@@ -92,7 +104,6 @@ void StarBangBang::MovementManager::SetActiveController(int id)
 		return;
 
 	SetActiveController(controllers.at(id)->gameObject);
-
 }
 
 /*!*************************************************************************
