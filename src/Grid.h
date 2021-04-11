@@ -68,15 +68,98 @@ namespace StarBangBang
 		
 	public:
 		Cell* grid = nullptr;
+
+
+		/*!*************************************************************************
+		****
+			\brief
+				The parition grid constructor
+			\param cellSize
+				The size of a partition cells
+			\param buckets
+				The maximum number of elements in the partition grid
+			\return
+				void
+
+		****************************************************************************
+		***/
 		PartitionGrid(float cellSize = 100.0f, int buckets = 1024);
-		//create grid object
+
+		/*!*************************************************************************
+		****
+			\brief
+				A simple hash function that returns the index to the grid
+				based on a position in the world
+			\param pos
+				The position in the world
+			\return
+				The hash index base on the given param pos
+
+		****************************************************************************
+		***/
 		int GetHashCellIndex(AEVec2 pos);
+
+		/*!*************************************************************************
+		****
+			\brief
+				Clears all the bucket cell in the grid
+			\return
+				void
+
+		****************************************************************************
+		***/
 		void ClearAllBucketCell();
+
+		/*!*************************************************************************
+		****
+			\brief
+				Clears a bucket cell's colliders in the grid
+			\param index
+				The index to the bucket cell
+			\return
+				void
+
+		****************************************************************************
+		***/
 		void ClearABucketCell(int index);
 
+		/*!*************************************************************************
+		****
+			\brief
+				Get the partition cell node size
+			\param none
+				
+			\return
+				void
+
+		****************************************************************************
+		***/
 		inline float GetCellSize() const { return cellSize; }
-		//Cell& GetCell(int index);
+
+
+		/*!*************************************************************************
+		****
+			\brief
+				Get partition grid bucket size (grid array size)
+			\param none
+
+			\return
+				Partition grid bucket size (grid array size)
+
+		****************************************************************************
+		***/
 		inline int GetBucketSize() const { return buckets; }
+
+
+		/*!*************************************************************************
+		****
+			\brief
+				The parition grid destructor
+			\return
+				void
+
+		****************************************************************************
+		***/
 		~PartitionGrid();
 		
 	};
@@ -97,7 +180,17 @@ namespace StarBangBang
 		bool visible{ true };
 
 		//Debug function
-		//set all nodes to occupied
+		/*!*************************************************************************
+		****
+			\brief
+				Set the world grid nodes to all occupied  (debug purpose)
+			\param none
+
+			\return
+				void
+
+		****************************************************************************
+		***/
 		void SetAllOccupied();
 
 	public:
@@ -116,22 +209,152 @@ namespace StarBangBang
 		//get node size
 		constexpr float GetNodeSize() const { return nodeSize; }
 
+		/*!*************************************************************************
+		****
+			\brief
+				Toggle the visibility of the world grid
+			\param none
+
+			\return
+				void
+
+		****************************************************************************
+		***/
 		void ToggleVisible();
 
+		/*!*************************************************************************
+		****
+			\brief
+				Get a random non-occupied node
+			\param none
+
+			\return
+				A random node copy object
+
+		****************************************************************************
+		***/
 		A_Node GetRandomFreeNode();
+
+		/*!*************************************************************************
+		****
+			\brief
+				Sets a node base on param x & y occupied flag to param occupied
+			\param x
+				The second index of the grid (Width)
+			\param y
+				The first index of the grid (Height)
+			\return
+				void
+
+		****************************************************************************
+		***/
 		void SetOccupied(int x, int y, bool occupied = true);
+
+
+		/*!*************************************************************************
+		****
+			\brief
+				Draws the world grid
+			\param color
+				The outline color used to draw the grid
+			\return
+				void
+
+		****************************************************************************
+		***/
 		void DrawGrid(Color color = Green);
+
+		/*!*************************************************************************
+		****
+			\brief
+				Free the allocated memory for the A* grid
+			\return
+				void
+
+		****************************************************************************
+		***/
 		void FreeGrid(void);
-		//create grid object
+
+		/*!*************************************************************************
+		****
+			\brief
+				The function that creates a new grid 
+				automatically called by the constructor
+			\param _nodeSize
+				The size of each node
+			\param sizeX
+				The number of nodes along x-axis
+			\param sizeY
+				The number of nodes along y-axis
+			\param _offset
+				The position to place the grid
+			\return
+				void
+
+		****************************************************************************
+		***/
 		void CreateGrid(float _nodeSize, int sizeX, int sizeY, AEVec2 _offset);
-		
+	
+		/*!*************************************************************************
+		****
+			\brief
+				Get the 4 surrounding neighbours (up,down,left and right)
+				of the param node
+			\param node
+				The center node
+			\return
+				A vector container of 4 surrounding neighbours
+
+		****************************************************************************
+		***/
 		std::vector<A_Node*> Get8_NodeNeighbours(const A_Node* node);
+
+
+		/*!*************************************************************************
+		****
+			\brief
+				Get the 8 surrounding neighbours (up,down,left,right and the diagonals)
+				of the param node
+			\param node
+				The center node
+			\return
+				A vector container of 8 surrounding neighbours
+
+		****************************************************************************
+		***/
 		std::vector<A_Node*> Get4_NodeNeighbours(const A_Node* node);
 
+		/*!*************************************************************************
+		****
+			\brief
+				Gets a node object calculated base on the param pos
+				The relevant node object
+			\param pos
+				The position of the world
+			\return
+				The node* calculated base on world position
 
+		****************************************************************************
+		***/
 		A_Node* GetNodeFromPosition(AEVec2 pos) ;
-		float GetNodeSize() { return nodeSize; }
+	
+
+		/*!*************************************************************************
+		****
+			\brief
+				Gets a node object from the grid using param x & y
+			\param x
+				The second index of the grid (Width)
+			\param y
+				The first index of the grid (Height)
+			\return
+				The node* of grid[y]+x
+
+		****************************************************************************
+		***/
 		A_Node* GetNode(int x, int y) const;
+
+
 		Grid() = default;
 		
 		Grid(float _nodeSize, int sizeX, int sizeY, AEVec2 _offset = AEVec2{0.0f,0.0f});

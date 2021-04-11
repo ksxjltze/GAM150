@@ -140,7 +140,7 @@ using namespace StarBangBang;
 	/*!*************************************************************************
 	****
 		\brief
-			Frees the A* grid
+			Free the allocated memory for the A* grid
 		\return
 			void
 
@@ -189,7 +189,7 @@ using namespace StarBangBang;
 	****
 		\brief
 			The function that creates a new grid
-			called by the constructor
+			automatically called by the constructor
 		\param _nodeSize
 			The size of each node
 		\param sizeX

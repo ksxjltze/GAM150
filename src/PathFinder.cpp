@@ -135,6 +135,7 @@ void PathFinder::GridDraw()
 		Get a reference to the world grid data
 	\return
 		The world grid data reference
+
 ****************************************************************************
 ***/
 Grid& PathFinder::GetWorldGrid()
