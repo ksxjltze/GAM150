@@ -147,7 +147,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 	//// Using custom window procedure
 	AESysInit(hInstance, nCmdShow, (s32)GRAPHICS::TARGET_WINDOW_WIDTH, (s32)GRAPHICS::TARGET_WINDOW_HEIGHT, debug, 60, true, NULL);
 	StarBangBang::InitBasicMesh();
-	
+	StarBangBang::CollisionManager::CollisionManagerInit();
 	if (!debug)
 	{
 		//Full screen

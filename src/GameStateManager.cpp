@@ -24,11 +24,13 @@ prior written consent of DigiPen Institute of Technology is prohibited.
 
 namespace StarBangBang
 {
+	bool GameStateManager::isRunning = false;
+
 	/*!*************************************************************************
 	 * \brief
 	 * Default Constructor. Initializes the state pointers to null.
 	***************************************************************************/
-	GameStateManager::GameStateManager() : isRunning{ false }
+	GameStateManager::GameStateManager() 
 	{
 		currentState = nullptr;
 		prevState = nullptr;

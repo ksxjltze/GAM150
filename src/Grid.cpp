@@ -24,7 +24,7 @@ prior written consent of DigiPen Institute of Technology is prohibited.
 #include "BasicMeshShape.h"
 #include "Collider.h"
 #include "GraphicsManager.h"
-
+#include "GameStateManager.h"
 using namespace StarBangBang;
 
 
@@ -46,8 +46,39 @@ using namespace StarBangBang;
 	***/
 	PartitionGrid::PartitionGrid(float cellSize, int buckets) 
 	: cellSize{ cellSize }, buckets{ buckets },
-	grid{ new Cell[buckets]} {}
+	grid{ nullptr } 
+	{
+	
+	}
 
+	/*!*************************************************************************
+	****
+		\brief
+			Try to allocate memory needed for partition grid
+		\return
+			void
+
+	****************************************************************************
+	***/
+	void PartitionGrid::AllocateGrid()
+	{
+		try
+		{
+			grid = new Cell[buckets];
+		}
+		catch (const std::bad_alloc& exp)
+		{
+			std::cout << "Allocation failed for partition grid object:" << exp.what() << std::endl;
+
+			if (GRAPHICS::IsFullscreen())
+			{
+				GRAPHICS::ToggleFullscreen();
+			}
+			MessageBox(AESysGetWindowHandle(), "Fail to allocate memory on your machine! Please close some program!", "Error!", MB_OK);
+			//quit
+			GameStateManager::ExitGame();
+		}
+	}
 
 	/*!*************************************************************************
 	****
@@ -229,11 +260,16 @@ using namespace StarBangBang;
 		{
 			std::cout << "Allocation failed for grid object:" << exp.what() << std::endl;
 			
-			GRAPHICS::ToggleFullscreen();
+			if (GRAPHICS::IsFullscreen())
+			{
+				GRAPHICS::ToggleFullscreen();
+			}
 			MessageBox(AESysGetWindowHandle(), "Fail to allocate memory on your machine! Please close some program!", "Error!", MB_OK);
 			//quit
+			GameStateManager::ExitGame();
+
 		}
-	
+		
 	
 	/*	std::cout << "X:" << size_x << std::endl;
 		std::cout << "Y:" << size_y << std::endl;*/
