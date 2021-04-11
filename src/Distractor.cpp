@@ -1,3 +1,17 @@
+/*!*********************************************************************
+\title	  Captain Stealth
+\file     Distractor.cpp
+\author   Sim Chin Hin
+\par      DP email: s.chinhin\@digipen.edu
+\date     11/04/2021
+
+\brief
+		  This file contains the Distractor script class
+
+Copyright (C) 2021 DigiPen Institute of Technology.
+Reproduction or disclosure of this file or its contents without the
+prior written consent of DigiPen Institute of Technology is prohibited.
+***********************************************************************/
 #include "Distractor.h"
 #include "Collider.h"
 #include "DistractionEvent.h"
@@ -6,15 +20,26 @@
 #include "globals.h"
 
 const static float DISTRACT_DURATION = 20.0f;
-
+/*!*********************************************************************
+\brief
+	Distractor constructor
+\param	gameObject
+	gameObject that will be used
+***********************************************************************/
 StarBangBang::Distractor::Distractor(GameObject* gameObject) : Script(gameObject), activated{ false }, duration{ DISTRACT_DURATION}, timer{duration}, scaleTimer(0.f), roomNum(0)
 {
 }
-
+/*!*********************************************************************
+\brief
+	Start state of the distractor
+***********************************************************************/
 void StarBangBang::Distractor::Start()
 {
 }
-
+/*!*********************************************************************
+\brief
+	Update distractor's current state
+***********************************************************************/
 void StarBangBang::Distractor::Update()
 {
 	if (activated)
@@ -55,7 +80,10 @@ void StarBangBang::Distractor::Update()
 		}
 	}
 }
-
+/*!*********************************************************************
+\brief
+	Update distractor's time and animation when activated
+***********************************************************************/
 void StarBangBang::Distractor::onNotify(Event e)
 {
 	if (e.id == EventId::COLLISION && !activated)
@@ -66,7 +94,10 @@ void StarBangBang::Distractor::onNotify(Event e)
 	}
 
 }
-
+/*!*********************************************************************
+\brief
+	Sends distraction event to guards
+***********************************************************************/
 void StarBangBang::Distractor::SendDistractionEvent()
 {
 	activated = true;

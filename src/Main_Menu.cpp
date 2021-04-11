@@ -1,3 +1,18 @@
+/******************************************************************************/
+/*!
+\title		Captain Stealth
+\file		Main_Menu.cpp
+\author 	Sim Chin Hin
+\author2	Lee Jia Keat
+\par    	email: l.jiakeat\@digipen.edu
+\date   	April 09, 2021
+\brief		This file contains functions for main menu
+
+Copyright (C) 2021 DigiPen Institute of Technology.
+Reproduction or disclosure of this file or its contents without the
+prior written consent of DigiPen Institute of Technology is prohibited.
+*/
+/******************************************************************************/
 #include "Main_Menu.h"
 #include "constants.h"
 #include "Click.h"
@@ -16,6 +31,14 @@ namespace StarBangBang
 {
 	Sprite vending_machine_sprite;
 
+	/*!*********************************************************************
+	\brief
+		Non default constructor for main menu
+	\param id
+		scene id
+	\param manager
+		gamestate manger
+	***********************************************************************/
 	StarBangBang::Main_Menu::Main_Menu(int id, GameStateManager& manager) : Scene(id, manager), tilemap{ objectManager, graphicsManager }
 	{
 		tf = false;
@@ -26,7 +49,10 @@ namespace StarBangBang
 		exitbutton_obj = nullptr;
 		tutorialbutton_obj = nullptr;
 	}
-
+	/*!*********************************************************************
+	\brief
+		Load function for main menu scene
+	***********************************************************************/
 	void StarBangBang::Main_Menu::Load()
 	{
 		tilemap.Load(RESOURCES::LEVELS::LEVEL_MAIN_MENU_TEST_PATH);
@@ -46,7 +72,10 @@ namespace StarBangBang
 
 		vending_machine_sprite = graphicsManager.CreateSprite(RESOURCES::VENDING_LEFT_PATH);
 	}
-
+	/*!*********************************************************************
+	\brief
+		Initialise function for  main menu scene
+	***********************************************************************/
 	void StarBangBang::Main_Menu::Init()
 	{
 
@@ -119,7 +148,10 @@ namespace StarBangBang
 
 		frameSkip = true;
 	}
-
+	/*!*********************************************************************
+	\brief
+		Update function for main menu scene
+	***********************************************************************/
 	void StarBangBang::Main_Menu::Update()
 	{
 		//Hack to prevent input from being carried forward from previous scenes
@@ -158,64 +190,97 @@ namespace StarBangBang
 		Scene::Update();
 
 	}
-
+	/*!*********************************************************************
+	\brief
+		Draw function for main menu scene
+	***********************************************************************/
 	void StarBangBang::Main_Menu::Draw()
 	{
 		Scene::Draw();
 	}
-
+	/*!*********************************************************************
+	\brief
+		Free function for main menu scene
+	***********************************************************************/
 	void StarBangBang::Main_Menu::Free()
 	{
 		Scene::Free();
 		tilemap.Unload();
 	}
-
+	/*!*********************************************************************
+	\brief
+		Unload function for main menu scene
+	***********************************************************************/
 	void StarBangBang::Main_Menu::Unload()
 	{
 		Scene::Unload();
 		MessageBus::Notify({ EventId::STOP_SOUND });
 	}
-
+	/*!*********************************************************************
+	\brief
+		Loads level editor in main menu scene
+	***********************************************************************/
 	void Main_Menu::LoadEditor()
 	{
 		gameStateManager.SetNextGameState(SceneID::EDITOR);
 	}
-
+	/*!*********************************************************************
+	\brief
+		Loads tutorial in main menu scene
+	***********************************************************************/
 	void Main_Menu::LoadTutorial()
 	{
 		gameStateManager.SetNextGameState(SceneID::TUTORIAL);
 	}
-
+	/*!*********************************************************************
+	\brief
+		Loads level in main menu scene
+	***********************************************************************/
 	void Main_Menu::LoadLevel()
 	{
 		gameStateManager.SetNextGameState(SceneID::GAME);
 	}
-
+	/*!*********************************************************************
+	\brief
+		Loads credits in main menu scene
+	***********************************************************************/
 	void Main_Menu::Credits()
 	{
 		gameStateManager.SetNextGameState(CREDITS);
 	}
-
+	/*!*********************************************************************
+	\brief
+		Exit function for main menu scene
+	***********************************************************************/
 	void Main_Menu::ExitGame()
 	{
 		DisplayConfirmationMenu();
 		//gameStateManager.ExitGame();
 	}
-
+	/*!*********************************************************************
+	\brief
+		Settings in main menu scene
+	***********************************************************************/
 	void Main_Menu::Settings()
 	{
 		windowOpen = true;
 		settingsObj->SetActive(true);
 		windowQueue.push(settingsObj);
 	}
-
+	/*!*********************************************************************
+	\brief
+		 Display confirmation menu
+	***********************************************************************/
 	void Main_Menu::DisplayConfirmationMenu()
 	{
 		windowOpen = true;
 		confirmationObj->SetActive(true);
 		windowQueue.push(confirmationObj);
 	}
-
+	/*!*********************************************************************
+	\brief
+		Hides menu
+	***********************************************************************/
 	void Main_Menu::HideMenu()
 	{
 		logo_obj->active = !windowOpen;

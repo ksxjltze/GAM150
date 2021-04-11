@@ -1,3 +1,18 @@
+/*!*********************************************************************
+\title	  Captain Stealth
+\file     GuardAnim.cpp
+\author   Sim Chin Hin
+\par      DP email: s.chinhin\@digipen.edu
+\date     11/04/2021
+
+\brief
+		  This file contains the GuardAnim script class
+
+Copyright (C) 2021 DigiPen Institute of Technology.
+Reproduction or disclosure of this file or its contents without the
+prior written consent of DigiPen Institute of Technology is prohibited.
+***********************************************************************/
+
 #include "GuardAnim.h"
 #include "Physics.h"
 #include "globals.h"
@@ -24,19 +39,31 @@ namespace StarBangBang
 	static Sprite guardBackSprite2;
 	static Sprite guardBackSprite3;
 
+	/*!*********************************************************************
+	\brief
+		 Non default constructor
+	\param
+		gameObject
+	***********************************************************************/
 	GuardAnim::GuardAnim(GameObject* gameObject) 
 		: Script(gameObject)
 		, rb(nullptr)
 		, movement(nullptr)
 		, dir{ guard_direction::idle } 
 	{}
-
+	/*!*********************************************************************
+	\brief
+		 Initialising guard animations
+	***********************************************************************/
 	void GuardAnim::Start()
 	{
 		rb = gameObject->GetComponent<RigidBody>();
 		movement = gameObject->GetComponent<GuardMovement>();
 	}
-
+	/*!*********************************************************************
+	\brief
+		 Update guard animations
+	***********************************************************************/
 	void GuardAnim::Update()
 	{
 		if (movement->IsTurning())
@@ -146,7 +173,10 @@ namespace StarBangBang
 
 		}
 	}
-
+	/*!*********************************************************************
+	\brief
+		 Load guard's sprites
+	***********************************************************************/
 	void GuardAnim::Load(GraphicsManager& gfxMgr)
 	{
 		guardForwardSprite1 = gfxMgr.CreateSprite(RESOURCES::SECURITYGUARD_F1_PATH);

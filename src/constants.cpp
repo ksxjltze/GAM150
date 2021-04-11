@@ -1,7 +1,26 @@
+/*!*********************************************************************
+\title	  Captain Stealth
+\file     constants.cpp
+\author	  Sim Chin Hin
+\par      DP email: s.chinhin\@digipen.edu
+\date     11/4/2021
+
+\brief
+		  This file contains definitions of constants used
+		  throughout the game
+
+Copyright (C) 2021 DigiPen Institute of Technology.
+Reproduction or disclosure of this file or its contents without the
+prior written consent of DigiPen Institute of Technology is prohibited.
+***********************************************************************/
 #include "constants.h"
 
 namespace StarBangBang
 {
+	/*!*********************************************************************
+	\brief
+		Constants for SFX
+	***********************************************************************/
 	namespace SFX
 	{
 		const std::string&& DETECTED = "sfxGuardAlert";
@@ -12,14 +31,20 @@ namespace StarBangBang
 		const std::string&& VENT_OPEN = "sfxVentOpen";
 		const std::string&& FOOTSTEPS = "sfxFootsteps";
 	}
-
+	/*!*********************************************************************
+	\brief
+		Constants for BGM
+	***********************************************************************/
 	namespace BGM
 	{
 		const std::string&& MENU = "bgmMenu";
 		const std::string&& GAME = "bgmGame";
 		const std::string&& GAMEOVER = "bgmGameOver";
 	}
-	
+	/*!*********************************************************************
+	\brief
+		Constants for string tags
+	***********************************************************************/
 	namespace STRING_TAGS
 	{
 		const std::string&& NUMERALS_STRING				= "0123456789";
@@ -27,9 +52,16 @@ namespace StarBangBang
 		const std::string&& TILEMAP_HEIGHT_TAG			= "Height:";
 		const std::string&& TILEMAP_SIZE_TAG			= "Tile Size:";
 	}
+	/*!*********************************************************************
+	\brief
+		Constants for general resources
+	***********************************************************************/
 	namespace RESOURCES
 	{
-		//Folder paths
+		/*!*********************************************************************
+		\brief
+			Folder paths
+		***********************************************************************/
 		const std::string&& ROOT_PATH					= "./Resources/";
 		const std::string&& INTERACTABLE_PATH			= ROOT_PATH + "InteractableObj/";
 		const std::string&& LEVELS_PATH					= ROOT_PATH + "Levels/";
@@ -40,6 +72,10 @@ namespace StarBangBang
 		const std::string&& SFX_PATH					= ROOT_PATH + "SFX/";
 		const std::string&& BGM_PATH					= ROOT_PATH + "BGM/";
 
+		/*!*********************************************************************
+		\brief
+			SFX paths
+		***********************************************************************/
 		namespace SFX
 		{
 			const std::string&& SFX_KEY_PICKUP_PATH		= SFX_PATH + "keys.wav";
@@ -51,6 +87,10 @@ namespace StarBangBang
 			const std::string&& SFX_WALK_FOOTSTEPS_PATH	= SFX_PATH + "WalkingSound.wav";
 		}
 
+		/*!*********************************************************************
+		\brief
+			Levels paths
+		***********************************************************************/
 		namespace LEVELS
 		{
 			const std::string&& LEVEL_GAME_PATH = LEVELS_PATH + "test.txt";
@@ -58,7 +98,10 @@ namespace StarBangBang
 			const std::string&& COLLISION_TEST = LEVELS_PATH + "collision.csv";
 			const std::string&& LEVEL_TUTORIAL = LEVELS_PATH + "tutorial.csv";
 		}
-
+		/*!*********************************************************************
+		\brief
+			BGM paths
+		***********************************************************************/
 		namespace BGM
 		{
 			const std::string&& BGM_MENU_PATH = BGM_PATH + "menuBGM.wav";
@@ -66,7 +109,10 @@ namespace StarBangBang
 			const std::string&& BGM_GAMEOVER_PATH = BGM_PATH + "ggBgm.wav";
 		}
 		
-		//Images path
+		/*!*********************************************************************
+		\brief
+			Images folder path
+		***********************************************************************/
 		const std::string&& PROTOTYPE_SPRITE_1_PATH = ROOT_PATH + "PlanetTexture.png";
 		const std::string&& PROTOTYPE_SPRITE_2_PATH = ROOT_PATH + "boi.png";
 		const std::string&& PROTOTYPE_SPRITE_GRASS_PATH = ROOT_PATH + "grass.png";
@@ -74,7 +120,10 @@ namespace StarBangBang
 		const std::string&& SPRITE_PLAYER_PATH = ROOT_PATH + "player.png";
 		const std::string&& EYE_SPRITE_PATH = ROOT_PATH + "stealth_icon.png";
 
-		//main menu buttons sprites
+		/*!*********************************************************************
+		\brief
+			Main Menu button image paths
+		***********************************************************************/
 		const std::string&& PLAY1_BUTTON_PATH			= MAINMENU_PATH + "Play1.png";
 		const std::string&& PLAY2_BUTTON_PATH			= MAINMENU_PATH + "Play2.png";
 		const std::string&& RESUME_BUTTON_PATH			= MAINMENU_PATH + "ResumeGame.png";
@@ -93,7 +142,10 @@ namespace StarBangBang
 		const std::string&& CONFIRM_BUTTON_PATH			= MAINMENU_PATH + "confirmbutton.png";
 		const std::string&& CREDITS_PATH				= ROOT_PATH + "credits.png";
 
-		//Character sprites
+		/*!*********************************************************************
+		\brief
+			Character image paths
+		***********************************************************************/
 		const std::string&& CAPTAINSTEALTH_F1_PATH			= CHARACTERS_PATH + "CaptainStealthForward1.png";
 		const std::string&& CAPTAINSTEALTH_F2_PATH			= CHARACTERS_PATH + "CaptainStealthForward2.png";
 		const std::string&& CAPTAINSTEALTH_F3_PATH			= CHARACTERS_PATH + "CaptainStealthForward3.png";
@@ -142,7 +194,10 @@ namespace StarBangBang
 		const std::string&& SECURITYGUARD_R2_PATH			= CHARACTERS_PATH + "SecurityGuardRight2.png";
 		const std::string&& SECURITYGUARD_R3_PATH			= CHARACTERS_PATH + "SecurityGuardRight3.png";
 
-		//floortiles sprites
+		/*!*********************************************************************
+		\brief
+			Floortiles image paths
+		***********************************************************************/
 		const std::string&& BLACKBRICK_PATH					= FLOORTILES_PATH + "BlackBrick.png";
 		const std::string&& BLACKBRICK_UP_PATH				= FLOORTILES_PATH + "BlackBrickUp.png";
 		const std::string&& BLACKBRICK_DOWN_PATH			= FLOORTILES_PATH + "BlackBrickDown.png";
@@ -161,7 +216,10 @@ namespace StarBangBang
 		const std::string&& PRISONCELL_PATH					= FLOORTILES_PATH + "prisoncell.png";
 		const std::string&& DOOR_PATH						= FLOORTILES_PATH + "Door.png";
 
-		//interactable objects
+		/*!*********************************************************************
+		\brief
+			Interactable Object image paths
+		***********************************************************************/
 		const std::string&& CAMERA_PATH						= INTERACTABLE_PATH + "CameraUp.png";
 		const std::string&&	BIN_PATH						= INTERACTABLE_PATH + "bin.png";
 		const std::string&& BIN_RED_PATH					= INTERACTABLE_PATH + "bin1.png";
@@ -174,7 +232,10 @@ namespace StarBangBang
 		const std::string&& VENT_CLOSE_PATH					= INTERACTABLE_PATH + "VentClose.png";
 		const std::string&& VENT_OPEN_PATH					= INTERACTABLE_PATH + "VentOpen.png";
 
-		//misc objects
+		/*!*********************************************************************
+		\brief
+			Misc objects image paths
+		***********************************************************************/
 		const std::string&& INDICATOR_PATH					= MISC_PATH + "Indicator.png";
 		const std::string&& TABBUTTON_PATH					= MISC_PATH + "TabButton.png";
 		const std::string&& ARROWKEYS_PATH					= MISC_PATH + "UpDownLeftRight.png";

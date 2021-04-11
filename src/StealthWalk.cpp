@@ -1,3 +1,17 @@
+/*!*********************************************************************
+\title	  Captain Stealth
+\file     StealthWalk.cpp
+\author   Sim Chin Hin
+\par      DP email: s.chinhin\@digipen.edu
+\date     11/04/2021
+
+\brief
+		  This file contains script class for stealthwalk
+
+Copyright (C) 2021 DigiPen Institute of Technology.
+Reproduction or disclosure of this file or its contents without the
+prior written consent of DigiPen Institute of Technology is prohibited.
+***********************************************************************/
 #include "StealthWalk.h"
 #include "globals.h"
 #include "Collider.h"
@@ -10,13 +24,22 @@
 namespace StarBangBang
 {
 	
+	/*!*********************************************************************
+	\brief
+		Non-default constructor
 
+	\param gameObject
+		The game object that will use this script
+	***********************************************************************/
 	StealthWalk::StealthWalk(GameObject* gameObject) : Script(gameObject), 
 		image{ nullptr }, cd_txt{nullptr}, timer{ 0.0f }, cooldown{ 0.0f }
 	{
 		icon_image = nullptr;
 	}
-
+	/*!*********************************************************************
+	\brief
+		Initialise stealth walk
+	***********************************************************************/
 	void StealthWalk::Start()
 	{
 		
@@ -33,7 +56,10 @@ namespace StarBangBang
 		assert(icon_image);
 	
 	}
-
+	/*!*********************************************************************
+	\brief
+		Updates stealth walk status
+	***********************************************************************/
 	void StealthWalk::Update()
 	{	
 

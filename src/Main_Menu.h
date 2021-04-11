@@ -27,6 +27,14 @@ namespace StarBangBang
 	class Main_Menu: public Scene
 	{
 	public:
+		/*!*********************************************************************
+		\brief
+			Non default constructor for main menu
+		\param id
+			scene id
+		\param manager
+			gamestate manger
+		***********************************************************************/
 		Main_Menu(int id, GameStateManager& manager);
 
 		/*!*********************************************************************
