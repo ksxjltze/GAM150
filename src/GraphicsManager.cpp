@@ -34,7 +34,14 @@ namespace StarBangBang
 		static AEVec2 screenScaleRatio = {  TARGET_WINDOW_WIDTH / RESOLUTION_X, TARGET_WINDOW_HEIGHT / RESOLUTION_Y };
 	}
 
-	
+	/*!*************************************************************************
+	 * \brief
+	 * Loads a texture from the specified file path.
+	 * \param filePath
+	 * Path to the texture file.
+	 * \return
+	 * Pointer to the texture that was loaded.
+	***************************************************************************/
 	AEGfxTexture* StarBangBang::GraphicsManager::LoadTexture(const char* filePath)
 	{
 		AEGfxTexture* texture = AEGfxTextureLoad(filePath);
@@ -49,6 +56,16 @@ namespace StarBangBang
 		return nullptr;
 	}
 
+	/*!*************************************************************************
+	 * \brief
+	 * Creates a square mesh.
+	 * \param width
+	 * Width of the mesh
+	 * \param height
+	 * Height of the mesh
+	 * \return
+	 * Pointer to the mesh that was created.
+	***************************************************************************/
 	AEGfxVertexList* StarBangBang::GraphicsManager::CreateMesh(float width, float height)
 	{
 		AEGfxVertexList* mesh;
@@ -79,6 +96,12 @@ namespace StarBangBang
 		return nullptr;
 	}
 
+	/*!*************************************************************************
+	 * \brief
+	 * Gets the base mesh ("normalized").
+	 * \return
+	 * Pointer to the base mesh.
+	***************************************************************************/
 	AEGfxVertexList* StarBangBang::GraphicsManager::GetMesh()
 	{
 		if (normalizedMesh == nullptr)
@@ -88,27 +111,78 @@ namespace StarBangBang
 		return normalizedMesh;
 	}
 
+	/*!*************************************************************************
+	 * \brief
+	 * Creates a sprite.
+	 * Loads a new texture from the path, creates a new mesh from the input dimensions.
+	 * \param filePath
+	 * Path to the texture file.
+	 * \param width
+	 * Width of the mesh.
+	 * \param height
+	 * Height of the mesh
+	 * \return
+	 * The Sprite object that was created.
+	***************************************************************************/
 	StarBangBang::Sprite StarBangBang::GraphicsManager::CreateSprite(const char* filePath, float width, float height)
 	{
 		return Sprite(LoadTexture(filePath), CreateMesh(width, height));
 	}
 
+	/*!*************************************************************************
+	 * \brief
+	 * Creates a sprite.
+	 * Loads a new texture from the path, uses the base mesh if it exists,
+	 * creates it otherwise.
+	 * \param filePath
+	 * Path to the texture file.
+	 * \return
+	 * The Sprite object that was created.
+	***************************************************************************/
 	StarBangBang::Sprite StarBangBang::GraphicsManager::CreateSprite(const char* filePath)
 	{
 		return Sprite(LoadTexture(filePath), GetMesh());
 	}
 
+	/*!*************************************************************************
+	 * \brief
+	 * Creates a sprite.
+	 * Loads a new texture from the path, creates a new mesh from the input dimensions.
+	 * \param filePath
+	 * Path to the texture file.
+	 * \param width
+	 * Width of the mesh.
+	 * \param height
+	 * Height of the mesh
+	 * \return
+	 * The Sprite object that was created.
+	***************************************************************************/
 	StarBangBang::Sprite StarBangBang::GraphicsManager::CreateSprite(std::string filePath, float width, float height)
 	{
 		return CreateSprite(filePath.c_str(), width, height);
 	}
 
+	/*!*************************************************************************
+	 * \brief
+	 * Creates a sprite.
+	 * Loads a new texture from the path, uses the base mesh if it exists,
+	 * creates it otherwise.
+	 * \param filePath
+	 * Path to the texture file.
+	 * \return
+	 * The Sprite object that was created.
+	***************************************************************************/
 	StarBangBang::Sprite StarBangBang::GraphicsManager::CreateSprite(std::string filePath)
 	{
 		return CreateSprite(filePath.c_str());
 	}
 
-
+	/*!*************************************************************************
+	 * \brief
+	 * Unloads all textures that were loaded.
+	 * \return
+	 * void
+	***************************************************************************/
 	void StarBangBang::GraphicsManager::UnloadTextures()
 	{
 		for (AEGfxTexture* texture : textureList)
@@ -119,6 +193,12 @@ namespace StarBangBang
 		textureList.clear();
 	}
 
+	/*!*************************************************************************
+	 * \brief
+	 * Frees all meshes that were created.
+	 * \return
+	 * void
+	***************************************************************************/
 	void StarBangBang::GraphicsManager::FreeMeshes()
 	{
 		for (AEGfxVertexList* mesh : meshList)

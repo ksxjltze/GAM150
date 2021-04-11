@@ -232,17 +232,104 @@ namespace StarBangBang
 	class GraphicsManager
 	{
 	public:
+		/*!*************************************************************************
+		 * \brief 
+		 * Loads a texture from the specified file path.
+		 * \param filePath
+		 * Path to the texture file.
+		 * \return 
+		 * Pointer to the texture that was loaded.
+		***************************************************************************/
 		AEGfxTexture* LoadTexture(const char* filePath);
 
+		/*!*************************************************************************
+		 * \brief 
+		 * Creates a square mesh.
+		 * \param width
+		 * Width of the mesh
+		 * \param height
+		 * Height of the mesh
+		 * \return
+		 * Pointer to the mesh that was created.
+		***************************************************************************/
 		AEGfxVertexList* CreateMesh(float width, float height); //create new quad mesh
+
+		/*!*************************************************************************
+		 * \brief 
+		 * Gets the base mesh ("normalized").
+		 * \return
+		 * Pointer to the base mesh.
+		***************************************************************************/
 		AEGfxVertexList* GetMesh(); //get base quad mesh
 
+		/*!*************************************************************************
+		 * \brief 
+		 * Creates a sprite.
+		 * Loads a new texture from the path, creates a new mesh from the input dimensions.
+		 * \param filePath
+		 * Path to the texture file.
+		 * \param width
+		 * Width of the mesh.
+		 * \param height
+		 * Height of the mesh
+		 * \return
+		 * The Sprite object that was created.
+		***************************************************************************/
 		Sprite CreateSprite(const char* filePath, float width, float height); //create and use new quad mesh
+
+		/*!*************************************************************************
+		 * \brief
+		 * Creates a sprite.
+		 * Loads a new texture from the path, creates a new mesh from the input dimensions.
+		 * \param filePath
+		 * Path to the texture file.
+		 * \param width
+		 * Width of the mesh.
+		 * \param height
+		 * Height of the mesh
+		 * \return
+		 * The Sprite object that was created.
+		***************************************************************************/
 		Sprite CreateSprite(std::string filePath, float width, float height);
+
+		/*!*************************************************************************
+		 * \brief
+		 * Creates a sprite.
+		 * Loads a new texture from the path, uses the base mesh if it exists,
+		 * creates it otherwise.
+		 * \param filePath
+		 * Path to the texture file.
+		 * \return
+		 * The Sprite object that was created.
+		***************************************************************************/
 		Sprite CreateSprite(const char* filePath); //use base quad mesh
+
+		/*!*************************************************************************
+		 * \brief
+		 * Creates a sprite.
+		 * Loads a new texture from the path, uses the base mesh if it exists,
+		 * creates it otherwise.
+		 * \param filePath
+		 * Path to the texture file.
+		 * \return
+		 * The Sprite object that was created.
+		***************************************************************************/
 		Sprite CreateSprite(std::string filePath); //use base quad mesh
 
+		/*!*************************************************************************
+		 * \brief 
+		 * Unloads all textures that were loaded.
+		 * \return
+		 * void
+		***************************************************************************/
 		void UnloadTextures();
+
+		/*!*************************************************************************
+		 * \brief 
+		 * Frees all meshes that were created.
+		 * \return
+		 * void
+		***************************************************************************/
 		void FreeMeshes();
 
 	private:
