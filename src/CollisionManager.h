@@ -82,6 +82,19 @@ namespace StarBangBang
 	{
 		static bool debug = false;
 
+
+		/*!*************************************************************************
+		****
+			\brief
+				Initialize function for collision manager
+			\param none
+
+			\return
+				void
+		****************************************************************************
+		***/
+		void CollisionManagerInit();
+
 		/*!*************************************************************************
 		****
 			\brief

@@ -174,7 +174,7 @@ namespace StarBangBang
 		 * \return
 		 * void
 		***************************************************************************/
-		void ExitGame();
+		static void ExitGame();
 
 		/*!*************************************************************************
 		 * \brief 
@@ -184,7 +184,7 @@ namespace StarBangBang
 		***************************************************************************/
 		bool GetStatus();
 	private:
-		bool isRunning;
+		static bool isRunning;
 		bool stateChanged;
 		Scene* prevState;
 		Scene* currentState;

@@ -85,6 +85,9 @@ namespace StarBangBang
 		***/
 		PartitionGrid(float cellSize = 100.0f, int buckets = 1024);
 
+
+		void AllocateGrid();
+		
 		/*!*************************************************************************
 		****
 			\brief

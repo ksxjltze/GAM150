@@ -172,6 +172,24 @@ bool LineIntersect(const Ray& l1, const Ray& l2)
 	return false;
 }
 
+
+/*!*************************************************************************
+****
+	\brief
+		Initialize function for collision manager
+	\param none
+
+	\return
+		void
+****************************************************************************
+***/
+
+void CollisionManager::CollisionManagerInit()
+{
+	p_grid.AllocateGrid();
+}
+
+
 /*!*************************************************************************
 ****
 	\brief
