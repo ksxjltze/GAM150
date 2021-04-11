@@ -202,16 +202,6 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 	while (gGameRunning)
 	{
 		HWND hWnd = AESysGetWindowHandle();
-		/*if (AEInputCheckPrev(AEVK_LALT))
-		{
-			if (AEInputCheckTriggered(AEVK_RETURN))
-				GRAPHICS::ToggleFullscreen();
-			else if (AEInputCheckTriggered(AEVK_TAB))
-			{
-				if (GRAPHICS::IsFullscreen())
-					ShowWindow(hWnd, SW_MINIMIZE);
-			}
-		}*/
 
 		if (GetAsyncKeyState(AEVK_LALT))
 		{

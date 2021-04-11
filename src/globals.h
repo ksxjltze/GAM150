@@ -20,6 +20,20 @@ namespace StarBangBang
 	extern float g_dt;
 	extern s8 fontId;
 	extern s8 fontId2;
+
+	/*!*************************************************************************
+	 * \brief
+	 * Checks if the game is in debug mode.
+	 * \return
+	 * True if in debug mode, false otherwise.
+	***************************************************************************/
 	bool IsDebug();
+
+	/*!*************************************************************************
+	 * \brief
+	 * Checks if the game window is in focus (not iconic).
+	 * \return
+	 * True if focused, false otherwise
+	***************************************************************************/
 	bool LostFocus();
 }
