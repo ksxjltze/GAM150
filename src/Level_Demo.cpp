@@ -595,6 +595,8 @@ namespace StarBangBang
 	void StarBangBang::Level_Demo::Unload()
 	{
 		Scene::Unload();
+		MessageBus::Notify({ EventId::STOP_SOUND });
+		MessageBus::Notify({ EventId::PAUSE_MUSIC, false });
 	}
 
 	/*!*************************************************************************
