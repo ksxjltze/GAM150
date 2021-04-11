@@ -50,6 +50,7 @@ namespace StarBangBang
 		/*!*************************************************************************
 		 * \brief 
 		 * Listener callback. Invoked when an event is received from the Message Bus.
+		 * Listens for a PRINT_TEXT event.
 		 * \param e Event data.
 		***************************************************************************/
 		void onNotify(Event e);
