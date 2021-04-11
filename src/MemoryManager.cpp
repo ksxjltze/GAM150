@@ -18,23 +18,38 @@ prior written consent of DigiPen Institute of Technology is prohibited.
 
 #include "MemoryManager.h"
 
+/*!*************************************************************************
+ * \brief
+ * Default Constructor.
+***************************************************************************/
 StarBangBang::MemoryManager::MemoryManager()
 {
     objectManager = nullptr;
     graphicsManager = nullptr;
 }
 
+/*!*************************************************************************
+ * \brief
+ * Constructor, sets the pointers to the
+ * object manager and graphics manager objects of the scene.
+ *
+ * \param objectManager
+ * Pointer to the object manager.
+ * \param graphicsManager
+ * Pointer to the graphics manager.
+***************************************************************************/
 StarBangBang::MemoryManager::MemoryManager(ObjectManager* objectManager, GraphicsManager* graphicsManager)
 {
     this->objectManager = objectManager;
     this->graphicsManager = graphicsManager;
 }
 
-void StarBangBang::MemoryManager::Load()
-{
-
-}
-
+/*!*************************************************************************
+ * \brief
+ * Frees the game objects and components created by the object manager.
+ * \return
+ * void
+***************************************************************************/
 void StarBangBang::MemoryManager::Free()
 {
     if (objectManager)
@@ -45,6 +60,13 @@ void StarBangBang::MemoryManager::Free()
         
 }
 
+/*!*************************************************************************
+ * \brief
+ * Unloads and destroys the textures and meshes created by the
+ * graphics manager.
+ * \return
+ * void
+***************************************************************************/
 void StarBangBang::MemoryManager::Unload()
 {
     if (graphicsManager)
