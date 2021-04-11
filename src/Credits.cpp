@@ -25,21 +25,53 @@ namespace StarBangBang
 	const static float END_OFFSET = 50.0f;
 	static Sprite logoSprite;
 
-	void Credits::NewTextObject(AEVec2 position, const std::string& s, float scale, Color c)
+	/*!*************************************************************************
+	 * \brief
+	 * Creates a new text object.
+	 * \param position
+	 * Position to place the object.
+	 * \param textString
+	 * Text to display.
+	 * \param scale
+	 * Scale of the text.
+	 * \param textColor
+	 * Color of the text
+	***************************************************************************/
+	void Credits::NewTextObject(AEVec2 position, const std::string& textString, float scale, Color textColor)
 	{
-		objectManager.AddComponent<Text>(objectManager.NewGameObject(), s, fontId2, c, scale).gameObject->transform.position = position;
+		objectManager.AddComponent<Text>(objectManager.NewGameObject(), textString, fontId2, textColor, scale).gameObject->transform.position = position;
 	}
 
+	/*!*************************************************************************
+	 * \brief
+	 * Scene constructor.
+	 * \param id
+	 * Scene Id
+	 * \param gsm
+	 * Reference to the game state manager
+	***************************************************************************/
 	StarBangBang::Credits::Credits(int id, GameStateManager& gsm) : Scene(id, gsm)
 	{
 
 	}
 
+	/*!*************************************************************************
+	 * \brief
+	 * Load.
+	 * \return
+	 * void
+	***************************************************************************/
 	void StarBangBang::Credits::Load()
 	{
 		logoSprite = graphicsManager.CreateSprite(RESOURCES::LOGO_PATH);
 	}
 
+	/*!*************************************************************************
+	 * \brief
+	 * Init.
+	 * \return
+	 * void
+	***************************************************************************/
 	void StarBangBang::Credits::Init()
 	{
 		float spacing = -35.0f;
@@ -111,6 +143,12 @@ namespace StarBangBang
 		end->transform.position = { pos.x, pos.y };
 	}
 
+	/*!*************************************************************************
+	 * \brief
+	 * Update.
+	 * \return
+	 * void
+	***************************************************************************/
 	void StarBangBang::Credits::Update()
 	{
 		float speed = CAMERA_SPEED;
@@ -136,16 +174,34 @@ namespace StarBangBang
 		Scene::Update();
 	}
 
+	/*!*************************************************************************
+	 * \brief
+	 * Draw.
+	 * \return
+	 * void
+	***************************************************************************/
 	void StarBangBang::Credits::Draw()
 	{
 		Scene::Draw();
 	}
 
+	/*!*************************************************************************
+	 * \brief
+	 * Free.
+	 * \return
+	 * void
+	***************************************************************************/
 	void StarBangBang::Credits::Free()
 	{
 		Scene::Free();
 	}
 
+	/*!*************************************************************************
+	 * \brief
+	 * Unload.
+	 * \return
+	 * void
+	***************************************************************************/
 	void StarBangBang::Credits::Unload()
 	{
 		Scene::Unload();
