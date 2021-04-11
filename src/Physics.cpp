@@ -45,7 +45,7 @@ inverse_mass{ 1.0f }, mass{1.0f}, drag{ 0.1f }, velocity{ AEVec2{ 0,0 } }
 /*!*************************************************************************
 ****
 	\brief
-		Get the normalized velocity
+		Get the normalized velocity of the rigidbody
 	\param none
 		
 	\return
@@ -108,7 +108,6 @@ void RigidBody::SetMass(float m)
 ****
 	\brief
 		Rigidbody update function
-		Rigidbody's Physics calculation update
 	\param none
 		
 	\return
