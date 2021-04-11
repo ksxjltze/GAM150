@@ -5,42 +5,105 @@
 using namespace StarBangBang;
 
 
+/*!*************************************************************************
+ * \brief
+ * Component Constructor.
+ * Attaches the component to a game object.
+ * \param gameObject
+ * GameObject to attach to.
+***************************************************************************/
 Text::Text(GameObject* gameObject) : Component(gameObject), textbox{ TextBox() }, fontID{ -1 }, text{ std::string("HELO") }, scale{ 1.0f }
 {
 	gameObject->SetLayer(LAYER::UI);
 }
 
-StarBangBang::Text::Text(GameObject* gameObject, const std::string& s, s8 fontId, Color c, float scale, bool isWorld) : Component(gameObject), textbox{ TextBox() }, fontID{ fontId }, text{ s }, scale{ scale }, color{ c }, isWorld{ isWorld }
+/*!*************************************************************************
+ * \brief
+ * Component Constructor.
+ * Attaches the component to a game object.
+ * Sets the text string, font, color and scale of the text object.
+ *
+ * \param gameObject
+ * GameObject to attach to.
+ *
+ * \param textString
+ * String to display.
+ *
+ * \param fontId
+ * Font to use.
+ *
+ * \param textColor
+ * Color of the text.
+ *
+ * \param textScale
+ * Scale of the text.
+ *
+ * \param isWorld
+ * Whether the text object should use world position or screen position (Percentage)
+***************************************************************************/
+StarBangBang::Text::Text(GameObject* gameObject, const std::string& textString, s8 fontId, Color textColor, float textScale, bool isWorld) : Component(gameObject), textbox{ TextBox() }, fontID{ fontId }, text{ textString }, scale{ textScale }, color{ textColor }, isWorld{ isWorld }
 {
 	gameObject->SetLayer(LAYER::UI);
 }
 
+/*!*************************************************************************
+ * \brief
+ * Sets the offset from the game object position.
+ * \param offset
+ * Vector to offset by.
+***************************************************************************/
 void StarBangBang::Text::SetOffset(AEVec2 newOffset)
 {
 	offset = newOffset;
 }
 
+/*!*************************************************************************
+ * \brief
+ * Sets the text to display.
+ * \param textString
+ * String to display.
+***************************************************************************/
 void StarBangBang::Text::SetText(const std::string& s)
 {
 	text = s;
 }
 
+/*!*************************************************************************
+ * \brief
+ * Sets the textbox dimensions.
+ * \param width Width of the textbox.
+ * \param height Height of the textbox.
+***************************************************************************/
 void StarBangBang::Text::SetTextBox(float width, float height)
 {
 	textbox.width = width;
 	textbox.height = height;
 }
 
+/*!*************************************************************************
+ * \brief
+ * Sets the scale of the text.
+ * \param textScale
+ * Scale of the text.
+***************************************************************************/
 void StarBangBang::Text::SetScale(float newScale)
 {
 	scale = newScale;
 }
 
+/*!*************************************************************************
+ * \brief
+ * Start function. Called once at the start of the scene.
+***************************************************************************/
 void StarBangBang::Text::Start()
 {
 
 }
 
+/*!*************************************************************************
+ * \brief
+ * Draw function. Called once every frame.
+***************************************************************************/
 void Text::Draw()
 {
 	if (fontID == -1)
@@ -95,7 +158,13 @@ void Text::Draw()
 	}
 }
 
-void StarBangBang::Text::SetColor(Color c)
+/*!*************************************************************************
+ * \brief
+ * Sets the color of the text.
+ * \param textColor
+ * Color to set.
+***************************************************************************/
+void StarBangBang::Text::SetColor(Color textColor)
 {
-	color = c;
+	color = textColor;
 }
