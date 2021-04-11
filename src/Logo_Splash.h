@@ -30,11 +30,67 @@ namespace StarBangBang
 	class LogoSplash : public Scene
 	{
 	public:
-		
+
+		/*!*************************************************************************
+		****
+			\brief
+				LogoSplash constructor
+			\param int
+				The scene id
+			\param gsm
+				The gamestate manager reference
+			\return
+				void
+		****************************************************************************
+		***/
 		LogoSplash(int id, GameStateManager& gsm);
+
+		/*!*************************************************************************
+		****
+			\brief
+				Splash screen load function
+			\param none
+
+			\return
+				void
+		****************************************************************************
+		***/
 		void Load();
+
+		/*!*************************************************************************
+		****
+			\brief
+				Splashscreen initialize function
+			\param none
+
+			\return
+				void
+		****************************************************************************
+		***/
 		void Init();
+
+		/*!*************************************************************************
+		****
+			\brief
+				Splashscreen draw function
+			\param none
+
+			\return
+				void
+		****************************************************************************
+		***/
 		void Draw();
+
+		/*!*************************************************************************
+		****
+			\brief
+				Splashscreen update function
+			\param none
+
+			\return
+				void
+		****************************************************************************
+		***/
 		void Update();
 
 

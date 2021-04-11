@@ -159,7 +159,7 @@ StarBangBang::LogoSplash::LogoSplash(int id, GameStateManager& gsm) : Scene(id, 
 /*!*************************************************************************
 ****
 	\brief
-		Gamestate load function
+		Splashscreen load function
 	\param none
 
 	\return
@@ -180,7 +180,7 @@ void StarBangBang::LogoSplash::Load()
 /*!*************************************************************************
 ****
 	\brief
-		Gamestate initialize function
+		Splashscreen initialize function
 	\param none
 
 	\return
@@ -203,7 +203,7 @@ void StarBangBang::LogoSplash::Init()
 /*!*************************************************************************
 ****
 	\brief
-		Gamestate update function
+		Splashscreen update function
 	\param none
 
 	\return
@@ -229,7 +229,7 @@ void StarBangBang::LogoSplash::Update()
 /*!*************************************************************************
 ****
 	\brief
-		Gamestate draw function
+		Splashscreen draw function
 	\param none
 
 	\return
