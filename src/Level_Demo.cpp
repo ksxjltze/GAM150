@@ -632,6 +632,12 @@ namespace StarBangBang
 		DisplayExitConfirmation();
 	}
 
+	/*!*************************************************************************
+	 * \brief
+	 * Restarts the game (callback).
+	 * \return
+	 * void
+	***************************************************************************/
 	void Level_Demo::Restart()
 	{
 		DisplayRestartConfirmation();
