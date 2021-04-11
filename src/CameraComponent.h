@@ -23,14 +23,48 @@ namespace StarBangBang
 	class CameraComponent : public Component<CameraComponent>
 	{
 	public:
+		/*!*************************************************************************
+		 * \brief 
+		 * Component Constructor.
+		 * Attaches the component to a game object.
+		 * \param gameObject
+		 * GameObject to attach to.
+		***************************************************************************/
 		CameraComponent(GameObject* gameObject);
+
+		/*!*************************************************************************
+		 * \brief 
+		 * LateUpdate function. Called once per frame after Update().
+		***************************************************************************/
 		void LateUpdate();
+
+		/*!*************************************************************************
+		 * \brief 
+		 * Sets the Camera Target to follow.
+		 * \param obj
+		 * GameObject to follow.
+		***************************************************************************/
+		void SetTarget(GameObject* obj);
+
+		/*!*************************************************************************
+		 * \brief 
+		 * Enables or disables Camera Zoom.
+		 * \param zoom
+		 * True to enable camera zoom, false to disable.
+		***************************************************************************/
+		void EnableZoom(bool zoom);
+
+		/*!*************************************************************************
+		 * \brief 
+		 * Gets the camera target (GameObject).
+		 * \return 
+		 * GameObject pointer to the camera target.
+		***************************************************************************/
+		GameObject* GetTarget();
+
 		AEVec2 position;
 		float scale;
 		float scaleFactor;
-		void SetTarget(GameObject* obj);
-		void EnableZoom(bool zoom);
-		GameObject* GetTarget();
 	private:
 		bool isZoom{ false };
 		GameObject* target;
