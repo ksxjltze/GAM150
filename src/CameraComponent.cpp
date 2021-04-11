@@ -18,6 +18,13 @@ prior written consent of DigiPen Institute of Technology is prohibited.
 #include "CameraComponent.h"
 #include "GraphicsManager.h"
 
+/*!*************************************************************************
+	* \brief
+	* Component Constructor.
+	* Attaches the component to a game object.
+	* \param gameObject
+	* GameObject to attach to.
+***************************************************************************/
 StarBangBang::CameraComponent::CameraComponent(GameObject* gameObject) : Component<CameraComponent>(gameObject)
 {
 	position = { 0, 0 };
@@ -26,6 +33,10 @@ StarBangBang::CameraComponent::CameraComponent(GameObject* gameObject) : Compone
 	target = gameObject;
 }
 
+/*!*************************************************************************
+ * \brief
+ * LateUpdate function. Called once per frame after Update().
+***************************************************************************/
 void StarBangBang::CameraComponent::LateUpdate()
 {
 	float dt = static_cast<float>(AEFrameRateControllerGetFrameTime());
@@ -61,16 +72,34 @@ void StarBangBang::CameraComponent::LateUpdate()
 	GRAPHICS::SetCameraPosition(position.x, position.y);
 }
 
+/*!*************************************************************************
+ * \brief
+ * Sets the Camera Target to follow.
+ * \param obj
+ * GameObject to follow.
+***************************************************************************/
 void StarBangBang::CameraComponent::SetTarget(GameObject* obj)
 {
 	target = obj;
 }
 
+/*!*************************************************************************
+ * \brief
+ * Enables or disables Camera Zoom.
+ * \param zoom
+ * True to enable camera zoom, false to disable.
+***************************************************************************/
 void StarBangBang::CameraComponent::EnableZoom(bool zoom)
 {
 	isZoom = zoom;
 }
 
+/*!*************************************************************************
+ * \brief
+ * Gets the camera target (GameObject).
+ * \return
+ * GameObject pointer to the camera target.
+***************************************************************************/
 StarBangBang::GameObject* StarBangBang::CameraComponent::GetTarget()
 {
 	return target;

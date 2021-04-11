@@ -21,15 +21,78 @@ namespace StarBangBang
 	class Credits : public Scene
 	{
 	public:
+		/*!*************************************************************************
+		 * \brief 
+		 * Scene constructor.
+		 * \param id
+		 * Scene Id
+		 * \param gsm
+		 * Reference to the game state manager
+		***************************************************************************/
 		Credits(int id, GameStateManager& gsm);
+
+		/*!*************************************************************************
+		 * \brief 
+		 * Load.
+		 * \return
+		 * void
+		***************************************************************************/
 		void Load();
+
+		/*!*************************************************************************
+		 * \brief
+		 * Init.
+		 * \return
+		 * void
+		***************************************************************************/
 		void Init();
+
+		/*!*************************************************************************
+		 * \brief
+		 * Update.
+		 * \return
+		 * void
+		***************************************************************************/
 		void Update();
+
+		/*!*************************************************************************
+		 * \brief
+		 * Draw.
+		 * \return
+		 * void
+		***************************************************************************/
 		void Draw();
+
+		/*!*************************************************************************
+		 * \brief
+		 * Free.
+		 * \return
+		 * void
+		***************************************************************************/
 		void Free();
+
+		/*!*************************************************************************
+		 * \brief
+		 * Unload.
+		 * \return
+		 * void
+		***************************************************************************/
 		void Unload();
 	private:
-		void NewTextObject(AEVec2 position, const std::string& s, float scale = 1.0f, Color c = White);
+
+		/*!*************************************************************************
+		 * \brief 
+		 * Creates a new text object.
+		 * \param position
+		 * Position to place the object.
+		 * \param textString
+		 * Text to display.
+		 * \param scale
+		 * Scale of the text.
+		 * \param textColor
+		 * Color of the text
+		***************************************************************************/
+		void NewTextObject(AEVec2 position, const std::string& textString, float scale = 1.0f, Color textColor = White);
 		GameObject* cameraObject{ nullptr };
 		GameObject* end{ nullptr };
 	};

@@ -13,7 +13,6 @@
 #include "SceneList.h"
 
 #include "BasicMeshShape.h"
-#include "CollisionTest.h"
 #include "globals.h"
 #include "MessageBus.h"
 
@@ -204,7 +203,6 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 		// Update State
 		gameStateManager.Update();
 
-		StarBangBang::PathFinderTest();
 		CollisionManager::ResolverUpdate();
 		
 		if (debug)

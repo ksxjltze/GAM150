@@ -22,38 +22,83 @@ namespace StarBangBang
 {
 	const static float FULLSCREEN_SCALE = 2.0f;
 
-
-
+	/*!*************************************************************************
+	 * \brief
+	 * Component Constructor.
+	 * Attaches the component to a game object.
+	 * \param gameObject
+	 * GameObject to attach to.
+	 * \param gfx
+	 * GraphicsManager reference.
+	 * \param rescale
+	 * True to rescale during full screen, false to let AlphaEngine scale it ins
+	***************************************************************************/
 	UIComponent::UIComponent(GameObject* gameObject, GraphicsManager& gfx, bool rescale) : Component(gameObject), transparency{1.0f}, gfxMgr{ gfx }, rescale{ rescale }
 	{
 
 	}
 
-	UIComponent::UIComponent(GameObject* gameObject, Sprite s, GraphicsManager& gfx, bool rescale) : Component(gameObject), transparency{ 1.0f } ,sprite{ s }, gfxMgr{ gfx }, rescale{ rescale }
+	/*!*************************************************************************
+	 * \brief
+	 * Component Constructor.
+	 * Attaches the component to a game object.
+	 * \param gameObject
+	 * GameObject to attach to.
+	 * \param uiSprite
+	 * Sprite to use for drawing.
+	 * \param gfx
+	 * GraphicsManager reference.
+	 * \param rescale
+	 * True to rescale during full screen, false to let AlphaEngine scale it instead.
+	***************************************************************************/
+	UIComponent::UIComponent(GameObject* gameObject, Sprite uiSprite, GraphicsManager& gfx, bool rescale) : Component(gameObject), transparency{ 1.0f } ,sprite{ uiSprite }, gfxMgr{ gfx }, rescale{ rescale }
 	{
 
 	}
 
-	void UIComponent::SetColor(Color c)
+	/*!*************************************************************************
+	 * \brief
+	 * Sets the color of the sprite.
+	 * \param spriteColor
+	***************************************************************************/
+	void UIComponent::SetColor(Color spriteColor)
 	{
-		sprite.color = c;
+		sprite.color = spriteColor;
 	}
 
+	/*!*************************************************************************
+	 * \brief
+	 * Start function. Called once at the start of the scene.
+	***************************************************************************/
 	void UIComponent::Start()
 	{
 
 	}
 
+	/*!*************************************************************************
+	 * \brief
+	 * Update function. Called once every frame.
+	***************************************************************************/
 	void UIComponent::Update()
 	{
 
 	}
 
-	void UIComponent::SetTransparency(float a)
+	/*!*************************************************************************
+	 * \brief
+	 * Set the transparency of the object.
+	 * \param alpha
+	 * Transparency value.
+	***************************************************************************/
+	void UIComponent::SetTransparency(float alpha)
 	{
-		transparency = a;
+		transparency = alpha;
 	}
 
+	/*!*************************************************************************
+	 * \brief
+	 * Draw function. Called once every frame.
+	***************************************************************************/
 	void UIComponent::Draw()
 	{
 		if (gameObject->active)

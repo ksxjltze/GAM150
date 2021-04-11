@@ -33,6 +33,14 @@ namespace StarBangBang
 		{BrushMode::SINGLE, "SINGLE"}, {BrushMode::CROSS, "CROSS"}, {BrushMode::SQUARE, "SQUARE"}
 	};
 
+	/*!*************************************************************************
+	 * \brief 
+	 * Brush pre-increment operator.
+	 * \param mode
+	 * Reference to the brush mode to increment.
+	 * \return 
+	 * Reference to the incremented brush mode.
+	***************************************************************************/
 	BrushMode& operator++(BrushMode& mode)
 	{
 		BrushMode m = BrushMode(static_cast<int>(mode) + 1);
@@ -45,6 +53,14 @@ namespace StarBangBang
 		return mode;
 	}
 
+	/*!*************************************************************************
+	 * \brief
+	 * Brush post-increment operator.
+	 * \param mode
+	 * Reference to the brush mode to increment.
+	 * \return
+	 * Copy of the brush mode before increment.
+	***************************************************************************/
 	BrushMode operator++(BrushMode& mode, int)
 	{
 		BrushMode m = mode;
@@ -52,6 +68,14 @@ namespace StarBangBang
 		return m;
 	}
 
+	/*!*************************************************************************
+	 * \brief 
+	 * Highlights the node tha the mouse is hovering over.
+	 * \param grid
+	 * Reference to the grid of nodes.
+	 * \return
+	 * void
+	***************************************************************************/
 	void HighLightGridNode(Grid& grid)
 	{
 		AEVec2 mousePos = GetMouseWorldPos(true);
@@ -60,21 +84,45 @@ namespace StarBangBang
 			DrawCircle(grid.GetNodeSize() / 2, n->nodePos);
 	}
 
+	/*!*************************************************************************
+	 * \brief
+	 * Scene Constructor.
+	 * \param id
+	 * Scene Id
+	 * \param manager
+	 * Reference to the game state manager.
+	***************************************************************************/
 	LevelEditor::LevelEditor(int id, GameStateManager& manager) : Scene(id, manager), tileMap{ objectManager, graphicsManager }, selectedType{ TileType::STONE }, brushMode{BrushMode::SINGLE}
 	{
 		
 	}
 
+	/*!*************************************************************************
+	 * \brief
+	 * Destructor.
+	***************************************************************************/
 	LevelEditor::~LevelEditor()
 	{
 
 	}
 
+	/*!*************************************************************************
+	 * \brief
+	 * Load.
+	 * \return
+	 * void
+	***************************************************************************/
 	void LevelEditor::Load()
 	{
 		GRAPHICS::SetBackgroundColor(Blue);
 	}
 
+	/*!*************************************************************************
+	 * \brief
+	 * Initializes  the tile map, camera, tile types, etc.
+	 * \return
+	 * void
+	***************************************************************************/
 	void LevelEditor::Init()
 	{		
 		filepath = RESOURCES::LEVELS::LEVEL_GAME_PATH;
@@ -101,6 +149,12 @@ namespace StarBangBang
 		tileImg->SetTransparency(0.85f);
 	}
 
+	/*!*************************************************************************
+	 * \brief
+	 * Updates the editor.
+	 * \return
+	 * void
+	***************************************************************************/
 	void LevelEditor::Update()
 	{
 		Scene::Update();
@@ -217,6 +271,12 @@ namespace StarBangBang
 
 	}
 
+	/*!*************************************************************************
+	 * \brief
+	 * Draws.
+	 * \return
+	 * void
+	***************************************************************************/
 	void LevelEditor::Draw()
 	{
 		Scene::Draw();
@@ -248,33 +308,71 @@ namespace StarBangBang
 
 	}
 
+	/*!*************************************************************************
+	 * \brief
+	 * Frees the tile map.
+	 * \return void
+	***************************************************************************/
 	void LevelEditor::Free()
 	{
 		Scene::Free();
 		grid.FreeGrid();
 	}
 
+	/*!*************************************************************************
+	 * \brief
+	 * Unload.
+	 * \return void
+	***************************************************************************/
 	void LevelEditor::Unload()
 	{
 		tileMap.Unload();
 		Scene::Unload();
 	}
 
+	/*!*************************************************************************
+	 * \brief
+	 * Inserts a tile at the specified node.
+	 * \param n
+	 * Node to insert at.
+	***************************************************************************/
 	void LevelEditor::InsertTile(A_Node* n)
 	{
 		tileMap.Insert(n->index_x, n->index_y, selectedType);
 	}
 
+	/*!*************************************************************************
+	 * \brief
+	 * Removes the tile at the specified node.
+	 * \param n
+	 * Node to remove tile from.
+	***************************************************************************/
 	void LevelEditor::RemoveTile(A_Node* n)
 	{
 		tileMap.Erase(n->index_x, n->index_y);
 	}
 
+	/*!*************************************************************************
+	 * \brief
+	 * Saves the tile map.
+	 * \param path
+	 * Path to save to.
+	 * \return
+	 * void
+	***************************************************************************/
 	void LevelEditor::SaveLevel(const std::string& path)
 	{
 		tileMap.Save(path);
 	}
 
+	/*!*************************************************************************
+	 * \brief
+	 * Loads the tile map.
+	 * \param path
+	 * Path to load from.
+	 * \return
+	 * True if successfully loaded, false otherwise.
+	***************************************************************************/
 	bool LevelEditor::LoadLevel(const std::string& path)
 	{
 		bool success = tileMap.Load(path);
@@ -283,12 +381,28 @@ namespace StarBangBang
 		return success;
 	}
 
+	/*!*************************************************************************
+	 * \brief
+	 * Generates a level.
+	 * \param width
+	 * Width of the map.
+	 * \param height
+	 * Height of the map.
+	 * \param tileSize
+	 * Size of each tile.
+	 * \param type
+	 * Type to fill the map with.
+	***************************************************************************/
 	void LevelEditor::CreateLevel(int width, int height, float tileSize, TileType type)
 	{
 		tileMap.Generate(width, height, tileSize, type);
 		SetGrid();
 	}
 
+	/*!*************************************************************************
+	 * \brief
+	 * Initializes and resets the editor grid.
+	***************************************************************************/
 	void LevelEditor::SetGrid()
 	{
 		grid.FreeGrid();

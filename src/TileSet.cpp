@@ -26,17 +26,27 @@ namespace StarBangBang
 {
 	static std::map<TileType, const std::string> tileTypeNames;
 
-	/**
+	/*!*************************************************************************
+	 * \brief
 	 * Maps a tile type to a name and inserts it into the map object.
-	 * 
-	 * \param type Type of tile.
-	 * \param name Name of the tile type.
-	 */
+	 * \param type
+	 * Type of tile.
+	 * \param name
+	 * Name of the tile type.
+	 * \return
+	 * void
+	***************************************************************************/
 	void RegisterTileType(TileType type, const std::string&& name)
 	{
 		tileTypeNames.insert({ type, name });
 	}
 
+	/*!*************************************************************************
+	 * \brief
+	 * Loads the sprites for each tile type in the tile set.
+	 * \param gfxMgr
+	 * Reference to the graphics manager.
+	***************************************************************************/
 	void TileSet::Load(GraphicsManager& gfxMgr)
 	{
 		LoadTileSprite(gfxMgr,	TileType::GRASS,			RESOURCES::PROTOTYPE_SPRITE_GRASS_PATH);
@@ -55,36 +65,67 @@ namespace StarBangBang
 		
 	}
 
+	/*!*************************************************************************
+	 * \brief
+	 * Loads the sprite for one tile type.
+	 * \param gfxMgr
+	 * Reference to the graphics manager.
+	 * \param type
+	 * Type of the tile.
+	 * \param path
+	 * Path to the texture file.
+	***************************************************************************/
 	void TileSet::LoadTileSprite(GraphicsManager& gfxMgr, TileType type, const std::string& path)
 	{
 		Sprite sprite = gfxMgr.CreateSprite(path);
 		set.insert({ type, { sprite, type } });
 	}
 
+	/*!*************************************************************************
+	 * \brief
+	 * Clears the tile set.
+	 * \return
+	 * void
+	***************************************************************************/
 	void TileSet::Clear()
 	{
 		set.clear();
 	}
 
+	/*!*************************************************************************
+	 * \brief
+	 * Gets the name of a tile type.
+	 * \param type
+	 * Tile type.
+	 * \return
+	 * Name of the tile type.
+	***************************************************************************/
 	const std::string& TileSet::GetTileTypeName(TileType type)
 	{
 		return tileTypeNames.at(type);
 	}
 
+	/*!*************************************************************************
+	 * \brief
+	 * Gets the sprite of a tile type.
+	 * \param type
+	 * Tile type.
+	 * \return
+	 * Reference to the TileSprite object for the specified type.
+	***************************************************************************/
 	const TileSprite& TileSet::GetTileSprite(TileType t)
 	{
 		return set.at(t);
 	}
 
-	/**
+	/*!*************************************************************************
 	 * TileType Pre-increment operator.
 	 * Mainly used in the level editor to switch between tile types.
-	 * 
 	 * \param tileType 
 	 * Previous Tile Type.
 	 * \return 
 	 * Next Tile Type.
-	 */
+	 ***************************************************************************/
 	TileType& operator++(TileType& tileType)
 	{
 		TileType type = TileType(static_cast<int>(tileType) + 1);
@@ -97,7 +138,7 @@ namespace StarBangBang
 		return tileType;
 	}
 
-	/**
+	/*!*************************************************************************
 	 * TileType Post-increment operator.
 	 * Mainly used in the level editor to switch between tile types.
 	 *
@@ -105,7 +146,7 @@ namespace StarBangBang
 	 * Previous Tile Type.
 	 * \return
 	 * Next Tile Type.
-	 */
+	 ***************************************************************************/
 	TileType operator++(TileType& tileType, int)
 	{
 		TileType temp = tileType;

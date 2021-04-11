@@ -23,12 +23,58 @@ namespace StarBangBang
 	class ConfirmationMenu : public Menu
 	{
 	public:
+		/*!*************************************************************************
+		 * \brief 
+		 * Menu (Script) constructor.
+		 * \param gameObject
+		 * GameObject to attach to.
+		 * \param gfx
+		 * Reference to the graphics manager.
+		 * \param gsm
+		 * Reference to the game state manager.
+		 * \param type
+		 * Type of confirmation.
+		***************************************************************************/
 		ConfirmationMenu(GameObject* gameObject, GraphicsManager& gfx, GameStateManager& gsm, int type = 0);
+
+		/*!*************************************************************************
+		 * \brief 
+		 * Initializes the menu.
+		 * \return 
+		 * void
+		***************************************************************************/
 		void Init();
+
+		/*!*************************************************************************
+		 * \brief 
+		 * Toggles the menu.
+		 * \return 
+		 * void
+		***************************************************************************/
 		void Toggle();
+
+		/*!*************************************************************************
+		 * \brief 
+		 * Sets the text to display.
+		 * \param s
+		 * String to display.
+		***************************************************************************/
 		void SetText(const std::string& s);
 	private:
+		/*!*************************************************************************
+		 * \brief 
+		 * Confirm callback.
+		 * \return 
+		 * void
+		***************************************************************************/
 		void Confirm();
+
+		/*!*************************************************************************
+		 * \brief 
+		 * Back callback.
+		 * \return
+		 * void
+		***************************************************************************/
 		void Back();
 
 		GameStateManager& gsm;

@@ -18,6 +18,11 @@ prior written consent of DigiPen Institute of Technology is prohibited.
 #include "SoundEvent.h"
 #include "MusicEvent.h"
 
+/*!*************************************************************************
+* \brief
+* Audio Engine constructor.
+* Initializes the fmod Audio System and creates the channel groups for use.
+***************************************************************************/
 StarBangBang::AudioEngine::AudioEngine()
 {
 	if (FMOD::System_Create(&system) != FMOD_OK)
@@ -46,16 +51,39 @@ StarBangBang::AudioEngine::AudioEngine()
 
 }
 
+/*!*************************************************************************
+ * \brief
+ * Creates a sound from the provided file path.
+ * \param sound
+ * Output Pointer to a Pointer of the sound object.
+ * \param file
+ * C style string to the file path of the sound.
+***************************************************************************/
 void StarBangBang::AudioEngine::CreateSound(FMOD::Sound** sound, const std::string& file)
 {
 	CreateSound(sound, file.c_str());
 }
 
+/*!*************************************************************************
+ * \brief
+ * Creates a sound from the provided file path..
+ * \param sound
+ * Output Pointer to a Pointer of the sound object.
+ * \param
+ * string to the file path of the sound.
+***************************************************************************/
 void StarBangBang::AudioEngine::CreateSound(FMOD::Sound** sound, const char* file)
 {
 	system->createSound(file, FMOD_DEFAULT, 0, sound);
 }
 
+
+/*!*************************************************************************
+ * \brief
+ * Listener callback. Invoked when an event is received from the Message Bus.
+ * Listens for events: PLAY_SOUND, PLAY_MUSIC, STOP_SOUND and MUTE
+ * \param e Event data.
+***************************************************************************/
 void StarBangBang::AudioEngine::onNotify(Event e)
 {
 	if (e.id == EventId::PLAY_SOUND)
@@ -115,11 +143,29 @@ void StarBangBang::AudioEngine::onNotify(Event e)
 
 }
 
+/*!*************************************************************************
+ * \brief
+ * Maps a sound object to a specified name.
+ * \param name
+ * Name to map to.
+ * \param sound
+ * Pointer to the sound object to map.
+***************************************************************************/
 void StarBangBang::AudioEngine::AddSound(const std::string& name, FMOD::Sound* sound)
 {
 	soundList.push_back({name, sound});
 }
 
+/*!*************************************************************************
+ * \brief
+ * Plays a sound.
+ * \param sound
+ * Pointer to the sound object to play.
+ * \param loop
+ * True to loop, false to play once
+ * \param cgId
+ * Channel Group Id
+***************************************************************************/
 void StarBangBang::AudioEngine::playSound(FMOD::Sound* sound, bool loop, ChannelGroupId cgId)
 {
 	if (!loop)
@@ -140,6 +186,16 @@ void StarBangBang::AudioEngine::playSound(FMOD::Sound* sound, bool loop, Channel
 	system->playSound(sound, channelGroup, false, &channel);
 }
 
+/*!*************************************************************************
+ * \brief
+ * Plays a sound by name.
+ * \param name
+ * Name of the sound object.
+ * \param loop
+ * True to loop, false to play once
+ * \param cgId
+ * Channel Group Id
+***************************************************************************/
 void StarBangBang::AudioEngine::playSound(const std::string& name, bool loop, ChannelGroupId cgId)
 {
 	for (auto sound : soundList)
@@ -151,11 +207,21 @@ void StarBangBang::AudioEngine::playSound(const std::string& name, bool loop, Ch
 	}
 }
 
+/*!*************************************************************************
+ * \brief
+ * Releases a sound object, freeing the allocated memory.
+ * \param sound
+ * Pointer to the sound object to free.
+***************************************************************************/
 void StarBangBang::AudioEngine::ReleaseSound(FMOD::Sound* sound)
 {
 	sound->release();
 }
 
+/*!*************************************************************************
+ * \brief
+ * Stops the master channel.
+***************************************************************************/
 void StarBangBang::AudioEngine::StopMasterChannel()
 {
 	FMOD::ChannelGroup* channelGroup;
@@ -163,11 +229,21 @@ void StarBangBang::AudioEngine::StopMasterChannel()
 	channelGroup->stop();
 }
 
+/*!*************************************************************************
+ * \brief
+ * Update function. Called once per frame.
+***************************************************************************/
 void StarBangBang::AudioEngine::Update()
 {
 	system->update();
 }
 
+/*!*************************************************************************
+ * \brief
+ * Mutes a channel group.
+ * \param cgId
+ * Channel Group Id
+***************************************************************************/
 void StarBangBang::AudioEngine::Mute(ChannelGroupId cgId)
 {
 	FMOD::ChannelGroup* channelGroup;
@@ -178,6 +254,10 @@ void StarBangBang::AudioEngine::Mute(ChannelGroupId cgId)
 	channelGroup->setMute(!muted);
 }
 
+/*!*************************************************************************
+ * \brief
+ * Closes the sound system.
+***************************************************************************/
 void StarBangBang::AudioEngine::Exit()
 {
 	system->close();

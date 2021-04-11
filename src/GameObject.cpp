@@ -17,6 +17,11 @@ prior written consent of DigiPen Institute of Technology is prohibited.
 #include "GameObject.h"
 #include "constants.h"
 
+/*!*************************************************************************
+ * \brief
+ * Default constructor.
+ * Sets the game object to active and default initializes its Transform.
+***************************************************************************/
 StarBangBang::GameObject::GameObject()
 {
 	active = true;
@@ -25,6 +30,11 @@ StarBangBang::GameObject::GameObject()
 	transform.position = { 0, 0 };
 }
 
+/*!*************************************************************************
+ * \brief
+ * Copy constructor.
+ * Sets the game object to active and copies the transform.
+***************************************************************************/
 StarBangBang::GameObject::GameObject(const GameObject& obj)
 {
 	transform = obj.transform;
@@ -32,6 +42,12 @@ StarBangBang::GameObject::GameObject(const GameObject& obj)
 	active = obj.active;
 }
 
+/*!*************************************************************************
+ * \brief
+ * Gets the position of the game object.
+ * \return
+ * Position Vector of the game object.
+***************************************************************************/
 AEVec2 StarBangBang::GameObject::GetPos()
 {
 	if (parent != nullptr)
@@ -43,6 +59,12 @@ AEVec2 StarBangBang::GameObject::GetPos()
 	return transform.position;
 }
 
+/*!*************************************************************************
+ * \brief
+ * Sets the position of the game object.
+ * \param newPos
+ * Position to set.
+***************************************************************************/
 void StarBangBang::GameObject::SetPos(AEVec2 newPos)
 {
 	{
@@ -57,6 +79,12 @@ void StarBangBang::GameObject::SetPos(AEVec2 newPos)
 	}
 }
 
+/*!*************************************************************************
+ * \brief
+ * Sets the game object's active status.
+ * \param status
+ * True if active, false otherwise.
+***************************************************************************/
 void StarBangBang::GameObject::SetActive(bool status)
 {
 	active = status;

@@ -29,18 +29,38 @@ namespace StarBangBang
 	Sprite restartSprite;
 }
 
+/*!*************************************************************************
+ * \brief
+ * Scene constructor.
+ * \param id
+ * Scene id
+ * \param gsm
+ * Reference to the game state manager.
+***************************************************************************/
 StarBangBang::Scene_GameOver::Scene_GameOver(int id, GameStateManager& gsm) : Scene(id, gsm)
 {
 	quitBtn = nullptr;
 	restartBtn = nullptr;
 }
 
+/*!*************************************************************************
+ * \brief
+ * Loads the button sprites.
+ * \return
+ * void
+***************************************************************************/
 void StarBangBang::Scene_GameOver::Load()
 {
 	quitSprite = graphicsManager.CreateSprite(RESOURCES::EXIT1_BUTTON_PATH);
 	restartSprite = graphicsManager.CreateSprite(RESOURCES::RESTART_BUTTON_PATH);
 }
 
+/*!*************************************************************************
+ * \brief
+ * Initializes the buttons and text.
+ * \return
+ * void
+***************************************************************************/
 void StarBangBang::Scene_GameOver::Init()
 {
 	GRAPHICS::SetZoom(3.0f);
@@ -67,6 +87,12 @@ void StarBangBang::Scene_GameOver::Init()
 	(MusicEvent { BGM::GAMEOVER, 1.0f, false }).SendEvent();
 }
 
+/*!*************************************************************************
+ * \brief
+ * Updates components and game objects.
+ * \return
+ * void
+***************************************************************************/
 void StarBangBang::Scene_GameOver::Update()
 {
 	if (AEInputCheckTriggered(AEVK_ESCAPE))
@@ -77,6 +103,12 @@ void StarBangBang::Scene_GameOver::Update()
 	Scene::Update();
 }
 
+/*!*************************************************************************
+ * \brief
+ * Draws the buttons and text.
+ * \return
+ * void
+***************************************************************************/
 void StarBangBang::Scene_GameOver::Draw()
 {
 	Scene::Draw();
@@ -93,22 +125,45 @@ void StarBangBang::Scene_GameOver::Draw()
 	AEGfxPrint(fontId2, str, -TextWidth / 2, 0.6f - TextHeight / 2 , fontScale, 1.0f, 1.0f, 1.0f);
 }
 
+/*!*************************************************************************
+ * \brief
+ * Frees the game objects and components.
+ * \return
+ * void
+***************************************************************************/
 void StarBangBang::Scene_GameOver::Free()
 {
 	Scene::Free();
 }
 
+/*!*************************************************************************
+ * \brief
+ * Unloads the button sprites.
+ * \return
+ * void
+***************************************************************************/
 void StarBangBang::Scene_GameOver::Unload()
 {
 	Scene::Unload();
 	MessageBus::Notify({ EventId::STOP_SOUND });
 }
 
+/*!*************************************************************************
+ * \brief
+ * Quits the game (Return to title screen).
+ * \return
+ * void
+***************************************************************************/
 void StarBangBang::Scene_GameOver::Quit()
 {
 	gameStateManager.SetNextGameState(MAIN_MENU);
 }
 
+/*!*************************************************************************
+ * \brief
+ * Restarts the game.
+ * \return void
+***************************************************************************/
 void StarBangBang::Scene_GameOver::Restart()
 {
 	gameStateManager.SetNextGameState(GAME);

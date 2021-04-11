@@ -30,7 +30,20 @@ namespace StarBangBang
 	class ListenerComponent : public Component<ListenerComponent>, public Listener
 	{
 		public:
+			/*!*************************************************************************
+			 * \brief
+			 * Component Constructor.
+			 * Attaches the component to a game object.
+			 * \param gameObject
+			 * GameObject to attach to.
+			***************************************************************************/
 			ListenerComponent(GameObject* gameObject) : Component(gameObject) {};
+
+			/*!*************************************************************************
+			 * \brief
+			 * Listener callback. Invoked when an event is received from the Message Bus.
+			 * \param e Event data.
+			***************************************************************************/
 			virtual void onNotify(Event e) {};
 	};
 }

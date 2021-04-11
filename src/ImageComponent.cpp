@@ -19,46 +19,110 @@ prior written consent of DigiPen Institute of Technology is prohibited.
 #include "ImageComponent.h"
 #include "Utils.h"
 
+/*!*************************************************************************
+ * \brief
+ * Component Constructor.
+ * Attaches the component to a game object.
+ * \param gameObject
+ * GameObject to attach to.
+***************************************************************************/
 StarBangBang::ImageComponent::ImageComponent(GameObject* gameObject) : Component (gameObject)
 {
 }
 
+/*!*************************************************************************
+ * \brief
+ * Component Constructor.
+ * Attaches the component to a game object and sets the Image sprite.
+ * \param gameObject
+ * GameObject to attach to.
+ * \param sprite
+ * Sprite to use for drawing.
+***************************************************************************/
 StarBangBang::ImageComponent::ImageComponent(GameObject* gameObject, Sprite sprite) : sprite(sprite), Component(gameObject)
 {
 	
 }
 
+/*!*************************************************************************
+ * \brief
+ * Component Constructor.
+ * Attaches the component to a game object and sets the Image sprite.
+ * \param gameObject
+ * GameObject to attach to.
+ * \param mesh
+ * Mesh to use for drawing.
+ * \param texture
+ * Texture to use for drawing.
+***************************************************************************/
 StarBangBang::ImageComponent::ImageComponent(GameObject* gameObject, AEGfxVertexList* mesh, AEGfxTexture* texture) : Component (gameObject)
 {
 	sprite.mesh = mesh;
 	sprite.texture = texture;
 }
 
+/*!*************************************************************************
+ * \brief
+ * Sets the current texture.
+ * \param texture
+ * Texture to use for drawing.
+***************************************************************************/
 void StarBangBang::ImageComponent::SetTexture(AEGfxTexture* texture)
 {
 	sprite.texture = texture;
 }
 
+/*!*************************************************************************
+ * \brief
+ * Sets the current mesh.
+ * \param mesh
+ * Mesh to use for drawing.
+***************************************************************************/
 void StarBangBang::ImageComponent::SetMesh(AEGfxVertexList* mesh)
 {
 	sprite.mesh = mesh;
 }
 
+/*!*************************************************************************
+ * \brief
+ * Sets the current color.
+ * \param c
+ * Color to tint during drawing.
+***************************************************************************/
 void StarBangBang::ImageComponent::SetColor(Color c)
 {
 	sprite.color = c;
 }
 
+/*!*************************************************************************
+ * \brief
+ * Sets the current transparency.
+ * \param alpha
+ * Transparency value to draw with.
+***************************************************************************/
 void StarBangBang::ImageComponent::SetTransparency(float alpha)
 {
 	transparency = alpha;
 }
 
+
+/*!*************************************************************************
+ * \brief
+ * Draw function. Called once per frame.
+ * Invokes the Graphics System to Draw the sprite.
+***************************************************************************/
 void StarBangBang::ImageComponent::Draw()
 {
 	Draw(gameObject->transform.position);
 }
 
+/*!*************************************************************************
+ * \brief
+ * Draw function. Called once per frame.
+ * Invokes the Graphics System to Draw the sprite.
+ * \param pos
+ * Position to draw at.
+***************************************************************************/
 void StarBangBang::ImageComponent::Draw(AEVec2 pos)
 {
 	if (gameObject->active && gameObject->visible)

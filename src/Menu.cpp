@@ -16,16 +16,34 @@ prior written consent of DigiPen Institute of Technology is prohibited.
 
 #include "Menu.h"
 
+/*!*************************************************************************
+ * \brief
+ * Script constructor.
+ * \param gameObject
+ * GameObject to attach to.
+ * \param gfx
+ * Reference to the graphics Manager.
+***************************************************************************/
 StarBangBang::Menu::Menu(GameObject* gameObject, GraphicsManager& gfx) : Script(gameObject), gfxMgr{ gfx }
 {
 
 }
 
+/*!*************************************************************************
+ * \brief
+ * Start.
+ * \return void
+***************************************************************************/
 void StarBangBang::Menu::Start()
 {
 	SetStatus(false);
 }
 
+/*!*************************************************************************
+ * \brief
+ * Draw.
+ * \return void
+***************************************************************************/
 void StarBangBang::Menu::Draw()
 {
 	if (gameObject->active)
@@ -41,8 +59,12 @@ void StarBangBang::Menu::Draw()
 }
 
 /*!*************************************************************************
- * \brief 
- * Workaround hack for updating game objects when game is paused.
+ * \brief
+ * Force Update.
+ * Forcefully updates the components of the button objects,
+ * separately from object manager.
+ * \return
+ * void
 ***************************************************************************/
 void StarBangBang::Menu::ForceUpdate()
 {
@@ -58,6 +80,12 @@ void StarBangBang::Menu::ForceUpdate()
 	}
 }
 
+/*!*************************************************************************
+ * \brief
+ * Sets the status of the menu.
+ * \param stat
+ * True if active, false otherwise.
+***************************************************************************/
 void StarBangBang::Menu::SetStatus(bool s)
 {
 	status = s;

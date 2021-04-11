@@ -26,14 +26,68 @@ namespace StarBangBang
 	class UIComponent : public Component<UIComponent>
 	{
 	public:
-		UIComponent(GameObject* gameObject, GraphicsManager&, bool rescale = true);
-		UIComponent(GameObject* gameObject, Sprite s, GraphicsManager&, bool rescale = true);
-		void SetColor(Color c);
+		/*!*************************************************************************
+		 * \brief 
+		 * Component Constructor.
+		 * Attaches the component to a game object.
+		 * \param gameObject
+		 * GameObject to attach to.
+		 * \param gfx
+		 * GraphicsManager reference.
+		 * \param rescale
+		 * True to rescale during full screen, false to let AlphaEngine scale it instead.
+		***************************************************************************/
+		UIComponent(GameObject* gameObject, GraphicsManager& gfx, bool rescale = true);
+
+		/*!*************************************************************************
+		 * \brief
+		 * Component Constructor.
+		 * Attaches the component to a game object.
+		 * \param gameObject
+		 * GameObject to attach to.
+		 * \param uiSprite
+		 * Sprite to use for drawing.
+		 * \param gfx
+		 * GraphicsManager reference.
+		 * \param rescale
+		 * True to rescale during full screen, false to let AlphaEngine scale it instead.
+		***************************************************************************/
+		UIComponent(GameObject* gameObject, Sprite uiSprite, GraphicsManager& gfx, bool rescale = true);
+
+		/*!*************************************************************************
+		 * \brief 
+		 * Sets the color of the sprite.
+		 * \param spriteColor
+		***************************************************************************/
+		void SetColor(Color spriteColor);
+
+		/*!*************************************************************************
+		 * \brief 
+		 * Start function. Called once at the start of the scene.
+		***************************************************************************/
 		void Start();
+
+		/*!*************************************************************************
+		 * \brief 
+		 * Update function. Called once every frame.
+		***************************************************************************/
 		void Update();
-		void SetTransparency(float a);
+
+		/*!*************************************************************************
+		 * \brief 
+		 * Set the transparency of the object.
+		 * \param alpha
+		 * Transparency value.
+		***************************************************************************/
+		void SetTransparency(float alpha);
+
+		/*!*************************************************************************
+		 * \brief 
+		 * Draw function. Called once every frame.
+		***************************************************************************/
 		void Draw();
-		bool rescale;	//Whether the object is rescaled during fullscreen.
+
+		bool rescale;	//Whether the object is rescaled during full screen.
 	private:
 		float transparency{ 1.0f };
 		Sprite sprite;

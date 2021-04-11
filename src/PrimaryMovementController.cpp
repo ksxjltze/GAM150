@@ -1,9 +1,15 @@
 /******************************************************************************/
 /*!
 \title		Captain Stealth
-\file		PrimaryMovementController.cpp
+\file		PrimaryMovementController.h
 \author 	Lee Jia Keat
+			Created the file and setup input flow.
 \par    	email: l.jiakeat\@digipen.edu
+
+\author2	Ho Yi Guan
+			Integrated RigidBody mechanics.
+\par		email: yiguan.ho@digipen.edu
+
 \date   	April 09, 2021
 \brief		Primary Movement Controller script.
 			Allows the gameObject to move around with WASD and Arrow keys.
@@ -18,17 +24,37 @@ prior written consent of DigiPen Institute of Technology is prohibited.
 #include "constants.h"
 float speed = 50.0f;
 AEVec2 movement = AEVec2{0,0};
+
+/*!*************************************************************************
+ * \brief
+ * Script constructor.
+ * Attaches the script to a game object
+ * \param gameObject
+ * GameObject to attach to.
+***************************************************************************/
 StarBangBang::PrimaryMovementController::PrimaryMovementController(GameObject* gameObject) : Script(gameObject), rb{nullptr}
 {
 
 }
 
+/*!*************************************************************************
+ * \brief
+ * Start.
+ * \return
+ * void
+***************************************************************************/
 void StarBangBang::PrimaryMovementController::Start()
 {
 	rb = gameObject->GetComponent<RigidBody>();
 	rb->drag = 0.2f;
 }
 
+/*!*************************************************************************
+ * \brief
+ * Update.
+ * \return
+ * void
+***************************************************************************/
 void StarBangBang::PrimaryMovementController::Update()
 {
 	using namespace KEYBIND;
