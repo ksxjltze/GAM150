@@ -61,6 +61,12 @@ namespace StarBangBang
 
 		bool active{ false };
 
+		/*!*************************************************************************
+		 * \brief 
+		 * Displays the settings menu.
+		 * \return
+		 * void
+		***************************************************************************/
 		void DisplaySettings()
 		{
 			if (windowQueue.empty())
@@ -73,6 +79,12 @@ namespace StarBangBang
 			}
 		}
 
+		/*!*************************************************************************
+		 * \brief 
+		 * Displays the exit confirmation menu.
+		 * \return
+		 * void
+		***************************************************************************/
 		void DisplayConfirmation()
 		{
 			if (windowQueue.empty())
@@ -85,12 +97,24 @@ namespace StarBangBang
 			}
 		}
 
+		/*!*************************************************************************
+		 * \brief 
+		 * Resets the window queue.
+		 * \return
+		 * void
+		***************************************************************************/
 		void Reset()
 		{
 			while (!windowQueue.empty())
 				windowQueue.pop();
 		}
 
+		/*!*************************************************************************
+		 * \brief 
+		 * Closes the topmost window.
+		 * \return 
+		 * True if the window queue is empty, false otherwise.
+		***************************************************************************/
 		bool CloseWindow()
 		{
 			if (!windowQueue.empty())
@@ -105,6 +129,12 @@ namespace StarBangBang
 			return true;
 		}
 
+		/*!*************************************************************************
+		 * \brief 
+		 * Update function. Updates the pause menu UI objects.
+		 * \return 
+		 * void
+		***************************************************************************/
 		void Update() 
 		{
 			SettingsMenu* settings = settingsObj->GetComponent<SettingsMenu>();
