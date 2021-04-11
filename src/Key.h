@@ -2,8 +2,8 @@
 /*!
 \title		Captain Stealth
 \file		Key.h
-\author 	Lee Jia Keat
-\par    	email: l.jiakeat\@digipen.edu
+\author 	Sim Chin Hin
+\par    	email: s.chinhin\@digipen.edu
 \date   	April 09, 2021
 \brief		Key script.
 			Opens a linked door when enough keys have been collected.

@@ -3,7 +3,7 @@
 \title		Captain Stealth
 \file		Door.cpp
 \author 	Lee Jia Keat
-\par    	email: l.jiakeat\@digipen.edu
+\par    	email: s.chinhin\@digipen.edu
 \date   	April 09, 2021
 \brief		Door script.
 			Doors block player progress and can only be opened once
