@@ -17,6 +17,11 @@ prior written consent of DigiPen Institute of Technology is prohibited.
 #pragma once
 #include "Settings.h"
 
+enum class ConfirmationType
+{
+	EXIT, TITLE, RESTART
+};
+
 namespace StarBangBang
 {
 	class GameStateManager;
@@ -35,7 +40,7 @@ namespace StarBangBang
 		 * \param type
 		 * Type of confirmation.
 		***************************************************************************/
-		ConfirmationMenu(GameObject* gameObject, GraphicsManager& gfx, GameStateManager& gsm, int type = 0);
+		ConfirmationMenu(GameObject* gameObject, GraphicsManager& gfx, GameStateManager& gsm, ConfirmationType type = ConfirmationType::EXIT);
 
 		/*!*************************************************************************
 		 * \brief 
@@ -60,6 +65,8 @@ namespace StarBangBang
 		 * String to display.
 		***************************************************************************/
 		void SetText(const std::string& s);
+
+		void SetType(ConfirmationType confirmType) {type = confirmType;}
 	private:
 		/*!*************************************************************************
 		 * \brief 
@@ -81,6 +88,6 @@ namespace StarBangBang
 		GameObject* confirmBtn{ nullptr };
 		GameObject* textObject{ nullptr };
 		GameObject* backBtn{ nullptr };
-		int type{ 0 };
+		ConfirmationType type{ ConfirmationType::EXIT };
 	};
 }

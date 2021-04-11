@@ -40,7 +40,7 @@ namespace StarBangBang
  * \param type
  * Type of confirmation.
 ***************************************************************************/
-StarBangBang::ConfirmationMenu::ConfirmationMenu(GameObject* gameObject, GraphicsManager& gfx, GameStateManager& gsm, int type) : Menu{ gameObject, gfx }, gsm{ gsm }, type{ type }
+StarBangBang::ConfirmationMenu::ConfirmationMenu(GameObject* gameObject, GraphicsManager& gfx, GameStateManager& gsm, ConfirmationType type) : Menu{ gameObject, gfx }, gsm{ gsm }, type{ type }
 {
 
 }
@@ -142,11 +142,14 @@ void StarBangBang::ConfirmationMenu::Confirm()
 {
 	switch (type)
 	{
-	case 0:
+	case ConfirmationType::EXIT:
 		gsm.ExitGame();
 		break;
-	case 1:
+	case ConfirmationType::TITLE:
 		gsm.SetNextGameState(MAIN_MENU);
+		break;
+	case ConfirmationType::RESTART:
+		gsm.ResetGameState();
 		break;
 	}
 }

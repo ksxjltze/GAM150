@@ -114,10 +114,10 @@ namespace StarBangBang
 	{
 		for (Scene* state : gameStateList)
 		{
-			if (state->getID() == id)
-			{
-				return state;
-			}
+if (state->getID() == id)
+{
+	return state;
+}
 		}
 
 		std::cout << "Specified State does not exist!" << std::endl;
@@ -175,8 +175,9 @@ namespace StarBangBang
 	***************************************************************************/
 	void GameStateManager::ResetGameState()
 	{
-		currentState->Free();
-		currentState->Init();
+		nextState = currentState;
+		MessageBus::Reset();
+		stateChanged = true;
 	}
 
 	/*!*************************************************************************
@@ -217,14 +218,21 @@ namespace StarBangBang
 				if (nextState != nullptr)
 				{
 					currentState->Free();
-					currentState->Unload();
+					if (nextState != currentState)
+					{
+						currentState->Unload();
+					}
+
 					prevState = currentState;
 					currentState = nextState;
+					nextState = nullptr;
 					AEInputReset();
 				}
 
 				GRAPHICS::ResetCamera();
-				currentState->Load();
+
+				if (currentState != prevState)
+					currentState->Load();
 				currentState->Init();
 				currentState->Start();
 				stateChanged = false;
