@@ -34,26 +34,160 @@ namespace StarBangBang
 	class Level_Demo : public Scene
 	{
 	public:
+		/*!*************************************************************************
+		 * \brief 
+		 * Scene constructor.
+		 * \param id
+		 * Scene id.
+		 * \param manager
+		 * Reference to the game state manager.
+		***************************************************************************/
 		Level_Demo(int id, GameStateManager& manager);
+
+		/*!*************************************************************************
+		 * \brief 
+		 * Loads all the sprites required to draw the game objects.
+		 * \return
+		 * void
+		***************************************************************************/
 		void Load();
+
+		/*!*************************************************************************
+		 * \brief
+		 * Initializes and creates game objects and the tile map.
+		 * \return
+		 * void
+		***************************************************************************/
 		void Init();
+
+		/*!*************************************************************************
+		 * \brief
+		 * Updates the game objects.
+		 * \return
+		 * void
+		***************************************************************************/
 		void Update();
+
+		/*!*************************************************************************
+		 * \brief
+		 * Draws the game objects.
+		 * \return
+		 * void
+		***************************************************************************/
 		void Draw();
+
+		/*!*************************************************************************
+		 * \brief
+		 * Frees allocated memory for game objects and components.
+		 * \return
+		 * void
+		***************************************************************************/
 		void Free();
+
+		/*!*************************************************************************
+		 * \brief
+		 * Unloads sprites.
+		 * \return
+		 * void
+		***************************************************************************/
 		void Unload();
 	private:
 		direction dir;
 		current_char character;
+
+		/*!*************************************************************************
+		 * \brief 
+		 * Displays the exit confirmation menu.
+		 * \return
+		 * void
+		***************************************************************************/
 		void DisplayExitConfirmation();
+
+		/*!*************************************************************************
+		 * \brief
+		 * Displays the restart confirmation menu.
+		 * \return
+		 * void
+		***************************************************************************/
+		void DisplayRestartConfirmation();
+
+		/*!*************************************************************************
+		 * \brief
+		 * Exits the scene (callback).
+		 * \return
+		 * void
+		***************************************************************************/
 		void Exit();
+
+		/*!*************************************************************************
+		 * \brief 
+		 * Restarts the game (callback).
+		 * \return 
+		 * void
+		***************************************************************************/
+		void Restart();
+
+		/*!*************************************************************************
+		 * \brief 
+		 * Displays the pause menu.
+		 * \return
+		 * void
+		***************************************************************************/
 		void DisplayPauseMenu();
+
+		/*!*************************************************************************
+		 * \brief 
+		 * Toggles pause state.
+		 * \return
+		 * void
+		***************************************************************************/
 		void TogglePause();
+
+		/*!*************************************************************************
+		 * \brief 
+		 * Toggles the settings menu.
+		 * \return
+		 * void
+		***************************************************************************/
 		void ToggleSettings();
 		bool paused{ false };
 
+		/*!*************************************************************************
+		 * \brief 
+		 * Spawns the door objects.
+		 * \return
+		 * void
+		***************************************************************************/
 		void SpawnDoors();
+
+		/*!*************************************************************************
+		 * \brief 
+		 * Initializes the pause menu.
+		***************************************************************************/
 		void InitPause();
+
+		/*!*************************************************************************
+		 * \brief 
+		 * Creates a distraction object.
+		 * \param roomNum
+		 * Room to assign it to.
+		 * \param tileX
+		 * X position on the tilemap.
+		 * \param tileY
+		 * Y position on the tilemap.
+		 * \param sprite
+		 * Sprite of the distraction object.
+		***************************************************************************/
 		void CreateDistraction(unsigned int roomNum, int tileX, int tileY, const Sprite& sprite);
+
+		/*!*************************************************************************
+		 * \brief 
+		 * Creates a vent object.
+		 * \param tileX
+		 * X position on the tilemap.
+		 * \param tileY
+		 * Y position on the tilemap.
+		***************************************************************************/
 		void CreateVent(int tileX, int tileY);
 
 		//player stuffs

@@ -46,15 +46,75 @@ namespace StarBangBang
 	class TileSet
 	{
 	public:
-		void Load(GraphicsManager&);
-		void LoadTileSprite(GraphicsManager&, TileType type, const std::string& path);
+		/*!*************************************************************************
+		 * \brief 
+		 * Loads the sprites for each tile type in the tile set.
+		 * \param gfxMgr
+		 * Reference to the graphics manager.
+		***************************************************************************/
+		void Load(GraphicsManager& gfxMgr);
+
+		/*!*************************************************************************
+		 * \brief 
+		 * Loads the sprite for one tile type.
+		 * \param gfxMgr
+		 * Reference to the graphics manager.
+		 * \param type
+		 * Type of the tile.
+		 * \param path
+		 * Path to the texture file.
+		***************************************************************************/
+		void LoadTileSprite(GraphicsManager& gfxMgr, TileType type, const std::string& path);
+
+		/*!*************************************************************************
+		 * \brief
+		 * Clears the tile set.
+		 * \return
+		 * void
+		***************************************************************************/
 		void Clear();
+
+		/*!*************************************************************************
+		 * \brief 
+		 * Gets the name of a tile type.
+		 * \param type
+		 * Tile type.
+		 * \return 
+		 * Name of the tile type.
+		***************************************************************************/
 		const std::string& GetTileTypeName(TileType type);
-		const TileSprite& GetTileSprite(TileType);
+
+		/*!*************************************************************************
+		 * \brief 
+		 * Gets the sprite of a tile type.
+		 * \param type
+		 * Tile type.
+		 * \return 
+		 * Reference to the TileSprite object for the specified type.
+		***************************************************************************/
+		const TileSprite& GetTileSprite(TileType type);
 	private:
 		std::map<TileType, TileSprite> set;
 	};
 
+	/*!*************************************************************************
+	 * TileType Pre-increment operator.
+	 * Mainly used in the level editor to switch between tile types.
+	 * \param tileType
+	 * Previous Tile Type.
+	 * \return
+	 * Next Tile Type.
+	 ***************************************************************************/
 	TileType& operator++(TileType& tileType);
+
+	/*!*************************************************************************
+	 * TileType Post-increment operator.
+	 * Mainly used in the level editor to switch between tile types.
+	 *
+	 * \param tileType
+	 * Previous Tile Type.
+	 * \return
+	 * Next Tile Type.
+	 ***************************************************************************/
 	TileType operator++(TileType& tileType, int);
 }

@@ -20,22 +20,47 @@ prior written consent of DigiPen Institute of Technology is prohibited.
 #include "GraphicsManager.h"
 #include "globals.h"
 
+/*!*************************************************************************
+	* \brief Component Constructor.
+	*
+	* \param obj GameObject to attach to.
+	* \param fontId Font to use for text rendering.
+***************************************************************************/
 StarBangBang::DebugText::DebugText(GameObject* obj, s8 fontId) :
 	ListenerComponent(obj), fontId{ fontId }, fontScale{ 1.0f }, textPos{ 0, 0.8f }, duration{ 4.0f }, timer{ 0.0f }, fadeStart{ 2.0f }
 {
 }
 
+/*!*************************************************************************
+ * \brief
+ * Sets the font to use for text rendering.
+ * \param fontId FontId to use for text rendering.
+***************************************************************************/
 void StarBangBang::DebugText::SetFont(s8 id)
 {
 	fontId = id;
 }
 
+
+/*!*************************************************************************
+ * \brief
+ * Sets the textbox dimensions.
+ * \param width Textbox Width
+ * \param height Textbox Height
+***************************************************************************/
 void StarBangBang::DebugText::SetTextbox(float width, float height)
 {
 	textbox.width = width;
 	textbox.height = height;
 }
 
+
+/*!*************************************************************************
+ * \brief
+ * Listener callback. Invoked when an event is received from the Message Bus.
+ * Listens for a PRINT_TEXT event.
+ * \param e Event data.
+***************************************************************************/
 void StarBangBang::DebugText::onNotify(Event e)
 {
 	if (e.id == EventId::PRINT_TEXT)
@@ -47,6 +72,10 @@ void StarBangBang::DebugText::onNotify(Event e)
 	}
 }
 
+/*!*************************************************************************
+ * \brief
+ * Update function. Called once per frame.
+***************************************************************************/
 void StarBangBang::DebugText::Update()
 {
 	if (timer > 0)
@@ -60,6 +89,10 @@ void StarBangBang::DebugText::Update()
 	}
 }
 
+/*!*************************************************************************
+ * \brief
+ * Draw function. Called once per frame.
+***************************************************************************/
 void StarBangBang::DebugText::Draw()
 {
 	if (fontId == -1 || timer <= 0.0f)

@@ -28,11 +28,29 @@ namespace StarBangBang
 	Sprite backBtnSprite;
 }
 
-StarBangBang::ConfirmationMenu::ConfirmationMenu(GameObject* gameObject, GraphicsManager& gfx, GameStateManager& gsm, int type) : Menu{ gameObject, gfx }, gsm{ gsm }, type{ type }
+/*!*************************************************************************
+ * \brief
+ * Menu (Script) constructor.
+ * \param gameObject
+ * GameObject to attach to.
+ * \param gfx
+ * Reference to the graphics manager.
+ * \param gsm
+ * Reference to the game state manager.
+ * \param type
+ * Type of confirmation.
+***************************************************************************/
+StarBangBang::ConfirmationMenu::ConfirmationMenu(GameObject* gameObject, GraphicsManager& gfx, GameStateManager& gsm, ConfirmationType type) : Menu{ gameObject, gfx }, gsm{ gsm }, type{ type }
 {
 
 }
 
+/*!*************************************************************************
+ * \brief
+ * Initializes the menu.
+ * \return
+ * void
+***************************************************************************/
 void StarBangBang::ConfirmationMenu::Init()
 {
 	//Load sprites
@@ -88,6 +106,12 @@ void StarBangBang::ConfirmationMenu::Init()
 	buttonList.push_back(textObject);
 }
 
+/*!*************************************************************************
+ * \brief
+ * Toggles the menu.
+ * \return
+ * void
+***************************************************************************/
 void StarBangBang::ConfirmationMenu::Toggle()
 {
 	active = !active;
@@ -97,24 +121,45 @@ void StarBangBang::ConfirmationMenu::Toggle()
 	textObject->active = active;
 }
 
+/*!*************************************************************************
+ * \brief
+ * Sets the text to display.
+ * \param s
+ * String to display.
+***************************************************************************/
 void StarBangBang::ConfirmationMenu::SetText(const std::string& s)
 {
 	textObject->GetComponent<Text>()->SetText(s);
 }
 
+/*!*************************************************************************
+ * \brief
+ * Confirm callback.
+ * \return
+ * void
+***************************************************************************/
 void StarBangBang::ConfirmationMenu::Confirm()
 {
 	switch (type)
 	{
-	case 0:
+	case ConfirmationType::EXIT:
 		gsm.ExitGame();
 		break;
-	case 1:
+	case ConfirmationType::TITLE:
 		gsm.SetNextGameState(MAIN_MENU);
+		break;
+	case ConfirmationType::RESTART:
+		gsm.ResetGameState();
 		break;
 	}
 }
 
+/*!*************************************************************************
+ * \brief
+ * Back callback.
+ * \return
+ * void
+***************************************************************************/
 void StarBangBang::ConfirmationMenu::Back()
 {
 	SetStatus(false);

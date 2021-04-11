@@ -17,16 +17,35 @@ prior written consent of DigiPen Institute of Technology is prohibited.
 #include "Movement.h"
 #include "globals.h"
 
+/*!*************************************************************************
+ * \brief
+ * Script Constructor.
+ * Attaches the script to a game object
+ * \param gameObject
+ * GameObject to attach to.
+***************************************************************************/
 StarBangBang::Movement::Movement(GameObject* gameObject) : Script(gameObject)
 {
 
 }
 
+/*!*************************************************************************
+ * \brief
+ * Start function. Called once at the start of the scene.
+ * \return
+ * void
+***************************************************************************/
 void StarBangBang::Movement::Start()
 {
 
 }
 
+/*!*************************************************************************
+ * \brief
+ * Update function. Called once per frame.
+ * \return
+ * void
+***************************************************************************/
 void StarBangBang::Movement::Update()
 {
 	

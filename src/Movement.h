@@ -22,8 +22,29 @@ namespace StarBangBang
 	class Movement : public Script
 	{
 	public:
+		/*!*************************************************************************
+		 * \brief 
+		 * Script Constructor.
+		 * Attaches the script to a game object
+		 * \param gameObject
+		 * GameObject to attach to.
+		***************************************************************************/
 		Movement(GameObject* gameObject);
+
+		/*!*************************************************************************
+		 * \brief 
+		 * Start function. Called once at the start of the scene.
+		 * \return
+		 * void
+		***************************************************************************/
 		void Start();
+
+		/*!*************************************************************************
+		 * \brief 
+		 * Update function. Called once per frame.
+		 * \return
+		 * void
+		***************************************************************************/
 		void Update();
 	};
 }

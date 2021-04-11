@@ -45,6 +45,7 @@ namespace StarBangBang
 	Sprite exitBtnSprite;
 	Sprite settingsBtnSprite;
 	Sprite continueBtnSprite;
+	Sprite restartBtnSprite;
 	Sprite stealth_icon;
 
 	std::map<GameObject*, current_char> charMap;
@@ -54,6 +55,7 @@ namespace StarBangBang
 		GameObject* exitBtn{ nullptr };
 		GameObject* settingsBtn{ nullptr };
 		GameObject* continueBtn{ nullptr };
+		GameObject* restartBtn{ nullptr };
 		GameObject* settingsObj{ nullptr };
 		GameObject* confirmationObj{ nullptr };
 
@@ -61,6 +63,12 @@ namespace StarBangBang
 
 		bool active{ false };
 
+		/*!*************************************************************************
+		 * \brief 
+		 * Displays the settings menu.
+		 * \return
+		 * void
+		***************************************************************************/
 		void DisplaySettings()
 		{
 			if (windowQueue.empty())
@@ -68,29 +76,60 @@ namespace StarBangBang
 				exitBtn->active = false;
 				settingsBtn->active = false;
 				continueBtn->active = false;
+				restartBtn->active = false;
 				settingsObj->GetComponent<SettingsMenu>()->SetStatus(true);
 				windowQueue.push(settingsObj);
 			}
 		}
 
-		void DisplayConfirmation()
+		/*!*************************************************************************
+		 * \brief 
+		 * Displays the exit confirmation menu.
+		 * \return
+		 * void
+		***************************************************************************/
+		void DisplayConfirmation(ConfirmationType confirmType)
 		{
 			if (windowQueue.empty())
 			{
 				exitBtn->active = false;
 				settingsBtn->active = false;
 				continueBtn->active = false;
-				confirmationObj->GetComponent<ConfirmationMenu>()->SetStatus(true);
+				restartBtn->active = false;
+				ConfirmationMenu* menu = confirmationObj->GetComponent<ConfirmationMenu>();
+				switch (confirmType)
+				{
+				case ConfirmationType::TITLE:
+					menu->SetText(std::string("Exit to Title?"));
+					break;
+				case ConfirmationType::RESTART:
+					menu->SetText(std::string("Restart?"));
+					break;
+				}
+				menu->SetStatus(true);
+				menu->SetType(confirmType);
 				windowQueue.push(confirmationObj);
 			}
 		}
 
+		/*!*************************************************************************
+		 * \brief 
+		 * Resets the window queue.
+		 * \return
+		 * void
+		***************************************************************************/
 		void Reset()
 		{
 			while (!windowQueue.empty())
 				windowQueue.pop();
 		}
 
+		/*!*************************************************************************
+		 * \brief 
+		 * Closes the topmost window.
+		 * \return 
+		 * True if the window queue is empty, false otherwise.
+		***************************************************************************/
 		bool CloseWindow()
 		{
 			if (!windowQueue.empty())
@@ -98,6 +137,7 @@ namespace StarBangBang
 				exitBtn->active = true;
 				settingsBtn->active = true;
 				continueBtn->active = true;
+				restartBtn->active = true;
 				windowQueue.front()->SetActive(false);
 				windowQueue.pop();
 				return false;
@@ -105,6 +145,12 @@ namespace StarBangBang
 			return true;
 		}
 
+		/*!*************************************************************************
+		 * \brief 
+		 * Update function. Updates the pause menu UI objects.
+		 * \return 
+		 * void
+		***************************************************************************/
 		void Update() 
 		{
 			SettingsMenu* settings = settingsObj->GetComponent<SettingsMenu>();
@@ -137,12 +183,25 @@ namespace StarBangBang
 				component->Update();
 			}
 
+			for (auto& component : restartBtn->GetComponents())
+			{
+				component->Update();
+			}
+
 		}
 	}pauseMenu;
 
 	StarBangBang::BoxCollider* playerCol;
 	StarBangBang::BoxCollider* clientCol;
 
+	/*!*************************************************************************
+	 * \brief
+	 * Scene constructor.
+	 * \param id
+	 * Scene id.
+	 * \param manager
+	 * Reference to the game state manager.
+	***************************************************************************/
 	StarBangBang::Level_Demo::Level_Demo(int id, GameStateManager& manager) : Scene(id, manager), tilemap{ objectManager, graphicsManager }
 	{
 		player = nullptr;
@@ -154,6 +213,12 @@ namespace StarBangBang
 		character = current_char::fei_ge;
 	}
 
+	/*!*************************************************************************
+	 * \brief
+	 * Loads all the sprites required to draw the game objects.
+	 * \return
+	 * void
+	***************************************************************************/
 	void StarBangBang::Level_Demo::Load()
 	{
 		//forward player 1
@@ -183,11 +248,18 @@ namespace StarBangBang
 		exitBtnSprite = graphicsManager.CreateSprite(RESOURCES::EXIT1_BUTTON_PATH);
 		continueBtnSprite = graphicsManager.CreateSprite(RESOURCES::RESUME_BUTTON_PATH);
 		settingsBtnSprite = graphicsManager.CreateSprite(RESOURCES::SETTING1_BUTTON_PATH);
+		restartBtnSprite = graphicsManager.CreateSprite(RESOURCES::RESTART_BUTTON_PATH);
 
 
 		stealth_icon = graphicsManager.CreateSprite(RESOURCES::EYE_SPRITE_PATH);
 	}
 
+	/*!*************************************************************************
+	 * \brief
+	 * Initializes and creates game objects and the tile map.
+	 * \return
+	 * void
+	***************************************************************************/
 	//Initialization of game objects, components and scripts.
 	void StarBangBang::Level_Demo::Init()
 	{
@@ -244,15 +316,6 @@ namespace StarBangBang
 		indicatorObj = objectManager.NewGameObject();
 		objectManager.AddComponent<ImageComponent>(indicatorObj, indicator);
 		indicatorObj->transform.scale = {0.65f, 0.65f};
-		
-		//Compooter
-		//srand(static_cast<unsigned int>(time(NULL)));
-		//for (int i = 0; i < CONSTANTS::COMPUTER_COUNT; ++i)
-		//{
-		//	Grid& grid = PathFinder::GetWorldGrid();
-		//	A_Node n = grid.GetRandomFreeNode();
-		//	CaptainStealth::SpawnComputer(objectManager, computerSprite, n.nodePos);
-		//}
 
 		//Movement Manager
 		moveMgr.AddController(player);
@@ -339,11 +402,18 @@ namespace StarBangBang
 		pauseMenu.settingsObj = objectManager.NewGameObject();
 		pauseMenu.confirmationObj = objectManager.NewGameObject();
 		objectManager.AddComponent<SettingsMenu>(pauseMenu.settingsObj, graphicsManager).Init();
-		ConfirmationMenu& confirm = objectManager.AddComponent<ConfirmationMenu>(pauseMenu.confirmationObj, graphicsManager, gameStateManager, 1);
+		ConfirmationMenu& confirm = objectManager.AddComponent<ConfirmationMenu>(pauseMenu.confirmationObj, graphicsManager, gameStateManager);
 		confirm.Init();
 		confirm.SetText("Exit to title screen?");
 	}
 
+
+	/*!*************************************************************************
+	 * \brief
+	 * Updates the game objects.
+	 * \return
+	 * void
+	***************************************************************************/
 	void StarBangBang::Level_Demo::Update()
 	{
 		if (IsIconic(AESysGetWindowHandle()))
@@ -483,6 +553,12 @@ namespace StarBangBang
 
 	}
 
+	/*!*************************************************************************
+	 * \brief
+	 * Draws the game objects.
+	 * \return
+	 * void
+	***************************************************************************/
 	void StarBangBang::Level_Demo::Draw()
 	{
 		Scene::Draw();
@@ -494,41 +570,102 @@ namespace StarBangBang
 			DisplayPauseMenu();
 	}
 
+	/*!*************************************************************************
+	 * \brief
+	 * Frees allocated memory for game objects and components.
+	 * \return
+	 * void
+	***************************************************************************/
 	void StarBangBang::Level_Demo::Free()
 	{
+		tilemap.Unload();
 		PathFinder::Free();
 		Scene::Free();
-	}
-
-	void StarBangBang::Level_Demo::Unload()
-	{
-		tilemap.Unload();
-		Scene::Unload();
 		MessageBus::Notify({ EventId::STOP_SOUND });
 		MessageBus::Notify({ EventId::PAUSE_MUSIC, false });
 		pauseMenu.Reset();
 	}
 
-	void Level_Demo::DisplayExitConfirmation()
+	/*!*************************************************************************
+	 * \brief
+	 * Unloads sprites.
+	 * \return
+	 * void
+	***************************************************************************/
+	void StarBangBang::Level_Demo::Unload()
 	{
-		pauseMenu.DisplayConfirmation();
+		Scene::Unload();
+		MessageBus::Notify({ EventId::STOP_SOUND });
+		MessageBus::Notify({ EventId::PAUSE_MUSIC, false });
 	}
 
+	/*!*************************************************************************
+	 * \brief
+	 * Displays the exit confirmation menu.
+	 * \return
+	 * void
+	***************************************************************************/
+	void Level_Demo::DisplayExitConfirmation()
+	{
+		pauseMenu.DisplayConfirmation(ConfirmationType::TITLE);
+	}
+
+	/*!*************************************************************************
+	 * \brief
+	 * Displays the restart confirmation menu.
+	 * \return
+	 * void
+	***************************************************************************/
+	void Level_Demo::DisplayRestartConfirmation()
+	{
+		pauseMenu.DisplayConfirmation(ConfirmationType::RESTART);
+	}
+
+	/*!*************************************************************************
+	 * \brief
+	 * Exits the scene (callback).
+	 * \return
+	 * void
+	***************************************************************************/
 	void Level_Demo::Exit()
 	{
 		DisplayExitConfirmation();
 	}
 
+	/*!*************************************************************************
+	 * \brief
+	 * Restarts the game (callback).
+	 * \return
+	 * void
+	***************************************************************************/
+	void Level_Demo::Restart()
+	{
+		DisplayRestartConfirmation();
+	}
+
+	/*!*************************************************************************
+	 * \brief
+	 * Displays the pause menu.
+	 * \return
+	 * void
+	***************************************************************************/
 	void Level_Demo::DisplayPauseMenu()
 	{
 		GRAPHICS::DrawOverlay(graphicsManager.GetMesh(), nullptr, { 40, 40 }, { 0, 0 }, { 0, 0, 0, 0.7f });
 		pauseMenu.exitBtn->GetComponent<UIComponent>()->Draw();
 		pauseMenu.continueBtn->GetComponent<UIComponent>()->Draw();
 		pauseMenu.settingsBtn->GetComponent<UIComponent>()->Draw();
+		pauseMenu.restartBtn->GetComponent<UIComponent>()->Draw();
 		pauseMenu.settingsObj->GetComponent<SettingsMenu>()->Draw();
 		pauseMenu.confirmationObj->GetComponent<ConfirmationMenu>()->Draw();
 	}
 
+	/*!*************************************************************************
+	 * \brief
+	 * Toggles pause state.
+	 * \return
+	 * void
+	***************************************************************************/
 	void Level_Demo::TogglePause()
 	{
 		if (pauseMenu.CloseWindow())
@@ -539,16 +676,29 @@ namespace StarBangBang
 			pauseMenu.exitBtn->active = paused;
 			pauseMenu.settingsBtn->active = paused;
 			pauseMenu.continueBtn->active = paused;
+			pauseMenu.restartBtn->active = paused;
 			pauseMenu.settingsObj->active = false;
 			pauseMenu.confirmationObj->active = false;
 		}
 	}
 
+	/*!*************************************************************************
+	 * \brief
+	 * Toggles the settings menu.
+	 * \return
+	 * void
+	***************************************************************************/
 	void Level_Demo::ToggleSettings()
 	{
 		pauseMenu.DisplaySettings();
 	}
 
+	/*!*************************************************************************
+	 * \brief
+	 * Spawns the door objects.
+	 * \return
+	 * void
+	***************************************************************************/
 	void Level_Demo::SpawnDoors()
 	{
 		//////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -594,31 +744,54 @@ namespace StarBangBang
 		//////////////////////////////////////////////////////////////////////////////////////////////////////////
 	}
 
+	/*!*************************************************************************
+	 * \brief
+	 * Initializes the pause menu.
+	***************************************************************************/
 	void Level_Demo::InitPause()
 	{
 		///Pause
 		pauseMenu.exitBtn = objectManager.NewGameObject();
 		objectManager.AddComponent<Click<Level_Demo>>(pauseMenu.exitBtn, true).setCallback(*this, &Level_Demo::Exit);
 		objectManager.AddComponent<UIComponent>(pauseMenu.exitBtn, exitBtnSprite, graphicsManager).active = false;
-		pauseMenu.exitBtn->transform.position.y = -100;
+		pauseMenu.exitBtn->transform.position.y = -150;
 		pauseMenu.exitBtn->transform.scale = { 3, 1.5f };
 		pauseMenu.exitBtn->active = false;
 
 		pauseMenu.continueBtn = objectManager.NewGameObject();
 		objectManager.AddComponent<Click<Level_Demo>>(pauseMenu.continueBtn, true).setCallback(*this, &Level_Demo::TogglePause);
 		objectManager.AddComponent<UIComponent>(pauseMenu.continueBtn, continueBtnSprite, graphicsManager).active = false;
-		pauseMenu.continueBtn->transform.position.y = 100;
+		pauseMenu.continueBtn->transform.position.y = 150;
 		pauseMenu.continueBtn->transform.scale = { 3, 1.5f };
 		pauseMenu.continueBtn->active = false;
 
 		pauseMenu.settingsBtn = objectManager.NewGameObject();
 		objectManager.AddComponent<Click<Level_Demo>>(pauseMenu.settingsBtn, true).setCallback(*this, &Level_Demo::ToggleSettings);
 		objectManager.AddComponent<UIComponent>(pauseMenu.settingsBtn, settingsBtnSprite, graphicsManager).active = false;
-		pauseMenu.settingsBtn->transform.position.y = 0;
+		pauseMenu.settingsBtn->transform.position.y = 50;
 		pauseMenu.settingsBtn->transform.scale = { 3, 1.5f };
 		pauseMenu.settingsBtn->active = false;
+
+		pauseMenu.restartBtn = objectManager.NewGameObject();
+		objectManager.AddComponent<Click<Level_Demo>>(pauseMenu.restartBtn, true).setCallback(*this, &Level_Demo::Restart);
+		objectManager.AddComponent<UIComponent>(pauseMenu.restartBtn, restartBtnSprite, graphicsManager).active = false;
+		pauseMenu.restartBtn->transform.position.y = -50;
+		pauseMenu.restartBtn->transform.scale = { 3, 1.5f };
+		pauseMenu.restartBtn->active = false;
 	}
 
+	/*!*************************************************************************
+	 * \brief
+	 * Creates a distraction object.
+	 * \param roomNum
+	 * Room to assign it to.
+	 * \param tileX
+	 * X position on the tilemap.
+	 * \param tileY
+	 * Y position on the tilemap.
+	 * \param sprite
+	 * Sprite of the distraction object.
+	***************************************************************************/
 	void Level_Demo::CreateDistraction(unsigned int roomNum, int tileX, int tileY, const Sprite& sprite)
 	{
 		GameObject* distraction = objectManager.NewGameObject();
@@ -628,6 +801,14 @@ namespace StarBangBang
 		objectManager.AddCollider(distraction, true).isTrigger = true;
 	}
 
+	/*!*************************************************************************
+	 * \brief
+	 * Creates a vent object.
+	 * \param tileX
+	 * X position on the tilemap.
+	 * \param tileY
+	 * Y position on the tilemap.
+	***************************************************************************/
 	void Level_Demo::CreateVent(int tileX, int tileY)
 	{
 		GameObject* vent = objectManager.NewGameObject();

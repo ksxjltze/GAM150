@@ -34,10 +34,41 @@ namespace StarBangBang
 	class Text: public Component<Text>
 	{
 	public:
+		/*!*************************************************************************
+		 * \brief 
+		 * Component Constructor.
+		 * Attaches the component to a game object.
+		 * \param gameObject
+		 * GameObject to attach to.
+		***************************************************************************/
 		Text(GameObject* gameObject);
-		Text(GameObject* gameObject, const std::string& s, s8 fontId, Color c = White, float scale = 1.0f, bool isWorld = true);
-		TextBox textbox;
-		s8 fontID;
+
+		/*!*************************************************************************
+		 * \brief 
+		 * Component Constructor.
+		 * Attaches the component to a game object.
+		 * Sets the text string, font, color and scale of the text object.
+		 * 
+		 * \param gameObject
+		 * GameObject to attach to.
+		 * 
+		 * \param textString
+		 * String to display.
+		 * 
+		 * \param fontId
+		 * Font to use.
+		 * 
+		 * \param textColor
+		 * Color of the text.
+		 * 
+		 * \param textScale
+		 * Scale of the text.
+		 * 
+		 * \param isWorld
+		 * Whether the text object should use world position or screen position (Percentage)
+		***************************************************************************/
+		Text(GameObject* gameObject, const std::string& textString, s8 fontId, Color textColor = White, float textScale = 1.0f, bool isWorld = true);
+
 		/*!*************************************************************************
 		 * \brief 
 		 * Sets the offset from the game object position.
@@ -45,12 +76,53 @@ namespace StarBangBang
 		 * Vector to offset by.
 		***************************************************************************/
 		void SetOffset(AEVec2 offset);
-		void SetText(const std::string& s);
+
+		/*!*************************************************************************
+		 * \brief 
+		 * Sets the text to display.
+		 * \param textString
+		 * String to display.
+		***************************************************************************/
+		void SetText(const std::string& textString);
+
+		/*!*************************************************************************
+		 * \brief 
+		 * Sets the textbox dimensions.
+		 * \param width Width of the textbox.
+		 * \param height Height of the textbox.
+		***************************************************************************/
 		void SetTextBox(float width, float height);
-		void SetScale(float scale);
+
+		/*!*************************************************************************
+		 * \brief 
+		 * Sets the scale of the text.
+		 * \param textScale
+		 * Scale of the text.
+		***************************************************************************/
+		void SetScale(float textScale);
+
+		/*!*************************************************************************
+		 * \brief 
+		 * Start function. Called once at the start of the scene.
+		***************************************************************************/
 		void Start();
+		
+		/*!*************************************************************************
+		 * \brief 
+		 * Draw function. Called once every frame.
+		***************************************************************************/
 		void Draw();
-		void SetColor(Color c);
+
+		/*!*************************************************************************
+		 * \brief 
+		 * Sets the color of the text.
+		 * \param textColor
+		 * Color to set.
+		***************************************************************************/
+		void SetColor(Color textColor);
+
+		TextBox textbox;
+		s8 fontID;
 	private:
 		AEVec2 offset{ 0, 0 };
 

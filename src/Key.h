@@ -25,13 +25,55 @@ namespace StarBangBang
 	class Key : public Script, public Listener
 	{
 	public:
+		/*!*************************************************************************
+		 * \brief 
+		 * Script Constructor.
+		 * Attaches the script to a game object
+		 * \param obj
+		 * GameObject to attach to.
+		 * \param door
+		 * Door to link to.
+		***************************************************************************/
 		Key(GameObject* obj, Door* door);
 
+		/*!*************************************************************************
+		 * \brief 
+		 * Accessor.
+		 * \return 
+		 * True if the key is collected, false otherwise.
+		***************************************************************************/
 		bool isCollected();
+
+		/*!*************************************************************************
+		 * \brief 
+		 * Sends a key pickup event.
+		 * Invoked when the correct collision event is received.
+		 * \return void
+		***************************************************************************/
 		void Pickup();
+
+		/*!*************************************************************************
+		 * \brief 
+		 * Event callback.
+		 * Listens for COLLISION events that involve the 
+		 * client character and the current object.
+		 * \param e
+		 * Event data
+		 * \return
+		 * void
+		***************************************************************************/
 		void onNotify(Event e);
 
+		/*!*************************************************************************
+		 * \brief 
+		 * Start function. Called once at the start of the scene.
+		***************************************************************************/
 		void Start();
+
+		/*!*************************************************************************
+		 * \brief 
+		 * Update function. Called once per frame.
+		***************************************************************************/
 		void Update();
 	private:
 		bool flip{ false };

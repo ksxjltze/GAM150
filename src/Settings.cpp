@@ -27,11 +27,25 @@ namespace StarBangBang
 	const static AEVec2 btnScale{0.2f, 0.12f};
 }
 
+/*!*************************************************************************
+ * \brief
+ * Menu Constructor (Script).
+ * \param gameObject
+ * GameObject to attach to.
+ * \param gfx
+ * Reference to the graphics manager.
+***************************************************************************/
 StarBangBang::SettingsMenu::SettingsMenu(GameObject* gameObject, GraphicsManager& gfx) : Menu(gameObject, gfx)
 {
 
 }
 
+/*!*************************************************************************
+ * \brief
+ * Initializes the menu.
+ * \return
+ * void
+***************************************************************************/
 void StarBangBang::SettingsMenu::Init()
 {
 	//Load button sprites
@@ -89,6 +103,12 @@ void StarBangBang::SettingsMenu::Init()
 
 }
 
+/*!*************************************************************************
+ * \brief
+ * Toggles the menu.
+ * \return
+ * void
+***************************************************************************/
 void StarBangBang::SettingsMenu::Toggle()
 {
 	active = !active;
@@ -97,16 +117,33 @@ void StarBangBang::SettingsMenu::Toggle()
 	fullscreenBtn->active = active;
 }
 
+/*!*************************************************************************
+ * \brief
+ * Back callback.
+ * \return
+ * void
+***************************************************************************/
 void StarBangBang::SettingsMenu::Back()
 {
 	SetStatus(false);
 }
 
+/*!*************************************************************************
+ * \brief
+ * Mute callback.
+ * \return
+ * void
+***************************************************************************/
 void StarBangBang::SettingsMenu::Mute()
 {
 	MessageBus::Notify({ EventId::MUTE, ChannelGroupId::ALL });
 }
 
+/*!*************************************************************************
+ * \brief
+ * Fullscreen callback.
+ * \return void
+***************************************************************************/
 void StarBangBang::SettingsMenu::Fullscreen()
 {
 	GRAPHICS::ToggleFullscreen();

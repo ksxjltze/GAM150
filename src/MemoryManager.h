@@ -24,10 +24,39 @@ namespace StarBangBang
 	class MemoryManager
 	{
 	public:
+		/*!*************************************************************************
+		 * \brief 
+		 * Default Constructor.
+		***************************************************************************/
 		MemoryManager();
+
+		/*!*************************************************************************
+		 * \brief 
+		 * Constructor, sets the pointers to the
+		 * object manager and graphics manager objects of the scene.
+		 * 
+		 * \param objectManager
+		 * Pointer to the object manager.
+		 * \param graphicsManager
+		 * Pointer to the graphics manager.
+		***************************************************************************/
 		MemoryManager(ObjectManager* objectManager, GraphicsManager* graphicsManager);
-		void Load();
+
+		/*!*************************************************************************
+		 * \brief 
+		 * Frees the game objects and components created by the object manager.
+		 * \return
+		 * void
+		***************************************************************************/
 		void Free();
+		
+		/*!*************************************************************************
+		 * \brief 
+		 * Unloads and destroys the textures and meshes created by the
+		 * graphics manager.
+		 * \return
+		 * void
+		***************************************************************************/
 		void Unload();
 	
 	private:

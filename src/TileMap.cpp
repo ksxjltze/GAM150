@@ -15,19 +15,33 @@ prior written consent of DigiPen Institute of Technology is prohibited.
 */
 /******************************************************************************/
 
-#include "TileMap.h"
-#include "constants.h"
 #include <fstream>
-#include "GraphicsManager.h"
+#include "constants.h"
+#include "TileMap.h"
 
 namespace StarBangBang
 {
 
+	/*!*************************************************************************
+	 * \brief
+	 * TileMap Constructor.
+	 * \param objM
+	 * Reference to the scene's object manager.
+	 * \param gfxM
+	 * Reference to the scene's graphics manager.
+	***************************************************************************/
 	TileMap::TileMap(ObjectManager& objM, GraphicsManager& gfxM) : scale{ 1.0f }, mapWidth{ 0 }, mapHeight{ 0 }, objMgr{ objM }, gfxMgr{ gfxM }, base{ nullptr }
 	{
 		
 	}
 
+	/*!*************************************************************************
+	 * \brief
+	 * Init function.
+	 * Loads the tile set and creates the game object for the tile map.
+	 * \return
+	 * void
+	***************************************************************************/
 	void TileMap::Init()
 	{
 		if (!base)
@@ -38,6 +52,20 @@ namespace StarBangBang
 
 	}
 
+	/*!*************************************************************************
+	 * \brief
+	 * Generates a new tile map.
+	 * \param width
+	 * Width of the tile map.
+	 * \param height
+	 * Height of the tile map.
+	 * \param tileSize
+	 * Size of each tile.
+	 * \param type
+	 * Tile Type to fill the new map.
+	 * \return
+	 * void
+	***************************************************************************/
 	void TileMap::Generate(int width, int height, float tileSize, TileType type)
 	{
 		Clear();
@@ -63,6 +91,20 @@ namespace StarBangBang
 		}
 	}
 
+	/*!*************************************************************************
+	 * \brief
+	 * Validates if the file is valid for loading.
+	 * \param is
+	 * Input file stream Reference.
+	 * \param widthStr
+	 * Width Tag string to check against.
+	 * \param heightStr
+	 * Height Tag string to check against.
+	 * \param sizeStr
+	 * Size Tag string to check against.
+	 * \return
+	 * True if valid, false otherwise
+	***************************************************************************/
 	bool StarBangBang::TileMap::ValidateFile(std::ifstream& is, std::string& widthStr, std::string& heightStr, std::string& sizeStr)
 	{
 		is >> widthStr;
@@ -108,6 +150,14 @@ namespace StarBangBang
 		return true;
 	}
 
+	/*!*************************************************************************
+	 * \brief
+	 * Saves the tile map to the specified path.
+	 * \param path
+	 * File path to save to.
+	 * \return
+	 * void
+	***************************************************************************/
 	void TileMap::Save(std::string path)
 	{
 		std::ofstream os;
@@ -144,6 +194,12 @@ namespace StarBangBang
 		}
 	}
 
+	/*!*************************************************************************
+	 * \brief
+	 * Loads the tile map from the specified path.
+	 * \param path
+	 * File path to load from.
+	***************************************************************************/
 	bool StarBangBang::TileMap::Load(std::string path)
 	{
 		Init();
@@ -213,19 +269,13 @@ namespace StarBangBang
 		}
 	}
 
-	void TileMap::Fill(TileType type)
-	{
-		if (!map.empty())
-		{
-			TileSprite s = tileSet.GetTileSprite(type);
-			using coords = std::pair<int, int>;
-			for (const std::pair<coords, Tile>& tile : map)
-			{
-				tile.second.spriteObject->SetSprite(s.sprite);
-			}
-		}
-	}
 
+	/*!*************************************************************************
+	 * \brief
+	 * Clears the tile map.
+	 * \return
+	 * void
+	***************************************************************************/
 	void TileMap::Clear()
 	{
 		//Clear map
@@ -240,6 +290,31 @@ namespace StarBangBang
 		}
 	}
 
+	/*!*************************************************************************
+	 * \brief
+	 * Fills the tile map with the specified tile type.
+	 * \return
+	 * void
+	***************************************************************************/
+	void TileMap::Fill(TileType type)
+	{
+		if (!map.empty())
+		{
+			TileSprite s = tileSet.GetTileSprite(type);
+			using coords = std::pair<int, int>;
+			for (const std::pair<coords, Tile>& tile : map)
+			{
+				tile.second.spriteObject->SetSprite(s.sprite);
+			}
+		}
+	}
+
+	/*!*************************************************************************
+	 * \brief
+	 * Unloads the tile map, clearing all tiles.
+	 * \return
+	 * void
+	***************************************************************************/
 	void TileMap::Unload()
 	{
 		map.clear();
@@ -247,11 +322,26 @@ namespace StarBangBang
 		base = nullptr;
 	}
 
+	/*!*************************************************************************
+	 * \brief
+	 * Gets the scale of each tile.
+	 * \return
+	 * Size of each tile.
+	***************************************************************************/
 	float TileMap::GetTileScale()
 	{
 		return scale;
 	}
 
+	/*!*************************************************************************
+	 * \brief
+	 * Calculates the offset for the translation of
+	 * Assumes calculations from center of tile map.
+	 * \param pos
+	 * Position to offset to.
+	 * \return
+	 * Offset Vector
+	***************************************************************************/
 	AEVec2 TileMap::GetCentreOffset(AEVec2 pos)
 	{
 		float x_offset{ 0 };
@@ -263,6 +353,13 @@ namespace StarBangBang
 		return { x_offset, y_offset };
 	}
 
+	/*!*************************************************************************
+	 * \brief
+	 * Sets the position of the tile map.
+	 * \param pos
+	 * Position to set.
+	 * \return void
+	***************************************************************************/
 	void TileMap::SetPosition(AEVec2 pos)
 	{
 		if (base)
@@ -271,21 +368,92 @@ namespace StarBangBang
 		}
 	}
 
-	int TileMap::GetMapWidth()
-	{
-		return mapWidth;
-	}
-
+	/*!*************************************************************************
+	 * \brief
+	 * Gets the position of the cell at the specified index/coordinates of the map
+	 * \param x
+	 * X coordinate.
+	 * \param y
+	 * Y coordinate.
+	 * \return
+	 * The world position of the cell at the index.
+	***************************************************************************/
 	AEVec2 TileMap::GetPositionAtIndex(int x, int y)
 	{
 		return (map.at({ x, y }).spriteObject->gameObject->transform.position);
 	}
 
+	/*!*************************************************************************
+	 * \brief
+	 * Gets the tile at the specified index/coordinates of the map.
+	 * \param x
+	 * X coordinate.
+	 * \param y
+	 * Y coordinate.
+	 * \return
+	 * Reference to the tile object at the index
+	***************************************************************************/
+	Tile& TileMap::At(int x, int y)
+	{
+		return map.at({ x, y });
+	}
+
+	/*!*************************************************************************
+	 * \brief
+	 * Gets the width of the map.
+	 * \return
+	 * Width of the map.
+	***************************************************************************/
+	int TileMap::GetMapWidth()
+	{
+		return mapWidth;
+	}
+
+	/*!*************************************************************************
+	 * \brief
+	 * Gets the height of the map.
+	 * \return
+	 * Height of the map.
+	***************************************************************************/
 	int TileMap::GetMapHeight()
 	{
 		return mapHeight;
 	}
 
+	/*!*************************************************************************
+	 * \brief
+	 * Sets the cells on the grid that corresponds to the tile map.
+	 * Required for path finding to work correctly.
+	 * \param grid
+	 * Grid to set.
+	 * \return
+	 * void
+	***************************************************************************/
+	void TileMap::SetGrid(Grid& grid)
+	{
+		//grid.SetAllOccupied();
+		for (const auto& pair : map)
+		{
+			if (pair.second.collidable)
+			{
+				std::pair index = pair.first;
+				grid.SetOccupied(index.first, index.second);
+			}
+		}
+	}
+
+	/*!*************************************************************************
+	 * \brief
+	 * Inserts a tile at the specified coordinates.
+	 * \param x
+	 * X coordinate.
+	 * \param y
+	 * Y coordinate.
+	 * \param type
+	 * Type of the tile to insert.
+	 * \return
+	 * void
+	***************************************************************************/
 	void TileMap::Insert(int x, int y, TileType type)
 	{
 
@@ -327,32 +495,18 @@ namespace StarBangBang
 
 	}
 
-	void TileMap::SetGrid(Grid& grid)
-	{
-		//grid.SetAllOccupied();
-		for (const auto& pair : map)
-		{
-			if (pair.second.collidable)
-			{
-				std::pair index = pair.first;
-				grid.SetOccupied(index.first, index.second);
-			}
-		}
-	}
-
-	Tile& TileMap::At(int x, int y)
-	{
-		return map.at({ x, y });
-	}
-
-	void TileMap::SetVisible(bool vis)
-	{
-		for (const auto& pair : map)
-		{
-			pair.second.spriteObject->active = vis;
-		}
-	}
-
+	/*!*************************************************************************
+	 * \brief
+	 * Replaces the tile at the specified coordinates.
+	 * \param x
+	 * X coordinate.
+	 * \param y
+	 * Y coordinate.
+	 * \param type
+	 * Type of the tile to insert.
+	 * \return
+	 * void
+	***************************************************************************/
 	void TileMap::Replace(int x, int y, TileType type)
 	{
 		TileSprite sprite = tileSet.GetTileSprite(type);
@@ -367,6 +521,16 @@ namespace StarBangBang
 		}
 	}
 
+	/*!*************************************************************************
+	 * \brief
+	 * Erases the tile at the specified coordinates.
+	 * \param x
+	 * X coordinate.
+	 * \param y
+	 * Y coordinate.
+	 * \return
+	 * void
+	***************************************************************************/
 	void TileMap::Erase(int x, int y)
 	{
 		std::pair<int, int> pos = { x,y };
@@ -391,6 +555,18 @@ namespace StarBangBang
 		}
 	}
 	
+	/*!*************************************************************************
+	 * \brief
+	 * Creates a new tile at the specified position.
+	 * \param pos
+	 * Position to place the tile.
+	 * \param tileSprite
+	 * Sprite of the tile.
+	 * \param collidable
+	 * True if the tile is collidable, false otherwise
+	 * \return
+	 * The Tile object that was created
+	***************************************************************************/
 	Tile TileMap::CreateNewTile(AEVec2 pos, TileSprite tileSprite, bool collidable)
 	{
 		GameObject* tileObj = objMgr.NewGameObject(base);
@@ -413,6 +589,18 @@ namespace StarBangBang
 		return tile;
 	}
 
+	/*!*************************************************************************
+	 * \brief
+	 * Replaces the tile at the specified position.
+	 * \param tile
+	 * Tile to replace.
+	 * \param pos
+	 * Position to place the tile.
+	 * \param tileSprite
+	 * Sprite of the tile.
+	 * \return
+	 * The Tile object that was created
+	***************************************************************************/
 	//Reuse existing tile
 	Tile TileMap::ReplaceTile(Tile tile, AEVec2 pos, TileSprite tileSprite)
 	{
@@ -424,10 +612,34 @@ namespace StarBangBang
 
 		return tile;
 	}
-
+	
+	/*!*************************************************************************
+	 * \brief
+	 * Sets the types of tiles that are collidable.
+	 * \param typeList
+	 * initializer list of the types to set
+	 * \return
+	 * void
+	***************************************************************************/
 	void TileMap::SetCollidableTypes(std::initializer_list<TileType> typeList)
 	{
 		collidableList = typeList;
+	}
+
+	/*!*************************************************************************
+	 * \brief
+	 * Sets whether the tile map should be visible.
+	 * \param visible
+	 * True if visible, false otherwise
+	 * \return
+	 * void
+	***************************************************************************/
+	void TileMap::SetVisible(bool vis)
+	{
+		for (const auto& pair : map)
+		{
+			pair.second.spriteObject->active = vis;
+		}
 	}
 
 }
