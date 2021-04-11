@@ -1,8 +1,11 @@
-Captain Stealth (Stealth, Top-down)
+Captain Stealth (Stealth, Puzzle)
 
-Captain Stealth is a stealth game.
+Captain Stealth is a top-down stealth game with puzzle elements. 
+You play as Captain Stealth whose task is to guide your client, a prisoner, out of the prison. 
+Avoid guards and security cameras while collecting keys to progress through rooms. 
+Distract guards to lure them away from their patrol path!
 
-Lee Jia Keat - Technical Director, Graphics
-Ho Yi Guan -
-Rayner Liew -
-Sim Chin Hin -
+Lee Jia Keat        - Technical Director, Graphics
+Ho Yi Guan          - Producer, Physics
+Liew Ruiheng Rayner - Lead Designer, AI Logic
+Sim Chin Hin        - Testing Manager, Art and Animations
