@@ -1,17 +1,15 @@
 /******************************************************************************/
 /*!
 \title		Captain Stealth
-\file		DistractionEvent.h
+\file		CollisionEvent.h
 \author 	Lee Jia Keat
 \par    	email: l.jiakeat\@digipen.edu
 \date   	April 09, 2021
-\brief		Distraction Event.
-			Contains data for distraction, such as the duration of the distraction,
-			its room number and the game object that is doing the distracting.
+\brief		Collision Event.
+			Contains data for collision, such as the colliders.
 
-Copyright (C) 2021 DigiPen Institute of Technology Singapore. All rights reserved.
-Reproduction or disclosure of this file or its contents without the
-prior written consent of DigiPen Institute of Technology is prohibited.
+Copyright (C) 2021 DigiPen Institute of Technology Singapore. All
+rights reserved.
 */
 /******************************************************************************/
 
