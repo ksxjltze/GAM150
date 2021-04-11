@@ -55,12 +55,6 @@
     <Filter Include="Source Files\Engine\Graphics">
       <UniqueIdentifier>{cd76ce61-9d72-4106-8afc-7ae05fdfbdca}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\Scripts\Testing">
-      <UniqueIdentifier>{aed5af73-6747-4c96-a3d0-f944b2bdb769}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\Scripts\Testing">
-      <UniqueIdentifier>{be99017c-a055-4c1c-8ef1-0499df5fa214}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Header Files\Tools">
       <UniqueIdentifier>{30161b69-e39a-417e-939e-5ca13637b658}</UniqueIdentifier>
     </Filter>
@@ -78,9 +72,6 @@
     </Filter>
     <Filter Include="Source Files\Engine\Audio">
       <UniqueIdentifier>{a2f3e8f9-449a-4427-a3f5-86204551bb7e}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\Deprecated">
-      <UniqueIdentifier>{5c24f530-1d4e-4458-89c6-a6fe33b1fb30}</UniqueIdentifier>
     </Filter>
     <Filter Include="Header Files\Engine\Game State">
       <UniqueIdentifier>{02327dd9-f1a5-492c-aa27-631955614f8a}</UniqueIdentifier>
@@ -102,12 +93,6 @@
     </Filter>
     <Filter Include="Resource Files\Libraries">
       <UniqueIdentifier>{738585a8-b314-47dd-a230-7d5b1051fd5d}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Test">
-      <UniqueIdentifier>{b23d5e30-1c89-490d-93da-41b60df90efb}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\Test">
-      <UniqueIdentifier>{a6838f43-084e-402f-b625-c101cd40821d}</UniqueIdentifier>
     </Filter>
     <Filter Include="Resource Files\InteractableObj">
       <UniqueIdentifier>{6b862cd7-77d5-480b-bab7-a1252db5129a}</UniqueIdentifier>
@@ -136,14 +121,8 @@
     <Filter Include="Header Files\Events">
       <UniqueIdentifier>{751a4ea2-3560-4fc8-aa38-e82aabd99d33}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\Scripts\Listeners">
-      <UniqueIdentifier>{22f0d2af-9f0d-4a64-b327-068d9d85f5be}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Header Files\Scripts\Movement">
       <UniqueIdentifier>{72b50393-6752-43b0-af5a-3004ac04c9d9}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Scripts\Listeners">
-      <UniqueIdentifier>{1268b6c8-3920-4dcf-9229-5ba01b03f310}</UniqueIdentifier>
     </Filter>
     <Filter Include="Source Files\Scripts\Movement">
       <UniqueIdentifier>{d7949a14-7745-4176-8edb-e7f12c0eea14}</UniqueIdentifier>
@@ -157,11 +136,11 @@
     <Filter Include="Header Files\Scripts\UI">
       <UniqueIdentifier>{65fbb236-0c23-4c9e-a055-84e07a4b50a7}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\Deprecated">
-      <UniqueIdentifier>{5115726a-3230-4894-a84c-dd6538229b56}</UniqueIdentifier>
+    <Filter Include="Source Files\UI">
+      <UniqueIdentifier>{af824b8e-2ba1-465e-8731-eb476f1af42c}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\Engine\FileSystem">
-      <UniqueIdentifier>{a868ca64-f0b2-4347-aa0f-fea6d50a1469}</UniqueIdentifier>
+    <Filter Include="Header Files\UI">
+      <UniqueIdentifier>{2e35b223-480a-4cb5-bd16-f1abec29ede2}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -201,17 +180,11 @@
     <ClCompile Include="src\GraphicsManager.cpp">
       <Filter>Source Files\Engine\Graphics</Filter>
     </ClCompile>
-    <ClCompile Include="src\TagManager.cpp">
-      <Filter>Source Files\Engine\Game Logic</Filter>
-    </ClCompile>
     <ClCompile Include="src\LevelEditor.cpp">
       <Filter>Source Files\Tools</Filter>
     </ClCompile>
     <ClCompile Include="src\AudioEngine.cpp">
       <Filter>Source Files\Engine\Audio</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Sample_Scene.cpp">
-      <Filter>Source Files\Scenes</Filter>
     </ClCompile>
     <ClCompile Include="src\Guard.cpp">
       <Filter>Source Files\Scripts\Guard</Filter>
@@ -228,38 +201,17 @@
     <ClCompile Include="src\CaptainStealth.cpp">
       <Filter>Source Files\Scenes</Filter>
     </ClCompile>
-    <ClCompile Include="src\SerializeTest.cpp">
-      <Filter>Source Files\Scripts\Testing</Filter>
-    </ClCompile>
     <ClCompile Include="src\Main_Menu.cpp">
       <Filter>Source Files\Scenes</Filter>
     </ClCompile>
     <ClCompile Include="src\Detector.cpp">
       <Filter>Source Files\Scripts\Guard</Filter>
     </ClCompile>
-    <ClCompile Include="src\SecondaryMovementController.cpp">
-      <Filter>Source Files\Scripts\Movement</Filter>
-    </ClCompile>
     <ClCompile Include="src\MovementManager.cpp">
       <Filter>Source Files\Scripts\Movement</Filter>
     </ClCompile>
-    <ClCompile Include="src\EngineProof.cpp">
-      <Filter>Source Files\Scenes</Filter>
-    </ClCompile>
-    <ClCompile Include="src\PrimaryMovementController.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\SecurityCamera.cpp">
       <Filter>Source Files\Scripts\Guard</Filter>
-    </ClCompile>
-    <ClCompile Include="src\TestInteractable.cpp">
-      <Filter>Source Files\Test</Filter>
-    </ClCompile>
-    <ClCompile Include="src\TestListener.cpp">
-      <Filter>Source Files\Test</Filter>
-    </ClCompile>
-    <ClCompile Include="src\TestScene.cpp">
-      <Filter>Source Files\Test</Filter>
     </ClCompile>
     <ClCompile Include="src\MessageBus.cpp">
       <Filter>Source Files\Engine\EventSystem</Filter>
@@ -300,9 +252,6 @@
     <ClCompile Include="src\Logo_Splash.cpp">
       <Filter>Source Files\Scenes</Filter>
     </ClCompile>
-    <ClCompile Include="src\DoorTest.cpp">
-      <Filter>Source Files\Test</Filter>
-    </ClCompile>
     <ClCompile Include="src\Grid.cpp">
       <Filter>Source Files\Engine</Filter>
     </ClCompile>
@@ -324,15 +273,6 @@
     <ClCompile Include="src\UIComponent.cpp">
       <Filter>Source Files\Engine\Components</Filter>
     </ClCompile>
-    <ClCompile Include="src\CollisionListener.cpp">
-      <Filter>Source Files\Scripts\Listeners</Filter>
-    </ClCompile>
-    <ClCompile Include="src\ComputerListener.cpp">
-      <Filter>Source Files\Scripts\Listeners</Filter>
-    </ClCompile>
-    <ClCompile Include="src\DetectionListener.cpp">
-      <Filter>Source Files\Scripts\Listeners</Filter>
-    </ClCompile>
     <ClCompile Include="src\Movement.cpp">
       <Filter>Source Files\Scripts\Movement</Filter>
     </ClCompile>
@@ -342,56 +282,44 @@
     <ClCompile Include="src\PrimaryMovementController.cpp">
       <Filter>Source Files\Scripts\Movement</Filter>
     </ClCompile>
-    <ClCompile Include="src\SecondaryMovementController.cpp">
-      <Filter>Source Files\Scripts\Movement</Filter>
-    </ClCompile>
     <ClCompile Include="src\Key.cpp">
       <Filter>Source Files\Scripts\Interactables</Filter>
     </ClCompile>
     <ClCompile Include="src\Door.cpp">
       <Filter>Source Files\Scripts\Interactables</Filter>
     </ClCompile>
-    <ClCompile Include="src\ComputerScript.cpp">
-      <Filter>Source Files\Scripts\Interactables</Filter>
-    </ClCompile>
     <ClCompile Include="src\Distractor.cpp">
       <Filter>Source Files\Scripts\Interactables</Filter>
-    </ClCompile>
-    <ClCompile Include="src\InteractableComponent.cpp">
-      <Filter>Source Files\Deprecated</Filter>
-    </ClCompile>
-    <ClCompile Include="src\DragComponent.cpp">
-      <Filter>Source Files\Deprecated</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Serialization.cpp">
-      <Filter>Source Files\Engine\FileSystem</Filter>
     </ClCompile>
     <ClCompile Include="src\TileMap.cpp">
       <Filter>Source Files\Engine\FileSystem</Filter>
     </ClCompile>
-    <ClCompile Include="src\TileSet.cpp">
-      <Filter>Source Files\Engine\FileSystem</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Settings.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\Disappear.cpp">
       <Filter>Source Files\Scripts\Interactables</Filter>
-    </ClCompile>
-    <ClCompile Include="src\StealthWalk.cpp">
-      <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\VisionCone.cpp">
       <Filter>Source Files\Scripts\Guard</Filter>
     </ClCompile>
+    <ClCompile Include="src\TileSet.cpp">
+      <Filter>Source Files\Engine\Game Logic</Filter>
+    </ClCompile>
+    <ClCompile Include="src\PrimaryMovementController.cpp">
+      <Filter>Source Files\Scripts\Movement</Filter>
+    </ClCompile>
     <ClCompile Include="src\PlayerAnimation.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Scripts</Filter>
+    </ClCompile>
+    <ClCompile Include="src\StealthWalk.cpp">
+      <Filter>Source Files\Scripts</Filter>
     </ClCompile>
     <ClCompile Include="src\ConfirmationMenu.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\UI</Filter>
     </ClCompile>
     <ClCompile Include="src\Menu.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Settings.cpp">
+      <Filter>Source Files\UI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -446,26 +374,14 @@
     <ClInclude Include="src\Sprite.h">
       <Filter>Header Files\Engine\Graphics</Filter>
     </ClInclude>
-    <ClInclude Include="src\TagManager.h">
-      <Filter>Header Files\Engine\Game Logic</Filter>
-    </ClInclude>
-    <ClInclude Include="src\ObserverTest.h">
-      <Filter>Header Files\Scripts\Testing</Filter>
-    </ClInclude>
     <ClInclude Include="src\LevelEditor.h">
       <Filter>Header Files\Tools</Filter>
     </ClInclude>
     <ClInclude Include="src\AudioEngine.h">
       <Filter>Header Files\Engine\Audio</Filter>
     </ClInclude>
-    <ClInclude Include="src\DragComponent.h">
-      <Filter>Header Files\Deprecated</Filter>
-    </ClInclude>
     <ClInclude Include="src\ComponentCRTP.h">
       <Filter>Header Files\Engine\Game Logic</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Sample_Scene.h">
-      <Filter>Header Files\Scenes</Filter>
     </ClInclude>
     <ClInclude Include="src\Guard.h">
       <Filter>Header Files\Scripts\Guard</Filter>
@@ -491,20 +407,8 @@
     <ClInclude Include="src\Detector.h">
       <Filter>Header Files\Scripts\Guard</Filter>
     </ClInclude>
-    <ClInclude Include="src\TestListener.h">
-      <Filter>Header Files\Test</Filter>
-    </ClInclude>
-    <ClInclude Include="src\TestInteractable.h">
-      <Filter>Header Files\Test</Filter>
-    </ClInclude>
-    <ClInclude Include="src\TestScene.h">
-      <Filter>Header Files\Test</Filter>
-    </ClInclude>
     <ClInclude Include="src\globals.h">
       <Filter>Header Files\Globals</Filter>
-    </ClInclude>
-    <ClInclude Include="src\EngineProof.h">
-      <Filter>Header Files\Scenes</Filter>
     </ClInclude>
     <ClInclude Include="src\MessageBus.h">
       <Filter>Header Files\Engine\EventSystem</Filter>
@@ -512,17 +416,8 @@
     <ClInclude Include="src\Event.h">
       <Filter>Header Files\Engine\EventSystem</Filter>
     </ClInclude>
-    <ClInclude Include="src\ISerializable.h">
-      <Filter>Header Files\Engine\Interfaces</Filter>
-    </ClInclude>
-    <ClInclude Include="src\IClickable.h">
-      <Filter>Header Files\Engine\Interfaces</Filter>
-    </ClInclude>
     <ClInclude Include="src\Listener.h">
       <Filter>Header Files\Engine\Interfaces</Filter>
-    </ClInclude>
-    <ClInclude Include="src\CollisionTest.h">
-      <Filter>Header Files\Test</Filter>
     </ClInclude>
     <ClInclude Include="src\Physics.h">
       <Filter>Header Files\Engine\Collision</Filter>
@@ -532,9 +427,6 @@
     </ClInclude>
     <ClInclude Include="src\Text.h">
       <Filter>Header Files\Engine\Components</Filter>
-    </ClInclude>
-    <ClInclude Include="src\SerializeTest.h">
-      <Filter>Header Files\Test</Filter>
     </ClInclude>
     <ClInclude Include="src\ListenerComponent.h">
       <Filter>Header Files\Engine\Components</Filter>
@@ -554,12 +446,6 @@
     <ClInclude Include="src\PathFinder.h">
       <Filter>Header Files\Engine\Game Logic</Filter>
     </ClInclude>
-    <ClInclude Include="src\Observer.h">
-      <Filter>Header Files\Engine\Interfaces</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Serialization.h">
-      <Filter>Header Files\Engine\Game State</Filter>
-    </ClInclude>
     <ClInclude Include="src\TileMap.h">
       <Filter>Header Files\Engine\Game Logic</Filter>
     </ClInclude>
@@ -578,9 +464,6 @@
     <ClInclude Include="src\Scene_GameOver.h">
       <Filter>Header Files\Scenes</Filter>
     </ClInclude>
-    <ClInclude Include="src\DoorTest.h">
-      <Filter>Header Files\Test</Filter>
-    </ClInclude>
     <ClInclude Include="src\CollisionEvent.h">
       <Filter>Header Files\Events</Filter>
     </ClInclude>
@@ -592,18 +475,6 @@
     </ClInclude>
     <ClInclude Include="src\Logo_Splash.h">
       <Filter>Header Files\Scenes</Filter>
-    </ClInclude>
-    <ClInclude Include="src\CollisionListener.h">
-      <Filter>Header Files\Scripts\Listeners</Filter>
-    </ClInclude>
-    <ClInclude Include="src\ComputerListener.h">
-      <Filter>Header Files\Scripts\Listeners</Filter>
-    </ClInclude>
-    <ClInclude Include="src\DetectionListener.h">
-      <Filter>Header Files\Scripts\Listeners</Filter>
-    </ClInclude>
-    <ClInclude Include="src\SecondaryMovementController.h">
-      <Filter>Header Files\Scripts\Movement</Filter>
     </ClInclude>
     <ClInclude Include="src\PrimaryMovementController.h">
       <Filter>Header Files\Scripts\Movement</Filter>
@@ -619,9 +490,6 @@
     </ClInclude>
     <ClInclude Include="src\CaughtByCameraEvent.h">
       <Filter>Header Files\Events</Filter>
-    </ClInclude>
-    <ClInclude Include="src\CollisionTest.h">
-      <Filter>Header Files\Test</Filter>
     </ClInclude>
     <ClInclude Include="src\Physics.h">
       <Filter>Header Files\Engine</Filter>
@@ -644,44 +512,38 @@
     <ClInclude Include="src\Key.h">
       <Filter>Header Files\Scripts\Interactables</Filter>
     </ClInclude>
-    <ClInclude Include="src\InteractableComponent.h">
-      <Filter>Header Files\Deprecated</Filter>
-    </ClInclude>
     <ClInclude Include="src\PlayerScript.h">
       <Filter>Header Files\Scripts\Interactables</Filter>
     </ClInclude>
     <ClInclude Include="src\Distractor.h">
       <Filter>Header Files\Scripts\Interactables</Filter>
     </ClInclude>
-    <ClInclude Include="src\ComputerScript.h">
-      <Filter>Header Files\Scripts\Interactables</Filter>
-    </ClInclude>
     <ClInclude Include="src\Click.h">
       <Filter>Header Files\Scripts\UI</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Settings.h">
-      <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\Disappear.h">
       <Filter>Header Files\Scripts\Interactables</Filter>
     </ClInclude>
-    <ClInclude Include="src\StealthWalk.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="src\VisionCone.h">
       <Filter>Header Files\Scripts\Guard</Filter>
     </ClInclude>
-    <ClInclude Include="src\PlayerAnimation.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\MusicEvent.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="src\ConfirmationMenu.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Settings.h">
+      <Filter>Header Files\UI</Filter>
     </ClInclude>
     <ClInclude Include="src\Menu.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="src\PlayerAnimation.h">
+      <Filter>Header Files\Scripts</Filter>
+    </ClInclude>
+    <ClInclude Include="src\StealthWalk.h">
+      <Filter>Header Files\Scripts</Filter>
+    </ClInclude>
+    <ClInclude Include="src\MusicEvent.h">
+      <Filter>Header Files\Events</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -1,3 +1,21 @@
+/******************************************************************************/
+/*!
+\title		Captain Stealth
+\file		ImageComponent.h
+\author 	Lee Jia Keat
+\par    	email: l.jiakeat\@digipen.edu
+\date   	April 09, 2021
+\brief		ImageComponent component class.
+			Responsible for drawing game objects.
+
+			Interfaces with the Graphics system to render sprites onto the screen.
+
+Copyright (C) 2021 DigiPen Institute of Technology.
+Reproduction or disclosure of this file or its contents without the
+prior written consent of DigiPen Institute of Technology is prohibited.
+*/
+/******************************************************************************/
+
 #pragma once
 #include "ComponentCRTP.h"
 #include "GraphicsManager.h"

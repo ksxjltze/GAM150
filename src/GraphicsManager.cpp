@@ -1,10 +1,23 @@
-/*****************************************************************//**
- * \file   GraphicsManager.cpp
- * \brief  Graphics
- * 
- * \author Lee Jia Keat
- * \date   April 2021
- *********************************************************************/
+/******************************************************************************/
+/*!
+\title		Captain Stealth
+\file		GraphicsManager.cpp
+\author 	Lee Jia Keat
+\par    	email: l.jiakeat\@digipen.edu
+\date   	April 09, 2021
+\brief		Graphics System.
+			Responsible for loading, unloading 
+			and drawing of Sprites (Meshes and Textures).
+
+			Calculates the transformations required to properly
+			translate, rotate and scale game objects, and
+			render them onto the screen.
+
+Copyright (C) 2021 DigiPen Institute of Technology.
+Reproduction or disclosure of this file or its contents without the
+prior written consent of DigiPen Institute of Technology is prohibited.
+*/
+/******************************************************************************/
 
 #include "GraphicsManager.h"
 #include "GraphicsManager.h"
@@ -18,7 +31,6 @@ namespace StarBangBang
 		static bool isFullscreen = false;
 		static bool enableRescale = true;
 		static AEVec2 cameraPos{ 0, 0 };
-		//static AEVec2 screenScaleRatio;
 		static AEVec2 screenScaleRatio = {  TARGET_WINDOW_WIDTH / RESOLUTION_X, TARGET_WINDOW_HEIGHT / RESOLUTION_Y };
 	}
 
@@ -204,7 +216,6 @@ namespace StarBangBang
 		if (enableRescale && isFullscreen)
 		{
 			AEMtx33ScaleApply(&mtx, &mtx, screenScaleRatio.x, screenScaleRatio.y);
-			//AEMtx33ScaleApply(&mtx, &mtx, 1 / 2.4f, 1 / 1.8f);
 		}
 	}
 
@@ -213,7 +224,6 @@ namespace StarBangBang
 		if (enableRescale && isFullscreen)
 		{
 			AEMtx33ScaleApply(&mtx, &mtx, 1 / screenScaleRatio.x, 1 / screenScaleRatio.y);
-			//AEMtx33ScaleApply(&mtx, &mtx, 1 / 2.4f, 1 / 1.8f);
 		}
 	}
 

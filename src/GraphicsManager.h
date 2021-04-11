@@ -1,3 +1,24 @@
+/******************************************************************************/
+/*!
+\title		Captain Stealth
+\file		GraphicsManager.h
+\author 	Lee Jia Keat
+\par    	email: l.jiakeat\@digipen.edu
+\date   	April 09, 2021
+\brief		Graphics System.
+			Responsible for loading, unloading
+			and drawing of Sprites (Meshes and Textures).
+
+			Calculates the transformations required to properly
+			translate, rotate and scale game objects, and
+			render them onto the screen.
+
+Copyright (C) 2021 DigiPen Institute of Technology.
+Reproduction or disclosure of this file or its contents without the
+prior written consent of DigiPen Institute of Technology is prohibited.
+*/
+/******************************************************************************/
+
 #pragma once
 #include "Sprite.h"
 #include "Color.h"
@@ -14,10 +35,12 @@ namespace StarBangBang
 
 		void DrawImage(AEGfxVertexList* mesh, AEGfxTexture* texture, Color c, AEVec2 pos, AEVec2 scale, float rotation, float transparency);
 		void DrawOverlay(AEGfxVertexList* mesh, AEGfxTexture* texture, AEVec2 scale, AEVec2 pos, Color c, bool rescale = true, float transparency = 1.0f);
+
 		void SetBackgroundColor(Color c);
 		void SetScreenScaleRatio(float x, float y);
 		void SetZoom(float scale);
 		void SetCameraPosition(float x, float y);
+
 		bool CheckOutOfBounds(const AEMtx33& transformMtx);
 		AEVec2 GetCameraPosition();
 		void ResetCamera();

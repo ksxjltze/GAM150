@@ -53,7 +53,7 @@ namespace StarBangBang
 
 		namespace LEVELS
 		{
-			const std::string&& LEVEL_TEST_PATH = LEVELS_PATH + "test.txt";
+			const std::string&& LEVEL_GAME_PATH = LEVELS_PATH + "test.txt";
 			const std::string&& LEVEL_MAIN_MENU_TEST_PATH = LEVELS_PATH + "title.csv";
 			const std::string&& COLLISION_TEST = LEVELS_PATH + "collision.csv";
 			const std::string&& LEVEL_TUTORIAL = LEVELS_PATH + "tutorial.csv";
@@ -90,6 +90,7 @@ namespace StarBangBang
 		const std::string&& TUTORIAL_BUTTON_PATH		= MAINMENU_PATH + "TutorialButton.png";
 		const std::string&& FULLSCREEN_BUTTON_PATH		= MAINMENU_PATH + "FullScreenButton.png";
 		const std::string&& MUTE_BUTTON_PATH			= MAINMENU_PATH + "MuteButton.png";
+		const std::string&& CONFIRM_BUTTON_PATH			= MAINMENU_PATH + "confirmbutton.png";
 		const std::string&& CREDITS_PATH				= ROOT_PATH + "credits.png";
 
 		//Character sprites

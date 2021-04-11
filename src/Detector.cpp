@@ -1,3 +1,19 @@
+/*!*********************************************************************
+\title	  Captain Stealth
+\file     Detector.cpp
+\author   Liew Ruiheng Rayner
+\par      DP email: r.liew\@digipen.edu
+\date     10/04/2021
+
+\brief
+		  This file contains the function definitions of Detector
+		  script class
+
+Copyright (C) 2021 DigiPen Institute of Technology.
+Reproduction or disclosure of this file or its contents without the
+prior written consent of DigiPen Institute of Technology is prohibited.
+***********************************************************************/
+
 #include "Detector.h"
 #include "BasicMeshShape.h"
 #include "globals.h"
@@ -7,6 +23,13 @@
 
 using namespace StarBangBang;
 
+/*!*********************************************************************
+\brief
+	Non-default constructor
+
+\param gameObject
+	The game object that will use this script
+***********************************************************************/
 Detector::Detector(GameObject* gameObject)
 	: Script(gameObject)
 	, fieldOfView(0.f)
@@ -16,6 +39,7 @@ Detector::Detector(GameObject* gameObject)
 	, target1Col(nullptr)
 	, target2Col(nullptr)
 	, myCollider(nullptr)
+	, player(nullptr)
 	, rotationAngle(0.f)
 	, atMaxRot(false)
 	, detectedTarget1(false)
@@ -25,17 +49,19 @@ Detector::Detector(GameObject* gameObject)
 {
 }
 
-void Detector::Init(float fov, float dist, GameObject* _player, GameObject* client)
+/*!*********************************************************************
+\brief
+	Sets up the script
+***********************************************************************/
+void Detector::Start()
 {
-	fieldOfView = fov;
-	viewDist = dist;
-	target1 = _player;
-	target2 = client;
-	target1Col = target1->GetComponent<BoxCollider>();
-	target2Col = target2->GetComponent<BoxCollider>();
-	myCollider = gameObject->GetComponent<BoxCollider>();
+	player = target1->GetComponent<PlayerScript>();
 }
 
+/*!*********************************************************************
+\brief
+	Updates the script
+***********************************************************************/
 void Detector::Update()
 {
 	if (detectedTarget1 || detectedTarget2)
@@ -53,16 +79,58 @@ void Detector::Update()
 		CheckForTargets(target2->GetPos(), false);
 }
 
-void Detector::Start()
+/*!*********************************************************************
+\brief
+	Initializes the detector
+
+\param fov
+	The field of view
+
+\param range
+	The range of the detector
+
+\param _player
+	Pointer to the player game object
+
+\param client
+	Pointer to the client game object
+***********************************************************************/
+void Detector::Init(float fov, float range, GameObject* _player, GameObject* client)
 {
-	player = target1->GetComponent<PlayerScript>();
+	fieldOfView = fov;
+	viewDist = range;
+	target1 = _player;
+	target2 = client;
+	target1Col = target1->GetComponent<BoxCollider>();
+	target2Col = target2->GetComponent<BoxCollider>();
+	myCollider = gameObject->GetComponent<BoxCollider>();
 }
 
+/*!*********************************************************************
+\brief
+	Rotates the detector and its vision cone
+
+\param angle
+	The amount of rotation
+***********************************************************************/
 void Detector::Rotate(float angle)
 {
 	rotationAngle = angle;
 }
 
+/*!*********************************************************************
+\brief
+	Rotates the detector between 2 given angles at a given speed
+
+\param minRot
+	The first angle
+
+\param maxRot
+	The second angle
+
+\param speed
+	Rotation speed
+***********************************************************************/
 void Detector::SpanVision(float minRot, float maxRot, float speed)
 {
 	if (!atMaxRot && rotationAngle <= maxRot)
@@ -88,11 +156,19 @@ void Detector::SpanVision(float minRot, float maxRot, float speed)
 	targetDir = facingDir;
 }
 
+/*!*********************************************************************
+\brief
+	Using the detector's field of view and viewing range, check if
+	a given target position has been detected
+
+\param _targetPos
+	The target position to check for
+
+\param checkForPlayer
+	Set if detector is checking for the player game object
+***********************************************************************/
 void Detector::CheckForTargets(const AEVec2& _targetPos, bool checkForPlayer)
 {
-	// continue only if game objects are in same partition
-	// ...
-
 	BoxCollider* collider = nullptr;
 
 	if (checkForPlayer)
@@ -155,6 +231,17 @@ void Detector::CheckForTargets(const AEVec2& _targetPos, bool checkForPlayer)
 	}
 }
 
+/*!*********************************************************************
+\brief
+	Sets the appropriate detected boolean to true according to the
+	detected game object
+
+\param checkForPlayer
+	Set if player is detected
+
+\param detected
+	Whether the game object has been detected
+***********************************************************************/
 void Detector::SetDetected(bool checkForPlayer, bool detected)
 {
 	if (checkForPlayer)
@@ -163,6 +250,16 @@ void Detector::SetDetected(bool checkForPlayer, bool detected)
 		detectedTarget2 = detected;
 }
 
+/*!*********************************************************************
+\brief
+	Checks if a given target position has been detected
+
+\param targetPos
+	The position to check for
+
+\return
+	Whether the target position was detected
+***********************************************************************/
 bool Detector::GetDetected(AEVec2& targetPos) const
 {
 	if (detectedTarget1)

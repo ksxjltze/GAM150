@@ -27,6 +27,23 @@ namespace StarBangBang
 		float b = 1.0f;
 		float a = 1.0f;
 	public:
+
+		/*!*************************************************************************
+		****
+			\brief
+				Color class constructor
+			\param r
+				The red component
+			\param g
+				The green component
+			\param b
+				The blue component
+			\param a
+				The alpha component
+			\return
+			  void
+		****************************************************************************
+		***/
 		Color(float r = 1.0f, float g = 1.0f, float b = 1.0f, float a = 1.0f)
 		{
 			this->r = r >= 0 && r <= 1.0f ? r : 1.0f;
@@ -36,9 +53,54 @@ namespace StarBangBang
 
 
 		}
+
+		/*!*************************************************************************
+		****
+			\brief
+				Get the red component's value
+			\param none
+				
+			\return
+				returns the red component's value (0.0f - 1.0f)
+		****************************************************************************
+		***/
 		constexpr float R() const { return r; }
+
+		/*!*************************************************************************
+		****
+			\brief
+				Get the green component's value
+			\param none
+
+			\return
+				returns the green component's value (0.0f - 1.0f)
+		****************************************************************************
+		***/
 		constexpr float G() const { return g; }
+
+		/*!*************************************************************************
+		****
+			\brief
+				Get the blue component's value
+			\param none
+
+			\return
+				returns the blue component's value (0.0f - 1.0f)
+		****************************************************************************
+		***/
 		constexpr float B() const { return b; }
+
+
+		/*!*************************************************************************
+		****
+			\brief
+				Get the alpha component's value
+			\param none
+
+			\return
+				returns the alpha component's value (0.0f - 1.0f)
+		****************************************************************************
+		***/
 		constexpr float A() const { return a; }
 		
 

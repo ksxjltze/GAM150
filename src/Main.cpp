@@ -17,15 +17,6 @@
 #include "globals.h"
 #include "MessageBus.h"
 
-#include "TestScene.h"
-#include "Scene_GameOver.h"
-#include "Logo_Splash.h"
-#include "Credits.h"
-#include "Tutorial.h"
-
-//Test scenes
-#include "DoorTest.h"
-
 namespace StarBangBang
 {
 	float g_dt = 0;
@@ -39,6 +30,11 @@ namespace StarBangBang
 
 namespace StarBangBang
 {
+	bool IsDebug()
+	{
+		return debug;
+	}
+
 	void DisplayFps()
 	{
 		char strBuffer[100];
@@ -72,6 +68,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 	using namespace StarBangBang;
 	int gGameRunning = 1;
 
+	//Audio Initialization
 	AudioEngine audioEngine;
 	FMOD::Sound* sound = nullptr;
 	FMOD::Sound* btnSound = nullptr;
@@ -99,6 +96,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 	audioEngine.CreateSound(&gameBgm, RESOURCES::BGM::BGM_GAME_PATH);
 	audioEngine.CreateSound(&ggBgm, RESOURCES::BGM::BGM_GAMEOVER_PATH);
 
+	//Register sound names
 	audioEngine.AddSound(SFX::BUTTON_CLICK, btnSound);
 	audioEngine.AddSound(SFX::KEY_PICKUP, keyPickupSound);
 	audioEngine.AddSound(SFX::DETECTED, guardAlert);
@@ -130,7 +128,6 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 	Scene* mainMenuScene	= gameStateManager.AddGameState<Main_Menu>(SceneID::MAIN_MENU);
 	Scene* sceneDemo		= gameStateManager.AddGameState<Level_Demo>(SceneID::GAME);
 	Scene* sceneEditor		= gameStateManager.AddGameState<LevelEditor>(SceneID::EDITOR);
-	Scene* sampleScene		= gameStateManager.AddGameState<Sample_Scene>(SceneID::SAMPLE);
 	Scene* tutorialScene	= gameStateManager.AddGameState<Tutorial>(TUTORIAL);
 	Scene* ggScene			= gameStateManager.AddGameState<Scene_GameOver>(GAME_OVER);
 	Scene* credits			= gameStateManager.AddGameState<Credits>(CREDITS);
@@ -139,7 +136,6 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 	// Hack to remove unreferenced local variable warning
 	sceneList.push_back(sceneDemo);
 	sceneList.push_back(sceneEditor);
-	sceneList.push_back(sampleScene);
 	sceneList.push_back(tutorialScene);
 	sceneList.push_back(mainMenuScene);
 	sceneList.push_back(ggScene);
@@ -208,16 +204,13 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 		// Update State
 		gameStateManager.Update();
 
-		//Moved to gsm draw
-		//StarBangBang::TestGrid();
 		StarBangBang::PathFinderTest();
 		CollisionManager::ResolverUpdate();
 		
-		//DisplayFps();
+		if (debug)
+			DisplayFps();
 		audioEngine.Update();
 
-		//StarBangBang::Test_BoxUpdate();
-		//StarbangBang::Test_CircleUpdate();
 		// Informing the system about the loop's end
 		AESysFrameEnd();
 
@@ -227,7 +220,6 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 	}
 
 	FreeUnitMeshes();
-	//Audio Engine (temp implementation)
 	audioEngine.ReleaseSound(sound);
 	audioEngine.Exit();
 

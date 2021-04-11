@@ -91,6 +91,7 @@ xcopy /y /d /i /s "$(SolutionDir)\Resources" "$(OutDir)\Resources"</Command>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp17</LanguageStandard>
+      <TreatWarningAsError>false</TreatWarningAsError>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -113,22 +114,15 @@ xcopy /y /d /i /s "$(SolutionDir)\Resources" "$(OutDir)\Resources"</Command>
     <ClCompile Include="src\CameraComponent.cpp" />
     <ClCompile Include="src\CaptainStealth.cpp" />
     <ClCompile Include="src\Collider.cpp" />
-    <ClCompile Include="src\CollisionListener.cpp" />
     <ClCompile Include="src\CollisionManager.cpp" />
-    <ClCompile Include="src\ComputerListener.cpp" />
-    <ClCompile Include="src\ComputerScript.cpp" />
     <ClCompile Include="src\ConfirmationMenu.cpp" />
     <ClCompile Include="src\constants.cpp" />
     <ClCompile Include="src\Credits.cpp" />
     <ClCompile Include="src\DebugText.cpp" />
-    <ClCompile Include="src\DetectionListener.cpp" />
     <ClCompile Include="src\Detector.cpp" />
     <ClCompile Include="src\Disappear.cpp" />
     <ClCompile Include="src\Distractor.cpp" />
     <ClCompile Include="src\Door.cpp" />
-    <ClCompile Include="src\DoorTest.cpp" />
-    <ClCompile Include="src\DragComponent.cpp" />
-    <ClCompile Include="src\EngineProof.cpp" />
     <ClCompile Include="src\GameObject.cpp" />
     <ClCompile Include="src\GameStateManager.cpp" />
     <ClCompile Include="src\GraphicsManager.cpp" />
@@ -141,7 +135,6 @@ xcopy /y /d /i /s "$(SolutionDir)\Resources" "$(OutDir)\Resources"</Command>
     <ClCompile Include="src\ImageComponent.cpp" />
     <ClCompile Include="src\Key.cpp" />
     <ClCompile Include="src\LevelEditor.cpp" />
-    <ClCompile Include="src\InteractableComponent.cpp" />
     <ClCompile Include="src\Level_Demo.cpp" />
     <ClCompile Include="src\Logo_Splash.cpp" />
     <ClCompile Include="src\Main.cpp" />
@@ -157,18 +150,10 @@ xcopy /y /d /i /s "$(SolutionDir)\Resources" "$(OutDir)\Resources"</Command>
     <ClCompile Include="src\PlayerAnimation.cpp" />
     <ClCompile Include="src\PlayerScript.cpp" />
     <ClCompile Include="src\PrimaryMovementController.cpp" />
-    <ClCompile Include="src\Sample_Scene.cpp" />
     <ClCompile Include="src\Scene_GameOver.cpp" />
-    <ClCompile Include="src\SecondaryMovementController.cpp" />
     <ClCompile Include="src\SecurityCamera.cpp" />
-    <ClCompile Include="src\Serialization.cpp" />
-    <ClCompile Include="src\SerializeTest.cpp" />
     <ClCompile Include="src\Settings.cpp" />
     <ClCompile Include="src\StealthWalk.cpp" />
-    <ClCompile Include="src\TagManager.cpp" />
-    <ClCompile Include="src\TestInteractable.cpp" />
-    <ClCompile Include="src\TestListener.cpp" />
-    <ClCompile Include="src\TestScene.cpp" />
     <ClCompile Include="src\Text.cpp" />
     <ClCompile Include="src\TileMap.cpp" />
     <ClCompile Include="src\TileSet.cpp" />
@@ -186,14 +171,10 @@ xcopy /y /d /i /s "$(SolutionDir)\Resources" "$(OutDir)\Resources"</Command>
     <ClInclude Include="src\Click.h" />
     <ClInclude Include="src\Collider.h" />
     <ClInclude Include="src\CollisionEvent.h" />
-    <ClInclude Include="src\CollisionListener.h" />
     <ClInclude Include="src\CollisionManager.h" />
-    <ClInclude Include="src\CollisionTest.h" />
     <ClInclude Include="src\Color.h" />
     <ClInclude Include="src\Component.h" />
     <ClInclude Include="src\ComponentCRTP.h" />
-    <ClInclude Include="src\ComputerListener.h" />
-    <ClInclude Include="src\ComputerScript.h" />
     <ClInclude Include="src\ConfirmationMenu.h" />
     <ClInclude Include="src\Menu.h" />
     <ClInclude Include="src\MusicEvent.h" />
@@ -202,15 +183,11 @@ xcopy /y /d /i /s "$(SolutionDir)\Resources" "$(OutDir)\Resources"</Command>
     <ClInclude Include="src\constants.h" />
     <ClInclude Include="src\Credits.h" />
     <ClInclude Include="src\DebugText.h" />
-    <ClInclude Include="src\DetectionListener.h" />
     <ClInclude Include="src\Detector.h" />
     <ClInclude Include="src\Disappear.h" />
     <ClInclude Include="src\DistractionEvent.h" />
     <ClInclude Include="src\Distractor.h" />
     <ClInclude Include="src\Door.h" />
-    <ClInclude Include="src\DoorTest.h" />
-    <ClInclude Include="src\DragComponent.h" />
-    <ClInclude Include="src\EngineProof.h" />
     <ClInclude Include="src\Event.h" />
     <ClInclude Include="src\GameObject.h" />
     <ClInclude Include="src\GameStateManager.h" />
@@ -222,12 +199,9 @@ xcopy /y /d /i /s "$(SolutionDir)\Resources" "$(OutDir)\Resources"</Command>
     <ClInclude Include="src\GuardMovement.h" />
     <ClInclude Include="src\GuardVision.h" />
     <ClInclude Include="src\Heap.hpp" />
-    <ClInclude Include="src\IClickable.h" />
     <ClInclude Include="src\ImageComponent.h" />
-    <ClInclude Include="src\ISerializable.h" />
     <ClInclude Include="src\Key.h" />
     <ClInclude Include="src\LevelEditor.h" />
-    <ClInclude Include="src\InteractableComponent.h" />
     <ClInclude Include="src\Level_Demo.h" />
     <ClInclude Include="src\Listener.h" />
     <ClInclude Include="src\ListenerComponent.h" />
@@ -241,27 +215,17 @@ xcopy /y /d /i /s "$(SolutionDir)\Resources" "$(OutDir)\Resources"</Command>
     <ClInclude Include="src\ObjectManager.h" />
     <ClInclude Include="src\PathFinder.h" />
     <ClInclude Include="src\Physics.h" />
-    <ClInclude Include="src\Observer.h" />
-    <ClInclude Include="src\ObserverTest.h" />
     <ClInclude Include="src\PlayerScript.h" />
     <ClInclude Include="src\PrimaryMovementController.h" />
-    <ClInclude Include="src\Sample_Scene.h" />
     <ClInclude Include="src\SceneList.h" />
     <ClInclude Include="src\Scene_GameOver.h" />
     <ClInclude Include="src\ScriptComponent.h" />
-    <ClInclude Include="src\SecondaryMovementController.h" />
     <ClInclude Include="src\SecurityCamera.h" />
-    <ClInclude Include="src\Serialization.h" />
-    <ClInclude Include="src\SerializeTest.h" />
     <ClInclude Include="src\Settings.h" />
     <ClInclude Include="src\SoundEvent.h" />
     <ClInclude Include="src\Sprite.h" />
     <ClInclude Include="src\State.h" />
     <ClInclude Include="src\StealthWalk.h" />
-    <ClInclude Include="src\TagManager.h" />
-    <ClInclude Include="src\TestInteractable.h" />
-    <ClInclude Include="src\TestListener.h" />
-    <ClInclude Include="src\TestScene.h" />
     <ClInclude Include="src\Text.h" />
     <ClInclude Include="src\TileMap.h" />
     <ClInclude Include="src\TileSet.h" />

@@ -1,3 +1,20 @@
+/******************************************************************************/
+/*!
+\title		Captain Stealth
+\file		TileMap.h
+\author 	Lee Jia Keat
+\par    	email: l.jiakeat\@digipen.edu
+\date   	April 09, 2021
+\brief		TileMap class.
+			Responsible for loading tiles from the level data file.
+			Or generating new tile maps.
+
+Copyright (C) 2021 DigiPen Institute of Technology.
+Reproduction or disclosure of this file or its contents without the
+prior written consent of DigiPen Institute of Technology is prohibited.
+*/
+/******************************************************************************/
+
 #pragma once
 #include <map>
 #include "ObjectManager.h"
@@ -53,6 +70,7 @@ namespace StarBangBang
 
 		Tile CreateNewTile(AEVec2 pos, TileSprite tileSprite, bool collidable = false);
 		Tile ReplaceTile(Tile tile, AEVec2 pos, TileSprite tileSprite);
+
 		void SetCollidableTypes(std::initializer_list<TileType> typeList);
 
 	private:

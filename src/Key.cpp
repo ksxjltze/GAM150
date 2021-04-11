@@ -1,3 +1,20 @@
+/******************************************************************************/
+/*!
+\title		Captain Stealth
+\file		Key.cpp
+\author 	Lee Jia Keat
+\par    	email: l.jiakeat\@digipen.edu
+\date   	April 09, 2021
+\brief		Key script.
+			Opens a linked door when enough keys have been collected.
+			Keys are collected on collision with the client character.
+
+Copyright (C) 2021 DigiPen Institute of Technology.
+Reproduction or disclosure of this file or its contents without the
+prior written consent of DigiPen Institute of Technology is prohibited.
+*/
+/******************************************************************************/
+
 #include "Key.h"
 #include "CollisionEvent.h"
 #include "Door.h"
@@ -30,9 +47,6 @@ namespace StarBangBang
 			CollisionEvent colEvent = std::any_cast<CollisionEvent>(e.context);
 			if (colEvent.second->gameObject != gameObject)
 				return;
-
-			//if (colEvent.first->gameObject->name == "Player" || colEvent.first->gameObject->name == "Client")
-			//	Pickup();
 
 			if (colEvent.first->gameObject->name == "Client")
 				Pickup();

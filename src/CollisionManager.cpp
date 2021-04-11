@@ -88,6 +88,7 @@ namespace
 ***/
 bool LineContainsPoint(const Ray& line, AEVec2 pt)
 {
+	
 	AEVec2 p0 {line.start.x - pt.x , line.start.y - pt.y } ;
 	AEVec2 p1 {line.end.x - pt.x , line.end.y - pt.y };
 
@@ -763,6 +764,16 @@ void CollisionManager::ResolverUpdate()
 
 }
 
+/*!*************************************************************************
+****
+	\brief
+		Sets the grid's visiblity to param b
+	\param b
+		The boolean value
+	\return
+		void
+****************************************************************************
+***/
 
 void StarBangBang::CollisionManager::SetDebugVisible(bool b)
 {

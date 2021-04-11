@@ -5,6 +5,7 @@
 #include "Settings.h"
 #include "MusicEvent.h"
 #include "ConfirmationMenu.h"
+#include "globals.h"
 
 static const float x_scale = 5.0f;
 static const float y_scale = 5.0f;
@@ -107,11 +108,15 @@ namespace StarBangBang
 		MusicEvent bgm{ BGM::MENU };
 		bgm.SendEvent();
 
-		//editorBtn = objectManager.NewGameObject();
-		//objectManager.AddImage(editorBtn, vending_machine_sprite);
-		//editorBtn->transform.position = { (float)AEGetWindowWidth() * 0.35f, (float)AEGetWindowHeight() / 8, };
+		if (IsDebug())
+		{
+			editorBtn = objectManager.NewGameObject();
+			objectManager.AddImage(editorBtn, vending_machine_sprite);
+			editorBtn->transform.position = { (float)AEGetWindowWidth() * 0.35f, (float)AEGetWindowHeight() / 8, };
 
-		//objectManager.AddComponent<Click<Main_Menu>>(editorBtn).setCallback(*this, &Main_Menu::LoadEditor);
+			objectManager.AddComponent<Click<Main_Menu>>(editorBtn).setCallback(*this, &Main_Menu::LoadEditor);
+		}
+
 		frameSkip = true;
 	}
 
@@ -219,7 +224,9 @@ namespace StarBangBang
 		creditsbutton_obj->active = !windowOpen;
 		exitbutton_obj->active = !windowOpen;
 		tutorialbutton_obj->active = !windowOpen;
-		//editorBtn->active = !windowOpen;
+
+		if (IsDebug())
+			editorBtn->active = !windowOpen;
 	}
 }
 

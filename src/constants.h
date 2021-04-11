@@ -1,15 +1,39 @@
+/*!*********************************************************************
+\title	  Captain Stealth
+\file     constants.h
+\author	  Sim Chin Hin 
+\par      DP email: s.chinhin\@digipen.edu
+\date     11/4/2021
+
+\brief
+		  This file contains declarations of constants used 
+		  throughout the game
+
+Copyright (C) 2021 DigiPen Institute of Technology.
+Reproduction or disclosure of this file or its contents without the
+prior written consent of DigiPen Institute of Technology is prohibited.
+***********************************************************************/
+
 #pragma once
 #include <string>
 #include "AEEngine.h"
 
 namespace StarBangBang
 {
+	/*!*********************************************************************
+	\brief
+		enum used throughout the game
+	***********************************************************************/
 	enum SceneID {GAME, EDITOR, SAMPLE, TUTORIAL, MAIN_MENU, GAME_OVER, CREDITS};
 	enum LAYER { BACKGROUND, FOREGROUND, UI};
 	enum class ChannelGroupId { SFX, BGM, ALL };
 	enum class direction { idle = 0, left, right };
 	enum class current_char { fei_ge, prisoner };
 
+	/*!*********************************************************************
+	\brief
+		Constants for SFX
+	***********************************************************************/
 	namespace SFX
 	{
 		extern const std::string&& DETECTED;
@@ -20,14 +44,20 @@ namespace StarBangBang
 		extern const std::string&& VENT_OPEN;
 		extern const std::string&& FOOTSTEPS;
 	}
-
+	/*!*********************************************************************
+	\brief
+		Constants for BGM
+	***********************************************************************/
 	namespace BGM
 	{
 		extern const std::string&& MENU;
 		extern const std::string&& GAME;
 		extern const std::string&& GAMEOVER;
 	}
-
+	/*!*********************************************************************
+	\brief
+		Constants for keybind
+	***********************************************************************/
 	namespace KEYBIND
 	{
 		static const int MOVEMENT_UP = AEVK_UP;
@@ -40,14 +70,20 @@ namespace StarBangBang
 		static const int MOVEMENT_LEFT_ALT = AEVK_A;
 		static const int MOVEMENT_RIGHT_ALT = AEVK_D;
 	}
-
+	/*!*********************************************************************
+	\brief
+		Constants for tilemap
+	***********************************************************************/
 	namespace TILEMAP
 	{
 		static const int DEFAULT_WIDTH = 50;
 		static const int DEFAULT_HEIGHT = 50;
 		static const float DEFAULT_TILE_SIZE = 50.0f;
 	}
-
+	/*!*********************************************************************
+	\brief
+		Constants for graphics
+	***********************************************************************/
 	namespace GRAPHICS
 	{
 		static const float MESH_WIDTH = TILEMAP::DEFAULT_TILE_SIZE, MESH_HEIGHT = TILEMAP::DEFAULT_TILE_SIZE;
@@ -61,18 +97,29 @@ namespace StarBangBang
 		static const float TARGET_WINDOW_WIDTH = 800.0f;
 		static const float TARGET_WINDOW_HEIGHT = 600.0f;
 	}
-
+	/*!*********************************************************************
+	\brief
+		Constants for object size
+	***********************************************************************/
 	namespace CONSTANTS
 	{
 		static const float DEFAULT_OBJECT_SCALE = 1.0f;
 		static const int COMPUTER_COUNT = 3;
 	}
 
+	/*!*********************************************************************
+	\brief
+		Constants for player speed
+	***********************************************************************/
 	namespace PLAYER
 	{
 		static const float PLAYER_SPEED = 300.0f;
 	}
 
+	/*!*********************************************************************
+	\brief
+		Constants for guards
+	***********************************************************************/
 	namespace GUARD
 	{
 		static const float GUARD_FOV = 50.f;
@@ -84,7 +131,10 @@ namespace StarBangBang
 		static const float GUARD_SPEED = 20.f;
 		static const float CAM_ROT_SPEED = 25.f;
 	}
-
+	/*!*********************************************************************
+	\brief
+		Constants for string tags
+	***********************************************************************/
 	namespace STRING_TAGS
 	{
 		extern const std::string&& NUMERALS_STRING;
@@ -92,7 +142,10 @@ namespace StarBangBang
 		extern const std::string&& TILEMAP_HEIGHT_TAG;
 		extern const std::string&& TILEMAP_SIZE_TAG;
 	}
-
+	/*!*********************************************************************
+	\brief
+		Constants for resources
+	***********************************************************************/
 	namespace RESOURCES
 	{
 		extern const std::string&& ROOT_PATH;
@@ -130,14 +183,17 @@ namespace StarBangBang
 
 		namespace LEVELS
 		{
-			extern const std::string&& LEVEL_TEST_PATH;
+			extern const std::string&& LEVEL_GAME_PATH;
 			extern const std::string&& LEVEL_MAIN_MENU_TEST_PATH;
 			extern const std::string&& COLLISION_TEST;
 			extern const std::string&& LEVEL_TUTORIAL;
 		}
 								
 
-		//main menu buttons sprites
+	/*!*********************************************************************
+	\brief
+		constants for main menu buttons sprite path
+	***********************************************************************/
 		extern const std::string&& PLAY1_BUTTON_PATH;
 		extern const std::string&& PLAY2_BUTTON_PATH;
 		extern const std::string&& RESUME_BUTTON_PATH;
@@ -153,8 +209,12 @@ namespace StarBangBang
 		extern const std::string&& TUTORIAL_BUTTON_PATH;
 		extern const std::string&& FULLSCREEN_BUTTON_PATH;
 		extern const std::string&& MUTE_BUTTON_PATH;
+		extern const std::string&& CONFIRM_BUTTON_PATH;
 
-		//Character sprites
+	/*!*********************************************************************
+	\brief
+		Constants for character sprite paths
+	***********************************************************************/
 		extern const std::string&& CAPTAINSTEALTH_F1_PATH;
 		extern const std::string&& CAPTAINSTEALTH_F2_PATH;
 		extern const std::string&& CAPTAINSTEALTH_F3_PATH;
@@ -203,7 +263,10 @@ namespace StarBangBang
 		extern const std::string&& SECURITYGUARD_R2_PATH;
 		extern const std::string&& SECURITYGUARD_R3_PATH;
 
-		//floortiles sprites
+		/*!*********************************************************************
+		\brief
+			Constants for floor tiles sprite paths
+		***********************************************************************/
 		extern const std::string&& BLACKBRICK_PATH;
 		extern const std::string&& BLACKBRICK_UP_PATH;
 		extern const std::string&& BLACKBRICK_DOWN_PATH;
@@ -222,7 +285,10 @@ namespace StarBangBang
 		extern const std::string&& PRISONCELL_PATH;
 		extern const std::string&& DOOR_PATH;
 
-		//interactable objects
+		/*!*********************************************************************
+		\brief
+			Constants for interactable object sprite path
+		***********************************************************************/
 		extern const std::string&& CAMERA_PATH;
 		extern const std::string&& BIN_PATH;
 		extern const std::string&& BIN_RED_PATH;
@@ -235,7 +301,10 @@ namespace StarBangBang
 		extern const std::string&& VENT_CLOSE_PATH;
 		extern const std::string&& VENT_OPEN_PATH;
 
-		//misc objects
+		/*!*********************************************************************
+		\brief
+			Constants for misc object sprite path
+		***********************************************************************/
 		extern const std::string&& INDICATOR_PATH;
 		extern const std::string&& TABBUTTON_PATH;
 		extern const std::string&& ARROWKEYS_PATH;

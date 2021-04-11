@@ -1,3 +1,19 @@
+/*!*********************************************************************
+\title	  Captain Stealth
+\file     GuardManager.cpp
+\author   Liew Ruiheng Rayner (100%)
+\par      DP email: r.liew\@digipen.edu
+\date     10/04/2021
+
+\brief
+		  This file contains the function definitions of the 
+		  GuardManager script class
+
+Copyright (C) 2021 DigiPen Institute of Technology.
+Reproduction or disclosure of this file or its contents without the
+prior written consent of DigiPen Institute of Technology is prohibited.
+***********************************************************************/
+
 #include "GuardManager.h"
 #include "ObjectManager.h"
 #include "Sprite.h"
@@ -8,29 +24,48 @@
 #include "Physics.h"
 #include "DistractionEvent.h"
 #include "CaughtByCameraEvent.h"
-
-#include "Utils.h" // for mouseworldpos
-
 #include "Text.h"
 #include "globals.h"
 #include "VisionCone.h"
 
 using namespace StarBangBang;
 
+/*!*********************************************************************
+\brief
+	Non-default constructor
+
+\param gameObject
+	The game object that will use this script
+***********************************************************************/
 GuardManager::GuardManager(GameObject* gameObject) 
 	: Script(gameObject)
 	, Listener()
 {
 }
 
-void GuardManager::Init(ObjectManager* objManager, Sprite* sprite, GameObject* player, GameObject* client)
+/*!*********************************************************************
+\brief
+	Creates guards
+
+\param objManager
+	Pointer to the object manager
+
+\param sprite
+	Pointer to the guard sprite
+
+\param player
+	Pointer to the player game object
+
+\param client
+	Pointer to the client game object
+***********************************************************************/
+void GuardManager::CreateGuards(ObjectManager* objManager, Sprite* sprite, GameObject* player, GameObject* client)
 {
 	int id = 0;
 
 	for (size_t i = 0; i < NUM_GUARDS; i++)
 	{
 		guards.push_back(objManager->NewGameObject());
-		//guards[i]->SetPos({ 250, 650 });
 		guards[i]->transform.scale = {0.7f, 0.7f};
 		guards[i]->name = "Guard";
 		objManager->AddImage(guards[i], *sprite);
@@ -38,14 +73,12 @@ void GuardManager::Init(ObjectManager* objManager, Sprite* sprite, GameObject* p
 		objManager->AddComponent<GuardMovement>(guards[i]);
 		objManager->AddComponent<GuardVision>(guards[i]);
 		objManager->AddComponent<Detector>(guards[i]).Init(50.f, 250.f, player, client);
-		//objManager->AddComponent<Text>(guards[i]).fontID = StarBangBang::fontId;
 		objManager->AddComponent<RigidBody>(guards[i]);
 		objManager->AddComponent<GuardAnim>(guards[i]);
 		objManager->AddCollider(guards[i], false);
 		objManager->AddComponent<VisionCone>(guards[i], 50.f, 250.f,20);
 	}
 
-	// temp, will change to read from file laterz
 	int roomNum = 1;
 	SetGuardStartEnd(id++, roomNum, { -322, -1163 }, { -322, -596 });
 
@@ -75,13 +108,25 @@ void GuardManager::Init(ObjectManager* objManager, Sprite* sprite, GameObject* p
 	SetGuardStartEnd(id++, roomNum, { -469, 382 }, { -469, 100 });
 	SetGuardStartEnd(id++, roomNum, { -617, 175 }, { -617, 459 });
 	SetGuardStartEnd(id++, roomNum, { -817, 47 }, { -1024, 47 });
-	//SetGuardStartEnd(id++, { -1050, -1051 }, { -850, -1051 });
 	SetGuardStartEnd(id++, roomNum, { -1001, -100 }, { -1001, -300 });
-
-	//SetGuardWaypoints(id++, { 1070, 1011 }, { -733, -1060 }, false, 20.f); // patrol level kinda
-	//SetGuardWaypoints(id++, { 1055, 145 }, { 1055, -950 }, false, 40.f); // patrol level kinda
 }
 
+/*!*********************************************************************
+\brief
+	Creates security cameras
+
+\param objManager
+	Pointer to the object manager
+
+\param sprite
+	Pointer to the security camera sprite
+
+\param player
+	Pointer to the player game object
+
+\param client
+	Pointer to the client game object
+***********************************************************************/
 void GuardManager::CreateSecurityCameras(ObjectManager* objManager, Sprite* sprite, GameObject* player, GameObject* client)
 {
 	int id = 0;
@@ -98,26 +143,21 @@ void GuardManager::CreateSecurityCameras(ObjectManager* objManager, Sprite* spri
 
 	int roomNum = 1;
 	InitSecurityCam(id++, roomNum,{ -300, -1200 }, 0.0f, 90.0f);
-	//InitSecurityCam(id++, { 450, -100 }, -90.0f, 0.0f);
+	roomNum = 2;
+	InitSecurityCam(id++, roomNum, { 1150, -1200 }, -0.0f, 90.0f);
+	roomNum = 3;
 	InitSecurityCam(id++, roomNum,{450, -100},	0.0f, 90.0f);
-	InitSecurityCam(id++, roomNum,{ 1150, -1200 }, -0.0f, 90.0f);
+	roomNum = 4;
 	InitSecurityCam(id++, roomNum,{ 200, 700 }, -180.0f, -90.0f);
-	//InitSecurityCam(id++, { -250, -520 },	-270.f, -130.f);
-	//InitSecurityCam(id++, { -620, 190 },	-200.f,  -80.f,		60.f);
-	//InitSecurityCam(id++, { 470, -480 },	   0.f,   90.f);
-	//InitSecurityCam(id++, { -645, -410 },	 -90.f,    0.f,		60.f);
-	//InitSecurityCam(id++, { 1020, 350 },	   0.f,   90.f,		60.f);
-	//InitSecurityCam(id++, { -180, 340 },	   0.f,   90.f);
-	//InitSecurityCam(id++, { -13, 1165 },	-180.f,  -90.f);
-	//InitSecurityCam(id++, { -1160, 1130 },	-180.f,  -90.f,		60.f);
-	//InitSecurityCam(id++, { -690, 720 },	   0.f,  360.f);
 }
 
-void GuardManager::Update()
-{
-	//PRINT("x: %f, y: %f\n", GetMouseWorldPos().x, GetMouseWorldPos().y);
-}
+/*!*********************************************************************
+\brief
+	Handles event messages
 
+\param e
+	The event
+***********************************************************************/
 void GuardManager::onNotify(Event e)
 {
 	if (e.id == EventId::DISTRACTION)
@@ -158,6 +198,20 @@ void GuardManager::onNotify(Event e)
 	}
 }
 
+/*!*********************************************************************
+\brief
+	Retrieves the guard game object in the given room which is
+	closest to the given position
+
+\param _pos
+	The position to check if near to
+
+\param roomNum
+	The room number to look for guards
+
+\return
+	The guard game object that is closest
+***********************************************************************/
 GameObject* GuardManager::GetNearestGuard(const AEVec2& _pos, unsigned int roomNum)
 {
 	AEVec2 distractionPos = _pos;
@@ -172,7 +226,7 @@ GameObject* GuardManager::GetNearestGuard(const AEVec2& _pos, unsigned int roomN
 		if (guard->GetState() == Guard::GUARD_STATE::STATE_DISTRACTED)
 			continue;
 
-		// only look for guards in same room as distraction object
+		// only look for guards in same room as object
 		if (guard->GetRoomNum() != roomNum)
 			continue;
 
@@ -188,6 +242,29 @@ GameObject* GuardManager::GetNearestGuard(const AEVec2& _pos, unsigned int roomN
 	return nearestGuard;
 }
 
+/*!*********************************************************************
+\brief
+	Sets 2 points for the guards to patrol at a given speed. Also assigns
+	the room number to the guards.
+
+\param id
+	The id of the guard
+
+\param roomNum
+	The room number that the guard is assigned to
+
+\param start
+	The start of the patrol route
+
+\param end
+	The end of the patrol route
+
+\param isIdle
+	Whether the guard is an idle guard (doesn't patrol)
+
+\param speed
+	The movement speed of the guard
+***********************************************************************/
 void GuardManager::SetGuardStartEnd(int id, unsigned int roomNum, const AEVec2& start, const AEVec2& end, bool isIdle, float speed)
 {
 	guards[id]->GetComponent<Guard>()->SetRoomNum(roomNum);
@@ -200,6 +277,23 @@ void GuardManager::SetGuardStartEnd(int id, unsigned int roomNum, const AEVec2& 
 	}
 }
 
+/*!*********************************************************************
+\brief
+	Sets a collection of points for the guards to patrol at a given speed.
+	Also assigns the room number to the guards.
+
+\param id
+	The id of the guard
+
+\param roomNum
+	The room number that the guard is assigned to
+
+\param waypoints
+	The list of points of the patrol route
+
+\param speed
+	The movement speed of the guard
+***********************************************************************/
 void GuardManager::SetGuardWaypoints(int id, unsigned int roomNum, const std::vector<AEVec2>& waypoints, float speed)
 {
 	guards[id]->GetComponent<Guard>()->SetRoomNum(roomNum);
@@ -208,6 +302,29 @@ void GuardManager::SetGuardWaypoints(int id, unsigned int roomNum, const std::ve
 	guards[id]->SetPos(waypoints.front());
 }
 
+/*!*********************************************************************
+\brief
+	Sets the rotation angles that the camera will rotate between at a
+	given speed. Also assigns the room number to it.
+
+\param id
+	The id of the camera
+
+\param roomNum
+	The room number that the camera is assigned to
+
+\param pos
+	The position of the camera
+
+\param min
+	The minimum rotation angle
+
+\param max
+	The maximum rotation angle
+
+\param speed
+	The rotation speed of the camera
+***********************************************************************/
 void GuardManager::InitSecurityCam(int id, unsigned int roomNum, const AEVec2& pos, float min, float max, float speed)
 {
 	cameras[id]->SetPos(pos);

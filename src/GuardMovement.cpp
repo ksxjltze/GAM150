@@ -1,3 +1,19 @@
+/*!*********************************************************************
+\title	  Captain Stealth
+\file     GuardMovement.cpp
+\author   Liew Ruiheng Rayner (100%)
+\par      DP email: r.liew\@digipen.edu
+\date     10/04/2021
+
+\brief
+		  This file contains the function definitions of the 
+		  GuardMovement script class
+
+Copyright (C) 2021 DigiPen Institute of Technology.
+Reproduction or disclosure of this file or its contents without the
+prior written consent of DigiPen Institute of Technology is prohibited.
+***********************************************************************/
+
 #include "GuardMovement.h"
 #include "Guard.h"
 #include "BasicMeshShape.h"
@@ -5,6 +21,13 @@
 
 using namespace StarBangBang;
 
+/*!*********************************************************************
+\brief
+	Non-default constructor
+
+\param gameObject
+	The game object that will use this script
+***********************************************************************/
 GuardMovement::GuardMovement(GameObject* gameObject)
 	: Script(gameObject)
 	, speed(GUARD::GUARD_SPEED)
@@ -32,6 +55,10 @@ GuardMovement::GuardMovement(GameObject* gameObject)
 {
 }
 
+/*!*********************************************************************
+\brief
+	Sets up the script
+***********************************************************************/
 void GuardMovement::Start()
 {
 	rb = gameObject->GetComponent<RigidBody>();
@@ -40,11 +67,12 @@ void GuardMovement::Start()
 	guard = gameObject->GetComponent<Guard>();
 }
 
+/*!*********************************************************************
+\brief
+	Guard's idle behaviour
+***********************************************************************/
 void GuardMovement::Idle()
 {
-	// rotate between left, front, right, back sprites
-	// ...
-
 	isMoving = false;
 
 	if (idleForever)
@@ -64,6 +92,10 @@ void GuardMovement::Idle()
 	}
 }
 
+/*!*********************************************************************
+\brief
+	Guard's patrol behaviour
+***********************************************************************/
 void GuardMovement::Patrol()
 {
 	if (!usingWaypoints)
@@ -111,7 +143,7 @@ void GuardMovement::Patrol()
 			--waypointIndex;
 			if (waypointIndex <= 0)
 			{
-				movingToLastWaypoint = true; // now guard will go to waypoints in order
+				movingToLastWaypoint = true; // now guard will go to waypoints in list order
 				waypointIndex = 0;
 			}
 		}
@@ -122,6 +154,10 @@ void GuardMovement::Patrol()
 	}
 }
 
+/*!*********************************************************************
+\brief
+	Set variables upon entering distracted state
+***********************************************************************/
 void GuardMovement::OnEnterDistracted()
 {
 	isMoving = false;
@@ -133,6 +169,10 @@ void GuardMovement::OnEnterDistracted()
 		distractionNode = path.back();
 }
 
+/*!*********************************************************************
+\brief
+	Guard's distracted behaviour
+***********************************************************************/
 void GuardMovement::Distracted()
 {
 	if (!foundPath)
@@ -146,11 +186,19 @@ void GuardMovement::Distracted()
 	}
 }
 
+/*!*********************************************************************
+\brief
+	Set variables upon leaving distracted state
+***********************************************************************/
 void GuardMovement::OnExitDistracted()
 {
 	speed = GUARD::GUARD_SPEED;
 }
 
+/*!*********************************************************************
+\brief
+	Set variables upon entering chase state
+***********************************************************************/
 void GuardMovement::OnEnterChase()
 {
 	isMoving = false;
@@ -160,6 +208,10 @@ void GuardMovement::OnEnterChase()
 	nodeIndex = 1;
 }
 
+/*!*********************************************************************
+\brief
+	Guard's chase behaviour
+***********************************************************************/
 void GuardMovement::Chase()
 {
 	if (!foundPath)
@@ -174,6 +226,10 @@ void GuardMovement::Chase()
 	}
 }
 
+/*!*********************************************************************
+\brief
+	Move along a searched path to the target position
+***********************************************************************/
 void GuardMovement::MoveAlongPath()
 {
 	if (turning)
@@ -219,13 +275,21 @@ void GuardMovement::MoveAlongPath()
 	}
 }
 
+/*!*********************************************************************
+\brief
+	Moves guard to a given position then checks if guard has reached
+	that position
+
+\param pos
+	The target position to move to
+
+\return
+	Whether the guard has reached the target position
+***********************************************************************/
 bool GuardMovement::MoveTo(AEVec2 pos)
 {
 	if (ReachedPos(pos))
-	{
-		//gameObject->transform.position = pos; // this snapping to position causes the obj to vanish
 		return true;
-	}
 
 	AEVec2 dir = { 0, 0 };
 
@@ -238,48 +302,42 @@ bool GuardMovement::MoveTo(AEVec2 pos)
 	return false;
 }
 
+/*!*********************************************************************
+\brief
+	Get if the guard has reached a given position
+
+\param pos
+	The target position that the guard is supposed to reach
+
+\return
+	Whether the guard has reached the given position
+***********************************************************************/
 bool GuardMovement::ReachedPos(AEVec2 pos)
 {
 	float minDistToTarget = 10.f;
 	return (AEVec2SquareDistance(&pos, &gameObject->transform.position) <= minDistToTarget * minDistToTarget);
 }
 
+/*!*********************************************************************
+\brief
+	Set the waypoints for the guard
+
+\param _waypoints
+	The list of points for the guard to patrol
+***********************************************************************/
 void GuardMovement::SetWaypoints(const std::vector<AEVec2>& _waypoints)
 {
 	usingWaypoints = true;
 	waypoints = _waypoints;
 }
 
-bool GuardMovement::IsChangingDir()
-{
-	AEVec2 currNode, prevNode;
-	
-	prevNode = path[nodeIndex]->nodePos;
-	size_t index = static_cast<size_t>(nodeIndex) + static_cast<size_t>(1);
+/*!*********************************************************************
+\brief
+	Search for a path to a given position
 
-	if (index < path.size())
-		currNode = path[index]->nodePos;
-	else
-		currNode = prevNode;
-
-	AEVec2Normalize(&currNode, &currNode);
-	AEVec2Normalize(&prevNode, &prevNode);
-	float dpResult = AEVec2DotProduct(&currNode, &prevNode);
-
-	return (dpResult < 0.f);
-
-	/*if ((int)currNode.x == (int)prevNode.x)
-		if ((int)currNode.y != (int)prevNode.y)
-			return true;
-
-	if ((int)currNode.y == (int)prevNode.y)
-		if ((int)currNode.x != (int)prevNode.x)
-			return true;
-
-	return false;*/
-	//return (currNode.x != prevNode.x || currNode.y != prevNode.y);
-}
-
+\param pos
+	The position to look for a path to
+***********************************************************************/
 void GuardMovement::LookForPath(const AEVec2& pos)
 {
 	turning = false;
@@ -287,12 +345,10 @@ void GuardMovement::LookForPath(const AEVec2& pos)
 
 	if (lookForPath)
 	{
-		if (foundPath) // changing path midway into moving along the path
+		if (foundPath) // if changing path midway while moving along the path
 		{
 			nodeIndex = 0;
 		}
-
-		//path = PathFinder::SearchForPath(gameObject->transform.position, pos , path);
 
 		PathFinder::SearchForPath(gameObject->transform.position, pos, path);
 		foundPath = (path.size() > 0);
@@ -301,6 +357,19 @@ void GuardMovement::LookForPath(const AEVec2& pos)
 	}
 }
 
+/*!*********************************************************************
+\brief
+	Set the guard's starting and ending waypoints
+
+\param start
+	The starting waypoint
+
+\param end
+	The ending waypoint
+
+\param _idleForever
+	Whether the guard will be in idle state throughout the game
+***********************************************************************/
 void GuardMovement::SetStartEndPos(const AEVec2& start, const AEVec2& end, bool _idleForever)
 {
 	gameObject->SetPos(start);
@@ -309,6 +378,10 @@ void GuardMovement::SetStartEndPos(const AEVec2& start, const AEVec2& end, bool 
 	idleForever = _idleForever;
 }
 
+/*!*********************************************************************
+\brief
+	Unblock previous path that the guard took/was intending to take
+***********************************************************************/
 void GuardMovement::UnblockPreviousPath()
 {
 	for (A_Node* n : path)

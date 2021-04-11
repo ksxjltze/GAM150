@@ -1,3 +1,19 @@
+/******************************************************************************/
+/*!
+\title		Captain Stealth
+\file		GameObject.h
+\author 	Lee Jia Keat
+\par    	email: l.jiakeat\@digipen.edu
+\date   	April 09, 2021
+\brief		GameObject class. Smallest element of the game.
+			Contains a Transform struct and a list of components.
+
+Copyright (C) 2021 DigiPen Institute of Technology.
+Reproduction or disclosure of this file or its contents without the
+prior written consent of DigiPen Institute of Technology is prohibited.
+*/
+/******************************************************************************/
+
 #pragma once
 #include "Transform.h"
 #include <vector>
@@ -19,9 +35,15 @@ namespace StarBangBang
 		std::string name;
 
 		GameObject();
-		GameObject(const GameObject& prefab);
-		GameObject operator=(const GameObject& prefab) { return GameObject(prefab); };
+		GameObject(const GameObject&);
 
+		/**
+		 * \brief
+		 * Finds a component from the game object's component list.
+		 * Compares the type of each component in the list and returns the first match.
+		 * 
+		 * \return Pointer to the first matching component in the list.
+		 */
 		template <class T>
 		inline T* GetComponent()
 		{
@@ -39,6 +61,11 @@ namespace StarBangBang
 
 		}
 
+		/**
+		 * Get the list of components for the game object.
+		 * 
+		 * \return Vector of component pointers.
+		 */
 		inline std::vector<GameComponent*> GetComponents() const
 		{
 			return componentList;

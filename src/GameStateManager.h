@@ -1,3 +1,21 @@
+/******************************************************************************/
+/*!
+\title		Captain Stealth
+\file		GameStateManager.h
+\author 	Lee Jia Keat
+\par    	email: l.jiakeat\@digipen.edu
+\date   	April 09, 2021
+\brief		Game State Manager class.
+			Is responsible for managing game states/scenes.
+			Updates game states once per frame and handles calls
+			to change game states.
+
+Copyright (C) 2021 DigiPen Institute of Technology.
+Reproduction or disclosure of this file or its contents without the
+prior written consent of DigiPen Institute of Technology is prohibited.
+*/
+/******************************************************************************/
+
 #pragma once
 #include <vector>
 

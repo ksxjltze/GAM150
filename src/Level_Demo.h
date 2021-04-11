@@ -1,3 +1,25 @@
+/******************************************************************************/
+/*!
+\title		Captain Stealth
+\file		Level_Demo.h
+\author 	Lee Jia Keat
+\contributions
+			- Created the file, and set up the Scene.
+			  Pause menu, Player movement, Switching mechanic.
+\author2	Rayner Liew
+\author3	Ho Yi Guan
+\author4	Sim Chin Hin
+
+\par    	email: l.jiakeat\@digipen.edu
+\date   	April 09, 2021
+\brief		Main game scene for Captain Stealth.
+
+Copyright (C) 2021 DigiPen Institute of Technology.
+Reproduction or disclosure of this file or its contents without the
+prior written consent of DigiPen Institute of Technology is prohibited.
+*/
+/******************************************************************************/
+
 #pragma once
 #include "State.h"
 #include "ObjectManager.h"
