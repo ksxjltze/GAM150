@@ -1,3 +1,18 @@
+/******************************************************************************/
+/*!
+\title		Captain Stealth
+\file		MessageBus.cpp
+\author 	Lee Jia Keat
+\par    	email: l.jiakeat\@digipen.edu
+\date   	April 09, 2021
+\brief		MessageBus class:
+			Static class that can be accessed globally.
+			Is responsible for receiving and dispatching events.
+
+Copyright (C) 2021 DigiPen Institute of Technology Singapore. All
+rights reserved.
+*/
+/******************************************************************************/
 #include "MessageBus.h"
 #include "Listener.h"
 

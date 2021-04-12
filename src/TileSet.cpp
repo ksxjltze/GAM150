@@ -13,9 +13,8 @@
 			Represents the types of available tiles.
 			Used to correctly load the correct tiles from the level data file.
 
-Copyright (C) 2021 DigiPen Institute of Technology.
-Reproduction or disclosure of this file or its contents without the
-prior written consent of DigiPen Institute of Technology is prohibited.
+Copyright (C) 2021 DigiPen Institute of Technology Singapore. All
+rights reserved.
 */
 /******************************************************************************/
 

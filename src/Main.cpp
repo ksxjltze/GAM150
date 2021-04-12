@@ -1,5 +1,16 @@
-// ---------------------------------------------------------------------------
-// includes
+/******************************************************************************/
+/*!
+\title		Captain Stealth
+\file		Main.cpp
+\author 	Lee Jia Keat
+\par    	email: l.jiakeat@digipen.edu
+\date   	April 09, 2021
+\brief		Main game loop
+
+Copyright (C) 2021 DigiPen Institute of Technology Singapore. All
+rights reserved.
+*/
+/******************************************************************************/
 
 #define _CRTDBG_MAP_ALLOC
 #include <stdlib.h>
@@ -258,6 +269,4 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 
 	//free the system
 	AESysExit();
-
-
 }
