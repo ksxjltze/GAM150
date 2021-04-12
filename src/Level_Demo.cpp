@@ -514,6 +514,8 @@ namespace StarBangBang
 		}
 
 		PlayerScript* playerScript = player->GetComponent<PlayerScript>();
+		playerScript->god = god;
+
 		if (IsDebug())
 		{
 			if (AEInputCheckTriggered(AEVK_G))
@@ -546,6 +548,7 @@ namespace StarBangBang
 
 		if (playerScript->isWin())
 		{
+			ShowCursor(TRUE);
 			std::cout << "WIN\n" << std::endl;
 			gameStateManager.SetNextGameState(MAIN_MENU);
 		}

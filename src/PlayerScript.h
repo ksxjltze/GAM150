@@ -120,6 +120,7 @@ namespace StarBangBang
 		 * True if either player or client have been detected.
 		***************************************************************************/
 		inline bool GetDetected() const { return detected; }
+		bool god = false;
 
 	private:
 		GameObject* client = nullptr;

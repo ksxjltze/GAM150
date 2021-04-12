@@ -125,6 +125,9 @@ void StarBangBang::PlayerScript::onNotify(Event e)
 		{
 			detected = true;
 
+			if (god)
+				return;
+
 			// Don't allow player to move when detected
 			gameObject->GetComponent<PrimaryMovementController>()->SetActive(false);
 			client->GetComponent<PrimaryMovementController>()->SetActive(false);
